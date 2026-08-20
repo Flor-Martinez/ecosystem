@@ -1,0 +1,43 @@
+.header {
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.alignCenter {
+  text-align: center;
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.alignLeft {
+  text-align: left;
+  max-width: 780px;
+}
+
+.badgeWrapper {
+  margin-bottom: var(--space-3);
+  display: flex;
+}
+
+.alignCenter .badgeWrapper {
+  justify-content: center;
+}
+
+.alignLeft .badgeWrapper {
+  justify-content: flex-start;
+}
+
+.title {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  margin-top: var(--space-4);
+  font-size: clamp(1rem, 1.5vw, 1.1875rem);
+  color: var(--fm-text-muted);
+  line-height: 1.6;
+}

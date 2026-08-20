@@ -1,0 +1,191 @@
+/* ==========================================================================
+   ACADEMIA FLOR MARTINEZ — DESIGN SYSTEM & TOKENS
+   Vibrant Didactic & Student-Centric Identity
+   ========================================================================== */
+
+:root {
+  /* --- PALETA VIOLETA VIBRANTE & PROTAGONISTA --- */
+  --fm-violeta-deep: #4C1D95;
+  --fm-violeta-vibrant: #6D28D9;
+  --fm-violeta-electric: #7C3AED;
+  --fm-violeta-bright: #8B5CF6;
+  --fm-violeta-light: #A78BFA;
+  --fm-violeta-soft: #DDD6FE;
+  --fm-violeta-pastel: #EDE9FE;
+  --fm-violeta-subtle: #F5F3FF;
+  --fm-violeta-glow: rgba(124, 58, 237, 0.16);
+  --fm-violeta-glow-strong: rgba(124, 58, 237, 0.32);
+
+  /* Primary Brand Mapping for Academy */
+  --fm-primary: var(--fm-violeta-electric);
+  --fm-primary-hover: var(--fm-violeta-vibrant);
+  --fm-primary-light: var(--fm-violeta-bright);
+  --fm-primary-subtle: var(--fm-violeta-subtle);
+  --fm-primary-border: var(--fm-violeta-soft);
+
+  /* Secondary & Neutral Palette */
+  --fm-azul-marino: #0F172A;
+  --fm-azul-profundo: #1E293B;
+  --fm-azul-slate: #334155;
+  --fm-secondary: #1E293B;
+
+  /* Vibrant Didactic Accents */
+  --fm-accent-amber: #F59E0B;
+  --fm-accent-amber-subtle: #FEF3C7;
+  --fm-accent-emerald: #10B981;
+  --fm-accent-emerald-subtle: #D1FAE5;
+  --fm-accent-cyan: #06B6D4;
+  --fm-accent-cyan-subtle: #CFFAFE;
+  --fm-accent-pink: #EC4899;
+  --fm-accent-pink-subtle: #FCE7F3;
+  --fm-accent-coral: #F43F5E;
+  --fm-accent-coral-subtle: #FFE4E6;
+
+  /* Surfaces & Backgrounds */
+  --fm-bg: #FFFFFF;
+  --fm-marfil: #FAF5FF;
+  --fm-marfil-light: #FAF9FD;
+  --fm-surface: #FFFFFF;
+  --fm-surface-card: #FFFFFF;
+  --fm-surface-subtle: #F8F6FC;
+  --fm-surface-violet: #F5F3FF;
+  --fm-surface-dark: #0F172A;
+
+  /* Borders */
+  --fm-border: #E9D5FF;
+  --fm-border-light: #F3E8FF;
+  --fm-border-subtle: #EDE9FE;
+  --fm-border-dark: #1E293B;
+
+  /* Text & Typography Colors */
+  --fm-text-primary: #0F172A;
+  --fm-text-secondary: #334155;
+  --fm-text-muted: #64748B;
+  --fm-text-subtle: #94A3B8;
+  --fm-text-inverse: #FFFFFF;
+  --fm-text-violet: #6D28D9;
+
+  /* Functional Status */
+  --fm-success: #10B981;
+  --fm-warning: #F59E0B;
+  --fm-error: #EF4444;
+  --fm-info: #06B6D4;
+
+  /* 8pt Spacing Grid */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Layout Containers */
+  --container-default: 1220px;
+  --container-wide: 1360px;
+  --container-narrow: 860px;
+
+  /* Radii - Soft and modern */
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Dynamic & Violet-Tinted Elevation Shadows */
+  --shadow-xs: 0 1px 3px rgba(109, 40, 217, 0.05);
+  --shadow-sm: 0 2px 8px rgba(109, 40, 217, 0.08);
+  --shadow-md: 0 8px 24px -4px rgba(109, 40, 217, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 16px 36px -6px rgba(109, 40, 217, 0.18), 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 24px 50px -12px rgba(109, 40, 217, 0.28);
+  --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.35);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Base Reset & Typography Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  color: var(--fm-text-primary);
+  background-color: var(--fm-marfil-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--fm-text-primary);
+  background-color: var(--fm-marfil-light);
+  line-height: 1.6;
+}
+
+main {
+  flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  color: var(--fm-text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--fm-violeta-electric);
+  color: #FFFFFF;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+  outline: 3px solid var(--fm-violeta-bright);
+  outline-offset: 2px;
+}

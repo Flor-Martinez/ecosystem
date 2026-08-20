@@ -1,0 +1,85 @@
+.section {
+  padding: clamp(4rem, 7vw, 6rem) 0;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+.pillarCard {
+  background-color: var(--pillar-bg, #F5F3FF);
+  border: 1px solid var(--pillar-border, #DDD6FE);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-base);
+}
+
+.pillarCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px -6px rgba(109, 40, 217, 0.15);
+}
+
+.topCardRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.iconCircle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-lg);
+  background-color: #FFFFFF;
+  color: var(--pillar-color, var(--fm-violeta-electric));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.stepBadge {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pillar-color, var(--fm-violeta-electric));
+  background-color: #FFFFFF;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--pillar-border, #DDD6FE);
+}
+
+.pillarTitle {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.pillarDesc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--fm-text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

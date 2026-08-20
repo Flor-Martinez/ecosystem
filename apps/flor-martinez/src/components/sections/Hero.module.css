@@ -1,0 +1,583 @@
+.hero {
+  position: relative;
+  padding-top: clamp(2.5rem, 4.5vw, 4.5rem);
+  padding-bottom: clamp(4rem, 6vw, 6.5rem);
+  background: linear-gradient(180deg, #FAF9F7 0%, #F5F2EE 60%, #EFE9E0 100%);
+  border-bottom: 1px solid var(--fm-border);
+  overflow: hidden;
+}
+
+.decorWave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-image: radial-gradient(circle at 10% 20%, rgba(217, 200, 182, 0.25) 0%, transparent 40%),
+                    radial-gradient(circle at 90% 80%, rgba(79, 127, 175, 0.12) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* Main Hero Grid */
+.heroMainGrid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  margin-bottom: clamp(3.5rem, 6vw, 5rem);
+}
+
+/* Left Column */
+.heroTextCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brandTagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--fm-azul-profundo);
+  background-color: #ffffff;
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--fm-arena);
+  margin-bottom: var(--space-4);
+  box-shadow: var(--shadow-xs);
+}
+
+.sparkleIcon {
+  color: #B89B72;
+  font-size: 0.875rem;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 6vw, 4.75rem);
+  font-weight: 900;
+  color: var(--fm-azul-marino);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-3);
+}
+
+.subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(0.9375rem, 1.6vw, 1.1875rem);
+  font-weight: 600;
+  color: var(--fm-azul-profundo);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-5);
+  line-height: 1.4;
+}
+
+.bullet {
+  color: var(--fm-arena);
+  margin: 0 0.25rem;
+}
+
+.description {
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.7;
+  color: var(--fm-text-secondary);
+  max-width: 600px;
+  margin-bottom: var(--space-6);
+}
+
+.quickMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--fm-border);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fm-text-muted);
+  margin-bottom: var(--space-6);
+}
+
+.metricItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.metricIcon {
+  color: var(--fm-azul-profundo);
+}
+
+/* Quick Hero Actions */
+.heroActionRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.heroPrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.heroAcademyLiveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  background-color: #F4EFFF;
+  color: #58387D;
+  border: 1.5px solid #D8B4FE;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.heroAcademyLiveBtn:hover {
+  background-color: #EDE4FF;
+  border-color: #C084FC;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(88, 56, 125, 0.2);
+}
+
+/* Right Photo Column */
+.heroPhotoCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.photoFrame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+}
+
+.photoContainer {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 4px solid #ffffff;
+  box-shadow: var(--shadow-xl);
+  background-color: var(--fm-marfil);
+  aspect-ratio: 3 / 4;
+}
+
+.portraitImg {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-slow);
+}
+
+.photoFrame:hover .portraitImg {
+  transform: scale(1.02);
+}
+
+.floatingBadge {
+  position: absolute;
+  bottom: -1rem;
+  left: -1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--fm-arena);
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+}
+
+.floatingBadgeText {
+  display: flex;
+  flex-direction: column;
+}
+
+.floatingName {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--fm-azul-marino);
+}
+
+.floatingRole {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  color: var(--fm-text-muted);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.liveIndicatorPill {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background-color: rgba(13, 27, 42, 0.85);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(217, 200, 182, 0.4);
+  z-index: 10;
+}
+
+.pulsingDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   DERIVATION HUB SECTION (CENTRAL DE DERIVACIÓN)
+   ========================================================================== */
+.derivationHubSection {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  box-shadow: var(--shadow-xl);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+}
+
+.hubHeader {
+  margin-bottom: clamp(2rem, 3.5vw, 2.75rem);
+  text-align: center;
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hubPretitle {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--fm-azul-profundo);
+  background-color: var(--fm-marfil);
+  padding: 0.3rem 0.875rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--fm-arena);
+  margin-bottom: var(--space-2);
+}
+
+.hubTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(1.875rem, 3.5vw, 2.625rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+  margin-bottom: var(--space-3);
+}
+
+.hubSubtitle {
+  font-size: 1.0625rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.6;
+}
+
+.hubSubtitle strong {
+  color: #58387D;
+  font-weight: 700;
+}
+
+/* 3-Column Derivation Grid */
+.derivationGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.hubCard {
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+/* ==========================================================================
+   2. ACADEMIA: HERO ACTIVE DESTINATION (CENTRO CON MÁXIMO PROTAGONISMO)
+   ========================================================================== */
+.cardAcademiaHeroActive {
+  background: linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%);
+  border: 2px solid #9333EA;
+  box-shadow: 0 16px 36px -4px rgba(88, 56, 125, 0.22), 0 6px 12px -2px rgba(88, 56, 125, 0.1);
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.cardAcademiaHeroActive:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 24px 48px -6px rgba(88, 56, 125, 0.32);
+}
+
+.activeSpotlightRibbon {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #9333EA 0%, #58387D 100%);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  padding: 0.25rem 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 10px rgba(147, 51, 234, 0.4);
+  white-space: nowrap;
+}
+
+.iconAcademiaActive {
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(88, 56, 125, 0.35);
+}
+
+.statusLivePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #58387D;
+  background-color: #F4EFFF;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #D8B4FE;
+}
+
+.livePulseGlow {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.45);
+}
+
+.cardBranchLabelActive {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #7C3AED;
+  margin-bottom: 0.375rem;
+  text-transform: uppercase;
+}
+
+.cardBranchTitleActive {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #2E1065;
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+}
+
+.cardBranchTaglineActive {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #58387D;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.cardBranchDescActive {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #3B0764;
+  opacity: 0.9;
+}
+
+.btnAcademiaHero {
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 6px 18px rgba(88, 56, 125, 0.35);
+}
+
+.btnAcademiaHero:hover {
+  background: linear-gradient(135deg, #6D28D9 0%, #432960 100%);
+  box-shadow: 0 8px 24px rgba(88, 56, 125, 0.45);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   1 & 3: DISABLED / IN-CONSTRUCTION CARDS (AGENCIA & TIENDA)
+   ========================================================================== */
+.cardDisabled {
+  background-color: #F9FAFB;
+  border: 1px dashed #CBD5E1;
+  padding: clamp(1.5rem, 2.5vw, 1.875rem);
+  opacity: 0.78;
+  filter: saturate(0.8);
+}
+
+.cardDisabled:hover {
+  opacity: 0.95;
+  filter: saturate(1);
+  border-color: #94A3B8;
+}
+
+.iconAgenciaDisabled,
+.iconTiendaDisabled {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E2E8F0;
+  color: #64748B;
+  box-shadow: none;
+}
+
+.statusDisabled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #EDF2F7;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #CBD5E1;
+}
+
+.cardBranchLabelDisabled {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #94A3B8;
+  margin-bottom: 0.375rem;
+  text-transform: uppercase;
+}
+
+.cardBranchTitleDisabled {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.cardBranchTaglineDisabled {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.cardBranchDescDisabled {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #64748B;
+}
+
+.btnDisabledState {
+  background-color: #EDF2F7;
+  color: #64748B;
+  border: 1px solid #CBD5E1;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.btnDisabledState:hover {
+  background-color: #E2E8F0;
+  color: #334155;
+  border-color: #94A3B8;
+  transform: translateY(-1px);
+}
+
+/* Card Common Elements */
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.cardActionArea {
+  margin-top: auto;
+}
+
+.hubActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .heroMainGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .derivationGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cardAcademiaHeroActive {
+    transform: none;
+  }
+
+  .photoFrame {
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,346 @@
+.container {
+  padding: 2rem;
+  background-color: #FAF9FE;
+  min-height: calc(100vh - 4.25rem);
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--fm-text-secondary);
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-border);
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: all var(--transition-fast);
+}
+
+.backBtn:hover {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-electric);
+}
+
+.headerTitles {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #4338CA;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.title {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.35rem;
+}
+
+.desc {
+  font-size: 0.875rem;
+  color: var(--fm-text-secondary);
+  max-width: 700px;
+}
+
+/* Grid */
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: 2rem;
+}
+
+.sectionCard {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--fm-border);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.cardIcon {
+  color: var(--fm-violeta-electric);
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formGroup label {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.input,
+.select {
+  padding: 0.65rem 0.75rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino);
+  background-color: #FAF9FE;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-md);
+  outline: none;
+}
+
+.input:focus,
+.select:focus {
+  border-color: var(--fm-violeta-electric);
+  background-color: #FFFFFF;
+}
+
+.iconInputWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 0.75rem;
+  color: var(--fm-text-muted);
+}
+
+.inputWithIcon {
+  width: 100%;
+  padding: 0.65rem 0.75rem 0.65rem 2.25rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino);
+  background-color: #FAF9FE;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-md);
+  outline: none;
+}
+
+.inputWithIcon:focus {
+  border-color: var(--fm-violeta-electric);
+  background-color: #FFFFFF;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--fm-border-light);
+  margin: 0.5rem 0;
+}
+
+.saveActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.savedAlert {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #065F46;
+  background-color: #D1FAE5;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+}
+
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background-color: var(--fm-violeta-electric);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.saveBtn:hover {
+  background-color: var(--fm-violeta-vibrant);
+}
+
+/* CV Card */
+.cvDisplayCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: #FAF9FE;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border-light);
+}
+
+.cvBigIcon {
+  color: #DC2626;
+}
+
+.cvInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.cvFileName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.cvFileMeta {
+  font-size: 0.6875rem;
+  color: var(--fm-text-subtle);
+  margin-top: 0.15rem;
+}
+
+.cvActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.cvActionBtn,
+.cvUploadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.55rem 0.875rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.cvActionBtn {
+  background-color: #EDE9FE;
+  color: #6D28D9;
+  border: 1px solid #DDD6FE;
+}
+
+.cvUploadBtn {
+  background-color: #FAF9FE;
+  color: var(--fm-text-secondary);
+  border: 1px solid var(--fm-border);
+}
+
+/* Certificates */
+.certificatesList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.certItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  background-color: #FAF9FE;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--fm-border-light);
+}
+
+.certBadge {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-sm);
+  background-color: #EDE9FE;
+  color: #6D28D9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.certText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.certText strong {
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino);
+}
+
+.certText span {
+  font-size: 0.6875rem;
+  color: var(--fm-text-subtle);
+}
+
+.certDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-violeta-soft);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+}

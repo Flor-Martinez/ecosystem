@@ -1,0 +1,130 @@
+.section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.testCard {
+  background-color: #FAF9FE;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.testCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px -8px rgba(109, 40, 217, 0.16);
+  border-color: var(--fm-violeta-soft);
+  background-color: #FFFFFF;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.starsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--fm-accent-amber);
+}
+
+.metricPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #065F46;
+  background-color: #D1FAE5;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #A7F3D0;
+}
+
+.quoteWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+.quoteIcon {
+  color: var(--fm-violeta-electric);
+  opacity: 0.6;
+}
+
+.quoteText {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--fm-azul-slate);
+}
+
+.studentFooter {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fm-border-light);
+}
+
+.avatarCircle {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.studentInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.studentName {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.studentRole {
+  font-size: 0.75rem;
+  color: var(--fm-violeta-vibrant);
+  font-weight: 600;
+}
+
+.courseTag {
+  font-size: 0.6875rem;
+  color: var(--fm-text-muted);
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

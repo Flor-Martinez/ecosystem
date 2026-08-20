@@ -1,0 +1,467 @@
+.heroSection {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(6rem, 8vw, 8rem);
+  padding-bottom: clamp(4rem, 7vw, 6.5rem);
+  background: radial-gradient(circle at 15% 20%, rgba(221, 214, 254, 0.4) 0%, transparent 45%),
+              radial-gradient(circle at 85% 70%, rgba(245, 243, 255, 0.8) 0%, transparent 50%),
+              #FAF9FD;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.ambientGlowPrimary {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, rgba(124, 58, 237, 0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambientGlowSecondary {
+  position: absolute;
+  top: 30%;
+  right: 5%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.22) 0%, rgba(167, 139, 250, 0) 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+/* Copy Column */
+.copyCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.badgeWrap {
+  margin-bottom: 1.25rem;
+}
+
+.zapIcon {
+  color: var(--fm-accent-amber);
+}
+
+.title {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(2.25rem, 4.2vw, 3.5rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.25rem;
+}
+
+.titleHighlight {
+  color: var(--fm-violeta-electric);
+  position: relative;
+  display: inline-block;
+}
+
+.titleHighlight::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: var(--fm-violeta-soft);
+  z-index: -1;
+  border-radius: var(--radius-xs);
+}
+
+.subtitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1rem, 1.35vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--fm-text-secondary);
+  margin-bottom: 2rem;
+  max-width: 580px;
+}
+
+.ctaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2.25rem;
+}
+
+.primaryBtn {
+  font-size: 1rem;
+  padding: 0.875rem 1.75rem;
+}
+
+.secondaryBtn {
+  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+}
+
+.proofRow {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.875rem 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--fm-border);
+}
+
+.proofItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+}
+
+.proofCheck {
+  color: var(--fm-violeta-electric);
+  flex-shrink: 0;
+}
+
+/* Visual Mockup Deck */
+.visualCol {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.simulatorDeck {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.mainSimulatorCard {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--fm-border);
+  box-shadow: 0 20px 45px -10px rgba(109, 40, 217, 0.22), 0 4px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  transition: transform var(--transition-base);
+}
+
+.mainSimulatorCard:hover {
+  transform: translateY(-4px);
+}
+
+.simCardTop {
+  background-color: #FAF5FF;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--fm-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.simCardDots {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.dotRed {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #F87171;
+}
+
+.dotYellow {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #FBBF24;
+}
+
+.dotGreen {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: #34D399;
+}
+
+.simCardTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.simAtsScore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #065F46;
+  background-color: #D1FAE5;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  border: 1px solid #A7F3D0;
+}
+
+.simContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.candHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.candAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--fm-violeta-electric) 0%, var(--fm-violeta-vibrant) 100%);
+  color: #FFFFFF;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 800;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.candMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.candName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.candRole {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  color: var(--fm-violeta-electric);
+  font-weight: 600;
+}
+
+.simSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.simSectionLabel {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-text-subtle);
+  letter-spacing: 0.08em;
+}
+
+.simBullet {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background-color: #FAF9FE;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border-subtle);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--fm-text-secondary);
+}
+
+.bulletCheck {
+  color: var(--fm-accent-emerald);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.skillsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-top: 0.25rem;
+}
+
+.skillPill {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--fm-violeta-vibrant);
+  background-color: var(--fm-violeta-subtle);
+  border: 1px solid var(--fm-violeta-soft);
+  padding: 0.25rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+/* Features strip */
+.featuresStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--fm-border-light);
+}
+
+.featurePillItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  background-color: #F8FAFC;
+  border: 1px solid var(--fm-border);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-md);
+}
+
+.stripIconViolet {
+  color: #7C3AED;
+}
+
+.stripIconBlue {
+  color: #2563EB;
+}
+
+.stripIconAmber {
+  color: #D97706;
+}
+
+/* Floating Pills */
+.floatingPill {
+  position: absolute;
+  z-index: 3;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--fm-border);
+  box-shadow: 0 10px 25px -4px rgba(109, 40, 217, 0.2);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  animation: floatCard 4s infinite ease-in-out;
+}
+
+.pillInterviews {
+  top: -1.5rem;
+  right: -1.5rem;
+}
+
+.pillSalary {
+  bottom: -1.75rem;
+  left: -1.75rem;
+  animation-delay: 2s;
+}
+
+.pillIconGreen {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: #D1FAE5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pillIconPurple {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--fm-violeta-subtle);
+  color: var(--fm-violeta-electric);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pillText {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+}
+
+.pillText strong {
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+}
+
+.pillText span {
+  font-size: 0.6875rem;
+  color: var(--fm-text-muted);
+}
+
+@keyframes floatCard {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .visualCol {
+    order: -1;
+  }
+
+  .pillInterviews {
+    right: 0;
+    top: -1rem;
+  }
+
+  .pillSalary {
+    left: 0;
+    bottom: -1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .proofRow {
+    grid-template-columns: 1fr;
+  }
+
+  .floatingPill {
+    position: static;
+    margin-top: 0.75rem;
+    animation: none;
+  }
+}

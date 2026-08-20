@@ -1,0 +1,723 @@
+.agendaWrapper {
+  padding: 2.5rem clamp(1.25rem, 3.5vw, 2.5rem) 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Header */
+.agendaHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.headerBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--fm-violeta-electric);
+  background-color: var(--fm-violeta-subtle);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
+}
+
+.agendaTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+}
+
+.agendaSubtitle {
+  font-size: 0.875rem;
+  color: var(--fm-text-secondary);
+  max-width: 680px;
+  margin-top: 0.25rem;
+}
+
+/* Tab buttons */
+.tabButtons {
+  display: inline-flex;
+  align-items: center;
+  background-color: #F1F5F9;
+  padding: 0.25rem;
+  border-radius: var(--radius-lg);
+  gap: 0.25rem;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  border: none;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.tabBtn:hover {
+  color: var(--fm-azul-marino);
+}
+
+.tabBtnActive {
+  background-color: #FFFFFF;
+  color: var(--fm-violeta-electric);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* CALENDAR LAYOUT GRID */
+.calendarLayoutGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Calendar Card */
+.calendarCard {
+  background: #FFFFFF;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.calendarHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.monthNav {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navMonthBtn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 1px solid var(--fm-border);
+  background: #FFFFFF;
+  color: var(--fm-azul-marino);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.navMonthBtn:hover {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-electric);
+}
+
+.monthTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.addEventBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.78125rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  padding: 0.5rem 0.95rem;
+  border-radius: var(--radius-lg);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.addEventBtn:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+}
+
+.weekdaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.weekdayName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-text-subtle);
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+}
+
+.emptyDayCell {
+  aspect-ratio: 1 / 1;
+  background: transparent;
+}
+
+.dayCell {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-xl);
+  border: 1px solid #F1F5F9;
+  background: #FAF9FE;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  padding: 0.25rem;
+  position: relative;
+}
+
+.dayCell:hover {
+  border-color: var(--fm-violeta-soft);
+  background: #F3F0FF;
+  transform: scale(1.04);
+}
+
+.dayCellSelected {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+  border-color: var(--fm-violeta-electric) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+}
+
+.dayCellSelected .dayNum {
+  color: #FFFFFF !important;
+  font-weight: 800;
+}
+
+.dayNum {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.dayDotsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.dotZoom {
+  background-color: #8B5CF6;
+}
+
+.dayCellSelected .dotZoom {
+  background-color: #FDE047;
+}
+
+.dotInterview {
+  background-color: #10B981;
+}
+
+.dayCellSelected .dotInterview {
+  background-color: #A7F3D0;
+}
+
+.calendarLegend {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #F1F5F9;
+  flex-wrap: wrap;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary);
+  font-weight: 600;
+}
+
+/* SIDE EVENTS LIST */
+.eventsSideCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.eventsSideHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventsSideTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.eventsCountBadge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-violeta-electric);
+  background-color: var(--fm-violeta-subtle);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.eventsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.eventItemCard {
+  background: #FFFFFF;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--radius-xl);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: all var(--transition-fast);
+}
+
+.eventZoom {
+  border-left: 4px solid #7C3AED;
+  background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%);
+}
+
+.eventInterview {
+  border-left: 4px solid #10B981;
+  background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+}
+
+.eventCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--fm-violeta-electric);
+}
+
+.eventInterview .eventPill {
+  color: #059669;
+}
+
+.eventTime {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.eventTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.3;
+}
+
+.eventNotes {
+  font-size: 0.78125rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.4;
+}
+
+.eventActionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.joinZoomLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+
+.delEventBtn {
+  background: transparent;
+  border: none;
+  color: var(--fm-text-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.delEventBtn:hover {
+  color: #EF4444;
+}
+
+.emptyDayEvents {
+  background: #FFFFFF;
+  border: 1px dashed var(--fm-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--fm-text-secondary);
+}
+
+.emptyCalIcon {
+  color: #CBD5E1;
+}
+
+.quickAddBtn {
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  background: var(--fm-violeta-subtle);
+  border: 1px solid var(--fm-violeta-soft);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* Quick Audit CV box */
+.quickAuditBox {
+  background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+  border-radius: var(--radius-xl);
+  padding: 1.25rem;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.auditBoxHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.auditSparkle {
+  color: #FDE047;
+}
+
+.auditBoxSub {
+  font-size: 0.75rem;
+  color: #CBD5E1;
+  line-height: 1.35;
+}
+
+.auditForm {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.auditInput {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  outline: none;
+}
+
+.auditInput::placeholder {
+  color: #94A3B8;
+}
+
+.auditSubmitBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #0F172A;
+  background-color: #FDE047;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+}
+
+.auditSuccessAlert {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #34D399;
+}
+
+/* RECORDINGS TAB */
+.recordingsGrid {
+  max-width: 800px;
+}
+
+.recordingsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.colTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.recordingsSubtitle {
+  font-size: 0.8125rem;
+  color: var(--fm-text-secondary);
+}
+
+.recordingsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recordingCard {
+  background: #FFFFFF;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-xl);
+  padding: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.recPlayIcon {
+  color: var(--fm-violeta-electric);
+  flex-shrink: 0;
+}
+
+.recInfo {
+  flex: 1;
+}
+
+.recDate {
+  font-size: 0.6875rem;
+  color: var(--fm-text-subtle);
+  font-weight: 600;
+}
+
+.recTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-top: 0.15rem;
+}
+
+.watchRecBtn {
+  padding: 0.4rem 0.85rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  background: var(--fm-violeta-subtle);
+  border: 1px solid var(--fm-violeta-soft);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 1rem;
+}
+
+.modalContent {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--fm-border);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+  color: #FFFFFF;
+}
+
+.modalTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.closeBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #FFFFFF;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modalForm {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formGroup label {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--fm-border);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino);
+  outline: none;
+  background-color: #FAF9FE;
+}
+
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fm-border-light);
+}
+
+.cancelBtn {
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border);
+  background-color: #FFFFFF;
+  color: var(--fm-text-secondary);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitModalBtn {
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #FFFFFF;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .calendarLayoutGrid {
+    grid-template-columns: 1fr;
+  }
+}

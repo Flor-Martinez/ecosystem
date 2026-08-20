@@ -1,0 +1,137 @@
+.campusLayout,
+.campusRoot {
+  min-height: 100vh;
+  background-color: #FAF9FE;
+  display: flex;
+  flex-direction: column;
+}
+
+.devFreeBanner {
+  background: linear-gradient(90deg, #78350F 0%, #92400E 100%);
+  color: #FEF3C7;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #D97706;
+  z-index: 100;
+}
+
+.devFreeBannerInner {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.devFreeBannerIcon {
+  color: #FDE047;
+  flex-shrink: 0;
+}
+
+.campusBody {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.mainWorkspace {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #FAF9FE;
+}
+
+.lessonView {
+  display: flex;
+  flex-direction: column;
+}
+
+.topBackBar {
+  padding: 0.75rem 2rem 0;
+  background-color: #FFFFFF;
+}
+
+.lessonViewContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.playerTopBar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 0.875rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.backToBoardBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino, #0F172A);
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full, 9999px);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.backToBoardBtn:hover {
+  background-color: #F3E8FF;
+  border-color: #C084FC;
+  color: #7C3AED;
+  transform: translateX(-3px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+}
+
+.backToBoardBtn svg {
+  transition: transform 0.2s ease;
+}
+
+.backToBoardBtn:hover svg {
+  transform: translateX(-2px);
+}
+
+.backToDashBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  background-color: #FAF9FE;
+  border: 1px solid var(--fm-border);
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.backToDashBtn:hover {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-electric);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  background-color: #0F172A;
+}

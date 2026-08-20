@@ -1,0 +1,242 @@
+.paywallContainer {
+  padding: 2.5rem clamp(1.25rem, 3.5vw, 3rem) 4.5rem;
+  background-color: #FAF9FE;
+  min-height: calc(100vh - 4.25rem);
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.topBackBar {
+  margin-bottom: 2rem;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.backBtn:hover {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-electric);
+  transform: translateX(-2px);
+}
+
+.paywallCard {
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-2xl);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: 0 16px 40px -10px rgba(30, 27, 75, 0.08);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconCircleWrap {
+  margin-bottom: 1.5rem;
+}
+
+.iconCircle {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FAF5FF 0%, #EDE9FE 100%);
+  border: 2px solid #DDD6FE;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.2);
+}
+
+.heroIcon {
+  color: var(--fm-violeta-electric);
+}
+
+.lockBadge {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  color: #FDE68A;
+  border: 2px solid #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.vipBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #7C3AED;
+  background-color: #FAF5FF;
+  border: 1px solid #DDD6FE;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.sparkleIcon {
+  color: #F59E0B;
+}
+
+.planNotice {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #F1F5F9;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.title {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  max-width: 680px;
+}
+
+.desc {
+  font-size: 0.9375rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.benefitsBox {
+  background-color: #FAF9FE;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-xl);
+  padding: 1.5rem 1.75rem;
+  text-align: left;
+  width: 100%;
+  max-width: 620px;
+  margin-bottom: 2.25rem;
+}
+
+.benefitsHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-bottom: 1rem;
+}
+
+.shieldIcon {
+  color: var(--fm-violeta-electric);
+}
+
+.benefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.84375rem;
+  color: #334155;
+  line-height: 1.45;
+}
+
+.checkIcon {
+  color: #10B981;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.actionsRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.primaryCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  box-shadow: 0 8px 20px -4px rgba(124, 58, 237, 0.45);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.primaryCta:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(124, 58, 237, 0.55);
+}
+
+.secondaryBtn {
+  background: none;
+  border: none;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  transition: color var(--transition-fast);
+}
+
+.secondaryBtn:hover {
+  color: var(--fm-azul-marino);
+  text-decoration: underline;
+}

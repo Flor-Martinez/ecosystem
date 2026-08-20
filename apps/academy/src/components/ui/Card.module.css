@@ -1,0 +1,58 @@
+.card {
+  background-color: var(--fm-surface-raised);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--fm-border);
+  transition: all var(--transition-base);
+}
+
+.default {
+  box-shadow: var(--shadow-xs);
+}
+
+.surface {
+  background-color: var(--fm-surface);
+  border-color: var(--fm-border-light);
+}
+
+.subtle {
+  background-color: var(--fm-surface-subtle);
+  border-color: var(--fm-border-light);
+}
+
+.violet {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-border);
+}
+
+.outline {
+  background-color: transparent;
+  border-color: var(--fm-border);
+}
+
+.interactive {
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+}
+
+.interactive:hover {
+  border-color: var(--fm-violeta-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Padding variants */
+.padding_none {
+  padding: 0;
+}
+
+.padding_sm {
+  padding: var(--space-4);
+}
+
+.padding_md {
+  padding: var(--space-6);
+}
+
+.padding_lg {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}

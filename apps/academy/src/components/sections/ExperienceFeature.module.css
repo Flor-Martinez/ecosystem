@@ -1,0 +1,228 @@
+.section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+  margin-bottom: 3rem;
+}
+
+.moduleCard {
+  background-color: #FAF9FE;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  border-top-width: 4px;
+  border-top-style: solid;
+  padding: clamp(1.5rem, 2.5vw, 1.85rem);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.moduleCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px -8px rgba(109, 40, 217, 0.16);
+  background-color: #FFFFFF;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.iconBox {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+}
+
+.moduleMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.modNumber {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--fm-text-subtle);
+  letter-spacing: 0.08em;
+}
+
+.modDuration {
+  font-size: 0.75rem;
+  color: var(--fm-text-muted);
+  font-weight: 600;
+}
+
+.modTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.1875rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+
+.modTagline {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.modDesc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--fm-text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.topicsBox {
+  padding: 0.875rem;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border-light);
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.topicsHeading {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--fm-text-subtle);
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+
+.topicsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.topicItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--fm-text-secondary);
+}
+
+.topicCheck {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.takeawayRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+}
+
+.takeawayLabel {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.takeawayText {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+/* CTA Card */
+.ctaRow {
+  margin-top: 1rem;
+}
+
+.ctaCard {
+  background: linear-gradient(135deg, #FAF5FF 0%, #EDE9FE 100%);
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--fm-violeta-soft);
+  padding: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 14px 30px -6px rgba(109, 40, 217, 0.15);
+}
+
+.ctaContent {
+  max-width: 680px;
+}
+
+.ctaBadge {
+  display: inline-block;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fm-violeta-vibrant);
+  background-color: #FFFFFF;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--fm-violeta-soft);
+  margin-bottom: 0.75rem;
+}
+
+.ctaTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.ctaDesc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+}
+
+.ctaButtons {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .modulesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ctaCard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .modulesGrid {
+    grid-template-columns: 1fr;
+  }
+}

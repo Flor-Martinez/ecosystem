@@ -1,0 +1,494 @@
+.section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  background-color: #FAF9FD;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.tabsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  margin-bottom: 2.5rem;
+}
+
+.tabBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-border);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+}
+
+.tabBtn:hover {
+  background-color: var(--fm-violeta-subtle);
+  border-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-electric);
+}
+
+.tabBtnActive {
+  background: linear-gradient(135deg, var(--fm-violeta-electric) 0%, var(--fm-violeta-vibrant) 100%);
+  color: #FFFFFF;
+  border-color: var(--fm-violeta-electric);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+
+.tabBtnActive:hover {
+  background: linear-gradient(135deg, var(--fm-violeta-bright) 0%, var(--fm-violeta-electric) 100%);
+  color: #FFFFFF;
+}
+
+/* Display Card */
+.displayCard {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--fm-border);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  box-shadow: 0 16px 40px -8px rgba(109, 40, 217, 0.12);
+}
+
+.tabContentGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.95fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+
+.tabInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabBadge {
+  display: inline-block;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fm-violeta-electric);
+  background-color: var(--fm-violeta-subtle);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 0.875rem;
+  align-self: flex-start;
+}
+
+.tabTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.625rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.tabDesc {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--fm-text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.tabList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tabList li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--fm-text-secondary);
+}
+
+.checkIcon {
+  color: var(--fm-violeta-electric);
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+/* TAB 1: TRACKER WINDOW */
+.trackerWindow {
+  background-color: #FAF9FE;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  box-shadow: 0 14px 30px -6px rgba(109, 40, 217, 0.14);
+  overflow: hidden;
+}
+
+.windowHeader {
+  background-color: #FFFFFF;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.windowDots {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.wDotRed { width: 8px; height: 8px; border-radius: 50%; background-color: #F87171; }
+.wDotYellow { width: 8px; height: 8px; border-radius: 50%; background-color: #FBBF24; }
+.wDotGreen { width: 8px; height: 8px; border-radius: 50%; background-color: #34D399; }
+
+.windowTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.windowCount {
+  font-size: 0.6875rem;
+  color: var(--fm-violeta-vibrant);
+  background-color: var(--fm-violeta-subtle);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  padding: 0.75rem;
+}
+
+.mockTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.mockTable th {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  color: var(--fm-text-subtle);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.mockTable td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.companyCell {
+  display: flex;
+  flex-direction: column;
+}
+
+.companyCell strong {
+  color: var(--fm-azul-marino);
+  font-size: 0.8125rem;
+}
+
+.companyCell span {
+  font-size: 0.6875rem;
+  color: var(--fm-text-muted);
+}
+
+.statusBadge {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.dateCell {
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary);
+  font-weight: 600;
+}
+
+.tableFooter {
+  padding: 0.75rem 1rem;
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--fm-border-light);
+  display: flex;
+  justify-content: center;
+}
+
+.addBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+}
+
+/* TAB 2: CALENDAR CARD */
+.calendarMockCard {
+  background-color: #FAF9FE;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  padding: 1.5rem;
+  box-shadow: 0 14px 30px -6px rgba(109, 40, 217, 0.14);
+}
+
+.calHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--fm-azul-marino);
+  font-size: 0.875rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--fm-border-light);
+  margin-bottom: 1.25rem;
+}
+
+.calIcon {
+  color: var(--fm-violeta-electric);
+}
+
+.calTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.calItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: #FFFFFF;
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border-light);
+}
+
+.calDotViolet { width: 10px; height: 10px; border-radius: 50%; background-color: #7C3AED; margin-top: 0.35rem; flex-shrink: 0; }
+.calDotGreen { width: 10px; height: 10px; border-radius: 50%; background-color: #10B981; margin-top: 0.35rem; flex-shrink: 0; }
+.calDotBlue { width: 10px; height: 10px; border-radius: 50%; background-color: #2563EB; margin-top: 0.35rem; flex-shrink: 0; }
+
+.calItemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.calTime {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-violeta-vibrant);
+  text-transform: uppercase;
+}
+
+.calItemContent strong {
+  font-size: 0.875rem;
+  color: var(--fm-azul-marino);
+}
+
+.calItemContent p {
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary);
+}
+
+/* TAB 3: ZOOM CARD */
+.zoomCallMockCard {
+  background-color: #1E1B4B;
+  color: #FFFFFF;
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: 0 16px 36px -8px rgba(30, 27, 75, 0.4);
+}
+
+.zoomTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.liveIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #F87171;
+}
+
+.redPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #EF4444;
+  animation: livePulse 1.5s infinite;
+}
+
+.zoomTime {
+  font-size: 0.75rem;
+  color: #DDD6FE;
+}
+
+.zoomGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.zoomSpeaker {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+
+.speakerAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.speakerLabel {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #EDE9FE;
+}
+
+.miniGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.miniUser {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.4rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  color: #CBD5E1;
+  text-align: center;
+}
+
+.zoomFooter p {
+  font-size: 0.75rem;
+  color: #DDD6FE;
+  text-align: center;
+}
+
+/* TAB 4: COUPON CARD */
+.couponVoucherCard {
+  background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+  border: 2px dashed #F59E0B;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 14px 30px -6px rgba(245, 158, 11, 0.2);
+}
+
+.couponTop {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.couponIcon {
+  color: #D97706;
+}
+
+.couponTop strong {
+  display: block;
+  font-size: 1rem;
+  color: #78350F;
+}
+
+.couponTop span {
+  font-size: 0.75rem;
+  color: #92400E;
+}
+
+.couponBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.couponDiscount {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #B45309;
+  line-height: 1;
+}
+
+.couponBody p {
+  font-size: 0.875rem;
+  color: #78350F;
+  line-height: 1.45;
+}
+
+.couponCodeBox {
+  background-color: #FFFFFF;
+  border: 1px solid #FCD34D;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  display: inline-block;
+  width: fit-content;
+}
+
+.couponCodeBox code {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #92400E;
+  letter-spacing: 0.08em;
+}
+
+.tiendaLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #92400E;
+  text-decoration: none;
+}
+
+.tiendaLinkBtn:hover {
+  color: #78350F;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .tabContentGrid {
+    grid-template-columns: 1fr;
+  }
+}

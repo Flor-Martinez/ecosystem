@@ -1,0 +1,223 @@
+.section {
+  padding: 5rem 0 0;
+  background-color: var(--fm-marfil-light);
+  position: relative;
+}
+
+.headerArea {
+  padding-bottom: 2.5rem;
+}
+
+.headerBadgeWrap {
+  margin-bottom: 1.5rem;
+}
+
+.leadGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+.leadTextCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+}
+
+.leadParagraph {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+}
+
+.tagPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+}
+
+.tagPill {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--fm-azul-profundo);
+  background-color: var(--fm-primary-subtle);
+  border: 1px solid var(--fm-primary-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+}
+
+/* Standing Photo Frame */
+.leadPhotoCol {
+  display: flex;
+  justify-content: center;
+}
+
+.standingFrame {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--fm-border);
+  background-color: #ffffff;
+  max-width: 380px;
+}
+
+.standingImg {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.standingBadge {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  right: 1.25rem;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-arena);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  box-shadow: var(--shadow-md);
+}
+
+/* Narrative Area */
+.narrativeArea {
+  padding: 2rem 0 4rem;
+}
+
+.bioCard {
+  background-color: #ffffff;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.bioTitle {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.bioGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.bioTextCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--fm-text-secondary);
+}
+
+.keyPrinciplesList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  background-color: var(--fm-marfil-light);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border-light);
+}
+
+.keyPrincipleItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--fm-azul-profundo);
+}
+
+/* Values Grid */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.valueCard {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  border: 1px solid var(--fm-border);
+  background-color: #ffffff;
+}
+
+.valueCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--fm-arena);
+}
+
+.valueIconWrap {
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-md);
+  background-color: var(--fm-primary-subtle);
+  color: var(--fm-azul-profundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.valueTitle {
+  font-family: var(--font-heading);
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.625rem;
+}
+
+.valueDesc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .leadGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .bioGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .valuesGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}

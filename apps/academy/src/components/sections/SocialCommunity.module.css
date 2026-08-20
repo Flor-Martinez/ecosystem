@@ -1,0 +1,147 @@
+.section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  background-color: var(--fm-marfil-light);
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.headerArea {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.badgeWrap {
+  margin-bottom: var(--space-3);
+  display: flex;
+  justify-content: center;
+}
+
+.sectionTitle {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--space-3);
+}
+
+.sectionSubtitle {
+  font-size: clamp(0.9375rem, 1.3vw, 1.125rem);
+  color: var(--fm-text-muted);
+  line-height: 1.6;
+}
+
+.socialCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.socialCardLink {
+  text-decoration: none;
+  display: flex;
+}
+
+.socialCard {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-base);
+}
+
+.socialCardLink:hover .socialCard {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.socialCardLink:hover .igCard {
+  border-color: #E1306C;
+}
+
+.socialCardLink:hover .liCard {
+  border-color: #0A66C2;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.igIconWrap {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.liIconWrap {
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: var(--radius-md);
+  background-color: #0A66C2;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.networkBadge {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--fm-text-subtle);
+  letter-spacing: 0.08em;
+}
+
+.handle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.75rem;
+}
+
+.desc {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fm-violeta-academia);
+  padding-top: 1rem;
+  border-top: 1px dashed var(--fm-border-light);
+  transition: all var(--transition-fast);
+}
+
+.socialCardLink:hover .actionRow {
+  color: var(--fm-azul-marino);
+  gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .socialCardsGrid {
+    grid-template-columns: 1fr;
+  }
+}

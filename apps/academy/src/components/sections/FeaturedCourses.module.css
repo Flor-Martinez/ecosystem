@@ -1,0 +1,98 @@
+.section {
+  padding: clamp(4.5rem, 8vw, 6.5rem) 0;
+  background-color: #FAF9FD;
+  border-bottom: 1px solid var(--fm-border-light);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+/* In-Company / University Banner */
+.corporateCallout {
+  background: linear-gradient(135deg, #FFFFFF 0%, var(--fm-violeta-subtle) 100%);
+  border: 1px solid var(--fm-violeta-soft);
+  border-radius: var(--radius-2xl);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.corpLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  max-width: 780px;
+}
+
+.corpIconWrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--fm-violeta-electric) 0%, var(--fm-violeta-vibrant) 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+
+.corpTag {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fm-violeta-electric);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.corpTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.4rem;
+}
+
+.corpDesc {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--fm-text-secondary);
+}
+
+.corpRight {
+  flex-shrink: 0;
+}
+
+.corpBtn {
+  font-size: 0.875rem;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .corporateCallout {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .corpLeft {
+    flex-direction: column;
+  }
+}

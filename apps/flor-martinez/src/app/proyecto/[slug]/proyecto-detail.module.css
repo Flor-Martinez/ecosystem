@@ -1,0 +1,686 @@
+.main {
+  background-color: var(--fm-marfil-light);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   HEADER SECTION BASE (DARK NAVY WITH AMBIENT COLORED GLOW)
+   ========================================================================== */
+.headerSection {
+  position: relative;
+  padding-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+  background: linear-gradient(135deg, #07101B 0%, #0D1B2A 60%, #152538 100%);
+  color: #ffffff;
+  border-bottom: 1px solid rgba(217, 200, 182, 0.2);
+  overflow: hidden;
+}
+
+.headerGlowOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.headerContainer {
+  position: relative;
+  z-index: 2;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fm-arena);
+  text-decoration: none;
+  margin-bottom: var(--space-5);
+  transition: all var(--transition-fast);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(217, 200, 182, 0.2);
+}
+
+.backLink:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
+  transform: translateX(-3px);
+}
+
+.categoryRow {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.branchPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-full);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.statusLive {
+  background-color: rgba(16, 185, 129, 0.18);
+  color: #6EE7B7;
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.statusComing {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #CBD5E1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.pulsingLiveDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5);
+  animation: pulseDot 1.8s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-3);
+}
+
+.tagline {
+  font-family: var(--font-sans);
+  font-size: clamp(1.0625rem, 1.8vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--fm-marfil);
+  opacity: 0.92;
+  max-width: 680px;
+}
+
+/* ==========================================================================
+   BODY SECTION
+   ========================================================================== */
+.bodySection {
+  padding-top: clamp(2.5rem, 4vw, 3.5rem);
+  padding-bottom: clamp(4rem, 7vw, 6rem);
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.metaItem {
+  background-color: #ffffff;
+  border: 1px solid var(--fm-border);
+  border-radius: var(--radius-lg);
+  padding: 1.125rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.metaLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metaValue {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+}
+
+.overviewCard {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.overviewHeader {
+  margin-bottom: 1rem;
+}
+
+.cardSectionBadge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.sectionHeading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+}
+
+.summaryText {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--fm-text-secondary);
+}
+
+.twoColGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.challengeCard,
+.solutionCard {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xs);
+}
+
+.miniTagChallenge,
+.miniTagSolution {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.subHeading {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.75rem;
+}
+
+.bodyText {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--fm-text-secondary);
+}
+
+.highlightsSection {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.highlightsHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.highlightsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.highlightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.55;
+}
+
+.checkIcon {
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.tagsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--fm-border);
+}
+
+.tagsLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-text-muted);
+}
+
+.tagsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.375rem 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--fm-border);
+  background-color: #ffffff;
+}
+
+.actionCard {
+  border-radius: var(--radius-xl);
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1.5px solid var(--fm-border);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.actionCardTitle {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin-bottom: 0.5rem;
+}
+
+.actionCardDesc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.primaryBranchBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.contactBranchBtn {
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   THEME 1: AGENCIA FLOR MARTINEZ (TECH BLUE / CYAN OVER NAVY BASE)
+   ========================================================================== */
+.theme_agencia .headerSection {
+  background: linear-gradient(135deg, #071221 0%, #0D1B2A 45%, #102A45 100%);
+  border-bottom: 2px solid #0284C7;
+}
+
+.theme_agencia .headerGlowOverlay {
+  background: radial-gradient(circle at 85% 20%, rgba(2, 132, 199, 0.3) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(37, 99, 235, 0.25) 0%, transparent 60%);
+}
+
+.theme_agencia .branchPill {
+  background-color: rgba(2, 132, 199, 0.25);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.5);
+}
+
+.theme_agencia .metaLabel {
+  color: #0284C7;
+}
+
+.theme_agencia .metaItem {
+  border-top: 3px solid #0284C7;
+}
+
+.theme_agencia .overviewCard {
+  border: 1.5px solid #BAE6FD;
+  background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%);
+}
+
+.theme_agencia .cardSectionBadge {
+  color: #0284C7;
+}
+
+.theme_agencia .miniTagChallenge {
+  color: #E11D48;
+}
+
+.theme_agencia .miniTagSolution {
+  color: #0284C7;
+}
+
+.theme_agencia .challengeCard {
+  border-left: 3px solid #E11D48;
+}
+
+.theme_agencia .solutionCard {
+  border-left: 3px solid #0284C7;
+  background-color: #F0F9FF;
+}
+
+.theme_agencia .highlightsSection {
+  border: 1px solid #BAE6FD;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 100%);
+}
+
+.theme_agencia .highlightsSparkle {
+  color: #0284C7;
+}
+
+.theme_agencia .checkIcon {
+  color: #0284C7;
+}
+
+.theme_agencia .tag {
+  background-color: #F0F9FF;
+  color: #0369A1;
+  border-color: #BAE6FD;
+}
+
+.theme_agencia .actionCard {
+  border-color: #7DD3FC;
+  background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+}
+
+.theme_agencia .primaryBranchBtn {
+  background: linear-gradient(135deg, #0284C7 0%, #1E3A5F 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+}
+
+.theme_agencia .primaryBranchBtn:hover {
+  background: linear-gradient(135deg, #0369A1 0%, #0D1B2A 100%);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   THEME 2: TIENDA FLOR MARTINEZ (WARM AMBER / BRONZE OVER NAVY BASE)
+   ========================================================================== */
+.theme_tienda .headerSection {
+  background: linear-gradient(135deg, #0A1118 0%, #0D1B2A 45%, #291708 100%);
+  border-bottom: 2px solid #D97706;
+}
+
+.theme_tienda .headerGlowOverlay {
+  background: radial-gradient(circle at 85% 20%, rgba(217, 119, 6, 0.32) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(180, 83, 9, 0.25) 0%, transparent 60%);
+}
+
+.theme_tienda .branchPill {
+  background-color: rgba(217, 119, 6, 0.25);
+  color: #FBBF24;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+}
+
+.theme_tienda .metaLabel {
+  color: #D97706;
+}
+
+.theme_tienda .metaItem {
+  border-top: 3px solid #D97706;
+}
+
+.theme_tienda .overviewCard {
+  border: 1.5px solid #FDE68A;
+  background: linear-gradient(180deg, #FFFDF5 0%, #FFFFFF 100%);
+}
+
+.theme_tienda .cardSectionBadge {
+  color: #B45309;
+}
+
+.theme_tienda .miniTagChallenge {
+  color: #E11D48;
+}
+
+.theme_tienda .miniTagSolution {
+  color: #D97706;
+}
+
+.theme_tienda .challengeCard {
+  border-left: 3px solid #E11D48;
+}
+
+.theme_tienda .solutionCard {
+  border-left: 3px solid #D97706;
+  background-color: #FFFDF5;
+}
+
+.theme_tienda .highlightsSection {
+  border: 1px solid #FDE68A;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDF5 100%);
+}
+
+.theme_tienda .highlightsSparkle {
+  color: #D97706;
+}
+
+.theme_tienda .checkIcon {
+  color: #D97706;
+}
+
+.theme_tienda .tag {
+  background-color: #FFFBEB;
+  color: #92400E;
+  border-color: #FDE68A;
+}
+
+.theme_tienda .actionCard {
+  border-color: #FDE68A;
+  background: linear-gradient(135deg, #FFFDF5 0%, #FFFFFF 100%);
+}
+
+.theme_tienda .primaryBranchBtn {
+  background: linear-gradient(135deg, #D97706 0%, #92400E 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+
+.theme_tienda .primaryBranchBtn:hover {
+  background: linear-gradient(135deg, #B45309 0%, #78350F 100%);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   THEME 3: ACADEMIA FLOR MARTINEZ (VIBRANT PURPLE / VIOLET OVER NAVY BASE)
+   ========================================================================== */
+.theme_academia .headerSection {
+  background: linear-gradient(135deg, #09101C 0%, #0D1B2A 45%, #25123A 100%);
+  border-bottom: 2px solid #7C3AED;
+}
+
+.theme_academia .headerGlowOverlay {
+  background: radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.35) 0%, transparent 60%),
+              radial-gradient(circle at 10% 80%, rgba(88, 56, 125, 0.3) 0%, transparent 60%);
+}
+
+.theme_academia .branchPill {
+  background-color: rgba(124, 58, 237, 0.28);
+  color: #D8B4FE;
+  border: 1px solid rgba(216, 180, 254, 0.5);
+}
+
+.theme_academia .metaLabel {
+  color: #7C3AED;
+}
+
+.theme_academia .metaItem {
+  border-top: 3px solid #7C3AED;
+}
+
+.theme_academia .overviewCard {
+  border: 1.5px solid #E9D5FF;
+  background: linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%);
+}
+
+.theme_academia .cardSectionBadge {
+  color: #7C3AED;
+}
+
+.theme_academia .miniTagChallenge {
+  color: #E11D48;
+}
+
+.theme_academia .miniTagSolution {
+  color: #7C3AED;
+}
+
+.theme_academia .challengeCard {
+  border-left: 3px solid #E11D48;
+}
+
+.theme_academia .solutionCard {
+  border-left: 3px solid #7C3AED;
+  background-color: #FAF5FF;
+}
+
+.theme_academia .highlightsSection {
+  border: 1px solid #E9D5FF;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%);
+}
+
+.theme_academia .highlightsSparkle {
+  color: #7C3AED;
+}
+
+.theme_academia .checkIcon {
+  color: #7C3AED;
+}
+
+.theme_academia .tag {
+  background-color: #FAF5FF;
+  color: #6B21A8;
+  border-color: #E9D5FF;
+}
+
+.theme_academia .actionCard {
+  border-color: #D8B4FE;
+  background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%);
+}
+
+.theme_academia .primaryBranchBtn {
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+}
+
+.theme_academia .primaryBranchBtn:hover {
+  background: linear-gradient(135deg, #6D28D9 0%, #432960 100%);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   THEME 4: COMERCIO EXTERIOR (AZUL PROFUNDO & ARENA)
+   ========================================================================== */
+.theme_comercio .headerSection {
+  background: linear-gradient(135deg, #07101B 0%, #0D1B2A 50%, #1E3A5F 100%);
+  border-bottom: 2px solid #4F7FAF;
+}
+
+.theme_comercio .headerGlowOverlay {
+  background: radial-gradient(circle at 85% 20%, rgba(79, 127, 175, 0.3) 0%, transparent 60%);
+}
+
+.theme_comercio .branchPill {
+  background-color: rgba(79, 127, 175, 0.25);
+  color: #93C5FD;
+  border: 1px solid rgba(147, 197, 253, 0.5);
+}
+
+.theme_comercio .metaLabel {
+  color: #1E3A5F;
+}
+
+.theme_comercio .metaItem {
+  border-top: 3px solid #1E3A5F;
+}
+
+.theme_comercio .primaryBranchBtn {
+  background: linear-gradient(135deg, #1E3A5F 0%, #0D1B2A 100%);
+  color: #ffffff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .twoColGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionRow {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .actionRow > * {
+    width: 100%;
+  }
+}

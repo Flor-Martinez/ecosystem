@@ -1,0 +1,365 @@
+.celebrationRoot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 180px);
+  padding: 2.5rem 1.5rem;
+  animation: fadeInCelebration 0.35s ease-out;
+}
+
+@keyframes fadeInCelebration {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.celebrationCard {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl);
+  border: 1.5px solid var(--fm-border);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  padding: 3rem 2.5rem;
+  max-width: 760px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Top Badges */
+.topBadgeTrophy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.trophyIconWrap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FEF08A 0%, #F59E0B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.35);
+  color: #78350F;
+  animation: pulseTrophy 2s infinite alternate;
+}
+
+@keyframes pulseTrophy {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.trophyIcon {
+  color: #78350F;
+}
+
+.certBadgeText {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #B45309;
+  background-color: #FEF3C7;
+  border: 1px solid #FDE68A;
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--radius-full);
+}
+
+.topBadgeModule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #065F46;
+  background-color: #D1FAE5;
+  border: 1px solid #A7F3D0;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  margin-bottom: 1.25rem;
+}
+
+.checkIcon {
+  color: #10B981;
+}
+
+.title {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.25;
+  margin: 0 0 0.75rem;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.5;
+  max-width: 600px;
+  margin: 0 0 2rem;
+}
+
+/* Certificate Preview Box */
+.certificatePreviewCard {
+  width: 100%;
+  background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+  border: 2px solid #F59E0B;
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  color: #FFFFFF;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.25);
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.certHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.certSeal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #FDE047;
+}
+
+.certDate {
+  font-size: 0.75rem;
+  color: #94A3B8;
+}
+
+.certBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.certProgramName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.certTagline {
+  font-size: 0.8125rem;
+  color: #CBD5E1;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.certFooterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certIssuer {
+  font-size: 0.75rem;
+  color: #E2E8F0;
+}
+
+.certIssuer strong {
+  color: #FDE047;
+}
+
+.certId {
+  font-family: monospace;
+  font-size: 0.6875rem;
+  color: #94A3B8;
+  letter-spacing: 0.05em;
+}
+
+/* Module Stats Banner */
+.moduleStatsBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  background-color: #FAF5FF;
+  border: 1px solid #E9D5FF;
+  border-radius: var(--radius-xl);
+  padding: 1.25rem 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.statVal {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--fm-violeta-electric);
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+}
+
+.statDivider {
+  width: 1px;
+  height: 32px;
+  background-color: #DDD6FE;
+}
+
+/* Actions Row */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.primaryNextBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.75rem;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.primaryNextBtn:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(124, 58, 237, 0.45);
+}
+
+.primaryDownloadBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(5, 150, 105, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.primaryDownloadBtn:hover {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  transform: translateY(-2px);
+}
+
+.secondaryProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.35rem;
+  background-color: var(--fm-violeta-subtle);
+  border: 1.5px solid var(--fm-violeta-electric);
+  color: var(--fm-violeta-electric);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.secondaryProfileBtn:hover {
+  background-color: var(--fm-violeta-electric);
+  color: #FFFFFF;
+}
+
+.secondaryDashBtn,
+.tertiaryDashBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.35rem;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--fm-border);
+  color: var(--fm-azul-marino);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.secondaryDashBtn:hover,
+.tertiaryDashBtn:hover {
+  background-color: #F8FAFC;
+  border-color: var(--fm-border-hover);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .celebrationCard {
+    padding: 2rem 1.25rem;
+  }
+  .moduleStatsBanner {
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .actionsRow {
+    flex-direction: column;
+    width: 100%;
+  }
+  .primaryNextBtn,
+  .primaryDownloadBtn,
+  .secondaryProfileBtn,
+  .secondaryDashBtn,
+  .tertiaryDashBtn {
+    width: 100%;
+  }
+}

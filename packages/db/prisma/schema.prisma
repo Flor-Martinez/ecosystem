@@ -1,0 +1,400 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =============================================================================
+// ENUMS
+// =============================================================================
+
+enum Role {
+  ADMIN
+  STUDENT
+  CLIENT
+  MEMBER
+}
+
+enum MembershipTier {
+  FREE
+  VIP
+}
+
+enum CourseCategory {
+  EMPLEABILIDAD
+  LINKEDIN
+  ENTREVISTAS
+  MENTORIA
+  COMERCIO_EXTERIOR
+  MARKETING
+}
+
+enum CourseLevel {
+  PRINCIPIANTE
+  INTERMEDIO
+  AVANZADO
+  TODOS_LOS_NIVELES
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  PAUSED
+  CANCELLED
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum LeadOrigin {
+  PORTFOLIO
+  ACADEMY
+  AGENCY
+  STORE
+  WHATSAPP
+}
+
+enum LeadStatus {
+  NUEVO
+  EN_CONTACTO
+  PROPUESTA_ENVIADA
+  CERRADO_GANADO
+  CERRADO_PERDIDO
+}
+
+// =============================================================================
+// AUTH & USERS (SSO CENTRALIZADO PARA TODO EL ECOSISTEMA)
+// =============================================================================
+
+model User {
+  id              String          @id @default(cuid())
+  email           String          @unique
+  name            String
+  passwordHash    String?
+  role            Role            @default(MEMBER)
+  membershipTier  MembershipTier  @default(VIP)
+  avatarUrl       String?
+  phone           String?
+  headline        String?         // Ej. Licenciada en Comercio Exterior / Alumno
+  bio             String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  sessions        Session[]
+  enrollments     Enrollment[]
+  orders          Order[]
+  certificates    Certificate[]
+  jobApplications JobApplication[]
+  calendarEvents  CalendarEvent[]
+  studentProfile  StudentProfile?
+  quizSubmissions QuizSubmission[]
+
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// =============================================================================
+// ACADEMIA FLOR MARTINEZ (CURSOS, LECCIONES & PROGRESO)
+// =============================================================================
+
+model Course {
+  id              String         @id @default(cuid())
+  slug            String         @unique
+  title           String
+  tagline         String
+  description     String
+  price           Float
+  originalPrice   Float?
+  currency        String         @default("ARS")
+  category        CourseCategory @default(EMPLEABILIDAD)
+  level           CourseLevel    @default(TODOS_LOS_NIVELES)
+  durationHours   Float          @default(4)
+  lessonsCount    Int            @default(12)
+  badge           String?        // Ej. "Más Popular", "Edición 2025"
+  isPublished     Boolean        @default(true)
+  isFeatured      Boolean        @default(false)
+  instructorName  String         @default("Flor Martinez")
+  instructorTitle String         @default("Especialista en Comercio Exterior & Marca Personal")
+  orderIndex      Int            @default(0)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  modules         Module[]
+  enrollments     Enrollment[]
+  certificates    Certificate[]
+
+  @@map("courses")
+}
+
+model Module {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  orderIndex  Int      @default(0)
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+
+  @@map("modules")
+}
+
+model Lesson {
+  id              String           @id @default(cuid())
+  title           String
+  description     String?
+  durationMinutes Int              @default(15)
+  videoUrl        String?
+  resourcesUrl    String?
+  isFreePreview   Boolean          @default(false)
+  orderIndex      Int              @default(0)
+  moduleId        String
+  module          Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  progressRecords LessonProgress[]
+
+  @@map("lessons")
+}
+
+model Enrollment {
+  id              String           @id @default(cuid())
+  userId          String
+  courseId        String
+  status          EnrollmentStatus @default(ACTIVE)
+  progressPercent Float            @default(0)
+  enrolledAt      DateTime         @default(now())
+  completedAt     DateTime?
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course          Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  progressRecords LessonProgress[]
+  certificate     Certificate?
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model LessonProgress {
+  id           String     @id @default(cuid())
+  enrollmentId String
+  lessonId     String
+  isCompleted  Boolean    @default(true)
+  completedAt  DateTime   @default(now())
+
+  enrollment   Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+  lesson       Lesson     @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, lessonId])
+  @@map("lesson_progress")
+}
+
+model Certificate {
+  id              String     @id @default(cuid())
+  certificateCode String     @unique // Ej. FM-ACAD-2025-001
+  userId          String
+  courseId        String
+  enrollmentId    String     @unique
+  issueDate       DateTime   @default(now())
+  pdfUrl          String?
+
+  user            User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course          Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  enrollment      Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@map("certificates")
+}
+
+// =============================================================================
+// TIENDA FLOR MARTINEZ (PRODUCTOS, KITS & PEDIDOS)
+// =============================================================================
+
+model Product {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  name        String
+  tagline     String
+  description String
+  price       Float
+  currency    String      @default("ARS")
+  stock       Int         @default(100)
+  isAvailable Boolean     @default(true)
+  images      String[]
+  category    String      @default("Papelería")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  orderItems  OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique // Ej. FM-ORD-2025-104
+  userId          String?
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  totalAmount     Float
+  currency        String      @default("ARS")
+  status          OrderStatus @default(PENDING)
+  paymentProvider String?     // "mercadopago" | "stripe"
+  paymentId       String?     // ID de pasarela
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  user            User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items           OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String?
+  productName String
+  unitPrice   Float
+  quantity    Int      @default(1)
+  subtotal    Float
+
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("order_items")
+}
+
+// =============================================================================
+// AGENCIA & PORTFOLIO (LEADS, CONTACTOS & PROPUESTAS B2B)
+// =============================================================================
+
+model Lead {
+  id              String     @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  company         String?
+  role            String?
+  serviceInterest String     // Ej. "Marketing Estratégico", "Comercio Exterior", "Desarrollo Web"
+  origin          LeadOrigin @default(PORTFOLIO)
+  message         String
+  status          LeadStatus @default(NUEVO)
+  notes           String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  @@map("leads")
+}
+
+model ContactInquiry {
+  id        String     @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  origin    LeadOrigin @default(PORTFOLIO)
+  isRead    Boolean    @default(false)
+  createdAt DateTime   @default(now())
+
+  @@map("contact_inquiries")
+}
+
+// =============================================================================
+// CAMPUS VIRTUAL & HERRAMIENTAS DE EMPLEABILIDAD (TRACKER, AGENDA, EXPEDIENTE, QUIZZES)
+// =============================================================================
+
+model JobApplication {
+  id            String    @id @default(cuid())
+  userId        String
+  company       String
+  role          String
+  status        String    @default("Postulado") // Postulado | Entrevista RRHH | Prueba Técnica | Oferta Recibida | Descartado
+  salary        String?
+  date          String    // Fecha visual o aplicada (ej. "12 Ago 2025")
+  nextStep      String?
+  notes         String?
+  jobUrl        String?
+  isFavorite    Boolean   @default(false)
+  interviewDate DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("job_applications")
+}
+
+model CalendarEvent {
+  id          String   @id @default(cuid())
+  userId      String?  // null si es un evento global (Zoom semanal para todos los alumnos)
+  title       String
+  type        String   @default("zoom") // zoom | entrevista | prueba | seguimiento
+  date        String   // YYYY-MM-DD
+  time        String   // ej. "19:00 hs (Arg)"
+  notes       String?
+  company     String?
+  zoomLink    String?
+  isGlobal    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("calendar_events")
+}
+
+model StudentProfile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  linkedinUrl      String?  @default("https://linkedin.com/in/santiago-martinez-demo")
+  targetRole       String?  @default("Product Designer / UX Lead")
+  seniority        String?  @default("Senior")
+  modality         String?  @default("100% Remoto (Latam / Global)")
+  expectedSalary   String?  @default("$2.200 USD / mes")
+  cvFileName       String?  @default("CV_Santiago_Martinez_ATS_2025.pdf")
+  cvFileUrl        String?
+  atsScore         Int      @default(85)
+  linkedinScore    Int      @default(70)
+  starScore        Int      @default(60)
+  negotiationScore Int      @default(40)
+  networkingScore  Int      @default(55)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("student_profiles")
+}
+
+model QuizSubmission {
+  id           String   @id @default(cuid())
+  userId       String
+  moduleNumber Int
+  lessonId     String?
+  score        Int      // 0 a 100
+  isPassed     Boolean  @default(false)
+  answersJson  String?  // serialized JSON de respuestas
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_submissions")
+}

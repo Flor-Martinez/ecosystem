@@ -1,0 +1,319 @@
+.section {
+  padding: 5rem 0 6rem;
+  background-color: var(--fm-marfil-light);
+  border-top: 1px solid var(--fm-border-light);
+  position: relative;
+}
+
+.hubHeader {
+  margin-bottom: 3.5rem;
+  max-width: 800px;
+}
+
+.badgeWrap {
+  margin-bottom: 1.25rem;
+}
+
+.badgeIcon {
+  margin-right: 0.35rem;
+  color: var(--fm-azul-cielo);
+}
+
+.hubTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.hubSubtitle {
+  font-size: clamp(1rem, 1.4vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--fm-text-secondary);
+}
+
+/* ==========================================================================
+   DERIVATION CARDS GRID
+   ========================================================================== */
+.derivationGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  align-items: stretch;
+}
+
+.hubCard {
+  background-color: #ffffff;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--fm-border);
+  padding: 2.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all var(--transition-base);
+}
+
+.cardTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+}
+
+.cardIconBox {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cardActionArea {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--fm-border-light);
+}
+
+.hubActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+/* ==========================================================================
+   2. ACADEMIA HERO ACTIVE CARD (CENTRAL SPOTLIGHT)
+   ========================================================================== */
+.cardAcademiaHeroActive {
+  border: 2px solid #C084FC;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%);
+  box-shadow: 0 16px 36px -8px rgba(88, 56, 125, 0.25), 0 4px 12px rgba(88, 56, 125, 0.1);
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.cardAcademiaHeroActive:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 24px 48px -8px rgba(88, 56, 125, 0.35), 0 8px 16px rgba(88, 56, 125, 0.15);
+  border-color: #A855F7;
+}
+
+.activeSpotlightRibbon {
+  position: absolute;
+  top: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+  border: 1px solid #D8B4FE;
+  white-space: nowrap;
+}
+
+.iconAcademiaActive {
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35);
+}
+
+.statusLivePill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: #F3E8FF;
+  color: #6B21A8;
+  border: 1px solid #D8B4FE;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.livePulseGlow {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4);
+  animation: liveGlowPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes liveGlowPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.cardBranchLabelActive {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7C3AED;
+  margin-bottom: 0.35rem;
+}
+
+.cardBranchTitleActive {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #3B0764;
+  line-height: 1.2;
+  margin-bottom: 0.625rem;
+}
+
+.cardBranchTaglineActive {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #6B21A8;
+  margin-bottom: 0.875rem;
+  line-height: 1.4;
+}
+
+.cardBranchDescActive {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #4C1D95;
+}
+
+.btnAcademiaHero {
+  background: linear-gradient(135deg, #7C3AED 0%, #58387D 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.4);
+}
+
+.btnAcademiaHero:hover {
+  background: linear-gradient(135deg, #6D28D9 0%, #432960 100%);
+  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   1 & 3: DISABLED / COMING SOON CARDS (AGENCIA & TIENDA)
+   ========================================================================== */
+.cardDisabled {
+  background-color: #FAF9F7;
+  border: 1.5px dashed #D1D5DB;
+  opacity: 0.88;
+}
+
+.cardDisabled:hover {
+  opacity: 1;
+  border-color: #9CA3AF;
+  transform: translateY(-2px);
+}
+
+.iconAgenciaDisabled {
+  background-color: #E2E8F0;
+  color: #64748B;
+}
+
+.iconTiendaDisabled {
+  background-color: #F5EBE1;
+  color: #8C6239;
+}
+
+.statusDisabled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: #F1F5F9;
+  color: #64748B;
+  border: 1px solid #CBD5E1;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+}
+
+.cardBranchLabelDisabled {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #64748B;
+  margin-bottom: 0.35rem;
+}
+
+.cardBranchTitleDisabled {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: #334155;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.cardBranchTaglineDisabled {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748B;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.cardBranchDescDisabled {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #64748B;
+}
+
+.btnDisabledState {
+  background-color: #E2E8F0;
+  color: #475569;
+  border: 1px solid #CBD5E1;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.btnDisabledState:hover {
+  background-color: #CBD5E1;
+  color: #1E293B;
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .derivationGrid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .cardAcademiaHeroActive {
+    transform: none;
+  }
+
+  .cardAcademiaHeroActive:hover {
+    transform: translateY(-4px);
+  }
+}

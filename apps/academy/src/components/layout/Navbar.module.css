@@ -1,0 +1,403 @@
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: #ffffff;
+  transition: box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.headerScrolled {
+  box-shadow: 0 8px 30px -8px rgba(13, 27, 42, 0.15);
+}
+
+/* ==========================================================================
+   TOP BAR: LEFT (ECOSYSTEM LINK) + CENTER (ACADEMIA) + RIGHT (BALANCE)
+   ========================================================================== */
+.topBar {
+  background: linear-gradient(90deg, #07101B 0%, #0D1B2A 50%, #07101B 100%);
+  color: var(--fm-marfil);
+  border-bottom: 1px solid rgba(217, 200, 182, 0.18);
+  padding: 0.4375rem 0;
+  position: relative;
+  transition: padding var(--transition-fast);
+}
+
+.headerScrolled .topBar {
+  padding: 0.35rem 0;
+}
+
+.topBarContainer {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Left: Visit Ecosystem */
+.topBarLeft {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.ecosystemVisitLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #E2C288;
+  text-decoration: none;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  background-color: rgba(226, 194, 136, 0.08);
+  border: 1px solid rgba(226, 194, 136, 0.25);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.ecosystemVisitLink:hover {
+  background-color: rgba(226, 194, 136, 0.18);
+  color: #FFFFFF;
+  border-color: #E2C288;
+  transform: translateY(-1px);
+}
+
+.sparkleIcon {
+  color: #F59E0B;
+}
+
+.visitArrow {
+  opacity: 0.8;
+  transition: transform var(--transition-fast);
+}
+
+.ecosystemVisitLink:hover .visitArrow {
+  transform: translate(2px, -2px);
+  opacity: 1;
+}
+
+/* Center: Branch Pill */
+.topBarCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.branchPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.branchIconBox {
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
+}
+
+.branchBrandName {
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #FFFFFF;
+  font-size: 0.6875rem;
+}
+
+.branchDivider {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.625rem;
+}
+
+.branchTagline {
+  color: #DDD6FE;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pulsingLiveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #34D399;
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.6);
+  animation: livePulse 1.8s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+/* Right: Symmetrical placeholder */
+.topBarRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   MAIN NAVIGATION BAR (SEGUNDA NAVBAR)
+   ========================================================================== */
+.mainNav {
+  background-color: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--fm-border-light);
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+  transition: all var(--transition-base);
+}
+
+.mainNavContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.logoLink {
+  text-decoration: none;
+  display: inline-flex;
+}
+
+/* Desktop Navigation Links */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLink {
+  position: relative;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--fm-text-secondary);
+  padding: 0.5rem 0;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  color: var(--fm-violeta-electric);
+}
+
+.navLinkActive {
+  color: var(--fm-violeta-electric);
+  font-weight: 700;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: linear-gradient(90deg, var(--fm-violeta-bright) 0%, var(--fm-violeta-electric) 100%);
+  border-radius: var(--radius-full);
+}
+
+/* Desktop Actions */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.primaryCtaBtn {
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+  font-size: 0.875rem;
+}
+
+/* Mobile Toggle */
+.mobileToggle {
+  display: none;
+  color: var(--fm-azul-marino);
+  padding: 0.5rem;
+  margin-right: -0.5rem;
+}
+
+/* ==========================================================================
+   MOBILE DRAWER
+   ========================================================================== */
+.mobileDrawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(13, 27, 42, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mobileDrawerContent {
+  width: 85%;
+  max-width: 360px;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 1.75rem 1.5rem;
+  box-shadow: var(--shadow-xl);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobileBranchHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+}
+
+.mobileBranchText {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileBranchText strong {
+  font-size: 0.9375rem;
+  color: var(--fm-azul-marino);
+}
+
+.mobileBranchText span {
+  font-size: 0.75rem;
+  color: var(--fm-violeta-vibrant);
+  font-weight: 600;
+}
+
+.mobileDivider {
+  height: 1px;
+  background-color: var(--fm-border);
+  margin: 1rem 0;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex-grow: 1;
+}
+
+.mobileNavLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.mobileNavLink:hover {
+  background-color: var(--fm-marfil);
+}
+
+.mobileNavLinkActive {
+  background-color: var(--fm-violeta-subtle);
+  color: var(--fm-violeta-electric);
+  font-weight: 700;
+}
+
+.activeBadge {
+  font-size: 0.6875rem;
+  background-color: var(--fm-violeta-soft);
+  color: var(--fm-violeta-vibrant);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+.mobileActions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mobileFullBtn {
+  width: 100%;
+}
+
+.mobileEcosystemLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  background-color: #0D1B2A;
+  color: #E2C288;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .navLinks,
+  .actions {
+    display: none;
+  }
+
+  .mobileToggle {
+    display: block;
+  }
+
+  .branchTagline {
+    display: none;
+  }
+
+  .branchDivider {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .topBarContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .topBarRight {
+    display: none;
+  }
+
+  .ecosystemVisitLink {
+    font-size: 0.6875rem;
+    padding: 0.15rem 0.5rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .topBarContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}
