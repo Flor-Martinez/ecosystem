@@ -93,6 +93,11 @@ export function Footer() {
             <h3 className={styles.colTitle}>Recursos & Plantillas</h3>
             <ul className={styles.linkList}>
               <li>
+                <Link href="/test-vocacional" className={styles.link}>
+                  🎯 Test Vocacional & Orientación
+                </Link>
+              </li>
+              <li>
                 <Link href="/recursos/checklist-optimizacion-cv-ats" className={styles.link}>
                   Checklist CV ATS 2025
                 </Link>

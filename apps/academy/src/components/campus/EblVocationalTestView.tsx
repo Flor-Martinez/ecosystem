@@ -17,6 +17,8 @@ import {
   Target,
   FileText,
   Share2,
+  Zap,
+  GraduationCap,
 } from 'lucide-react';
 import styles from './EblVocationalTestView.module.css';
 
@@ -556,6 +558,26 @@ export function EblVocationalTestView({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSkipToResult = () => {
+    const mockAnswers: Record<number, Archetype> = {
+      0: 'estrategia',
+      1: 'estrategia',
+      2: 'analitico',
+      3: 'estrategia',
+      4: 'creativo',
+      5: 'estrategia',
+      6: 'personas',
+      7: 'estrategia',
+      8: 'analitico',
+      9: 'estrategia',
+      10: 'estrategia',
+      11: 'estrategia',
+    };
+    setSelectedAnswers(mockAnswers);
+    setStep('result');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // Calculate Scores
   const scores = Object.values(selectedAnswers).reduce<Record<Archetype, number>>(
     (acc, arch) => {
@@ -650,7 +672,18 @@ export function EblVocationalTestView({
               <span>Comenzar Test Vocacional (5 min)</span>
               <ArrowRight size={18} />
             </button>
-            <span className={styles.introNote}>✨ 100% gratuito · Podés rehacerlo las veces que quieras</span>
+
+            <button
+              type="button"
+              className={styles.skipDevBtn}
+              onClick={handleSkipToResult}
+              title="Saltear todas las preguntas y ver el diagnóstico directamente"
+            >
+              <Zap size={14} className={styles.zapIcon} />
+              <span>Saltear test (Ver resultado directo)</span>
+            </button>
+
+            <span className={styles.introNote}>✨ 100% gratuito · Diagnóstico inmediato sin registro obligatorio</span>
           </div>
         </div>
       )}
@@ -882,6 +915,38 @@ export function EblVocationalTestView({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* EBL Promotional Lead Magnet Card */}
+          <div className={styles.eblPromoBannerCard}>
+            <div className={styles.eblPromoLeft}>
+              <div className={styles.eblPromoTag}>
+                <Sparkles size={14} />
+                <span>EXPERIENCIA BÚSQUEDA LABORAL · FLOR MARTINEZ</span>
+              </div>
+              <h3 className={styles.eblPromoTitle}>
+                ¿Querés transformar tu perfil en ofertas laborales y entrevistas reales?
+              </h3>
+              <p className={styles.eblPromoDesc}>
+                Conocer tu arquetipo laboral es el primer paso. En la <strong>Experiencia Búsqueda Laboral (EBL)</strong> te acompañamos a plasmar tus fortalezas en un <strong>CV ATS optimizado</strong>, potenciar tu <strong>LinkedIn</strong> con posicionamiento estratégico, dominar el <strong>método STAR en entrevistas</strong> y participar de <strong>sesiones semanales de mentoría en vivo vía Zoom</strong> con Flor Martínez.
+              </p>
+              <div className={styles.eblPromoBadges}>
+                <span className={styles.eblPromoBadgeItem}>✓ 7 Módulos de formación paso a paso</span>
+                <span className={styles.eblPromoBadgeItem}>✓ Plantillas ATS y Guías prácticas</span>
+                <span className={styles.eblPromoBadgeItem}>✓ Tracker interactivo de postulaciones</span>
+                <span className={styles.eblPromoBadgeItem}>✓ Zoom semanal en vivo todos los miércoles</span>
+              </div>
+            </div>
+            <div className={styles.eblPromoRight}>
+              <a href="/experiencia" className={styles.eblJoinBtn}>
+                <span>Sumarme a la Experiencia</span>
+                <ArrowRight size={16} />
+              </a>
+              <a href="/campus" className={styles.eblCampusAccessBtn}>
+                <GraduationCap size={16} />
+                <span>Explorar el Campus Virtual</span>
+              </a>
             </div>
           </div>
 
