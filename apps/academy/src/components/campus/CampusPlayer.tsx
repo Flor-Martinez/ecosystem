@@ -134,6 +134,7 @@ export function CampusPlayer({
   };
 
   const isQuizPassed = !isEvaluationLesson || (quizSubmitted && calculateQuizScore() >= (quiz?.minPassingScore || 75));
+  const isModuleAlreadyFinished = currentModule.lessons.every((l) => completedLessons?.has(l.id));
   const isLastLessonInModule = currentModule.lessons[currentModule.lessons.length - 1]?.id === lesson.id;
 
   return (
@@ -604,16 +605,24 @@ export function CampusPlayer({
           type="button"
           className={`${styles.navLessonBtn} ${styles.navNextBtn}`}
           onClick={() => onCompleteAndNext(lesson.id)}
-          disabled={isEvaluationLesson ? !isQuizPassed : (!hasNext && isCompleted && !isLastLessonInModule)}
+          disabled={isEvaluationLesson ? !isQuizPassed : (!hasNext && isCompleted && !isLastLessonInModule && !isModuleAlreadyFinished)}
         >
           <span>
             {isEvaluationLesson
               ? !isQuizPassed
                 ? '🔒 Aprobá con 75% para finalizar'
+                : isModuleAlreadyFinished
+                ? 'Siguiente Clase'
                 : 'Finalizar Módulo'
               : isLastLessonInModule
-              ? 'Finalizar Módulo'
+              ? isModuleAlreadyFinished
+                ? hasNext
+                  ? 'Siguiente Clase'
+                  : 'Programa Completado'
+                : 'Finalizar Módulo'
               : hasNext
+              ? 'Siguiente Clase'
+              : isModuleAlreadyFinished
               ? 'Siguiente Clase'
               : 'Finalizar Módulo'}
           </span>

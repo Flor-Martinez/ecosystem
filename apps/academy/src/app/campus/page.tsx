@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -256,15 +256,106 @@ function CampusContent() {
     }
   };
 
-  // Lesson navigation
-  const currentIndex = allLessons.findIndex((l) => l.id === selectedLesson.id);
-  const hasPrev = currentIndex > 0;
-  const hasNext = currentIndex < allLessons.length - 1;
+  // Linear lesson unlocking helper for current program
+  const isLessonUnlocked = useCallback(
+    (lessonId: string, currentCompleted: Set<string>): boolean => {
+      const mod = currentProgram.modules.find((m) =>
+        m.lessons.some((l) => l.id === lessonId)
+      );
+      if (!mod) return true;
+
+      if (membershipTier === 'free' && (mod.number === 3 || mod.number === 5)) {
+        return false;
+      }
+
+      const idxInModule = mod.lessons.findIndex((l) => l.id === lessonId);
+      if (idxInModule <= 0) return true;
+
+      for (let k = 0; k < idxInModule; k++) {
+        if (!currentCompleted.has(mod.lessons[k]!.id)) {
+          return false;
+        }
+      }
+      return true;
+    },
+    [currentProgram, membershipTier]
+  );
+
+  // Helper to find the previous available & unlocked lesson (skipping approved tests and locked VIP modules)
+  const getPreviousAvailableLesson = useCallback(
+    (fromLesson: CampusLesson): CampusLesson | null => {
+      const curIdx = allLessons.findIndex((l) => l.id === fromLesson.id);
+      if (curIdx <= 0) return null;
+
+      for (let i = curIdx - 1; i >= 0; i--) {
+        const candidate = allLessons[i]!;
+
+        // 1. Skip locked modules in Free tier
+        if (membershipTier === 'free' && (candidate.moduleNumber === 3 || candidate.moduleNumber === 5)) {
+          continue;
+        }
+
+        // 2. Skip evaluations that are ALREADY APPROVED
+        if (candidate.type === 'evaluacion' && completedLessons.has(candidate.id)) {
+          continue;
+        }
+
+        // 3. Must be unlocked
+        if (isLessonUnlocked(candidate.id, completedLessons)) {
+          return candidate;
+        }
+      }
+
+      return null;
+    },
+    [allLessons, completedLessons, isLessonUnlocked, membershipTier]
+  );
+
+  // Helper to find the next available lesson (skipping approved tests and locked VIP modules)
+  const getNextAvailableLesson = useCallback(
+    (
+      fromLesson: CampusLesson,
+      currentCompleted?: Set<string>
+    ): CampusLesson | null => {
+      const compSet = currentCompleted || completedLessons;
+      const curIdx = allLessons.findIndex((l) => l.id === fromLesson.id);
+      if (curIdx < 0 || curIdx >= allLessons.length - 1) return null;
+
+      for (let i = curIdx + 1; i < allLessons.length; i++) {
+        const candidate = allLessons[i]!;
+
+        // 1. Skip locked modules in Free tier
+        if (membershipTier === 'free' && (candidate.moduleNumber === 3 || candidate.moduleNumber === 5)) {
+          continue;
+        }
+
+        // 2. Skip evaluations that are ALREADY APPROVED
+        if (candidate.type === 'evaluacion' && compSet.has(candidate.id)) {
+          continue;
+        }
+
+        return candidate;
+      }
+
+      return null;
+    },
+    [allLessons, completedLessons, membershipTier]
+  );
+
+  // Lesson navigation availability
+  const hasPrev = useMemo(() => {
+    return getPreviousAvailableLesson(selectedLesson) !== null;
+  }, [selectedLesson, getPreviousAvailableLesson]);
+
+  const hasNext = useMemo(() => {
+    return getNextAvailableLesson(selectedLesson) !== null;
+  }, [selectedLesson, getNextAvailableLesson]);
 
   const handlePrevLesson = () => {
     setActiveCelebrationModule(null);
-    if (hasPrev && allLessons[currentIndex - 1]) {
-      setSelectedLesson(allLessons[currentIndex - 1]!);
+    const targetPrev = getPreviousAvailableLesson(selectedLesson);
+    if (targetPrev) {
+      setSelectedLesson(targetPrev);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -291,13 +382,26 @@ function CampusContent() {
       currentMod &&
       currentMod.lessons[currentMod.lessons.length - 1]?.id === lessonId;
 
-    if (isLastLessonInMod) {
-      // STOP and render the celebration screen!
+    // Check if ALL lessons of this module were already completed BEFORE this click
+    const wasModuleAlreadyCompleted = currentMod
+      ? currentMod.lessons.every((l) => completedLessons.has(l.id))
+      : false;
+
+    if (isLastLessonInMod && !wasModuleAlreadyCompleted) {
+      // STOP and render the celebration screen ONLY on the first time completing the module!
       setActiveCelebrationModule(currentMod);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else if (hasNext && allLessons[currentIndex + 1]) {
-      setSelectedLesson(allLessons[currentIndex + 1]!);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Find next available lesson (skipping approved tests and locked VIP modules)
+      const targetNext = getNextAvailableLesson(selectedLesson, nextSet);
+      if (targetNext) {
+        setSelectedLesson(targetNext);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        // All accessible lessons finished
+        setActiveCelebrationModule(currentMod || null);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
