@@ -20,10 +20,10 @@ import styles from './Navbar.module.css';
 const navLinks = [
   { label: 'Inicio', href: '/' },
   { label: 'Campus Virtual', href: '/campus', isCampus: true },
-  { label: 'Experiencia Búsqueda Laboral', href: '/experiencia' },
-  { label: 'Cursos & Talleres', href: '/cursos' },
-  { label: 'Recursos Gratis', href: '/recursos' },
-  { label: 'Sobre la Academia', href: '/sobre-nosotros' },
+  { label: 'Experiencia', href: '/experiencia' },
+  { label: 'Cursos', href: '/cursos' },
+  { label: 'Recursos', href: '/recursos' },
+  { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
   { label: 'Contacto', href: '/contacto' },
 ];
 
@@ -144,12 +144,6 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className={styles.actions}>
-            <Link href="/campus" className={styles.campusNavDirectBtn} title="Ingresar al Campus Virtual de Alumnos">
-              <GraduationCap size={17} className={styles.campusNavCapIcon} />
-              <span>Campus Virtual</span>
-              <span className={styles.campusLivePulse} />
-            </Link>
-
             <Button
               href="/experiencia"
               variant="primary"
