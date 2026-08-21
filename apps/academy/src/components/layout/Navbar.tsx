@@ -19,6 +19,7 @@ import styles from './Navbar.module.css';
 
 const navLinks = [
   { label: 'Inicio', href: '/' },
+  { label: 'Campus Virtual', href: '/campus', isCampus: true },
   { label: 'Experiencia Búsqueda Laboral', href: '/experiencia' },
   { label: 'Cursos & Talleres', href: '/cursos' },
   { label: 'Recursos Gratis', href: '/recursos' },
@@ -130,9 +131,11 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`${styles.navLink} ${active ? styles.navLinkActive : ''}`}
+                  className={`${styles.navLink} ${active ? styles.navLinkActive : ''} ${link.isCampus ? styles.navLinkCampusHighlight : ''}`}
                 >
-                  {link.label}
+                  {link.isCampus && <GraduationCap size={15} className={styles.navCampusIcon} />}
+                  <span>{link.label}</span>
+                  {link.isCampus && <span className={styles.campusNavPill}>Alumnos</span>}
                   {active && <span className={styles.activeIndicator} />}
                 </Link>
               );
@@ -141,6 +144,12 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className={styles.actions}>
+            <Link href="/campus" className={styles.campusNavDirectBtn} title="Ingresar al Campus Virtual de Alumnos">
+              <GraduationCap size={17} className={styles.campusNavCapIcon} />
+              <span>Campus Virtual</span>
+              <span className={styles.campusLivePulse} />
+            </Link>
+
             <Button
               href="/experiencia"
               variant="primary"
@@ -182,6 +191,21 @@ export function Navbar() {
               </div>
             </div>
 
+            {/* Mobile Direct Access to Campus */}
+            <Link href="/campus" className={styles.mobileCampusCardLink}>
+              <div className={styles.mobileCampusCardIcon}>
+                <GraduationCap size={20} />
+              </div>
+              <div className={styles.mobileCampusCardInfo}>
+                <div className={styles.mobileCampusCardTitle}>
+                  <strong>Ingresar al Campus Virtual</strong>
+                  <span className={styles.campusLivePulse} />
+                </div>
+                <small>Clases, 7 módulos, Tablero y Tracker</small>
+              </div>
+              <ArrowRight size={16} className={styles.mobileCampusCardArrow} />
+            </Link>
+
             <div className={styles.mobileDivider} />
 
             {/* Mobile Nav Links */}
@@ -194,8 +218,12 @@ export function Navbar() {
                     href={link.href}
                     className={`${styles.mobileNavLink} ${active ? styles.mobileNavLinkActive : ''}`}
                   >
-                    <span>{link.label}</span>
-                    {active && <span className={styles.activeBadge}>Activo</span>}
+                    <span className={styles.mobileNavLinkLabel}>
+                      {link.isCampus && <GraduationCap size={16} className={styles.mobileNavCampusIcon} />}
+                      {link.label}
+                    </span>
+                    {link.isCampus && <span className={styles.campusNavPill}>Alumnos</span>}
+                    {active && !link.isCampus && <span className={styles.activeBadge}>Activo</span>}
                   </Link>
                 );
               })}

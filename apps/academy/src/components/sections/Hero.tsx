@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   Sparkles,
   ArrowRight,
@@ -10,6 +11,7 @@ import {
   Table,
   BadgePercent,
   Check,
+  GraduationCap,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
@@ -27,11 +29,20 @@ export function Hero() {
         <div className={styles.heroGrid}>
           {/* LEFT: Copy, Value Proposition & Action CTAs */}
           <div className={styles.copyCol}>
-            <div className={styles.badgeWrap}>
-              <Badge variant="primary" size="md">
-                <Zap size={13} className={styles.zapIcon} />
-                <span>Experiencia Búsqueda Laboral</span>
-              </Badge>
+            <div className={styles.badgeRow}>
+              <div className={styles.badgeWrap}>
+                <Badge variant="primary" size="md">
+                  <Zap size={13} className={styles.zapIcon} />
+                  <span>Experiencia Búsqueda Laboral</span>
+                </Badge>
+              </div>
+
+              <Link href="/campus" className={styles.heroCampusQuickPill} title="Ir directamente al Campus Virtual">
+                <GraduationCap size={15} className={styles.heroCampusCapIcon} />
+                <span>¿Querés probar las clases?</span>
+                <strong>Entrar al Campus</strong>
+                <ArrowRight size={13} />
+              </Link>
             </div>
 
             <h1 className={styles.title}>
@@ -44,14 +55,19 @@ export function Hero() {
             </p>
 
             <div className={styles.ctaGroup}>
-              <Button href="/experiencia" variant="primary" size="lg" className={styles.primaryBtn}>
-                <span>Conocer la Experiencia Búsqueda Laboral</span>
+              <Button href="/campus" variant="primary" size="lg" className={styles.primaryBtn}>
+                <GraduationCap size={20} />
+                <span>Ingresar al Campus Virtual</span>
                 <ArrowRight size={18} />
               </Button>
 
-              <Button href="/recursos" variant="outline" size="lg" className={styles.secondaryBtn}>
-                <FolderDown size={18} />
-                <span>Descargar plantillas gratis</span>
+              <Button href="/experiencia" variant="outline" size="lg" className={styles.secondaryBtn}>
+                <span>Conocer el Programa</span>
+              </Button>
+
+              <Button href="/recursos" variant="ghost" size="md" className={styles.tertiaryBtn}>
+                <FolderDown size={17} />
+                <span>Plantillas gratis</span>
               </Button>
             </div>
 

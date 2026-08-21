@@ -48,8 +48,55 @@
   flex-direction: column;
 }
 
-.badgeWrap {
+.badgeRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.875rem;
   margin-bottom: 1.25rem;
+}
+
+.badgeWrap {
+  margin-bottom: 0;
+}
+
+.heroCampusQuickPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: #6D28D9;
+  background: linear-gradient(135deg, #FAF5FF 0%, #F3E8FF 100%);
+  border: 1px solid #DDD6FE;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.1);
+}
+
+.heroCampusQuickPill:hover {
+  background: #7C3AED;
+  color: #FFFFFF;
+  border-color: #6D28D9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+}
+
+.heroCampusCapIcon {
+  color: #7C3AED;
+  transition: color 0.2s ease;
+}
+
+.heroCampusQuickPill:hover .heroCampusCapIcon {
+  color: #FFFFFF;
+}
+
+.heroCampusQuickPill strong {
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .zapIcon {
@@ -109,6 +156,14 @@
 .secondaryBtn {
   font-size: 1rem;
   padding: 0.875rem 1.5rem;
+}
+
+.tertiaryBtn {
+  font-size: 0.9375rem;
+  color: var(--fm-azul-marino);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
 .proofRow {
