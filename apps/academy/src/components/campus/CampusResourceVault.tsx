@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import {
-  Download,
+  Eye,
   Search,
   Layers,
   Sparkles,
@@ -11,6 +11,8 @@ import {
   ArrowLeft,
 } from 'lucide-react';
 import { allCampusResources, CampusResource, campusPrograms } from '@/data/campus';
+import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
+import { InAppDocumentModal } from '@/components/campus/InAppDocumentModal';
 import styles from './CampusResourceVault.module.css';
 
 interface CampusResourceVaultProps {
@@ -29,6 +31,8 @@ export function CampusResourceVault({
   const [selectedFormat, setSelectedFormat] = useState<string>('todos');
   const [selectedProgram, setSelectedProgram] = useState<string>(currentProgramId || 'todos');
   const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
 
   const formats = [
     { id: 'todos', label: 'Todos los formatos' },
@@ -65,8 +69,22 @@ export function CampusResourceVault({
     });
   }, [selectedFormat, selectedProgram, searchQuery]);
 
-  const handleDownload = (res: CampusResource) => {
-    alert(`Descargando recurso gratuito: ${res.title} (${res.type.toUpperCase()})`);
+  const handleOpenDoc = (res: CampusResource) => {
+    let slug = 'checklist-optimizacion-cv-ats';
+    const lower = res.title.toLowerCase();
+    if (lower.includes('plantilla') || lower.includes('cv')) {
+      slug = 'plantilla-estructura-cv-editorial';
+    } else if (lower.includes('linkedin')) {
+      slug = 'guia-optimizacion-linkedin-2025';
+    } else if (lower.includes('portal') || lower.includes('remoto')) {
+      slug = 'directorio-portales-empleo-remoto';
+    } else if (lower.includes('sueldo') || lower.includes('negociacion')) {
+      slug = 'matriz-sueldos-negociacion';
+    } else if (lower.includes('star') || lower.includes('entrevista')) {
+      slug = 'framework-star-entrevistas';
+    }
+    const doc = getInAppDocumentByIdOrSlug(slug);
+    setSelectedDoc(doc);
   };
 
   const getFormatBadgeStyle = (type: CampusResource['type']) => {
@@ -103,15 +121,15 @@ export function CampusResourceVault({
       {/* Header */}
       <div className={styles.vaultHeader}>
         <div>
-          <h2 className={styles.vaultTitle}>Biblioteca Central de Recursos & Plantillas</h2>
+          <h2 className={styles.vaultTitle}>Biblioteca Central de Recursos & Plantillas In-App</h2>
           <p className={styles.vaultSubtitle}>
-            Accedé y descargá todas las plantillas en Word, bases de datos de Notion, guías PDF y matrices de cálculo de tus programas.
+            Accedé y visualizá en pantalla todas las plantillas, checklists auditables, guías estratégicas y matrices de tus programas.
           </p>
         </div>
 
         <div className={styles.countPill}>
           <Layers size={15} />
-          <span>{filteredResources.length} materiales disponibles</span>
+          <span>{filteredResources.length} materiales protegidos</span>
         </div>
       </div>
 
@@ -202,7 +220,7 @@ export function CampusResourceVault({
                         <span>EXCLUSIVO VIP</span>
                       </span>
                     ) : (
-                      <span className={styles.freeBadge}>GRATUITO</span>
+                      <span className={styles.freeBadge}>IN-APP</span>
                     )}
                   </div>
                   {res.fileSize && <span className={styles.sizeText}>{res.fileSize}</span>}
@@ -238,10 +256,11 @@ export function CampusResourceVault({
                     <button
                       type="button"
                       className={styles.downloadBtn}
-                      onClick={() => handleDownload(res)}
+                      onClick={() => handleOpenDoc(res)}
+                      title="Abrir y visualizar material en la plataforma"
                     >
-                      <Download size={15} />
-                      <span>Descargar Recurso</span>
+                      <Eye size={15} />
+                      <span>Visualizar en Pantalla</span>
                     </button>
                   )}
                 </div>
@@ -267,6 +286,15 @@ export function CampusResourceVault({
           </div>
         )}
       </div>
+
+      {/* In-App Document Modal */}
+      {selectedDoc && (
+        <InAppDocumentModal
+          document={selectedDoc}
+          isOpen={!!selectedDoc}
+          onClose={() => setSelectedDoc(null)}
+        />
+      )}
     </div>
   );
 }

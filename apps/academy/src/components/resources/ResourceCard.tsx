@@ -76,7 +76,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
           size="sm"
           className={styles.actionBtn}
         >
-          <span>Acceder</span>
+          <span>Ver In-App</span>
           <ArrowRight size={13} />
         </Button>
       </div>

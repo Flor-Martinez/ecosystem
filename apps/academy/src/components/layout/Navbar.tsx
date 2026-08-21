@@ -15,6 +15,7 @@ import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { AuthWidget } from '@/components/auth/AuthWidget';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import styles from './Navbar.module.css';
 
 const navLinks = [
@@ -144,6 +145,8 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className={styles.actions}>
+            <ThemeToggle variant="navbar" />
+
             <Button
               href="/experiencia"
               variant="primary"

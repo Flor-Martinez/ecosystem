@@ -14,7 +14,7 @@ import {
   ChevronDown,
   ChevronUp,
   FileText,
-  Download,
+  Eye,
   Award,
   MessageSquare,
   Send,
@@ -24,6 +24,8 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
 import { CampusLesson, CampusProgram } from '@/data/campus';
+import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
+import { InAppDocumentModal } from '@/components/campus/InAppDocumentModal';
 import styles from './CampusPlayer.module.css';
 
 interface CampusPlayerProps {
@@ -62,6 +64,27 @@ export function CampusPlayer({
   const [isZoomAccordionOpen, setIsZoomAccordionOpen] = useState(false);
   const [questionText, setQuestionText] = useState('');
   const [questionSent, setQuestionSent] = useState(false);
+
+  // In-App Document Viewer state
+  const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
+
+  const handleOpenDoc = (resourceTitle: string) => {
+    let slug = 'checklist-optimizacion-cv-ats';
+    const lower = resourceTitle.toLowerCase();
+    if (lower.includes('plantilla') || lower.includes('cv')) {
+      slug = 'plantilla-estructura-cv-editorial';
+    } else if (lower.includes('linkedin')) {
+      slug = 'guia-optimizacion-linkedin-2025';
+    } else if (lower.includes('portal') || lower.includes('remoto')) {
+      slug = 'directorio-portales-empleo-remoto';
+    } else if (lower.includes('sueldo') || lower.includes('negociacion')) {
+      slug = 'matriz-sueldos-negociacion';
+    } else if (lower.includes('star') || lower.includes('entrevista')) {
+      slug = 'framework-star-entrevistas';
+    }
+    const doc = getInAppDocumentByIdOrSlug(slug);
+    setSelectedDoc(doc);
+  };
 
   // Quiz state (for evaluation lessons)
   const isEvaluationLesson = lesson.type === 'evaluacion';
@@ -477,10 +500,10 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IF ANY) */}
+          {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
             <div className={styles.resourcesCard}>
-              <h2 className={styles.sectionHeading}>Plantillas & Archivos Descargables</h2>
+              <h2 className={styles.sectionHeading}>Plantillas & Documentos de la Clase</h2>
               <div className={styles.resourcesList}>
                 {lesson.resources.map((res) => (
                   <div key={res.id} className={styles.resourceCard}>
@@ -490,20 +513,18 @@ export function CampusPlayer({
                     <div className={styles.resInfo}>
                       <strong className={styles.resTitle}>{res.title}</strong>
                       <span className={styles.resMeta}>
-                        {res.category} {res.fileSize ? `· ${res.fileSize}` : ''}
+                        {res.category} · Visualización In-App Protegida
                       </span>
                     </div>
-                    <a
-                      href={res.url}
+                    <button
+                      type="button"
                       className={styles.resDownloadBtn}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert(`Descargando plantilla: ${res.title}`);
-                      }}
+                      onClick={() => handleOpenDoc(res.title)}
+                      title="Abrir y visualizar material en la plataforma"
                     >
-                      <Download size={14} />
-                      <span>Descargar</span>
-                    </a>
+                      <Eye size={14} />
+                      <span>Ver en Pantalla</span>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -629,6 +650,16 @@ export function CampusPlayer({
           <ChevronRight size={16} />
         </button>
       </nav>
+
+      {/* In-App Protected Document Modal */}
+      {selectedDoc && (
+        <InAppDocumentModal
+          document={selectedDoc}
+          isOpen={!!selectedDoc}
+          onClose={() => setSelectedDoc(null)}
+          studentName={user?.name || 'Alumno Academia'}
+        />
+      )}
     </div>
   );
 }

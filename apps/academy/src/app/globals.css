@@ -115,6 +115,44 @@
   --transition-bounce: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ==========================================================================
+   DARK THEME OVERRIDES (Easily reversible)
+   ========================================================================== */
+[data-theme='dark'] {
+  --fm-bg: #0B0F19;
+  --fm-marfil: #0F172A;
+  --fm-marfil-light: #090D16;
+  --fm-surface: #111827;
+  --fm-surface-card: #141E33;
+  --fm-surface-subtle: #182238;
+  --fm-surface-violet: #1E1B4B;
+  --fm-surface-dark: #070A10;
+
+  --fm-border: #26334D;
+  --fm-border-light: #1E293B;
+  --fm-border-subtle: #1F2A3F;
+  --fm-border-dark: #334155;
+
+  --fm-text-primary: #F8FAFC;
+  --fm-text-secondary: #CBD5E1;
+  --fm-text-muted: #94A3B8;
+  --fm-text-subtle: #64748B;
+  --fm-text-inverse: #0F172A;
+  --fm-text-violet: #C4B5FD;
+
+  --fm-azul-marino: #F1F5F9;
+  --fm-azul-profundo: #E2E8F0;
+  --fm-azul-slate: #94A3B8;
+
+  --fm-primary-subtle: #1E1B4B;
+  --fm-primary-border: #4C1D95;
+
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.65);
+  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.8);
+}
+
 /* Base Reset & Typography Defaults */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -129,6 +167,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 body {
@@ -139,6 +178,7 @@ body {
   color: var(--fm-text-primary);
   background-color: var(--fm-marfil-light);
   line-height: 1.6;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 main {

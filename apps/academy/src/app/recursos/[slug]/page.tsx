@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import {
-  Download,
   FileText,
   CheckCircle2,
   ShieldCheck,
@@ -18,6 +17,7 @@ import { Button } from '@/components/ui/Button';
 import { ResourceCard } from '@/components/resources/ResourceCard';
 import { resourcesData } from '@/data/resources';
 import { coursesData } from '@/data/courses';
+import { RecursoReaderView } from './RecursoReaderView';
 import styles from './recurso-detail.module.css';
 
 interface PageProps {
@@ -82,7 +82,7 @@ export default async function RecursoDetailPage({ params }: PageProps) {
                   <FileText size={14} />
                   <span>{resource.type}</span>
                 </span>
-                <span className={styles.freeBadge}>100% Gratuito</span>
+                <span className={styles.freeBadge}>100% In-App</span>
                 {resource.badge && (
                   <Badge variant="primary" size="md">
                     {resource.badge}
@@ -135,32 +135,27 @@ export default async function RecursoDetailPage({ params }: PageProps) {
                   </div>
                 </div>
               )}
+
+              {/* In-App Interactive Document Reader View */}
+              <div className={styles.readerWrapper} style={{ marginTop: '2.5rem' }}>
+                <RecursoReaderView slug={resource.slug} />
+              </div>
             </div>
 
-            {/* Right Sidebar: Download Box & Recommended Course */}
+            {/* Right Sidebar: In-App Access Box & Recommended Course */}
             <div className={styles.sidebarCol}>
               <div className={styles.downloadCard}>
                 <div className={styles.downloadIconWrap}>
                   <FolderDown size={32} />
                 </div>
-                <h3 className={styles.downloadTitle}>Acceso Inmediato</h3>
+                <h3 className={styles.downloadTitle}>Lectura In-App Protegida</h3>
                 <p className={styles.downloadDesc}>
-                  Descargá el archivo en formato {resource.format} directamente para empezar a usarlo.
+                  Accedé a la guía interactiva, fórmulas de redacción y checklists directamente en esta página.
                 </p>
 
-                <Button
-                  href={resource.downloadUrl || '#'}
-                  variant="primary"
-                  size="lg"
-                  className={styles.downloadBtn}
-                >
-                  <Download size={18} />
-                  <span>Descargar recurso gratis</span>
-                </Button>
-
-                <div className={styles.securityTag}>
-                  <ShieldCheck size={14} />
-                  <span>Sin registro obligatorio · Descarga directa</span>
+                <div className={styles.securityTag} style={{ marginTop: '0.5rem' }}>
+                  <ShieldCheck size={16} />
+                  <span>Sin descargas externas · 100% en la plataforma</span>
                 </div>
               </div>
 

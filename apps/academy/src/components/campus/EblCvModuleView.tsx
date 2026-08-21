@@ -6,15 +6,16 @@ import {
   PlayCircle,
   Sparkles,
   Wand2,
-  Download,
+  Eye,
   FileText,
   CheckCircle2,
   AlertCircle,
   Bot,
   ShoppingBag,
-  ExternalLink,
 } from 'lucide-react';
 import { campusPrograms, CampusLesson } from '@/data/campus';
+import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
+import { InAppDocumentModal } from './InAppDocumentModal';
 import { CampusPlayer } from './CampusPlayer';
 import { CampusTabs } from './CampusTabs';
 import styles from './EblCvModuleView.module.css';
@@ -31,6 +32,7 @@ export function EblCvModuleView({
   onToggleComplete,
 }: EblCvModuleViewProps) {
   const [activeSubTab, setActiveSubTab] = useState<'videos' | 'ia-feedback' | 'servicio-vip' | 'plantillas'>('videos');
+  const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
 
   // Module 1 lessons from EBL
   const eblProgram = campusPrograms[0]!;
@@ -128,8 +130,8 @@ export function EblCvModuleView({
           className={`${styles.subTab} ${activeSubTab === 'plantillas' ? styles.subTabActive : ''}`}
           onClick={() => setActiveSubTab('plantillas')}
         >
-          <Download size={16} />
-          <span>Plantillas Word & Notion</span>
+          <FileText size={16} />
+          <span>Plantillas & Modelos In-App</span>
         </button>
       </div>
 
@@ -365,44 +367,53 @@ export function EblCvModuleView({
         </div>
       )}
 
-      {/* SUB-VIEW 4: PLANTILLAS DESCARGABLES */}
+      {/* SUB-VIEW 4: PLANTILLAS & MODELOS IN-APP */}
       {activeSubTab === 'plantillas' && (
         <div className={styles.templatesSection}>
           <div className={styles.templatesHeader}>
-            <h3>Plantillas Oficiales del Módulo 01</h3>
-            <p>Descargá los modelos editables testeados con algoritmos de selección.</p>
+            <h3>Plantillas & Modelos Oficiales del Módulo 01</h3>
+            <p>Visualizá y utilizá los modelos editoriales testeados con algoritmos de selección dentro del campus.</p>
           </div>
 
           <div className={styles.templatesGrid}>
             <div className={styles.templateCard}>
               <FileText size={32} className={styles.docIcon} />
-              <h4>Plantilla CV ATS Editorial (Word .docx)</h4>
-              <p>Formato a 1 columna sin tablas complejas, con jerarquía tipográfica estándar para lectores ópticos.</p>
+              <h4>Plantilla de CV Editorial de 1 Página (ATS)</h4>
+              <p>Formato a 1 columna sin tablas complejas, con jerarquía tipográfica estándar y fórmulas de viñetas cuantificables.</p>
               <button
                 type="button"
                 className={styles.downloadTplBtn}
-                onClick={() => alert('Descargando Plantilla Word ATS...')}
+                onClick={() => setSelectedDoc(getInAppDocumentByIdOrSlug('plantilla-estructura-cv-editorial'))}
               >
-                <Download size={15} />
-                <span>Descargar Word (.docx)</span>
+                <Eye size={15} />
+                <span>Visualizar en Pantalla</span>
               </button>
             </div>
 
             <div className={styles.templateCard}>
               <FileText size={32} className={styles.notionIcon} />
-              <h4>Plantilla CV Modular en Notion</h4>
-              <p>Base de datos duplicable para gestionar múltiples variantes de tu experiencia y exportar a PDF limpio.</p>
+              <h4>Checklist de 25 Puntos para Auditar tu CV</h4>
+              <p>Lista interactiva auditable punto a punto para verificar formato, palabras clave y métricas antes de postularte.</p>
               <button
                 type="button"
                 className={styles.downloadTplBtn}
-                onClick={() => alert('Abriendo plantilla de Notion para duplicar...')}
+                onClick={() => setSelectedDoc(getInAppDocumentByIdOrSlug('checklist-optimizacion-cv-ats'))}
               >
-                <ExternalLink size={15} />
-                <span>Duplicar en Notion</span>
+                <Eye size={15} />
+                <span>Abrir Checklist In-App</span>
               </button>
             </div>
           </div>
         </div>
+      )}
+
+      {/* In-App Document Modal */}
+      {selectedDoc && (
+        <InAppDocumentModal
+          document={selectedDoc}
+          isOpen={!!selectedDoc}
+          onClose={() => setSelectedDoc(null)}
+        />
       )}
     </div>
   );

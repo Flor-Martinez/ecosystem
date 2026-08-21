@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import {
   FileText,
-  Download,
+  Eye,
   BookOpen,
   CheckCircle2,
   Send,
@@ -11,6 +11,8 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import { CampusLesson } from '@/data/campus';
+import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
+import { InAppDocumentModal } from '@/components/campus/InAppDocumentModal';
 import styles from './CampusTabs.module.css';
 
 interface CampusTabsProps {
@@ -21,6 +23,26 @@ export function CampusTabs({ lesson }: CampusTabsProps) {
   const [activeTab, setActiveTab] = useState<'recursos' | 'apuntes' | 'dudas'>('recursos');
   const [questionText, setQuestionText] = useState('');
   const [questionSent, setQuestionSent] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
+
+  const handleOpenInAppDoc = (resourceTitle: string) => {
+    // Map title to document or fallback
+    let slug = 'checklist-optimizacion-cv-ats';
+    const lower = resourceTitle.toLowerCase();
+    if (lower.includes('plantilla') || lower.includes('cv')) {
+      slug = 'plantilla-estructura-cv-editorial';
+    } else if (lower.includes('linkedin')) {
+      slug = 'guia-optimizacion-linkedin-2025';
+    } else if (lower.includes('portal') || lower.includes('remoto')) {
+      slug = 'directorio-portales-empleo-remoto';
+    } else if (lower.includes('sueldo') || lower.includes('negociacion')) {
+      slug = 'matriz-sueldos-negociacion';
+    } else if (lower.includes('star') || lower.includes('entrevista')) {
+      slug = 'framework-star-entrevistas';
+    }
+    const doc = getInAppDocumentByIdOrSlug(slug);
+    setSelectedDoc(doc);
+  };
 
   const handleSubmitQuestion = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,7 +86,7 @@ export function CampusTabs({ lesson }: CampusTabsProps) {
 
       {/* Tab Contents */}
       <div className={styles.tabBody}>
-        {/* TAB 1: RECURSOS & DESCARGAS */}
+        {/* TAB 1: RECURSOS & MATERIALES IN-APP */}
         {activeTab === 'recursos' && (
           <div className={styles.resourcesTab}>
             {lesson.resources.length > 0 ? (
@@ -77,20 +99,18 @@ export function CampusTabs({ lesson }: CampusTabsProps) {
                     <div className={styles.resInfo}>
                       <strong className={styles.resTitle}>{res.title}</strong>
                       <span className={styles.resMeta}>
-                        Formato: {res.type.toUpperCase()} {res.fileSize ? `· ${res.fileSize}` : ''}
+                        Formato: {res.type.toUpperCase()} · Visualización In-App Protegida
                       </span>
                     </div>
-                    <a
-                      href={res.url}
+                    <button
+                      type="button"
                       className={styles.downloadBtn}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert(`Descargando recurso: ${res.title}`);
-                      }}
+                      onClick={() => handleOpenInAppDoc(res.title)}
+                      title="Abrir y visualizar material en la plataforma"
                     >
-                      <Download size={15} />
-                      <span>Descargar</span>
-                    </a>
+                      <Eye size={15} />
+                      <span>Ver en Pantalla</span>
+                    </button>
                   </div>
                 ))}
               </div>
@@ -162,6 +182,15 @@ export function CampusTabs({ lesson }: CampusTabsProps) {
           </div>
         )}
       </div>
+
+      {/* In-App Protected Document Modal */}
+      {selectedDoc && (
+        <InAppDocumentModal
+          document={selectedDoc}
+          isOpen={!!selectedDoc}
+          onClose={() => setSelectedDoc(null)}
+        />
+      )}
     </div>
   );
 }

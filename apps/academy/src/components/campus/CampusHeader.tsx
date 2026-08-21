@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { campusPrograms, CampusProgram } from '@/data/campus';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import styles from './CampusHeader.module.css';
 
 interface CampusHeaderProps {
@@ -331,6 +332,9 @@ export function CampusHeader({
               )}
             </button>
           )}
+
+          {/* Theme Mode Switcher */}
+          <ThemeToggle variant="header" />
 
           {/* User Section */}
           <div className={styles.userSection}>
