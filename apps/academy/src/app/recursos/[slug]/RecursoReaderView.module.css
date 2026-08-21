@@ -38,12 +38,6 @@
   width: fit-content;
 }
 
-[data-theme='dark'] .secBadge {
-  background-color: rgba(6, 95, 70, 0.25);
-  border-color: #047857;
-  color: #34D399;
-}
-
 .actionTitle {
   font-size: 1.15rem;
   font-weight: 800;
@@ -175,22 +169,10 @@
   color: #9A3412;
 }
 
-[data-theme='dark'] .calloutWarning {
-  background-color: rgba(154, 52, 18, 0.2);
-  border-color: #EA580C;
-  color: #FDBA74;
-}
-
 .calloutFormula {
   background-color: #F0FDF4;
   border: 1.5px solid #BBF7D0;
   color: #166534;
-}
-
-[data-theme='dark'] .calloutFormula {
-  background-color: rgba(22, 101, 52, 0.2);
-  border-color: #16A34A;
-  color: #86EFAC;
 }
 
 .calloutIcon {
@@ -277,11 +259,6 @@
 .itemDone {
   background-color: #F0FDF4 !important;
   border-color: #86EFAC !important;
-}
-
-[data-theme='dark'] .itemDone {
-  background-color: rgba(22, 101, 52, 0.25) !important;
-  border-color: #15803D !important;
 }
 
 .checkCircle {
