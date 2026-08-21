@@ -384,7 +384,7 @@ export function CampusSidebar({
                             className={`${styles.modBadge} ${
                               isAllCompleted
                                 ? styles.modBadgeDone
-                                : isInProgress
+                                : isInProgress || isOpenAccordion
                                 ? styles.modBadgeActive
                                 : styles.modBadgePending
                             }`}
@@ -406,7 +406,11 @@ export function CampusSidebar({
                               <span>En curso</span>
                             </span>
                           ) : (
-                            <span className={styles.statusPillPending}>
+                            <span
+                              className={`${styles.statusPillPending} ${
+                                isOpenAccordion ? styles.statusPillPendingOpen : ''
+                              }`}
+                            >
                               <span>Pendiente</span>
                             </span>
                           )}

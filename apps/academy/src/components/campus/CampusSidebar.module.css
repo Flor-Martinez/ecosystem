@@ -377,16 +377,18 @@
 }
 
 /* Overall Motivational Progress Card */
+/* Overall Motivational Progress Card (Matching Tablero Style) */
 .overallProgressCard {
   margin: 0 0.75rem 1rem;
-  padding: 1rem 1.15rem;
-  background: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+  padding: 1.15rem 1.25rem;
+  background: linear-gradient(135deg, #1E1B4B 0%, #0F172A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-xl);
   color: #FFFFFF;
-  box-shadow: 0 8px 20px rgba(30, 27, 75, 0.25);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.35);
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .overallProgressTop {
@@ -397,50 +399,52 @@
 
 .overallProgressTitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.75rem;
+  font-size: 0.78125rem;
   font-weight: 700;
-  color: #E0E7FF;
+  color: #DDD6FE;
+  letter-spacing: 0.01em;
 }
 
 .overallProgressPercent {
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 800;
-  color: #FDE047;
+  color: #34D399;
+  line-height: 1;
 }
 
 .overallProgressBarBg {
   width: 100%;
-  height: 8px;
-  background-color: rgba(255, 255, 255, 0.15);
+  height: 7px;
+  background-color: rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
 
 .overallProgressBarFill {
   height: 100%;
-  background: linear-gradient(90deg, #F59E0B 0%, #10B981 100%);
+  background: linear-gradient(90deg, #7C3AED 0%, #10B981 100%);
   border-radius: var(--radius-full);
-  transition: width 0.4s ease;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .overallProgressMeta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 0.6875rem;
-  color: #C7D2FE;
+  font-size: 0.71875rem;
+  color: #A5B4FC;
   font-weight: 600;
 }
 
 .overallStatusDone {
-  color: #6EE7B7;
+  color: #34D399;
   font-weight: 800;
 }
 
 .overallStatusActive {
-  color: #FDE047;
-  font-weight: 800;
+  color: #DDD6FE;
+  font-weight: 700;
 }
 
 .sectionHeader {
@@ -512,6 +516,18 @@
 
 .moduleHeaderBtnPending:not(.moduleHeaderBtnActive):hover {
   background: #F1F5F9 !important;
+}
+
+.moduleHeaderBtnPending:not(.moduleHeaderBtnActive):hover .modBadgePending {
+  border-color: #94A3B8;
+  color: #1E293B;
+  background-color: #CBD5E1;
+}
+
+.moduleHeaderBtnPending:not(.moduleHeaderBtnActive):hover .statusPillPending:not(.statusPillPendingOpen) {
+  border-color: #CBD5E1;
+  color: #475569;
+  background-color: #E2E8F0;
 }
 
 .moduleItemOpen {
@@ -592,6 +608,7 @@
   color: #FFFFFF;
   background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
   border: 1px solid transparent;
+  box-shadow: 0 2px 6px rgba(124, 58, 237, 0.25);
 }
 
 .modBadgeDone {
@@ -624,6 +641,7 @@
   font-weight: 800;
   color: var(--fm-violeta-electric);
   background-color: var(--fm-violeta-subtle);
+  border: 1px solid rgba(124, 58, 237, 0.2);
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-full);
 }
@@ -633,8 +651,17 @@
   font-weight: 700;
   color: #64748B;
   background-color: #F1F5F9;
+  border: 1px solid #E2E8F0;
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.statusPillPendingOpen {
+  color: var(--fm-violeta-electric) !important;
+  background-color: #EDE9FE !important;
+  border-color: #DDD6FE !important;
+  font-weight: 800 !important;
 }
 
 .statusPillVipLocked {
