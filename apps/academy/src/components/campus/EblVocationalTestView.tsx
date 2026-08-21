@@ -19,6 +19,10 @@ import {
   Share2,
   Zap,
   GraduationCap,
+  Star,
+  AlertTriangle,
+  Send,
+  HelpCircle,
 } from 'lucide-react';
 import styles from './EblVocationalTestView.module.css';
 
@@ -32,7 +36,6 @@ type Archetype = 'estrategia' | 'analitico' | 'personas' | 'creativo';
 interface QuestionOption {
   text: string;
   archetype: Archetype;
-  detail: string;
 }
 
 interface Question {
@@ -51,22 +54,18 @@ const questions: Question[] = [
       {
         text: 'Analizar métricas, flujos de datos y reportes históricos para encontrar la causa raíz objetiva.',
         archetype: 'analitico',
-        detail: 'Enfoque basado en datos y diagnóstico riguroso.',
       },
       {
         text: 'Reunir al equipo, escuchar qué siente cada persona y facilitar un espacio para destrabar tensiones.',
         archetype: 'personas',
-        detail: 'Enfoque en relaciones humanas y empatía grupal.',
       },
       {
         text: 'Reestructurar los objetivos, priorizar el alcance del negocio y reasignar responsabilidades.',
         archetype: 'estrategia',
-        detail: 'Enfoque en visión ejecutiva y liderazgo de metas.',
       },
       {
         text: 'Proponer una lluvia de ideas con soluciones no convencionales y cambiar el formato de entrega.',
         archetype: 'creativo',
-        detail: 'Enfoque en innovación y pensamiento lateral.',
       },
     ],
   },
@@ -78,22 +77,18 @@ const questions: Question[] = [
       {
         text: 'Planificando hojas de ruta de productos, definiendo presupuestos y negociando con clientes clave.',
         archetype: 'estrategia',
-        detail: 'Orientación a impacto comercial y dirección.',
       },
       {
         text: 'Modelando hojas de cálculo, automatizando procesos y construyendo dashboards de control.',
         archetype: 'analitico',
-        detail: 'Orientación a precisión técnica y optimización.',
       },
       {
         text: 'Diseñando conceptos de comunicación, creando contenido de impacto o prototipando experiencias.',
         archetype: 'creativo',
-        detail: 'Orientación a narrativa visual y originalidad.',
       },
       {
         text: 'Entrevistando personas, acompañando procesos de mentoría y potenciando el clima laboral.',
         archetype: 'personas',
-        detail: 'Orientación al desarrollo humano y cultura.',
       },
     ],
   },
@@ -105,22 +100,18 @@ const questions: Question[] = [
       {
         text: 'Consultar a las personas más afectadas y buscar un consenso donde todos se sientan respaldados.',
         archetype: 'personas',
-        detail: 'Inteligencia social y compromiso del equipo.',
       },
       {
         text: 'Evaluar el costo de oportunidad, el alineamiento estratégico con el negocio y los riesgos comerciales.',
         archetype: 'estrategia',
-        detail: 'Pensamiento estratégico y retorno de inversión.',
       },
       {
         text: 'Construir una matriz de evaluación numérica para ponderar variables de manera lógica y neutral.',
         archetype: 'analitico',
-        detail: 'Metodología analítica y reducción de sesgos.',
       },
       {
         text: 'Confiar en la intuición creativa, probar un experimento rápido y pivotar según la respuesta.',
         archetype: 'creativo',
-        detail: 'Agilidad experimental y adaptabilidad.',
       },
     ],
   },
@@ -132,22 +123,18 @@ const questions: Question[] = [
       {
         text: 'Capacidad para detectar patrones numéricos, errores que otros pasan por alto y estructurar información.',
         archetype: 'analitico',
-        detail: 'Atención al detalle y consistencia.',
       },
       {
         text: 'Habilidad para inspirar a otros, mediar en conflictos y generar confianza genuina en minutos.',
         archetype: 'personas',
-        detail: 'Empatía y liderazgo interpersonal.',
       },
       {
         text: 'Visión de negocio para convertir ideas caóticas en proyectos ejecutables con metas claras.',
         archetype: 'estrategia',
-        detail: 'Pragmatismo ejecutivo y dirección.',
       },
       {
         text: 'Facilidad para comunicar ideas complejas de forma visual, fresca y atractiva para el público.',
         archetype: 'creativo',
-        detail: 'Comunicación persuasiva y estilo visual.',
       },
     ],
   },
@@ -159,22 +146,18 @@ const questions: Question[] = [
       {
         text: 'Lanzamiento de una nueva campaña de marca y rediseño integral de la experiencia de usuario.',
         archetype: 'creativo',
-        detail: 'Posicionamiento y creatividad.',
       },
       {
         text: 'Expansión de una nueva línea de negocios y cierre de alianzas estratégicas internacionales.',
         archetype: 'estrategia',
-        detail: 'Desarrollo corporativo y crecimiento.',
       },
       {
         text: 'Programa de bienestar, capacitación de talento y plan de carrera para los colaboradores.',
         archetype: 'personas',
-        detail: 'Cultura organizacional y gestión de personas.',
       },
       {
         text: 'Implementación de un sistema de Business Intelligence y optimización de costos operativos.',
         archetype: 'analitico',
-        detail: 'Eficiencia y transformación de datos.',
       },
     ],
   },
@@ -186,22 +169,18 @@ const questions: Question[] = [
       {
         text: 'Busco herramientas de automatización, macros o scripts para sistematizarla y no volver a hacerla a mano.',
         archetype: 'analitico',
-        detail: 'Eficiencia técnica y automatización.',
       },
       {
         text: 'Evalúo si la tarea aporta valor real al negocio; si no, propongo eliminarla o delegarla estratégicamente.',
         archetype: 'estrategia',
-        detail: 'Enfoque en priorización y rentabilidad del tiempo.',
       },
       {
         text: 'Le busco una vuelta estética o un formato visual diferente para que sea más entretenida y visual.',
         archetype: 'creativo',
-        detail: 'Rediseño de formatos y exploración.',
       },
       {
         text: 'Coordino una sesión de trabajo colaborativo o capacito a alguien del equipo para resolverla juntos.',
         archetype: 'personas',
-        detail: 'Colaboración y desarrollo de pares.',
       },
     ],
   },
@@ -213,22 +192,18 @@ const questions: Question[] = [
       {
         text: 'Debates grupales, entrevistas a referentes del sector y dinámicas de role-playing.',
         archetype: 'personas',
-        detail: 'Aprendizaje social y experiencial.',
       },
       {
         text: 'Estudios de caso empresariales reales, modelos de negocio y análisis de decisiones de directores ejecutivos.',
         archetype: 'estrategia',
-        detail: 'Pensamiento conceptual y sistémico.',
       },
       {
         text: 'Documentación técnica estructurada, análisis de bases de datos y ejercicios con respuestas verificables.',
         archetype: 'analitico',
-        detail: 'Aprehensión lógica y estructurada.',
       },
       {
         text: 'Talleres prácticos de creación libre, prototipado rápido y experimentación visual.',
         archetype: 'creativo',
-        detail: 'Aprender haciendo y experimentando.',
       },
     ],
   },
@@ -240,22 +215,18 @@ const questions: Question[] = [
       {
         text: 'Haber superado los objetivos de facturación, abierto nuevos mercados o liderado un cambio importante.',
         archetype: 'estrategia',
-        detail: 'Impacto en resultados de alto nivel.',
       },
       {
         text: 'Haber creado algo memorable y reconocido que conectó emocionalmente con la audiencia.',
         archetype: 'creativo',
-        detail: 'Reconocimiento y trascendencia creativa.',
       },
       {
         text: 'Haber ayudado a miembros de mi equipo a crecer, conseguir ascensos o superar momentos difíciles.',
         archetype: 'personas',
-        detail: 'Impacto directo en la vida de otros.',
       },
       {
         text: 'Haber construido un sistema robusto, sin fallas, con métricas precisas y alta eficiencia demostrable.',
         archetype: 'analitico',
-        detail: 'Calidad técnica e integridad metodológica.',
       },
     ],
   },
@@ -267,22 +238,18 @@ const questions: Question[] = [
       {
         text: 'Con gráficos claros, tablas comparativas, métricas de sustento y fuentes estadísticas validadas.',
         archetype: 'analitico',
-        detail: 'Rigor cuantitativo.',
       },
       {
         text: 'Con una historia atractiva (storytelling), diseño visual impactante y metáforas memorables.',
         archetype: 'creativo',
-        detail: 'Persuasión narrativa y estética.',
       },
       {
         text: 'Enfocándome en el beneficio humano, el impacto en los colaboradores y la alineación de valores.',
         archetype: 'personas',
-        detail: 'Conexión empática y valores.',
       },
       {
         text: 'Yendo directo al ROI (retorno de inversión), riesgos mitigados, plan de acción y próximos hitos ejecutivos.',
         archetype: 'estrategia',
-        detail: 'Claridad ejecutiva y orientación a resultados.',
       },
     ],
   },
@@ -294,22 +261,18 @@ const questions: Question[] = [
       {
         text: 'Reviso los datos paso a paso para identificar exactamente en qué punto falló el modelo o la hipótesis.',
         archetype: 'analitico',
-        detail: 'Análisis forense y aprendizaje cuantitativo.',
       },
       {
         text: 'Me reúno con el equipo para contener el ánimo, validar los aprendizajes y mantener la motivación alta.',
         archetype: 'personas',
-        detail: 'Resiliencia colectiva y soporte emocional.',
       },
       {
         text: 'Repienso el concepto desde cero y propongo un enfoque totalmente diferente para relanzar la idea.',
         archetype: 'creativo',
-        detail: 'Reinvención creativa.',
       },
       {
         text: 'Evalúo si vale la pena pivotar o cortar pérdidas rápidamente para enfocar los recursos en otra prioridad.',
         archetype: 'estrategia',
-        detail: 'Decisión ejecutiva y optimización de recursos.',
       },
     ],
   },
@@ -321,22 +284,18 @@ const questions: Question[] = [
       {
         text: 'El que resume las conclusiones, define los acuerdos accionables y asigna responsables con fechas límite.',
         archetype: 'estrategia',
-        detail: 'Facilitación ejecutiva y foco en acción.',
       },
       {
         text: 'El que aporta datos duros y cuestiona afirmaciones que no tienen respaldo numérico o metodológico.',
         archetype: 'analitico',
-        detail: 'Voz crítica y objetiva.',
       },
       {
         text: 'El que se asegura de que todos hayan podido hablar y busca puntos de encuentro entre posturas opuestas.',
         archetype: 'personas',
-        detail: 'Construcción de consenso y puente humano.',
       },
       {
         text: 'El que lanza ideas disparadoras y conecta conceptos de otras industrias para abrir el debate.',
         archetype: 'creativo',
-        detail: 'Innovación y pensamiento divergente.',
       },
     ],
   },
@@ -348,22 +307,18 @@ const questions: Question[] = [
       {
         text: 'Liderar equipos multidisciplinarios, definir la visión de negocios o gestionar presupuestos importantes.',
         archetype: 'estrategia',
-        detail: 'Dirección general y toma de decisiones.',
       },
       {
         text: 'Especializarme en análisis avanzado, toma de decisiones basada en datos e inteligencia de negocios.',
         archetype: 'analitico',
-        detail: 'Especialización técnica y consultoría analítica.',
       },
       {
         text: 'Liderar áreas de personas, talento, selección internacional o programas de formación y cultura.',
         archetype: 'personas',
-        detail: 'Desarrollo del potencial humano en organizaciones.',
       },
       {
         text: 'Dirigir proyectos de innovación, marcas digitales, diseño de experiencias o creación de contenidos.',
         archetype: 'creativo',
-        detail: 'Liderazgo creativo y nuevos formatos digitales.',
       },
     ],
   },
@@ -390,8 +345,8 @@ const archetypeProfiles: Record<Archetype, ArchetypeProfile> = {
   estrategia: {
     name: 'Estratega & Gestor de Negocios',
     badge: 'ARQUETIPO ESTRATÉGICO',
-    icon: <Target size={32} />,
-    color: '#7C3AED',
+    icon: <Target size={30} />,
+    color: '#EC4899',
     tagline: 'Visión global, orientación a resultados y liderazgo de proyectos de alto impacto.',
     description:
       'Tu perfil destaca por la capacidad de conectar la visión a largo plazo con la ejecución táctica. Tenés facilidad natural para priorizar, negociar con partes interesadas, optimizar recursos y liderar equipos hacia metas cuantificables.',
@@ -414,15 +369,15 @@ const archetypeProfiles: Record<Archetype, ArchetypeProfile> = {
       'Organizaciones con posibilidad de liderar proyectos transversales.',
     ],
     eblRecommendations: {
-      cvFocus: 'Enfocá tu CV (Módulo 01) en logros con impacto numérico ($ facturación, % crecimiento, horas ahorradas).',
-      linkedinFocus: 'Tu titular (Módulo 02) debe comunicar liderazgo de proyectos y metodologías de gestión ágil.',
-      interviewFocus: 'En tus entrevistas (Módulo 03), utilizá el método STAR resaltando tus decisiones estratégicas y liderazgo.',
+      cvFocus: 'Enfocá tu CV en logros con impacto numérico ($ facturación, % crecimiento, horas ahorradas).',
+      linkedinFocus: 'Tu titular debe comunicar liderazgo de proyectos y metodologías de gestión ágil.',
+      interviewFocus: 'En tus entrevistas utilizá el método STAR resaltando tus decisiones estratégicas y liderazgo.',
     },
   },
   analitico: {
     name: 'Analista de Datos & Optimización',
     badge: 'ARQUETIPO ANALÍTICO',
-    icon: <BarChart size={32} />,
+    icon: <BarChart size={30} />,
     color: '#0891B2',
     tagline: 'Rigor lógico, detección de patrones y construcción de soluciones basadas en evidencia.',
     description:
@@ -446,15 +401,15 @@ const archetypeProfiles: Record<Archetype, ArchetypeProfile> = {
       'Proyectos de tecnología, finanzas, supply chain o consultoría técnica.',
     ],
     eblRecommendations: {
-      cvFocus: 'Detallá en tu CV (Módulo 01) tus herramientas técnicas (Excel avanzado, SQL, BI) y procesos que optimizaste.',
-      linkedinFocus: 'Destacá en tu Acerca De (Módulo 02) tu capacidad para resolver problemas complejos con datos duros.',
-      interviewFocus: 'En tus entrevistas (Módulo 03), explicá tu metodología analítica paso a paso ante preguntas técnicas.',
+      cvFocus: 'Detallá en tu CV tus herramientas técnicas (Excel avanzado, SQL, BI) y procesos que optimizaste.',
+      linkedinFocus: 'Destacá en tu Acerca De tu capacidad para resolver problemas complejos con datos duros.',
+      interviewFocus: 'En tus entrevistas explicá tu metodología analítica paso a paso ante preguntas técnicas.',
     },
   },
   personas: {
-    name: 'Gestor de Personas & Desarrollo de Talento',
+    name: 'Gestor de Personas & Talento Humano',
     badge: 'ARQUETIPO HUMANO & RELACIONAL',
-    icon: <Users size={32} />,
+    icon: <Users size={30} />,
     color: '#059669',
     tagline: 'Inteligencia emocional, facilitación de consensos y desarrollo del potencial humano.',
     description:
@@ -478,15 +433,15 @@ const archetypeProfiles: Record<Archetype, ArchetypeProfile> = {
       'Empresas en crecimiento que necesiten estructurar sus áreas de talento.',
     ],
     eblRecommendations: {
-      cvFocus: 'En tu CV (Módulo 01), enfatizá métricas de retención, volumen de contrataciones exitosas y programas liderados.',
-      linkedinFocus: 'Utilizá tu perfil de LinkedIn (Módulo 02) para hacer networking activo y compartir contenido de valor humano.',
-      interviewFocus: 'En tus entrevistas (Módulo 03), demostrá tu calidez, storytelling empático y manejo de situaciones difíciles.',
+      cvFocus: 'En tu CV enfatizá métricas de retención, volumen de contrataciones exitosas y programas liderados.',
+      linkedinFocus: 'Utilizá tu perfil de LinkedIn para hacer networking activo y compartir contenido de valor humano.',
+      interviewFocus: 'En tus entrevistas demostrá tu calidez, storytelling empático y manejo de situaciones difíciles.',
     },
   },
   creativo: {
     name: 'Creador de Experiencias & Marca',
     badge: 'ARQUETIPO CREATIVO & COMUNICACIÓN',
-    icon: <Palette size={32} />,
+    icon: <Palette size={30} />,
     color: '#EC4899',
     tagline: 'Innovación, pensamiento lateral, narrativa visual y conexión con audiencias.',
     description:
@@ -510,9 +465,9 @@ const archetypeProfiles: Record<Archetype, ArchetypeProfile> = {
       'Espacios flexibles con libertad para proponer soluciones no tradicionales.',
     ],
     eblRecommendations: {
-      cvFocus: 'Adjuntá links directos a tu portfolio en tu CV (Módulo 01) y cuidá la pulcritud tipográfica y jerarquía visual.',
-      linkedinFocus: 'Optimizá tu banner y publicaciones destacadas en LinkedIn (Módulo 02) con muestras reales de tu trabajo visual.',
-      interviewFocus: 'En tus entrevistas (Módulo 03), explicá el proceso creativo detrás de tus proyectos más exitosos.',
+      cvFocus: 'Adjuntá links directos a tu portfolio en tu CV y cuidá la pulcritud tipográfica y jerarquía visual.',
+      linkedinFocus: 'Optimizá tu banner y publicaciones destacadas en LinkedIn con muestras reales de tu trabajo visual.',
+      interviewFocus: 'En tus entrevistas explicá el proceso creativo detrás de tus proyectos más exitosos.',
     },
   },
 };
@@ -525,8 +480,15 @@ export function EblVocationalTestView({
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<Record<number, Archetype>>({});
 
+  // AI Feedback widget state
+  const [feedbackRating, setFeedbackRating] = useState<number>(0);
+  const [feedbackHoverRating, setFeedbackHoverRating] = useState<number>(0);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackSent, setFeedbackSent] = useState(false);
+
   const currentQ = questions[currentQuestionIndex];
   const totalQuestions = questions.length;
+  const answeredCount = Object.keys(selectedAnswers).length;
   const progressPct = Math.round(((currentQuestionIndex + 1) / totalQuestions) * 100);
 
   const handleSelectOption = (archetype: Archetype) => {
@@ -551,9 +513,26 @@ export function EblVocationalTestView({
     }
   };
 
+  const handleSkipCurrentQuestion = () => {
+    setSelectedAnswers((prev) => {
+      const updated = { ...prev };
+      delete updated[currentQuestionIndex];
+      return updated;
+    });
+    if (currentQuestionIndex < totalQuestions - 1) {
+      setCurrentQuestionIndex((prev) => prev + 1);
+    } else {
+      setStep('result');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const handleRestart = () => {
     setSelectedAnswers({});
     setCurrentQuestionIndex(0);
+    setFeedbackRating(0);
+    setFeedbackText('');
+    setFeedbackSent(false);
     setStep('intro');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -578,6 +557,12 @@ export function EblVocationalTestView({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleSubmitFeedback = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (feedbackRating === 0 && !feedbackText.trim()) return;
+    setFeedbackSent(true);
+  };
+
   // Calculate Scores
   const scores = Object.values(selectedAnswers).reduce<Record<Archetype, number>>(
     (acc, arch) => {
@@ -598,6 +583,7 @@ export function EblVocationalTestView({
   });
 
   const dominantProfile = archetypeProfiles[dominantArchetype];
+  const isInsufficientAnswers = answeredCount < 5;
 
   return (
     <div className={styles.container}>
@@ -616,7 +602,7 @@ export function EblVocationalTestView({
         <div className={styles.badgeWrap}>
           <span className={styles.topBadge}>
             <Compass size={14} />
-            <span>HERRAMIENTA GRATUITA · DIAGNÓSTICO PROFESIONAL</span>
+            <span>HERRAMIENTA GRATUITA · ORIENTACIÓN VOCACIONAL</span>
           </span>
         </div>
       </header>
@@ -639,7 +625,7 @@ export function EblVocationalTestView({
               <Brain size={20} className={styles.perkIcon} />
               <div>
                 <strong>12 Preguntas Situacionales</strong>
-                <p>Basadas en dilemas laborales, toma de decisiones y estilos de trabajo.</p>
+                <p>Basadas en dilemas laborales reales sin opciones correctas o incorrectas.</p>
               </div>
             </div>
 
@@ -683,7 +669,7 @@ export function EblVocationalTestView({
               <span>Saltear test (Ver resultado directo)</span>
             </button>
 
-            <span className={styles.introNote}>✨ 100% gratuito · Diagnóstico inmediato sin registro obligatorio</span>
+            <span className={styles.introNote}>✨ 100% gratuito · Requiere responder al menos 5 preguntas</span>
           </div>
         </div>
       )}
@@ -696,6 +682,9 @@ export function EblVocationalTestView({
             <div className={styles.progressTopRow}>
               <span className={styles.questionCounter}>
                 Pregunta <strong>0{currentQuestionIndex + 1}</strong> de <strong>{totalQuestions}</strong>
+                <span className={styles.answeredCounterPill}>
+                  {answeredCount} respondidas {answeredCount < 5 ? '(Mínimo: 5)' : '✓'}
+                </span>
               </span>
               <span className={styles.progressPercentText}>{progressPct}% completado</span>
             </div>
@@ -711,7 +700,7 @@ export function EblVocationalTestView({
               <h2 className={styles.qSituation}>{currentQ.situation}</h2>
             </div>
 
-            {/* Options List */}
+            {/* Options List (Clean: without biasing detail subtitles) */}
             <div className={styles.optionsList}>
               {currentQ.options.map((opt, idx) => {
                 const isSelected = selectedAnswers[currentQuestionIndex] === opt.archetype;
@@ -727,7 +716,6 @@ export function EblVocationalTestView({
                     <div className={styles.optionLetterBadge}>{letter}</div>
                     <div className={styles.optionTextContent}>
                       <span className={styles.optionMainText}>{opt.text}</span>
-                      <span className={styles.optionDetailText}>{opt.detail}</span>
                     </div>
                     <div className={styles.optionRadioCircle}>
                       {isSelected && <CheckCircle2 size={18} className={styles.radioCheckedIcon} />}
@@ -737,7 +725,7 @@ export function EblVocationalTestView({
               })}
             </div>
 
-            {/* Navigation Footer */}
+            {/* Navigation Footer with Skip Question */}
             <div className={styles.testFooter}>
               <button
                 type="button"
@@ -751,13 +739,22 @@ export function EblVocationalTestView({
 
               <button
                 type="button"
+                className={styles.skipQuestionBtn}
+                onClick={handleSkipCurrentQuestion}
+                title="Omitir esta pregunta si no te sentís identificado"
+              >
+                <HelpCircle size={14} />
+                <span>No me identifico / Saltear</span>
+              </button>
+
+              <button
+                type="button"
                 className={styles.nextBtn}
                 onClick={handleNext}
-                disabled={!selectedAnswers[currentQuestionIndex]}
               >
                 <span>
                   {currentQuestionIndex === totalQuestions - 1
-                    ? 'Ver Mis Conclusiones'
+                    ? 'Ver Diagnóstico'
                     : 'Siguiente Pregunta'}
                 </span>
                 <ArrowRight size={16} />
@@ -767,76 +764,222 @@ export function EblVocationalTestView({
         </div>
       )}
 
-      {/* 3. FINAL RESULTS & CONCLUSION SCREEN */}
+      {/* 3. FINAL RESULTS OR INSUFFICIENT WARNING */}
       {step === 'result' && (
-        <div className={styles.resultsWrapper}>
-          {/* Result Hero Banner */}
-          <div
-            className={styles.resultHero}
-            style={{
-              borderTopColor: dominantProfile.color,
-            }}
-          >
-            <div className={styles.resultHeroTop}>
-              <div
-                className={styles.heroIconBox}
-                style={{ backgroundColor: dominantProfile.color }}
-              >
-                {dominantProfile.icon}
-              </div>
-              <div>
-                <span className={styles.resultBadge}>{dominantProfile.badge}</span>
-                <h1 className={styles.dominantTitle}>{dominantProfile.name}</h1>
-                <p className={styles.dominantTagline}>{dominantProfile.tagline}</p>
-              </div>
+        isInsufficientAnswers ? (
+          /* SCREEN A: INSUFFICIENT ANSWERS (< 5) */
+          <div className={styles.insufficientCard}>
+            <div className={styles.insufficientIconCircle}>
+              <AlertTriangle size={36} className={styles.insufficientIcon} />
             </div>
 
-            <p className={styles.dominantDesc}>{dominantProfile.description}</p>
+            <span className={styles.insufficientTag}>DIAGNÓSTICO INCOMPLETO</span>
+            <h2 className={styles.insufficientTitle}>
+              Respuestas insuficientes para un diagnóstico confiable
+            </h2>
+            <p className={styles.insufficientDesc}>
+              Respondiste <strong>{answeredCount} de 12 preguntas</strong>. Para que nuestro modelo de orientación vocacional pueda calcular con precisión tu arquetipo profesional dominante, fortalezas y roles recomendados, es necesario responder un <strong>mínimo de 5 preguntas</strong>.
+            </p>
+
+            <div className={styles.insufficientActions}>
+              <button
+                type="button"
+                className={styles.restartBtn}
+                onClick={handleRestart}
+              >
+                <RotateCcw size={16} />
+                <span>Rehacer Test Vocacional</span>
+              </button>
+
+              <button
+                type="button"
+                className={styles.primaryActionBtn}
+                onClick={onBackToDashboard}
+              >
+                <span>Volver al Tablero Principal</span>
+              </button>
+            </div>
           </div>
+        ) : (
+          /* SCREEN B: COMPLETE VOCATIONAL DIAGNOSIS & ACTION PLAN */
+          <div className={styles.resultsWrapper}>
+            {/* TOP 2-COLUMN SECTION: DOMINANT HERO (LEFT) + EBL PROMO SIDEBAR (RIGHT) */}
+            <div className={styles.resultsTopSplit}>
+              {/* Left: Dominant Profile & Dimension Breakdown */}
+              <div className={styles.resultsMainCol}>
+                {/* Result Hero Banner in Rose Theme */}
+                <div className={styles.resultHeroRose}>
+                  <div className={styles.resultHeroTop}>
+                    <div className={styles.heroIconBoxRose}>
+                      {dominantProfile.icon}
+                    </div>
+                    <div>
+                      <span className={styles.resultBadgeRose}>{dominantProfile.badge}</span>
+                      <h1 className={styles.dominantTitleRose}>{dominantProfile.name}</h1>
+                      <p className={styles.dominantTaglineRose}>{dominantProfile.tagline}</p>
+                    </div>
+                  </div>
 
-          <div className={styles.resultsGrid}>
-            {/* Left Column: Breakdown Scores & Strengths */}
-            <div className={styles.resultsLeftCol}>
-              {/* Archetype Breakdown Bars */}
-              <div className={styles.resultCard}>
-                <h3 className={styles.cardHeading}>
-                  <BarChart size={18} className={styles.cardHeadingIcon} />
-                  <span>Desglose de tus 4 Dimensiones Vocacionales</span>
-                </h3>
+                  <p className={styles.dominantDescRose}>{dominantProfile.description}</p>
+                </div>
 
-                <div className={styles.breakdownList}>
-                  {(Object.keys(scores) as Archetype[]).map((arch) => {
-                    const prof = archetypeProfiles[arch];
-                    const count = scores[arch];
-                    const pct = Math.round((count / totalQuestions) * 100);
-                    const isDominant = arch === dominantArchetype;
+                {/* Archetype Breakdown Bars */}
+                <div className={styles.resultCard}>
+                  <h3 className={styles.cardHeading}>
+                    <BarChart size={18} className={styles.cardHeadingIcon} />
+                    <span>Desglose de tus 4 Dimensiones Vocacionales</span>
+                  </h3>
 
-                    return (
-                      <div key={arch} className={styles.breakdownItem}>
-                        <div className={styles.breakdownHeader}>
-                          <div className={styles.breakdownLabelGroup}>
-                            <strong className={styles.archName}>{prof.name}</strong>
-                            {isDominant && (
-                              <span className={styles.dominantPill}>DOMINANTE</span>
-                            )}
+                  <div className={styles.breakdownList}>
+                    {(Object.keys(scores) as Archetype[]).map((arch) => {
+                      const prof = archetypeProfiles[arch];
+                      const count = scores[arch];
+                      const pct = answeredCount > 0 ? Math.round((count / answeredCount) * 100) : 0;
+                      const isDominant = arch === dominantArchetype;
+
+                      return (
+                        <div key={arch} className={styles.breakdownItem}>
+                          <div className={styles.breakdownHeader}>
+                            <div className={styles.breakdownLabelGroup}>
+                              <strong className={styles.archName}>{prof.name}</strong>
+                              {isDominant && (
+                                <span className={styles.dominantPill}>DOMINANTE</span>
+                              )}
+                            </div>
+                            <span className={styles.archPct}>{pct}% ({count}/{answeredCount})</span>
                           </div>
-                          <span className={styles.archPct}>{pct}% ({count}/{totalQuestions})</span>
+                          <div className={styles.archBarTrack}>
+                            <div
+                              className={styles.archBarFill}
+                              style={{
+                                width: `${pct}%`,
+                                background: isDominant
+                                  ? 'linear-gradient(90deg, #EC4899 0%, #DB2777 100%)'
+                                  : prof.color,
+                              }}
+                            />
+                          </div>
                         </div>
-                        <div className={styles.archBarTrack}>
-                          <div
-                            className={styles.archBarFill}
-                            style={{
-                              width: `${pct}%`,
-                              backgroundColor: prof.color,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
+              {/* Right: EBL Sticky Top Promo Card + AI Feedback Card */}
+              <div className={styles.resultsSideCol}>
+                {/* 1. TOP EBL PROMO CARD (100% visible without scrolling) */}
+                <div className={styles.eblSideCard}>
+                  <div className={styles.eblSideTag}>
+                    <Sparkles size={13} />
+                    <span>PRÓXIMO PASO RECOMENDADO</span>
+                  </div>
+                  <h3 className={styles.eblSideTitle}>
+                    Llevá tu perfil {dominantProfile.name} a ofertas reales
+                  </h3>
+                  <p className={styles.eblSideDesc}>
+                    Conocer tu vocación es el primer paso. En la <strong>Experiencia Búsqueda Laboral (EBL)</strong> te acompañamos a plasmar tus fortalezas en un <strong>CV ATS de alto impacto</strong>, optimizar tu <strong>LinkedIn</strong> y dominar entrevistas con Flor Martínez.
+                  </p>
+
+                  <div className={styles.eblSidePerks}>
+                    <div className={styles.eblSidePerkItem}>
+                      <CheckCircle2 size={15} className={styles.perkCheck} />
+                      <span>7 Módulos de formación práctica</span>
+                    </div>
+                    <div className={styles.eblSidePerkItem}>
+                      <CheckCircle2 size={15} className={styles.perkCheck} />
+                      <span>Plantillas de CV ATS y LinkedIn</span>
+                    </div>
+                    <div className={styles.eblSidePerkItem}>
+                      <CheckCircle2 size={15} className={styles.perkCheck} />
+                      <span>Clases semanales en vivo por Zoom</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.eblSideActions}>
+                    <a href="/experiencia" className={styles.eblSideJoinBtn}>
+                      <span>Sumarme a la Experiencia</span>
+                      <ArrowRight size={15} />
+                    </a>
+                    <a href="/campus" className={styles.eblSideCampusBtn}>
+                      <GraduationCap size={15} />
+                      <span>Ver Campus Virtual</span>
+                    </a>
+                  </div>
+                </div>
+
+                {/* 2. INTERACTIVE AI FEEDBACK WIDGET */}
+                <div className={styles.feedbackCard}>
+                  <div className={styles.feedbackHead}>
+                    <Sparkles size={16} className={styles.feedbackIcon} />
+                    <strong className={styles.feedbackTitle}>Calibrá nuestro Modelo de IA</strong>
+                  </div>
+                  <p className={styles.feedbackSubtitle}>
+                    ¿Qué tan acertado sentís tu resultado? Tu feedback entrena nuestro algoritmo vocacional.
+                  </p>
+
+                  {feedbackSent ? (
+                    <div className={styles.feedbackSuccess}>
+                      <CheckCircle2 size={20} className={styles.feedSuccessIcon} />
+                      <div>
+                        <strong>¡Gracias por tu aporte!</strong>
+                        <p>Tus respuestas fueron registradas para el re-entrenamiento del modelo.</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <form onSubmit={handleSubmitFeedback} className={styles.feedbackForm}>
+                      <div className={styles.starsRow}>
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            className={styles.starBtn}
+                            onMouseEnter={() => setFeedbackHoverRating(star)}
+                            onMouseLeave={() => setFeedbackHoverRating(0)}
+                            onClick={() => setFeedbackRating(star)}
+                            aria-label={`Calificar ${star} estrellas`}
+                          >
+                            <Star
+                              size={22}
+                              className={
+                                (feedbackHoverRating || feedbackRating) >= star
+                                  ? styles.starFilled
+                                  : styles.starEmpty
+                              }
+                            />
+                          </button>
+                        ))}
+                        {feedbackRating > 0 && (
+                          <span className={styles.starLabel}>
+                            {feedbackRating === 5 ? '¡Excelente!' : feedbackRating >= 3 ? 'Alineado' : 'A mejorar'}
+                          </span>
+                        )}
+                      </div>
+
+                      <input
+                        type="text"
+                        placeholder="Ej: Me gustaría que incluya roles de IA o Marketing..."
+                        value={feedbackText}
+                        onChange={(e) => setFeedbackText(e.target.value)}
+                        className={styles.feedbackInput}
+                      />
+
+                      <button
+                        type="submit"
+                        disabled={feedbackRating === 0 && !feedbackText.trim()}
+                        className={styles.feedbackSubmitBtn}
+                      >
+                        <Send size={13} />
+                        <span>Enviar Feedback para la IA</span>
+                      </button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* MIDDLE SECTION: STRENGTHS & RECOMMENDED ROLES */}
+            <div className={styles.middleGrid}>
               {/* Key Strengths */}
               <div className={styles.resultCard}>
                 <h3 className={styles.cardHeading}>
@@ -852,10 +995,7 @@ export function EblVocationalTestView({
                   ))}
                 </ul>
               </div>
-            </div>
 
-            {/* Right Column: Recommended Roles & Action Plan */}
-            <div className={styles.resultsRightCol}>
               {/* Recommended Roles */}
               <div className={styles.resultCard}>
                 <h3 className={styles.cardHeading}>
@@ -875,109 +1015,78 @@ export function EblVocationalTestView({
                   ))}
                 </div>
               </div>
+            </div>
 
-              {/* EBL Action Plan */}
-              <div className={styles.resultCardHighlight}>
-                <h3 className={styles.cardHeadingHighlight}>
-                  <Compass size={18} />
-                  <span>Cómo orientar tu Búsqueda Laboral</span>
-                </h3>
+            {/* BOTTOM SECTION: EBL ACTION PLAN ACROSS 3 KEY STAGES */}
+            <div className={styles.resultCardHighlight}>
+              <h3 className={styles.cardHeadingHighlight}>
+                <Compass size={18} />
+                <span>Cómo orientar tu Búsqueda Laboral con este Arquetipo</span>
+              </h3>
 
-                <div className={styles.eblSteps}>
-                  <div className={styles.eblStep}>
-                    <div className={styles.eblStepIconBox}>
-                      <FileText size={16} />
-                    </div>
-                    <div>
-                      <strong className={styles.eblStepTitle}>Módulo 01 (Currículum ATS):</strong>
-                      <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.cvFocus}</p>
-                    </div>
+              <div className={styles.eblSteps}>
+                <div className={styles.eblStep}>
+                  <div className={styles.eblStepIconBox}>
+                    <FileText size={16} />
                   </div>
-
-                  <div className={styles.eblStep}>
-                    <div className={styles.eblStepIconBox}>
-                      <Share2 size={16} />
-                    </div>
-                    <div>
-                      <strong className={styles.eblStepTitle}>Módulo 02 (Perfil de LinkedIn):</strong>
-                      <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.linkedinFocus}</p>
-                    </div>
+                  <div>
+                    <strong className={styles.eblStepTitle}>Módulo 01 & 02 (Currículum ATS):</strong>
+                    <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.cvFocus}</p>
                   </div>
+                </div>
 
-                  <div className={styles.eblStep}>
-                    <div className={styles.eblStepIconBox}>
-                      <Users size={16} />
-                    </div>
-                    <div>
-                      <strong className={styles.eblStepTitle}>Módulo 03 (Entrevistas STAR):</strong>
-                      <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.interviewFocus}</p>
-                    </div>
+                <div className={styles.eblStep}>
+                  <div className={styles.eblStepIconBox}>
+                    <Share2 size={16} />
+                  </div>
+                  <div>
+                    <strong className={styles.eblStepTitle}>Módulo 03 (Perfil de LinkedIn):</strong>
+                    <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.linkedinFocus}</p>
+                  </div>
+                </div>
+
+                <div className={styles.eblStep}>
+                  <div className={styles.eblStepIconBox}>
+                    <Users size={16} />
+                  </div>
+                  <div>
+                    <strong className={styles.eblStepTitle}>Módulo 06 (Entrevistas STAR):</strong>
+                    <p className={styles.eblStepText}>{dominantProfile.eblRecommendations.interviewFocus}</p>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* EBL Promotional Lead Magnet Card */}
-          <div className={styles.eblPromoBannerCard}>
-            <div className={styles.eblPromoLeft}>
-              <div className={styles.eblPromoTag}>
-                <Sparkles size={14} />
-                <span>EXPERIENCIA BÚSQUEDA LABORAL · FLOR MARTINEZ</span>
-              </div>
-              <h3 className={styles.eblPromoTitle}>
-                ¿Querés transformar tu perfil en ofertas laborales y entrevistas reales?
-              </h3>
-              <p className={styles.eblPromoDesc}>
-                Conocer tu arquetipo laboral es el primer paso. En la <strong>Experiencia Búsqueda Laboral (EBL)</strong> te acompañamos a plasmar tus fortalezas en un <strong>CV ATS optimizado</strong>, potenciar tu <strong>LinkedIn</strong> con posicionamiento estratégico, dominar el <strong>método STAR en entrevistas</strong> y participar de <strong>sesiones semanales de mentoría en vivo vía Zoom</strong> con Flor Martínez.
-              </p>
-              <div className={styles.eblPromoBadges}>
-                <span className={styles.eblPromoBadgeItem}>✓ 7 Módulos de formación paso a paso</span>
-                <span className={styles.eblPromoBadgeItem}>✓ Plantillas ATS y Guías prácticas</span>
-                <span className={styles.eblPromoBadgeItem}>✓ Tracker interactivo de postulaciones</span>
-                <span className={styles.eblPromoBadgeItem}>✓ Zoom semanal en vivo todos los miércoles</span>
-              </div>
-            </div>
-            <div className={styles.eblPromoRight}>
-              <a href="/experiencia" className={styles.eblJoinBtn}>
-                <span>Sumarme a la Experiencia</span>
+            {/* Results Footer Actions */}
+            <div className={styles.resultsActionsBar}>
+              <button
+                type="button"
+                className={styles.restartBtn}
+                onClick={handleRestart}
+              >
+                <RotateCcw size={16} />
+                <span>Rehacer Test Vocacional</span>
+              </button>
+
+              <button
+                type="button"
+                className={styles.primaryActionBtn}
+                onClick={() => {
+                  if (onGoToModule) {
+                    onGoToModule('modulo-fundamentos');
+                  } else {
+                    onBackToDashboard();
+                  }
+                }}
+              >
+                <span>🎓 Comenzar Experiencia Búsqueda Laboral (Módulo 01)</span>
                 <ArrowRight size={16} />
-              </a>
-              <a href="/campus" className={styles.eblCampusAccessBtn}>
-                <GraduationCap size={16} />
-                <span>Explorar el Campus Virtual</span>
-              </a>
+              </button>
             </div>
           </div>
-
-          {/* Results Footer Actions */}
-          <div className={styles.resultsActionsBar}>
-            <button
-              type="button"
-              className={styles.restartBtn}
-              onClick={handleRestart}
-            >
-              <RotateCcw size={16} />
-              <span>Rehacer Test Vocacional</span>
-            </button>
-
-            <button
-              type="button"
-              className={styles.primaryActionBtn}
-              onClick={() => {
-                if (onGoToModule) {
-                  onGoToModule('modulo-cv');
-                } else {
-                  onBackToDashboard();
-                }
-              }}
-            >
-              <span>Ir a Optimizar mi CV (Módulo 01)</span>
-              <ArrowRight size={16} />
-            </button>
-          </div>
-        </div>
+        )
       )}
     </div>
   );
 }
+

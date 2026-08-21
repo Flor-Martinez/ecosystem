@@ -73,6 +73,14 @@ export function CampusSidebar({
   // Flat list of all lessons across the entire curriculum
   const allProgramLessons = currentProgram.modules.flatMap((m) => m.lessons);
 
+  // Required core lessons (excluding optional Module 7: Casos Especiales)
+  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 7);
+  const completedRequiredCount = requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length;
+  const totalRequiredCount = requiredProgramLessons.length;
+  const overallPercent = totalRequiredCount > 0
+    ? Math.round((completedRequiredCount / totalRequiredCount) * 100)
+    : 0;
+
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
     const mod = currentProgram.modules.find((m) =>
@@ -306,39 +314,22 @@ export function CampusSidebar({
               <div className={styles.overallProgressTop}>
                 <span className={styles.overallProgressTitle}>Progreso del Curso</span>
                 <strong className={styles.overallProgressPercent}>
-                  {allProgramLessons.length > 0
-                    ? Math.round(
-                        (allProgramLessons.filter((l) => completedLessons.has(l.id)).length /
-                          allProgramLessons.length) *
-                          100
-                      )
-                    : 0}
-                  %
+                  {overallPercent}%
                 </strong>
               </div>
               <div className={styles.overallProgressBarBg}>
                 <div
                   className={styles.overallProgressBarFill}
                   style={{
-                    width: `${
-                      allProgramLessons.length > 0
-                        ? Math.round(
-                            (allProgramLessons.filter((l) => completedLessons.has(l.id)).length /
-                              allProgramLessons.length) *
-                              100
-                          )
-                        : 0
-                    }%`,
+                    width: `${overallPercent}%`,
                   }}
                 />
               </div>
               <div className={styles.overallProgressMeta}>
                 <span>
-                  {allProgramLessons.filter((l) => completedLessons.has(l.id)).length} de{' '}
-                  {allProgramLessons.length} clases listas
+                  {completedRequiredCount} de {totalRequiredCount} clases obligatorias
                 </span>
-                {allProgramLessons.filter((l) => completedLessons.has(l.id)).length ===
-                allProgramLessons.length ? (
+                {completedRequiredCount === totalRequiredCount && totalRequiredCount > 0 ? (
                   <span className={styles.overallStatusDone}>¡Curso Completado!</span>
                 ) : (
                   <span className={styles.overallStatusActive}>En progreso</span>

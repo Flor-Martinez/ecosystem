@@ -131,11 +131,12 @@ export function EblDashboardGrid({
     });
   }, [program, completedLessons]);
 
-  // Calculate overall program progress from dynamic module cards
+  // Calculate overall program progress from dynamic module cards (excluding optional Module 7)
   const allProgramLessons = program ? program.modules.flatMap((m) => m.lessons) : [];
-  const totalModuleSteps = allProgramLessons.length || 14;
-  const completedModuleSteps = allProgramLessons.length > 0
-    ? allProgramLessons.filter((l) => completedLessons.has(l.id)).length
+  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 7);
+  const totalModuleSteps = requiredProgramLessons.length || 27;
+  const completedModuleSteps = requiredProgramLessons.length > 0
+    ? requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length
     : 0;
 
   const overallPercent = totalModuleSteps > 0

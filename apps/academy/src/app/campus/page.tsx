@@ -116,10 +116,17 @@ function CampusContent() {
     return currentProgram.modules.flatMap((m) => m.lessons);
   }, [currentProgram]);
 
-  // Strictly synchronized completed lessons count for CURRENT program
+  // Required flat lessons of current program (excluding optional Module 7: Casos Especiales)
+  const requiredLessons = useMemo(() => {
+    return currentProgram.modules
+      .filter((m) => m.number !== 7)
+      .flatMap((m) => m.lessons);
+  }, [currentProgram]);
+
+  // Strictly synchronized completed required lessons count for CURRENT program
   const completedProgramLessonsCount = useMemo(() => {
-    return allLessons.filter((l) => completedLessons.has(l.id)).length;
-  }, [allLessons, completedLessons]);
+    return requiredLessons.filter((l) => completedLessons.has(l.id)).length;
+  }, [requiredLessons, completedLessons]);
 
   const [selectedLesson, setSelectedLesson] = useState<CampusLesson>(() => {
     const initialCompleted = ['exp-cv-01', 'exp-cv-02', 'ccv-01'];
@@ -426,7 +433,7 @@ function CampusContent() {
         currentView={currentView}
         setCurrentView={handleNavChangeView}
         completedCount={completedProgramLessonsCount}
-        totalLessonsCount={allLessons.length}
+        totalLessonsCount={requiredLessons.length}
         membershipTier={membershipTier}
         onToggleMembership={handleToggleMembership}
         onOpenCatalogModal={() => setIsCatalogModalOpen(true)}
@@ -536,6 +543,7 @@ function CampusContent() {
                   program={currentProgram}
                   completedModule={activeCelebrationModule}
                   isAllProgramCompleted={currentProgram.modules.every((m) => {
+                    if (m.number === 7) return true; // optional module
                     if (membershipTier === 'free' && (m.number === 3 || m.number === 5)) {
                       return true; // considered finished or not required in free
                     }
@@ -543,6 +551,7 @@ function CampusContent() {
                   })}
                   nextTargetModule={(() => {
                     const pending = currentProgram.modules.filter((m) => {
+                      if (m.number === 7) return false; // optional module
                       if (membershipTier === 'free' && (m.number === 3 || m.number === 5)) {
                         return false;
                       }
