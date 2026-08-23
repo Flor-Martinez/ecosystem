@@ -94,32 +94,19 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 1,
         type: 'video',
-        title: 'La mentalidad del reclutador: Por qué mandar 100 CVs no funciona',
+        title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
         duration: '6 min',
         completed: true,
         description:
           'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
         takeaways: [
           'Un selector escanea cada CV en apenas 6 segundos buscando coherencia y logros tangibles.',
-          'La postulación reactiva (spam) desgasta y frustra; la postulación quirúrgica multiplica x5 las llamadas a entrevista.',
+          'La postulación reactiva (spam) desgasta y frustra; la postulación quirúrgica multiplica las llamadas a entrevista.',
           'Las empresas contratan para resolver un dolor puntual y minimizar el riesgo de error.',
         ],
-        resources: [
-          {
-            id: 'res-fun-01',
-            title: 'Infografía: El Embudo de Selección Real',
-            type: 'pdf',
-            fileSize: '410 KB',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 1,
-            category: 'Guía PDF',
-            description: 'Esquema visual que explica los filtros por los que pasa tu postulación hasta la oferta.',
-          },
-        ],
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\n¡Hola! Te doy la bienvenida a la Experiencia Búsqueda Laboral. Si alguna vez enviaste 50 o 100 currículums en una semana y no te respondió nadie, o solo recibiste correos automáticos de rechazo, quiero que sepas algo importante: el problema no sos vos, es el método.\n\n[1:15 - Desarrollo del concepto]\nUn selector recibe en promedio entre 250 y 400 postulaciones por vacante. No tiene tiempo material de leer cada CV palabra por palabra. Lo que hace es un escaneo visual de 6 segundos buscando 3 cosas: coherencia con el título, empresa o industria afín, y logros tangibles. Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. En esta experiencia vamos a pasar de una estrategia de 'lotería' a una estrategia 'quirúrgica', donde cada postulación que enviás tiene más de un 35% de probabilidad de llamada.\n\n[4:20 - Llamada a la acción]\nA partir de hoy dejamos de postular en masa. En la próxima clase vamos a analizar los tiempos reales que tarda una empresa en decidir para que calibres tus expectativas con tranquilidad.`,
+          `[0:00 - Introducción]\n¡Hola! Te doy la bienvenida a la Experiencia Búsqueda Laboral. Si alguna vez enviaste 50 o 100 currículums en una semana y no te respondió nadie, o solo recibiste correos automáticos de rechazo, quiero darte tranquilidad y que sepas algo importante: el problema no sos vos, es el método.\n\n[1:15 - Desarrollo del concepto]\nUn selector recibe en promedio entre 250 y 400 postulaciones por vacante. No tiene tiempo material de leer cada CV palabra por palabra. Lo que hace es un escaneo visual de 6 segundos buscando 3 cosas: 1) que tu título coincida con lo que busco, 2) que tengas experiencia en un rubro o rol compatible, y 3) que muestres logros concretos. Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, para que cuando abran tu postulación, en esos 6 segundos entiendan al instante por qué tienen que llamarte a vos.\n\n[4:20 - Llamada a la acción]\nA partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático. Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos. En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.`,
       },
       {
         id: 'exp-fun-02',
