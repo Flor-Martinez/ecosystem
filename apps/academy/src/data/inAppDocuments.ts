@@ -515,23 +515,65 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
   },
 };
 
-export function getInAppDocumentByIdOrSlug(idOrSlug: string): InAppDocument {
-  if (inAppDocumentsRegistry[idOrSlug]) {
-    return inAppDocumentsRegistry[idOrSlug]!;
+export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
+  if (inAppDocumentsRegistry[idOrSlugOrTitle]) {
+    return inAppDocumentsRegistry[idOrSlugOrTitle]!;
   }
 
-  // Find by slug
-  const found = Object.values(inAppDocumentsRegistry).find((doc) => doc.slug === idOrSlug || doc.id === idOrSlug);
+  const clean = idOrSlugOrTitle
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim();
+
+  // Find by slug, id, or normalized title match
+  const found = Object.values(inAppDocumentsRegistry).find((doc) => {
+    const docCleanTitle = doc.title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const docCleanId = doc.id.toLowerCase();
+    const docCleanSlug = doc.slug.toLowerCase();
+
+    return (
+      docCleanId === clean ||
+      docCleanSlug === clean ||
+      docCleanTitle.includes(clean) ||
+      clean.includes(docCleanId) ||
+      clean.includes(docCleanSlug) ||
+      docCleanTitle === clean
+    );
+  });
   if (found) return found;
+
+  // Keyword smart matching
+  if (clean.includes('fase') || clean.includes('cronograma') || clean.includes('tiempo') || clean.includes('seleccion')) {
+    return inAppDocumentsRegistry['fases-proceso-seleccion']!;
+  }
+  if (clean.includes('ats') || clean.includes('checklist') || clean.includes('auditar')) {
+    return inAppDocumentsRegistry['checklist-optimizacion-cv-ats']!;
+  }
+  if (clean.includes('plantilla') || clean.includes('cv') || clean.includes('curriculum')) {
+    return inAppDocumentsRegistry['plantilla-estructura-cv-editorial']!;
+  }
+  if (clean.includes('linkedin')) {
+    return inAppDocumentsRegistry['guia-optimizacion-linkedin-2025']!;
+  }
+  if (clean.includes('portal') || clean.includes('remoto')) {
+    return inAppDocumentsRegistry['directorio-portales-empleo-remoto']!;
+  }
+  if (clean.includes('sueldo') || clean.includes('salari') || clean.includes('negocia')) {
+    return inAppDocumentsRegistry['matriz-sueldos-negociacion']!;
+  }
+  if (clean.includes('star') || clean.includes('entrevista')) {
+    return inAppDocumentsRegistry['framework-star-entrevistas']!;
+  }
 
   // Generic fallback document generator for any course/lesson resource
   return {
-    id: idOrSlug,
-    slug: idOrSlug,
-    title: idOrSlug.replace(/-/g, ' ').toUpperCase(),
+    id: idOrSlugOrTitle,
+    slug: idOrSlugOrTitle,
+    title: idOrSlugOrTitle.replace(/-/g, ' ').toUpperCase(),
     category: 'Material de Consulta In-App',
     badge: 'Lectura Segura In-App',
-    estimatedReadTime: '5 min de lectura',
+    estimatedReadTime: '3 min de lectura',
     summary: 'Documento interactivo exclusivo de la Academia Flor Martínez. Visualización directa en plataforma.',
     author: 'Flor Martínez · Academia',
     version: '2025 In-App',

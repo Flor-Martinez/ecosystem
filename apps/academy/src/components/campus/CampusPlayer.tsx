@@ -22,6 +22,7 @@ import {
   Check,
   BookOpen,
   CheckSquare,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
@@ -74,21 +75,8 @@ export function CampusPlayer({
   // In-App Document Viewer state
   const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
 
-  const handleOpenDoc = (resourceTitle: string) => {
-    let slug = 'checklist-optimizacion-cv-ats';
-    const lower = resourceTitle.toLowerCase();
-    if (lower.includes('plantilla') || lower.includes('cv')) {
-      slug = 'plantilla-estructura-cv-editorial';
-    } else if (lower.includes('linkedin')) {
-      slug = 'guia-optimizacion-linkedin-2025';
-    } else if (lower.includes('portal') || lower.includes('remoto')) {
-      slug = 'directorio-portales-empleo-remoto';
-    } else if (lower.includes('sueldo') || lower.includes('negociacion')) {
-      slug = 'matriz-sueldos-negociacion';
-    } else if (lower.includes('star') || lower.includes('entrevista')) {
-      slug = 'framework-star-entrevistas';
-    }
-    const doc = getInAppDocumentByIdOrSlug(slug);
+  const handleOpenDoc = (resIdOrTitle: string) => {
+    const doc = getInAppDocumentByIdOrSlug(resIdOrTitle);
     setSelectedDoc(doc);
   };
 
@@ -638,6 +626,22 @@ export function CampusPlayer({
             </div>
           )}
 
+          {/* SECTION A3: ENFOQUE & MINDSET / DATO MOTIVACIONAL (SOLO SI EXISTE) */}
+          {lesson.mindsetPrompt && (
+            <div className={styles.mindsetCard}>
+              <div className={styles.mindsetHeaderRow}>
+                <div className={styles.mindsetIconBox}>
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <span className={styles.mindsetTag}>✨ TU ENFOQUE CLAVE</span>
+                  <h3 className={styles.mindsetTitle}>Mentalidad & Claridad</h3>
+                </div>
+              </div>
+              <p className={styles.mindsetText}>{lesson.mindsetPrompt}</p>
+            </div>
+          )}
+
           {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
             <div className={styles.resourcesCard}>
@@ -657,7 +661,7 @@ export function CampusPlayer({
                     <button
                       type="button"
                       className={styles.resDownloadBtn}
-                      onClick={() => handleOpenDoc(res.title)}
+                      onClick={() => handleOpenDoc(res.id || res.title)}
                       title="Abrir y visualizar material en la plataforma"
                     >
                       <Eye size={14} />

@@ -55,6 +55,7 @@ export interface CampusLesson {
   discussionPrompt?: string;
   quiz?: CampusQuiz;
   actionItems?: CampusActionItem[];
+  mindsetPrompt?: string;
 }
 
 export interface CampusModule {
@@ -180,6 +181,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
           'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
         ],
+        mindsetPrompt:
+          'Tu meta no es conseguir trabajo mañana a cualquier costo, sino construir un flujo constante de 2 a 3 entrevistas semanales de calidad.',
         resources: [
           {
             id: 'fases-proceso-seleccion',
