@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   X,
   BookOpen,
@@ -16,8 +14,12 @@ import {
   AlertTriangle,
   FileText,
   Lock,
+  Save,
+  CheckCheck,
 } from 'lucide-react';
 import { InAppDocument } from '@/data/inAppDocuments';
+import { useAuth } from '@/context/AuthContext';
+import { saveStudentProfileAction } from '@/actions/campus';
 import styles from './InAppDocumentModal.module.css';
 
 interface InAppDocumentModalProps {
@@ -33,6 +35,9 @@ export function InAppDocumentModal({
   onClose,
   studentName = 'Alumno Academia',
 }: InAppDocumentModalProps) {
+  const { user } = useAuth();
+  const activeEmail = user?.email || 'demo@academiaflormartinez.com';
+
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
@@ -40,6 +45,110 @@ export function InAppDocumentModal({
   const [activeSectionId, setActiveSectionId] = useState<string>(
     document.sections[0]?.id || ''
   );
+  const viewerRef = useRef<HTMLElement | null>(null);
+
+  // Target Matrix Interactive Fields (Synced with Mi Perfil)
+  const isTargetMatrixDoc = document.id === 'matriz-target-no-negociables';
+  const [targetRole, setTargetRole] = useState('Product Designer / UX Lead');
+  const [industry, setIndustry] = useState('Fintech & E-commerce');
+  const [seniority, setSeniority] = useState('Senior');
+  const [modality, setModality] = useState('100% Remoto (Latam / Global)');
+  const [expectedSalary, setExpectedSalary] = useState('$2.200 USD / mes');
+  const [availability, setAvailability] = useState('Disponibilidad inmediata');
+  const [nonNegotiables, setNonNegotiables] = useState(
+    'No aceptar esquemas 100% presenciales a más de 1h de viaje.\nNo aceptar ofertas por debajo de mi piso salarial neto.'
+  );
+  const [targetCompanies, setTargetCompanies] = useState(
+    '1. Mercado Libre\n2. Ualá\n3. Despegar\n4. Auth0\n5. Tiendanube'
+  );
+  const [isSavedSync, setIsSavedSync] = useState(true);
+
+  // Load from local storage or user profile
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('ebl_student_profile');
+      if (stored) {
+        try {
+          const parsed = JSON.parse(stored);
+          if (parsed.targetRole) setTargetRole(parsed.targetRole);
+          if (parsed.industry) setIndustry(parsed.industry);
+          if (parsed.seniority) setSeniority(parsed.seniority);
+          if (parsed.modality) setModality(parsed.modality);
+          if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
+          if (parsed.availability) setAvailability(parsed.availability);
+          if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
+          if (parsed.targetCompanies) setTargetCompanies(parsed.targetCompanies);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+  }, []);
+
+  // Save changes to localStorage and optionally DB
+  const saveMatrixToProfile = useCallback(async () => {
+    if (typeof window !== 'undefined') {
+      const dataToSave = {
+        targetRole,
+        industry,
+        seniority,
+        modality,
+        expectedSalary,
+        availability,
+        nonNegotiables,
+        targetCompanies,
+      };
+      localStorage.setItem('ebl_student_profile', JSON.stringify(dataToSave));
+    }
+    try {
+      await saveStudentProfileAction(activeEmail, {
+        targetRole,
+        seniority,
+        modality,
+        expectedSalary,
+      });
+      setIsSavedSync(true);
+    } catch (err) {
+      console.error('Error auto-syncing profile:', err);
+    }
+  }, [activeEmail, targetRole, industry, seniority, modality, expectedSalary, availability, nonNegotiables, targetCompanies]);
+
+  const handleFieldChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
+    setter(value);
+    setIsSavedSync(false);
+  };
+
+  // Auto-sync after 1 second of typing
+  useEffect(() => {
+    if (!isSavedSync) {
+      const timer = setTimeout(() => {
+        saveMatrixToProfile();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isSavedSync, saveMatrixToProfile]);
+
+  // ScrollSpy Listener: Detect which section is currently at the top of the viewer container
+  const handleViewerScroll = () => {
+    if (!viewerRef.current) return;
+    const container = viewerRef.current;
+    const containerTop = container.getBoundingClientRect().top;
+
+    let currentSecId = document.sections[0]?.id || '';
+    for (const sec of document.sections) {
+      const el = window.document.getElementById(`doc-sec-${sec.id}`);
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        // Section top offset relative to viewer container
+        if (rect.top - containerTop <= 160) {
+          currentSecId = sec.id;
+        }
+      }
+    }
+    if (currentSecId && currentSecId !== activeSectionId) {
+      setActiveSectionId(currentSecId);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -168,6 +277,8 @@ export function InAppDocumentModal({
 
           {/* Right Document Content Area */}
           <main
+            ref={viewerRef}
+            onScroll={handleViewerScroll}
             className={styles.documentViewer}
             style={{ fontSize: `${zoomLevel / 100}rem` }}
           >
@@ -188,6 +299,23 @@ export function InAppDocumentModal({
               <p>{document.summary}</p>
             </div>
 
+            {/* Live Profile Sync Notice (For Interactive Documents like Target Matrix) */}
+            {isTargetMatrixDoc && (
+              <div className={styles.syncNoticeCard}>
+                <div className={styles.syncNoticeLeft}>
+                  <Sparkles size={18} className={styles.syncNoticeIcon} />
+                  <p className={styles.syncNoticeText}>
+                    <strong>Plantilla Interactiva de Trabajo:</strong> Podés completar tus datos directamente en cada campo.
+                    Esta información queda guardada automáticamente en tu <strong>Perfil</strong> de la plataforma para consultarla o actualizarla más tarde.
+                  </p>
+                </div>
+                <div className={styles.syncBadge}>
+                  <CheckCheck size={13} />
+                  <span>{isSavedSync ? 'Sincronizado con Mi Perfil' : 'Guardando...'}</span>
+                </div>
+              </div>
+            )}
+
             {/* Document Sections */}
             <div className={styles.sectionsList}>
               {document.sections.map((sec) => (
@@ -205,7 +333,7 @@ export function InAppDocumentModal({
 
                   <p className={styles.sectionContent}>{sec.content}</p>
 
-                  {/* Callouts (Tip / Warning / Formula) */}
+                  {/* Callouts (Tip / Warning / Formula / Quote) */}
                   {sec.callout && (
                     <div
                       className={`${styles.calloutBox} ${
@@ -224,6 +352,225 @@ export function InAppDocumentModal({
                         )}
                       </div>
                       <div className={styles.calloutText}>{sec.callout.text}</div>
+                    </div>
+                  )}
+
+                  {/* INTERACTIVE FORM FIELDS FOR TARGET MATRIX */}
+                  {isTargetMatrixDoc && sec.id === 'los-6-filtros-target' && (
+                    <div className={styles.interactiveFormContainer}>
+                      {/* Filtro 1 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-targetRole" className={styles.fieldLabel}>
+                              1. Puesto o Rol Objetivo Exacto
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 01</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Qué es?</strong> El título formal del puesto con el que te buscarán los reclutadores en LinkedIn y ATS.
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: Product Designer B2B · Analista Sr. de Comercio Exterior</span>
+                        </div>
+                        <input
+                          id="input-targetRole"
+                          type="text"
+                          className={styles.formInput}
+                          value={targetRole}
+                          onChange={(e) => handleFieldChange(setTargetRole, e.target.value)}
+                          placeholder="Ingresá tu puesto objetivo..."
+                        />
+                      </div>
+
+                      {/* Filtro 2 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-industry" className={styles.fieldLabel}>
+                              2. Industria o Rubro Objetivo
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 02</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Para qué sirve?</strong> Ayuda a enfocar tus palabras clave y antecedentes en sectores compatibles.
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: Fintech, Logística Internacional, SaaS B2B, Retail</span>
+                        </div>
+                        <input
+                          id="input-industry"
+                          type="text"
+                          className={styles.formInput}
+                          value={industry}
+                          onChange={(e) => handleFieldChange(setIndustry, e.target.value)}
+                          placeholder="Ej: Fintech, E-commerce, Logística..."
+                        />
+                      </div>
+
+                      {/* Filtro 3 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-seniority" className={styles.fieldLabel}>
+                              3. Seniority y Nivel de Responsabilidad
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 03</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Cómo completarlo?</strong> Alinea tus años de experiencia y nivel de autonomía (Junior, Semi-Senior, Senior, Lead).
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: Semi-Senior (3 a 5 años) · Senior (5+ años)</span>
+                        </div>
+                        <input
+                          id="input-seniority"
+                          type="text"
+                          className={styles.formInput}
+                          value={seniority}
+                          onChange={(e) => handleFieldChange(setSeniority, e.target.value)}
+                          placeholder="Ej: Senior, Semi-Senior..."
+                        />
+                      </div>
+
+                      {/* Filtro 4 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-modality" className={styles.fieldLabel}>
+                              4. Modalidad de Trabajo
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 04</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Para qué sirve?</strong> Delimita tu zona de búsqueda geográfica y tus tiempos de traslado.
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: 100% Remoto (Latam/Global) · Híbrido CABA (2x3)</span>
+                        </div>
+                        <input
+                          id="input-modality"
+                          type="text"
+                          className={styles.formInput}
+                          value={modality}
+                          onChange={(e) => handleFieldChange(setModality, e.target.value)}
+                          placeholder="Ej: 100% Remoto, Híbrido..."
+                        />
+                      </div>
+
+                      {/* Filtro 5 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-salary" className={styles.fieldLabel}>
+                              5. Piso Salarial No Negociable
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 05</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Qué es?</strong> El monto neto mínimo indispensable para cubrir tus gastos fijos y valorar tu perfil.
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: $2.200 USD netos / mes · $1.800.000 ARS netos</span>
+                        </div>
+                        <input
+                          id="input-salary"
+                          type="text"
+                          className={styles.formInput}
+                          value={expectedSalary}
+                          onChange={(e) => handleFieldChange(setExpectedSalary, e.target.value)}
+                          placeholder="Ej: $2.200 USD / mes..."
+                        />
+                      </div>
+
+                      {/* Filtro 6 */}
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-availability" className={styles.fieldLabel}>
+                              6. Disponibilidad de Incorporación
+                            </label>
+                            <span className={styles.fieldTag}>Filtro 06</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Para qué sirve?</strong> Claridad para dar una respuesta inmediata y profesional en el primer screening telefónico.
+                          </p>
+                          <span className={styles.fieldExample}>Ejemplo: Inmediata · 15 días de preaviso · 1 mes</span>
+                        </div>
+                        <input
+                          id="input-availability"
+                          type="text"
+                          className={styles.formInput}
+                          value={availability}
+                          onChange={(e) => handleFieldChange(setAvailability, e.target.value)}
+                          placeholder="Ej: Inmediata / 15 días..."
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* INTERACTIVE TEXTAREA FOR NO NEGOCIABLES */}
+                  {isTargetMatrixDoc && sec.id === 'limites-no-negociables' && (
+                    <div className={styles.interactiveFormContainer}>
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-nonNegotiables" className={styles.fieldLabel}>
+                              Tus Límites y Condiciones No Negociables
+                            </label>
+                            <span className={styles.fieldTag}>Líneas Rojas</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Cómo completarlo?</strong> Anotá 2 o 3 condiciones de trabajo que NO vas a aceptar bajo ninguna circunstancia.
+                          </p>
+                          <span className={styles.fieldExample}>Ej: No aceptar esquemas 100% presenciales a más de 1h de viaje · No aceptar salarios por debajo del piso.</span>
+                        </div>
+                        <textarea
+                          id="input-nonNegotiables"
+                          className={styles.formTextarea}
+                          rows={4}
+                          value={nonNegotiables}
+                          onChange={(e) => handleFieldChange(setNonNegotiables, e.target.value)}
+                          placeholder="Escribí acá tus límites no negociables..."
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* INTERACTIVE TEXTAREA FOR TARGET COMPANIES */}
+                  {isTargetMatrixDoc && sec.id === 'lista-empresas-diana' && (
+                    <div className={styles.interactiveFormContainer}>
+                      <div className={styles.formFieldCard}>
+                        <div className={styles.fieldInfoRow}>
+                          <div className={styles.fieldLabelRow}>
+                            <label htmlFor="input-targetCompanies" className={styles.fieldLabel}>
+                              Tus 15 Empresas Diana (Prospección Activa)
+                            </label>
+                            <span className={styles.fieldTag}>Empresas Objetivo</span>
+                          </div>
+                          <p className={styles.fieldExplain}>
+                            <strong>¿Cómo completarlo?</strong> Listá empresas de tu industria donde te gustaría trabajar para contactar a sus líderes.
+                          </p>
+                          <span className={styles.fieldExample}>Ej: 1. Mercado Libre 2. Ualá 3. Despegar 4. Auth0 5. Tiendanube...</span>
+                        </div>
+                        <textarea
+                          id="input-targetCompanies"
+                          className={styles.formTextarea}
+                          rows={5}
+                          value={targetCompanies}
+                          onChange={(e) => handleFieldChange(setTargetCompanies, e.target.value)}
+                          placeholder="1. Empresa A&#10;2. Empresa B&#10;3. Empresa C..."
+                        />
+                        <div className={styles.saveActionsBar}>
+                          <span className={styles.syncBadge}>
+                            <CheckCheck size={13} />
+                            <span>{isSavedSync ? 'Sincronizado con Mi Perfil' : 'Guardando cambios...'}</span>
+                          </span>
+                          <button
+                            type="button"
+                            className={styles.saveProfileBtn}
+                            onClick={saveMatrixToProfile}
+                          >
+                            <Save size={14} />
+                            <span>Guardar en Mi Perfil</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
 
@@ -251,8 +598,8 @@ export function InAppDocumentModal({
                     </div>
                   )}
 
-                  {/* Interactive Checklist Items */}
-                  {sec.checklistItems && sec.checklistItems.length > 0 && (
+                  {/* Interactive Checklist Items (for non-target matrix docs) */}
+                  {!isTargetMatrixDoc && sec.checklistItems && sec.checklistItems.length > 0 && (
                     <div className={styles.checklistBlock}>
                       <span className={styles.checklistBlockTitle}>
                         Puntos de Control & Verificación Interactiva:

@@ -642,7 +642,7 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION B: DOCUMENTOS EXTRA DE LA CLASE (IN-APP) */}
+          {/* SECTION B: DOCUMENTOS & PLANTILLAS DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
             <div className={styles.resourcesCard}>
               <div className={styles.resourcesHeaderRow}>
@@ -650,8 +650,8 @@ export function CampusPlayer({
                   <FileText size={18} />
                 </div>
                 <div>
-                  <span className={styles.resourcesCategoryTag}>RECURSOS DIDÁCTICOS</span>
-                  <h2 className={styles.sectionHeading}>Documentos Extra</h2>
+                  <span className={styles.resourcesCategoryTag}>MATERIAL DIDÁCTICO</span>
+                  <h2 className={styles.sectionHeading}>Documentos & Plantillas</h2>
                 </div>
               </div>
 
@@ -663,17 +663,13 @@ export function CampusPlayer({
                       res.isEssential ? styles.resourceCardEssential : ''
                     }`}
                   >
-                    <div className={styles.resIconBox}>
-                      <FileText size={20} />
-                    </div>
                     <div className={styles.resInfo}>
                       <div className={styles.resBadgeRow}>
                         {res.isEssential ? (
-                          <span className={styles.essentialBadge}>📌 Lectura Indispensable</span>
+                          <span className={styles.essentialBadge}>Obligatorio</span>
                         ) : (
-                          <span className={styles.optionalBadge}>ℹ️ Consulta Extra</span>
+                          <span className={styles.optionalBadge}>Extra</span>
                         )}
-                        <span className={styles.resMetaCategory}>{res.category}</span>
                       </div>
                       <strong className={styles.resTitle}>{res.title}</strong>
                       <p className={styles.resDescriptionText}>{res.description}</p>

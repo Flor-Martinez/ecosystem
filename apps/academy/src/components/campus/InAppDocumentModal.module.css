@@ -638,6 +638,200 @@
   margin: 0;
 }
 
+/* ========================================================================= */
+/* INTERACTIVE PROFILE FORM & SYNC BANNER */
+/* ========================================================================= */
+.syncNoticeCard {
+  background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%);
+  border: 1.5px solid #BBF7D0;
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.05);
+}
+
+.syncNoticeLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.syncNoticeIcon {
+  color: #16A34A;
+  flex-shrink: 0;
+}
+
+.syncNoticeText {
+  font-size: 0.8125rem;
+  color: #14532D;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.syncNoticeText strong {
+  color: #0F172A;
+}
+
+.syncBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #15803D;
+  background: #DCFCE7;
+  border: 1px solid #86EFAC;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+  white-space: nowrap;
+}
+
+.interactiveFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-top: 1rem;
+}
+
+.formFieldCard {
+  background-color: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: all 0.15s ease;
+}
+
+.formFieldCard:focus-within {
+  border-color: var(--fm-violeta-electric, #7C3AED);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.08);
+}
+
+.fieldInfoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.fieldLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.fieldLabel {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #1E1B4B;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+}
+
+.fieldTag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric, #7C3AED);
+  background: var(--fm-violeta-subtle, #FAF5FF);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-sm, 0.35rem);
+}
+
+.fieldExplain {
+  font-size: 0.8125rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.fieldExample {
+  font-size: 0.75rem;
+  color: #6D28D9;
+  background: #F5F3FF;
+  border: 1px dashed #DDD6FE;
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-md, 0.5rem);
+  font-weight: 600;
+  width: fit-content;
+  margin-top: 0.15rem;
+}
+
+.formInput {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-md, 0.5rem);
+  font-size: 0.875rem;
+  color: #0F172A;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  background: #FAF9FE;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.formInput:focus {
+  border-color: var(--fm-violeta-electric, #7C3AED);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.formTextarea {
+  width: 100%;
+  min-height: 85px;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-md, 0.5rem);
+  font-size: 0.875rem;
+  color: #0F172A;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  background: #FAF9FE;
+  resize: vertical;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.formTextarea:focus {
+  border-color: var(--fm-violeta-electric, #7C3AED);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.saveActionsBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #E2E8F0;
+}
+
+.saveProfileBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: linear-gradient(135deg, var(--fm-violeta-electric, #7C3AED) 0%, var(--fm-violeta-deep, #4C1D95) 100%);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md, 0.5rem);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+  transition: all 0.15s ease;
+}
+
+.saveProfileBtn:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, var(--fm-violeta-electric, #7C3AED) 100%);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 768px) {
   .modalOverlay {
     padding: 0.5rem;

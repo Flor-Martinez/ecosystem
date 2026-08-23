@@ -242,6 +242,18 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Los 6 filtros del target: Puesto exacto, industria, tamaño de empresa, modalidad, rango salarial y disposición a mudarse.',
           'Definir tu lista de No Negociables: Te otorga seguridad y postura firme al momento de negociar.',
         ],
+        actionItems: [
+          {
+            id: 'act-3-1',
+            title: 'Completar tus 6 filtros de postulación',
+            description: 'Definí tu rol exacto, industria, seniority, modalidad, piso salarial y disponibilidad en la Matriz de Target de esta clase.',
+          },
+          {
+            id: 'act-3-2',
+            title: 'Establecer tus Límites No Negociables',
+            description: 'Anotá tus líneas rojas para mantener postura firme y seguridad en las entrevistas.',
+          },
+        ],
         mindsetPrompt:
           'Definir tu puesto objetivo no te cierra puertas: construye el foco exacto para que te llamen a entrevistas.',
         resources: [
@@ -281,7 +293,16 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Saber de antemano qué condiciones no vas a aceptar te da seguridad, criterio y una postura firme desde la primera conversación.
 🏷️ Claridad = Postura y poder de negociación ✨
 
-[6:20 - Llamada a la acción]\nDescargá la plantilla de la clase, completá tus 6 filtros y tu lista de 15 empresas objetivo donde te encantaría trabajar.`,
+[6:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en Documentos & Plantillas de esta clase.
+🏷️ Documentos & Plantillas: Matriz de Target 📋
+🔊 Pop sutil
+🖼️ Video/Captura flotante a la izquierda mostrando la plantilla interactiva en la plataforma.
+🗣️ Completá tus 6 filtros y definí tus límites no negociables.
+🏷️ Completar los 6 filtros de postulación ✅
+🔊 Click suave
+🗣️ En la próxima clase vamos a ver los 5 errores típicos que cometen los candidatos al buscar trabajo y cómo armar tu plan de acción semanal para que tu búsqueda sea constante y productiva.
+🏷️ Próxima clase: 5 errores típicos y plan semanal 📅`,
       },
       {
         id: 'exp-fun-04',
