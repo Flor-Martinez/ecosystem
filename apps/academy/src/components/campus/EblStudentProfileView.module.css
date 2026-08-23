@@ -333,6 +333,327 @@
   cursor: pointer;
 }
 
+/* ========================================================================= */
+/* MINI-SECTIONS FOR TARGET OBJECTIVE */
+/* ========================================================================= */
+.subSection {
+  background-color: #FAF9FE;
+  border: 1.5px solid var(--fm-border-light, #E2E8F0);
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.subSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.subSectionTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.subSectionTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino, #0F172A);
+}
+
+.subSectionBadge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-violeta-vibrant, #6D28D9);
+  background-color: #EDE9FE;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.subSectionHint {
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary, #64748B);
+  margin: -0.5rem 0 0.25rem 0;
+  line-height: 1.4;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--fm-azul-marino, #0F172A);
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-border, #CBD5E1);
+  border-radius: var(--radius-md, 0.5rem);
+  outline: none;
+  resize: vertical;
+  line-height: 1.45;
+  transition: all var(--transition-fast, 0.15s ease);
+}
+
+.textarea:focus {
+  border-color: var(--fm-violeta-electric, #7C3AED);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* ========================================================================= */
+/* VOCATIONAL TEST RESULT CARD (RIGHT COLUMN) */
+/* ========================================================================= */
+.vocationalResultBox {
+  background: linear-gradient(135deg, #FAF5FF 0%, #EFF6FF 100%);
+  border: 1.5px solid #DDD6FE;
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.vocationalTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.vocationalArchetypeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #6D28D9;
+  background-color: #EDE9FE;
+  border: 1px solid #C4B5FD;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full, 9999px);
+}
+
+.vocationalScoreTag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #059669;
+}
+
+.vocationalTitle {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #1E1B4B;
+  margin: 0;
+}
+
+.vocationalDesc {
+  font-size: 0.75rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.vocationalActionsRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.viewFullReportBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--fm-violeta-electric, #7C3AED) 0%, var(--fm-violeta-deep, #4C1D95) 100%);
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md, 0.5rem);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+  transition: all 0.15s ease;
+}
+
+.viewFullReportBtn:hover {
+  transform: translateY(-1px);
+}
+
+.retakeTestBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary, #475569);
+  background-color: #FFFFFF;
+  border: 1px solid var(--fm-border, #CBD5E1);
+  border-radius: var(--radius-md, 0.5rem);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.retakeTestBtn:hover {
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+/* Empty State for Dev Mode */
+.vocationalEmptyBox {
+  background-color: #FAF9FE;
+  border: 1.5px dashed #CBD5E1;
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.65rem;
+}
+
+.vocationalEmptyIcon {
+  color: #94A3B8;
+}
+
+.vocationalEmptyTitle {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0;
+}
+
+.vocationalEmptyDesc {
+  font-size: 0.75rem;
+  color: #64748B;
+  margin: 0;
+  max-width: 280px;
+}
+
+.startVocationalBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #EC4899 0%, #DB2777 100%);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md, 0.5rem);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(219, 39, 119, 0.25);
+  margin-top: 0.25rem;
+}
+
+/* Modal for Full Report */
+.reportModalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.reportModalContent {
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-2xl, 1.5rem);
+  border: 1px solid var(--fm-border, #E2E8F0);
+  box-shadow: 0 24px 64px -12px rgba(15, 23, 42, 0.35);
+  overflow-y: auto;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.reportModalHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid #E2E8F0;
+  padding-bottom: 1rem;
+}
+
+.reportModalTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0.25rem 0 0 0;
+}
+
+.reportModalClose {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  color: #64748B;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.dimensionItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.65rem;
+}
+
+.dimLabelRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1E293B;
+}
+
+.dimBarTrack {
+  width: 100%;
+  height: 8px;
+  background-color: #E2E8F0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.dimBarFill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #7C3AED 0%, #EC4899 100%);
+}
+
+.rolesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.roleTag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #4338CA;
+  background-color: #EEF2FF;
+  border: 1px solid #C7D2FE;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
 @media (max-width: 1024px) {
   .profileGrid {
     grid-template-columns: 1fr;

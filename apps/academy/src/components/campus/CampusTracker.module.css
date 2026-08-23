@@ -261,7 +261,7 @@
 /* Explicit Fixed Column Widths */
 .thCompany,
 .tdCompany {
-  width: 26%;
+  width: 25%;
 }
 
 .thStatus,
@@ -274,14 +274,14 @@
   width: 13%;
 }
 
-.thNextStep,
-.tdNextStep {
-  width: 16%;
-}
-
 .thNotes,
 .tdNotes {
-  width: 14%;
+  width: 18%;
+}
+
+.thJobUrl,
+.tdJobUrl {
+  width: 13%;
 }
 
 .thActions,
@@ -356,27 +356,6 @@
   color: var(--fm-text-subtle);
 }
 
-.jobLinkChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.625rem;
-  font-weight: 700;
-  color: #2563EB;
-  background-color: #EFF6FF;
-  border: 1px solid #DBEAFE;
-  padding: 0.1rem 0.4rem;
-  border-radius: var(--radius-xs);
-  text-decoration: none;
-  transition: all var(--transition-fast);
-}
-
-.jobLinkChip:hover {
-  background-color: #DBEAFE;
-  color: #1D4ED8;
-}
-
 .statusSelect {
   width: 100%;
   max-width: 160px;
@@ -388,6 +367,12 @@
   border: 1px solid transparent;
   cursor: pointer;
   outline: none;
+}
+
+.statusIdentified {
+  background-color: #EEF2FF;
+  color: #4338CA;
+  border-color: #C7D2FE;
 }
 
 .statusOffer {
@@ -424,11 +409,30 @@
   display: block;
 }
 
-.nextStepText {
-  font-weight: 600;
-  color: var(--fm-azul-marino);
-  display: block;
-  line-height: 1.35;
+.jobUrlCellBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #2563EB;
+  background-color: #EFF6FF;
+  border: 1px solid #DBEAFE;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.jobUrlCellBtn:hover {
+  background-color: #DBEAFE;
+  color: #1D4ED8;
+}
+
+.noUrlText {
+  color: #94A3B8;
+  font-size: 0.75rem;
 }
 
 .notesText {

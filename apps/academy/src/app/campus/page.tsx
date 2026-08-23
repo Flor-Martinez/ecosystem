@@ -510,7 +510,11 @@ function CampusContent() {
                 onUpgrade={handleToggleMembership}
               />
             ) : (
-              <EblStudentProfileView onBackToDashboard={() => handleNavChangeView('dashboard')} />
+              <EblStudentProfileView
+                isDevMode={isDevMode}
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+                onNavigateToVocationalTest={() => handleNavChangeView('test-vocacional')}
+              />
             )
           )}
 

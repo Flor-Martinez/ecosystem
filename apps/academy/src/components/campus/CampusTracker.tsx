@@ -31,10 +31,15 @@ export interface JobApplication {
   id: string;
   company: string;
   role: string;
-  status: 'Postulado' | 'Entrevista RRHH' | 'Prueba Técnica' | 'Oferta Recibida' | 'Descartado';
+  status:
+    | 'Identificada / Por postular'
+    | 'Postulado'
+    | 'Entrevista RRHH'
+    | 'Prueba Técnica'
+    | 'Oferta Recibida'
+    | 'Descartado';
   salary: string;
   date: string;
-  nextStep: string;
   notes: string;
   jobUrl?: string;
   isFavorite?: boolean;
@@ -58,7 +63,6 @@ const initialApplications: JobApplication[] = [
     status: 'Entrevista RRHH',
     salary: '$1.400.000 ARS',
     date: '12 Ago 2025',
-    nextStep: 'Llamada con Hiring Manager (Jueves 15:00 hs)',
     notes: 'Aplicado con CV ATS Editorial y mensaje personalizado al selector.',
     jobUrl: 'https://mercadolibre.com/careers/marketing-b2b',
     isFavorite: true,
@@ -70,7 +74,6 @@ const initialApplications: JobApplication[] = [
     status: 'Prueba Técnica',
     salary: '$1.650 USD / mes',
     date: '08 Ago 2025',
-    nextStep: 'Entrega de caso práctico (Viernes)',
     notes: 'Uso de método STAR para responder las preguntas de screening.',
     jobUrl: 'https://globant.com/jobs/product-operations',
     isFavorite: false,
@@ -79,11 +82,10 @@ const initialApplications: JobApplication[] = [
     id: '3',
     company: 'Auth0 / Okta',
     role: 'Talent Acquisition Partner',
-    status: 'Postulado',
+    status: 'Identificada / Por postular',
     salary: '$2.000 USD / mes',
     date: '14 Ago 2025',
-    nextStep: 'Esperando primera revisión ATS',
-    notes: 'Keywords adaptadas a la descripción en inglés.',
+    notes: 'Vacante detectada en LinkedIn. Adaptando CV con keywords en inglés antes de enviar.',
     jobUrl: 'https://auth0.com/careers/talent-partner',
     isFavorite: true,
   },
@@ -94,14 +96,13 @@ const initialApplications: JobApplication[] = [
     status: 'Oferta Recibida',
     salary: '$1.800.000 ARS',
     date: '28 Jul 2025',
-    nextStep: 'Negociación de paquete y bono anual',
     notes: 'Técnica de anclaje alto aplicada en la llamada salarial.',
     jobUrl: 'https://uala.com.ar/careers/brand-strategist',
     isFavorite: false,
   },
 ];
 
-const LOCAL_STORAGE_KEY = 'campus_job_applications_v3';
+const LOCAL_STORAGE_KEY = 'campus_job_applications_v4';
 const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
 
 interface CampusTrackerProps {
@@ -121,9 +122,8 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
   const [salary, setSalary] = useState('');
-  const [status, setStatus] = useState<JobApplication['status']>('Postulado');
+  const [status, setStatus] = useState<JobApplication['status']>('Identificada / Por postular');
   const [date, setDate] = useState('Hoy');
-  const [nextStep, setNextStep] = useState('');
   const [notes, setNotes] = useState('');
   const [jobUrl, setJobUrl] = useState('');
   const [isFavorite, setIsFavorite] = useState(false);
@@ -187,9 +187,8 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
     setCompany('');
     setRole('');
     setSalary('');
-    setStatus('Postulado');
+    setStatus('Identificada / Por postular');
     setDate('Hoy');
-    setNextStep('');
     setNotes('');
     setJobUrl('');
     setIsFavorite(false);
@@ -204,7 +203,6 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
     setSalary(app.salary === '-' ? '' : app.salary);
     setStatus(app.status);
     setDate(app.date);
-    setNextStep(app.nextStep === '-' ? '' : app.nextStep);
     setNotes(app.notes === '-' ? '' : app.notes);
     setJobUrl(app.jobUrl === '-' ? '' : app.jobUrl || '');
     setIsFavorite(!!app.isFavorite);
@@ -233,7 +231,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
 
   const handleScheduleFromRow = (app: JobApplication, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    addEventToCalendar(app.company, app.role, app.nextStep);
+    addEventToCalendar(app.company, app.role, app.notes);
     if (onNavigateToAgenda) {
       onNavigateToAgenda();
     } else {
@@ -246,12 +244,11 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
     if (!company.trim() || !role.trim()) return;
 
     const formattedSalary = salary.trim() ? salary.trim() : '-';
-    const formattedNextStep = nextStep.trim() ? nextStep.trim() : '-';
     const formattedNotes = notes.trim() ? notes.trim() : '-';
     const formattedJobUrl = jobUrl.trim() ? jobUrl.trim() : '-';
 
     if (autoScheduleInCalendar) {
-      addEventToCalendar(company.trim(), role.trim(), formattedNextStep);
+      addEventToCalendar(company.trim(), role.trim(), 'Seguimiento de postulación');
     }
 
     const payload = {
@@ -261,7 +258,6 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
       salary: formattedSalary,
       status,
       date: date || 'Hoy',
-      nextStep: formattedNextStep,
       notes: formattedNotes,
       jobUrl: formattedJobUrl,
       isFavorite,
@@ -289,7 +285,6 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
         salary: formattedSalary,
         status,
         date: 'Hoy',
-        nextStep: formattedNextStep,
         notes: formattedNotes,
         jobUrl: formattedJobUrl,
         isFavorite,
@@ -343,7 +338,6 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
           status: newStatus,
           salary: targetApp.salary,
           date: targetApp.date,
-          nextStep: targetApp.nextStep,
           notes: targetApp.notes,
           jobUrl: targetApp.jobUrl,
           isFavorite: targetApp.isFavorite,
@@ -362,6 +356,8 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
 
   const getStatusBadgeClass = (st: JobApplication['status']) => {
     switch (st) {
+      case 'Identificada / Por postular':
+        return styles.statusIdentified;
       case 'Oferta Recibida':
         return styles.statusOffer;
       case 'Entrevista RRHH':
@@ -394,7 +390,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
           </div>
           <h2 className={styles.trackerTitle}>Mi Tracker de Búsquedas Activas</h2>
           <p className={styles.trackerSubtitle}>
-            Gestioná y actualizá tus postulaciones en un solo lugar. Marcá con estrella tus favoritas, guardá enlaces directos y agendá entrevistas en tu calendario.
+            Gestioná y actualizá tus postulaciones en un solo lugar. Marcá con estrella tus favoritas, guardá enlaces directos a las vacantes y agendá entrevistas.
           </p>
         </div>
 
@@ -454,7 +450,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
       {/* Filter Tabs */}
       <div className={styles.filterRow}>
         <div className={styles.filterPills}>
-          {['todos', 'favoritas', 'Postulado', 'Entrevista RRHH', 'Prueba Técnica', 'Oferta Recibida', 'Descartado'].map(
+          {['todos', 'favoritas', 'Identificada / Por postular', 'Postulado', 'Entrevista RRHH', 'Prueba Técnica', 'Oferta Recibida', 'Descartado'].map(
             (st) => (
               <button
                 key={st}
@@ -481,8 +477,8 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
               <th className={styles.thCompany}>Empresa & Puesto</th>
               <th className={styles.thStatus}>Estado Actual</th>
               <th className={styles.thSalary}>Remuneración</th>
-              <th className={styles.thNextStep}>Próximo Paso</th>
               <th className={styles.thNotes}>Notas</th>
+              <th className={styles.thJobUrl}>URL de la Vacante</th>
               <th className={styles.thActions}>Acciones</th>
             </tr>
           </thead>
@@ -515,18 +511,6 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                         <span className={styles.roleName}>{app.role || '-'}</span>
                         <div className={styles.companyMetaRow}>
                           <span className={styles.dateLabel}>{app.date || '-'}</span>
-                          {formattedUrl && (
-                            <a
-                              href={formattedUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={styles.jobLinkChip}
-                              title="Abrir publicación original de la oferta"
-                            >
-                              <ExternalLink size={11} />
-                              <span>Ver oferta</span>
-                            </a>
-                          )}
                         </div>
                       </div>
                     </td>
@@ -539,21 +523,35 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                         className={`${styles.statusSelect} ${getStatusBadgeClass(app.status)}`}
                         aria-label="Cambiar estado"
                       >
-                        <option value="Postulado">Postulado</option>
-                        <option value="Entrevista RRHH">Entrevista RRHH</option>
-                        <option value="Prueba Técnica">Prueba Técnica</option>
-                        <option value="Oferta Recibida">Oferta Recibida 🎉</option>
-                        <option value="Descartado">Descartado</option>
+                        <option value="Identificada / Por postular">🟣 Identificada / Por postular</option>
+                        <option value="Postulado">🟡 Postulado</option>
+                        <option value="Entrevista RRHH">🟣 Entrevista RRHH</option>
+                        <option value="Prueba Técnica">🔵 Prueba Técnica</option>
+                        <option value="Oferta Recibida">🟢 Oferta Recibida 🎉</option>
+                        <option value="Descartado">🔴 Descartado</option>
                       </select>
                     </td>
                     <td className={styles.tdSalary}>
                       <span className={styles.salaryText}>{app.salary || '-'}</span>
                     </td>
-                    <td className={styles.tdNextStep}>
-                      <span className={styles.nextStepText}>{app.nextStep || '-'}</span>
-                    </td>
                     <td className={styles.tdNotes}>
                       <span className={styles.notesText}>{app.notes || '-'}</span>
+                    </td>
+                    <td className={styles.tdJobUrl}>
+                      {formattedUrl ? (
+                        <a
+                          href={formattedUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.jobUrlCellBtn}
+                          title="Abrir publicación original de la vacante"
+                        >
+                          <ExternalLink size={12} />
+                          <span>Ver vacante</span>
+                        </a>
+                      ) : (
+                        <span className={styles.noUrlText}>-</span>
+                      )}
                     </td>
                     <td className={styles.tdActions}>
                       <div className={styles.actionButtonsRow}>
@@ -618,7 +616,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                   {editingAppId ? 'Editar Postulación' : 'Registrar Nueva Postulación'}
                 </h3>
                 <p className={styles.modalSubtitle}>
-                  Cargá los detalles de la vacante para hacer seguimiento inteligente de tus entrevistas.
+                  Cargá los detalles de la vacante para hacer seguimiento inteligente de tus búsquedas.
                 </p>
               </div>
               <button
@@ -677,6 +675,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                     onChange={(e) => setStatus(e.target.value as JobApplication['status'])}
                     className={styles.didacticSelect}
                   >
+                    <option value="Identificada / Por postular">🟣 Identificada / Por postular</option>
                     <option value="Postulado">🟡 Postulado</option>
                     <option value="Entrevista RRHH">🟣 Entrevista RRHH</option>
                     <option value="Prueba Técnica">🔵 Prueba Técnica</option>
@@ -700,16 +699,16 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                 </div>
               </div>
 
-              {/* Row 3: Link of Job Posting */}
+              {/* Row 3: Link / URL of Job Posting */}
               <div className={styles.formGroup}>
                 <label className={styles.fieldLabel}>
                   <LinkIcon size={14} className={styles.labelIconLink} />
-                  <span>Enlace de la Oferta / Publicación (URL)</span>
+                  <span>URL de la Vacante (Enlace donde viste el aviso)</span>
                 </label>
                 <div className={styles.urlInputWrap}>
                   <input
                     type="url"
-                    placeholder="https://www.linkedin.com/jobs/view/... (opcional)"
+                    placeholder="https://www.linkedin.com/jobs/view/... o portal de empleo (opcional)"
                     value={jobUrl}
                     onChange={(e) => setJobUrl(e.target.value)}
                     className={styles.didacticInput}
@@ -717,22 +716,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                 </div>
               </div>
 
-              {/* Row 4: Next Step & Interview Date */}
-              <div className={styles.formGroup}>
-                <label className={styles.fieldLabel}>
-                  <Calendar size={14} className={styles.labelIconCalendar} />
-                  <span>Próximo Paso / Fecha de Entrevista</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Ej. Entrevista técnica el martes 14 hs (opcional)"
-                  value={nextStep}
-                  onChange={(e) => setNextStep(e.target.value)}
-                  className={styles.didacticInput}
-                />
-              </div>
-
-              {/* Row 5: Notes */}
+              {/* Row 4: Notes */}
               <div className={styles.formGroup}>
                 <label className={styles.fieldLabel}>
                   <FileText size={14} className={styles.labelIconNotes} />
@@ -740,7 +724,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="Ej. Qué versión de CV envié, feedback recibido, contacto de reclutador... (opcional)"
+                  placeholder="Ej. Versión de CV enviada, feedback recibido, contacto de reclutador... (opcional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className={styles.didacticTextarea}
@@ -768,7 +752,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                     className={styles.checkboxInput}
                   />
                   <CalendarPlus size={15} color="#7C3AED" />
-                  <span>Agendar automáticamente en mi Calendario</span>
+                  <span>Agendar recordatorio en mi Calendario</span>
                 </label>
               </div>
 
