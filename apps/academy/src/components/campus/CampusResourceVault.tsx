@@ -70,20 +70,7 @@ export function CampusResourceVault({
   }, [selectedFormat, selectedProgram, searchQuery]);
 
   const handleOpenDoc = (res: CampusResource) => {
-    let slug = 'checklist-optimizacion-cv-ats';
-    const lower = res.title.toLowerCase();
-    if (lower.includes('plantilla') || lower.includes('cv')) {
-      slug = 'plantilla-estructura-cv-editorial';
-    } else if (lower.includes('linkedin')) {
-      slug = 'guia-optimizacion-linkedin-2025';
-    } else if (lower.includes('portal') || lower.includes('remoto')) {
-      slug = 'directorio-portales-empleo-remoto';
-    } else if (lower.includes('sueldo') || lower.includes('negociacion')) {
-      slug = 'matriz-sueldos-negociacion';
-    } else if (lower.includes('star') || lower.includes('entrevista')) {
-      slug = 'framework-star-entrevistas';
-    }
-    const doc = getInAppDocumentByIdOrSlug(slug);
+    const doc = getInAppDocumentByIdOrSlug(res.id || res.title);
     setSelectedDoc(doc);
   };
 

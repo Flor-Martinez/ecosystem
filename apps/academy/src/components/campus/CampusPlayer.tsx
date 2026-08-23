@@ -626,7 +626,7 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION A3: ENFOQUE & MINDSET / DATO MOTIVACIONAL (SOLO SI EXISTE) */}
+          {/* SECTION A3: MENTALIDAD (RECORDATORIO CLAVE) */}
           {lesson.mindsetPrompt && (
             <div className={styles.mindsetCard}>
               <div className={styles.mindsetHeaderRow}>
@@ -634,33 +634,53 @@ export function CampusPlayer({
                   <Sparkles size={18} />
                 </div>
                 <div>
-                  <span className={styles.mindsetTag}>✨ TU ENFOQUE CLAVE</span>
-                  <h3 className={styles.mindsetTitle}>Mentalidad & Claridad</h3>
+                  <span className={styles.mindsetTag}>RECORDATORIO CLAVE</span>
+                  <h3 className={styles.mindsetTitle}>Mentalidad</h3>
                 </div>
               </div>
               <p className={styles.mindsetText}>{lesson.mindsetPrompt}</p>
             </div>
           )}
 
-          {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
+          {/* SECTION B: DOCUMENTOS EXTRA DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
             <div className={styles.resourcesCard}>
-              <h2 className={styles.sectionHeading}>Plantillas & Documentos de la Clase</h2>
+              <div className={styles.resourcesHeaderRow}>
+                <div className={styles.resourcesIconCircle}>
+                  <FileText size={18} />
+                </div>
+                <div>
+                  <span className={styles.resourcesCategoryTag}>RECURSOS DIDÁCTICOS</span>
+                  <h2 className={styles.sectionHeading}>Documentos Extra</h2>
+                </div>
+              </div>
+
               <div className={styles.resourcesList}>
                 {lesson.resources.map((res) => (
-                  <div key={res.id} className={styles.resourceCard}>
+                  <div
+                    key={res.id}
+                    className={`${styles.resourceCard} ${
+                      res.isEssential ? styles.resourceCardEssential : ''
+                    }`}
+                  >
                     <div className={styles.resIconBox}>
                       <FileText size={20} />
                     </div>
                     <div className={styles.resInfo}>
+                      <div className={styles.resBadgeRow}>
+                        {res.isEssential ? (
+                          <span className={styles.essentialBadge}>📌 Lectura Indispensable</span>
+                        ) : (
+                          <span className={styles.optionalBadge}>ℹ️ Consulta Extra</span>
+                        )}
+                        <span className={styles.resMetaCategory}>{res.category}</span>
+                      </div>
                       <strong className={styles.resTitle}>{res.title}</strong>
-                      <span className={styles.resMeta}>
-                        {res.category} · Visualización In-App Protegida
-                      </span>
+                      <p className={styles.resDescriptionText}>{res.description}</p>
                     </div>
                     <button
                       type="button"
-                      className={styles.resDownloadBtn}
+                      className={res.isEssential ? styles.resEssentialBtn : styles.resDownloadBtn}
                       onClick={() => handleOpenDoc(res.id || res.title)}
                       title="Abrir y visualizar material en la plataforma"
                     >

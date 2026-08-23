@@ -7,8 +7,9 @@ export interface CampusResource {
   programId: string;
   programTitle: string;
   moduleNumber: number;
-  category: 'Plantilla ATS' | 'Guía PDF' | 'Matriz Excel' | 'Workspace Notion' | 'Directorio';
+  category: 'Plantilla ATS' | 'Guía PDF' | 'Matriz Excel' | 'Workspace Notion' | 'Directorio' | 'Guía de Tiempos & Circuitos' | 'Herramienta de Posicionamiento';
   description: string;
+  isEssential?: boolean;
 }
 
 export interface CampusQuizQuestion {
@@ -129,6 +130,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             targetView: 'tracker',
           },
         ],
+        mindsetPrompt: 'El problema no sos vos, es el método.',
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
@@ -193,8 +195,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
-            category: 'Guía PDF',
+            category: 'Guía de Tiempos & Circuitos',
             description: 'Línea de tiempo con las 4 etapas internas de contratación y la duración estimada de cada fase.',
+            isEssential: false,
           },
         ],
         videoScript:
@@ -229,32 +232,43 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 3,
         type: 'video',
-        title: 'Definición del Target Laboral y Matriz de No Negociables',
+        title: 'Target laboral: ¿Cómo definir el puesto y empresa ideal sin cerrarte puertas?',
         duration: '8 min',
         completed: false,
         description:
           'Cómo definir con precisión quirúrgica tu puesto objetivo, industria, modalidad de trabajo y los límites que no vas a aceptar.',
         takeaways: [
-          'El peligro de decir "busco de lo que sea": te vuelve invisible en los motores de búsqueda de selectores.',
-          'Los 6 filtros del target: Puesto exacto, Industria, Tamaño de empresa, Modalidad, Rango salarial y Disposición a mudarse.',
-          'Definir tu lista de No Negociables te otorga seguridad y postura firme al momento de negociar.',
+          'El peligro de decir "busco de lo que sea": Te vuelve invisible en los motores de búsqueda de selectores.',
+          'Los 6 filtros del target: Puesto exacto, industria, tamaño de empresa, modalidad, rango salarial y disposición a mudarse.',
+          'Definir tu lista de No Negociables: Te otorga seguridad y postura firme al momento de negociar.',
         ],
+        mindsetPrompt:
+          'Definir tu puesto objetivo no te cierra puertas: construye el foco exacto para que te llamen a entrevistas.',
         resources: [
           {
-            id: 'res-fun-03',
-            title: 'Matriz de Target Laboral y No Negociables (Excel)',
+            id: 'matriz-target-no-negociables',
+            title: 'Matriz de Target Laboral y Límites No Negociables',
             type: 'excel',
-            fileSize: '185 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
-            category: 'Matriz Excel',
-            description: 'Plantilla interactiva para delimitar tu puesto objetivo, salario piso y lista de empresas diana.',
+            category: 'Herramienta de Posicionamiento',
+            description: 'Plantilla de trabajo para delimitar tus 6 filtros de postulación, piso salarial y límites innegociables.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nSi no sabés exactamente a qué puerto navegás, ningún viento es favorable. Decir 'estoy abierto a cualquier propuesta' es la forma más rápida de volverte invisible para los reclutadores.\n\n[1:30 - Desarrollo del concepto]\nLos algoritmos de LinkedIn y los selectores buscan especialistas que resuelvan problemas concretos. Hoy vamos a completar juntos la Matriz de Target Laboral. Vamos a definir tu puesto diana (ej. Analista Sr. de Comercio Exterior o Product Designer B2B), tu rango salarial de piso y de aspiración, y tu lista de 'no negociables'. Saber qué NO vas a aceptar te da postura y poder de negociación desde el primer contacto.\n\n[6:20 - Llamada a la acción]\nDescargá la plantilla de la clase, completá tus 6 filtros y tu lista de 15 empresas objetivo donde te encantaría trabajar.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ El error más común es pensar que 'buscar de todo' te da más posibilidades. En el mercado laboral pasa exactamente lo contrario: el que busca cualquier cosa no califica para nada.
+🏷️ Mito: "Busco de lo que sea" ❌
+🔊 Error sutil
+🗣️ Definir tu target no es limitarte, es construir el posicionamiento exacto que un selector necesita ver para llamarte a una entrevista.
+🏷️ Foco = Posicionamiento profesional 🎯
+🔊 Pop sutil
+
+[1:30 - Desarrollo del concepto]\nLos algoritmos de LinkedIn y los selectores buscan especialistas que resuelvan problemas concretos. Hoy vamos a completar juntos la Matriz de Target Laboral. Vamos a definir tu puesto diana (ej. Analista Sr. de Comercio Exterior o Product Designer B2B), tu rango salarial de piso y de aspiración, y tu lista de 'no negociables'. Saber qué NO vas a aceptar te da postura y poder de negociación desde el primer contacto.\n\n[6:20 - Llamada a la acción]\nDescargá la plantilla de la clase, completá tus 6 filtros y tu lista de 15 empresas objetivo donde te encantaría trabajar.`,
       },
       {
         id: 'exp-fun-04',

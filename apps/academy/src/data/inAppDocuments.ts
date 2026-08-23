@@ -513,6 +513,79 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'matriz-target-no-negociables': {
+    id: 'matriz-target-no-negociables',
+    slug: 'matriz-target-no-negociables',
+    title: 'Matriz de Target Laboral y Límites No Negociables',
+    category: 'Herramienta de Posicionamiento',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 1,
+    badge: 'Plantilla de Trabajo In-App',
+    estimatedReadTime: '4 min de lectura aplicada',
+    summary:
+      'Guía metodológica para definir tus 6 filtros de postulación diana, delimitar tu piso salarial y establecer tus líneas rojas antes de postularte.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'los-6-filtros-target',
+        title: '1. Los 6 Filtros de tu Puesto Objetivo',
+        subtitle: 'Definí exactamente a qué vacantes vas a postular',
+        content:
+          'Para que tu CV y tu perfil de LinkedIn atraigan a los selectores correctos, tu búsqueda debe responder con precisión a estos 6 parámetros:',
+        checklistItems: [
+          {
+            id: 't1',
+            text: 'Rol o Puesto Exacto: 1 título principal (ej. Analista Sr. de Comex) y hasta 2 sinónimos compatibles.',
+            description: 'No mezclar ramas distintas (ej. RRHH y Programación) en el mismo perfil.',
+          },
+          {
+            id: 't2',
+            text: 'Industria o Rubro Objetivo: Identificar 2 o 3 sectores afines a tu trayectoria.',
+            description: 'La experiencia previa en el rubro acelera tu contratación.',
+          },
+          {
+            id: 't3',
+            text: 'Seniority y Nivel de Responsabilidad: Junior, Semi-Senior, Senior o Lead.',
+            description: 'Alinea tu pretensión salarial y tus logros con el nivel del puesto.',
+          },
+          {
+            id: 't4',
+            text: 'Modalidad de Trabajo: Remoto 100%, Híbrido o Presencial.',
+            description: 'Sé realista con tu ubicación geográfica y tus tiempos de traslado.',
+          },
+          {
+            id: 't5',
+            text: 'Piso Salarial No Negociable: El monto neto mensual mínimo para cubrir tus gastos fijos.',
+            description: 'Te permite descartar ofertas que no cubran tu piso económico antes de perder semanas en entrevistas.',
+          },
+          {
+            id: 't6',
+            text: 'Disponibilidad de Incorporación: Inmediata, 15 días o 1 mes.',
+            description: 'Claridad total para responder en el primer screening.',
+          },
+        ],
+      },
+      {
+        id: 'limites-no-negociables',
+        title: '2. Tus Límites No Negociables',
+        subtitle: 'Saber qué NO vas a aceptar te da postura y poder de negociación',
+        content:
+          'La desesperación hace que muchos profesionales acepten condiciones abusivas o ambientes tóxicos. Establecer tus No Negociables por escrito antes de postularte te protege y te da firmeza profesional.',
+        callout: {
+          type: 'quote',
+          text: 'Cuando sabés con certeza qué condiciones no estás dispuesto a negociar, dejás de sonar necesitado y empezás a sonar como un profesional con criterio.',
+        },
+      },
+      {
+        id: 'lista-empresas-diana',
+        title: '3. Lista de Empresas Diana (Prospección Activa)',
+        subtitle: 'Elegí 15 empresas donde tu perfil aporte una solución inmediata',
+        content:
+          'En lugar de esperar pasivamente que se publiquen vacantes, listá 15 empresas que contraten perfiles como el tuyo. En las próximas clases vamos a ver cómo contactar directamente a los decisores de esas empresas.',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

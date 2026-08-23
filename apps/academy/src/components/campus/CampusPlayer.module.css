@@ -800,7 +800,7 @@
   margin: 0;
 }
 
-/* SECTION B: RESOURCES */
+/* SECTION B: DOCUMENTOS EXTRA */
 .resourcesCard {
   background-color: #FFFFFF;
   border-radius: var(--radius-2xl);
@@ -809,17 +809,44 @@
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
 }
 
+.resourcesHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.resourcesIconCircle {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: var(--fm-violeta-subtle);
+  color: var(--fm-violeta-electric);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.resourcesCategoryTag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--fm-violeta-vibrant);
+  text-transform: uppercase;
+}
+
 .resourcesList {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.85rem;
 }
 
 .resourceCard {
   display: flex;
   align-items: center;
-  gap: 0.875rem;
-  padding: 0.875rem 1rem;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
   background-color: #FAF9FE;
   border-radius: var(--radius-xl);
   border: 1px solid var(--fm-border-light);
@@ -827,8 +854,19 @@
 }
 
 .resourceCard:hover {
-  background-color: #F3F0FF;
+  background-color: #F5F2FF;
   border-color: var(--fm-violeta-soft);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.06);
+}
+
+.resourceCardEssential {
+  background: linear-gradient(135deg, #FAF5FF 0%, #FFFFFF 100%);
+  border: 1.5px solid #DDD6FE;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.06);
+}
+
+.resourceCardEssential:hover {
+  border-color: var(--fm-violeta-electric);
 }
 
 .resIconBox {
@@ -847,20 +885,55 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 0.2rem;
+}
+
+.resBadgeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.essentialBadge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #5B21B6;
+  background: #EDE9FE;
+  border: 1px solid #DDD6FE;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.optionalBadge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #475569;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.resMetaCategory {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--fm-text-subtle);
 }
 
 .resTitle {
   font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 800;
   color: var(--fm-azul-marino);
   line-height: 1.3;
 }
 
-.resMeta {
-  font-size: 0.6875rem;
-  color: var(--fm-text-subtle);
-  margin-top: 0.15rem;
+.resDescriptionText {
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.4;
+  margin: 0;
 }
 
 .resDownloadBtn {
@@ -872,16 +945,46 @@
   font-size: 0.75rem;
   font-weight: 700;
   line-height: 1;
-  color: #FFFFFF;
-  background-color: var(--fm-violeta-electric);
-  padding: 0.45rem 0.875rem;
+  color: var(--fm-violeta-electric);
+  background-color: var(--fm-violeta-subtle);
+  border: 1px solid var(--fm-violeta-soft);
+  padding: 0.55rem 0.95rem;
   border-radius: var(--radius-md);
   text-decoration: none;
+  cursor: pointer;
   transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
 .resDownloadBtn:hover {
-  background-color: var(--fm-violeta-vibrant);
+  background-color: var(--fm-violeta-electric);
+  color: #FFFFFF;
+}
+
+.resEssentialBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #FFFFFF;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  border: none;
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.resEssentialBtn:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: translateY(-1px);
 }
 
 /* SECTION C: ZOOM DROPDOWN ACCORDION */
