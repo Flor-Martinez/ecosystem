@@ -560,7 +560,7 @@ export function CampusPlayer({
       {!isEvaluationLesson && (
         <div className={styles.lessonStackedContent}>
           {/* SECTION A: RESUMEN DE LA LECCIÓN (ESTILO EDITORIAL DIDÁCTICO) */}
-          <div className={`${styles.summaryCard} ${styles.protectedSummary}`}>
+          <div className={styles.summaryCard}>
             <div className={styles.summaryHeaderRow}>
               <div className={styles.summaryIconBox}>
                 <BookOpen size={20} />
@@ -580,16 +580,16 @@ export function CampusPlayer({
               {lesson.takeaways.map((point, idx) => {
                 const parts = point.split(':');
                 const hasTitle = parts.length > 1;
-                const title = hasTitle ? parts[0] : `Punto 0${idx + 1}`;
-                const desc = hasTitle ? parts.slice(1).join(':').trim() : point;
+                const rawTitle = hasTitle ? parts[0]!.trim() : point;
+                const title = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
+                const desc = hasTitle ? parts.slice(1).join(':').trim() : '';
 
                 return (
                   <div key={idx} className={styles.takeawayCard}>
                     <div className={styles.takeawayCardHead}>
-                      <span className={styles.takeawayPillNumber}>0{idx + 1}</span>
                       <strong className={styles.takeawayCardTitle}>{title}</strong>
                     </div>
-                    <p className={styles.takeawayCardDesc}>{desc}</p>
+                    {desc && <p className={styles.takeawayCardDesc}>{desc}</p>}
                   </div>
                 );
               })}

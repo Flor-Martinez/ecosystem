@@ -1366,6 +1366,7 @@
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   padding: 0.85rem 1.15rem;
   margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .takeawaysGrid {
@@ -1395,15 +1396,6 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-
-.takeawayPillNumber {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: var(--fm-violeta-electric);
-  background: var(--fm-violeta-subtle);
-  padding: 0.15rem 0.45rem;
-  border-radius: var(--radius-full);
 }
 
 .takeawayCardTitle {

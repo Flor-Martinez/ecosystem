@@ -179,7 +179,14 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Circuito interno de selección 🏢
 
 [1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS FASES Y LOS 20 A 60 DÍAS]
-🗣️ Un proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio. Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.
+🗣️ Un proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio.
+🏷️ Circuito de aprobación (3 a 4 áreas)
+🔊 Pop sutil
+🖼️ Gráfica flotante: 1. Reclutamiento ➔ 2. Líder de Área ➔ 3. Finanzas / Presupuesto ➔ 4. Oferta final.
+🗣️ Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.
+🏷️ Duración real: 20 a 60 días ⏱️
+🔊 Click sutil
+🏷️ No detener la búsqueda en paralelo 🔄
 
 [3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
 🗣️ Anotá en tu cuaderno de trabajo: tu meta no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.`,
