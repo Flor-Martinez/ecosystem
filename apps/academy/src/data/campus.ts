@@ -253,6 +253,11 @@ const expBusquedaLaboralModules: CampusModule[] = [
             title: 'Establecer tus Límites No Negociables',
             description: 'Anotá tus líneas rojas para mantener postura firme y seguridad en las entrevistas.',
           },
+          {
+            id: 'act-3-3',
+            title: 'Listar tus 15 Empresas Objetivo',
+            description: 'Anotá 15 organizaciones donde tu perfil resuelva un problema directo para iniciar tu prospección activa.',
+          },
         ],
         mindsetPrompt:
           'Definir tu puesto objetivo no te cierra puertas: construye el foco exacto para que te llamen a entrevistas.',
@@ -280,27 +285,27 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Foco = Posicionamiento profesional 🎯
 🔊 Pop sutil
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA MATRIZ DE TARGET Y LOS NO NEGOCIABLES]
-🗣️ Tanto los motores de búsqueda como los selectores buscan especialistas que resuelvan necesidades puntuales.
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA MATRIZ DE TARGET, NO NEGOCIABLES Y EMPRESAS OBJETIVO]
+🗣️ Tanto los motores de búsqueda como los selectores buscan especialistas que resuelvan necesidades puntuales. Para eso trabajamos con la Matriz de Target Laboral que tenés en el campus.
 🏷️ Especialistas vs. Perfiles genéricos
 🔊 Pop sutil
-🖼️ Captura/Gráfica flotante a la izquierda mostrando la Matriz de Target Laboral con los 6 filtros.
-🗣️ Para eso trabajamos con la Matriz de Target Laboral: definimos tu puesto diana exacto, tu industria y tu piso salarial. Pero además, definimos tu lista de No Negociables.
-🏷️ 1. Puesto Diana 🎯
-🏷️ 2. Piso Salarial 💵
-🏷️ 3. Límites No Negociables 🛑
-🔊 Click sutil por cada punto
-🗣️ Saber de antemano qué condiciones no vas a aceptar te da seguridad, criterio y una postura firme desde la primera conversación.
-🏷️ Claridad = Postura y poder de negociación ✨
+🖼️ Gráfica flotante mostrando los 6 filtros de la Matriz de Target.
+🗣️ Primero calibramos tus 6 filtros de postulación: tu puesto o rol exacto, tu industria o rubro objetivo, tu seniority real, tu modalidad de trabajo (remoto o híbrido), tu piso salarial no negociable, y tu disponibilidad de incorporación.
+🏷️ 1. Rol Exacto · 2. Industria · 3. Seniority
+🏷️ 4. Modalidad · 5. Piso Salarial · 6. Disponibilidad
+🔊 Clicks sutiles al enumerar
+🗣️ En segundo lugar, definimos tus límites No Negociables. Acá anotás tus líneas rojas: esas condiciones que no vas a aceptar bajo ninguna circunstancia, como esquemas presenciales a más de una hora de viaje o sueldos por debajo de tu piso. Saber con claridad qué NO vas a aceptar te da seguridad y una postura firme desde la primera conversación.
+🏷️ Límites No Negociables = Líneas rojas y postura profesional 🛑
+🔊 Pop sutil
+🗣️ Y en tercer lugar, armamos tu lista de Empresas Objetivo, también conocidas como empresas diana. Una empresa objetivo es una organización donde tu perfil resuelve un problema directo. En lugar de esperar pasivamente a que publiquen un aviso, las listamos para contactar a sus líderes en las próximas clases.
+🏷️ Empresas Objetivo = Prospección directa hacia líderes 🏢🎯
+🔊 Pop de confirmación
 
 [6:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en Documentos & Plantillas de esta clase.
+🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en Documentos & Plantillas de esta clase. Podés completar tus 6 filtros, tus no negociables y tus 15 empresas objetivo directamente en la pantalla, y se guarda automáticamente en tu perfil.
 🏷️ Documentos & Plantillas: Matriz de Target 📋
 🔊 Pop sutil
-🖼️ Video/Captura flotante a la izquierda mostrando la plantilla interactiva en la plataforma.
-🗣️ Completá tus 6 filtros y definí tus límites no negociables.
-🏷️ Completar los 6 filtros de postulación ✅
-🔊 Click suave
+🖼️ Video flotante mostrando cómo se completan los campos y el cartel de sincronización con "Mi Perfil".
 🗣️ En la próxima clase vamos a ver los 5 errores típicos que cometen los candidatos al buscar trabajo y cómo armar tu plan de acción semanal para que tu búsqueda sea constante y productiva.
 🏷️ Próxima clase: 5 errores típicos y plan semanal 📅`,
       },
