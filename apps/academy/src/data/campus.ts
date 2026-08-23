@@ -173,7 +173,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 2,
         type: 'video',
-        title: 'Expectativas reales: Tiempos y fases de un proceso de selección',
+        title: 'Tiempos y fases reales de contratación',
         duration: '5 min',
         completed: true,
         description:
@@ -232,7 +232,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 3,
         type: 'video',
-        title: 'Target laboral: Definir el puesto y empresa ideal sin cerrarte puertas',
+        title: 'Definición de target y no negociables',
         duration: '8 min',
         completed: false,
         description:
@@ -278,7 +278,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 4,
         type: 'video',
-        title: 'Los 5 errores típicos y Plan de Acción Semanal',
+        title: '5 errores típicos y plan semanal',
         duration: '7 min',
         completed: false,
         description:
@@ -327,7 +327,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 1,
         type: 'video',
-        title: 'Anatomía, estructura y formato estándar de un CV moderno',
+        title: 'Estructura y formato de un CV moderno',
         duration: '8 min',
         completed: false,
         description:
@@ -374,7 +374,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 2,
         type: 'video',
-        title: 'Desmitificando los Filtros ATS (Applicant Tracking Systems)',
+        title: 'Cómo funcionan los filtros ATS',
         duration: '7 min',
         completed: false,
         description:
@@ -409,7 +409,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 3,
         type: 'video',
-        title: 'Identificación de Palabras Clave y Tailoring de CV',
+        title: 'Palabras clave y adaptación del CV',
         duration: '7 min',
         completed: false,
         description:
@@ -444,7 +444,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 4,
         type: 'video',
-        title: 'Redacción de Impacto: Verbos de Acción y Resultados Cuantificables',
+        title: 'Verbos de acción y logros cuantificables',
         duration: '8 min',
         completed: false,
         description:
@@ -479,7 +479,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 5,
         type: 'video',
-        title: 'Checklist Final y Errores que Descartan tu CV',
+        title: 'Auditoría final y checklist antes de enviar',
         duration: '5 min',
         completed: false,
         description:
@@ -528,7 +528,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 1,
         type: 'video',
-        title: 'Configuración y Optimización Visual: Foto, Banner y URL',
+        title: 'Foto, banner y URL personalizada',
         duration: '7 min',
         completed: false,
         description:
@@ -562,7 +562,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 2,
         type: 'video',
-        title: 'El Titular Magnético y la Sección "Acerca de mí"',
+        title: 'Titular magnético y sección Acerca de mí',
         duration: '8 min',
         completed: false,
         description:
@@ -597,7 +597,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 3,
         type: 'video',
-        title: 'Experiencia, Educación, Aptitudes y Recomendaciones',
+        title: 'Experiencia, aptitudes y recomendaciones',
         duration: '6 min',
         completed: false,
         description:
@@ -632,7 +632,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 4,
         type: 'video',
-        title: 'Cómo Escribirle a Recruiters: Mensajes de Conexión e InMails',
+        title: 'Mensajes de contacto a recruiters',
         duration: '7 min',
         completed: false,
         description:
@@ -667,7 +667,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 5,
         type: 'video',
-        title: 'Estrategia de Contenido y Oportunidades Ocultas en el Feed',
+        title: 'Estrategia de contenido y networking',
         duration: '6 min',
         completed: false,
         description:
@@ -715,7 +715,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 1,
         type: 'video',
-        title: 'El Mapa de Portales de Empleo y Agencias por País y Modalidad',
+        title: 'Portales de empleo y consultoras',
         duration: '6 min',
         completed: false,
         description:
@@ -750,7 +750,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 2,
         type: 'video',
-        title: 'Operadores de Búsqueda en Google (Google Dorks) y Comunidades',
+        title: 'Búsquedas avanzadas en Google y comunidades',
         duration: '7 min',
         completed: false,
         description:
@@ -785,7 +785,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 3,
         type: 'video',
-        title: 'Cómo Detectar Empresas en Contratación Activa (Sin Oferta Publicada)',
+        title: 'Cómo detectar búsquedas no publicadas',
         duration: '5 min',
         completed: false,
         description:
@@ -820,7 +820,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 4,
         type: 'video',
-        title: 'Investigación Previa de la Empresa: Cultura, Salarios y Clima',
+        title: 'Investigación previa de empresa y cultura',
         duration: '6 min',
         completed: false,
         description:
@@ -869,7 +869,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Postulación y organización',
         lessonNumber: 1,
         type: 'video',
-        title: 'El Kit de Postulación: Qué Enviar en Cada Caso',
+        title: 'Kit de postulación y cover letters',
         duration: '7 min',
         completed: false,
         description:
@@ -904,7 +904,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Postulación y organización',
         lessonNumber: 2,
         type: 'video',
-        title: 'Gestión Profesional con el Tracker del Campus y Métricas',
+        title: 'Gestión de postulaciones con el Tracker',
         duration: '6 min',
         completed: false,
         description:
@@ -939,7 +939,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Postulación y organización',
         lessonNumber: 3,
         type: 'video',
-        title: 'Estrategia de Follow-Up: Cuándo y Cómo Recontactar',
+        title: 'Estrategia de seguimiento (Follow-Up)',
         duration: '5 min',
         completed: false,
         description:
@@ -974,7 +974,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Postulación y organización',
         lessonNumber: 4,
         type: 'video',
-        title: 'Cómo Detectar Ofertas Fraudulentas o Sospechosas',
+        title: 'Cómo detectar ofertas sospechosas',
         duration: '5 min',
         completed: false,
         description:
@@ -1023,7 +1023,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 1,
         type: 'video',
-        title: 'Tipos de Entrevistas y Qué Evalúa Cada Interlocutor',
+        title: 'Fases de la entrevista y filtro inicial',
         duration: '7 min',
         completed: false,
         description:
@@ -1059,7 +1059,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 2,
         type: 'video',
-        title: 'El Método STAR para Preguntas por Competencias',
+        title: 'El método STAR para contar tus logros',
         duration: '8 min',
         completed: false,
         description:
@@ -1094,7 +1094,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 3,
         type: 'video',
-        title: 'Respuestas Estratégicas a las Preguntas Más Temidas',
+        title: 'Preguntas difíciles y puntos ciegos',
         duration: '8 min',
         completed: false,
         description:
@@ -1129,7 +1129,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 4,
         type: 'video',
-        title: 'Manejo de Nervios y Preguntas Inteligentes para el Selector',
+        title: 'Preguntas inteligentes para el selector',
         duration: '6 min',
         completed: false,
         description:
@@ -1164,7 +1164,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 5,
         type: 'video',
-        title: 'Salario y Negociación: Cómo Responder y Cuándo Negociar',
+        title: 'Técnicas de negociación salarial',
         duration: '7 min',
         completed: false,
         description:
@@ -1213,7 +1213,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 1,
         type: 'video',
-        title: 'Búsqueda de Trabajo en el Exterior y Contratación Remota Internacional',
+        title: 'Búsqueda de empleo remoto internacional',
         duration: '8 min',
         completed: false,
         description:
@@ -1248,7 +1248,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 2,
         type: 'video',
-        title: 'Cómo Postularte y Destacar sin Experiencia Laboral Previa',
+        title: 'Cómo postularte sin experiencia previa',
         duration: '7 min',
         completed: false,
         description:
@@ -1283,7 +1283,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 3,
         type: 'video',
-        title: 'Transición y Cambio de Carrera: Capitalizar Habilidades Transferibles',
+        title: 'Transición y cambio de carrera',
         duration: '8 min',
         completed: false,
         description:
