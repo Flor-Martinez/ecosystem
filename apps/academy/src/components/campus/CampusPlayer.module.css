@@ -1421,3 +1421,127 @@
   color: var(--fm-text-secondary);
   margin: 0;
 }
+
+/* ========================================================================= */
+/* TU PARTE / PASOS DE ACCIÓN PRÁCTICA */
+/* ========================================================================= */
+.actionItemsCard {
+  background: linear-gradient(135deg, #F5F3FF 0%, #FFFFFF 100%);
+  border: 1.5px solid #DDD6FE;
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  box-shadow: 0 4px 18px rgba(124, 58, 237, 0.05);
+}
+
+.actionHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.actionIconBox {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: var(--fm-violeta-electric);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.actionTag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--fm-violeta-vibrant);
+  text-transform: uppercase;
+}
+
+.actionMainHeading {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--fm-azul-marino);
+  margin: 0;
+}
+
+.actionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.actionRowItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  background: #FFFFFF;
+  border: 1px solid #EDE9FE;
+  border-radius: var(--radius-lg);
+  padding: 0.9rem 1.15rem;
+  transition: all var(--transition-fast);
+}
+
+.actionRowItem:hover {
+  border-color: var(--fm-violeta-soft);
+  box-shadow: 0 2px 10px rgba(124, 58, 237, 0.06);
+}
+
+.actionBullet {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #EDE9FE;
+  color: var(--fm-violeta-electric);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.actionBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.actionTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.actionDesc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--fm-text-secondary);
+  margin: 0;
+}
+
+.actionLinkBtn {
+  margin-top: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--fm-violeta-electric);
+  background: var(--fm-violeta-subtle);
+  border: 1px solid var(--fm-violeta-soft);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.actionLinkBtn:hover {
+  background: var(--fm-violeta-electric);
+  color: #FFFFFF;
+  border-color: var(--fm-violeta-electric);
+}

@@ -461,6 +461,58 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'fases-proceso-seleccion': {
+    id: 'fases-proceso-seleccion',
+    slug: 'fases-proceso-seleccion',
+    title: 'Fases de un Proceso de Selección Típico',
+    category: 'Guía de Tiempos & Circuitos',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 1,
+    badge: 'Guía Rápida In-App',
+    estimatedReadTime: '3 min de lectura',
+    summary:
+      'Línea de tiempo paso a paso con las 4 etapas internas de contratación en una empresa y la duración estimada de cada fase.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'fase-1-preseleccion',
+        title: 'Fase 1: Apertura de la Búsqueda y Filtro Inicial',
+        subtitle: 'Duración estimada: Días 1 al 10',
+        content:
+          'La empresa publica el aviso y el selector recibe entre 250 y 400 postulaciones. Realiza el escaneo visual de 6 segundos y preselecciona entre 15 y 25 perfiles que cumplen con los requisitos excluyentes.',
+        callout: {
+          type: 'tip',
+          text: 'Durante esta etapa se descartan los CVs genéricos o mal titulados.',
+        },
+      },
+      {
+        id: 'fase-2-screening',
+        title: 'Fase 2: Contacto Inicial (Screening Telefónico o Virtual)',
+        subtitle: 'Duración estimada: Días 10 al 20',
+        content:
+          'Contacto breve (15 a 20 minutos) para validar disponibilidad horaria, pretensión salarial aproximada, nivel de idiomas y nivel de interés en la vacante. Se define una terna de 5 a 8 candidatos.',
+      },
+      {
+        id: 'fase-3-entrevistas-lideres',
+        title: 'Fase 3: Entrevistas con el Líder de Área y Evaluación Técnica',
+        subtitle: 'Duración estimada: Días 20 al 45',
+        content:
+          'Entrevista profunda con el Hiring Manager o evaluación técnica práctica. Acá se generan los silencios más largos (7 a 10 días) debido a la compatibilización de agendas internas de los directores.',
+        callout: {
+          type: 'warning',
+          text: 'Un silencio de más de una semana no significa rechazo: el líder del área suele estar atendiendo prioridades urgentes del negocio en paralelo.',
+        },
+      },
+      {
+        id: 'fase-4-aprobacion-oferta',
+        title: 'Fase 4: Aprobación de Presupuesto, Carta Oferta y Contratación',
+        subtitle: 'Duración estimada: Días 45 al 60',
+        content:
+          'El líder de área selecciona al candidato final. Se envía la propuesta a Recursos Humanos y Finanzas para aprobación de la banda salarial. Una vez validada, se envía la carta oferta formal y se pacta la fecha de ingreso.',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlug: string): InAppDocument {

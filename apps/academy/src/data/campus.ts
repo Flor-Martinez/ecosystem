@@ -29,6 +29,14 @@ export interface CampusQuiz {
   questions: CampusQuizQuestion[];
 }
 
+export interface CampusActionItem {
+  id: string;
+  title: string;
+  description: string;
+  linkText?: string;
+  targetView?: string;
+}
+
 export interface CampusLesson {
   id: string;
   programId: string;
@@ -46,6 +54,7 @@ export interface CampusLesson {
   videoScript?: string;
   discussionPrompt?: string;
   quiz?: CampusQuiz;
+  actionItems?: CampusActionItem[];
 }
 
 export interface CampusModule {
@@ -100,10 +109,24 @@ const expBusquedaLaboralModules: CampusModule[] = [
         description:
           'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
         takeaways: [
-          'El embudo real del selector: gestiona entre 250 y 400 currículums por vacante abierta.',
-          'La regla de los 6 segundos: tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
-          'Del spam a la precisión: enviar el mismo documento genérico anula tu competitividad.',
-          'Pausa estratégica: detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
+          'El embudo real del selector: Gestiona entre 250 y 400 currículums por vacante abierta.',
+          'La regla de los 6 segundos: Tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
+          'Del spam a la precisión: Enviar el mismo documento genérico anula tu competitividad.',
+          'Pausa estratégica: Detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
+        ],
+        actionItems: [
+          {
+            id: 'act-1-1',
+            title: 'Frenar la postulación masiva',
+            description: 'Pausa el envío de CVs genéricos en piloto automático hasta tener tus materiales de búsqueda calibrados.',
+          },
+          {
+            id: 'act-1-2',
+            title: 'Guardar ofertas de interés en el Tracker',
+            description: 'Si encontrás avisos atractivos mientras navegás, anotalos en tu Tracker del campus para encararlos con estrategia más adelante.',
+            linkText: 'Abrir Tracker de Postulaciones →',
+            targetView: 'tracker',
+          },
         ],
         resources: [],
         videoScript:
@@ -153,27 +176,27 @@ const expBusquedaLaboralModules: CampusModule[] = [
         description:
           'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
         takeaways: [
-          'Duración estándar: un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
-          'El circuito interno: aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
-          'Foco y perseverancia: mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
+          'Duración estándar: Un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
+          'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
+          'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
         ],
         resources: [
           {
-            id: 'res-fun-02',
-            title: 'Cronograma Típico de Selección',
+            id: 'fases-proceso-seleccion',
+            title: 'Fases de un Proceso de Selección Típico',
             type: 'pdf',
-            fileSize: '290 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
             category: 'Guía PDF',
-            description: 'Línea de tiempo paso a paso desde la apertura de la vacante hasta el onboarding.',
+            description: 'Línea de tiempo con las 4 etapas internas de contratación y la duración estimada de cada fase.',
           },
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Hoy vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
+🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
 🏷️ El silencio post-entrevista ⏳
 🔊 Tic-tac suave de reloj
 🏷️ Circuito interno de selección 🏢

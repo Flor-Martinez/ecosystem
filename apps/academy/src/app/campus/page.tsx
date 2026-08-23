@@ -622,6 +622,7 @@ function CampusContent() {
                   completedLessons={completedLessons}
                   membershipTier={membershipTier}
                   isDevMode={isDevMode}
+                  onNavigateView={(view) => handleSelectViewFromCard(view)}
                 />
               )}
             </div>

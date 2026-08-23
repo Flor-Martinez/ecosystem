@@ -21,6 +21,7 @@ import {
   RotateCcw,
   Check,
   BookOpen,
+  CheckSquare,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
@@ -40,6 +41,7 @@ interface CampusPlayerProps {
   completedLessons?: Set<string>;
   membershipTier?: 'paid' | 'free';
   isDevMode?: boolean;
+  onNavigateView?: (view: string) => void;
 }
 
 export function CampusPlayer({
@@ -53,6 +55,7 @@ export function CampusPlayer({
   completedLessons,
   membershipTier = 'paid',
   isDevMode = true,
+  onNavigateView,
 }: CampusPlayerProps) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
@@ -582,7 +585,8 @@ export function CampusPlayer({
                 const hasTitle = parts.length > 1;
                 const rawTitle = hasTitle ? parts[0]!.trim() : point;
                 const title = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
-                const desc = hasTitle ? parts.slice(1).join(':').trim() : '';
+                const rawDesc = hasTitle ? parts.slice(1).join(':').trim() : '';
+                const desc = rawDesc ? rawDesc.charAt(0).toUpperCase() + rawDesc.slice(1) : '';
 
                 return (
                   <div key={idx} className={styles.takeawayCard}>
@@ -595,6 +599,44 @@ export function CampusPlayer({
               })}
             </div>
           </div>
+
+          {/* SECTION A2: TU PARTE / PASOS DE ACCIÓN PRÁCTICA (SOLO SI LA LECCIÓN TIENE TAREAS) */}
+          {lesson.actionItems && lesson.actionItems.length > 0 && (
+            <div className={styles.actionItemsCard}>
+              <div className={styles.actionHeaderRow}>
+                <div className={styles.actionIconBox}>
+                  <CheckSquare size={20} />
+                </div>
+                <div>
+                  <span className={styles.actionTag}>APLICACIÓN PRÁCTICA</span>
+                  <h2 className={styles.actionMainHeading}>Tu Parte: Pasos a Seguir</h2>
+                </div>
+              </div>
+
+              <div className={styles.actionList}>
+                {lesson.actionItems.map((item, aIdx) => (
+                  <div key={item.id || aIdx} className={styles.actionRowItem}>
+                    <div className={styles.actionBullet}>
+                      <Check size={16} />
+                    </div>
+                    <div className={styles.actionBody}>
+                      <strong className={styles.actionTitle}>{item.title}</strong>
+                      <p className={styles.actionDesc}>{item.description}</p>
+                      {item.linkText && item.targetView && onNavigateView && (
+                        <button
+                          type="button"
+                          className={styles.actionLinkBtn}
+                          onClick={() => onNavigateView(item.targetView!)}
+                        >
+                          <span>{item.linkText}</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
