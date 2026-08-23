@@ -189,7 +189,11 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ No detener la búsqueda en paralelo 🔄
 
 [3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Anotá en tu cuaderno de trabajo: tu meta no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.`,
+🗣️ Quedate con esta idea clave: tu objetivo no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.
+🏷️ Objetivo: 2 a 3 entrevistas semanales
+🔊 Sonido suave de confirmación
+🗣️ En la próxima clase vamos a definir tu Target Laboral y tus No Negociables, para que apuntes únicamente a ofertas que se alineen con lo que realmente querés.
+🏷️ Próxima clase: Target & No Negociables 🎯`,
       },
       {
         id: 'exp-fun-03',

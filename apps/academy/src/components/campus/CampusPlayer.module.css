@@ -1362,10 +1362,21 @@
 
 .summaryMainConceptBox {
   background: #FAF9FE;
-  border-left: 3px solid var(--fm-violeta-electric);
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
-  padding: 0.85rem 1.15rem;
-  margin-bottom: 1.5rem;
+  border: 1px solid #EDE9FE;
+  border-radius: var(--radius-lg);
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.summaryMainConceptBox .lessonFullDesc {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--fm-text-secondary);
   text-align: center;
 }
 
