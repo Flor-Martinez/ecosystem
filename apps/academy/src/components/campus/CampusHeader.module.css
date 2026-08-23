@@ -638,6 +638,29 @@
   transform: scale(1.03);
 }
 
+.devModeActive {
+  background: rgba(124, 58, 237, 0.22);
+  border: 1px solid #A78BFA;
+  color: #DDD6FE;
+}
+
+.devModeActive:hover {
+  background: rgba(124, 58, 237, 0.35);
+  border-color: #C4B5FD;
+  transform: scale(1.03);
+}
+
+.devModeInactive {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #94A3B8;
+}
+
+.devModeInactive:hover {
+  background: rgba(148, 163, 184, 0.2);
+  color: #CBD5E1;
+}
+
 .devLockIcon {
   color: #F59E0B;
 }

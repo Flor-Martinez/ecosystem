@@ -57,6 +57,25 @@ function CampusContent() {
     return 'paid';
   });
 
+  // Dedicated Dev Mode Switch: allows viewing recording scripts & unlocking all lessons
+  const [isDevMode, setIsDevMode] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('campus_is_dev_mode');
+      return saved === 'false' ? false : true; // Default true for editing/filming workflow!
+    }
+    return true;
+  });
+
+  const handleToggleDevMode = () => {
+    setIsDevMode((prev) => {
+      const next = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('campus_is_dev_mode', String(next));
+      }
+      return next;
+    });
+  };
+
   // Catalog Explorer Modal state
   const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
 
@@ -438,6 +457,8 @@ function CampusContent() {
         onToggleMembership={handleToggleMembership}
         onOpenCatalogModal={() => setIsCatalogModalOpen(true)}
         onLockedClick={(featureId) => setLockedModalFeature(featureId)}
+        isDevMode={isDevMode}
+        onToggleDevMode={handleToggleDevMode}
       />
 
       {/* Campus Main Workspace */}
@@ -449,7 +470,7 @@ function CampusContent() {
             selectedLesson={selectedLesson}
             onSelectLesson={(lesson) => {
               setActiveCelebrationModule(null);
-              if (membershipTier === 'free' && (lesson.moduleNumber === 3 || lesson.moduleNumber === 5)) {
+              if (!isDevMode && membershipTier === 'free' && (lesson.moduleNumber === 3 || lesson.moduleNumber === 5)) {
                 setLockedModalFeature(`modulo-${lesson.moduleNumber}`);
               } else {
                 setSelectedLesson(lesson);
@@ -463,6 +484,7 @@ function CampusContent() {
             onClose={() => setIsSidebarOpen(false)}
             membershipTier={membershipTier}
             onLockedModuleClick={(featureId) => setLockedModalFeature(featureId)}
+            isDevMode={isDevMode}
           />
         )}
 
@@ -599,6 +621,7 @@ function CampusContent() {
                   hasNext={hasNext}
                   completedLessons={completedLessons}
                   membershipTier={membershipTier}
+                  isDevMode={isDevMode}
                 />
               )}
             </div>

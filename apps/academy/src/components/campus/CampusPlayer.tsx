@@ -38,6 +38,7 @@ interface CampusPlayerProps {
   hasNext: boolean;
   completedLessons?: Set<string>;
   membershipTier?: 'paid' | 'free';
+  isDevMode?: boolean;
 }
 
 export function CampusPlayer({
@@ -50,6 +51,7 @@ export function CampusPlayer({
   hasNext,
   completedLessons,
   membershipTier = 'paid',
+  isDevMode = true,
 }: CampusPlayerProps) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
@@ -160,6 +162,77 @@ export function CampusPlayer({
   const isModuleAlreadyFinished = currentModule.lessons.every((l) => completedLessons?.has(l.id));
   const isLastLessonInModule = currentModule.lessons[currentModule.lessons.length - 1]?.id === lesson.id;
 
+  const renderDevScript = (script: string) => {
+    const sections = script.split(/\n(?=\[\d+:\d+)/g);
+    return sections.map((sec, secIdx) => {
+      const lines = sec.trim().split('\n');
+      const headerLine = lines[0]?.startsWith('[') ? lines[0] : null;
+      const bodyLines = headerLine ? lines.slice(1) : lines;
+
+      return (
+        <div key={secIdx} className={styles.devScriptSectionBlock}>
+          {headerLine && (
+            <div className={styles.devScriptSectionHeader}>
+              <span className={styles.devScriptSectionTimeTag}>{headerLine}</span>
+            </div>
+          )}
+          <div className={styles.devScriptLines}>
+            {bodyLines.map((line, lIdx) => {
+              const trimmed = line.trim();
+              if (!trimmed) return null;
+
+              if (trimmed.startsWith('🗣️')) {
+                return (
+                  <div key={lIdx} className={styles.scriptVoiceBlock}>
+                    <span className={styles.scriptVoiceBadge}>🗣️ FLOR A CÁMARA</span>
+                    <p className={styles.scriptVoiceText}>{trimmed.replace(/^🗣️\s*/, '')}</p>
+                  </div>
+                );
+              }
+              if (trimmed.startsWith('🏷️')) {
+                return (
+                  <div key={lIdx} className={styles.scriptTextOverlayBlock}>
+                    <span className={styles.scriptTextOverlayBadge}>🏷️ TEXTO EN PANTALLA</span>
+                    <code className={styles.scriptTextOverlayContent}>{trimmed.replace(/^🏷️\s*/, '')}</code>
+                  </div>
+                );
+              }
+              if (trimmed.startsWith('🖼️')) {
+                return (
+                  <div key={lIdx} className={styles.scriptImageBlock}>
+                    <span className={styles.scriptImageBadge}>🖼️ GRÁFICA / CAPTURA</span>
+                    <p className={styles.scriptImageText}>{trimmed.replace(/^🖼️\s*/, '')}</p>
+                  </div>
+                );
+              }
+              if (trimmed.startsWith('📺')) {
+                return (
+                  <div key={lIdx} className={styles.scriptVideoBlock}>
+                    <span className={styles.scriptVideoBadge}>📺 VIDEO PANTALLA COMPLETA</span>
+                    <p className={styles.scriptVideoText}>{trimmed.replace(/^📺\s*/, '')}</p>
+                  </div>
+                );
+              }
+              if (trimmed.startsWith('🔊')) {
+                return (
+                  <div key={lIdx} className={styles.scriptAudioBlock}>
+                    <span className={styles.scriptAudioBadge}>🔊 EFECTO DE SONIDO</span>
+                    <span className={styles.scriptAudioText}>{trimmed.replace(/^🔊\s*/, '')}</span>
+                  </div>
+                );
+              }
+              return (
+                <p key={lIdx} className={styles.scriptGeneralText}>
+                  {trimmed}
+                </p>
+              );
+            })}
+          </div>
+        </div>
+      );
+    });
+  };
+
   return (
     <div className={styles.aulaContainer}>
       {/* ========================================================================= */}
@@ -216,6 +289,33 @@ export function CampusPlayer({
           </div>
         </div>
       </header>
+
+      {/* ========================================================================= */}
+      {/* DEV MODE: GUION DE GRABACIÓN & PRODUCCIÓN (ENCIMA DEL VIDEO) */}
+      {/* ========================================================================= */}
+      {isDevMode && lesson.videoScript && (
+        <div className={styles.devScriptCardAboveVideo}>
+          <div className={styles.devScriptHeader}>
+            <div className={styles.devScriptHeaderLeft}>
+              <div className={styles.devScriptIconBadge}>
+                <PlayCircle size={18} />
+              </div>
+              <div>
+                <div className={styles.devTagRow}>
+                  <span className={styles.devModeBadge}>🛠️ MODO DEV ACTIVO</span>
+                  <span className={styles.devLessonMeta}>Clase 0{lesson.lessonNumber} · {lesson.duration}</span>
+                </div>
+                <h2 className={styles.devScriptTitle}>Guion de Grabación & Pautas de Edición</h2>
+              </div>
+            </div>
+            <span className={styles.devScriptHint}>Visible solo para producción</span>
+          </div>
+
+          <div className={styles.devScriptBody}>
+            {renderDevScript(lesson.videoScript)}
+          </div>
+        </div>
+      )}
 
       {/* ========================================================================= */}
       {/* 2. MAIN MEDIA / EVALUATION VIEWPORT */}
@@ -458,8 +558,8 @@ export function CampusPlayer({
       {/* ========================================================================= */}
       {!isEvaluationLesson && (
         <div className={styles.lessonStackedContent}>
-          {/* SECTION A: RESUMEN DE LA LECCIÓN & PUNTOS CLAVE */}
-          <div className={styles.summaryCard}>
+          {/* SECTION A: RESUMEN DE LA LECCIÓN & PUNTOS CLAVE (PARA EL ALUMNO) */}
+          <div className={`${styles.summaryCard} ${styles.protectedSummary}`}>
             <h2 className={styles.sectionHeading}>Resumen de la Lección</h2>
             <p className={styles.lessonFullDesc}>{lesson.description}</p>
 
@@ -473,32 +573,6 @@ export function CampusPlayer({
               ))}
             </ul>
           </div>
-
-          {/* SECTION A2: GUION DEL VIDEO / TRANSCRIPCIÓN DIDÁCTICA */}
-          {lesson.videoScript && (
-            <div className={styles.videoScriptCard}>
-              <div className={styles.videoScriptHeader}>
-                <div className={styles.videoScriptHeaderLeft}>
-                  <div className={styles.videoScriptIconCircle}>
-                    <PlayCircle size={18} />
-                  </div>
-                  <div>
-                    <h2 className={styles.videoScriptMainHeading}>Guion del Video & Transcripción Didáctica</h2>
-                    <p className={styles.videoScriptSubtitle}>
-                      Explicación paso a paso por Flor Martinez ({lesson.duration})
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className={styles.videoScriptContent}>
-                {lesson.videoScript.split('\n\n').map((paragraph, pIdx) => (
-                  <p key={pIdx} className={styles.scriptParagraph}>
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (

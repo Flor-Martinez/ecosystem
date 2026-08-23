@@ -17,6 +17,7 @@ import {
   Lock,
   Compass,
   BookOpen,
+  Code2,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { campusPrograms, CampusProgram } from '@/data/campus';
@@ -33,6 +34,8 @@ interface CampusHeaderProps {
   onToggleMembership?: () => void;
   onOpenCatalogModal?: () => void;
   onLockedClick?: (featureId: string) => void;
+  isDevMode?: boolean;
+  onToggleDevMode?: () => void;
 }
 
 export function CampusHeader({
@@ -46,6 +49,8 @@ export function CampusHeader({
   onToggleMembership,
   onOpenCatalogModal,
   onLockedClick,
+  isDevMode = true,
+  onToggleDevMode,
 }: CampusHeaderProps) {
   const { user, openAuthModal, logout } = useAuth();
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
@@ -329,6 +334,20 @@ export function CampusHeader({
                   <span>Free Demo</span>
                 </>
               )}
+            </button>
+          )}
+
+          {/* MODO DEV TOGGLE SWITCH */}
+          {onToggleDevMode && (
+            <button
+              type="button"
+              className={`${styles.devTierSwitch} ${isDevMode ? styles.devModeActive : styles.devModeInactive}`}
+              onClick={onToggleDevMode}
+              title="Alternar entre Modo Dev (ver guion y todas las clases desbloqueadas) y Modo Alumno"
+              aria-label="Alternar Modo Dev"
+            >
+              <Code2 size={13} />
+              <span>{isDevMode ? 'Modo Dev: Activo' : 'Modo Alumno'}</span>
             </button>
           )}
 

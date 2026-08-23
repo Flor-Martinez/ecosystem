@@ -27,6 +27,7 @@ interface CampusSidebarProps {
   onClose: () => void;
   membershipTier?: 'free' | 'paid';
   onLockedModuleClick?: (featureId: string) => void;
+  isDevMode?: boolean;
 }
 
 export function CampusSidebar({
@@ -39,6 +40,7 @@ export function CampusSidebar({
   onClose,
   membershipTier = 'paid',
   onLockedModuleClick,
+  isDevMode = true,
 }: CampusSidebarProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -83,6 +85,7 @@ export function CampusSidebar({
 
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
+    if (isDevMode) return true; // In Dev Mode, all lessons are unlocked!
     const mod = currentProgram.modules.find((m) =>
       m.lessons.some((l) => l.id === lessonId)
     );

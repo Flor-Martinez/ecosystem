@@ -100,13 +100,44 @@ const expBusquedaLaboralModules: CampusModule[] = [
         description:
           'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
         takeaways: [
-          'Un selector escanea cada CV en apenas 6 segundos buscando coherencia y logros tangibles.',
-          'La postulación reactiva (spam) desgasta y frustra; la postulación quirúrgica multiplica las llamadas a entrevista.',
-          'Las empresas contratan para resolver un dolor puntual y minimizar el riesgo de error.',
+          'El embudo real del selector: gestiona entre 250 y 400 currículums por vacante abierta.',
+          'La regla de los 6 segundos: tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
+          'Del spam a la precisión: enviar el mismo documento genérico anula tu competitividad.',
+          'Pausa estratégica: detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
         ],
         resources: [],
         videoScript:
-          `[0:00 - Introducción]\n¡Hola! Te doy la bienvenida a la Experiencia Búsqueda Laboral. Si alguna vez enviaste 50 o 100 currículums en una semana y no te respondió nadie, o solo recibiste correos automáticos de rechazo, quiero darte tranquilidad y que sepas algo importante: el problema no sos vos, es el método.\n\n[1:15 - Desarrollo del concepto]\nUn selector recibe en promedio entre 250 y 400 postulaciones por vacante. No tiene tiempo material de leer cada CV palabra por palabra. Lo que hace es un escaneo visual de 6 segundos buscando 3 cosas: 1) que tu título coincida con lo que busco, 2) que tengas experiencia en un rubro o rol compatible, y 3) que muestres logros concretos. Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, para que cuando abran tu postulación, en esos 6 segundos entiendan al instante por qué tienen que llamarte a vos.\n\n[4:20 - Llamada a la acción]\nA partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático. Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos. En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ ¡Hola! Te doy la bienvenida a la Experiencia Búsqueda Laboral.
+🏷️ EXPERIENCIA BÚSQUEDA LABORAL
+🔊 Swoosh suave
+🗣️ Si alguna vez enviaste 50 o 100 currículums en una semana y no te respondió nadie, o solo recibiste correos automáticos de rechazo, quiero darte tranquilidad y que sepas algo importante: el problema no sos vos, es el método.
+🏷️ "El problema no sos vos, es el método"
+🔊 Pop sutil
+📺 (Opcional) B-Roll rápido de bandeja de Gmail scrolleando correos de descarte automático.
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 6 SEGUNDOS]
+🗣️ Un selector recibe en promedio entre 250 y 400 postulaciones por vacante.
+🏷️ 250 - 400 CVs por vacante
+🔊 Pop sutil
+🗣️ No tiene tiempo material de leer cada CV palabra por palabra. Lo que hace es un escaneo visual de 6 segundos...
+🖼️ Video flotante a la izquierda de Flor mostrando un CV real siendo scrolleado y escaneado en 6 segundos.
+🗣️ Buscando 3 cosas: 1) que tu título coincida con lo que busca, 2) que tengas experiencia en un rubro o rol compatible, y 3) que muestres logros concretos.
+🏷️ 1. Título coincidente
+🏷️ 2. Rubro o rol compatible
+🏷️ 3. Logros concretos
+🔊 Click sutil por cada punto
+🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, para que cuando abran tu postulación, en esos 6 segundos entiendan al instante por qué tienen que llamarte a vos.
+🏷️ Perfil enfocado = Más entrevistas
+
+[4:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ A partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático.
+🏷️ Pausa: Dejar de postular en masa
+🔊 Click sutil
+🗣️ Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos.
+🖼️ Video/Captura flotante a la izquierda mostrando el Tracker de Postulaciones interactivo del campus.
+🗣️ En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.
+🏷️ Próxima clase: Tiempos reales del proceso ⏱️`,
       },
       {
         id: 'exp-fun-02',
@@ -116,15 +147,15 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 2,
         type: 'video',
-        title: 'Expectativas reales: Tiempos y fases de un proceso de selección',
+        title: 'Expectativas reales: ¿Cuáles son los tiempos y fases de un proceso de selección?',
         duration: '5 min',
         completed: true,
         description:
-          'Cuánto tiempo demora una búsqueda según el rol y cómo gestionar la ansiedad durante los silencios del proceso.',
+          'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
         takeaways: [
-          'Un proceso estándar dura entre 20 y 60 días (roles directivos pueden tardar hasta 90 días).',
-          'Los silencios de 7 a 10 días suelen deberse a aprobaciones presupuestarias internas o agendas cruzadas, no a rechazos.',
-          'La clave psicológica es no detener la búsqueda mientras esperás respuestas de un proceso avanzado.',
+          'Duración estándar: un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
+          'El circuito interno: aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
+          'Foco y perseverancia: mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
         ],
         resources: [
           {
@@ -141,7 +172,17 @@ const expBusquedaLaboralModules: CampusModule[] = [
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nTuviste una entrevista genial, te dijeron 'te llamamos la semana que viene', pasaron 12 días y no hay noticias. ¿Entrás en pánico? Hoy te explico qué pasa del otro lado del escritorio.\n\n[1:10 - Desarrollo del concepto]\nUn proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio. Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.\n\n[3:50 - Llamada a la acción]\nAnotá en tu cuaderno de trabajo: tu meta no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Hoy vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
+🏷️ El silencio post-entrevista ⏳
+🔊 Tic-tac suave de reloj
+🏷️ Circuito interno de selección 🏢
+
+[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS FASES Y LOS 20 A 60 DÍAS]
+🗣️ Un proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio. Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.
+
+[3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Anotá en tu cuaderno de trabajo: tu meta no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.`,
       },
       {
         id: 'exp-fun-03',
