@@ -1219,47 +1219,36 @@
 .devScriptLines {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+}
+
+.scriptVoiceRow {
+  display: flex;
+  align-items: flex-start;
   gap: 0.75rem;
-}
-
-.scriptVoiceBlock {
   background: #F8FAFC;
-  border-left: 4px solid #7C3AED;
+  border-left: 3px solid #7C3AED;
   border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  padding: 0.75rem 1rem;
-}
-
-.scriptVoiceBadge {
-  display: inline-block;
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: #6D28D9;
-  margin-bottom: 0.35rem;
+  padding: 0.55rem 0.85rem;
 }
 
 .scriptVoiceText {
   font-size: 0.9375rem;
-  line-height: 1.6;
+  line-height: 1.55;
   color: #0F172A;
   font-weight: 500;
   margin: 0;
+  flex: 1;
 }
 
-.scriptTextOverlayBlock {
+.scriptTextOverlayRow {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem;
   background: #EFF6FF;
   border: 1px solid #BFDBFE;
   border-radius: var(--radius-md);
-  padding: 0.45rem 0.85rem;
-}
-
-.scriptTextOverlayBadge {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: #1D4ED8;
-  flex-shrink: 0;
+  padding: 0.4rem 0.85rem;
 }
 
 .scriptTextOverlayContent {
@@ -1267,23 +1256,17 @@
   font-size: 0.875rem;
   font-weight: 700;
   color: #1E3A8A;
+  flex: 1;
 }
 
-.scriptImageBlock {
+.scriptImageRow {
   display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 0.75rem;
   background: #ECFDF5;
   border: 1px solid #A7F3D0;
   border-radius: var(--radius-md);
-  padding: 0.5rem 0.85rem;
-}
-
-.scriptImageBadge {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: #059669;
-  flex-shrink: 0;
+  padding: 0.4rem 0.85rem;
 }
 
 .scriptImageText {
@@ -1291,23 +1274,17 @@
   font-weight: 600;
   color: #065F46;
   margin: 0;
+  flex: 1;
 }
 
-.scriptVideoBlock {
+.scriptVideoRow {
   display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 0.75rem;
   background: #FFFBEB;
   border: 1px solid #FDE68A;
   border-radius: var(--radius-md);
-  padding: 0.5rem 0.85rem;
-}
-
-.scriptVideoBadge {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: #D97706;
-  flex-shrink: 0;
+  padding: 0.4rem 0.85rem;
 }
 
 .scriptVideoText {
@@ -1315,23 +1292,18 @@
   font-weight: 600;
   color: #92400E;
   margin: 0;
+  flex: 1;
 }
 
-.scriptAudioBlock {
+.scriptAudioRow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   background: #F1F5F9;
   border: 1px solid #E2E8F0;
   border-radius: var(--radius-full);
-  padding: 0.25rem 0.65rem;
+  padding: 0.2rem 0.65rem;
   width: fit-content;
-}
-
-.scriptAudioBadge {
-  font-size: 0.625rem;
-  font-weight: 800;
-  color: #475569;
 }
 
 .scriptAudioText {
@@ -1340,13 +1312,109 @@
   color: #64748B;
 }
 
+.emojiCol {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 .scriptGeneralText {
   font-size: 0.875rem;
   color: #334155;
   margin: 0;
+  padding-left: 0.5rem;
 }
 
+/* ========================================================================= */
+/* EDITORIAL LESSON SUMMARY (ALUMNO) */
+/* ========================================================================= */
 .protectedSummary {
   user-select: none;
   -webkit-user-select: none;
+}
+
+.summaryHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.summaryIconBox {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: var(--fm-violeta-subtle);
+  color: var(--fm-violeta-electric);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.summaryTag {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--fm-violeta-vibrant);
+  text-transform: uppercase;
+}
+
+.summaryMainConceptBox {
+  background: #FAF9FE;
+  border-left: 3px solid var(--fm-violeta-electric);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.takeawaysGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.takeawayCard {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: all var(--transition-fast);
+}
+
+.takeawayCard:hover {
+  border-color: var(--fm-violeta-soft);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.06);
+}
+
+.takeawayCardHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.takeawayPillNumber {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: var(--fm-violeta-electric);
+  background: var(--fm-violeta-subtle);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+}
+
+.takeawayCardTitle {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+}
+
+.takeawayCardDesc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--fm-text-secondary);
+  margin: 0;
 }

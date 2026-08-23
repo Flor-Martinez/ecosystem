@@ -20,6 +20,7 @@ import {
   Send,
   RotateCcw,
   Check,
+  BookOpen,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
@@ -183,40 +184,40 @@ export function CampusPlayer({
 
               if (trimmed.startsWith('🗣️')) {
                 return (
-                  <div key={lIdx} className={styles.scriptVoiceBlock}>
-                    <span className={styles.scriptVoiceBadge}>🗣️ FLOR A CÁMARA</span>
+                  <div key={lIdx} className={styles.scriptVoiceRow}>
+                    <span className={styles.emojiCol}>🗣️</span>
                     <p className={styles.scriptVoiceText}>{trimmed.replace(/^🗣️\s*/, '')}</p>
                   </div>
                 );
               }
               if (trimmed.startsWith('🏷️')) {
                 return (
-                  <div key={lIdx} className={styles.scriptTextOverlayBlock}>
-                    <span className={styles.scriptTextOverlayBadge}>🏷️ TEXTO EN PANTALLA</span>
-                    <code className={styles.scriptTextOverlayContent}>{trimmed.replace(/^🏷️\s*/, '')}</code>
+                  <div key={lIdx} className={styles.scriptTextOverlayRow}>
+                    <span className={styles.emojiCol}>🏷️</span>
+                    <span className={styles.scriptTextOverlayContent}>{trimmed.replace(/^🏷️\s*/, '')}</span>
                   </div>
                 );
               }
               if (trimmed.startsWith('🖼️')) {
                 return (
-                  <div key={lIdx} className={styles.scriptImageBlock}>
-                    <span className={styles.scriptImageBadge}>🖼️ GRÁFICA / CAPTURA</span>
-                    <p className={styles.scriptImageText}>{trimmed.replace(/^🖼️\s*/, '')}</p>
+                  <div key={lIdx} className={styles.scriptImageRow}>
+                    <span className={styles.emojiCol}>🖼️</span>
+                    <span className={styles.scriptImageText}>{trimmed.replace(/^🖼️\s*/, '')}</span>
                   </div>
                 );
               }
               if (trimmed.startsWith('📺')) {
                 return (
-                  <div key={lIdx} className={styles.scriptVideoBlock}>
-                    <span className={styles.scriptVideoBadge}>📺 VIDEO PANTALLA COMPLETA</span>
-                    <p className={styles.scriptVideoText}>{trimmed.replace(/^📺\s*/, '')}</p>
+                  <div key={lIdx} className={styles.scriptVideoRow}>
+                    <span className={styles.emojiCol}>📺</span>
+                    <span className={styles.scriptVideoText}>{trimmed.replace(/^📺\s*/, '')}</span>
                   </div>
                 );
               }
               if (trimmed.startsWith('🔊')) {
                 return (
-                  <div key={lIdx} className={styles.scriptAudioBlock}>
-                    <span className={styles.scriptAudioBadge}>🔊 EFECTO DE SONIDO</span>
+                  <div key={lIdx} className={styles.scriptAudioRow}>
+                    <span className={styles.emojiCol}>🔊</span>
                     <span className={styles.scriptAudioText}>{trimmed.replace(/^🔊\s*/, '')}</span>
                   </div>
                 );
@@ -558,20 +559,41 @@ export function CampusPlayer({
       {/* ========================================================================= */}
       {!isEvaluationLesson && (
         <div className={styles.lessonStackedContent}>
-          {/* SECTION A: RESUMEN DE LA LECCIÓN & PUNTOS CLAVE (PARA EL ALUMNO) */}
+          {/* SECTION A: RESUMEN DE LA LECCIÓN (ESTILO EDITORIAL DIDÁCTICO) */}
           <div className={`${styles.summaryCard} ${styles.protectedSummary}`}>
-            <h2 className={styles.sectionHeading}>Resumen de la Lección</h2>
-            <p className={styles.lessonFullDesc}>{lesson.description}</p>
+            <div className={styles.summaryHeaderRow}>
+              <div className={styles.summaryIconBox}>
+                <BookOpen size={20} />
+              </div>
+              <div>
+                <span className={styles.summaryTag}>SÍNTESIS METODOLÓGICA</span>
+                <h2 className={styles.sectionHeading}>Resumen & Puntos Clave de la Clase</h2>
+              </div>
+            </div>
 
-            <h3 className={styles.takeawaysHeading}>Puntos clave de aprendizaje:</h3>
-            <ul className={styles.takeawaysList}>
-              {lesson.takeaways.map((point, idx) => (
-                <li key={idx} className={styles.takeawayItem}>
-                  <CheckCircle2 size={16} className={styles.takeawayCheck} />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.summaryMainConceptBox}>
+              <p className={styles.lessonFullDesc}>{lesson.description}</p>
+            </div>
+
+            <h3 className={styles.takeawaysHeading}>Claves aplicadas de esta lección:</h3>
+            <div className={styles.takeawaysGrid}>
+              {lesson.takeaways.map((point, idx) => {
+                const parts = point.split(':');
+                const hasTitle = parts.length > 1;
+                const title = hasTitle ? parts[0] : `Punto 0${idx + 1}`;
+                const desc = hasTitle ? parts.slice(1).join(':').trim() : point;
+
+                return (
+                  <div key={idx} className={styles.takeawayCard}>
+                    <div className={styles.takeawayCardHead}>
+                      <span className={styles.takeawayPillNumber}>0{idx + 1}</span>
+                      <strong className={styles.takeawayCardTitle}>{title}</strong>
+                    </div>
+                    <p className={styles.takeawayCardDesc}>{desc}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* SECTION B: PLANTILLAS & MATERIALES DE LA CLASE (IN-APP) */}
