@@ -268,7 +268,20 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Foco = Posicionamiento profesional 🎯
 🔊 Pop sutil
 
-[1:30 - Desarrollo del concepto]\nLos algoritmos de LinkedIn y los selectores buscan especialistas que resuelvan problemas concretos. Hoy vamos a completar juntos la Matriz de Target Laboral. Vamos a definir tu puesto diana (ej. Analista Sr. de Comercio Exterior o Product Designer B2B), tu rango salarial de piso y de aspiración, y tu lista de 'no negociables'. Saber qué NO vas a aceptar te da postura y poder de negociación desde el primer contacto.\n\n[6:20 - Llamada a la acción]\nDescargá la plantilla de la clase, completá tus 6 filtros y tu lista de 15 empresas objetivo donde te encantaría trabajar.`,
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA MATRIZ DE TARGET Y LOS NO NEGOCIABLES]
+🗣️ Tanto los motores de búsqueda como los selectores buscan especialistas que resuelvan necesidades puntuales.
+🏷️ Especialistas vs. Perfiles genéricos
+🔊 Pop sutil
+🖼️ Captura/Gráfica flotante a la izquierda mostrando la Matriz de Target Laboral con los 6 filtros.
+🗣️ Para eso trabajamos con la Matriz de Target Laboral: definimos tu puesto diana exacto, tu industria y tu piso salarial. Pero además, definimos tu lista de No Negociables.
+🏷️ 1. Puesto Diana 🎯
+🏷️ 2. Piso Salarial 💵
+🏷️ 3. Límites No Negociables 🛑
+🔊 Click sutil por cada punto
+🗣️ Saber de antemano qué condiciones no vas a aceptar te da seguridad, criterio y una postura firme desde la primera conversación.
+🏷️ Claridad = Postura y poder de negociación ✨
+
+[6:20 - Llamada a la acción]\nDescargá la plantilla de la clase, completá tus 6 filtros y tu lista de 15 empresas objetivo donde te encantaría trabajar.`,
       },
       {
         id: 'exp-fun-04',
