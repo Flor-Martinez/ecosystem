@@ -173,7 +173,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 2,
         type: 'video',
-        title: 'Expectativas reales: ¿Cuáles son los tiempos y fases de un proceso de selección?',
+        title: 'Expectativas reales: Tiempos y fases de un proceso de selección',
         duration: '5 min',
         completed: true,
         description:
@@ -232,7 +232,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 3,
         type: 'video',
-        title: 'Target laboral: ¿Cómo definir el puesto y empresa ideal sin cerrarte puertas?',
+        title: 'Target laboral: Definir el puesto y empresa ideal sin cerrarte puertas',
         duration: '8 min',
         completed: false,
         description:
