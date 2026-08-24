@@ -423,9 +423,23 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Regla de longitud: 1 página (perfiles junior/mid) o máximo 2 páginas (senior/liderazgo). Exportación siempre en PDF.',
           'Criterio de foto: Opcional en Latam (si suma profesionalismo); eliminada en procesos para USA/UK/Canadá.',
         ],
+        actionItems: [
+          {
+            id: 'act-cv-1-1',
+            title: 'Descargar la plantilla base en Word o Notion',
+            description: 'Accedé a los Documentos de esta clase para descargar tu modelo en formato .docx o duplicarlo en Notion.',
+          },
+          {
+            id: 'act-cv-1-2',
+            title: 'Configurar el encabezado limpio',
+            description: 'Volcá tu nombre, rol target, ubicación, datos de contacto y enlace a LinkedIn eliminando datos obsoletos.',
+          },
+        ],
+        mindsetPrompt:
+          'Tu CV no es tu autobiografía: es un documento comercial donde el selector debe entender en 6 segundos por qué sos la solución al puesto.',
         resources: [
           {
-            id: 'res-cv-01',
+            id: 'plantilla-estructura-cv-editorial',
             title: 'Plantilla CV ATS Editorial (Word .docx)',
             type: 'word',
             fileSize: '145 KB',
@@ -435,9 +449,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
             moduleNumber: 2,
             category: 'Plantilla ATS',
             description: 'Modelo en Word formateado en 1 columna optimizado para filtros ATS de Workday y Greenhouse.',
+            isEssential: true,
           },
           {
-            id: 'res-cv-02',
+            id: 'plantilla-cv-minimalista-notion',
             title: 'Plantilla CV Minimalista en Notion',
             type: 'notion',
             url: '#',
@@ -449,7 +464,42 @@ const expBusquedaLaboralModules: CampusModule[] = [
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nTu CV no es tu autobiografía; es un documento comercial de alto valor donde el producto sos vos.\n\n[1:30 - Desarrollo del concepto]\nVamos a ordenar tu CV en 5 bloques limpios. Empezamos por el encabezado: solo tu nombre, título profesional, ciudad/país, teléfono con código internacional, mail y link clickeable a tu LinkedIn. Eliminamos datos obsoletos como tu DNI o estado civil que solo ocupan espacio y restan profesionalismo. Usamos tipografías legibles como Inter, Calibri o Plus Jakarta Sans, y márgenes de al menos 1.5 cm para que respire la lectura.\n\n[6:30 - Llamada a la acción]\nDescargá la plantilla oficial en Word o Notion que tenés abajo y volcá tus datos básicos respetando esta estructura.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Tu CV no es tu autobiografía; es un documento comercial de alto valor donde el producto sos vos. El error más común es intentar contar todo lo que hiciste desde tu primer empleo, cuando en realidad un selector necesita entender en 6 segundos qué problemas resolvés y por qué encajás en la vacante. Menos información irrelevante significa más claridad y más entrevistas.
+🏷️ Tu CV = Documento comercial de alto valor 📄💼
+🔊 Swoosh suave
+🏷️ El escaneo inicial: 6 segundos clave ⏱️
+🔊 Pop sutil
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA ESTRUCTURA EN 5 BLOQUES]
+🗣️ Vamos a ordenar tu CV en 5 bloques limpios.
+🗣️ Empezamos por el encabezado: solo tu nombre, título profesional, ciudad/país, teléfono con código internacional, mail y link clickeable a tu LinkedIn. Eliminamos datos obsoletos como tu DNI o estado civil que solo ocupan espacio y restan profesionalismo.
+🏷️ 1. Encabezado: Contacto útil + LinkedIn (Sin DNI ni estado civil) 📇
+🔊 Click sutil
+🗣️ El segundo bloque es tu perfil profesional: un resumen breve de 3 a 4 líneas donde explicás quién sos, cuál es tu especialidad y qué valor concreto aportás al puesto.
+🏷️ 2. Perfil profesional: Resumen de impacto de 3-4 líneas 💡
+🔊 Click sutil
+🗣️ El tercer bloque, y el más importante, es tu experiencia laboral: la ordenamos en orden cronológico inverso, desde tu trabajo actual hacia atrás, destacando responsabilidades clave y logros medibles en lugar de listas interminables de tareas.
+🏷️ 3. Experiencia laboral: Cronológico inverso + Logros medibles 💼
+🔊 Click sutil
+🗣️ El cuarto bloque es tu educación: ponemos tus títulos oficiales y únicamente las certificaciones o cursos que sean relevantes para el puesto al que aspirás.
+🏷️ 4. Educación: Títulos y certificaciones relevantes 🎓
+🔊 Click sutil
+🗣️ Y el quinto bloque son tus habilidades técnicas: las herramientas, softwares y palabras clave que los selectores y los algoritmos van a buscar en tu perfil.
+🏷️ 5. Habilidades técnicas: Herramientas y palabras clave ⚙️
+🔊 Click sutil
+🗣️ Para todo el documento, usamos tipografías legibles como Inter, Calibri o Plus Jakarta Sans, márgenes de al menos 1.5 cm para que respire la lectura, una extensión de una a dos páginas según tu seniority, y exportación obligatoria siempre en formato PDF.
+🏷️ Formato: 1-2 páginas · Tipografía limpia · Exportar en PDF 📄
+🔊 Pop de confirmación
+
+[6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tu siguiente paso es ir a la sección de Documentos de esta clase y descargar tu plantilla base de CV en Word o en Notion. Empezá a volcar tus datos de contacto respetando la estructura de 5 bloques que vimos en esta clase.
+🏷️ Documentos: Plantilla CV ATS en Word & Notion 📥
+🔊 Pop sutil
+🖼️ Captura flotante mostrando las plantillas editables en Word y Notion.
+🗣️ En la próxima clase vamos a analizar cómo funcionan los sistemas ATS para que entiendas exactamente cómo los algoritmos escanean tu CV antes de que llegue a manos de un selector.
+🏷️ Próxima clase: Cómo funcionan los filtros ATS 🤖📄
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-cv-02',

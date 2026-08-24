@@ -268,6 +268,41 @@ HABILIDADES & HERRAMIENTAS
     ],
   },
 
+  'plantilla-cv-minimalista-notion': {
+    id: 'plantilla-cv-minimalista-notion',
+    slug: 'plantilla-cv-minimalista-notion',
+    title: 'Plantilla de CV Minimalista en Notion (Workspace Duplicable)',
+    category: 'Plantillas & Modelos In-App',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 2,
+    badge: 'Workspace Notion',
+    estimatedReadTime: '5 min de duplicación y ajuste',
+    summary:
+      'Estructura modular en Notion lista para duplicar, mantener actualizada tu trayectoria profesional y exportar a PDF limpio con un solo clic.',
+    author: 'Flor Martínez · Academia',
+    version: 'Edición 2025 (Notion Template)',
+    sections: [
+      {
+        id: 'instrucciones-duplicacion',
+        title: '1. Cómo duplicar la plantilla en tu Notion',
+        subtitle: 'Acceso directo a tu espacio de trabajo',
+        content:
+          'Podés duplicar esta plantilla directamente a tu cuenta de Notion. Te permite tener tu base de datos de experiencia siempre al día y generar versiones adaptadas para cada postulación.',
+        callout: {
+          type: 'tip',
+          text: 'Al exportar desde Notion a PDF, seleccioná formato "A4" y márgenes "Default" para mantener la proporción limpia de una sola página.',
+        },
+      },
+      {
+        id: 'estructura-modular',
+        title: '2. Bloques modulares listos para editar',
+        subtitle: 'Jerarquía limpia en una columna',
+        content:
+          'La plantilla está configurada respetando los 5 bloques esenciales: Encabezado con enlaces interactivos, Perfil Profesional, Experiencia cronológica inversa con viñetas de logros, Educación y Habilidades.',
+      },
+    ],
+  },
+
   'guia-optimizacion-linkedin-2025': {
     id: 'guia-optimizacion-linkedin-2025',
     slug: 'guia-optimizacion-linkedin-2025',
