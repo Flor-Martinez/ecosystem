@@ -6,8 +6,17 @@ export interface CampusResource {
   url: string;
   programId: string;
   programTitle: string;
-  moduleNumber: number;
-  category: 'Plantilla ATS' | 'Guía PDF' | 'Matriz Excel' | 'Workspace Notion' | 'Directorio' | 'Guía de Tiempos & Circuitos' | 'Herramienta de Posicionamiento';
+  moduleNumber?: number;
+  category:
+    | 'Plantilla ATS'
+    | 'Guía PDF'
+    | 'Matriz Excel'
+    | 'Workspace Notion'
+    | 'Directorio'
+    | 'Guía de Tiempos & Circuitos'
+    | 'Herramienta de Posicionamiento'
+    | 'Cronograma Operativo'
+    | string;
   description: string;
   isEssential?: boolean;
 }
@@ -302,8 +311,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [6:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en Documentos & Plantillas de esta clase. Podés completar tus 6 filtros, tus no negociables y tus 15 empresas objetivo directamente en la pantalla, y se guarda automáticamente en tu perfil.
-🏷️ Documentos & Plantillas: Matriz de Target 📋
+🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en los Documentos de esta clase. Podés completar tus 6 filtros, tus no negociables y tus 15 empresas objetivo directamente en la pantalla, y se guarda automáticamente en tu perfil.
+🏷️ Documentos: Matriz de Target 📋
 🔊 Pop sutil
 🖼️ Video flotante mostrando cómo se completan los campos y el cartel de sincronización con "Mi Perfil".
 🗣️ En la próxima clase vamos a ver los 5 errores típicos que cometen los candidatos al buscar trabajo y cómo armar tu plan de acción semanal para que tu búsqueda sea constante y productiva.
@@ -327,22 +336,59 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Bloque de 2 horas diarias: 40% prospección de vacantes, 30% networking directo y 30% optimización de materiales.',
           'La búsqueda de empleo debe tratarse con el mismo rigor y horario que un proyecto profesional.',
         ],
+        actionItems: [
+          {
+            id: 'act-4-1',
+            title: 'Consultar el Cronograma Semanal',
+            description: 'Revisá la distribución de los 3 bloques de trabajo (prospección, networking y postulaciones) en los Documentos de la clase.',
+          },
+          {
+            id: 'act-4-2',
+            title: 'Bloquear tus horarios fijos de búsqueda',
+            description: 'Definí qué días y horas vas a dedicar a tu búsqueda activa para mantener la constancia.',
+          },
+        ],
+        mindsetPrompt:
+          'Buscar trabajo no es improvisar cuando tenés tiempo: es ejecutar un proceso profesional con horarios y objetivos definidos.',
         resources: [
           {
-            id: 'res-fun-04',
-            title: 'Plan de Acción y Cronograma Semanal (PDF)',
+            id: 'cronograma-semanal-busqueda',
+            title: 'Plan de Acción y Cronograma Semanal',
             type: 'pdf',
-            fileSize: '350 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
-            category: 'Guía PDF',
+            category: 'Cronograma Operativo',
             description: 'Guía práctica para estructurar tu rutina semanal de búsqueda y seguimiento.',
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nBuscar trabajo es, en sí mismo, un trabajo de medio tiempo. Si abrís portales 20 minutos cuando te acordás, vas a tardar el triple.\n\n[1:20 - Desarrollo del concepto]\nAnalicemos los 5 errores fatales que veo todos los días en asesorías: mandar el mismo documento para todo, no tener foto profesional en LinkedIn, no anotar dónde te postulaste y sonar suplicante en lugar de como un par profesional. Hoy te entrego un cronograma semanal dividido en bloques: lunes de mapeo de empresas, martes y jueves de networking y miércoles de postulaciones directas.\n\n[5:45 - Llamada a la acción]\nCon tu target definido y tu rutina armada, estamos listos para entrar al corazón de tu presentación: la creación de tu CV de alto impacto en el Módulo 2.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Buscar trabajo es, en sí mismo, un proyecto profesional. Si abrís portales de empleo 20 minutos cada tres días cuando te acordás, tu proceso va a tardar el triple y te vas a frustrar.
+🏷️ La búsqueda laboral como proyecto profesional 💼
+🔊 Swoosh suave
+🗣️ La diferencia entre quien pasa meses sin respuestas y quien genera 2 o 3 entrevistas por semana no es la suerte: es tener un bloque de trabajo semanal organizado.
+🏷️ Rutina + Método = Entrevistas constantes 🎯
+🔊 Pop sutil
+
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — 5 ERRORES TÍPICOS Y EL BLOQUE SEMANAL]
+🗣️ La mayoría de las postulaciones fracasan por 5 errores evitables: enviar CVs sin adaptar, un LinkedIn sin palabras clave, no llevar registro en un tracker, sonar suplicante en los mensajes y abandonar la búsqueda si no responden en una semana.
+🏷️ 5 Errores Típicos en la Búsqueda ⚠️
+🔊 Pop sutil
+🏷️ 1. CV genérico · 2. LinkedIn sin SEO · 3. Sin Tracker
+🏷️ 4. Mensajes de súplica · 5. Cero seguimiento
+🔊 Clicks sutiles por punto
+🖼️ Captura flotante del Cronograma Semanal con la distribución de los 3 bloques de trabajo.
+🗣️ La solución es ordenar tu semana en 3 bloques de trabajo: mapeo de empresas objetivo, contacto directo con líderes y seguimiento de procesos abiertos. Con este esquema, en los Documentos de esta clase tenés tu cronograma para que tu búsqueda avance de forma constante y medible.
+🏷️ Documentos: Cronograma Semanal 📅
+🔊 Pop de confirmación
+
+[5:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
+🗣️ Con tu target definido y tu rutina armada, estamos listos para entrar al corazón de tu presentación: la creación de tu CV de alto impacto en el Módulo 2.
+🏷️ Módulo 2: Creación y mejora de CV 📄🚀
+🔊 Fin de lección suave`,
       },
     ],
   },

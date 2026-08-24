@@ -586,6 +586,69 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'cronograma-semanal-busqueda': {
+    id: 'cronograma-semanal-busqueda',
+    slug: 'cronograma-semanal-busqueda',
+    title: 'Plan de Acción y Cronograma Semanal de Búsqueda',
+    category: 'Cronograma Operativo',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 1,
+    badge: 'Documento de Consulta In-App',
+    estimatedReadTime: '3 min de lectura',
+    summary:
+      'Estructura de trabajo semanal en 3 bloques de alta productividad para mantener un flujo de 2 a 3 entrevistas por semana.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'bloque-1-mapeo',
+        title: '1. Bloque 1: Mapeo y Prospección (40% del tiempo)',
+        subtitle: 'Lunes y Miércoles: Detectar oportunidades antes que la competencia',
+        content:
+          'Dedicá este bloque a identificar nuevas empresas afines a tu target, analizar qué perfiles están contratando y detectar a los Hiring Managers y líderes de equipo.',
+        checklistItems: [
+          {
+            id: 'b1',
+            text: 'Revisar portales especializados y páginas de carreras de tus 15 empresas objetivo.',
+            description: 'Guardar las vacantes detectadas en el Tracker bajo estado "Identificada".',
+          },
+          {
+            id: 'b2',
+            text: 'Mapear 3 a 5 decisores en LinkedIn para cada vacante identificada.',
+            description: 'Líderes de área, Hiring Managers o Selectores asignados.',
+          },
+        ],
+      },
+      {
+        id: 'bloque-2-networking',
+        title: '2. Bloque 2: Contacto Directo & Networking (30% del tiempo)',
+        subtitle: 'Martes y Jueves: Activar conversaciones de valor',
+        content:
+          'Conectar con personas reales dentro de las empresas. El objetivo no es pedir trabajo de forma desesperada, sino iniciar conversaciones profesionales y solicitar 10 minutos de charla informativa.',
+        callout: {
+          type: 'tip',
+          text: 'Un mensaje directo personalizado a un líder de área tiene una tasa de respuesta 4 veces más alta que una postulación pasiva por portal.',
+        },
+      },
+      {
+        id: 'bloque-3-postulaciones',
+        title: '3. Bloque 3: Postulaciones Adaptadas & Seguimiento (30% del tiempo)',
+        subtitle: 'Viernes: Cierre semanal y actualización del Tracker',
+        content:
+          'Adaptar tu CV con las palabras clave exactas de cada vacante identificada, enviar las postulaciones definitivas y registrar cada movimiento en tu Tracker de Búsquedas.',
+        tableData: {
+          headers: ['Día', 'Bloque Operativo', 'Objetivo Concreto'],
+          rows: [
+            ['Lunes', 'Mapeo & Empresas', '5 vacantes identificadas en el Tracker'],
+            ['Martes', 'Networking Directo', '3 conexiones con decisores en LinkedIn'],
+            ['Miércoles', 'Mapeo & Target', 'Revisión de avisos y palabras clave'],
+            ['Jueves', 'Networking Directo', 'Mensajes de seguimiento a contactos previos'],
+            ['Viernes', 'Postulación & Tracker', '2 a 3 envíos de CV ultra-personalizados'],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

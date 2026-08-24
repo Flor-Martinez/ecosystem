@@ -642,7 +642,7 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION B: DOCUMENTOS & PLANTILLAS DE LA CLASE (IN-APP) */}
+          {/* SECTION B: DOCUMENTOS DE LA CLASE (IN-APP) */}
           {lesson.resources.length > 0 && (
             <div className={styles.resourcesCard}>
               <div className={styles.resourcesHeaderRow}>
@@ -651,7 +651,7 @@ export function CampusPlayer({
                 </div>
                 <div>
                   <span className={styles.resourcesCategoryTag}>MATERIAL DIDÁCTICO</span>
-                  <h2 className={styles.sectionHeading}>Documentos & Plantillas</h2>
+                  <h2 className={styles.sectionHeading}>Documentos</h2>
                 </div>
               </div>
 
