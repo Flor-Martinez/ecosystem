@@ -19,6 +19,7 @@ import {
   BookOpen,
   Code2,
 } from 'lucide-react';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useAuth } from '@/context/AuthContext';
 import { campusPrograms, CampusProgram } from '@/data/campus';
 import styles from './CampusHeader.module.css';
@@ -68,8 +69,19 @@ export function CampusHeader({
   return (
     <header className={styles.campusHeader}>
       <div className={styles.headerContainer}>
-        {/* LEFT: Program Switcher */}
+        {/* LEFT: Logo Chiquito & Program Switcher */}
         <div className={styles.leftArea}>
+          {/* Logo Chiquito de la Academia */}
+          <Link
+            href="/"
+            className={styles.campusLogoLink}
+            title="Volver al inicio de Academia Flor Martinez"
+          >
+            <BrandLogo variant="dark" branch="academia" size="sm" showSubtitle={false} />
+          </Link>
+
+          <div className={styles.headerDivider} />
+
           {user ? (
             /* Program Switcher Dropdown (Only for Authenticated Users with Enrolled Courses) */
             <div className={styles.programDropdownWrap}>

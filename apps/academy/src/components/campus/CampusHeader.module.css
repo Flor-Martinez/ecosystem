@@ -20,7 +20,27 @@
 .leftArea {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.875rem;
+}
+
+.campusLogoLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform var(--transition-fast, 0.15s ease), opacity var(--transition-fast, 0.15s ease);
+  flex-shrink: 0;
+}
+
+.campusLogoLink:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.headerDivider {
+  width: 1px;
+  height: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
 }
 
 .sidebarToggleBtn {
