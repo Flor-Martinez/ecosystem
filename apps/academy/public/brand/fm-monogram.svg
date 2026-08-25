@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%" fill="none">
+  <!-- FM Interlocking Monogram - Official Vector Definition -->
+  <g id="fm-monogram" fill="currentColor">
+    <!-- Letter F Main Vertical Stem & Bracketed Serifs -->
+    <path d="M 38 188 L 68 188 L 68 182 L 59 182 C 55.5 182 54.5 180.5 54.5 176.5 L 54.5 48 C 54.5 44 55.5 42.5 59 42.5 L 68 42.5 L 68 36.5 L 26 36.5 L 26 42.5 L 34 42.5 C 37.5 42.5 38.5 44 38.5 48 L 38.5 176.5 C 38.5 180.5 37.5 182 34 182 L 26 182 L 26 188 Z"/>
+    
+    <!-- Letter F Extended Top Arm with Elegant Upward Terminal Curve (Sheltering M) -->
+    <path d="M 54.5 43.5 L 140 43.5 C 160 43.5 178 40.5 192 34 C 187 38.5 182 48.5 185 53.5 C 188 58 195 56 195 50 C 195 40 178 36.5 152 36.5 L 54.5 36.5 Z"/>
+    
+    <!-- Letter F Middle Crossbar connecting towards M -->
+    <path d="M 54.5 98 L 98 98 L 102 91 L 98 84 L 54.5 84 Z"/>
+
+    <!-- Letter M Left Stem with Top/Bottom Serifs -->
+    <path d="M 88 188 L 114 188 L 114 182 L 107 182 C 103.5 182 102.5 180.5 102.5 176.5 L 102.5 82 C 102.5 78 103.5 76.5 107 76.5 L 114 76.5 L 114 70.5 L 86 70.5 L 86 76.5 L 93 76.5 C 96.5 76.5 97.5 78 97.5 82 L 97.5 176.5 C 97.5 180.5 96.5 182 93 182 L 86 182 L 86 188 Z"/>
+
+    <!-- Letter M Diagonal V-strokes (Thick downstroke, Thin upstroke) -->
+    <!-- Left to Center Diagonal (Thick) -->
+    <polygon points="102,76 138,172 146,172 114,76"/>
+    <!-- Center to Right Diagonal (Thin) -->
+    <polygon points="138,172 174,76 179,76 144,172"/>
+
+    <!-- Letter M Right Stem with Top/Bottom Serifs -->
+    <path d="M 166 188 L 194 188 L 194 182 L 187 182 C 183.5 182 182.5 180.5 182.5 176.5 L 182.5 82 C 182.5 78 183.5 76.5 187 76.5 L 194 76.5 L 194 70.5 L 166 70.5 L 166 76.5 L 173 76.5 C 176.5 76.5 177.5 78 177.5 82 L 177.5 176.5 C 177.5 180.5 176.5 182 173 182 L 166 182 L 166 188 Z"/>
+  </g>
+</svg>
