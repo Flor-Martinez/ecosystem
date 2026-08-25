@@ -517,6 +517,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Cómo funcionan los filtros ATS',
         duration: '7 min',
+        videoDuration: '3:50 min',
         completed: false,
         description:
           'Cómo procesan el texto los softwares ATS, qué elementos rompen la lectura automática y cómo garantizar 100% de compatibilidad.',
@@ -524,23 +525,67 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Los ATS (Workday, Taleo, Greenhouse, Lever) extraen texto plano y ordenan candidatos según coincidencia de palabras clave.',
           'Mito: "El robot descarta automáticamente". Realidad: El sistema clasifica por relevancia y el selector humano revisa la lista ordenada.',
           'Elementos que dañan la lectura: tablas de doble columna complejas, cuadros de texto flotantes, íconos incrustados como imágenes.',
+          'Regla de oro: Maquetación en 1 sola columna vertical con encabezados estándar y exportación en PDF con texto seleccionable.',
         ],
+        actionItems: [
+          {
+            id: 'act-cv-2-1',
+            title: 'Auditar tu CV con el Checklist ATS',
+            description: 'Accedé a los Documentos de esta clase para verificar que tu archivo cumpla las pautas técnicas de lectura.',
+          },
+          {
+            id: 'act-cv-2-2',
+            title: 'Realizar la prueba de texto plano',
+            description: 'Copiá y pegá el contenido de tu PDF en un bloc de notas para confirmar que se lea en orden sin caracteres rotos.',
+          },
+        ],
+        mindsetPrompt:
+          'Un ATS no es un enemigo con IA que te descarta: es un lector de texto plano que premia la claridad, el orden y las palabras clave.',
         resources: [
           {
-            id: 'res-cv-03',
-            title: 'Checklist de Compatibilidad ATS (PDF)',
+            id: 'checklist-optimizacion-cv-ats',
+            title: 'Checklist de Compatibilidad ATS (25 Puntos)',
             type: 'pdf',
-            fileSize: '320 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 2,
-            category: 'Guía PDF',
-            description: 'Lista de verificación para comprobar que tu documento no contenga elementos que bloqueen el parseo.',
+            category: 'Checklist Técnico',
+            description: 'Lista de verificación interactiva para comprobar que tu documento no contenga elementos que bloqueen el parseo.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\n¿Escuchaste hablar del famoso 'robot que descarta CVs'? Hoy vamos a separar la realidad de los mitos de internet para que tu CV nunca quede atrapado en el limbo digital.\n\n[1:15 - Desarrollo del concepto]\nLas grandes empresas usan software ATS porque reciben miles de postulaciones. El sistema convierte tu PDF a texto plano y busca coincidencias con la descripción del puesto. Si diseñaste tu CV en Canva con tablas dobles, íconos de barritas para decir 'inglés 80%' o texto incrustado como imagen, el sistema no puede leerlo y te asigna un puntaje de cero. En esta clase te enseño cómo maquetar con una sola columna limpia que los ATS leen a la perfección y que a los humanos les encanta mirar.\n\n[5:45 - Llamada a la acción]\nRevisá tu CV actual con el checklist que te dejo en los recursos: si tiene tablas complejas o gráficos, es momento de limpiarlo.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ ¿Escuchaste hablar del famoso 'robot que descarta CVs'? En internet hay mucho mito sobre los sistemas ATS, pero la realidad es mucho más simple: un ATS no es una inteligencia artificial que decide si servís o no; es una base de datos que convierte tu documento a texto plano y lo indexa según palabras clave. Vamos a ver exactamente cómo lee tu currículum para garantizar que nunca quede invisible en el sistema.
+🏷️ Mito vs. Realidad: ¿Cómo funciona un ATS? 🤖📄
+🔊 Swoosh suave
+🏷️ ATS = Base de datos de indexación por palabras clave 🔍
+🔊 Pop sutil
+🏷️ Objetivo: 100% de compatibilidad y visibilidad 🎯
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — POR QUÉ FALLA EL PARSEO Y CÓMO DISEÑAR EN 1 COLUMNA]
+🗣️ Para entender por qué falla un CV, imaginate qué pasa cuando el sistema extrae el contenido: lee en línea recta horizontal. Si tenés un diseño de doble columna con cajas flotantes, el texto de la barra lateral se mezcla con tu experiencia laboral y genera un bloque incomprensible.
+🏷️ Lectura horizontal: De izquierda a derecha 📄➡️🔡
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando la comparación de un CV visual de 2 columnas vs. el texto plano roto resultante.
+🗣️ Lo mismo pasa cuando reemplazás palabras por gráficos, como barritas de nivel de idioma o íconos decorativos: para el sistema simplemente no existen.
+🏷️ Errores fatales: Barritas de nivel & Cajas flotantes ⚠️
+🔊 Pop sutil
+🗣️ La solución es directa: maquetar en una sola columna vertical, usar encabezados estándar como 'Experiencia', 'Educación' y 'Habilidades', y verificar que todo tu texto sea seleccionable antes de exportar en PDF. Así garantizás que el sistema indexe cada dato en el casillero correcto.
+🏷️ Estructura segura: 1 Columna + Encabezados Estándar 🛡️
+🔊 Pop de confirmación
+
+[5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Andá a la sección de Documentos de esta clase y pasá tu CV por el Checklist de Compatibilidad ATS: si encontrás tablas dobles, barritas o cajas flotantes, es momento de limpiarlo y pasar tu información a la plantilla de una columna.
+🏷️ Documentos: Checklist de Compatibilidad ATS 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante del Checklist interactivo in-app.
+🗣️ Una vez que el formato esté asegurado, en la siguiente clase te voy a enseñar cómo mapear e incorporar las palabras clave exactas de cada vacante para que tu perfil destaque en las búsquedas.
+🏷️ Próxima clase: Palabras clave y adaptación del CV 🎯📄
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-cv-03',

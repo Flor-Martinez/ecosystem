@@ -38,8 +38,8 @@ export function FMMonogramSvg({
       {/* Letter F Vertical Stem & Foot/Head Serifs */}
       <path d="M 32 184 L 62 184 L 62 178 L 53 178 C 49.5 178 48.5 176.5 48.5 172.5 L 48.5 48 C 48.5 44 49.5 42.5 53 42.5 L 62 42.5 L 62 36.5 L 22 36.5 L 22 42.5 L 30 42.5 C 33.5 42.5 34.5 44 34.5 48 L 34.5 172.5 C 34.5 176.5 33.5 178 30 178 L 22 178 L 22 184 Z" />
       
-      {/* Letter F Extended Top Arm Sheltering M with graceful upward terminal curve */}
-      <path d="M 48.5 42.5 L 140 42.5 C 160 42.5 178 39.5 192 33 C 187 37.5 182 47.5 185 52.5 C 188 57 195 55 195 49 C 195 39 178 35.5 152 35.5 L 48.5 35.5 Z" />
+      {/* Letter F Extended Top Arm with Clean Classic Serif Terminal */}
+      <path d="M 48.5 42.5 L 176 42.5 L 176 52 L 185 52 L 185 35.5 L 48.5 35.5 Z" />
       
       {/* Letter F Middle Crossbar */}
       <path d="M 48.5 98 L 94 98 L 98 91 L 94 84 L 48.5 84 Z" />
