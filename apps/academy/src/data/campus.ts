@@ -56,6 +56,7 @@ export interface CampusLesson {
   lessonNumber: number;
   title: string;
   duration: string;
+  videoDuration?: string;
   type: 'video' | 'guia' | 'evaluacion';
   completed?: boolean;
   description: string;
@@ -116,6 +117,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
         duration: '6 min',
+        videoDuration: '3:50 min',
         completed: true,
         description:
           'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
@@ -184,6 +186,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Tiempos y fases reales de contratación',
         duration: '5 min',
+        videoDuration: '4:15 min',
         completed: true,
         description:
           'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
@@ -243,6 +246,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Definición de target y no negociables',
         duration: '8 min',
+        videoDuration: '4:30 min',
         completed: false,
         description:
           'Cómo definir con precisión quirúrgica tu puesto objetivo, industria, modalidad de trabajo y los límites que no vas a aceptar.',
@@ -328,6 +332,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: '5 errores típicos y plan semanal',
         duration: '7 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
           'Los errores más frecuentes que sabotean búsquedas y cómo armar un bloque de 10 a 15 horas semanales de alta productividad.',
@@ -414,6 +419,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Estructura y formato de un CV moderno',
         duration: '8 min',
+        videoDuration: '4:10 min',
         completed: false,
         description:
           'Secciones obligatorias, qué descartar por completo y reglas técnicas de diseño, tipografía, extensión y formato de exportación.',

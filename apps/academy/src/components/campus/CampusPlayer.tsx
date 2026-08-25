@@ -250,7 +250,7 @@ export function CampusPlayer({
                 ? '🏆 Evaluación Final'
                 : lesson.type === 'guia'
                 ? '📄 Guía Práctica'
-                : '🎬 Video Lección'}
+                : `🎬 Video Lección (${lesson.videoDuration || '3:45 min'})`}
             </span>
           </div>
         </div>
