@@ -77,7 +77,7 @@ export function CampusHeader({
             className={styles.campusLogoLink}
             title="Volver al inicio de Academia Flor Martinez"
           >
-            <BrandLogo variant="dark" branch="academia" size="sm" showSubtitle={false} />
+            <BrandLogo variant="dark" branch="academia" size="sm" showSubtitle={true} />
           </Link>
 
           <div className={styles.headerDivider} />
