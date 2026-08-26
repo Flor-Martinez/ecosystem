@@ -1170,29 +1170,72 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Estrategia de contenido y networking',
         duration: '6 min',
+        videoDuration: '3:30 min',
         completed: false,
         description:
           'Qué publicar para posicionarte como referente de tu sector, qué temas evitar y cómo hallar vacantes no listadas en LinkedIn Jobs.',
         takeaways: [
-          'Publicar aprendizajes, análisis de industria y resúmenes de proyectos para activar el alcance orgánico.',
-          'Evitar quejas de búsqueda laboral, discusiones políticas o contenido que no aporte valor profesional.',
-          'Filtrar en el feed de publicaciones con operadores booleanos y hashtags como `#hiring` o `#contratando`.',
+          'El mercado oculto del feed: Más del 60% de las contrataciones tempranas nacen en posts orgánicos de líderes de equipo.',
+          'Comentarios de alto valor: Aportar datos, experiencia práctica o preguntas de valor para atraer visitas cualificadas a tu perfil.',
+          'Búsqueda avanzada en el feed: Filtrar por publicaciones recientes (últimas 24h) con términos como `[tu puesto] AND (busco OR contratando)`.',
         ],
-        resources: [
+        actionItems: [
           {
-            id: 'res-lk-05',
-            title: 'Calendario de Ideas de Contenido para LinkedIn (Notion)',
-            type: 'notion',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Workspace Notion',
-            description: 'Matriz con 12 ideas de posts profesionales para publicar 1 vez por semana.',
+            id: 'act-lk-5-1',
+            title: 'Buscar publicaciones recientes en el feed',
+            description: 'Aplicá el filtro de publicaciones de las últimas 24 horas para tu puesto objetivo.',
+          },
+          {
+            id: 'act-lk-5-2',
+            title: 'Dejar un comentario de alto valor',
+            description: 'Participá en un debate de tu sector aportando tu perspectiva técnica o experiencia.',
           },
         ],
+        mindsetPrompt:
+          'No necesitás ser influencer para destacar en LinkedIn: basta con aportar valor genuino y criterio profesional en las conversaciones correctas.',
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\nEl 60% de las vacantes en LinkedIn nunca se publican en la pestaña de 'Empleos', sino en posts orgánicos de los propios directores de área.\n\n[1:20 - Desarrollo del concepto]\nNo necesitás ser influencer para tener visibilidad. Basta con interactuar con comentarios de valor en publicaciones de referentes de tu industria y compartir reflexiones sobre tu trabajo una vez por semana. Además, te enseño cómo filtrar en la barra de búsqueda por 'Publicaciones' recientes con hashtags como #contratando o #busquedalaboral para ser de los primeros en comentar y postularte.\n\n[4:50 - Llamada a la acción]\nHacé una búsqueda en el feed con los filtros avanzados y dejá tu primer comentario de valor hoy.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Más del sesenta por ciento de las contrataciones en LinkedIn nunca llegan a publicarse en la pestaña de empleos: nacen en publicaciones orgánicas de líderes de equipo que buscan candidatos en su propia red.
+🏷️ El Mercado Oculto en el Feed de LinkedIn 🔍🌐
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando un post de un gerente de área publicando una búsqueda informal.
+🗣️ No necesitás ser influencer ni pasar horas escribiendo para tener visibilidad.
+🏷️ Mito: No necesitás ser influencer para destacar 🛡️
+🔊 Pop sutil
+🗣️ En esta clase te voy a enseñar cómo usar los comentarios estratégicos y la búsqueda avanzada del feed para encontrar vacantes antes de que se llenen de postulantes.
+🏷️ Estrategia: Comentarios de Valor + Búsqueda en el Feed 🚀💬
+🔊 Pop de confirmación
+
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — COMENTARIOS DE VALOR Y BÚSQUEDA AVANZADA]
+🗣️ Para activar tu visibilidad no hace falta publicar todos los días; el camino más rápido consiste en dejar comentarios de valor en los posteos de empresas y referentes de tu sector.
+🏷️ 1. Técnica: Comentarios de Alto Valor en tu Industria 💬💡
+🔊 Swoosh suave
+🗣️ Cuando aportás una perspectiva profesional o un dato concreto, todas las personas que leen ese debate ven tu titular y hacen clic en tu perfil.
+🏷️ Visibilidad Indirecta: Tu Titular como imán en debates 🎯
+🔊 Pop sutil
+🖼️ Captura flotante mostrando un comentario técnico destacado con visitas directas al perfil.
+🗣️ El segundo truco es usar la barra de búsqueda de LinkedIn para rastrear vacantes tempranas: Escribí tu puesto objetivo junto a palabras como 'busco', 'contratando' o 'sumamos al equipo', filtrá por 'Publicaciones' y ordená por las últimas veinticuatro horas.
+🏷️ 2. Búsqueda en el Feed: [Puesto] + busco / contratando 🔍🕒
+🔊 Click sutil
+🖼️ Video flotante mostrando el paso a paso del filtro por 'Publicaciones' y 'Más recientes'.
+🗣️ Esto te permite escribirle al autor del post cuando apenas tres o cuatro personas lo vieron, en lugar de competir con cientos de postulantes en los portales saturados.
+🏷️ Ventaja Competitiva: Contacto Temprano sin saturación ⚡🚀
+🔊 Pop de confirmación
+
+[4:50 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
+🗣️ Tu tarea en esta clase es hacer una búsqueda de publicaciones recientes en tu área y dejar tu primer comentario de valor en un post relevante de tu sector.
+🏷️ Acción: Búsqueda en el Feed + Comentario de Valor 💬🔍
+🔊 Swoosh suave
+🗣️ Asegurate de que no sea un simple 'muy buen post' o un emoji; aportá una perspectiva técnica desde tu experiencia, compartí un dato concreto o hacé una pregunta profesional que invite a seguir la conversación.
+🏷️ Comentario de Impacto: Aportar datos · Experiencia · Preguntas de valor 💡
+🔊 Pop sutil
+🗣️ Con esto completamos el Módulo 3: tu perfil de LinkedIn ya es un canal activo de atracción de oportunidades profesionales.
+🏷️ Hito: Módulo 03 Completado (LinkedIn Profesional) 🌐✅
+🔊 Pop de confirmación
+🗣️ En el Módulo 4 vamos a expandir tu búsqueda a otros canales: plataformas de trabajo remoto internacional, bolsas de empleo locales y consultoras de selección.
+🏷️ Módulo 04: Dónde buscar ofertas 🗺️💼
+🔊 Swoosh final de módulo`,
       },
     ],
   },
