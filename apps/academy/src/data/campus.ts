@@ -953,30 +953,63 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Titular magnético y sección Acerca de mí',
         duration: '8 min',
+        videoDuration: '3:50 min',
         completed: false,
         description:
           'Cómo redactar un titular que indexe en el buscador de reclutadores y un extracto que cuente tu historia con enganche y llamada a la acción.',
         takeaways: [
-          'El algoritmo de LinkedIn Recruiter prioriza las palabras clave del Titular por encima de cualquier otra sección.',
-          'Fórmula del Titular: [Puesto Objetivo] + [Industria / Especialidad] + [Herramientas Clave] + [Propuesta de Valor].',
-          'Estructura del Acerca de mí: Gancho inicial -> Trayectoria -> Hitos cuantificables -> Qué buscás y correo de contacto directo.',
+          'El Titular es el campo con mayor peso SEO: Determina tu posición en las búsquedas de LinkedIn Recruiter.',
+          'Fórmula del Titular: Combinar tu cargo objetivo con herramientas y especialidad con separadores limpios (Rol | Tecnologías | Especialidad).',
+          'Estructura del Acerca de mí: Redacción en 1ra persona, gancho en las primeras 3 líneas, logros cuantificados y correo de contacto directo.',
         ],
-        resources: [
+        actionItems: [
           {
-            id: 'res-lk-02',
-            title: 'Guía de Copywriting para Titular y Acerca de mí (PDF)',
-            type: 'pdf',
-            fileSize: '310 KB',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Guía PDF',
-            description: 'Fórmulas y ejemplos redactados para perfiles de tecnología, comercio exterior y negocios.',
+            id: 'act-lk-2-1',
+            title: 'Actualizar el Titular en LinkedIn',
+            description: 'Cargá tu titular estructurado con cargo objetivo, herramientas y especialidad.',
+          },
+          {
+            id: 'act-lk-2-2',
+            title: 'Redactar tu sección Acerca de mí',
+            description: 'Escribí tu extracto en primera persona destacando tus logros y dejando tu correo visible.',
           },
         ],
+        mindsetPrompt:
+          'El titular de LinkedIn no es un estado de ánimo: es la etiqueta con la que el algoritmo te indexa ante las mejores oportunidades.',
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\nSi tu titular dice 'En búsqueda activa de nuevas oportunidades', estás desperdiciando el espacio más valioso de todo tu perfil.\n\n[1:40 - Desarrollo del concepto]\nLos recruiters buscan por cargos y palabras clave como 'Supply Chain Analyst | SAP | Power BI', nunca buscan la palabra 'desempleado'. Hoy construimos tu titular con palabras clave de alta demanda. Luego redactamos tu 'Acerca de mí' en primera persona, con un tono cercano pero profesional, contando tu historia, tus hitos y dejando un mail directo de contacto.\n\n[6:30 - Llamada a la acción]\nCopia la fórmula de la clase y redactá tu nuevo titular y extracto en LinkedIn.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Si tu titular dice 'En búsqueda activa de nuevas oportunidades' o simplemente pusiste tu título universitario, estás desperdiciando el espacio con mayor peso SEO de todo tu perfil.
+🏷️ Error Fatal: 'En búsqueda activa' en el Titular ❌📉
+🔊 Swoosh suave
+🖼️ Placa comparativa: 'En búsqueda activa...' (Tachado en Rojo) vs. 'Rol + Especialidad + Herramientas' (Tilde Verde).
+🗣️ Los reclutadores que usan LinkedIn Recruiter nunca buscan la palabra 'desempleado' ni 'búsqueda activa': buscan cargos exactos, industrias y herramientas clave.
+🏷️ SEO en LinkedIn: Palabras Clave de Alta Demanda 🔍⚙️
+🔊 Pop sutil
+🗣️ En esta clase vamos a construir un Titular magnético que te posicione en los primeros lugares de búsqueda y un 'Acerca de mí' que atrape al selector desde la primera línea.
+🏷️ Estrategia: Titular con SEO + Acerca de Mí Comercial 🎯✍️
+🔊 Pop de confirmación
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — FÓRMULA DEL TITULAR Y ACERCA DE MÍ]
+🗣️ El Titular tiene como único objetivo hacerte aparecer en los filtros de búsqueda de los reclutadores.
+🏷️ Objetivo del Titular: Indexación Algorítmica Máxima 🎯
+🔊 Swoosh suave
+🗣️ Combiná tu cargo objetivo con tus herramientas y especialidades separadas por barras: eso le indica al algoritmo exactamente en qué vacantes posicionarte.
+🏷️ Rol | Tecnologías | Especialidad ⚙️
+🔊 Pop sutil
+🖼️ Captura de búsqueda de LinkedIn Recruiter mostrando cómo indexan las palabras del titular.
+🗣️ Una vez que el selector entra a tu perfil, tu 'Acerca de mí' es el encargado de generar conexión y confianza.
+🗣️ Escribilo en primera persona, contá qué te apasiona resolver, listá tus principales logros y dejá siempre tu correo visible al final.
+🏷️ Acerca de Mí: Tono Humano + Logros + Email de Contacto 💬
+🔊 Pop de confirmación
+
+[6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Actualizá tu perfil asegurándote de cumplir los pasos anteriores.
+🏷️ Acción en LinkedIn: Actualizar Titular y Acerca de Mí ✍️💼
+🔊 Pop sutil
+🗣️ En la siguiente clase vamos a optimizar tu experiencia laboral y la estrategia de recomendaciones.
+🏷️ Próxima clase: Experiencia, aptitudes y recomendaciones 🤝⭐
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-lk-03',
