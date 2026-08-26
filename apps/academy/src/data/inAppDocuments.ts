@@ -726,6 +726,67 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'diccionario-100-verbos-accion': {
+    id: 'diccionario-100-verbos-accion',
+    slug: 'diccionario-100-verbos-accion',
+    title: 'Diccionario de 100 Verbos de Acción de Alto Impacto',
+    category: 'Vocabulario & Redacción de Logros',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 2,
+    badge: 'Guía de Consulta Rápida',
+    estimatedReadTime: '3 min de consulta',
+    summary:
+      'Listado clasificado de verbos activos por área para erradicar frases pasivas y formular logros con autoridad y métricas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'verbos-liderazgo-gestion',
+        title: '1. Liderazgo, Gestión y Coordinación',
+        subtitle: 'Para posiciones de mando, seniors o coordinadores',
+        content: 'Verbos recomendados para demostrar iniciativa y capacidad de alineación de personas:',
+        tableData: {
+          headers: ['Verbo de Acción', 'Contexto Sugerido', 'Ejemplo de Impacto'],
+          rows: [
+            ['Lideré / Conduje', 'Equipos multidisciplinarios, comités o squads', 'Lideré un equipo de 6 analistas reduciendo tiempos de entrega en 25%.'],
+            ['Coordiné', 'Lanzamientos, eventos o proveedores', 'Coordiné a 4 agencias externas para el rediseño del portal.'],
+            ['Capacité / Mentoré', 'Onboarding de talento o formación interna', 'Capacité a 15 nuevos ingresos estandarizando procesos de venta.'],
+            ['Estandaricé', 'Manuales, políticas operativas o SOPs', 'Estandaricé los protocolos de atención al cliente en 3 sucursales.'],
+          ],
+        },
+      },
+      {
+        id: 'verbos-optimizacion-eficiencia',
+        title: '2. Optimización, Procesos y Ahorro',
+        subtitle: 'Para perfiles analíticos, operativos o técnicos',
+        content: 'Verbos para evidenciar mejoras de tiempo, costos y reducción de errores:',
+        tableData: {
+          headers: ['Verbo de Acción', 'Contexto Sugerido', 'Ejemplo de Impacto'],
+          rows: [
+            ['Automaticé', 'Flujos con macros, scripts o software', 'Automaticé la conciliación bancaria ahorrando 8 horas semanales.'],
+            ['Optimicé', 'Embudos, presupuestos o inventarios', 'Optimicé los niveles de stock disminuyendo mermas en un 18%.'],
+            ['Reduje / Disminuí', 'Tiempos de espera, costos o incidencias', 'Reduje la tasa de cancelaciones de clientes (churn) en un 12%.'],
+            ['Implementé', 'Nuevas herramientas, ERPs o CRMs', 'Implementé HubSpot CRM centralizando más de 200 leads mensuales.'],
+          ],
+        },
+      },
+      {
+        id: 'verbos-ventas-negocios',
+        title: '3. Ventas, Negociación y Crecimiento',
+        subtitle: 'Para perfiles comerciales, marketing y desarrollo de cuentas',
+        content: 'Verbos de generación directa de valor e ingresos:',
+        tableData: {
+          headers: ['Verbo de Acción', 'Contexto Sugerido', 'Ejemplo de Impacto'],
+          rows: [
+            ['Negocié', 'Contratos anuales, condiciones o tarifas', 'Negocié acuerdos con proveedores logrando un ahorro del 14% anual.'],
+            ['Capté / Prospecté', 'Nuevos clientes corporativos B2B', 'Capté 12 cuentas clave corporativas en los primeros 6 meses.'],
+            ['Incrementé / Aceleré', 'Ventas, retención o cuota de mercado', 'Incrementé la facturación del canal digital en un 35% interanual.'],
+            ['Diversifiqué', 'Líneas de producto o canales comerciales', 'Diversifiqué el catálogo ingresando a 2 nuevos mercados regionales.'],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

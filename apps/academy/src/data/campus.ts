@@ -499,7 +499,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es ir a la sección de Documentos de esta clase y descargar tu plantilla base de CV en Word o en Notion. Empezá a volcar tus datos de contacto respetando la estructura de 5 bloques que vimos en esta clase.
+🗣️ Tu siguiente paso es ir a la sección de Documentos de esta clase y descargar tu plantilla base de CV en Word o en Notion. Tomate tu tiempo para volcar tus datos de contacto respetando la estructura de 5 bloques que vimos en esta clase.
 🏷️ Documentos: Plantilla CV ATS en Word & Notion 📥
 🔊 Pop sutil
 🖼️ Captura flotante mostrando las plantillas editables en Word y Notion.
@@ -673,30 +673,72 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Verbos de acción y logros cuantificables',
         duration: '8 min',
+        videoDuration: '3:55 min',
         completed: false,
         description:
           'Transformá listas de tareas pasivas en declaraciones de valor con métricas, porcentajes y verbos de acción fuertes.',
         takeaways: [
-          'Fórmula de redacción: [Verbo de acción en pasado] + [Contexto / Herramienta] + [Métrica o Resultado].',
-          'Eliminar frases pasivas como "Responsable de..." o "Encargado de...".',
-          'Cómo cuantificar cuando no manejás presupuestos directos (ahorro de tiempo, volumen atendido, mejoras de procesos).',
+          'La fórmula del logro: [Verbo de acción en pasado] + [Contexto / Herramienta] + [Métrica o Resultado de negocio].',
+          'Eliminar frases pasivas: Desterrar "Responsable de...", "Encargado de..." o "Tareas de soporte".',
+          'Cuantificar sin ser financiero: Medir por tiempo ahorrado, volumen de operaciones, calidad o personas coordinadas.',
         ],
+        actionItems: [
+          {
+            id: 'act-cv-4-1',
+            title: 'Aplicar la fórmula de logros en tu CV',
+            description: 'Revisá las viñetas de tu experiencia y agregales verbos activos y resultados cuantificables.',
+          },
+          {
+            id: 'act-cv-4-2',
+            title: 'Consultar el Diccionario de Verbos (Opcional)',
+            description: 'Si necesitás ideas de vocabulario, revisá la lista de 100 verbos en los Documentos de la clase.',
+          },
+        ],
+        mindsetPrompt:
+          'A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor y los resultados que conseguiste.',
         resources: [
           {
-            id: 'res-cv-05',
+            id: 'diccionario-100-verbos-accion',
             title: 'Diccionario de 100 Verbos de Acción de Alto Impacto',
             type: 'pdf',
-            fileSize: '210 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 2,
-            category: 'Guía PDF',
-            description: 'Lista clasificada de verbos para liderazgo, análisis, ventas y optimización.',
+            category: 'Guía de Vocabulario',
+            description: 'Listado de verbos activos clasificados por área (Liderazgo, Optimización, Ventas, Innovación) para inspirar tu redacción.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nDecir 'Responsable de la atención al cliente' te hace sonar como uno más del montón. Decir 'Gestioné más de 45 consultas diarias reduciendo el tiempo de respuesta en un 30%' te convierte en un candidato de nivel ejecutivo.\n\n[1:45 - Desarrollo del concepto]\nEliminá para siempre la frase 'responsable de' de tu CV. Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé. Y siempre que sea posible, agregale un número: porcentajes, horas ahorradas, dinero gestionado o cantidad de personas a cargo. Si no tenés números exactos, usá rangos o indicadores de mejora cualitativa.\n\n[6:30 - Llamada a la acción]\nReescribí las 3 principales viñetas de tu último empleo aplicando la fórmula Verbo + Tarea + Métrica.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ El error más común al describir la experiencia laboral es listar las obligaciones del puesto en lugar de los resultados que conseguiste. A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor concreto que aportaste al equipo. Vamos a ver cómo aplicar verbos de acción y métricas reales a cada viñeta de tu currículum para demostrar tu impacto profesional.
+🏷️ Obligaciones vs. Resultados de Negocio 📄⚠️
+🔊 Swoosh suave
+🏷️ Fórmula: Verbo Activo + Herramienta + Métrica 📈
+🔊 Pop sutil
+🏷️ Objetivo: Demostrar tu impacto con autoridad 🚀
+🔊 Pop de confirmación
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA FÓRMULA DEL LOGRO Y CÓMO CUANTIFICAR]
+🗣️ Eliminá para siempre la frase 'responsable de' de tu CV. Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé. Y siempre que sea posible, agregale un número: porcentajes, horas ahorradas, dinero gestionado o cantidad de personas a cargo. Si no tenés números exactos, usá rangos o indicadores de mejora cualitativa.
+🏷️ Frases Prohibidas: ❌ 'Responsable de...' ❌ 'Encargado de...'
+🔊 Swoosh suave
+🏷️ Verbos Fuertes: Implementé · Negocié · Optimicé · Automaticé
+🔊 Clicks sutiles por verbo
+🖼️ Captura flotante mostrando ejemplos de viñetas cuantificadas por tiempo, volumen y porcentaje.
+🏷️ Cuantificá por: Tiempo · Volumen · Calidad · Escala 📊
+🔊 Pop de confirmación
+
+[6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tu siguiente paso es abrir tu plantilla de CV, revisar las viñetas de tu experiencia y corregirlas aplicando esta fórmula de logros con métricas. Si necesitás inspiración para encontrar las palabras más potentes, en la sección de Documentos de esta clase tenés una lista con 100 verbos de acción clasificados por área. En la próxima clase vamos a hacer la auditoría final de tu currículum: un control de calidad paso a paso para asegurarnos de que no haya quedado ningún detalle suelto antes de pasar a tu estrategia de LinkedIn.
+🏷️ Acción: Corregir viñetas con la fórmula de logros ✍️
+🔊 Pop sutil
+🏷️ Opcional en Documentos: 100 Verbos de Acción 📥📖
+🔊 Pop sutil
+🏷️ Próxima clase: Auditoría final y checklist antes de enviar 🔍🚀
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-cv-05',
