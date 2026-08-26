@@ -60,6 +60,16 @@ export function EblStudentProfileView({
     '1. Mercado Libre\n2. Ualá\n3. Despegar\n4. Auth0\n5. Tiendanube'
   );
 
+  // CV Strategy & Keywords (Module 02)
+  const [cvKeywordsTech, setCvKeywordsTech] = useState(
+    'SAP ERP, Salesforce CRM, Power BI, Excel Avanzado (VBA), SQL básico'
+  );
+  const [cvKeywordsMethods, setCvKeywordsMethods] = useState(
+    'Gestión de Cuentas Clave B2B, Negociación de Contratos, Metodología STAR, Agile/Scrum'
+  );
+  const [cvVariant1, setCvVariant1] = useState('Key Account Manager B2B (Target Principal)');
+  const [cvVariant2, setCvVariant2] = useState('Analista Comercial Senior (Target Alternativo)');
+
   const [cvFileName, setCvFileName] = useState('CV_Santiago_Martinez_ATS_2025.pdf');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -80,6 +90,10 @@ export function EblStudentProfileView({
           if (parsed.availability) setAvailability(parsed.availability);
           if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
           if (parsed.targetCompanies) setTargetCompanies(parsed.targetCompanies);
+          if (parsed.cvKeywordsTech) setCvKeywordsTech(parsed.cvKeywordsTech);
+          if (parsed.cvKeywordsMethods) setCvKeywordsMethods(parsed.cvKeywordsMethods);
+          if (parsed.cvVariant1) setCvVariant1(parsed.cvVariant1);
+          if (parsed.cvVariant2) setCvVariant2(parsed.cvVariant2);
         } catch (e) {
           console.error(e);
         }
@@ -123,6 +137,10 @@ export function EblStudentProfileView({
         availability,
         nonNegotiables,
         targetCompanies,
+        cvKeywordsTech,
+        cvKeywordsMethods,
+        cvVariant1,
+        cvVariant2,
       };
       localStorage.setItem('ebl_student_profile', JSON.stringify(dataToSave));
     }
@@ -377,6 +395,70 @@ export function EblStudentProfileView({
                 className={styles.textarea}
                 placeholder="1. Empresa A&#10;2. Empresa B&#10;3. Empresa C..."
               />
+            </div>
+
+            {/* Mini-sección D: Estrategia de CV & Keywords Mapeadas (Módulo 02) */}
+            <div className={styles.subSection}>
+              <div className={styles.subSectionHeader}>
+                <div className={styles.subSectionTitleRow}>
+                  <Sparkles size={16} color="#7C3AED" />
+                  <strong className={styles.subSectionTitle}>D. Estrategia de CV & Keywords Mapeadas</strong>
+                </div>
+                <span className={styles.subSectionBadge} style={{ backgroundColor: '#F5F3FF', color: '#6D28D9' }}>
+                  Módulo 2 · CV ATS
+                </span>
+              </div>
+              <p className={styles.subSectionHint}>
+                Términos técnicos, herramientas y variantes con las que vas a posicionar tu perfil ante los algoritmos ATS y reclutadores.
+              </p>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Palabras Clave Técnicas & Herramientas (Hard Skills)</label>
+                  <input
+                    type="text"
+                    value={cvKeywordsTech}
+                    onChange={(e) => setCvKeywordsTech(e.target.value)}
+                    className={styles.input}
+                    placeholder="Ej. SAP ERP, Salesforce CRM, Power BI, SQL, Jira, Excel Avanzado"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Metodologías & Procesos Clave</label>
+                  <input
+                    type="text"
+                    value={cvKeywordsMethods}
+                    onChange={(e) => setCvKeywordsMethods(e.target.value)}
+                    className={styles.input}
+                    placeholder="Ej. Gestión de Cuentas B2B, Scrum, Metodología STAR, Lean"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label>Variante 1 de CV (Target Principal)</label>
+                  <input
+                    type="text"
+                    value={cvVariant1}
+                    onChange={(e) => setCvVariant1(e.target.value)}
+                    className={styles.input}
+                    placeholder="Ej. Key Account Manager B2B (Target Principal)"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label>Variante 2 de CV (Target Alternativo)</label>
+                  <input
+                    type="text"
+                    value={cvVariant2}
+                    onChange={(e) => setCvVariant2(e.target.value)}
+                    className={styles.input}
+                    placeholder="Ej. Analista Comercial Senior (Target Alternativo)"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className={styles.formActions}>

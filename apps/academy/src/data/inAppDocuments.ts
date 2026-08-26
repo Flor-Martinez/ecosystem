@@ -684,6 +684,48 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'guia-mapeo-keywords-industria': {
+    id: 'guia-mapeo-keywords-industria',
+    slug: 'guia-mapeo-keywords-industria',
+    title: 'Guía de Mapeo de Palabras Clave y Variantes de CV',
+    category: 'Estrategia de CV & Keywords',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 2,
+    badge: 'Matriz In-App',
+    estimatedReadTime: '4 min de consulta',
+    summary:
+      'Metodología para extraer las keywords técnicas de 3 ofertas reales y configurar tus 2 variantes de CV sincronizadas con Mi Perfil.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'clasificacion-keywords',
+        title: '1. Las 3 Categorías de Palabras Clave',
+        subtitle: 'Cómo agrupar los requisitos de los avisos de empleo',
+        content:
+          'Al analizar 3 avisos de tu rol objetivo, identificá y agrupá los términos recurrentes en estas 3 columnas para integrarlos en tu perfil:',
+        tableData: {
+          headers: ['Categoría', 'Qué incluye', 'Ejemplos representativos'],
+          rows: [
+            ['Herramientas & Software', 'Programas técnicos, ERPs, CRMs, software de datos', 'SAP, Salesforce, Power BI, SQL, Jira, Excel Avanzado'],
+            ['Metodologías & Procesos', 'Marcos de trabajo, metodologías ágiles o comerciales', 'Scrum, Ciclo de Ventas B2B, Lean Six Sigma, STAR, Inbound'],
+            ['Competencias de Negocio', 'Funciones críticas y áreas de impacto del puesto', 'Gestión presupuestaria, Prospección en frío, Churn, Negociación'],
+          ],
+        },
+      },
+      {
+        id: 'estrategia-2-variantes',
+        title: '2. Definición de tus 2 Variantes de CV',
+        subtitle: 'Especialización sin alterar tu trayectoria real',
+        content:
+          'Mantené un CV Maestro y derivá 2 variantes según tus sub-especialidades target. Cada variante ajusta el Titular, el Resumen y el orden de tus habilidades principales para lograr un match del 100% con cada vacante.',
+        callout: {
+          type: 'tip',
+          text: 'Completá tus palabras clave y los nombres de tus 2 variantes en los campos de abajo: se sincronizarán automáticamente con tu sección de CV en "Mi Perfil".',
+        },
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

@@ -597,30 +597,71 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Palabras clave y adaptación del CV',
         duration: '7 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
           'Cómo escanear una oferta laboral, mapear los términos técnicos exigidos y armar versiones estratégicas según el puesto.',
         takeaways: [
-          'Diferenciar requisitos excluyentes (hard skills, herramientas) de deseables para priorizar en tu redacción.',
-          'Mapear las palabras clave exactas del aviso en tu resumen profesional y en tus experiencias pasadas.',
-          'Mantener un CV maestro y derivar 2 o 3 variantes adaptadas para tus roles afines.',
+          'Método del CV Maestro: Mantener un archivo integral y derivar 2 variantes según tus sub-especialidades target.',
+          'Técnica de los 3 avisos: Identificar términos recurrentes en herramientas técnicas, metodologías y competencias centrales.',
+          'Integración estratégica: Volcar las keywords en el titular, en las primeras 3 líneas del perfil y dentro de los logros.',
         ],
+        actionItems: [
+          {
+            id: 'act-cv-3-1',
+            title: 'Mapear las Keywords de 3 avisos reales',
+            description: 'Extraé los términos técnicos y herramientas que más se repiten en tu área.',
+          },
+          {
+            id: 'act-cv-3-2',
+            title: 'Configurar tus 2 variantes de CV en Mi Perfil',
+            description: 'Definí los títulos y palabras clave de tus dos versiones objetivo en tu perfil de estudiante.',
+          },
+        ],
+        mindsetPrompt:
+          'Adaptar tu CV no es inventar experiencia: es hablar el dialecto exacto de la vacante para que el sistema y el selector reconozcan tu valor al instante.',
         resources: [
           {
-            id: 'res-cv-04',
-            title: 'Guía de Mapeo de Palabras Clave por Industria',
+            id: 'guia-mapeo-keywords-industria',
+            title: 'Guía de Mapeo de Palabras Clave y Variantes de CV',
             type: 'pdf',
-            fileSize: '280 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 2,
-            category: 'Guía PDF',
-            description: 'Matriz de keywords frecuentes en Comercio Exterior, Marketing, Tecnología y Finanzas.',
+            category: 'Matriz de Keywords',
+            description: 'Matriz interactiva con las palabras clave, herramientas y certificaciones más demandadas en el mercado.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nSi postulás con el mismo CV para un puesto de 'Analista Comercial' y para uno de 'Key Account Manager', estás perdiendo la mitad de tus oportunidades. Hoy aprendemos a hablar el idioma de la oferta.\n\n[1:30 - Desarrollo del concepto]\nTomá 3 avisos de trabajo del puesto que buscás y resaltá con color las palabras que se repiten: herramientas (ej. SAP, SQL, Salesforce), metodologías (ej. Scrum, STAR, Lean) y competencias. Esas son tus 'Keywords'. Tu trabajo consiste en incorporar esas palabras exactas en tu resumen profesional y en la descripción de tus tareas pasadas, sin mentir, pero usando la terminología que el mercado exige hoy.\n\n[5:30 - Llamada a la acción]\nCreá tus 2 variantes principales de CV adaptadas a tus dos sub-especialidades target.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ El error más común después de diseñar un buen CV es usarlo como un folleto único para todas las vacantes. Los algoritmos y los reclutadores no buscan perfiles generales; buscan coincidencias exactas con los requisitos del puesto. Vamos a aprender el método para mapear los términos clave de un aviso e integrarlos estratégicamente en tu presentación sin alterar tu experiencia real.
+🏷️ El error del CV Genérico vs. CV Adaptado 📄❌
+🔊 Swoosh suave
+🏷️ Keywords: El dialecto técnico de la vacante 🎯
+🔊 Pop sutil
+🏷️ Objetivo: Máxima afinidad y relevancia algorítmica 🚀
+🔊 Pop de confirmación
+
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CV MAESTRO Y TÉCNICA DE LOS 3 AVISOS]
+🗣️ El método más eficiente consiste en tener un 'CV Maestro' completo y derivar dos o tres variantes según las ramas a las que apliques. Tomá 3 avisos de trabajo del puesto que buscás y anotá las palabras que se repiten: herramientas, metodologías y competencias. Esas son tus 'Keywords'. Tu trabajo consiste en incorporar esas palabras exactas en tu resumen profesional y en la descripción de tus tareas pasadas, sin mentir, pero usando la terminología que el mercado exige hoy.
+🏷️ Técnica de los 3 Avisos: Mapeo de Keywords 🔍📋
+🔊 Swoosh suave
+🏷️ 1. Herramientas técnicas · 2. Metodologías · 3. Competencias
+🔊 Clicks sutiles por punto
+🖼️ Captura flotante mostrando la distribución de keywords en el Titular, Resumen y Experiencia Laboral.
+🏷️ Vocabulario de Mercado sin inventar experiencia 🛡️
+🔊 Pop de confirmación
+
+[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Andá a los Documentos de esta clase para consultar la Guía de Mapeo de Palabras Clave y armá tus dos versiones adaptadas de CV según tus sub-especialidades. En la siguiente clase vamos a ver cómo convertir descripciones de tareas aburridas en declaraciones de alto valor usando verbos de acción y resultados medibles.
+🏷️ Documentos: Guía de Mapeo de Palabras Clave 📥📊
+🔊 Pop sutil
+🖼️ Captura flotante de la sincronización de las 2 variantes en "Mi Perfil".
+🏷️ Próxima clase: Verbos de acción y logros cuantificables 📈🎯
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-cv-04',
