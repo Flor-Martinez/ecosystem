@@ -471,11 +471,14 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Tu CV no es tu autobiografía; es un documento comercial de alto valor donde el producto sos vos. El error más común es intentar contar todo lo que hiciste desde tu primer empleo, cuando en realidad un selector necesita entender en 6 segundos qué problemas resolvés y por qué encajás en la vacante. Menos información irrelevante significa más claridad y más entrevistas.
+🗣️ Tu CV no es tu autobiografía; es un documento comercial de alto valor donde el producto sos vos.
 🏷️ Tu CV = Documento comercial de alto valor 📄💼
 🔊 Swoosh suave
+🗣️ El error más común es intentar contar todo lo que hiciste desde tu primer empleo, cuando en realidad un selector necesita entender en 6 segundos qué problemas resolvés y por qué encajás en la vacante.
 🏷️ El escaneo inicial: 6 segundos clave ⏱️
 🔊 Pop sutil
+🗣️ Menos información irrelevante significa más claridad y más entrevistas.
+🏷️ Menos datos irrelevantes = Más entrevistas 🎯
 
 [1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA ESTRUCTURA EN 5 BLOQUES]
 🗣️ Vamos a ordenar tu CV en 5 bloques limpios.
@@ -558,24 +561,30 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ ¿Escuchaste hablar del famoso 'robot que descarta CVs'? En internet hay mucho mito sobre los sistemas ATS, pero la realidad es mucho más simple: un ATS no es una inteligencia artificial que decide si servís o no; es una base de datos que convierte tu documento a texto plano y lo indexa según palabras clave. Vamos a ver exactamente cómo lee tu currículum para garantizar que nunca quede invisible en el sistema.
+🗣️ ¿Escuchaste hablar del famoso 'robot que descarta CVs'? En internet hay mucho mito sobre los sistemas ATS, pero la realidad es mucho más simple.
 🏷️ Mito vs. Realidad: ¿Cómo funciona un ATS? 🤖📄
 🔊 Swoosh suave
+🗣️ Un ATS no es una inteligencia artificial que decide si servís o no; es una base de datos que convierte tu documento a texto plano y lo indexa según palabras clave.
 🏷️ ATS = Base de datos de indexación por palabras clave 🔍
 🔊 Pop sutil
+🗣️ Vamos a ver exactamente cómo lee tu currículum para garantizar que nunca quede invisible en el sistema.
 🏷️ Objetivo: 100% de compatibilidad y visibilidad 🎯
 🔊 Pop de confirmación
 
 [1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — POR QUÉ FALLA EL PARSEO Y CÓMO DISEÑAR EN 1 COLUMNA]
-🗣️ Para entender por qué falla un CV, imaginate qué pasa cuando el sistema extrae el contenido: lee en línea recta horizontal. Si tenés un diseño de doble columna con cajas flotantes, el texto de la barra lateral se mezcla con tu experiencia laboral y genera un bloque incomprensible.
+🗣️ Para entender por qué falla un CV, imaginate qué pasa cuando el sistema extrae el contenido: lee en línea recta horizontal.
 🏷️ Lectura horizontal: De izquierda a derecha 📄➡️🔡
 🔊 Swoosh suave
+🗣️ Si tenés un diseño de doble columna con cajas flotantes, el texto de la barra lateral se mezcla con tu experiencia laboral y genera un bloque incomprensible.
 🖼️ Captura flotante mostrando la comparación de un CV visual de 2 columnas vs. el texto plano roto resultante.
 🗣️ Lo mismo pasa cuando reemplazás palabras por gráficos, como barritas de nivel de idioma o íconos decorativos: para el sistema simplemente no existen.
 🏷️ Errores fatales: Barritas de nivel & Cajas flotantes ⚠️
 🔊 Pop sutil
-🗣️ La solución es directa: maquetar en una sola columna vertical, usar encabezados estándar como 'Experiencia', 'Educación' y 'Habilidades', y verificar que todo tu texto sea seleccionable antes de exportar en PDF. Así garantizás que el sistema indexe cada dato en el casillero correcto.
+🗣️ La solución es directa: maquetar en una sola columna vertical, usar encabezados estándar como 'Experiencia', 'Educación' y 'Habilidades', y verificar que todo tu texto sea seleccionable antes de exportar en PDF.
 🏷️ Estructura segura: 1 Columna + Encabezados Estándar 🛡️
+🔊 Pop sutil
+🗣️ Así garantizás que el sistema indexe cada dato en el casillero correcto.
+🏷️ Indexación limpia y precisa 🎯
 🔊 Pop de confirmación
 
 [5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
@@ -637,29 +646,35 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ El error más común después de diseñar un buen CV es usarlo como un folleto único para todas las vacantes. Los algoritmos y los reclutadores no buscan perfiles generales; buscan coincidencias exactas con los requisitos del puesto. Vamos a aprender el método para mapear los términos clave de un aviso e integrarlos estratégicamente en tu presentación sin alterar tu experiencia real.
+🗣️ El error más común después de diseñar un buen CV es usarlo como un folleto único para todas las vacantes.
 🏷️ El error del CV Genérico vs. CV Adaptado 📄❌
 🔊 Swoosh suave
+🗣️ Los algoritmos y los reclutadores no buscan perfiles generales; buscan coincidencias exactas con los requisitos del puesto.
 🏷️ Keywords: El dialecto técnico de la vacante 🎯
 🔊 Pop sutil
+🗣️ Vamos a aprender el método para mapear los términos clave de un aviso e integrarlos estratégicamente en tu presentación sin alterar tu experiencia real.
 🏷️ Objetivo: Máxima afinidad y relevancia algorítmica 🚀
 🔊 Pop de confirmación
 
 [1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CV MAESTRO Y TÉCNICA DE LOS 3 AVISOS]
-🗣️ El método más eficiente consiste en tener un 'CV Maestro' completo y derivar dos o tres variantes según las ramas a las que apliques. Tomá 3 avisos de trabajo del puesto que buscás y anotá las palabras que se repiten: herramientas, metodologías y competencias. Esas son tus 'Keywords'. Tu trabajo consiste en incorporar esas palabras exactas en tu resumen profesional y en la descripción de tus tareas pasadas, sin mentir, pero usando la terminología que el mercado exige hoy.
-🏷️ Técnica de los 3 Avisos: Mapeo de Keywords 🔍📋
+🗣️ El método más eficiente consiste en tener un 'CV Maestro' completo y derivar dos o tres variantes según las ramas a las que apliques.
+🏷️ Estrategia: CV Maestro + Variantes de Enfoque 📄✨
 🔊 Swoosh suave
+🗣️ Tomá 3 avisos de trabajo del puesto que buscás y anotá las palabras que se repiten: herramientas, metodologías y competencias. Esas son tus 'Keywords'.
+🏷️ Técnica de los 3 Avisos: Mapeo de Keywords 🔍📋
 🏷️ 1. Herramientas técnicas · 2. Metodologías · 3. Competencias
 🔊 Clicks sutiles por punto
 🖼️ Captura flotante mostrando la distribución de keywords en el Titular, Resumen y Experiencia Laboral.
+🗣️ Tu trabajo consiste en incorporar esas palabras exactas en tu resumen profesional y en la descripción de tus tareas pasadas, sin mentir, pero usando la terminología que el mercado exige hoy.
 🏷️ Vocabulario de Mercado sin inventar experiencia 🛡️
 🔊 Pop de confirmación
 
 [5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a los Documentos de esta clase para consultar la Guía de Mapeo de Palabras Clave y armá tus dos versiones adaptadas de CV según tus sub-especialidades. En la siguiente clase vamos a ver cómo convertir descripciones de tareas aburridas en declaraciones de alto valor usando verbos de acción y resultados medibles.
+🗣️ Andá a los Documentos de esta clase para consultar la Guía de Mapeo de Palabras Clave y armá tus dos versiones adaptadas de CV según tus sub-especialidades.
 🏷️ Documentos: Guía de Mapeo de Palabras Clave 📥📊
 🔊 Pop sutil
 🖼️ Captura flotante de la sincronización de las 2 variantes en "Mi Perfil".
+🗣️ En la siguiente clase vamos a ver cómo convertir descripciones de tareas aburridas en declaraciones de alto valor usando verbos de acción y resultados medibles.
 🏷️ Próxima clase: Verbos de acción y logros cuantificables 📈🎯
 🔊 Fin de lección suave`,
       },
@@ -713,30 +728,37 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ El error más común al describir la experiencia laboral es listar las obligaciones del puesto en lugar de los resultados que conseguiste. A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor concreto que aportaste al equipo. Vamos a ver cómo aplicar verbos de acción y métricas reales a cada viñeta de tu currículum para demostrar tu impacto profesional.
+🗣️ El error más común al describir la experiencia laboral es listar las obligaciones del puesto en lugar de los resultados que conseguiste.
 🏷️ Obligaciones vs. Resultados de Negocio 📄⚠️
 🔊 Swoosh suave
-🏷️ Fórmula: Verbo Activo + Herramienta + Métrica 📈
-🔊 Pop sutil
+🗣️ A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor concreto que aportaste al equipo.
 🏷️ Objetivo: Demostrar tu impacto con autoridad 🚀
+🔊 Pop sutil
+🗣️ Vamos a ver cómo aplicar verbos de acción y métricas reales a cada viñeta de tu currículum para demostrar tu impacto profesional.
+🏷️ Fórmula: Verbo Activo + Herramienta + Métrica 📈
 🔊 Pop de confirmación
 
 [1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA FÓRMULA DEL LOGRO Y CÓMO CUANTIFICAR]
-🗣️ Eliminá para siempre la frase 'responsable de' de tu CV. Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé. Y siempre que sea posible, agregale un número: porcentajes, horas ahorradas, dinero gestionado o cantidad de personas a cargo. Si no tenés números exactos, usá rangos o indicadores de mejora cualitativa.
+🗣️ Eliminá para siempre la frase 'responsable de' de tu CV.
 🏷️ Frases Prohibidas: ❌ 'Responsable de...' ❌ 'Encargado de...'
 🔊 Swoosh suave
+🗣️ Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé.
 🏷️ Verbos Fuertes: Implementé · Negocié · Optimicé · Automaticé
 🔊 Clicks sutiles por verbo
+🗣️ Y siempre que sea posible, agregale un número: porcentajes, horas ahorradas, dinero gestionado o cantidad de personas a cargo.
 🖼️ Captura flotante mostrando ejemplos de viñetas cuantificadas por tiempo, volumen y porcentaje.
+🗣️ Si no tenés números exactos, usá rangos o indicadores de mejora cualitativa.
 🏷️ Cuantificá por: Tiempo · Volumen · Calidad · Escala 📊
 🔊 Pop de confirmación
 
 [6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es abrir tu plantilla de CV, revisar las viñetas de tu experiencia y corregirlas aplicando esta fórmula de logros con métricas. Si necesitás inspiración para encontrar las palabras más potentes, en la sección de Documentos de esta clase tenés una lista con 100 verbos de acción clasificados por área. En la próxima clase vamos a hacer la auditoría final de tu currículum: un control de calidad paso a paso para asegurarnos de que no haya quedado ningún detalle suelto antes de pasar a tu estrategia de LinkedIn.
+🗣️ Tu siguiente paso es abrir tu plantilla de CV, revisar las viñetas de tu experiencia y corregirlas aplicando esta fórmula de logros con métricas.
 🏷️ Acción: Corregir viñetas con la fórmula de logros ✍️
 🔊 Pop sutil
+🗣️ Si necesitás inspiración para encontrar las palabras más potentes, en la sección de Documentos de esta clase tenés una lista con 100 verbos de acción clasificados por área.
 🏷️ Opcional en Documentos: 100 Verbos de Acción 📥📖
 🔊 Pop sutil
+🗣️ En la próxima clase vamos a hacer la auditoría final de tu currículum: un control de calidad paso a paso para asegurarnos de que no haya quedado ningún detalle suelto antes de pasar a tu estrategia de LinkedIn.
 🏷️ Próxima clase: Auditoría final y checklist antes de enviar 🔍🚀
 🔊 Fin de lección suave`,
       },
@@ -790,25 +812,49 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Un enlace roto a tu perfil de LinkedIn, un archivo mal nombrado o una sola falta de ortografía en tu titular pueden arruinar una postulación antes de que lean tu experiencia. En esta clase vamos a hacer un control de calidad rápido en 10 puntos para blindar tu documento y asegurarnos de que tu CV esté 100% impecable antes de mandarlo a cualquier empresa.
+🗣️ Un enlace roto a tu perfil de LinkedIn, un archivo mal nombrado o una sola falta de ortografía en tu titular pueden arruinar una postulación antes de que lean tu experiencia.
 🏷️ Control de Calidad: Los detalles que definen una postulación 🔍⚠️
 🔊 Swoosh suave
+🗣️ En esta clase vamos a hacer un control de calidad rápido en 10 puntos para blindar tu documento y asegurarnos de que tu CV esté 100% impecable antes de mandarlo a cualquier empresa.
 🏷️ Auditoría Pre-Envío: 10 Puntos de Control 🛡️📄
 🔊 Pop de confirmación
 
 [1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CHECKLIST DE 10 PUNTOS DE CONTROL]
-🗣️ Antes de enviar cualquier postulación, hacete estas preguntas rápidas: ¿El archivo tiene tu nombre y puesto en el título? ¿Tus links de LinkedIn y mail funcionan al hacer clic? ¿El texto está alineado a la izquierda sin saltos extraños? ¿Tus fechas laborales tienen mes y año consistentes? ¿Tu documento tiene una o dos páginas completas sin renglones huérfanos? Revisar estos detalles te toma menos de dos minutos y te asegura que ningún error técnico arruine tu oportunidad. Cuando tu CV supera este filtro con diez de diez, está listo para salir a la cancha.
-🏷️ 1. Nombre Profesional · 2. Links Activos · 3. Fechas Uniformes
-🔊 Clicks sutiles por punto
+🗣️ Antes de enviar cualquier postulación, hacete estas preguntas rápidas:
+🗣️ ¿El archivo tiene tu nombre y puesto en el título?
+🏷️ 1. Nombre Profesional: CV_Nombre_Apellido_Puesto.pdf 📄
+🔊 Click sutil
+🗣️ ¿Tus links de LinkedIn y mail funcionan al hacer clic?
+🏷️ 2. Hipervínculos Activos y Funcionales 🔗
+🔊 Click sutil
 🖼️ Captura flotante mostrando el archivo bien nombrado y la prueba de clic en los enlaces de contacto.
+🗣️ ¿El texto está alineado a la izquierda sin saltos extraños?
+🏷️ 3. Alineación a la Izquierda (Sin justificar) 📐
+🔊 Click sutil
+🗣️ ¿Tus fechas laborales tienen mes y año consistentes?
+🏷️ 4. Formato de Fechas Uniforme 🗓️
+🔊 Click sutil
+🗣️ ¿Tu documento tiene una o dos páginas completas sin renglones huérfanos?
+🏷️ 5. Extensión Precisa: 1 o 2 Páginas Completas 📑
+🔊 Click sutil
+🗣️ Revisar estos detalles te toma menos de dos minutos y te asegura que ningún error técnico arruine tu oportunidad.
+🏷️ Verificación en 2 minutos ⏱️
+🔊 Pop sutil
+🗣️ Cuando tu CV supera este filtro con diez de diez, está listo para salir a la cancha.
 🏷️ Resultado: CV Blindado 10/10 📄🎯
 🔊 Pop de confirmación
 
 [4:00 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ Guardá tu PDF final optimizado. Si querés hacer una última revisión rápida, en los Documentos de la clase tenés el checklist de 10 puntos para validar en cualquier momento. Completaste el bloque de CV: tenés un currículum moderno, adaptado a filtros ATS y orientado a resultados. Ahora entramos al Módulo 3, donde vamos a optimizar tu LinkedIn de punta a punta para que tu perfil atraiga ofertas de forma constante.
+🗣️ Guardá tu PDF final optimizado.
+🏷️ Guardar PDF Definitivo 💾
+🔊 Pop sutil
+🗣️ Si querés hacer una última revisión rápida, en los Documentos de la clase tenés el checklist de 10 puntos para validar en cualquier momento.
 🏷️ Opcional en Documentos: Checklist de 10 Puntos 📥📋
 🔊 Pop sutil
+🗣️ Completaste el bloque de CV: tenés un currículum moderno, adaptado a filtros ATS y orientado a resultados.
 🏷️ Hito: Módulo 02 Completado (CV de Alto Impacto) 📄✅
+🔊 Pop de confirmación
+🗣️ Ahora entramos al Módulo 3, donde vamos a optimizar tu LinkedIn de punta a punta para que tu perfil atraiga ofertas de forma constante.
 🏷️ Módulo 03: Creación y mejora de LinkedIn 🚀💼
 🔊 Swoosh final de módulo`,
       },
@@ -862,29 +908,38 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ LinkedIn no es simplemente un currículum subido a internet: es tu propia página web profesional y tu principal canal de ventas en el mercado laboral. Cuando un reclutador o un líder de área entra a tu perfil, tarda exactamente tres segundos en decidir si se queda o si sigue de largo. En esta clase vamos a optimizar el tercio superior de tu perfil —tu foto, tu portada y tu URL pública— para proyectar autoridad, confianza y profesionalismo desde el primer segundo.
+🗣️ LinkedIn no es simplemente un currículum subido a internet: es tu propia página web profesional y tu principal canal de ventas en el mercado laboral.
 🏷️ LinkedIn: Tu Landing Page Profesional 🌐💼
 🔊 Swoosh suave
+🗣️ Cuando un reclutador o un líder de área entra a tu perfil, tarda exactamente tres segundos en decidir si se queda o si sigue de largo.
 🏷️ La Regla de los 3 Segundos: Impacto Visual Superior ⏱️👀
 🔊 Pop sutil
+🗣️ En esta clase vamos a optimizar el tercio superior de tu perfil —tu foto, tu portada y tu URL pública— para proyectar autoridad, confianza y profesionalismo desde el primer segundo.
 🏷️ Tríada Visual: Foto · Portada · URL Limpia 📸🎨🔗
 🔊 Pop de confirmación
 
 [1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — FOTO, PORTADA Y URL LIMPIA]
-🗣️ Vamos a trabajar sobre los tres elementos visuales de tu cabecera: Primero, tu foto de perfil: tiene que ser un plano medio donde tu rostro ocupe cerca del 60% del círculo, con buena iluminación frontal, fondo liso o desenfocado y una expresión que transmita profesionalismo y cercanía. Cero selfies, fotos grupales recortadas o fondos con distracciones. Segundo, tu banner de portada: dejar el fondo gris por defecto transmite desinterés o perfil inactivo. Tu portada es tu cartel de presentación: tiene que incluir tu especialidad principal, tres o cuatro palabras clave de tu área y un correo de contacto, asegurándote de no poner texto en el tercio izquierdo para que tu foto no lo tape. Y tercero, tu URL pública: de fábrica, LinkedIn te agrega números aleatorios al final de tu nombre. Entrá a 'Editar perfil público y URL' y limpiala para que quede solo tu nombre y apellido. Esto mejora tu posicionamiento en Google y hace que tu enlace se vea impecable cuando lo compartas.
+🗣️ Vamos a trabajar sobre los tres elementos visuales de tu cabecera:
+🗣️ Primero, tu foto de perfil: tiene que ser un plano medio donde tu rostro ocupe cerca del 60% del círculo, con buena iluminación frontal, fondo liso o desenfocado y una expresión que transmita profesionalismo y cercanía. Cero selfies, fotos grupales recortadas o fondos con distracciones.
 🏷️ 1. Foto: Rostro 60% · Luz Frontal · Fondo Neutro 📸
 🔊 Swoosh suave
 🖼️ Captura flotante mostrando el encuadre de foto profesional.
+🗣️ Segundo, tu banner de portada: dejar el fondo gris por defecto transmite desinterés o perfil inactivo. Tu portada es tu cartel de presentación: tiene que incluir tu especialidad principal, tres o cuatro palabras clave de tu área y un correo de contacto, asegurándote de no poner texto en el tercio izquierdo para que tu foto no lo tape.
 🏷️ 2. Banner: Especialidad + Keywords + Contacto 🎨
 🔊 Pop sutil
 🖼️ Captura flotante mostrando la zona segura de diseño de la portada.
+🗣️ Y tercero, tu URL pública: de fábrica, LinkedIn te agrega números aleatorios al final de tu nombre. Entrá a 'Editar perfil público y URL' y limpiala para que quede solo tu nombre y apellido.
 🏷️ 3. URL Limpia: linkedin.com/in/nombreapellido 🔗
+🔊 Pop sutil
+🗣️ Esto mejora tu posicionamiento en Google y hace que tu enlace se vea impecable cuando lo compartas.
+🏷️ Posicionamiento SEO en Google & LinkedIn 🌐
 🔊 Pop de confirmación
 
 [5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a tu cuenta de LinkedIn, personalizá tu URL pública, seleccioná tu mejor foto y subí tu nueva portada. En la siguiente clase vamos a mejorar tu Titular y tu extracto Acerca de mi.
+🗣️ Andá a tu cuenta de LinkedIn, personalizá tu URL pública, seleccioná tu mejor foto y subí tu nueva portada.
 🏷️ Acción en LinkedIn: Actualizar Foto, Portada y URL 📸🎨🔗
 🔊 Pop sutil
+🗣️ En la siguiente clase vamos a mejorar tu Titular y tu extracto Acerca de mi.
 🏷️ Próxima clase: Titular magnético y sección Acerca de mí 🎯✍️
 🔊 Fin de lección suave`,
       },
