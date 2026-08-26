@@ -1021,30 +1021,65 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Experiencia, aptitudes y recomendaciones',
         duration: '6 min',
+        videoDuration: '3:40 min',
         completed: false,
         description:
           'Detalle de cargos anteriores, priorización de las 5 aptitudes clave y solicitud estratégica de recomendaciones que generen confianza.',
         takeaways: [
           'Sincronizar las viñetas de experiencia con tu CV destacando proyectos y medios multimedia adjuntos.',
-          'Reordenar las 5 aptitudes principales para maximizar coincidencias en búsquedas de reclutadores.',
-          'Protocolo para pedir recomendaciones a excolegas y jefes con mensajes de acompañamiento cordiales.',
+          'Reordenar las 5 aptitudes principales priorizando herramientas y conocimientos técnicos clave que el algoritmo filtra con más fuerza.',
+          'Protocolo para pedir recomendaciones a colegas o excolegas cercanos recordándoles un proyecto concreto.',
         ],
-        resources: [
+        actionItems: [
           {
-            id: 'res-lk-03',
-            title: 'Plantillas para Solicitar Recomendaciones en LinkedIn',
-            type: 'pdf',
-            fileSize: '160 KB',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Guía PDF',
-            description: 'Modelos de mensajes pre-redactados para solicitar testimonios profesionales.',
+            id: 'act-lk-3-1',
+            title: 'Actualizar viñetas de experiencia y adjuntar proyectos',
+            description: 'Cargá los logros cuantificados y sumá enlaces o PDFs destacados en cada cargo.',
+          },
+          {
+            id: 'act-lk-3-2',
+            title: 'Reordenar Top 5 Aptitudes y solicitar 2 recomendaciones',
+            description: 'Fijá tus herramientas técnicas principales y enviá 2 solicitudes de recomendación personalizadas.',
           },
         ],
+        mindsetPrompt:
+          'Las recomendaciones en LinkedIn son el equivalente a las reseñas de 5 estrellas: generan confianza inmediata y eliminan las dudas de los selectores.',
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\nLas recomendaciones en LinkedIn son el equivalente a las reseñas de 5 estrellas en Mercado Libre o Amazon: generan confianza inmediata.\n\n[1:15 - Desarrollo del concepto]\nCompletá cada experiencia con viñetas claras y enlaces a proyectos o certificados si los tenés. En la sección de aptitudes, ordená arriba las 5 más demandadas para tu rol target. Y hoy vas a enviarle un mensaje a 2 excolegas pidiéndoles una recomendación corta sobre un proyecto puntual donde hayan trabajado juntos.\n\n[4:50 - Llamada a la acción]\nActualizá tus aptitudes prioritarias y enviá 2 solicitudes de recomendación.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Las recomendaciones en LinkedIn son el equivalente a las reseñas de cinco estrellas en una tienda online: generan confianza inmediata y eliminan las dudas de cualquier selector.
+🏷️ Prueba Social: Reseñas de 5 estrellas en tu perfil ⭐⭐⭐⭐⭐
+🔊 Swoosh suave
+🗣️ Cualquiera puede escribir que es un profesional excelente en su CV, pero cuando un exjefe o un colega validan tus resultados con nombre y apellido, tu autoridad se vuelve indiscutible.
+🏷️ Validación Externa: Confianza y Autoridad Real 🛡️
+🔊 Pop sutil
+🖼️ Placa flotante mostrando una recomendación real destacada en un perfil de LinkedIn.
+🗣️ En esta clase vamos a estructurar tu sección de Experiencia, ordenar tus cinco aptitudes clave para el algoritmo y aplicar una estrategia simple para pedir recomendaciones de alto impacto.
+🏷️ Experiencia + Top 5 Aptitudes + Recomendaciones Estratégicas 📈
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — EXPERIENCIA, APTITUDES Y RECOMENDACIONES]
+🗣️ Para tu sección de Experiencia, volcamos las mismas viñetas orientadas a logros que ya redactaste en tu CV:
+🗣️ Iniciá cada punto con un verbo de acción fuerte y sumale métricas de impacto; si tenés certificados o enlaces a proyectos públicos, podés adjuntarlos como elementos destacados en cada cargo.
+🏷️ 1. Experiencia: Viñetas con Logros + Multimedia 💼📁
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando un puesto de LinkedIn con viñetas claras y un proyecto adjunto.
+🗣️ En la sección de Aptitudes, reordená la lista para colocar en los primeros cinco lugares las herramientas técnicas y metodologías más demandadas de tu puesto objetivo.
+🗣️ Evitá poner habilidades genéricas como 'proactivo'; el algoritmo filtra con más fuerza términos concretos como SAP, Salesforce, SQL o Gestión Comercial.
+🏷️ 2. Top 5 Aptitudes: Hard Skills & Herramientas Técnicas ⚙️📊
+🔊 Click sutil
+🗣️ Y para tus Recomendaciones, elegí a dos colegas o excolegas cercanos y escribiles un mensaje privado:
+🗣️ Saludalos con calidez, recordales un proyecto puntual que hayan compartido y pediles si pueden dejarte unas breves líneas sobre cómo fue trabajar juntos. Facilitarles la idea hace que te respondan con entusiasmo y en pocos minutos.
+🏷️ 3. Recomendaciones: Mensaje Directo + Proyecto Concreto 🤝💬
+🔊 Pop de confirmación
+
+[4:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Con estos cambios tu perfil queda completamente optimizado de punta a punta.
+🏷️ Perfil 100% Optimizado y Validado ✅💼
+🔊 Pop sutil
+🗣️ En la próxima clase vamos a dar el paso más importante: cómo contactar de forma directa a reclutadores y líderes de área con mensajes que generen conversaciones reales.
+🏷️ Próxima clase: Mensajes de contacto a recruiters y líderes 📩🎯
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-lk-04',
