@@ -836,29 +836,57 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Foto, banner y URL personalizada',
         duration: '7 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
           'Los elementos visuales y de configuración técnica para proyectar autoridad inmediata desde el primer segundo.',
         takeaways: [
-          'La foto de perfil profesional: plano medio, fondo neutro, iluminación frontal y vestimenta acorde a la industria.',
+          'La foto de perfil profesional: plano medio, rostro ocupando el 60% del círculo, iluminación frontal y fondo neutro.',
           'Banner / Portada personalizado: propuesta de valor visual clara, herramientas clave y datos de contacto.',
-          'Personalización de la URL pública limpia (`linkedin.com/in/nombreapellido`) y ajustes de privacidad.',
+          'Personalización de la URL pública limpia (`linkedin.com/in/nombreapellido`) para mejorar el SEO en Google.',
         ],
-        resources: [
+        actionItems: [
           {
-            id: 'res-lk-01',
-            title: 'Plantillas de Banner para LinkedIn (Canva Editables)',
-            type: 'link',
-            url: 'https://canva.com',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Directorio',
-            description: 'Pack de 5 plantillas editables de portada para LinkedIn en alta resolución.',
+            id: 'act-lk-1-1',
+            title: 'Personalizar tu URL pública en LinkedIn',
+            description: 'Ingresá a tu perfil público y eliminá los números aleatorios de tu enlace.',
+          },
+          {
+            id: 'act-lk-1-2',
+            title: 'Actualizar tu foto y subir tu portada',
+            description: 'Alineá tu encuadre visual con las pautas de iluminación y zona segura de diseño.',
           },
         ],
+        mindsetPrompt:
+          'LinkedIn no es un currículum estático: es tu propia página web profesional y tu principal canal de atracción de oportunidades.',
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\nLinkedIn no es un currículum online; es tu propia web profesional y tu principal canal de ventas.\n\n[1:20 - Desarrollo del concepto]\nEl 80% de los usuarios comete el error de dejar el banner gris por defecto y tener una URL con números aleatorios. Hoy personalizamos tu URL para que sea limpia y fácil de compartir. Diseñamos un banner profesional que comunique en 3 segundos qué problema resolvés y seleccionamos una foto con iluminación frontal que inspire cercanía y confianza.\n\n[5:45 - Llamada a la acción]\nCambiá tu foto, subí tu nuevo banner y configurá tu URL personalizada.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ LinkedIn no es simplemente un currículum subido a internet: es tu propia página web profesional y tu principal canal de ventas en el mercado laboral. Cuando un reclutador o un líder de área entra a tu perfil, tarda exactamente tres segundos en decidir si se queda o si sigue de largo. En esta clase vamos a optimizar el tercio superior de tu perfil —tu foto, tu portada y tu URL pública— para proyectar autoridad, confianza y profesionalismo desde el primer segundo.
+🏷️ LinkedIn: Tu Landing Page Profesional 🌐💼
+🔊 Swoosh suave
+🏷️ La Regla de los 3 Segundos: Impacto Visual Superior ⏱️👀
+🔊 Pop sutil
+🏷️ Tríada Visual: Foto · Portada · URL Limpia 📸🎨🔗
+🔊 Pop de confirmación
+
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — FOTO, PORTADA Y URL LIMPIA]
+🗣️ Vamos a trabajar sobre los tres elementos visuales de tu cabecera: Primero, tu foto de perfil: tiene que ser un plano medio donde tu rostro ocupe cerca del 60% del círculo, con buena iluminación frontal, fondo liso o desenfocado y una expresión que transmita profesionalismo y cercanía. Cero selfies, fotos grupales recortadas o fondos con distracciones. Segundo, tu banner de portada: dejar el fondo gris por defecto transmite desinterés o perfil inactivo. Tu portada es tu cartel de presentación: tiene que incluir tu especialidad principal, tres o cuatro palabras clave de tu área y un correo de contacto, asegurándote de no poner texto en el tercio izquierdo para que tu foto no lo tape. Y tercero, tu URL pública: de fábrica, LinkedIn te agrega números aleatorios al final de tu nombre. Entrá a 'Editar perfil público y URL' y limpiala para que quede solo tu nombre y apellido. Esto mejora tu posicionamiento en Google y hace que tu enlace se vea impecable cuando lo compartas.
+🏷️ 1. Foto: Rostro 60% · Luz Frontal · Fondo Neutro 📸
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando el encuadre de foto profesional.
+🏷️ 2. Banner: Especialidad + Keywords + Contacto 🎨
+🔊 Pop sutil
+🖼️ Captura flotante mostrando la zona segura de diseño de la portada.
+🏷️ 3. URL Limpia: linkedin.com/in/nombreapellido 🔗
+🔊 Pop de confirmación
+
+[5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Andá a tu cuenta de LinkedIn, personalizá tu URL pública, seleccioná tu mejor foto y subí tu nueva portada. En la siguiente clase vamos a mejorar tu Titular y tu extracto Acerca de mi.
+🏷️ Acción en LinkedIn: Actualizar Foto, Portada y URL 📸🎨🔗
+🔊 Pop sutil
+🏷️ Próxima clase: Titular magnético y sección Acerca de mí 🎯✍️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-lk-02',
