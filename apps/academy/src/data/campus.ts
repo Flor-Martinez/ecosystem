@@ -1377,30 +1377,81 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Búsquedas avanzadas en Google y comunidades',
         duration: '7 min',
+        videoDuration: '3:40 min',
         completed: false,
         description:
           'Cómo utilizar comandos booleanos avanzados en Google para acceder a vacantes en portales ATS de empresas sin publicidad.',
         takeaways: [
-          'Comandos clave: `site:greenhouse.io "puesto" "remote"`, `site:lever.co`, `site:workday.com`.',
-          'Comunidades profesionales en Slack, Discord y grupos especializados donde se comparten búsquedas directas.',
-          'Postularse cuando hay solo 5 candidatos compitiendo en lugar de 800 en un portal público.',
+          'Comandos clave de Google: `site:greenhouse.io "[puesto]" "[remoto]"`, `site:lever.co`, `site:ashbyhq.com`, `site:workday.com`.',
+          'Comunidades profesionales en Slack, Discord y Telegram donde se comparten vacantes en tiempo real antes de llegar a los portales.',
+          'Ventaja competitiva: Postularse de forma temprana cuando compiten menos de 10 candidatos en lugar de cientos en un portal masivo.',
         ],
+        actionItems: [
+          {
+            id: 'act-dnd-2-1',
+            title: 'Probar comandos de búsqueda en Google',
+            description: 'Copiá la sintaxis de la clase y rastreá vacantes directas en software ATS para tu cargo.',
+          },
+          {
+            id: 'act-dnd-2-2',
+            title: 'Unirte a una comunidad profesional',
+            description: 'Sumate a al menos un canal o grupo de tu especialidad en Slack, Discord o Telegram.',
+          },
+        ],
+        mindsetPrompt:
+          'Las mejores oportunidades no siempre tienen publicidad: con los comandos adecuados podés acceder a vacantes donde casi no hay competencia.',
         resources: [
           {
-            id: 'res-dnd-02',
+            id: 'comandos-busqueda-avanzada-google',
             title: 'Comandos de Búsqueda Avanzada en Google (CheatSheet)',
             type: 'pdf',
-            fileSize: '190 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 4,
-            category: 'Guía PDF',
-            description: 'Plantilla de comandos booleanos listos para copiar y pegar en el buscador de Google.',
+            category: 'Guía de Comandos',
+            description: 'Plantilla con sintaxis booleanas listas para copiar y pegar en Google para rastrear software ATS.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nLas mejores ofertas son las que casi nadie ve porque la empresa las publica directamente en su software interno y no paga por listarlas en portales masivos. Hoy te enseño a 'googlearlas' como un hacker de talento.\n\n[1:30 - Desarrollo del concepto]\nUsando operadores como site:, intitle: y comillas exactas en Google, podemos acceder a todas las vacantes activas cargadas en Greenhouse, Lever o Workday en tiempo real. Esto te permite postularte cuando hay solo 5 candidatos en lugar de competir contra 800 en un portal público.\n\n[5:30 - Llamada a la acción]\nProbá los 3 comandos de búsqueda que te dejo abajo y sumate a al menos 1 comunidad de Slack o Discord de tu especialidad.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Las mejores oportunidades laborales suelen ser las que casi nadie ve en los portales masivos.
+🏷️ Vacantes Ocultas en Software de Selección 🔍⚙️
+🔊 Swoosh suave
+🗣️ Muchas empresas publican sus búsquedas directamente en sus propios sistemas internos y no pagan cientos de dólares por publicitar el aviso en bolsas de empleo tradicionales.
+🏷️ Avisos Directos en Greenhouse · Lever · Ashby · Workday 🏢
+🔊 Pop sutil
+🖼️ Placa comparativa: 800 postulantes en portal masivo vs. 8 postulantes en el ATS directo de la empresa.
+🗣️ En esta clase te voy a enseñar cómo rastrear estas ofertas ocultas desde el buscador y cómo sumarte a comunidades de tu industria donde se comparten oportunidades en tiempo real.
+🏷️ Búsqueda Avanzada + Comunidades Profesionales 🚀💬
+🔊 Pop de confirmación
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — OPERADORES DE BÚSQUEDA Y COMUNIDADES]
+🗣️ Para encontrar estas publicaciones vamos a usar los comandos avanzados de Google:
+🗣️ Escribiendo el operador 'site:' seguido del dominio del software de selección, le indicamos que busque exclusivamente dentro de las páginas de carreras de las empresas.
+🏷️ 1. Operador 'site:' -> Buscar en Greenhouse · Lever · Ashby 🔍🖥️
+🔊 Swoosh suave
+🖼️ Video flotante mostrando la barra de Google con el comando \`site:greenhouse.io "Supply Chain Analyst" "Remote"\`.
+🗣️ Agregá tu puesto objetivo entre comillas exactas y sumale palabras como 'remoto', 'Latam' o el nombre de tu país para filtrar las vacantes compatibles.
+🏷️ Sintaxis: site:lever.co "[Tu Puesto]" "Remoto" ⌨️🎯
+🔊 Click sutil
+🗣️ En la sección de Documentos te dejo la lista completa de comandos listos para copiar, pegar y reemplazar con tu cargo.
+🏷️ Documentos: Comandos Avanzados de Búsqueda 📋📥
+🔊 Pop sutil
+🗣️ La segunda gran fuente son las comunidades profesionales en Slack, Discord o Telegram:
+🗣️ Grupos de diseño, tecnología, ventas B2B o logística donde los líderes de equipo publican vacantes directas y piden recomendaciones antes de abrir los procesos formales.
+🏷️ 2. Comunidades en Slack / Discord: Vacantes Tempranas en Tiempo Real 💬🌐
+🔊 Pop de confirmación
+
+[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Probá los comandos en Google con tu cargo objetivo y unite a un grupo de tu especialidad.
+🏷️ Búsqueda Avanzada + Red en Comunidades 🚀
+🔊 Pop sutil
+🗣️ En la próxima clase vamos a analizar señales tempranas de contratación y cómo hacer postulaciones espontáneas de alto impacto.
+🏷️ Próxima clase: Detección de búsquedas no publicadas 🎯
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-dnd-03',

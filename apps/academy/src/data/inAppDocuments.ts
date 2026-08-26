@@ -947,6 +947,47 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'comandos-busqueda-avanzada-google': {
+    id: 'comandos-busqueda-avanzada-google',
+    slug: 'comandos-busqueda-avanzada-google',
+    title: 'Comandos de Búsqueda Avanzada en Google (CheatSheet)',
+    category: 'Estrategias de Búsqueda',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 4,
+    badge: 'CheatSheet In-App',
+    estimatedReadTime: '3 min de consulta',
+    summary:
+      'Comandos booleanos listos para copiar y pegar en Google para rastrear ofertas cargadas directamente en softwares ATS sin publicidad masiva.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (Actualizada)',
+    sections: [
+      {
+        id: 'comandos-ats-globales',
+        title: '1. Comandos para Softwares de Selección (ATS)',
+        subtitle: 'Copia y reemplaza "[Tu Puesto]" con tu cargo objetivo',
+        content: 'Pega estas líneas directamente en la barra de búsqueda de Google:',
+        tableData: {
+          headers: ['Software / ATS', 'Comando para Google'],
+          rows: [
+            ['Greenhouse', 'site:greenhouse.io "[Tu Puesto]" ("Remote" OR "Remoto" OR "Latam")'],
+            ['Lever', 'site:lever.co "[Tu Puesto]" ("Remote" OR "Remoto")'],
+            ['Ashby HQ', 'site:ashbyhq.com "[Tu Puesto]"'],
+            ['Workday', 'site:myworkdayjobs.com "[Tu Puesto]" ("Argentina" OR "Colombia" OR "Chile" OR "Remote")'],
+            ['Breezy HR', 'site:breezy.hr "[Tu Puesto]"'],
+          ],
+        },
+      },
+      {
+        id: 'comandos-paginas-carreras',
+        title: '2. Rastreo de Páginas de Carreras & Vacantes Ocultas',
+        subtitle: 'Para encontrar portales de empleo de empresas por país o industria',
+        content:
+          '• **Búsqueda por URL:** `inurl:careers OR inurl:jobs "[Tu Puesto]" "Argentina"`\n' +
+          '• **Búsqueda por Título de Página:** `intitle:"Trabaja con nosotros" OR intitle:"Únete al equipo" "[Tu Área]"`\n' +
+          '• **Ofertas con salarios en USD:** `site:lever.co OR site:greenhouse.io "[Tu Puesto]" "USD" OR "Contractor"`',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
