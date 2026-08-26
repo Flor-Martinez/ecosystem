@@ -787,6 +787,78 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'checklist-auditoria-pre-envio': {
+    id: 'checklist-auditoria-pre-envio',
+    slug: 'checklist-auditoria-pre-envio',
+    title: 'Checklist de Auditoría Pre-Envío (10 Puntos de Control)',
+    category: 'Control de Calidad de CV',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 2,
+    badge: 'Checklist Rápido In-App',
+    estimatedReadTime: '2 min de verificación',
+    summary:
+      'Lista rápida de 10 verificaciones críticas de formato, links y nomenclatura antes de enviar tu postulación a cualquier vacante.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'puntos-control-tecnico',
+        title: '1. Verificaciones Técnicas y de Contacto',
+        subtitle: 'Para asegurar que el reclutador y el ATS lean tu CV sin fricción',
+        content: 'Verificá estos 4 elementos técnicos antes de enviar tu archivo a cualquier plataforma o proceso:',
+        checklistItems: [
+          {
+            id: 'chk-1',
+            text: 'Nombre de archivo profesional: Guardado como "CV_Nombre_Apellido_Puesto.pdf" (nunca "CV_final.pdf").',
+          },
+          {
+            id: 'chk-2',
+            text: 'Hipervínculo de LinkedIn funcional: Al hacer clic abre tu perfil público sin errores ni caracteres de edición.',
+          },
+          {
+            id: 'chk-3',
+            text: 'Correo y teléfono válidos: Email profesional con enlace "mailto:" y teléfono con prefijo de país (+54 9...).',
+          },
+          {
+            id: 'chk-4',
+            text: 'Prueba de selección de texto: Podés seleccionar y copiar cualquier párrafo de tu PDF con el cursor.',
+          },
+        ],
+      },
+      {
+        id: 'puntos-control-contenido',
+        title: '2. Consistencia Visual y Redacción',
+        subtitle: 'Detalles que consolidan tu autoridad profesional',
+        content: 'Revisá la coherencia visual y el tono comercial para generar un impacto memorable en los primeros 6 segundos:',
+        checklistItems: [
+          {
+            id: 'chk-5',
+            text: 'Extensión estricta: 1 página completa (o 2 páginas completas), sin páginas huérfanas con 2 o 3 renglones.',
+          },
+          {
+            id: 'chk-6',
+            text: 'Alineación a la izquierda: Todo el cuerpo de texto alineado a la izquierda (sin texto justificado).',
+          },
+          {
+            id: 'chk-7',
+            text: 'Fechas uniformes: Formato consistente "Mes Año – Mes Año" en todas las posiciones laborales.',
+          },
+          {
+            id: 'chk-8',
+            text: 'Fórmula de logros: Viñetas iniciadas con verbos de acción fuertes y respaldadas por números o métricas.',
+          },
+          {
+            id: 'chk-9',
+            text: 'Cero datos obsoletos o sensibles: Sin DNI, sin estado civil, sin dirección física exacta y sin fotos informales.',
+          },
+          {
+            id: 'chk-10',
+            text: 'Regla de los 6 segundos: El titular y las primeras 3 líneas del resumen explican claramente tu especialidad.',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

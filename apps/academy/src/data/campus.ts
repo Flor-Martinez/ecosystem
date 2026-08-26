@@ -750,30 +750,67 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Auditoría final y checklist antes de enviar',
         duration: '5 min',
+        videoDuration: '3:30 min',
         completed: false,
         description:
           'Auditoría final de 10 puntos antes del envío para asegurar consistencia visual, links activos y cero errores ortográficos.',
         takeaways: [
-          'Verificación de enlaces funcionales al perfil de LinkedIn y correo.',
-          'Nombre de archivo profesional: `CV_Nombre_Apellido_Puesto.pdf` (evitar `CV_Final_v3.pdf`).',
-          'Eliminación de cualquier dato sensible o desactualizado de más de 10 años que no aporte al rol actual.',
+          'Control de calidad en 10 puntos: Nomenclatura del archivo, links funcionales, formato de fechas y alineación visual limpia.',
+          'Nombre de archivo profesional: Guardar siempre como `CV_Nombre_Apellido_Puesto.pdf` para facilitar la búsqueda del selector.',
+          'Consistencia de extensión: 1 página (junior/mid) o 2 páginas completas (senior), evitando páginas a medias o renglones huérfanos.',
         ],
+        actionItems: [
+          {
+            id: 'act-cv-5-1',
+            title: 'Exportar tu PDF final optimizado',
+            description: 'Guardá tu CV definitivo con la nomenclatura `CV_Nombre_Apellido_Puesto.pdf`.',
+          },
+          {
+            id: 'act-cv-5-2',
+            title: 'Consultar el Checklist de Auditoría (Opcional)',
+            description: 'Revisá los 10 puntos de control en los Documentos de la clase para validar tu archivo.',
+          },
+        ],
+        mindsetPrompt:
+          'Un CV impecable en los detalles técnicos demuestra el mismo rigor y profesionalismo con el que vas a trabajar en la empresa.',
         resources: [
           {
-            id: 'res-cv-06',
-            title: 'Checklist de Auditoría Pre-Envío (PDF)',
+            id: 'checklist-auditoria-pre-envio',
+            title: 'Checklist de Auditoría Pre-Envío (10 Puntos)',
             type: 'pdf',
-            fileSize: '190 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 2,
-            category: 'Guía PDF',
-            description: 'Checklist de 10 puntos para validar tu CV antes de postularte a cualquier vacante.',
+            category: 'Checklist de Control',
+            description: 'Guía rápida de 10 puntos de verificación técnica y visual para validar tu CV antes de postularte.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nUna sola falta de ortografía en el titular o un link roto a tu LinkedIn pueden costarte una entrevista de 2.000 dólares. Pasemos el filtro final.\n\n[1:00 - Desarrollo del concepto]\nHaremos una revisión rápida en 10 pasos: ¿Está guardado en PDF con tu nombre y puesto? ¿Los links funcionan? ¿El texto está alineado a la izquierda sin cortes extraños? ¿Tus fechas laborales tienen mes y año consistentes? Si tu CV supera este checklist con 10/10, está listo para salir a la cancha.\n\n[4:00 - Llamada a la acción]\nGuardá tu PDF final optimizado. En el Módulo 3 vamos a sincronizarlo con tu perfil de LinkedIn para que los selectores te encuentren a vos.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Un enlace roto a tu perfil de LinkedIn, un archivo mal nombrado o una sola falta de ortografía en tu titular pueden arruinar una postulación antes de que lean tu experiencia. En esta clase vamos a hacer un control de calidad rápido en 10 puntos para blindar tu documento y asegurarnos de que tu CV esté 100% impecable antes de mandarlo a cualquier empresa.
+🏷️ Control de Calidad: Los detalles que definen una postulación 🔍⚠️
+🔊 Swoosh suave
+🏷️ Auditoría Pre-Envío: 10 Puntos de Control 🛡️📄
+🔊 Pop de confirmación
+
+[1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CHECKLIST DE 10 PUNTOS DE CONTROL]
+🗣️ Antes de enviar cualquier postulación, hacete estas preguntas rápidas: ¿El archivo tiene tu nombre y puesto en el título? ¿Tus links de LinkedIn y mail funcionan al hacer clic? ¿El texto está alineado a la izquierda sin saltos extraños? ¿Tus fechas laborales tienen mes y año consistentes? ¿Tu documento tiene una o dos páginas completas sin renglones huérfanos? Revisar estos detalles te toma menos de dos minutos y te asegura que ningún error técnico arruine tu oportunidad. Cuando tu CV supera este filtro con diez de diez, está listo para salir a la cancha.
+🏷️ 1. Nombre Profesional · 2. Links Activos · 3. Fechas Uniformes
+🔊 Clicks sutiles por punto
+🖼️ Captura flotante mostrando el archivo bien nombrado y la prueba de clic en los enlaces de contacto.
+🏷️ Resultado: CV Blindado 10/10 📄🎯
+🔊 Pop de confirmación
+
+[4:00 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
+🗣️ Guardá tu PDF final optimizado. Si querés hacer una última revisión rápida, en los Documentos de la clase tenés el checklist de 10 puntos para validar en cualquier momento. Completaste el bloque de CV: tenés un currículum moderno, adaptado a filtros ATS y orientado a resultados. Ahora entramos al Módulo 3, donde vamos a optimizar tu LinkedIn de punta a punta para que tu perfil atraiga ofertas de forma constante.
+🏷️ Opcional en Documentos: Checklist de 10 Puntos 📥📋
+🔊 Pop sutil
+🏷️ Hito: Módulo 02 Completado (CV de Alto Impacto) 📄✅
+🏷️ Módulo 03: Creación y mejora de LinkedIn 🚀💼
+🔊 Swoosh final de módulo`,
       },
     ],
   },

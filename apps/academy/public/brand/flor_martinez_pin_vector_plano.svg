@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1200" width="100%" height="100%">
+  <!-- Continuous Die-Cast Pin Contour Base -->
+  <g id="Pin_Flat_Design">
+    <!-- Solid Unified Base Silhouette (Black/Dark Metal Outer Rim) -->
+    <path fill="#0F172A" d="
+      M 500 60
+      C 670 60, 800 190, 800 360
+      C 800 450, 760 525, 700 580
+      L 900 580
+      C 925 580, 945 600, 945 625
+      L 945 810
+      C 945 835, 925 855, 900 855
+      L 100 855
+      C 75 855, 55 835, 55 810
+      L 55 625
+      C 55 600, 75 580, 100 580
+      L 300 580
+      C 240 525, 200 450, 200 360
+      C 200 190, 330 60, 500 60 Z
+    " />
+
+    <!-- Top Circular Violet Enamel Infill -->
+    <circle cx="500" cy="360" r="280" fill="#7C3AED" />
+
+    <!-- Raised FM Monogram in Pure White -->
+    <g transform="translate(245, 110) scale(2.1)" fill="#FFFFFF">
+      
+  <!-- Letter F Main Vertical Stem & Bracketed Serifs -->
+  <path d="M 34 192 L 74 192 L 74 185 L 62 185 C 57 185 56 183 56 177 L 56 46 C 56 40 57 38 62 38 L 74 38 L 74 31 L 22 31 L 22 38 L 34 38 C 39 38 40 40 40 46 L 40 177 C 40 183 39 185 34 185 Z" />
+  <!-- Letter F Top Arm: Balanced width ending above M right serif with graceful upward wing tip -->
+  <path d="M 56 44 L 164 44 C 168 44 172 43 176 39 C 174 45 168 53 158 53 L 56 53 Z" />
+  <!-- Letter F Middle Crossbar connecting solidly to M -->
+  <path d="M 56 102 L 102 102 L 108 94 L 102 86 L 56 86 Z" />
+  <!-- Letter M Left Stem -->
+  <path d="M 88 192 L 120 192 L 120 185 L 110 185 C 105 185 104 183 104 177 L 104 84 C 104 78 105 76 110 76 L 120 76 L 120 69 L 88 69 L 88 76 L 96 76 C 100 76 101 78 101 84 L 101 177 C 101 183 100 185 96 185 L 88 185 Z" />
+  <!-- Letter M Diagonal V -->
+  <polygon points="102,76 142,176 152,176 116,76" />
+  <polygon points="142,176 176,76 184,76 148,176" />
+  <!-- Letter M Right Stem -->
+  <path d="M 166 192 L 202 192 L 202 185 L 192 185 C 187 185 186 183 186 177 L 186 84 C 186 78 187 76 192 76 L 202 76 L 202 69 L 168 69 L 168 76 L 176 76 C 180 76 181 78 181 84 L 181 177 C 181 183 180 185 176 185 L 166 185 Z" />
+
+    </g>
+
+    <!-- Bottom Plaque Infill (Pure White) -->
+    <rect x="75" y="598" width="850" height="236" rx="20" fill="#FFFFFF" />
+
+    <!-- Text 1: FLOR MARTINEZ (Solid Dark Navy #0F172A) -->
+    <text x="500" y="695" 
+          text-anchor="middle" 
+          font-family="'Plus Jakarta Sans', Arial, sans-serif" 
+          font-size="68" 
+          font-weight="900" 
+          letter-spacing="6" 
+          fill="#0F172A">FLOR MARTINEZ</text>
+
+    <!-- Text 2: -- ACADEMIA -- (Solid Electric Violet #7C3AED) -->
+    <g transform="translate(500, 775)">
+      <rect x="-240" y="-8" width="45" height="5" rx="2.5" fill="#7C3AED"/>
+      <text x="0" y="0" 
+            text-anchor="middle" 
+            font-family="'Plus Jakarta Sans', Arial, sans-serif" 
+            font-size="36" 
+            font-weight="800" 
+            letter-spacing="12" 
+            fill="#7C3AED">ACADEMIA</text>
+      <rect x="195" y="-8" width="45" height="5" rx="2.5" fill="#7C3AED"/>
+    </g>
+  </g>
+</svg>
