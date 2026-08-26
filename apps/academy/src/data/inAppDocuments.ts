@@ -859,6 +859,80 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'guia-copywriting-linkedin-titular-about': {
+    id: 'guia-copywriting-linkedin-titular-about',
+    slug: 'guia-copywriting-linkedin-titular-about',
+    title: 'Guía de Copywriting para LinkedIn (Titular & Acerca de mí)',
+    category: 'Marca Personal & Redacción',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Guía de Consulta Rápida',
+    estimatedReadTime: '4 min de lectura',
+    summary:
+      'Fórmulas estructuradas y ejemplos reales redactados para optimizar el SEO de tu titular y conectar humanamente en tu extracto.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'ejemplos-titulares-por-area',
+        title: '1. Modelos de Titular por Especialidad',
+        subtitle: 'Estructura: [Rol] | [Tecnologías / Herramientas] | [Especialidad]',
+        content: 'Modelos listos para adaptar según tu área profesional:',
+        tableData: {
+          headers: ['Especialidad', 'Titular Sugerido (< 220 caracteres)'],
+          rows: [
+            ['Comercial & Ventas B2B', 'Key Account Manager B2B | Salesforce · HubSpot | Expansión Comercial & Negociación de Cuentas Clave | +30% facturación'],
+            ['Tecnología & Producto', 'Product Designer | Figma · Design Systems · UX Research | Fintech & SaaS B2B | Diseño centrado en conversión'],
+            ['Operaciones & Logística', 'Supply Chain Analyst | SAP MM · Power BI · Excel Avanzado | Logística Internacional & Comercio Exterior'],
+            ['Administración & Finanzas', 'Analista Financiero Senior | Modelado Financiero · SQL · Power BI | Control Presupuestario & Reporting Ejecutivo'],
+          ],
+        },
+      },
+      {
+        id: 'estructura-acerca-de-mi',
+        title: '2. Plantilla de 4 Párrafos para el "Acerca de mí"',
+        subtitle: 'Tono cercano, profesional y orientado a resolución de problemas',
+        content:
+          'Escribí siempre en primera persona y dividí tu historia en 4 bloques claros:\n\n' +
+          '• **Párrafo 1 (Gancho):** "Ayudo a [tipo de empresas] a resolver [problema principal] a través de [tu especialidad]. Con más de [X] años en el sector..."\n' +
+          '• **Párrafo 2 (Trayectoria):** "A lo largo de mi carrera me especialicé en [áreas clave], liderando procesos como [ejemplo concreto]..."\n' +
+          '• **Párrafo 3 (Logros):** "Algunos hitos recientes:\n- [Logro 1 con métrica]\n- [Logro 2 con herramienta/proceso]"\n' +
+          '• **Párrafo 4 (Contacto):** "Siempre abierto a conectar con líderes y equipos en crecimiento. 📧 Contacto: [tu-email@correo.com]"',
+      },
+    ],
+  },
+  'scripts-mensajes-conexion-recruiters': {
+    id: 'scripts-mensajes-conexion-recruiters',
+    slug: 'scripts-mensajes-conexion-recruiters',
+    title: 'Scripts de Mensajes de Conexión para Recruiters & Líderes',
+    category: 'Prospección & Networking',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Plantillas de Mensajes',
+    estimatedReadTime: '3 min de consulta',
+    summary:
+      'Guiones cortos (< 300 caracteres) y sin presión para conectar con selectores y Hiring Managers con alta tasa de respuesta.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
+    sections: [
+      {
+        id: 'script-vacante-abierta',
+        title: '1. Mensaje para Vacante Abierta (Al Recruiter)',
+        subtitle: 'Cuando identificaste una postulación activa',
+        content:
+          '**Plantilla (< 280 caracteres):**\n\n' +
+          '> *"Hola [Nombre], vi la búsqueda de [Puesto] que abrieron en [Empresa]. Cuento con +[X] años de experiencia en [Área] y dominio de [Herramienta 1] y [Herramienta 2]. Me encantaría sumar tu perfil a mi red y quedar en contacto para este u otros procesos. ¡Un saludo!"*',
+      },
+      {
+        id: 'script-contacto-hiring-manager',
+        title: '2. Mensaje Espontáneo a Líder de Área (Hiring Manager)',
+        subtitle: 'Para tu futuro jefe directo, sin pedir trabajo directamente',
+        content:
+          '**Plantilla (< 280 caracteres):**\n\n' +
+          '> *"Hola [Nombre], sigo de cerca el crecimiento del área de [Nombre del Área] en [Empresa]. Como colega enfocado en [Especialidad/Herramienta], me gustaría sumar tu contacto para seguir sus novedades y proyectos en el sector. ¡Un saludo!"*',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

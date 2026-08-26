@@ -976,7 +976,21 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         mindsetPrompt:
           'El titular de LinkedIn no es un estado de ánimo: es la etiqueta con la que el algoritmo te indexa ante las mejores oportunidades.',
-        resources: [],
+        resources: [
+          {
+            id: 'guia-copywriting-linkedin-titular-about',
+            title: 'Guía de Copywriting para LinkedIn (Titular & Acerca de mí)',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Guía de Redacción',
+            description: 'Modelos redactados de titulares por especialidad y plantilla en 4 párrafos para tu extracto.',
+            isEssential: false,
+          },
+        ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
 🗣️ Si tu titular dice 'En búsqueda activa de nuevas oportunidades' o simplemente pusiste tu título universitario, estás desperdiciando el espacio con mayor peso SEO de todo tu perfil.
@@ -1114,7 +1128,21 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         mindsetPrompt:
           'Un mensaje personalizado y sin presión no pide trabajo desesperadamente: abre una conversación profesional entre colegas.',
-        resources: [],
+        resources: [
+          {
+            id: 'scripts-mensajes-conexion-recruiters',
+            title: 'Scripts de Mensajes de Conexión para Recruiters & Líderes',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Plantillas de Mensajes',
+            description: 'Guiones cortos para vacantes abiertas y contacto espontáneo a líderes de área.',
+            isEssential: false,
+          },
+        ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
 🗣️ Mandar una solicitud de contacto vacía es desperdiciar el setenta por ciento del impacto de tu perfil.
