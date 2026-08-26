@@ -1289,30 +1289,83 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Portales de empleo y consultoras',
         duration: '6 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
-          'Dónde buscar según tu perfil: bolsas masivas locales, plataformas internacionales de trabajo remoto en USD y consultoras.',
+          'Dónde buscar según tu perfil: bolsas masivas de Sudamérica, plataformas de trabajo remoto internacional en USD y consultoras.',
         takeaways: [
-          'Portales locales (Indeed, Computrabajo, ZonaJobs, InfoJobs) vs. Portales de nicho y plataformas remotas en USD (Wellfound, RemoteOK, Torre).',
-          'El ecosistema de consultoras de selección y agencias de headhunting especializadas por industria.',
-          'Cómo configurar alertas por correo electrónico para recibir solo vacantes altamente compatibles.',
+          'Los 3 canales principales: Bolsas masivas líderes (Computrabajo, Indeed, Bumeran), portales de trabajo remoto global (Wellfound, RemoteOK, Torre) y consultoras de headhunting.',
+          'Estrategia pan-regional: Enfocar la búsqueda en las plataformas líderes según si buscás rol local corporativo o trabajo remoto internacional en USD.',
+          'Automatización con alertas inteligentes: Configurar filtros exactos por correo para que las vacantes lleguen a tu bandeja de entrada sin scrolling manual.',
         ],
+        actionItems: [
+          {
+            id: 'act-dnd-1-1',
+            title: 'Consultar el Directorio de Portales en Documentos',
+            description: 'Revisá el listado interactivo con enlaces directos a las plataformas líderes del mercado.',
+          },
+          {
+            id: 'act-dnd-1-2',
+            title: 'Configurar 3 alertas automáticas de empleo',
+            description: 'Activá filtros por cargo y modalidad en los portales seleccionados para tu perfil.',
+          },
+        ],
+        mindsetPrompt:
+          'Postularte en diez portales al azar genera dispersión: el secreto está en elegir los dos o tres canales donde realmente contratan tu especialidad.',
         resources: [
           {
-            id: 'res-dnd-01',
-            title: 'Directorio de 50+ Portales de Empleo y Consultoras (PDF)',
+            id: 'directorio-portales-empleo-remoto',
+            title: 'Directorio de Portales de Empleo y Consultoras de Selección',
             type: 'pdf',
-            fileSize: '450 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 4,
             category: 'Directorio',
-            description: 'Guía con enlaces directos a bolsas de empleo en Latam, España y plataformas remotas globales.',
+            description: 'Listado actualizado con enlaces directos a bolsas de empleo en Sudamérica, plataformas de trabajo remoto en USD y consultoras.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nNo todos los portales sirven para todos los perfiles. Si buscás trabajo remoto internacional en Indeed local, estás perdiendo el tiempo.\n\n[1:15 - Desarrollo del concepto]\nOrganizamos las plataformas en 3 categorías: bolsas generales masivas, portales de nicho/remoto en moneda dura y consultoras de headhunting. Te muestro cuáles priorizar según tu nivel de experiencia y cómo crear alertas inteligentes por correo para no tener que revisar 10 sitios todos los días.\n\n[4:40 - Llamada a la acción]\nConfigurá 3 alertas de empleo automáticas en los portales seleccionados para tu perfil.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ No todas las plataformas de empleo sirven para todos los perfiles.
+🏷️ Estrategia de Canales: Dónde está tu rol objetivo 🗺️🎯
+🔊 Swoosh suave
+🗣️ Si estás buscando un puesto remoto internacional o una posición ejecutiva en portales locales generalistas, estás perdiendo tiempo y energía valiosa.
+🏷️ El error de buscar en plataformas equivocadas ⏱️⚠️
+🔊 Pop sutil
+🖼️ Placa comparativa mostrando: Portales Masivos Locales vs. Plataformas Remotas Globales vs. Consultoras de Selección.
+🗣️ En esta clase vamos a mapear los tres grandes canales del mercado laboral para que sepas exactamente en qué plataformas enfocarte y cómo automatizar alertas inteligentes.
+🏷️ Mapa del Mercado: Bolsas Locales · Remoto USD · Consultoras 🏢🌐
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CANALES EN SUDAMÉRICA Y PLATAFORMAS REMOTAS]
+🗣️ Para ordenar tu búsqueda vamos a dividir las plataformas en tres grandes canales según tu objetivo:
+🗣️ Primero, las bolsas de empleo masivas líderes en toda la región, como Computrabajo, Indeed, Bumeran, Laborum o Multitrabajos, ideales para puestos presenciales, híbridos o empresas corporativas tradicionales de tu país.
+🏷️ 1. Bolsas Líderes en Sudamérica: Computrabajo · Indeed · Bumeran · Laborum 🏢🌎
+🔊 Swoosh suave
+🗣️ Segundo, los portales de nicho y trabajo remoto global como Wellfound, RemoteOK, Torre o We Work Remotely, si tu objetivo es trabajar para startups, el sector digital o cobrar en dólares desde cualquier lugar de Latinoamérica.
+🏷️ 2. Portales Remotos Globales (USD): Wellfound · RemoteOK · Torre 🌐💵
+🔊 Click sutil
+🖼️ Captura flotante mostrando plataformas de trabajo remoto internacional con salarios en USD.
+🗣️ Y tercero, las consultoras de selección y agencias de headhunting internacionales como PageGroup, Randstad, Adecco o Hays, donde lo importante es registrar tu perfil en su base de datos interna y conectar con sus recruiters.
+🏷️ 3. Consultoras de Selección & Headhunters: Carga en Base Interna 👥📁
+🔊 Click sutil
+🗣️ Tené en cuenta que estas plataformas son las más activas a mediados de 2026, pero el mercado digital evoluciona constantemente:
+🗣️ Por eso, en la sección de Documentos de esta clase tenés el Directorio de Portales de Empleo con el listado completo y actualizado con los enlaces directos.
+🏷️ Documentos: Directorio Actualizado de Portales & Consultoras 📥🗺️
+🔊 Pop sutil
+🖼️ Captura flotante del directorio interactivo in-app clasificado por país y modalidad.
+🗣️ Y para no perder horas abriendo diez sitios web todos los días, configurá alertas inteligentes por correo con tu cargo y modalidad: dejá que las vacantes lleguen a tu bandeja de entrada de forma automática.
+🏷️ Automatización: Alertas Inteligentes por Correo 📬⚙️
+🔊 Pop de confirmación
+
+[4:40 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ En la próxima clase vamos a ir un paso más allá de los portales:
+🗣️ Te voy a enseñar cómo hacer búsquedas avanzadas con comandos en Google para encontrar ofertas ocultas y cómo aprovechar comunidades profesionales para enterarte antes que nadie.
+🏷️ Próxima clase: Búsquedas avanzadas en Google y comunidades 🔍🌐
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-dnd-02',
