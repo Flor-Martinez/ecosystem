@@ -1065,6 +1065,36 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'guia-metricas-conversion-tracker': {
+    id: 'guia-metricas-conversion-tracker',
+    slug: 'guia-metricas-conversion-tracker',
+    title: 'Guía de Métricas y Diagnóstico del Tracker',
+    category: 'Métricas de Selección',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Guía de Diagnóstico In-App',
+    estimatedReadTime: '3 min de lectura',
+    summary:
+      'Matriz para diagnosticar en qué etapa del embudo se frenan tus postulaciones y qué corregir con precisión matemática.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'diagnostico-embudo-seleccion',
+        title: '1. Diagnóstico del Embudo por Ratios de Conversión',
+        subtitle: 'Cómo saber qué corregir según tus números reales',
+        content: 'Matriz de control según los datos arrojados por tu Job Tracker:',
+        tableData: {
+          headers: ['Síntoma en el Tracker', 'Diagnóstico Real', 'Acción de Corrección'],
+          rows: [
+            ['+20 postulaciones y 0 llamadas / contactos', 'Filtro ATS no superado o falta de palabras clave requeridas.', 'Ajustar palabras clave y hard skills en el CV (Módulo 2).'],
+            ['Te llaman al screening pero no pasás a la entrevista técnica', 'El CV funciona pero falla el pitch de 90s, salario pretendido o seguridad al hablar.', 'Entrenar el pitch de presentación y respuestas difíciles (Módulo 6).'],
+            ['Llegás a la entrevista técnica final pero no recibís oferta', 'Falta profundizar en ejemplos prácticos STAR o negociación salarial.', 'Entrenar resolución de casos y preguntas de cierre (Módulo 6 y 7).'],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

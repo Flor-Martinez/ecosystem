@@ -1722,30 +1722,80 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Gestión de postulaciones con el Tracker',
         duration: '6 min',
+        videoDuration: '3:30 min',
         completed: false,
         description:
           'Cómo registrar cada oportunidad en el Tracker integrado de la plataforma y analizar tus métricas para saber qué ajustar.',
         takeaways: [
-          'Registro metódico de postulaciones: Empresa, Puesto, Rango salarial, Fecha, Enlace y Estado.',
-          'Interpretación del embudo: si mandás 20 y tenés 0 respuestas, ajustamos CV/Keywords; si te caes tras la 1ra entrevista, ajustamos pitch.',
-          'Establecer recordatorios de seguimiento para no perder el hilo de ningún proceso en marcha.',
+          'Registro metódico en el Job Tracker: Empresa, cargo, canal de postulación, rango salarial y estado del proceso.',
+          'Diagnóstico del embudo: Si no hay respuestas, corregir CV/Keywords; si te quedás en el screening inicial, entrenar pitch y comunicación.',
+          'Tomar decisiones estratégicas basadas en números reales para no cambiar de rumbo a ciegas.',
         ],
+        actionItems: [
+          {
+            id: 'act-pst-2-1',
+            title: 'Cargar tus primeras 3 postulaciones en el Tracker',
+            description: 'Registrá empresa, puesto, canal y estado actual para inicializar tu panel de control.',
+          },
+          {
+            id: 'act-pst-2-2',
+            title: 'Auditar tus tasas de respuesta semanales',
+            description: 'Revisá en qué columna del embudo se concentran tus procesos para calibrar tu foco.',
+          },
+        ],
+        mindsetPrompt:
+          'Lo que no se mide no se puede mejorar: tratar tu búsqueda como un proyecto profesional te da control y previsibilidad sobre tus resultados.',
         resources: [
           {
-            id: 'res-pst-02',
-            title: 'Guía de Métricas y Conversión del Tracker',
+            id: 'guia-metricas-conversion-tracker',
+            title: 'Guía de Métricas y Diagnóstico del Tracker',
             type: 'pdf',
-            fileSize: '270 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
-            category: 'Guía PDF',
-            description: 'Esquema para interpretar tus ratios de conversión y optimizar cada etapa.',
+            category: 'Métricas de Selección',
+            description: 'Matriz para diagnosticar en qué etapa del embudo se frenan tus postulaciones y qué corregir.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nLo que no se mide, no se puede mejorar. Si no registrás tus postulaciones, no sabés en qué parte del embudo estás perdiendo oportunidades.\n\n[1:15 - Desarrollo del concepto]\nEn esta clase vemos cómo usar el Tracker integrado que tenés en la barra superior del campus. Cada vez que apliques a un puesto, lo cargás con su estado. Al cabo de 2 semanas, tus números te van a decir exactamente dónde ajustar sin adivinar: si necesitamos retocar el CV o si tenemos que entrenar la entrevista.\n\n[4:45 - Llamada a la acción]\nCargá tus primeras 3 postulaciones en el Tracker del campus para activar tu panel de métricas.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Lo que no se mide no se puede mejorar: si no llevás un registro de tus postulaciones, tu búsqueda se convierte en una ruleta de adivinanzas y frustración.
+🏷️ Control Métrico: De la Adivinanza a los Datos Reales 📊🎯
+🔊 Swoosh suave
+🗣️ Tener un sistema de seguimiento te permite saber con exactitud científica en qué parte del embudo se frenan tus oportunidades.
+🏷️ Diagnóstico del Embudo de Selección 🔍⚙️
+🔊 Pop sutil
+🖼️ Placa interactiva mostrando las etapas del embudo: Postulación -> Contacto -> Entrevista -> Oferta.
+🗣️ En esta clase vamos a ver cómo utilizar el Tracker integrado del campus para registrar cada vacante, analizar tus tasas de conversión y tomar decisiones basadas en números reales.
+🏷️ El Job Tracker: Tu Panel de Control Diario 🖥️📈
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CARGA EN EL TRACKER Y DIAGNÓSTICO DE ESCENARIOS]
+🗣️ En la barra superior del campus tenés acceso a tu Job Tracker, tu panel de control para registrar cada oportunidad con su empresa, puesto, canal de envío y estado actual.
+🏷️ 1. Carga de Datos: Empresa · Cargo · Canal · Estado 🖥️📁
+🔊 Swoosh suave
+🖼️ Video flotante mostrando la interfaz del Job Tracker del campus agregando una nueva postulación.
+🗣️ Al cabo de dos semanas, el análisis de tus números te indica con exactitud qué parte de tu estrategia necesita ajustes:
+🗣️ Si enviaste veinte solicitudes y no recibiste ningún contacto, el cuello de botella está en tu CV o en las palabras clave del filtro ATS.
+🏷️ Escenario A: Muchas postulaciones y 0 contactos -> Ajustar CV y Keywords 📄📉
+🔊 Click sutil
+🗣️ Si tenés llamadas iniciales pero no pasás a la entrevista con el líder de área, el CV funciona perfecto y lo que debemos entrenar es tu pitch de presentación y seguridad al hablar.
+🏷️ Escenario B: Contacto inicial sin pase a técnica -> Entrenar Pitch Verbal 🎙️💬
+🔊 Click sutil
+🗣️ Tener esta lectura te ahorra semanas de frustración porque dejás de cambiar cosas al azar y empezás a solucionar el problema real.
+🏷️ Decisiones Estratégicas basadas en tu Embudo Real 📈🎯
+🔊 Pop de confirmación
+
+[4:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tratar tu búsqueda como un proyecto medible es lo que te diferencia de la gran mayoría que postula a ciegas.
+🏷️ De Candidato Pasivo a Gestor de tu Carrera 💼📈
+🔊 Swoosh suave
+🗣️ Con tu tablero activo, pasemos a ver el protocolo exacto para hacer seguimiento de cada postulación sin perder la postura profesional.
+🏷️ Estrategia de Seguimiento y Tiempos de Recontacto ⏱️🎯
+🔊 Fin de lección limpio`,
       },
       {
         id: 'exp-pst-03',
