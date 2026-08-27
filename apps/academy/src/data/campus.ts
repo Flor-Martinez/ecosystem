@@ -1463,30 +1463,65 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Cómo detectar búsquedas no publicadas',
         duration: '5 min',
+        videoDuration: '3:15 min',
         completed: false,
         description:
           'Señales tempranas de expansión que indican futuras contrataciones antes de que se publiquen avisos oficiales.',
         takeaways: [
-          'Identificar rondas de inversión, apertura de mercados y nombramientos de directores en noticias de negocios.',
-          'La postulación espontánea de alto valor enfocada en resolver el nuevo desafío de la empresa en crecimiento.',
-          'Contacto directo con líderes de área cuando todavía no abrieron la búsqueda formal.',
+          'Identificar rondas de inversión, apertura de mercados y nombramientos de directores en medios y redes de negocios.',
+          'La postulación espontánea de alto valor enfocada en resolver los nuevos desafíos de la empresa en expansión.',
+          'Llegar antes de la publicación masiva para iniciar conversaciones directas con líderes de área.',
         ],
-        resources: [
+        actionItems: [
           {
-            id: 'res-dnd-03',
-            title: 'Guía de Detección Temprana de Empresas en Expansión',
-            type: 'pdf',
-            fileSize: '230 KB',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 4,
-            category: 'Guía PDF',
-            description: 'Fuentes de noticias económicas y metodología para contactar directores en expansión.',
+            id: 'act-dnd-3-1',
+            title: 'Mapear 2 empresas en expansión',
+            description: 'Identificá organizaciones de tu sector con noticias de crecimiento reciente y sumalas a tu lista.',
+          },
+          {
+            id: 'act-dnd-3-2',
+            title: 'Localizar al líder de área en LinkedIn',
+            description: 'Detectá al responsable del equipo de tu especialidad para proyectar un contacto de valor.',
           },
         ],
+        mindsetPrompt:
+          'Los profesionales más cotizados no esperan a que salgan los avisos: detectan las empresas que están creciendo y se presentan en el momento justo.',
+        resources: [],
         videoScript:
-          `[0:00 - Introducción]\n¿Sabías que cuando una empresa anuncia que abrió operaciones en un nuevo país o levantó financiamiento, va a contratar decenas de personas en los siguientes 60 días? Podés llegar antes que nadie.\n\n[1:10 - Desarrollo del concepto]\nSeguir medios de noticias de negocios e industria te da ventaja competitiva. Cuando detectás una empresa en expansión, identificamos al líder del área en LinkedIn y le enviamos un mensaje de felicitación y presentación estratégica. Llegar antes de que publiquen el aviso formal elimina el 99% de tu competencia.\n\n[4:00 - Llamada a la acción]\nIdentificá 2 empresas de tu sector que hayan crecido recientemente y agregalas a tu lista de prospección.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Esperar a que una vacante se publique en un portal significa competir desde el inicio con cientos de personas.
+🏷️ El Riesgo de Postularse Tarde en Procesos Masivos ⚠️
+🔊 Swoosh suave
+🗣️ Los profesionales más cotizados no esperan a que salgan los avisos: detectan las empresas que están creciendo y se presentan en el momento justo.
+🏷️ Prospección Estratégica en Empresas en Escala 🚀
+🔊 Pop sutil
+🗣️ Vamos a ver cuáles son las fuentes de información clave para anticiparte a las contrataciones y abrir tus propias oportunidades.
+🏷️ Fuentes de Inteligencia de Mercado & Negocios 🌐💼
+🔊 Pop de confirmación
+
+[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS 3 SEÑALES Y EL CONTACTO ESPONTÁNEO]
+🗣️ Para detectar estas oportunidades monitoreamos tres señales clave en medios de negocios y redes profesionales:
+🗣️ Primero, empresas que reciben rondas de inversión o financiamiento para escalar sus operaciones.
+🏷️ 1. Señal: Rondas de Inversión y Financiamiento 💵📈
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando noticias de negocios y portales de inversión.
+🗣️ Segundo, anuncios de apertura de oficinas, nuevas líneas de producto o desembarco en otros países.
+🏷️ 2. Señal: Expansión a Nuevos Mercados y Proyectos 🌎🏢
+🔊 Click sutil
+🗣️ Y tercero, el nombramiento de nuevos directores o líderes de área, quienes en sus primeros tres meses siempre buscan sumar talento de confianza a sus equipos.
+🏷️ 3. Señal: Nuevos Líderes y Directores de Área 👥⭐
+🔊 Click sutil
+🗣️ Cuando detectás cualquiera de estas tres señales, identificás al responsable en LinkedIn y le enviás un mensaje felicitándolo por el hito y contándole en dos líneas cómo tu experiencia puede resolver los nuevos desafíos del área.
+🏷️ Contacto Espontáneo: Felicitación + Propuesta de Solución 💬🎯
+🔊 Pop de confirmación
+
+[4:00 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tu tarea en esta clase es identificar dos empresas de tu sector que hayan anunciado expansiones recientes y agregarlas a tu lista de prospección.
+🏷️ Acción: 2 Empresas en Expansión a tu Lista 📋🏢
+🔊 Swoosh suave
+🗣️ En la próxima clase cerramos este módulo con un paso crítico: cómo investigar la cultura, reputación y clima laboral de una empresa antes de enviar tu postulación.
+🏷️ Próxima clase: Investigación previa de empresa y cultura 🔍🛡️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-dnd-04',
