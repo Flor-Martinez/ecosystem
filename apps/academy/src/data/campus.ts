@@ -1636,30 +1636,81 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Kit de postulación y cover letters',
         duration: '7 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
           'La combinación exacta de materiales según el canal: CV, Carta de Presentación concisa, Portfolio de proyectos y mensaje de acompañamiento.',
         takeaways: [
-          'La Carta de Presentación de 3 párrafos: Gancho -> Por qué este proyecto -> Aporte concreto (no una copia de tu CV).',
-          'Enlaces a portfolios y proyectos demostrativos para perfiles técnicos, creativos y de gestión.',
-          'Estructura del correo de postulación profesional cuando enviás tu postulación directamente por email.',
+          'Estructura del Kit de Postulación: CV adaptado en PDF, Carta de Presentación de 3 párrafos y enlaces a LinkedIn/Portfolio.',
+          'Fórmula de la Carta de 3 Párrafos: Gancho y puesto + Logro concreto con métricas + Llamada a la acción con disponibilidad.',
+          'Asunto de correo profesional: `Postulación [Puesto] - [Nombre y Apellido] | [Herramienta Clave]` para asegurar lectura inmediata.',
         ],
+        actionItems: [
+          {
+            id: 'act-pst-1-1',
+            title: 'Redactar tu Carta de Presentación base',
+            description: 'Escribí tu mensaje de 3 párrafos destacando tu mayor logro y herramientas clave.',
+          },
+          {
+            id: 'act-pst-1-2',
+            title: 'Verificar el formato de tu CV en PDF',
+            description: 'Guardá el archivo con nomenclatura profesional: `CV_Nombre_Apellido_Puesto.pdf`.',
+          },
+        ],
+        mindsetPrompt:
+          'El CV cuenta tu historia laboral, pero el mensaje de acompañamiento es el que demuestra por qué sos la persona indicada para este proyecto puntual.',
         resources: [
           {
-            id: 'res-pst-01',
+            id: 'plantillas-carta-presentacion-cover-letter',
             title: 'Plantillas de Carta de Presentación (Cover Letter)',
             type: 'word',
-            fileSize: '160 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
-            category: 'Guía PDF',
-            description: 'Modelos en Word para roles junior, senior y postulaciones espontáneas.',
+            category: 'Plantillas de Redacción',
+            description: 'Modelos de cartas de presentación en 3 párrafos para diferentes niveles y tipos de postulación.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nEnviar solo un archivo adjunto sin texto en el cuerpo del mail es como tirar una botella al mar sin mensaje. Veamos qué tiene que contener tu kit de postulación profesional.\n\n[1:30 - Desarrollo del concepto]\nTu kit se compone de 3 piezas: tu CV adaptado, un mensaje de presentación directo de 3 párrafos (quién sos, por qué te entusiasma este proyecto puntual y qué logro relevante aportás) y, si aplica, un link a tu portfolio o casos de éxito. Te doy la estructura exacta para enviar por mail o por formularios web sin aburrir al selector.\n\n[5:30 - Llamada a la acción]\nArmá tu plantilla base de Carta de Presentación personalizada y tenela lista para usar.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Enviar un correo diciendo simplemente 'Adjunto mi CV' o postularte en un portal sin una nota de presentación es desperdiciar la oportunidad de generar una primera impresión memorable.
+🏷️ Error Común: Postulaciones frías sin contexto ⚠️📄
+🔊 Swoosh suave
+🖼️ Placa comparativa mostrando: Email vacío con PDF adjunto vs. Email estructurado con Kit de Postulación.
+🗣️ El currículum cuenta tu historia laboral, pero el mensaje de acompañamiento es el que explica por qué sos la persona indicada para este proyecto puntual.
+🏷️ La Carta de Presentación como Gancho Comercial 🎯✍️
+🔊 Pop sutil
+🗣️ En esta clase vamos a armar tu Kit de Postulación profesional: tu carta de presentación concisa en tres párrafos, la selección de enlaces relevantes y las plantillas para postularte por correo o formulario web.
+🏷️ Kit de Postulación: CV Adaptado + Carta de 3 Párrafos + Enlaces 📁🚀
+🔊 Pop de confirmación
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — PIEZAS DEL KIT Y CARTA EN 3 PÁRRAFOS]
+🗣️ Tu Kit de Postulación reúne tres piezas fundamentales que debés tener listas antes de enviar cualquier solicitud:
+🗣️ Primero, tu CV adaptado en formato PDF, guardado siempre con un nombre claro: tu nombre, apellido y cargo objetivo.
+🏷️ 1. CV en PDF: Nombre_Apellido_Puesto.pdf 📄✅
+🔊 Swoosh suave
+🗣️ Segundo, una carta de presentación de solo tres párrafos concisos:
+🗣️ En el primer párrafo mencionás el puesto al que aplicás; en el segundo destacás un logro concreto con métricas de tu experiencia previa; y en el tercero cerrás invitando cordialmente a una breve entrevista.
+🏷️ 2. Carta de 3 Párrafos: Gancho · Logro Concreto · Llamada a la Acción ✍️🎯
+🔊 Click sutil
+🖼️ Captura flotante mostrando la plantilla de correo de postulación con los 3 bloques resaltados.
+🗣️ Y tercero, un enlace directo a tu perfil de LinkedIn optimizado o a tu portafolio de proyectos si tu rol lo requiere.
+🏷️ 3. Enlaces Clave: Perfil de LinkedIn · Portafolio · Proyectos 🔗🌐
+🔊 Click sutil
+🗣️ Si enviás tu postulación por correo, utilizá un asunto profesional con tu nombre, puesto y herramienta fuerte para que el selector te identifique de inmediato en su bandeja de entrada.
+🏷️ Asunto Claro: Postulación [Puesto] - [Nombre y Apellido] | [Herramienta] 📬⭐
+🔊 Pop de confirmación
+
+[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tomate diez minutos para redactar esos tres párrafos con tus propios logros: tener este mensaje guardado te va a ahorrar horas enteras de duda cada vez que encuentres una vacante interesante.
+🏷️ Kit Listo = Respuesta Rápida y Cero Fricción ⏱️✅
+🔊 Pop sutil
+🗣️ En la siguiente lección nos enfocamos en cómo organizar todas tus postulaciones para que tengas el control absoluto de cada oportunidad que abras.
+🏷️ Control y Organización de Procesos 📋💼
+🔊 Fin de lección limpio`,
       },
       {
         id: 'exp-pst-02',

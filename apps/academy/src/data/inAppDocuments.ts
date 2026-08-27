@@ -1036,6 +1036,35 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'plantillas-carta-presentacion-cover-letter': {
+    id: 'plantillas-carta-presentacion-cover-letter',
+    slug: 'plantillas-carta-presentacion-cover-letter',
+    title: 'Plantillas de Carta de Presentación (Cover Letter)',
+    category: 'Materiales de Postulación',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Plantillas In-App',
+    estimatedReadTime: '4 min de lectura',
+    summary:
+      'Modelos de cartas de presentación y mensajes de correo en 3 párrafos, orientados a resultados y adaptables a cualquier industria.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'modelo-postulacion-activa',
+        title: '1. Modelo para Búsqueda Publicada (Convocatoria Abierta)',
+        subtitle: 'Para enviar por correo electrónico o adjuntar en formulario web',
+        content:
+          '**Asunto:** `Postulación [Nombre del Puesto] - [Nombre y Apellido] | [Herramienta Clave / Especialidad]`\n\n' +
+          '**Cuerpo del mensaje:**\n\n' +
+          '> *"Estimado equipo de selección / Hola [Nombre del Recruiter]:*\n>\n' +
+          '> *Les escribo para presentar mi postulación al rol de [Nombre del Puesto] publicado en [LinkedIn / Portal]. Cuento con +[X] años de trayectoria en [Especialidad/Industria], especializándome en [Herramienta 1] y [Herramienta 2].*\n>\n' +
+          '> *En mi experiencia más reciente en [Empresa previa o proyecto], lideré [logro concreto o métrica medible, ej. la optimización del proceso X logrando una reducción del 25% en tiempos operativos]. Me entusiasma la posibilidad de aportar este mismo enfoque de resultados a los proyectos actuales de [Nombre de la Empresa].*\n>\n' +
+          '> *Adjunto mi CV en formato PDF y les comparto el enlace a mi perfil de LinkedIn [URL]. Quedo a entera disposición para coordinar una breve entrevista inicial y profundizar en cómo mi perfil puede sumar al equipo. ¡Muchas gracias por su tiempo y consideración!*\n>\n' +
+          '> *Saludos cordiales,*\n> *[Tu Nombre y Apellido]*\n> *[Teléfono] · [Email] · [LinkedIn]"*',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
