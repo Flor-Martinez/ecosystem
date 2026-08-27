@@ -988,6 +988,54 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'checklist-auditoria-empresas-cultura': {
+    id: 'checklist-auditoria-empresas-cultura',
+    slug: 'checklist-auditoria-empresas-cultura',
+    title: 'Checklist de Auditoría de Empresas y Clima Laboral',
+    category: 'Evaluación de Empresas',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 4,
+    badge: 'Checklist In-App',
+    estimatedReadTime: '3 min de lectura',
+    summary:
+      'Paso a paso de 3 controles clave para evaluar la reputación, rotación de personal y estabilidad de una empresa antes de avanzar.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'auditoria-3-pasos',
+        title: '1. Los 3 Controles de la Auditoría Express (10 min)',
+        subtitle: 'Validá la salud de la empresa antes de postularte',
+        content: 'Revisá estos 3 puntos antes de postularte o sentarte en una entrevista:',
+        checklistItems: [
+          {
+            id: 'chk-emp-1',
+            text: 'Reseñas en Glassdoor / Openqube: Calificación mayor a 3.8 y análisis de patrones repetitivos en comentarios de liderazgo.',
+            description: 'Identificar si hay quejas recurrentes sobre horas extras o falta de dirección.',
+          },
+          {
+            id: 'chk-emp-2',
+            text: 'Rotación en LinkedIn (Pestaña Personas): Permanencia promedio del equipo mayor a 18 meses.',
+            description: 'Si la mayoría renuncia antes del año, es una alerta roja de clima o management.',
+          },
+          {
+            id: 'chk-emp-3',
+            text: 'Bandas Salariales y Beneficios: Validación de que el rango de mercado cumpla tu piso salarial.',
+            description: 'Asegurate de que la empresa esté dentro de tus límites económicos no negociables.',
+          },
+        ],
+      },
+      {
+        id: 'preguntas-entrevista-empresa',
+        title: '2. Preguntas Clave para el Líder de Área en la Entrevista',
+        subtitle: 'Para evaluar la cultura desde adentro',
+        content:
+          '• *"¿Cuáles son los principales desafíos que tiene el equipo para los próximos 6 meses?"*\n' +
+          '• *"¿Cómo evalúan el éxito de esta posición durante los primeros 90 días?"*\n' +
+          '• *"¿Qué es lo que más valoran los miembros del equipo sobre la cultura de trabajo acá?"*',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {

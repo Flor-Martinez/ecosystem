@@ -1533,30 +1533,84 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Investigación previa de empresa y cultura',
         duration: '6 min',
+        videoDuration: '3:35 min',
         completed: false,
         description:
           'Cómo evaluar la reputación, salud financiera, rotación de personal y bandas salariales antes de postularte.',
         takeaways: [
-          'Auditoría en Glassdoor, Openqube y comentarios de colaboradores en LinkedIn.',
-          'Analizar el tiempo de permanencia promedio de los empleados para detectar alertas de clima tóxico.',
-          'Validar que la empresa comparta tus valores y pague tarifas acordes a tu expectativa antes de invertir tiempo.',
+          'La búsqueda laboral es un proceso de doble vía: mientras la empresa te evalúa, vos también debés auditar si la cultura y el clima son saludables.',
+          'Los 3 pilares de la Auditoría Express (10 min): Reseñas en Glassdoor/Openqube, tiempo de permanencia del equipo en LinkedIn y bandas salariales.',
+          'Usar los datos para formular preguntas clave e inteligentes durante las entrevistas con el líder de área.',
         ],
+        actionItems: [
+          {
+            id: 'act-dnd-4-1',
+            title: 'Auditar 1 empresa objetivo',
+            description: 'Revisá las opiniones en Glassdoor, la rotación en LinkedIn y el rango salarial estimado.',
+          },
+          {
+            id: 'act-dnd-4-2',
+            title: 'Formular 2 preguntas de clima para la entrevista',
+            description: 'Anotá dudas puntuales sobre los desafíos y dinámica del equipo para consultar al Hiring Manager.',
+          },
+        ],
+        mindsetPrompt:
+          'El objetivo de una búsqueda laboral no es conseguir cualquier trabajo: es encontrar un lugar donde reconozcan tu valor, paguen acorde y cuiden tu bienestar.',
         resources: [
           {
-            id: 'res-dnd-04',
+            id: 'checklist-auditoria-empresas-cultura',
             title: 'Checklist de Auditoría de Empresas y Clima Laboral',
             type: 'pdf',
-            fileSize: '210 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 4,
-            category: 'Guía PDF',
-            description: 'Plantilla de 5 pasos para investigar empresas antes de enviar tu postulación.',
+            category: 'Checklist de Control',
+            description: 'Checklist rápido de 3 pasos para investigar la salud financiera, rotación y clima de una empresa.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nUna búsqueda laboral exitosa no es solo conseguir un trabajo; es conseguir un trabajo donde te paguen bien y no te arruinen la salud mental.\n\n[1:15 - Desarrollo del concepto]\nAntes de postularte a ciegas, dedicá 10 minutos a investigar: ¿Qué dicen los empleados actuales en Glassdoor? ¿Cuánto tiempo duran las personas en el equipo? ¿Cómo comunica la empresa en sus redes? Si la rotación es altísima y los comentarios apuntan a falta de liderazgo, esa información te sirve para descartar o para hacer preguntas clave en la entrevista.\n\n[4:45 - Llamada a la acción]\nElegí una empresa a la que te quieras postular y realizá la auditoría rápida de 4 pasos.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Una búsqueda laboral exitosa no consiste en conseguir cualquier trabajo: el objetivo es conseguir un empleo donde reconozcan tu valor, paguen acorde al mercado y cuiden tu bienestar.
+🏷️ Búsqueda Estratégica: Empleo Saludable + Buena Remuneración 🛡️💼
+🔊 Swoosh suave
+🗣️ Recordá siempre que un proceso de selección es de doble vía: mientras la empresa te evalúa, vos también tenés que auditar a la empresa.
+🏷️ Evaluación Mutua: Vos también elegís dónde trabajar ⚖️
+🔊 Pop sutil
+🖼️ Placa comparativa mostrando: Postulación a ciegas vs. Postulación auditada con información previa.
+🗣️ En esta clase te voy a enseñar una auditoría rápida de diez minutos para revisar la reputación, rotación de personal y clima laboral de cualquier organización antes de postularte.
+🏷️ Auditoría Express: Reputación · Clima · Rotación 🔍📊
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — AUDITORÍA EXPRESS DE 3 PASOS]
+🗣️ Para auditar una empresa antes de avanzar, aplicamos tres pasos muy simples en diez minutos:
+🗣️ Primero, revisá las opiniones de empleados en plataformas como Glassdoor u Openqube, buscando patrones repetitivos sobre liderazgo, beneficios y cumplimiento de acuerdos.
+🏷️ 1. Reseñas Reales: Glassdoor · Openqube · Opiniones 💬⭐
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando un perfil de empresa en Glassdoor con la puntuación y comentarios destacados.
+🗣️ Segundo, entrá al perfil de la empresa en LinkedIn y hacé clic en la pestaña de 'Personas' para observar la antigüedad del equipo:
+🗣️ Si la mayoría renuncia antes del año, hay una señal de alerta; pero si la permanencia promedio es de dos a cuatro años, es síntoma de estabilidad y crecimiento.
+🏷️ 2. Rotación en LinkedIn: Pestaña 'Personas' y Tiempo de Permanencia 👥⏱️
+🔊 Click sutil
+🗣️ Y tercero, consultá las estimaciones salariales para asegurarte de que la compañía pague tarifas acordes a tus límites no negociables.
+🏷️ 3. Bandas Salariales: Validación con tu Piso Salarial 💵📊
+🔊 Click sutil
+🗣️ Esta información no solo te protege de ambientes conflictivos, sino que te da argumentos sólidos para hacer preguntas inteligentes cuando te entrevistes con el líder de área.
+🏷️ Postura Profesional: Preguntas Clave en la Entrevista 🎯🤝
+🔊 Pop de confirmación
+
+[4:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
+🗣️ Tu tarea en esta clase es elegir una de las empresas de tu lista de objetivos y realizarle esta auditoría rápida de diez minutos antes de postularte.
+🏷️ Acción: Auditar 1 Empresa Target (Opiniones + Rotación) 🔍🏢
+🔊 Swoosh suave
+🗣️ Con esto completamos el Módulo 4: ahora tenés el mapa completo de dónde buscar, cómo rastrear vacantes ocultas y cómo elegir empresas que realmente valgan la pena.
+🏷️ Hito: Módulo 04 Completado (Dónde buscar ofertas) 🗺️✅
+🔊 Pop de confirmación
+🗣️ En el Módulo 5 vamos a organizar tu sistema de postulación: armaremos tu kit profesional y utilizaremos el Tracker del campus para llevar el control diario de cada proceso y sus recordatorios de seguimiento.
+🏷️ Módulo 05: Postulación y organización 📊📁
+🔊 Swoosh final de módulo`,
       },
     ],
   },
