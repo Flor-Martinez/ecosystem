@@ -1807,30 +1807,79 @@ const expBusquedaLaboralModules: CampusModule[] = [
         type: 'video',
         title: 'Estrategia de seguimiento (Follow-Up)',
         duration: '5 min',
+        videoDuration: '3:15 min',
         completed: false,
         description:
           'Tiempos recomendados para el seguimiento (5 a 7 días hábiles) y redacción de mensajes profesionales que reafirmen tu interés.',
         takeaways: [
-          'Ventana ideal de recontacto: entre 5 y 7 días hábiles posteriores al envío o a la entrevista.',
-          'Aportar valor en el seguimiento (compartir un dato o novedad) en vez de simplemente preguntar "¿hay novedades?".',
-          'Saber cuándo soltar una búsqueda y redirigir el foco a nuevas oportunidades.',
+          'Ventana óptima de seguimiento: Entre 5 y 7 días hábiles posteriores al envío del CV o de la entrevista.',
+          'Diferenciar los 2 escenarios: Follow-Up post-postulación (consultar cronograma en el mismo hilo) vs. Follow-Up post-entrevista (agradecimiento y conexión con lo conversado).',
+          'Tono profesional: Mantener empatía, brevedad y valor, evitando preguntas secas o exigencias.',
         ],
+        actionItems: [
+          {
+            id: 'act-pst-3-1',
+            title: 'Identificar postulaciones de +5 días hábiles',
+            description: 'Revisá tu Tracker y detectá qué candidaturas están a tiempo de un recontacto.',
+          },
+          {
+            id: 'act-pst-3-2',
+            title: 'Enviar mensaje de seguimiento profesional',
+            description: 'Redactá un correo breve sobre el mismo hilo reafirmando tu interés con cordialidad.',
+          },
+        ],
+        mindsetPrompt:
+          'Hacer seguimiento no es insistir ni rogar: es liderar tu propio proceso de búsqueda con proactividad, respeto y altura profesional.',
         resources: [
           {
-            id: 'res-pst-03',
+            id: 'plantillas-mensajes-seguimiento-followup',
             title: 'Plantillas de Mensajes de Seguimiento y Follow-Up',
             type: 'pdf',
-            fileSize: '195 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
-            category: 'Guía PDF',
-            description: 'Guiones para dar seguimiento respetuoso tras postulaciones y entrevistas.',
+            category: 'Plantillas de Seguimiento',
+            description: 'Guiones estructurados para recontactar selectores tras postulaciones y entrevistas.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\n¿Hiciste una entrevista y pasaron 7 días en silencio? El 80% de la gente no hace nada por timidez. El 20% que hace un seguimiento elegante multiplica sus chances de avanzar.\n\n[1:10 - Desarrollo del concepto]\nEl selector está tapado de trabajo y a veces tu postulación quedó en pausa por una urgencia. Enviar un mail corto a los 5 días hábiles agradeciendo el tiempo y reafirmando tu interés demuestra proactividad y compromiso. Te muestro las 2 plantillas exactas que usamos para recontactar con cordialidad y profesionalismo.\n\n[4:00 - Llamada a la acción]\nRevisá tu Tracker: si tenés postulaciones de hace más de 6 días sin respuesta, enviá tu primer mensaje de seguimiento hoy.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Cuando pasan varios días en silencio tras enviar un CV o terminar una entrevista, la mayoría de los candidatos no hace nada por timidez o temor a molestar.
+🏷️ El Miedo al Seguimiento: La parálisis del candidato ⚠️
+🔊 Swoosh suave
+🗣️ Los selectores suelen estar desbordados de trabajo y muchas veces los procesos se demoran por agendas internas, no porque hayan descartado tu perfil.
+🏷️ La Realidad del Selector: Sobrecarga y demoras de agenda ⏱️📁
+🔊 Pop sutil
+🖼️ Placa comparativa: Silencio pasivo (80% de los candidatos) vs. Seguimiento elegante (20% que avanza).
+🗣️ En esta clase te voy a enseñar el protocolo exacto de seguimiento: cuándo recontactar, qué decir para aportar valor y cómo redactar mensajes que reactiven el interés sin sonar insistente.
+🏷️ El Arte del Follow-Up: Tiempos · Tono · Valor 📩✨
+🔊 Pop de confirmación
+
+[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA REGLA DE 5-7 DÍAS Y LOS 2 ESCENARIOS]
+🗣️ La regla de oro del seguimiento es el tiempo: la ventana ideal para recontactar es entre cinco y siete días hábiles posteriores al envío de tu postulación o de tu entrevista.
+🏷️ Ventana Óptima: 5 a 7 días hábiles ⏱️📅
+🔊 Swoosh suave
+🗣️ Para una postulación sin respuesta, respondé sobre el mismo correo que enviaste saludando con calidez, reafirmando tu interés en la vacante y consultando amablemente cómo sigue el cronograma del proceso.
+🏷️ 1. Follow-Up Post-Postulación: Reafirmar Interés + Consulta de Cronograma 📬
+🔊 Click sutil
+🖼️ Captura flotante mostrando el modelo de correo de seguimiento sobre el hilo original.
+🗣️ Si es después de una entrevista, el mensaje sirve para agradecer el espacio y consultar el estado de la búsqueda mencionando un tema concreto que hayan conversado en la llamada.
+🏷️ 2. Follow-Up Post-Entrevista: Agradecimiento + Conexión con lo Conversado 🤝💬
+🔊 Click sutil
+🗣️ Evitá siempre las frases secas como '¿hay novedades?': un seguimiento profesional aporta empatía, reconoce la carga de trabajo del selector y reafirma tu postura de valor.
+🏷️ Tono Profesional: Empatía + Cero Exigencias 🛡️✨
+🔊 Pop de confirmación
+
+[4:00 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Revisá tu Tracker: si tenés postulaciones que ya cumplieron una semana sin respuesta, redactá tu mensaje de seguimiento y reactivá esas conversaciones.
+🏷️ Acción: Recontactar Procesos de +5 Días Hábiles ⏱️📩
+🔊 Pop sutil
+🗣️ En la próxima clase cerramos este módulo con un tema clave para protegerte: cómo identificar ofertas sospechosas, banderas rojas y evitar estafas laborales que abundan en internet.
+🏷️ Próxima clase: Cómo detectar ofertas sospechosas 🔍🛡️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-pst-04',

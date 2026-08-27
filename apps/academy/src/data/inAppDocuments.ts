@@ -1095,6 +1095,42 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'plantillas-mensajes-seguimiento-followup': {
+    id: 'plantillas-mensajes-seguimiento-followup',
+    slug: 'plantillas-mensajes-seguimiento-followup',
+    title: 'Plantillas de Mensajes de Seguimiento y Follow-Up',
+    category: 'Estrategia de Seguimiento',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Plantillas In-App',
+    estimatedReadTime: '3 min de lectura',
+    summary:
+      'Guiones cortos y profesionales para dar seguimiento respetuoso tras postulaciones y entrevistas sin presionar al selector.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'followup-postulacion',
+        title: '1. Follow-Up Post-Postulación (A los 5-7 días hábiles)',
+        subtitle: 'Para responder sobre el mismo hilo del correo inicial',
+        content:
+          '> *"Hola [Nombre del Selector]:*\n>\n' +
+          '> *Les escribo en relación a la postulación que envié la semana pasada para la vacante de [Puesto]. Sé que suelen estar con mucho volumen de trabajo, por lo que solo quería consultarles cómo sigue el cronograma del proceso y reiterar mi gran interés en sumarme al equipo de [Empresa].*\n>\n' +
+          '> *Quedo a entera disposición ante cualquier consulta adicional. ¡Muchas gracias y buena semana!*\n>\n' +
+          '> *Saludos cordiales,*\n> *[Tu Nombre y Apellido]*"',
+      },
+      {
+        id: 'followup-entrevista',
+        title: '2. Follow-Up Post-Entrevista (A los 5-7 días hábiles de la llamada)',
+        subtitle: 'Para consultar novedades recordando un punto conversado',
+        content:
+          '> *"Hola [Nombre del Selector / Líder de Área]:*\n>\n' +
+          '> *Espero que estés teniendo una excelente semana. Quería agradecerte nuevamente por la conversación que tuvimos sobre el rol de [Puesto]. Me quedé muy motivado con los desafíos que mencionaste respecto a [Tema puntual conversado en la entrevista, ej. la migración del sistema / la apertura de nuevos clientes].*\n>\n' +
+          '> *Quería consultar respetuosamente el estado del proceso y ponerme a disposición si necesitan alguna referencia o material adicional. ¡Muchas gracias de nuevo!*\n>\n' +
+          '> *Un saludo cordial,*\n> *[Tu Nombre y Apellido]*"',
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
