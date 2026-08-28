@@ -829,10 +829,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé.
 🏷️ Verbos Fuertes: Implementé · Negocié · Optimicé · Automaticé
 🔊 Clicks sutiles por verbo
-🗣️ Y siempre que sea posible, agregale un número: porcentajes, horas ahorradas, dinero gestionado o cantidad de personas a cargo.
-🖼️ Captura flotante mostrando ejemplos de viñetas cuantificadas por tiempo, volumen y porcentaje.
-🗣️ Si no tenés números exactos, usá rangos o indicadores de mejora cualitativa.
-🏷️ Cuantificá por: Tiempo · Volumen · Calidad · Escala 📊
+🗣️ Por ejemplo, en vez de escribir: "Responsable de ventas", podemos decir: "Gestioné una cartera de 30 clientes y aumenté las ventas un 20%".
+🏷️ Ejemplo de Logro: "Gestioné 30 clientes y aumenté ventas 20%" 📈⭐
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando la comparación: "Responsable de ventas" vs. "Gestioné 30 clientes y aumenté ventas 20%".
+🗣️ Si no tenés números exactos, no los inventes: podés explicar el resultado de manera cualitativa.
+🏷️ Sin inventar números: Explicar mejoras cualitativas 🛡️✨
 🔊 Pop de confirmación
 
 [6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
