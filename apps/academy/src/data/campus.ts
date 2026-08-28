@@ -725,27 +725,32 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ El error más común después de diseñar un buen CV es usarlo como un folleto único para todas las vacantes.
-🏷️ El error del CV Genérico vs. CV Adaptado 📄❌
+🗣️ Uno de los errores más comunes es tener un solo CV y usarlo para todas las postulaciones.
+🏷️ Error Común: Un solo CV para todas las postulaciones ⚠️📄
 🔊 Swoosh suave
-🗣️ Los algoritmos y los reclutadores no buscan perfiles generales; buscan coincidencias exactas con los requisitos del puesto.
-🏷️ Keywords: El dialecto técnico de la vacante 🎯
-🔊 Pop sutil
-🗣️ Vamos a aprender el método para mapear los términos clave de un aviso e integrarlos estratégicamente en tu presentación sin alterar tu experiencia real.
-🏷️ Objetivo: Máxima afinidad y relevancia algorítmica 🚀
+🗣️ No significa que tengas que hacer un currículum completamente nuevo para cada oferta: la idea es tener un CV base y adaptarlo según el tipo de puesto.
+🏷️ Estrategia: CV Base y Versiones Adaptadas 📄🎯
 🔊 Pop de confirmación
 
-[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CV MAESTRO Y TÉCNICA DE LOS 3 AVISOS]
-🗣️ El método más eficiente consiste en tener un 'CV Maestro' completo y derivar dos o tres variantes según las ramas a las que apliques.
-🏷️ Estrategia: CV Maestro + Variantes de Enfoque 📄✨
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — TÉCNICA DE LOS 3 AVISOS Y ADAPTACIÓN ÉTICA]
+🗣️ ¿Cómo lo hacemos? Primero, leé el aviso y detectá las palabras que aparecen como requisitos: herramientas, conocimientos, competencias y experiencia.
+🏷️ 1. Detección de Requisitos: Herramientas · Conocimientos · Competencias 🔍
 🔊 Swoosh suave
-🗣️ Tomá 3 avisos de trabajo del puesto que buscás y anotá las palabras que se repiten: herramientas, metodologías y competencias. Esas son tus 'Keywords'.
-🏷️ Técnica de los 3 Avisos: Mapeo de Keywords 🔍📋
-🏷️ 1. Herramientas técnicas · 2. Metodologías · 3. Competencias
-🔊 Clicks sutiles por punto
-🖼️ Captura flotante mostrando la distribución de keywords en el Titular, Resumen y Experiencia Laboral.
-🗣️ Tu trabajo consiste en incorporar esas palabras exactas en tu resumen profesional y en la descripción de tus tareas pasadas, sin mentir, pero usando la terminología que el mercado exige hoy.
-🏷️ Vocabulario de Mercado sin inventar experiencia 🛡️
+🗣️ Por ejemplo, si una búsqueda menciona varias veces SAP, Excel avanzado, gestión de equipos o análisis de datos, y vos realmente tenés esa experiencia, esas palabras deberían aparecer claramente en tu CV.
+🏷️ Palabras Clave Reales: SAP · Excel · Gestión · Datos 📊✨
+🔊 Click sutil
+🖼️ Captura flotante mostrando el resaltado de requisitos en un aviso laboral real.
+🗣️ Una técnica muy simple es analizar tres avisos similares al puesto que buscás. Comparalos y fijate qué requisitos se repiten: esas palabras te muestran qué está buscando el mercado.
+🏷️ Técnica de los 3 Avisos: Requisitos que se repiten 📋🎯
+🔊 Pop sutil
+🗣️ Después incorporalas naturalmente en tu perfil profesional, experiencia y habilidades.
+🏷️ Integración Natural: Perfil · Experiencia · Habilidades ✍️
+🔊 Click sutil
+🗣️ Importante: nunca agregues conocimientos o experiencia que no tengas. Adaptar un CV no significa inventar; significa destacar de tu experiencia aquello que es más relevante para esa oportunidad.
+🏷️ Regla Clave: Adaptar no es inventar, es priorizar lo relevante 🛡️
+🔊 Swoosh suave
+🗣️ La idea es simple: no necesitamos veinte CV distintos; podemos tener un CV maestro y algunas versiones adaptadas según los puestos a los que apuntamos.
+🏷️ CV Maestro + Versiones Enfocadas 📁🚀
 🔊 Pop de confirmación
 
 [5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
