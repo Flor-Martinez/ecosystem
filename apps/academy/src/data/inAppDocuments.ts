@@ -804,72 +804,53 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
   'checklist-auditoria-pre-envio': {
     id: 'checklist-auditoria-pre-envio',
     slug: 'checklist-auditoria-pre-envio',
-    title: 'Checklist de Auditoría Pre-Envío (10 Puntos de Control)',
+    title: 'Checklist de Auditoría Pre-Envío (5 Puntos Clave)',
     category: 'Control de Calidad de CV',
     programTitle: 'Experiencia Búsqueda Laboral',
     moduleNumber: 2,
     badge: 'Checklist Rápido In-App',
     estimatedReadTime: '2 min de verificación',
     summary:
-      'Lista rápida de 10 verificaciones críticas de formato, links y nomenclatura antes de enviar tu postulación a cualquier vacante.',
+      'Los 5 puntos de control indispensables para revisar tu currículum antes de postularte a cualquier oportunidad laboral.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
-        id: 'puntos-control-tecnico',
-        title: '1. Verificaciones Técnicas y de Contacto',
-        subtitle: 'Para asegurar que el reclutador y el ATS lean tu CV sin fricción',
-        content: 'Verificá estos 4 elementos técnicos antes de enviar tu archivo a cualquier plataforma o proceso:',
+        id: 'puntos-control-cv',
+        title: '1. Los 5 Controles Pre-Envío',
+        subtitle: 'Para asegurar que tu postulación genere el impacto correcto',
+        content: 'Verificá estos 5 puntos antes de enviar tu archivo a cualquier plataforma o proceso:',
         checklistItems: [
           {
             id: 'chk-1',
-            text: 'Nombre de archivo profesional: Guardado como "CV_Nombre_Apellido_Puesto.pdf" (nunca "CV_final.pdf").',
+            text: 'Datos de contacto: Nombre, teléfono con código de área, email profesional y link clickeable a LinkedIn correctos y actualizados.',
           },
           {
             id: 'chk-2',
-            text: 'Hipervínculo de LinkedIn funcional: Al hacer clic abre tu perfil público sin errores ni caracteres de edición.',
+            text: 'Redacción y coherencia: Cero faltas de ortografía, redacción impecable y fechas de experiencia consistentes (Mes Año – Mes Año).',
           },
           {
             id: 'chk-3',
-            text: 'Correo y teléfono válidos: Email profesional con enlace "mailto:" y teléfono con prefijo de país (+54 9...).',
+            text: 'Adaptación y palabras clave: CV adaptado al puesto con las herramientas, conocimientos y keywords relevantes que pide el aviso.',
           },
           {
             id: 'chk-4',
-            text: 'Prueba de selección de texto: Podés seleccionar y copiar cualquier párrafo de tu PDF con el cursor.',
+            text: 'Diseño claro y ordenado: Fácil de leer, maquetación limpia y libre de gráficos, barritas o columnas excesivas.',
+          },
+          {
+            id: 'chk-5',
+            text: 'Formato PDF y nombre profesional: Guardado en PDF con nomenclatura "CV_Nombre_Apellido.pdf" (o CV_Nombre_Apellido_Puesto.pdf).',
           },
         ],
       },
       {
-        id: 'puntos-control-contenido',
-        title: '2. Consistencia Visual y Redacción',
-        subtitle: 'Detalles que consolidan tu autoridad profesional',
-        content: 'Revisá la coherencia visual y el tono comercial para generar un impacto memorable en los primeros 6 segundos:',
-        checklistItems: [
-          {
-            id: 'chk-5',
-            text: 'Extensión estricta: 1 página completa (o 2 páginas completas), sin páginas huérfanas con 2 o 3 renglones.',
-          },
-          {
-            id: 'chk-6',
-            text: 'Alineación a la izquierda: Todo el cuerpo de texto alineado a la izquierda (sin texto justificado).',
-          },
-          {
-            id: 'chk-7',
-            text: 'Fechas uniformes: Formato consistente "Mes Año – Mes Año" en todas las posiciones laborales.',
-          },
-          {
-            id: 'chk-8',
-            text: 'Fórmula de logros: Viñetas iniciadas con verbos de acción fuertes y respaldadas por números o métricas.',
-          },
-          {
-            id: 'chk-9',
-            text: 'Cero datos obsoletos o sensibles: Sin DNI, sin estado civil, sin dirección física exacta y sin fotos informales.',
-          },
-          {
-            id: 'chk-10',
-            text: 'Regla de los 6 segundos: El titular y las primeras 3 líneas del resumen explican claramente tu especialidad.',
-          },
-        ],
+        id: 'la-mirada-del-reclutador',
+        title: '2. La Pregunta del Reclutador (Prueba de los 6 Segundos)',
+        subtitle: 'Ponete en el lugar de quien va a contratarte',
+        content:
+          'Abrí tu archivo PDF y hacé una lectura rápida como si fueras el selector:\n\n' +
+          '> *"¿Entiendo rápidamente quién es esta persona, qué sabe hacer y qué puede aportar?"*\n\n' +
+          'Si la respuesta es un **sí rotundo**, tu CV está 100% listo para salir a la cancha.',
       },
     ],
   },
