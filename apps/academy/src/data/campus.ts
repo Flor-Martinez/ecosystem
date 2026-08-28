@@ -643,24 +643,27 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Un ATS no es una inteligencia artificial que decide si servís o no; es una base de datos que convierte tu documento a texto plano y lo indexa según palabras clave.
 🏷️ ATS = Base de datos de indexación por palabras clave 🔍
 🔊 Pop sutil
-🗣️ Vamos a ver exactamente cómo lee tu currículum para garantizar que nunca quede invisible en el sistema.
-🏷️ Objetivo: 100% de compatibilidad y visibilidad 🎯
+🗣️ Por eso necesitamos que nuestro CV sea fácil de interpretar tanto para el sistema como para el reclutador.
+🏷️ Fácil de interpretar: Para el sistema y para el reclutador 🎯🤝
 🔊 Pop de confirmación
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — POR QUÉ FALLA EL PARSEO Y CÓMO DISEÑAR EN 1 COLUMNA]
-🗣️ Para entender por qué falla un CV, imaginate qué pasa cuando el sistema extrae el contenido: lee en línea recta horizontal.
-🏷️ Lectura horizontal: De izquierda a derecha 📄➡️🔡
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — ESTRUCTURA CLARA, DISEÑO SIMPLE Y PALABRAS CLAVE]
+🗣️ ¿Cómo lo hacemos?
+🗣️ Primero, utilizando una estructura clara, con títulos reconocibles como Experiencia Laboral, Educación, Habilidades e Idiomas.
+🏷️ 1. Estructura Clara: Títulos estándar reconocibles 📋
+🔊 Click sutil
+🗣️ Segundo, evitando diseños excesivamente complejos: si utilizamos demasiadas columnas, gráficos, íconos o elementos decorativos, podemos dificultar la lectura o extracción de información en algunos sistemas.
+🏷️ 2. Diseño Limpio: Evitar columnas complejas, gráficos e íconos ⚠️📄
+🔊 Click sutil
+🖼️ Captura flotante mostrando la comparación de un CV sobrecargado vs. un CV estructurado y legible.
+🗣️ Y tercero, utilizando las palabras clave correctas: si una oferta busca, por ejemplo, "Excel avanzado", "SAP" o "gestión de equipos" y realmente tenés esas habilidades, es importante que aparezcan claramente en tu CV.
+🏷️ 3. Palabras Clave Relevantes: Hard skills y herramientas requeridas 🔍⭐
+🔊 Click sutil
+🗣️ Pero atención: no se trata de llenar el currículum de palabras clave; se trata de describir tu experiencia utilizando términos relevantes para la posición.
+🏷️ Describir tu experiencia con términos relevantes 🎯
 🔊 Swoosh suave
-🗣️ Si tenés un diseño de doble columna con cajas flotantes, el texto de la barra lateral se mezcla con tu experiencia laboral y genera un bloque incomprensible.
-🖼️ Captura flotante mostrando la comparación de un CV visual de 2 columnas vs. el texto plano roto resultante.
-🗣️ Lo mismo pasa cuando reemplazás palabras por gráficos, como barritas de nivel de idioma o íconos decorativos: para el sistema simplemente no existen.
-🏷️ Errores fatales: Barritas de nivel & Cajas flotantes ⚠️
-🔊 Pop sutil
-🗣️ La solución es directa: maquetar en una sola columna vertical, usar encabezados estándar como 'Experiencia', 'Educación' y 'Habilidades', y verificar que todo tu texto sea seleccionable antes de exportar en PDF.
-🏷️ Estructura segura: 1 Columna + Encabezados Estándar 🛡️
-🔊 Pop sutil
-🗣️ Así garantizás que el sistema indexe cada dato en el casillero correcto.
-🏷️ Indexación limpia y precisa 🎯
+🗣️ La regla es simple: CV claro, estructura sencilla y palabras clave relevantes.
+🏷️ Regla de Oro: CV Claro + Estructura Sencilla + Palabras Clave Relevantes ✨✅
 🔊 Pop de confirmación
 
 [5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
