@@ -145,7 +145,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Hola, soy Flor Martínez y te doy la bienvenida a esta Experiencia de Búsqueda Laboral.
+🗣️ Hola a todos, soy Flor Martínez y te doy la bienvenida a esta Experiencia de Búsqueda Laboral.
 🏷️ Flor Martínez · Experiencia Búsqueda Laboral 👋✨
 🔊 Swoosh suave
 🗣️ Quiero empezar este curso hablando de uno de los errores que más veo cuando una persona está buscando trabajo: mandar currículums de manera masiva.
