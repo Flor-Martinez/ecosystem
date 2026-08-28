@@ -145,36 +145,68 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ ¡Hola! Te doy la bienvenida a la Experiencia Búsqueda Laboral.
-🏷️ EXPERIENCIA BÚSQUEDA LABORAL
+🗣️ Hola, soy Flor Martínez y te doy la bienvenida a esta Experiencia de Búsqueda Laboral.
+🏷️ Flor Martínez · Experiencia Búsqueda Laboral 👋✨
 🔊 Swoosh suave
-🗣️ Si alguna vez enviaste 50 o 100 currículums en una semana y no te respondió nadie, o solo recibiste correos automáticos de rechazo, quiero darte tranquilidad y que sepas algo importante: el problema no sos vos, es el método.
-🏷️ "El problema no sos vos, es el método"
+🗣️ Quiero empezar este curso hablando de uno de los errores que más veo cuando una persona está buscando trabajo: mandar currículums de manera masiva.
+🏷️ Error Común: Mandar currículums de manera masiva ⚠️📄
 🔊 Pop sutil
-📺 (Opcional) B-Roll rápido de bandeja de Gmail scrolleando correos de descarte automático.
+🗣️ Mandás 50, 100 currículums… y no te llama nadie. O recibís solamente esos mails automáticos que dicen que decidieron avanzar con otros candidatos.
+🏷️ 50 - 100 postulaciones sin respuesta 📥🚫
+🔊 Pop sutil
+🖼️ Captura flotante mostrando bandeja de correo con mensajes automáticos de descarte.
+🗣️ Y lo primero que empezás a pensar es: "¿Qué estoy haciendo mal? ¿Mi CV está mal? ¿No tengo suficiente experiencia?".
+🏷️ "¿Qué estoy haciendo mal? ¿Mi CV está mal?" 💭❓
+🔊 Swoosh suave
+🗣️ Pero muchas veces el problema no sos vos: el problema es el método que estás utilizando para buscar trabajo.
+🏷️ "El problema no sos vos: es el método" 💡🎯
+🔊 Pop de confirmación
+🗣️ Para entenderlo, primero tenemos que ponernos del otro lado: del lado del reclutador.
+🏷️ La Perspectiva del Reclutador 👥🔍
+🔊 Swoosh suave
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 6 SEGUNDOS]
-🗣️ Un selector recibe en promedio entre 250 y 400 postulaciones por vacante.
-🏷️ 250 - 400 CVs por vacante
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — EL ESCANEO DE 6 SEGUNDOS]
+🗣️ Una búsqueda laboral puede recibir cientos de postulaciones. El reclutador no tiene tiempo de sentarse a leer detenidamente cada currículum desde la primera hasta la última palabra.
+🏷️ Cientos de postulaciones por vacante 📊👥
+🔊 Swoosh suave
+🗣️ Lo primero que hace es un escaneo muy rápido, de 6 segundos, para determinar si ese perfil puede encajar o no con la posición.
+🏷️ La Regla de los 6 Segundos: Escaneo Visual Rápido ⏱️📄
 🔊 Pop sutil
-🗣️ No tiene tiempo material de leer cada CV palabra por palabra. Lo que hace es un escaneo visual de 6 segundos...
-🖼️ Video flotante a la izquierda de Flor mostrando un CV real siendo scrolleado y escaneado en 6 segundos.
-🗣️ Buscando 3 cosas: 1) que tu título coincida con lo que busca, 2) que tengas experiencia en un rubro o rol compatible, y 3) que muestres logros concretos.
-🏷️ 1. Título coincidente
-🏷️ 2. Rubro o rol compatible
-🏷️ 3. Logros concretos
-🔊 Click sutil por cada punto
-🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, para que cuando abran tu postulación, en esos 6 segundos entiendan al instante por qué tienen que llamarte a vos.
-🏷️ Perfil enfocado = Más entrevistas
+🖼️ Video flotante mostrando un CV real siendo escaneado en 6 segundos.
+🗣️ Y en esos segundos hay tres cosas que tienen que quedar claras:
+🗣️ Primero: qué sos o cuál es tu perfil profesional.
+🏷️ 1. Perfil Profesional Claro: Quién sos y cuál es tu especialidad 👤🎯
+🔊 Click sutil
+🗣️ Segundo: si tu experiencia tiene relación con el puesto o con el rubro.
+🏷️ 2. Experiencia Relacionada: Afinidad con el puesto y rubro 🏢💼
+🔊 Click sutil
+🗣️ Y tercero: qué resultados, conocimientos o logros concretos podés aportar.
+🏷️ 3. Aporte Concreto: Resultados, conocimientos y logros 📈⭐
+🔊 Click sutil
+🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado.
+🏷️ Perfil Enfocado vs. Documento Genérico 🎯⚖️
+🔊 Swoosh suave
+🗣️ Porque nuestro objetivo no es tener 100 postulaciones.
+🏷️ Nuestro objetivo no son 100 postulaciones ❌
+🔊 Pop sutil
+🗣️ Nuestro objetivo es conseguir más entrevistas con mejores postulaciones.
+🏷️ Más Entrevistas con Mejores Postulaciones 🏆📈
+🔊 Pop de confirmación
+🗣️ Y para eso, primero tenemos que entender cómo funciona realmente un proceso de selección.
+🏷️ Cómo funciona realmente un proceso de selección ⚙️🔍
+🔊 Swoosh suave
 
 [4:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
 🗣️ A partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático.
-🏷️ Pausa: Dejar de postular en masa
+🏷️ Pausa: Dejar de postular en masa ⏸️
 🔊 Click sutil
 🗣️ Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos.
+🏷️ Guardar vacantes en el Tracker 📋🖥️
+🔊 Pop sutil
 🖼️ Video/Captura flotante a la izquierda mostrando el Tracker de Postulaciones interactivo del campus.
 🗣️ En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.
-🏷️ Próxima clase: Tiempos reales del proceso ⏱️`,
+🏷️ Próxima clase: Tiempos reales del proceso ⏱️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-fun-02',
