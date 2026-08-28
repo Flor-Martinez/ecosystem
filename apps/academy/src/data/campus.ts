@@ -183,18 +183,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Y tercero: qué resultados, conocimientos o logros concretos podés aportar.
 🏷️ 3. Aporte Concreto: Resultados, conocimientos y logros 📈⭐
 🔊 Click sutil
-🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado.
-🏷️ Perfil Enfocado vs. Documento Genérico 🎯⚖️
-🔊 Swoosh suave
-🗣️ Porque nuestro objetivo no es tener 100 postulaciones.
-🏷️ Nuestro objetivo no son 100 postulaciones ❌
-🔊 Pop sutil
-🗣️ Nuestro objetivo es conseguir más entrevistas con mejores postulaciones.
-🏷️ Más Entrevistas con Mejores Postulaciones 🏆📈
+🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, con el objetivo de que consigas más y mejores entrevistas.
+🏷️ Perfil Enfocado = Más y Mejores Entrevistas 🎯📈
 🔊 Pop de confirmación
-🗣️ Y para eso, primero tenemos que entender cómo funciona realmente un proceso de selección.
-🏷️ Cómo funciona realmente un proceso de selección ⚙️🔍
-🔊 Swoosh suave
 
 [4:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
 🗣️ A partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático.
