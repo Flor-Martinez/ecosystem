@@ -418,28 +418,54 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Buscar trabajo es, en sí mismo, un proyecto profesional. Si abrís portales de empleo 20 minutos cada tres días cuando te acordás, tu proceso va a tardar el triple y te vas a frustrar.
-🏷️ La búsqueda laboral como proyecto profesional 💼
+🗣️ Buscar trabajo también es un proyecto profesional.
+🏷️ La búsqueda laboral como proyecto profesional 💼🎯
 🔊 Swoosh suave
-🗣️ La diferencia entre quien pasa meses sin respuestas y quien genera 2 o 3 entrevistas por semana no es la suerte: es tener un bloque de trabajo semanal organizado.
-🏷️ Rutina + Método = Entrevistas constantes 🎯
+🗣️ Si entrás a los portales de empleo de vez en cuando, mandás algunos CV y después esperás resultados, probablemente la búsqueda se vuelva frustrante.
+🏷️ Búsqueda intermitente = Frustración e incertidumbre ⚠️
 🔊 Pop sutil
-
-[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — 5 ERRORES TÍPICOS Y EL BLOQUE SEMANAL]
-🗣️ La mayoría de las postulaciones fracasan por 5 errores evitables: enviar CVs sin adaptar, un LinkedIn sin palabras clave, no llevar registro en un tracker, sonar suplicante en los mensajes y abandonar la búsqueda si no responden en una semana.
-🏷️ 5 Errores Típicos en la Búsqueda ⚠️
-🔊 Pop sutil
-🏷️ 1. CV genérico · 2. LinkedIn sin SEO · 3. Sin Tracker
-🏷️ 4. Mensajes de súplica · 5. Cero seguimiento
-🔊 Clicks sutiles por punto
-🖼️ Captura flotante del Cronograma Semanal con la distribución de los 3 bloques de trabajo.
-🗣️ La solución es ordenar tu semana en 3 bloques de trabajo: mapeo de empresas objetivo, contacto directo con líderes y seguimiento de procesos abiertos. Con este esquema, en los Documentos de esta clase tenés tu cronograma para que tu búsqueda avance de forma constante y medible.
-🏷️ Documentos: Cronograma Semanal 📅
+🗣️ La diferencia muchas veces no está en mandar más CV, sino en tener método, constancia y organización.
+🏷️ Método · Constancia · Organización 📋✨
 🔊 Pop de confirmación
 
-[5:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ Con tu target definido y tu rutina armada, estamos listos para entrar al corazón de tu presentación: la creación de tu CV de alto impacto en el Módulo 2.
-🏷️ Módulo 2: Creación y mejora de CV 📄🚀
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 5 ERRORES Y EL PLAN SEMANAL]
+🗣️ Hay cinco errores que quiero que evites:
+🗣️ Primero: usar el mismo CV para todas las búsquedas. Tu CV tiene que estar orientado al puesto al que querés aplicar.
+🏷️ 1. CV Genérico: Debe estar orientado al puesto 📄🎯
+🔊 Click sutil
+🗣️ Segundo: tener LinkedIn incompleto o sin palabras clave. LinkedIn también funciona como una herramienta para que los reclutadores puedan encontrarte.
+🏷️ 2. LinkedIn Incompleto: Sin palabras clave para que te encuentren 🌐🔍
+🔊 Click sutil
+🗣️ Tercero: no llevar un registro de tus postulaciones. Necesitamos saber dónde postulamos, cuándo y en qué etapa estamos.
+🏷️ 3. Sin Registro: Control de empresas, fechas y etapas 📊📁
+🔊 Click sutil
+🗣️ Cuarto: buscar trabajo solamente cuando tenemos ganas o estamos desesperados. La búsqueda necesita constancia.
+🏷️ 4. Falta de Constancia: Buscar solo por impulsos ⚠️⏳
+🔊 Click sutil
+🗣️ Y quinto: postularte y simplemente esperar. También tenemos que hacer seguimiento y generar contactos estratégicos.
+🏷️ 5. Pasividad: Falta de seguimiento y contactos estratégicos 📩🤝
+🔊 Click sutil
+🗣️ Por eso vamos a trabajar con un plan semanal: reservá determinados momentos de tu semana para buscar nuevas oportunidades, contactar empresas o personas y hacer seguimiento de procesos abiertos.
+🏷️ Plan Semanal: Oportunidades · Contactos · Seguimiento 📅✅
+🔊 Swoosh suave
+🖼️ Captura flotante del Cronograma Semanal con los bloques de trabajo.
+🗣️ No necesitás estar ocho horas por día buscando trabajo. Necesitás tener una rutina que puedas mantener.
+🏷️ No son 8 horas diarias: es una rutina sostenible ⏱️💼
+🔊 Pop de confirmación
+
+[4:30 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
+🗣️ A partir de ahora quiero que pienses tu búsqueda como un proceso: objetivo, estrategia, seguimiento y constancia.
+🏷️ Tu Búsqueda como Proceso: Objetivo · Estrategia · Seguimiento · Constancia 🚀
+🔊 Swoosh suave
+🗣️ En los Documentos de esta clase tenés un cronograma ejemplo para que tu búsqueda avance de forma constante y medible.
+🏷️ Documentos: Cronograma Semanal de Trabajo 📋📅
+🔊 Pop sutil
+🖼️ Captura flotante mostrando el documento del Cronograma Semanal en el campus.
+🗣️ Con esto terminamos el primer módulo. Ya sabemos qué buscamos y cómo vamos a organizarnos.
+🏷️ Hito: Módulo 01 Completado (¿Cómo funciona la búsqueda laboral?) ✅🏆
+🔊 Pop de confirmación
+🗣️ En el próximo módulo vamos a trabajar una de las herramientas más importantes de nuestra búsqueda: tu CV.
+🏷️ Próximo: Módulo 02 — Creación y mejora de CV 📄✨
 🔊 Fin de lección suave`,
       },
     ],
