@@ -567,11 +567,14 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ El cuarto bloque es tu educación: ponemos tus títulos oficiales y únicamente las certificaciones o cursos que sean relevantes para el puesto al que aspirás.
 🏷️ 4. Educación: Títulos y certificaciones relevantes 🎓
 🔊 Click sutil
-🗣️ Y el quinto bloque son tus habilidades técnicas: las herramientas, softwares y palabras clave que los selectores y los algoritmos van a buscar en tu perfil.
-🏷️ 5. Habilidades técnicas: Herramientas y palabras clave ⚙️
+🗣️ Y el quinto bloque son tus habilidades técnicas: las herramientas, softwares y palabras clave que los selectores y los algoritmos van a buscar en tu perfil. De ser necesario, en este bloque podés destacar tus idiomas.
+🏷️ 5. Habilidades técnicas: Herramientas · Palabras clave · Idiomas ⚙️🌐
 🔊 Click sutil
-🗣️ Para todo el documento, usamos tipografías legibles como Inter, Calibri o Plus Jakarta Sans, márgenes de al menos 1.5 cm para que respire la lectura, una extensión de una a dos páginas según tu seniority, y exportación obligatoria siempre en formato PDF.
-🏷️ Formato: 1-2 páginas · Tipografía limpia · Exportar en PDF 📄
+🗣️ En cuanto al diseño, priorizá algo fundamental: que sea fácil de leer. No necesitamos un CV lleno de gráficos, colores o información. Necesitamos que lo importante se encuentre rápido.
+🏷️ Diseño Limpio: Legibilidad rápida sin gráficos excesivos 📄✨
+🔊 Swoosh suave
+🗣️ Recordá esta regla: menos información irrelevante y más información estratégica.
+🏷️ Regla de Oro: Menos información irrelevante, más información estratégica 🎯
 🔊 Pop de confirmación
 
 [6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
