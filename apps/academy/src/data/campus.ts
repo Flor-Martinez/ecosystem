@@ -330,27 +330,35 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ El error más común es pensar que 'buscar de todo' te da más posibilidades. En el mercado laboral pasa exactamente lo contrario: el que busca cualquier cosa no califica para nada.
-🏷️ Mito: "Busco de lo que sea" ❌
+🗣️ Hay una frase que escucho muchísimo cuando hablo con personas que están buscando trabajo: "Estoy buscando de lo que sea".
+🏷️ Mito Común: "Estoy buscando de lo que sea" ❌
 🔊 Error sutil
-🗣️ Definir tu target no es limitarte, es construir el posicionamiento exacto que un selector necesita ver para llamarte a una entrevista.
-🏷️ Foco = Posicionamiento profesional 🎯
+🗣️ Y aunque parezca que decir "de lo que sea" te abre más posibilidades, muchas veces genera exactamente lo contrario.
+🏷️ "De lo que sea" cierra puertas en lugar de abrirlas ⚠️
+🔊 Swoosh suave
+🗣️ Porque si vos no sabés qué estás buscando, va a ser muy difícil armar un CV enfocado, optimizar tu LinkedIn, buscar las empresas correctas y, sobre todo, explicarle a un reclutador por qué sos una buena opción para determinado puesto.
+🏷️ Foco: CV Enfocado · LinkedIn Optimizado · Empresas Correctas 🎯📄
 🔊 Pop sutil
+🗣️ Por eso, antes de empezar a postularnos, vamos a definir nuestro target laboral: en palabras simples, ¿a qué puestos queremos apuntar?
+🏷️ Target Laboral: ¿A qué puestos queremos apuntar? 🧭💼
+🔊 Pop de confirmación
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA MATRIZ DE TARGET, NO NEGOCIABLES Y EMPRESAS OBJETIVO]
-🗣️ Tanto los motores de búsqueda como los selectores buscan especialistas que resuelvan necesidades puntuales. Para eso trabajamos con la Matriz de Target Laboral que tenés en el campus.
-🏷️ Especialistas vs. Perfiles genéricos
-🔊 Pop sutil
-🖼️ Gráfica flotante mostrando los 6 filtros de la Matriz de Target.
-🗣️ Primero calibramos tus 6 filtros de postulación: tu puesto o rol exacto, tu industria o rubro objetivo, tu seniority real, tu modalidad de trabajo (remoto o híbrido), tu piso salarial no negociable, y tu disponibilidad de incorporación.
-🏷️ 1. Rol Exacto · 2. Industria · 3. Seniority
-🏷️ 4. Modalidad · 5. Piso Salarial · 6. Disponibilidad
-🔊 Clicks sutiles al enumerar
-🗣️ En segundo lugar, definimos tus límites No Negociables. Acá anotás tus líneas rojas: esas condiciones que no vas a aceptar bajo ninguna circunstancia, como esquemas presenciales a más de una hora de viaje o sueldos por debajo de tu piso. Saber con claridad qué NO vas a aceptar te da seguridad y una postura firme desde la primera conversación.
-🏷️ Límites No Negociables = Líneas rojas y postura profesional 🛑
-🔊 Pop sutil
-🗣️ Y en tercer lugar, armamos tu lista de Empresas Objetivo, también conocidas como empresas diana. Una empresa objetivo es una organización donde tu perfil resuelve un problema directo. En lugar de esperar pasivamente a que publiquen un aviso, las listamos para contactar a sus líderes en las próximas clases.
-🏷️ Empresas Objetivo = Prospección directa hacia líderes 🏢🎯
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 6 PUNTOS, NO NEGOCIABLES Y EMPRESAS OBJETIVO]
+🗣️ Pensá en seis puntos: qué puesto buscás, en qué industria, qué nivel de seniority tenés, qué modalidad preferís, cuál es tu expectativa salarial y tu disponibilidad de incorporación.
+🏷️ Los 6 Puntos: Puesto · Industria · Seniority · Modalidad · Salario · Disponibilidad 📋✨
+🔊 Swoosh suave
+🖼️ Gráfica flotante mostrando los 6 filtros del Target Laboral.
+🗣️ En segundo lugar vamos a definir tus no negociables: aquellas condiciones que realmente necesitás para aceptar un trabajo.
+🏷️ Límites No Negociables: Condiciones indispensables 🛑🛡️
+🔊 Click sutil
+🗣️ Puede ser un salario mínimo, determinada ubicación, horarios o modalidad.
+🏷️ Ejemplos: Salario Mínimo · Ubicación · Horarios · Modalidad 💵📍
+🔊 Click sutil
+🗣️ Y por último, vamos a crear una lista de empresas objetivo.
+🏷️ Lista de Empresas Objetivo 🏢🎯
+🔊 Click sutil
+🗣️ No quiero que dependas solamente de las vacantes que aparecen publicadas: quiero que identifiques empresas en las que realmente te gustaría trabajar.
+🏷️ Prospección Activa: Empresas donde realmente querés trabajar 🚀🌟
 🔊 Pop de confirmación
 
 [6:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
