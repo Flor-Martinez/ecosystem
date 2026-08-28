@@ -1147,35 +1147,46 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Las recomendaciones en LinkedIn son el equivalente a las reseñas de cinco estrellas en una tienda online: generan confianza inmediata y eliminan las dudas de cualquier selector.
-🏷️ Prueba Social: Reseñas de 5 estrellas en tu perfil ⭐⭐⭐⭐⭐
+🗣️ Ahora que ya trabajamos la parte inicial de nuestro perfil, vamos a completar tres secciones muy importantes: experiencia, aptitudes y recomendaciones.
+🏷️ Tres Secciones Clave: Experiencia · Aptitudes · Recomendaciones 📋🤝
 🔊 Swoosh suave
-🗣️ Cualquiera puede escribir que es un profesional excelente en su CV, pero cuando un exjefe o un colega validan tus resultados con nombre y apellido, tu autoridad se vuelve indiscutible.
-🏷️ Validación Externa: Confianza y Autoridad Real 🛡️
-🔊 Pop sutil
-🖼️ Placa flotante mostrando una recomendación real destacada en un perfil de LinkedIn.
-🗣️ En esta clase vamos a estructurar tu sección de Experiencia, ordenar tus cinco aptitudes clave para el algoritmo y aplicar una estrategia simple para pedir recomendaciones de alto impacto.
-🏷️ Experiencia + Top 5 Aptitudes + Recomendaciones Estratégicas 📈
-🔊 Pop de confirmación
 
 [1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — EXPERIENCIA, APTITUDES Y RECOMENDACIONES]
-🗣️ Para tu sección de Experiencia, volcamos las mismas viñetas orientadas a logros que ya redactaste en tu CV:
-🗣️ Iniciá cada punto con un verbo de acción fuerte y sumale métricas de impacto; si tenés certificados o enlaces a proyectos públicos, podés adjuntarlos como elementos destacados en cada cargo.
-🏷️ 1. Experiencia: Viñetas con Logros + Multimedia 💼📁
+🗣️ Empecemos por la experiencia laboral: no alcanza solamente con poner el nombre de la empresa y el puesto.
+🏷️ 1. Experiencia: Más que el nombre y el puesto 💼
 🔊 Swoosh suave
-🖼️ Captura flotante mostrando un puesto de LinkedIn con viñetas claras y un proyecto adjunto.
-🗣️ En la sección de Aptitudes, reordená la lista para colocar en los primeros cinco lugares las herramientas técnicas y metodologías más demandadas de tu puesto objetivo.
-🗣️ Evitá poner habilidades genéricas como 'proactivo'; el algoritmo filtra con más fuerza términos concretos como SAP, Salesforce, SQL o Gestión Comercial.
-🏷️ 2. Top 5 Aptitudes: Hard Skills & Herramientas Técnicas ⚙️📊
+🗣️ Contá brevemente qué hiciste y, siempre que puedas, qué resultados obtuviste.
+🏷️ Descripción de tareas + Resultados obtenidos 📈
+🔊 Pop sutil
+🗣️ Aplicá lo mismo que vimos en el CV: utilizá verbos de acción y destacá logros concretos.
+🏷️ Verbos de Acción + Logros Concretos 🎯
 🔊 Click sutil
-🗣️ Y para tus Recomendaciones, elegí a dos colegas o excolegas cercanos y escribiles un mensaje privado:
-🗣️ Saludalos con calidez, recordales un proyecto puntual que hayan compartido y pediles si pueden dejarte unas breves líneas sobre cómo fue trabajar juntos. Facilitarles la idea hace que te respondan con entusiasmo y en pocos minutos.
-🏷️ 3. Recomendaciones: Mensaje Directo + Proyecto Concreto 🤝💬
+🗣️ Por ejemplo, en lugar de poner "Encargado de atención al cliente", podrías escribir: "Gestioné una cartera de más de 50 clientes, realizando seguimiento comercial y resolución de consultas".
+🏷️ Ejemplo: "Gestioné cartera de +50 clientes y seguimiento comercial" 💬⭐
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando un cargo en LinkedIn con la redacción orientada a logros.
+🗣️ Después revisá tus aptitudes: elegí habilidades que realmente estén relacionadas con tu profesión y con los puestos que estás buscando.
+🏷️ 2. Aptitudes: Habilidades alineadas a tu profesión ⚙️
+🔊 Click sutil
+🗣️ Pueden ser herramientas, conocimientos técnicos, idiomas, metodologías o competencias específicas.
+🏷️ Herramientas · Conocimientos · Idiomas · Metodologías 🌐📊
+🔊 Click sutil
+🗣️ Y por último tenemos las recomendaciones: podés pedírselas a antiguos jefes, compañeros, clientes o personas con las que hayas trabajado.
+🏷️ 3. Recomendaciones: Jefes · Colegas · Clientes 👥🤝
+🔊 Click sutil
+🗣️ Mi recomendación es que no mandes simplemente "¿me hacés una recomendación?": personalizá el mensaje.
+🏷️ Personalizar la solicitud de recomendación ✍️
+🔊 Pop sutil
+🗣️ Recordale a esa persona qué proyecto o experiencia compartieron y pedile, si puede, que destaque cómo fue trabajar con vos.
+🏷️ Recordar proyecto compartido + Pedir feedback concreto 💡
+🔊 Click sutil
+🗣️ Las recomendaciones aportan algo muy valioso: no sos solamente vos contando lo que sabés hacer; hay otras personas respaldando tu experiencia profesional.
+🏷️ Validación Externa: Respaldo de tu experiencia profesional 🛡️⭐
 🔊 Pop de confirmación
 
 [4:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Con estos cambios tu perfil queda completamente optimizado de punta a punta.
-🏷️ Perfil 100% Optimizado y Validado ✅💼
+🗣️ Entonces, para esta clase quiero que hagas tres cosas: revisá tu experiencia, actualizá tus aptitudes y empezá a pedir algunas recomendaciones.
+🏷️ Acción: Revisar Experiencia · Actualizar Aptitudes · Pedir Recomendaciones 🚀✅
 🔊 Pop sutil
 🗣️ En la próxima clase vamos a dar el paso más importante: cómo contactar de forma directa a reclutadores y líderes de área con mensajes que generen conversaciones reales.
 🏷️ Próxima clase: Mensajes de contacto a recruiters y líderes 📩🎯
