@@ -1094,8 +1094,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ El Titular tiene como único objetivo hacerte aparecer en los filtros de búsqueda de los reclutadores.
 🏷️ Objetivo del Titular: Indexación Algorítmica Máxima 🎯
 🔊 Swoosh suave
-🗣️ Combiná tu cargo objetivo con tus herramientas y especialidades separadas por barras: eso le indica al algoritmo exactamente en qué vacantes posicionarte.
-🏷️ Rol | Tecnologías | Especialidad ⚙️
+🗣️ Aprovechá ese espacio para incluir tu rol, especialidad y palabras clave relacionadas con los puestos que buscás.
+🏷️ Rol · Especialidad · Palabras Clave Relevantes ⚙️🔍
 🔊 Pop sutil
 🖼️ Captura de búsqueda de LinkedIn Recruiter mostrando cómo indexan las palabras del titular.
 🗣️ Una vez que el selector entra a tu perfil, tu 'Acerca de mí' es el encargado de generar conexión y confianza.
