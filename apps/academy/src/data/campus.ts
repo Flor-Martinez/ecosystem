@@ -1205,22 +1205,22 @@ const expBusquedaLaboralModules: CampusModule[] = [
         videoDuration: '3:50 min',
         completed: false,
         description:
-          'Protocolo de contacto directo con selectores y Hiring Managers con tasa de respuesta superior al 40%.',
+          'Estrategia de contacto directo con recruiters y líderes de área a través de mensajes breves, personalizados y sin presión.',
         takeaways: [
-          'Distinción de destinatarios: Recruiter de RRHH (vacantes activas y perfil) vs. Hiring Manager (conversaciones de valor y proyectos).',
-          'Fórmula de conexión en 4 pasos (< 300 caracteres): Saludo personalizado + Motivo claro + Especialidad en 1 línea + Cierre sin presión.',
-          'Regla de oro: No adjuntar el CV en el primer mensaje; dejar que el perfil optimizado despierte la curiosidad del reclutador.',
+          'Identificar a las personas correctas: El recruiter a cargo de la búsqueda y el líder o responsable del área.',
+          'Mensajes breves y personalizados: Abrir conversaciones profesionales personalizando nombre, empresa, puesto o motivo.',
+          'No enviar el CV de entrada: Generar primero el contacto y la conexión profesional antes de compartir el documento.',
         ],
         actionItems: [
           {
             id: 'act-lk-4-1',
-            title: 'Identificar 3 decisores en empresas objetivo',
-            description: 'Buscá reclutadores o líderes de área en las organizaciones que mapeaste en tu perfil.',
+            title: 'Identificar decisores en empresas objetivo',
+            description: 'Buscá reclutadores o líderes de área en las organizaciones que te interesan.',
           },
           {
             id: 'act-lk-4-2',
-            title: 'Enviar 3 solicitudes de conexión con nota',
-            description: 'Redactá mensajes breves de menos de 300 caracteres aplicando la fórmula de 4 pasos.',
+            title: 'Enviar mensajes de contacto personalizados',
+            description: 'Redactá notas breves y personalizadas sin adjuntar tu CV en el primer contacto.',
           },
         ],
         mindsetPrompt:
@@ -1242,46 +1242,44 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Mandar una solicitud de contacto vacía es desperdiciar el setenta por ciento del impacto de tu perfil.
-🏷️ Error 1: Solicitud vacía sin nota personalizada ❌
+🗣️ Tener un buen perfil de LinkedIn es importante, pero también tenemos que movernos y generar oportunidades.
+🏷️ Proactividad: Moverse y generar oportunidades 🚀🌐
 🔊 Swoosh suave
-🗣️ Pero mandar un testamento de cinco párrafos pegando tu CV es garantizar que te ignoren por parecer spam.
-🏷️ Error 2: Mensajes abrumadores tipo spam ⚠️📄
+🗣️ Uno de los errores más comunes es mandar solicitudes de conexión vacías o mensajes genéricos como: "Hola, estoy buscando trabajo, te adjunto mi CV".
+🏷️ Error Común: Solicitudes vacías o mensajes genéricos ❌⚠️
 🔊 Pop sutil
-🖼️ Placa comparativa mostrando el mensaje vacío vs. el mensaje eterno de spam.
-🗣️ En esta clase te voy a enseñar la fórmula del mensaje quirúrgico: cómo escribirle a reclutadores y líderes de área con notas breves que logren más del cuarenta por ciento de respuestas positivas.
-🏷️ Fórmula: Mensajes Quirúrgicos con +40% de Respuesta 📩🎯
+🖼️ Placa comparativa mostrando: Mensaje genérico vacío vs. Mensaje estratégico personalizado.
+🗣️ En lugar de eso, vamos a contactar de manera estratégica.
+🏷️ Contacto Estratégico en LinkedIn 🎯🤝
 🔊 Pop de confirmación
 
-[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — A QUIÉN ESCRIBIRLE Y FÓRMULA DE 4 PASOS]
-🗣️ Lo primero que tenés que definir es a quién le vas a escribir: al recruiter de Recursos Humanos le hablás directamente sobre una vacante activa y tu afinidad con el puesto, mientras que al líder de área o Hiring Manager le escribís de profesional a profesional sobre los desafíos de su equipo.
-🏷️ A quién escribirle: Recruiter (Vacante activa) vs. Hiring Manager (Negocio) 🏢👥
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — A QUIÉN CONTACTAR Y CÓMO ESCRIBIR]
+🗣️ Primero, identificá a las personas correctas: si viste una vacante, podés buscar al recruiter relacionado con esa búsqueda, y también podés buscar al líder o responsable del área donde te gustaría trabajar.
+🏷️ 1. Identificar a las Personas Correctas: Recruiter & Líder de Área 👥🏢
 🔊 Swoosh suave
-🖼️ Placa comparativa mostrando el enfoque para Recruiter vs. Líder de Área.
-🗣️ Para escribir el mensaje de conexión vamos a aplicar una fórmula de cuatro pasos en menos de trescientos caracteres:
-🗣️ Primero, un saludo personalizado usando siempre el nombre de pila de la persona.
-🏷️ 1. Saludo Personalizado: Hola [Nombre] 👋
+🗣️ Una vez que encontraste a la persona, mandale un mensaje breve, personalizado y concreto.
+🏷️ 2. Mensaje Breve, Personalizado y Concreto ✍️✨
 🔊 Click sutil
-🗣️ Segundo, el motivo claro de contacto: mencionar que viste la vacante que abrieron o que seguís los proyectos de su área.
-🏷️ 2. Motivo Real: Búsqueda abierta o interés genuino 💡
+🗣️ No hace falta contar toda tu vida profesional en el primer mensaje: el objetivo inicial es abrir una conversación.
+🏷️ Objetivo: Abrir una conversación profesional 💬🚪
+🔊 Pop sutil
+🗣️ Y algo muy importante: no mandes exactamente el mismo mensaje a cincuenta personas. Personalizalo aunque sea con el nombre, la empresa, el puesto o el motivo por el cual estás contactando.
+🏷️ Personalización Real: Nombre · Empresa · Puesto · Motivo 🎯
 🔊 Click sutil
-🗣️ Tercero, tu especialidad en una sola línea, destacando tus herramientas clave y tus años de experiencia.
-🏷️ 3. Propuesta de Valor en 1 línea: Especialidad + Herramientas 🎯
+🖼️ Captura flotante mostrando un mensaje breve y personalizado en LinkedIn.
+🗣️ Tampoco hace falta adjuntar inmediatamente el CV si nadie te lo pidió: primero generá el contacto y, si corresponde, después podés compartirlo.
+🏷️ Criterio Clave: No adjuntar CV de entrada (Primero el contacto) 🛡️📄
 🔊 Click sutil
-🖼️ Captura flotante mostrando un mensaje real enviado con la nota personalizada en LinkedIn.
-🗣️ Y cuarto, un cierre cordial sin presión, proponiendo sumar el contacto para estar comunicados.
-🏷️ 4. Cierre Sin Fricción: Sumar contacto profesional 🤝
-🔊 Click sutil
-🗣️ Y te doy un consejo que puede darte más chances: jamás adjuntes tu CV en este primer contacto; dejá que tu perfil optimizado haga el trabajo de generar curiosidad para que sean ellos quienes te pidan el currículum.
-🏷️ Consejo Clave: No enviar CV en el primer mensaje 🛡️📄
+🗣️ Si necesitás ejemplos de estructura para el mensaje inicial, te dejo algunos en los Documentos de esta clase para que tengas una base, y vos le pongas tu impronta.
+🏷️ Documentos: Ejemplos de Mensajes de Conexión 📥📋
 🔊 Pop de confirmación
 
-[5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es buscar tres reclutadores o líderes de tus empresas objetivo en LinkedIn y enviarles una solicitud de conexión aplicando esta fórmula de cuatro pasos.
+[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tu siguiente paso es buscar tres reclutadores o líderes de tus empresas objetivo en LinkedIn y enviarles una solicitud de conexión personalizada.
 🏷️ Acción: Conectar con 3 Recruiters o Líderes Target 🎯👥
 🔊 Swoosh suave
 🖼️ Captura flotante mostrando la búsqueda de decisores en la barra de LinkedIn.
-🗣️ En la próxima clase vamos a ver el cierre de este módulo: cómo interactuar estratégicamente con contenido en tu feed para que el algoritmo posicione tu perfil ante cientos de profesionales todas las semanas.
+🗣️ En la próxima clase vamos a ver el cierre de este módulo: cómo interactuar con contenido en tu feed para ganar visibilidad y atraer oportunidades.
 🏷️ Próxima clase: Estrategia de contenido y networking 🚀📈
 🔊 Fin de lección suave`,
       },
