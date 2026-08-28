@@ -994,11 +994,11 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ LinkedIn no es simplemente un currículum subido a internet: es tu propia página web profesional y tu principal canal de ventas en el mercado laboral.
-🏷️ LinkedIn: Tu Landing Page Profesional 🌐💼
+🗣️ LinkedIn no es solamente un lugar donde cargamos nuestro CV. Es nuestra vidriera profesional, y la primera impresión importa.
+🏷️ LinkedIn: Tu vidriera profesional 🌐✨
 🔊 Swoosh suave
-🗣️ Cuando un reclutador o un líder de área entra a tu perfil, tarda exactamente tres segundos en decidir si se queda o si sigue de largo.
-🏷️ La Regla de los 3 Segundos: Impacto Visual Superior ⏱️👀
+🗣️ Cuando un reclutador o un líder de área entra a tu perfil, tarda aproximadamente tres segundos en decidir si se queda o si sigue de largo.
+🏷️ La Regla de los 3 Segundos: Primera Impresión ⏱️👀
 🔊 Pop sutil
 🗣️ En esta clase vamos a optimizar el tercio superior de tu perfil —tu foto, tu portada y tu URL pública— para proyectar autoridad, confianza y profesionalismo desde el primer segundo.
 🏷️ Tríada Visual: Foto · Portada · URL Limpia 📸🎨🔗
