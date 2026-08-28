@@ -253,11 +253,27 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ No detener la búsqueda en paralelo 🔄
 
 [3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Quedate con esta idea clave: tu objetivo no es conseguir trabajo mañana a cualquier costo, sino generar un flujo constante de 2 a 3 entrevistas semanales de calidad.
-🏷️ Objetivo: 2 a 3 entrevistas semanales
-🔊 Sonido suave de confirmación
+🗣️ Ahora, esto tampoco significa que vamos a quedarnos esperando indefinidamente una respuesta.
+🏷️ No esperar indefinidamente una respuesta ⏳🚫
+🔊 Swoosh suave
+🗣️ Si tuviste una entrevista, hacé el seguimiento correspondiente.
+🏷️ Hacer el seguimiento correspondiente 📩📅
+🔊 Click sutil
+🗣️ Pero continuá con tu búsqueda laboral.
+🏷️ Continuar con tu búsqueda laboral en paralelo 🔄💼
+🔊 Pop sutil
+🗣️ No dejes de postularte porque una entrevista salió bien.
+🏷️ No dejes de postularte por una buena entrevista ⚠️
+🔊 Click sutil
+🗣️ No rechaces otras entrevistas porque "seguramente quedaste".
+🏷️ No rechaces otras entrevistas por suposiciones 🚫
+🔊 Click sutil
+🗣️ Y, sobre todo, no consideres que tenés un nuevo trabajo hasta que exista una propuesta concreta y hayas avanzado formalmente en la contratación.
+🏷️ Propuesta concreta y contratación formal 📝🤝
+🔊 Pop de confirmación
 🗣️ En la próxima clase vamos a definir tu Target Laboral y tus No Negociables, para que apuntes únicamente a ofertas que se alineen con lo que realmente querés.
-🏷️ Próxima clase: Target & No Negociables 🎯`,
+🏷️ Próxima clase: Target Laboral y No Negociables 🎯📋
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-fun-03',
