@@ -1332,10 +1332,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a tu cuenta de LinkedIn, personalizá tu URL pública, seleccioná tu mejor foto y subí tu nueva portada.
-🏷️ Acción en LinkedIn: Actualizar Foto, Portada y URL 📸🎨🔗
-🔊 Pop sutil
-🗣️ En la siguiente clase vamos a mejorar tu Titular y tu extracto Acerca de mi.
+🗣️ Andá a tu cuenta de LinkedIn, personalizá tu URL pública, seleccioná tu mejor foto y subí tu nueva portada. En el próximo video nos metemos con el texto: cómo redactar un Titular magnético y tu sección Acerca de mí.
 🏷️ Próxima clase: Titular magnético y sección Acerca de mí 🎯✍️
 🔊 Fin de lección suave`,
       },
@@ -1417,7 +1414,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Actualizá tu perfil asegurándote de cumplir los pasos anteriores.
 🏷️ Acción en LinkedIn: Actualizar Titular y Acerca de Mí ✍️💼
 🔊 Pop sutil
-🗣️ En la siguiente clase vamos a optimizar tu experiencia laboral y la estrategia de recomendaciones.
+🗣️ Con tu titular y tu extracto listos, pasemos a la siguiente clase para volcar tu experiencia laboral con logros y estructurar tus recomendaciones.
 🏷️ Próxima clase: Experiencia, aptitudes y recomendaciones 🤝⭐
 🔊 Fin de lección suave`,
       },
@@ -1671,10 +1668,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [4:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ Con esto completamos el Módulo 4: tu perfil de LinkedIn está optimizado y tenés las herramientas para generar visibilidad y contactos estratégicos.
+🗣️ ¡Completaste el Módulo N°4! Tu perfil de LinkedIn está optimizado y tenés las herramientas para generar visibilidad y contactos estratégicos. En el Módulo N°5 expandimos el radar: vamos a dominar los mejores portales de empleo y plataformas remotas internacionales.
 🏷️ Hito: Módulo 04 Completado (LinkedIn Estratégico) 🌐🏆
 🔊 Pop de confirmación
-🗣️ En el próximo módulo vamos a expandir tu búsqueda a otros canales: portales de empleo, plataformas remotas internacionales y consultoras de selección.
 🏷️ Próximo: Módulo 05 — Dónde buscar ofertas 🗺️💼
 🔊 Fin de lección suave`,
       },
