@@ -605,7 +605,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Y, sobre todo, no consideres que tenés un nuevo trabajo hasta que exista una propuesta concreta y hayas avanzado formalmente en la contratación.
 🏷️ Propuesta concreta y contratación formal 📝🤝
 🔊 Pop de confirmación
-🗣️ En la próxima clase vamos a analizar los 5 errores típicos que se cometen al buscar trabajo y cómo estructurar tu plan de acción semanal para mantener la constancia.
+🗣️ Ahora que ya conocés los tiempos, toca organizarnos: en la siguiente clase vemos los 5 errores más comunes y cómo armar tu rutina semanal de búsqueda.
 🏷️ Próxima clase: 5 errores típicos y plan semanal 📅⚠️
 🔊 Fin de lección suave`,
       },
@@ -700,10 +700,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Documentos: Cronograma Semanal de Trabajo 📋📅
 🔊 Pop sutil
 🖼️ Captura flotante mostrando el documento del Cronograma Semanal en el campus.
-🗣️ Con esto terminamos el segundo módulo. Ya entendemos cómo funciona el mercado y cómo organizarnos. En el próximo módulo vamos a trabajar una de las herramientas más importantes de nuestra búsqueda: tu CV.
+🗣️ Completaste el módulo N°2. Ya entendemos cómo funciona el mercado y cómo organizarnos. En el Módulo N°3 nos metemos de lleno en tu herramienta de presentación: vamos a crear y optimizar tu CV juntos.
 🏷️ Hito: Módulo 02 Completado (¿Cómo funciona la búsqueda laboral?) ✅🏆
 🔊 Pop de confirmación
-🗣️ En el próximo módulo vamos a trabajar la creación y optimización de tu CV de alto impacto.
 🏷️ Próximo: Módulo 03 — Creación y mejora de CV 📄✨
 🔊 Fin de lección suave`,
       },
@@ -807,8 +806,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ En los Documentos de esta clase tenés el Checklist interactivo con los seis errores para revisar tu currículum punto por punto.
 🏷️ Documentos: Checklist de los 6 Errores del CV 📋📥
 🔊 Pop sutil
-🗣️ En la próxima clase vamos a ver qué son los filtros ATS y cómo leer un aviso laboral para hacer match con las palabras clave exactas que busca el reclutador.
-🏷️ Próxima clase: Filtros ATS y cómo hacer match con el aviso 🤖🎯
+🗣️ ¿Sabías que antes de una persona, tu CV lo lee un sistema? En el siguiente video te enseño qué son los filtros ATS y cómo destacar frente al algoritmo.
+🏷️ Próxima clase: Filtros ATS y cómo destacar frente al algoritmo 🤖🎯
 🔊 Fin de lección suave`,
       },
       {
@@ -898,7 +897,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ En los Documentos de esta clase tenés la Guía de Mapeo de Palabras Clave para clasificar los términos de tu área y aplicarlos a tu perfil.
 🏷️ Documentos: Guía de Mapeo de Palabras Clave 📥📊
 🔊 Pop sutil
-🗣️ En la próxima clase vamos a ver cómo estructurar tu currículum según el momento exacto de tu carrera: sin experiencia previa, experiencia media o nivel senior.
+🗣️ Una vez que termines, pasamos a la siguiente clase para ver cómo armar tu CV según tus años de trayectoria: junior, experiencia media o senior.
 🏷️ Próxima clase: El CV según tu perfil (Junior, Mid o Senior) 🧭💼
 🔊 Fin de lección suave`,
       },
@@ -1001,7 +1000,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Revisá en qué perfil te encontrás hoy y consultá la Guía de Estructura según Seniority en los Documentos de la clase.
 🏷️ Documentos: Guía de CV según tu Perfil 📥📋
 🔊 Pop sutil
-🗣️ En la próxima clase vamos a construir el CV juntos paso a paso: datos personales, la foto profesional, perfil profesional, educación y habilidades.
+🗣️ Ahora que ya sabés qué destacar, pasemos a la práctica: en la siguiente clase armamos tus datos de contacto, la foto profesional y tu perfil paso a paso.
 🏷️ Próxima clase: Hagamos el CV juntos: Secciones y foto 📸📄
 🔊 Fin de lección suave`,
       },
@@ -1113,8 +1112,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [6:15 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a la sección de Documentos de esta clase, descargá tu Plantilla de CV en Word o Notion y completá estos primeros tres bloques.
-🏷️ Documentos: Plantilla Oficial de CV en Word & Notion 📥📄
+🗣️ Andá a la sección de Documentos de esta clase, descargá tu Plantilla de CV, o usá una propia, y completá estos primeros tres bloques.
+🏷️ Documentos: Plantilla Oficial de CV 📥📄
 🔊 Pop sutil
 🗣️ En la próxima clase nos metemos de lleno en el corazón de tu currículum: cómo redactar la experiencia laboral con logros cuantificables y realizar la auditoría final antes de enviarlo.
 🏷️ Próxima clase: Experiencia laboral con logros y auditoría final 📈🔍
@@ -1246,14 +1245,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ ¡Tu CV está 100% listo para salir a la cancha! 🚀✅
 🔊 Pop de confirmación
 
-[5:15 - SECCIÓN 3: CIERRE DE MÓDULO Y TRANSICIÓN]
 🗣️ En la sección de Documentos de esta clase tenés el Diccionario de 100 Verbos de Acción y el Checklist de Auditoría Pre-Envío para validar tu archivo final.
 🏷️ Documentos: Checklist de Auditoría y Diccionario de Verbos 📋📥
 🔊 Pop sutil
-🗣️ Con esto completamos el Módulo 3: tenés un currículum moderno, adaptado a filtros ATS y enfocado en resultados.
+🗣️ Excelente trabajo: ya tenés un currículum sólido, claro e impecable. Ahora demos el salto al Módulo N°4 para optimizar tu perfil de LinkedIn y empezar a generar contactos clave.
 🏷️ Hito: Módulo 03 Completado (Creación y mejora de CV) 📄🏆
 🔊 Pop de confirmación
-🗣️ En el próximo módulo vamos a trabajar en tu perfil de LinkedIn para que los reclutadores y empresas empiecen a encontrarte a vos.
 🏷️ Próximo: Módulo 04 — Creación y mejora de LinkedIn 🌐🚀
 🔊 Fin de lección suave`,
       },
