@@ -147,8 +147,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Soy Licenciada en Comercio Internacional, actualmente soy Gerente de la oficina de Mendoza de una empresa multinacional de origen chino y recientemente terminé mi Máster en Dirección Comercial y Liderazgo Comercial en la Universidad de Barcelona.
 🏷️ Lic. Comercio Internacional · Gerente Filial Multinacional · Máster UB 🎓🏢
 🔊 Click sutil
-🗣️ Además, a lo largo de mi carrera hice distintas capacitaciones en áreas como logística minera, vinos, inglés, Excel y marketing digital.
-🏷️ Logística Minera · Vinos · Inglés · Excel · Marketing Digital 🌐🍷
+🗣️ Además, a lo largo de mi carrera hice distintas capacitaciones en áreas como recursos humanos, optimización de perfiles en LinkedIn, logística minera, vinos, inglés, Excel y marketing digital.
+🏷️ RRHH · LinkedIn · Logística · Vinos · Inglés · Excel · Marketing Digital 🌐🍷
 🔊 Click sutil
 
 [1:15 - SECCIÓN 2: LA PERSPECTIVA COMO RECLUTADORA Y CANDIDATA]
@@ -221,9 +221,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y LAS 4 PREGUNTAS]
-🗣️ Si no sabés qué trabajo elegir, arrancá por esto: agarrá un lápiz y un papel y respondé las siguientes preguntas:
-🏷️ Ejercicio Inicial: 4 Preguntas Clave 📝✨
+🗣️ Muchos me dicen: "No sé qué hacer ni qué me gusta. Trabajo porque tengo que pagar las cuentas, o el alquiler".
+🏷️ "Trabajo porque tengo que pagar las cuentas o el alquiler" 💭💬
 🔊 Swoosh suave
+🗣️ Si no sabés qué trabajo elegir, arrancá por el autoconocimiento: agarrá un lápiz y un papel y respondé las siguientes preguntas:
+🏷️ Ejercicio de Autoconocimiento: 4 Preguntas Clave 📝✨
+🔊 Pop sutil
 🗣️ Primera: "¿En qué sos bueno hoy?". Es decir, lo que ya sabés hacer, tus habilidades y conocimientos adquiridos.
 🏷️ 1. ¿En qué sos bueno hoy? (Lo que ya sabés hacer) 🧠💡
 🔊 Click sutil
@@ -1084,8 +1087,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Justo debajo colocá tu posición profesional o titular: indicá tu especialidad o el puesto exacto al que aplicás, por ejemplo: "Analista Administrativa" o "Especialista en Marketing Digital".
 🏷️ Posición Profesional / Titular: Rol objetivo o especialidad 🎯
 🔊 Click sutil
-🗣️ Y en los datos de contacto incluí únicamente lo indispensable: teléfono con código de país, email profesional, ciudad y tu link actualizado a LinkedIn. Eliminamos datos innecesarios como DNI, estado civil o dirección física completa.
-🏷️ Contacto Útil: Teléfono · Mail · Ciudad · LinkedIn (Sin DNI ni estado civil) 📬
+🗣️ Y en los datos de contacto incluí únicamente lo indispensable: teléfono con código de país, email profesional, ciudad y tu link actualizado a LinkedIn. Eliminamos datos innecesarios como DNI, estado civil, recomendaciones o dirección física completa.
+🏷️ Contacto Útil: Teléfono · Mail · Ciudad · LinkedIn (Sin DNI, estado civil ni recomendaciones) 📬
 🔊 Click sutil
 🖼️ Captura flotante mostrando la cabecera del CV modelo de María Fernández con los datos resaltados.
 🗣️ Hablemos de la foto: una buena foto suma cuando transmite profesionalismo, confianza, cercanía y credibilidad.
