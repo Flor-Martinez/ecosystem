@@ -93,26 +93,26 @@ export interface CampusProgram {
 }
 
 // =============================================================================
-// 1. EXPERIENCIA BÚSQUEDA LABORAL (7 MÓDULOS · 30 CLASES)
+// 1. EXPERIENCIA BÚSQUEDA LABORAL (8 MÓDULOS · 33 CLASES)
 // =============================================================================
 const expBusquedaLaboralModules: CampusModule[] = [
   // ---------------------------------------------------------------------------
-  // MÓDULO 1: ¿CÓMO FUNCIONA LA BÚSQUEDA LABORAL? (5 CLASES)
+  // MÓDULO 1: ¿CÓMO CONSEGUIR MI TRABAJO IDEAL? (4 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-1',
     programId: 'exp-busqueda-laboral',
     number: 1,
-    title: '¿Cómo funciona la búsqueda laboral?',
-    tagline: 'Comprendé el proceso de selección real y definí tu target sin tirar CVs al azar',
-    totalDuration: '30 min · 5 clases',
+    title: '¿Cómo conseguir mi trabajo ideal?',
+    tagline: 'Autoconocimiento, método de 4 preguntas, límites no negociables y test vocacional',
+    totalDuration: '24 min · 4 clases',
     lessons: [
       {
-        id: 'exp-fun-01',
+        id: 'exp-ide-01',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
+        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
         lessonNumber: 1,
         type: 'video',
         title: 'Introducción',
@@ -171,187 +171,105 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop sutil
 🗣️ La idea no es solamente mirar clases: quiero que vayamos haciendo todo juntos.
 🏷️ ¡Hagámoslo juntos paso a paso! 🌟🤝
+🔊 Pop de confirmación
+🗣️ En la próxima clase vamos a ver las cuatro preguntas clave para descubrir y empezar a construir tu trabajo ideal.
+🏷️ Próxima clase: El método para descubrir tu trabajo ideal 📝✨
 🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-fun-02',
+        id: 'exp-ide-02',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
+        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
         lessonNumber: 2,
         type: 'video',
-        title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
+        title: 'El método para descubrir tu trabajo ideal',
         duration: '6 min',
-        videoDuration: '3:50 min',
-        completed: true,
+        videoDuration: '3:45 min',
+        completed: false,
         description:
-          'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
+          'Las 4 preguntas de autodiagnóstico para encontrar la intersección entre lo que sabés hacer, lo que te apasiona y las oportunidades del mercado.',
         takeaways: [
-          'El embudo real del selector: Gestiona entre 250 y 400 currículums por vacante abierta.',
-          'La regla de los 6 segundos: Tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
-          'Del spam a la precisión: Enviar el mismo documento genérico anula tu competitividad.',
-          'Pausa estratégica: Detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
+          'Las 4 preguntas guía: Qué sabés hacer hoy, qué disfrutás, cómo monetizarlo y qué brechas necesitás cerrar.',
+          'El trabajo ideal se construye: Cruzar el puente de donde estás hoy a tu objetivo mediante una estrategia clara.',
+          'Plan de acción paso a paso: Cada avance, por pequeño que sea, te acerca a tu meta profesional.',
         ],
         actionItems: [
           {
-            id: 'act-1-1',
-            title: 'Frenar la postulación masiva',
-            description: 'Pausa el envío de CVs genéricos en piloto automático hasta tener tus materiales de búsqueda calibrados.',
-          },
-          {
-            id: 'act-1-2',
-            title: 'Guardar ofertas de interés en el Tracker',
-            description: 'Si encontrás avisos atractivos mientras navegás, anotalos en tu Tracker del campus para encararlos con estrategia más adelante.',
-            linkText: 'Abrir Tracker de Postulaciones →',
-            targetView: 'tracker',
-          },
-        ],
-        mindsetPrompt: 'El problema no sos vos, es el método.',
-        resources: [],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Quiero empezar este curso hablando de uno de los errores que más veo cuando una persona está buscando trabajo: mandar currículums de manera masiva.
-🏷️ Error Común: Mandar currículums de manera masiva ⚠️📄
-🔊 Swoosh suave
-🗣️ Mandás 50, 100 currículums… y no te llama nadie. O recibís solamente esos mails automáticos que dicen que decidieron avanzar con otros candidatos.
-🏷️ 50 - 100 postulaciones sin respuesta 📥🚫
-🔊 Pop sutil
-🖼️ Captura flotante mostrando bandeja de correo con mensajes automáticos de descarte.
-🗣️ Y lo primero que empezás a pensar es: "¿Qué estoy haciendo mal? ¿Mi CV está mal? ¿No tengo suficiente experiencia?".
-🏷️ "¿Qué estoy haciendo mal? ¿Mi CV está mal?" 💭❓
-🔊 Swoosh suave
-🗣️ Pero muchas veces el problema no sos vos: el problema es el método que estás utilizando para buscar trabajo.
-🏷️ "El problema no sos vos: es el método" 💡🎯
-🔊 Pop de confirmación
-🗣️ Para entenderlo, primero tenemos que ponernos del otro lado: del lado del reclutador.
-🏷️ La Perspectiva del Reclutador 👥🔍
-🔊 Swoosh suave
-
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — EL ESCANEO DE 6 SEGUNDOS]
-🗣️ Una búsqueda laboral puede recibir cientos de postulaciones. El reclutador no tiene tiempo de sentarse a leer detenidamente cada currículum desde la primera hasta la última palabra.
-🏷️ Cientos de postulaciones por vacante 📊👥
-🔊 Swoosh suave
-🗣️ Lo primero que hace es un escaneo muy rápido, de 6 segundos, para determinar si ese perfil puede encajar o no con la posición.
-🏷️ La Regla de los 6 Segundos: Escaneo Visual Rápido ⏱️📄
-🔊 Pop sutil
-🖼️ Video flotante mostrando un CV real siendo escaneado en 6 segundos.
-🗣️ Y en esos segundos hay tres cosas que tienen que quedar claras:
-🗣️ Primero: qué sos o cuál es tu perfil profesional.
-🏷️ 1. Perfil Profesional Claro: Quién sos y cuál es tu especialidad 👤🎯
-🔊 Click sutil
-🗣️ Segundo: si tu experiencia tiene relación con el puesto o con el rubro.
-🏷️ 2. Experiencia Relacionada: Afinidad con el puesto y rubro 🏢💼
-🔊 Click sutil
-🗣️ Y tercero: qué resultados, conocimientos o logros concretos podés aportar.
-🏷️ 3. Aporte Concreto: Resultados, conocimientos y logros 📈⭐
-🔊 Click sutil
-🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, con el objetivo de que consigas más y mejores entrevistas.
-🏷️ Perfil Enfocado = Más y Mejores Entrevistas 🎯📈
-🔊 Pop de confirmación
-
-[4:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ A partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático.
-🏷️ Pausa: Dejar de postular en masa ⏸️
-🔊 Click sutil
-🗣️ Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos.
-🏷️ Guardar vacantes en el Tracker 📋🖥️
-🔊 Pop sutil
-🖼️ Video/Captura flotante a la izquierda mostrando el Tracker de Postulaciones interactivo del campus.
-🗣️ En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.
-🏷️ Próxima clase: Tiempos reales del proceso ⏱️
-🔊 Fin de lección suave`,
-      },
-      {
-        id: 'exp-fun-03',
-        programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-1',
-        moduleNumber: 1,
-        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 3,
-        type: 'video',
-        title: 'Tiempos y fases reales de contratación',
-        duration: '5 min',
-        videoDuration: '4:15 min',
-        completed: true,
-        description:
-          'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
-        takeaways: [
-          'Duración estándar: Un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
-          'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
-          'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
-        ],
-        actionItems: [
-          {
-            id: 'act-2-1',
-            title: 'Mapear tu colchón de tiempo',
-            description: 'Calculá tus tiempos de búsqueda contemplando que un proceso saludable toma entre 20 y 60 días.',
+            id: 'act-ide-2-1',
+            title: 'Responder las 4 preguntas en papel',
+            description: 'Anotá qué sabés hacer, qué te gusta, cómo monetizarlo y qué te falta para llegar ahí.',
           },
         ],
         mindsetPrompt:
-          'Tu meta no es conseguir trabajo mañana a cualquier costo, sino construir un flujo constante de 2 a 3 entrevistas semanales de calidad.',
+          'Tu trabajo ideal no aparece por casualidad: se construye con autoconocimiento, estrategia y constancia.',
         resources: [
           {
-            id: 'fases-proceso-seleccion',
-            title: 'Fases de un Proceso de Selección Típico',
+            id: 'guia-metodo-trabajo-ideal',
+            title: 'Guía de las 4 Preguntas: Trabajo Ideal y Plan de Acción',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
-            category: 'Guía de Tiempos & Circuitos',
-            description: 'Línea de tiempo con las 4 etapas internas de contratación y la duración estimada de cada fase.',
+            category: 'Autoconocimiento',
+            description: 'Plantilla de reflexión guiada para identificar tus habilidades, intereses y pasos para llegar a tu meta.',
             isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
-🏷️ El silencio post-entrevista ⏳
-🔊 Tic-tac suave de reloj
-🏷️ Circuito interno de selección 🏢
-
-[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS FASES Y LOS 20 A 60 DÍAS]
-🗣️ Un proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio.
-🏷️ Circuito de aprobación (3 a 4 áreas)
-🔊 Pop sutil
-🖼️ Gráfica flotante: 1. Reclutamiento ➔ 2. Líder de Área ➔ 3. Finanzas / Presupuesto ➔ 4. Oferta final.
-🗣️ Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.
-🏷️ Duración real: 20 a 60 días ⏱️
-🔊 Click sutil
-🏷️ No detener la búsqueda en paralelo 🔄
-
-[3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Ahora, esto tampoco significa que vamos a quedarnos esperando indefinidamente una respuesta.
-🏷️ No esperar indefinidamente una respuesta ⏳🚫
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y LAS 4 PREGUNTAS]
+🗣️ Si no sabés qué trabajo elegir, arrancá por esto: agarrá un lápiz y un papel y respondé las siguientes preguntas:
+🏷️ Ejercicio Inicial: 4 Preguntas Clave 📝✨
 🔊 Swoosh suave
-🗣️ Si tuviste una entrevista, hacé el seguimiento correspondiente.
-🏷️ Hacer el seguimiento correspondiente 📩📅
+🗣️ Primera: "¿En qué sos bueno hoy?". Es decir, lo que ya sabés hacer, tus habilidades y conocimientos adquiridos.
+🏷️ 1. ¿En qué sos bueno hoy? (Lo que ya sabés hacer) 🧠💡
 🔊 Click sutil
-🗣️ Pero continuá con tu búsqueda laboral.
-🏷️ Continuar con tu búsqueda laboral en paralelo 🔄💼
+🗣️ Segunda: "¿Qué es lo que te gusta hacer?". Aquello con lo que disfrutás trabajar y te genera entusiasmo.
+🏷️ 2. ¿Qué es lo que te gusta hacer? (Tus intereses y motivaciones) ❤️🎯
+🔊 Click sutil
+🗣️ Tercera: "¿Cómo podés ganar dinero con eso en lo que sos bueno y te gusta hacer?".
+🏷️ 3. ¿Cómo monetizarlo? (Identificar tu trabajo ideal) 💼💵
+🔊 Click sutil
+🗣️ Ahí ya empezás a identificar cuál es tu trabajo ideal.
+🏷️ Intersección: Habilidades + Pasión + Mercado 🌟
 🔊 Pop sutil
-🗣️ No dejes de postularte porque una entrevista salió bien.
-🏷️ No dejes de postularte por una buena entrevista ⚠️
+🖼️ Gráfica flotante mostrando los círculos de Habilidad, Interés y Demanda laboral.
+🗣️ Y cuarta: "¿Qué me falta para llegar ahí?". Experiencias, estudios, herramientas o contactos.
+🏷️ 4. ¿Qué te falta para llegar ahí? (Experiencia · Cursos · Contactos) 📚🤝
 🔊 Click sutil
-🗣️ No rechaces otras entrevistas porque "seguramente quedaste".
-🏷️ No rechaces otras entrevistas por suposiciones 🚫
-🔊 Click sutil
-🗣️ Y, sobre todo, no consideres que tenés un nuevo trabajo hasta que exista una propuesta concreta y hayas avanzado formalmente en la contratación.
-🏷️ Propuesta concreta y contratación formal 📝🤝
+
+[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA ESTRATEGIA Y LA CONSTRUCCIÓN]
+🗣️ Hay un camino desde donde estás hoy hasta el trabajo que querés.
+🏷️ El puente entre tu presente y tu trabajo ideal 🌉🚶‍♂️
+🔊 Swoosh suave
+🗣️ La mayoría se queda del primer lado; la diferencia entre los que avanzan y los que se quedan es tener una estrategia.
+🏷️ La diferencia es tener una estrategia 🎯🛡️
+🔊 Pop sutil
+🗣️ Tu trabajo ideal no aparece: se construye.
+🏷️ "Tu trabajo ideal no aparece: se construye" 🏗️✨
 🔊 Pop de confirmación
-🗣️ En la próxima clase vamos a definir tu Target Laboral y tus No Negociables, para que apuntes únicamente a ofertas que se alineen con lo que realmente querés.
-🏷️ Próxima clase: Target Laboral y No Negociables 🎯📋
+🗣️ Y armá un plan de acción: cada paso, por más chico que sea, te va acercando hasta tu objetivo.
+🏷️ Plan de Acción: Pasos concretos hacia tu meta 📋🚀
+🔊 Click sutil
+
+[3:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Tomate unos minutos para bajar estas cuatro respuestas por escrito.
+🏷️ Acción: Responder las 4 preguntas en papel ✍️📄
+🔊 Pop sutil
+🗣️ En la próxima clase vamos a definir tu Target Laboral y tus No Negociables, para transformar esta visión en un objetivo concreto y delimitar exactamente qué condiciones vas a aceptar.
+🏷️ Próxima clase: Definición de target y no negociables 🎯📋
 🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-fun-04',
+        id: 'exp-ide-03',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 4,
+        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        lessonNumber: 3,
         type: 'video',
         title: 'Definición de target y no negociables',
         duration: '8 min',
@@ -436,16 +354,273 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Documentos: Matriz de Target 📋
 🔊 Pop sutil
 🖼️ Video flotante mostrando cómo se completan los campos y el cartel de sincronización con "Mi Perfil".
-🗣️ En la próxima clase vamos a ver los 5 errores típicos que cometen los candidatos al buscar trabajo y cómo armar tu plan de acción semanal para que tu búsqueda sea constante y productiva.
-🏷️ Próxima clase: 5 errores típicos y plan semanal 📅`,
+🗣️ En la próxima clase vamos a hablar del Test Vocacional: por qué es una herramienta clave de autoconocimiento y cómo podés realizar el test de nuestra plataforma para clarificar tu rumbo.
+🏷️ Próxima clase: Test Vocacional y autoconocimiento 🧭📊
+🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-fun-05',
+        id: 'exp-ide-04',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
+        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        lessonNumber: 4,
+        type: 'video',
+        title: 'Test vocacional: Descubrí tu perfil y afinidad laboral',
+        duration: '6 min',
+        videoDuration: '3:30 min',
+        completed: false,
+        description:
+          'Por qué el test vocacional es una brújula clave de autoconocimiento y cómo realizar la evaluación interactiva en nuestra plataforma.',
+        takeaways: [
+          'Autoconocimiento objetivo: Evaluar intereses, estilos de trabajo y fortalezas para clarificar tu dirección profesional.',
+          'Validación y nuevas posibilidades: Confirmar tu afinidad o descubrir roles y áreas que no habías considerado.',
+          'Herramienta interactiva: Realizar el Test Vocacional integrado en el campus para obtener tu arquetipo y recomendaciones personalizadas.',
+        ],
+        actionItems: [
+          {
+            id: 'act-vocacional-1',
+            title: 'Realizar el Test Vocacional en el campus',
+            description: 'Completá la evaluación de 12 preguntas para descubrir tu arquetipo profesional y roles sugeridos.',
+            linkText: 'Realizar Test Vocacional →',
+            targetView: 'test-vocacional',
+          },
+        ],
+        mindsetPrompt:
+          'Conocerte a vos mismo es el primer paso para elegir un trabajo donde no solo rindas, sino donde realmente disfrutes lo que hacés.',
+        resources: [],
+        videoScript:
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y POR QUÉ ES ÚTIL EL TEST]
+🗣️ Muchas veces nos cuesta definir qué rumbo tomar porque no nos detenemos a reflexionar sobre nuestras fortalezas, intereses y formas de trabajar.
+🏷️ Autoconocimiento: La base de tu decisión profesional 🧭💡
+🔊 Swoosh suave
+🗣️ Y acá es donde un test vocacional se convierte en una herramienta muy útil.
+🏷️ ¿Por qué es útil un Test Vocacional? 📊✨
+🔊 Pop sutil
+🗣️ No se trata de una prueba que te dice qué tenés que hacer de tu vida de forma rígida: es una brújula que te ayuda a ordenar tus preferencias, entender tus talentos naturales y validar si estás apuntando en la dirección correcta.
+🏷️ Una brújula para ordenar intereses y talentos naturales 🧭🎯
+🔊 Swoosh suave
+
+[1:15 - SECCIÓN 2: BENEFICIOS Y CÓMO APROVECHAR EL RESULTADO]
+🗣️ Un buen test vocacional te aporta tres beneficios fundamentales:
+🗣️ Primero: te ayuda a identificar tus áreas de mayor afinidad, mostrándote en qué tipos de entornos, proyectos y tareas te sentís más cómodo.
+🏷️ 1. Áreas de Mayor Afinidad: Entornos y tareas donde destacás 🏢🌿
+🔊 Click sutil
+🗣️ Segundo: te ayuda a descubrir o validar opciones de trabajo y roles que quizás no habías considerado, pero que encajan muy bien con tu personalidad profesional.
+🏷️ 2. Descubrimiento de Roles: Opciones alineadas a tu perfil 💡📋
+🔊 Click sutil
+🗣️ Y tercero: te da claridad y confianza para encarar tu búsqueda con una propuesta mucho más sólida.
+🏷️ 3. Claridad y Confianza: Enfoque seguro en tu postulación 🚀🛡️
+🔊 Pop de confirmación
+🖼️ Captura flotante mostrando la interfaz del Test Vocacional en el campus y el reporte de arquetipo resultante.
+🗣️ En nuestra plataforma tenemos un Test Vocacional diseñado especialmente para acompañarte en este proceso. Si todavía no lo hiciste, te invito a realizarlo directamente desde el campus.
+🏷️ Test Vocacional disponible en nuestra plataforma 🖥️⭐
+🔊 Swoosh suave
+
+[3:30 - SECCIÓN 3: CIERRE DE MÓDULO Y TRANSICIÓN]
+🗣️ Ingresá a la sección del Test Vocacional en el menú de la plataforma, respondé con sinceridad a cada pregunta y guardá tus resultados.
+🏷️ Acción: Realizar el Test Vocacional en la plataforma 📝🧭
+🔊 Pop sutil
+🗣️ Con esto cerramos el primer módulo: ya tenés claridad sobre quién sos, qué buscás y hacia dónde querés proyectar tu carrera.
+🏷️ Hito: Módulo 01 Completado (¿Cómo conseguir mi trabajo ideal?) 🏆🌟
+🔊 Pop de confirmación
+🗣️ En el próximo módulo vamos a ponernos del otro lado del mostrador y entender cómo funciona la búsqueda laboral: cómo piensan los reclutadores, cuánto tardan las empresas en contratar y qué errores evitar.
+🏷️ Próximo: Módulo 02 — ¿Cómo funciona la búsqueda laboral? 👥📊
+🔊 Fin de lección suave`,
+      },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
+  // MÓDULO 2: ¿CÓMO FUNCIONA LA BÚSQUEDA LABORAL? (3 CLASES)
+  // ---------------------------------------------------------------------------
+  {
+    id: 'exp-mod-2',
+    programId: 'exp-busqueda-laboral',
+    number: 2,
+    title: '¿Cómo funciona la búsqueda laboral?',
+    tagline: 'Comprendé el proceso de selección real, la mentalidad del reclutador y armá tu plan semanal',
+    totalDuration: '18 min · 3 clases',
+    lessons: [
+      {
+        id: 'exp-fun-01',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-2',
+        moduleNumber: 2,
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 5,
+        lessonNumber: 1,
+        type: 'video',
+        title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
+        duration: '6 min',
+        videoDuration: '3:50 min',
+        completed: false,
+        description:
+          'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
+        takeaways: [
+          'El embudo real del selector: Gestiona entre 250 y 400 currículums por vacante abierta.',
+          'La regla de los 6 segundos: Tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
+          'Del spam a la precisión: Enviar el mismo documento genérico anula tu competitividad.',
+          'Pausa estratégica: Detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
+        ],
+        actionItems: [
+          {
+            id: 'act-1-1',
+            title: 'Frenar la postulación masiva',
+            description: 'Pausa el envío de CVs genéricos en piloto automático hasta tener tus materiales de búsqueda calibrados.',
+          },
+          {
+            id: 'act-1-2',
+            title: 'Guardar ofertas de interés en el Tracker',
+            description: 'Si encontrás avisos atractivos mientras navegás, anotalos en tu Tracker del campus para encararlos con estrategia más adelante.',
+            linkText: 'Abrir Tracker de Postulaciones →',
+            targetView: 'tracker',
+          },
+        ],
+        mindsetPrompt: 'El problema no sos vos, es el método.',
+        resources: [],
+        videoScript:
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Quiero empezar este módulo hablando de uno de los errores que más veo cuando una persona está buscando trabajo: mandar currículums de manera masiva.
+🏷️ Error Común: Mandar currículums de manera masiva ⚠️📄
+🔊 Swoosh suave
+🗣️ Mandás 50, 100 currículums… y no te llama nadie. O recibís solamente esos mails automáticos que dicen que decidieron avanzar con otros candidatos.
+🏷️ 50 - 100 postulaciones sin respuesta 📥🚫
+🔊 Pop sutil
+🖼️ Captura flotante mostrando bandeja de correo con mensajes automáticos de descarte.
+🗣️ Y lo primero que empezás a pensar es: "¿Qué estoy haciendo mal? ¿Mi CV está mal? ¿No tengo suficiente experiencia?".
+🏷️ "¿Qué estoy haciendo mal? ¿Mi CV está mal?" 💭❓
+🔊 Swoosh suave
+🗣️ Pero muchas veces el problema no sos vos: el problema es el método que estás utilizando para buscar trabajo.
+🏷️ "El problema no sos vos: es el método" 💡🎯
+🔊 Pop de confirmación
+🗣️ Para entenderlo, primero tenemos que ponernos del otro lado: del lado del reclutador.
+🏷️ La Perspectiva del Reclutador 👥🔍
+🔊 Swoosh suave
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — EL ESCANEO DE 6 SEGUNDOS]
+🗣️ Una búsqueda laboral puede recibir cientos de postulaciones. El reclutador no tiene tiempo de sentarse a leer detenidamente cada currículum desde la primera hasta la última palabra.
+🏷️ Cientos de postulaciones por vacante 📊👥
+🔊 Swoosh suave
+🗣️ Lo primero que hace es un escaneo muy rápido, de 6 segundos, para determinar si ese perfil puede encajar o no con la posición.
+🏷️ La Regla de los 6 Segundos: Escaneo Visual Rápido ⏱️📄
+🔊 Pop sutil
+🖼️ Video flotante mostrando un CV real siendo escaneado en 6 segundos.
+🗣️ Y en esos segundos hay tres cosas que tienen que quedar claras:
+🗣️ Primero: qué sos o cuál es tu perfil profesional.
+🏷️ 1. Perfil Profesional Claro: Quién sos y cuál es tu especialidad 👤🎯
+🔊 Click sutil
+🗣️ Segundo: si tu experiencia tiene relación con el puesto o con el rubro.
+🏷️ 2. Experiencia Relacionada: Afinidad con el puesto y rubro 🏢💼
+🔊 Click sutil
+🗣️ Y tercero: qué resultados, conocimientos o logros concretos podés aportar.
+🏷️ 3. Aporte Concreto: Resultados, conocimientos y logros 📈⭐
+🔊 Click sutil
+🗣️ Cuando mandás el mismo documento genérico a 100 avisos distintos, no encajás al 100% en ninguno. Lo que vamos a construir juntos acá es un perfil enfocado, con el objetivo de que consigas más y mejores entrevistas.
+🏷️ Perfil Enfocado = Más y Mejores Entrevistas 🎯📈
+🔊 Pop de confirmación
+
+[4:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ A partir de este momento hacemos una pausa: dejamos de postular en masa y en piloto automático.
+🏷️ Pausa: Dejar de postular en masa ⏸️
+🔊 Click sutil
+🗣️ Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus, porque las vamos a encarar cuando tus materiales estén listos.
+🏷️ Guardar vacantes en el Tracker 📋🖥️
+🔊 Pop sutil
+🖼️ Video/Captura flotante a la izquierda mostrando el Tracker de Postulaciones interactivo del campus.
+🗣️ En la próxima clase vamos a ver cuánto tarda realmente una empresa desde que abre una búsqueda hasta que contrata, para que puedas llevar tu proceso con más calma y control.
+🏷️ Próxima clase: Tiempos reales del proceso ⏱️
+🔊 Fin de lección suave`,
+      },
+      {
+        id: 'exp-fun-02',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-2',
+        moduleNumber: 2,
+        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
+        lessonNumber: 2,
+        type: 'video',
+        title: 'Tiempos y fases reales de contratación',
+        duration: '5 min',
+        videoDuration: '4:15 min',
+        completed: false,
+        description:
+          'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
+        takeaways: [
+          'Duración estándar: Un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
+          'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
+          'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
+        ],
+        actionItems: [
+          {
+            id: 'act-2-1',
+            title: 'Mapear tu colchón de tiempo',
+            description: 'Calculá tus tiempos de búsqueda contemplando que un proceso saludable toma entre 20 y 60 días.',
+          },
+        ],
+        mindsetPrompt:
+          'Tu meta no es conseguir trabajo mañana a cualquier costo, sino construir un flujo constante de 2 a 3 entrevistas semanales de calidad.',
+        resources: [
+          {
+            id: 'fases-proceso-seleccion',
+            title: 'Fases de un Proceso de Selección Típico',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 2,
+            category: 'Guía de Tiempos & Circuitos',
+            description: 'Línea de tiempo con las 4 etapas internas de contratación y la duración estimada de cada fase.',
+            isEssential: false,
+          },
+        ],
+        videoScript:
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
+🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
+🏷️ El silencio post-entrevista ⏳
+🔊 Tic-tac suave de reloj
+🏷️ Circuito interno de selección 🏢
+
+[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS FASES Y LOS 20 A 60 DÍAS]
+🗣️ Un proceso de selección rara vez depende de una sola persona. El recruiter preselecciona, pero el Hiring Manager tiene reuniones, el director financiero debe aprobar la banda salarial y el cliente interno tiene prioridades del negocio.
+🏷️ Circuito de aprobación (3 a 4 áreas)
+🔊 Pop sutil
+🖼️ Gráfica flotante: 1. Reclutamiento ➔ 2. Líder de Área ➔ 3. Finanzas / Presupuesto ➔ 4. Oferta final.
+🗣️ Un proceso sano tarda entre 20 y 60 días. Conocer estos tiempos te permite planificar tu caja económica, mantener la disciplina de búsqueda y no auto-descartarte antes de tiempo.
+🏷️ Duración real: 20 a 60 días ⏱️
+🔊 Click sutil
+🏷️ No detener la búsqueda en paralelo 🔄
+
+[3:50 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Ahora, esto tampoco significa que vamos a quedarnos esperando indefinidamente una respuesta.
+🏷️ No esperar indefinidamente una respuesta ⏳🚫
+🔊 Swoosh suave
+🗣️ Si tuviste una entrevista, hacé el seguimiento correspondiente.
+🏷️ Hacer el seguimiento correspondiente 📩📅
+🔊 Click sutil
+🗣️ Pero continuá con tu búsqueda laboral.
+🏷️ Continuar con tu búsqueda laboral en paralelo 🔄💼
+🔊 Pop sutil
+🗣️ No dejes de postularte porque una entrevista salió bien.
+🏷️ No dejes de postularte por una buena entrevista ⚠️
+🔊 Click sutil
+🗣️ No rechaces otras entrevistas porque "seguramente quedaste".
+🏷️ No rechaces otras entrevistas por suposiciones 🚫
+🔊 Click sutil
+🗣️ Y, sobre todo, no consideres que tenés un nuevo trabajo hasta que exista una propuesta concreta y hayas avanzado formalmente en la contratación.
+🏷️ Propuesta concreta y contratación formal 📝🤝
+🔊 Pop de confirmación
+🗣️ En la próxima clase vamos a analizar los 5 errores típicos que se cometen al buscar trabajo y cómo estructurar tu plan de acción semanal para mantener la constancia.
+🏷️ Próxima clase: 5 errores típicos y plan semanal 📅⚠️
+🔊 Fin de lección suave`,
+      },
+      {
+        id: 'exp-fun-03',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-2',
+        moduleNumber: 2,
+        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
+        lessonNumber: 3,
         type: 'video',
         title: '5 errores típicos y plan semanal',
         duration: '7 min',
@@ -481,7 +656,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 1,
+            moduleNumber: 2,
             category: 'Cronograma Operativo',
             description: 'Guía práctica para estructurar tu rutina semanal de búsqueda y seguimiento.',
           },
@@ -531,23 +706,23 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Documentos: Cronograma Semanal de Trabajo 📋📅
 🔊 Pop sutil
 🖼️ Captura flotante mostrando el documento del Cronograma Semanal en el campus.
-🗣️ Con esto terminamos el primer módulo. Ya sabemos qué buscamos y cómo vamos a organizarnos.
-🏷️ Hito: Módulo 01 Completado (¿Cómo funciona la búsqueda laboral?) ✅🏆
+🗣️ Con esto terminamos el segundo módulo. Ya entendemos cómo funciona el mercado y cómo organizarnos. En el próximo módulo vamos a trabajar una de las herramientas más importantes de nuestra búsqueda: tu CV.
+🏷️ Hito: Módulo 02 Completado (¿Cómo funciona la búsqueda laboral?) ✅🏆
 🔊 Pop de confirmación
-🗣️ En el próximo módulo vamos a trabajar una de las herramientas más importantes de nuestra búsqueda: tu CV.
-🏷️ Próximo: Módulo 02 — Creación y mejora de CV 📄✨
+🗣️ En el próximo módulo vamos a trabajar la creación y optimización de tu CV de alto impacto.
+🏷️ Próximo: Módulo 03 — Creación y mejora de CV 📄✨
 🔊 Fin de lección suave`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 2: CREACIÓN Y MEJORA DE CV (5 CLASES)
+  // MÓDULO 3: CREACIÓN Y MEJORA DE CV (5 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-2',
+    id: 'exp-mod-3',
     programId: 'exp-busqueda-laboral',
-    number: 2,
+    number: 3,
     title: 'Creación y mejora de CV',
     tagline: 'Construí un currículum moderno, adaptado a filtros ATS y optimizado para el escaneo de 6 segundos',
     totalDuration: '35 min · 5 clases',
@@ -555,8 +730,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-cv-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-2',
-        moduleNumber: 2,
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 1,
         type: 'video',
@@ -595,7 +770,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Plantilla ATS',
             description: 'Modelo en Word formateado en 1 columna optimizado para filtros ATS de Workday y Greenhouse.',
             isEssential: true,
@@ -607,7 +782,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Workspace Notion',
             description: 'Estructura modular para actualizar tu experiencia y exportar a PDF limpio.',
           },
@@ -659,8 +834,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-cv-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-2',
-        moduleNumber: 2,
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 2,
         type: 'video',
@@ -699,7 +874,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Checklist Técnico',
             description: 'Lista de verificación interactiva para comprobar que tu documento no contenga elementos que bloqueen el parseo.',
             isEssential: true,
@@ -748,8 +923,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-cv-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-2',
-        moduleNumber: 2,
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 3,
         type: 'video',
@@ -787,7 +962,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Matriz de Keywords',
             description: 'Matriz interactiva con las palabras clave, herramientas y certificaciones más demandadas en el mercado.',
             isEssential: true,
@@ -835,8 +1010,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-cv-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-2',
-        moduleNumber: 2,
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 4,
         type: 'video',
@@ -874,7 +1049,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Guía de Vocabulario',
             description: 'Listado de verbos activos clasificados por área (Liderazgo, Optimización, Ventas, Innovación) para inspirar tu redacción.',
             isEssential: false,
@@ -921,8 +1096,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-cv-05',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-2',
-        moduleNumber: 2,
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 5,
         type: 'video',
@@ -960,7 +1135,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
+            moduleNumber: 3,
             category: 'Checklist de Control',
             description: 'Guía rápida de puntos de verificación técnica y visual para validar tu CV antes de postularte.',
             isEssential: false,
@@ -1007,23 +1182,23 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ En la sección de Documentos de esta clase tenés el checklist de auditoría para validar estos puntos en cualquier momento.
 🏷️ Documentos: Checklist de Auditoría Pre-Envío 📋📥
 🔊 Pop sutil
-🗣️ Con esto completamos el Módulo 2: tenés un currículum moderno, adaptado a filtros ATS y enfocado en resultados.
-🏷️ Hito: Módulo 02 Completado (Creación y mejora de CV) 📄🏆
+🗣️ Con esto completamos el Módulo 3: tenés un currículum moderno, adaptado a filtros ATS y enfocado en resultados.
+🏷️ Hito: Módulo 03 Completado (Creación y mejora de CV) 📄🏆
 🔊 Pop de confirmación
 🗣️ En el próximo módulo vamos a trabajar en tu perfil de LinkedIn para que los reclutadores y empresas empiecen a encontrarte a vos.
-🏷️ Próximo: Módulo 03 — Creación y mejora de LinkedIn 🌐🚀
+🏷️ Próximo: Módulo 04 — Creación y mejora de LinkedIn 🌐🚀
 🔊 Swoosh final de módulo`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 3: CREACIÓN Y MEJORA DE LINKEDIN (5 CLASES)
+  // MÓDULO 4: CREACIÓN Y MEJORA DE LINKEDIN (5 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-3',
+    id: 'exp-mod-4',
     programId: 'exp-busqueda-laboral',
-    number: 3,
+    number: 4,
     title: 'Creación y mejora de LinkedIn',
     tagline: 'Optimizá tu perfil estelar, aumentá tu posicionamiento en búsquedas y prospectá recruiters',
     totalDuration: '34 min · 5 clases',
@@ -1031,8 +1206,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-lk-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
+        moduleId: 'exp-mod-4',
+        moduleNumber: 4,
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 1,
         type: 'video',
@@ -1102,8 +1277,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-lk-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
+        moduleId: 'exp-mod-4',
+        moduleNumber: 4,
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 2,
         type: 'video',
@@ -1141,7 +1316,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
+            moduleNumber: 4,
             category: 'Guía de Redacción',
             description: 'Modelos redactados de titulares por especialidad y plantilla en 4 párrafos para tu extracto.',
             isEssential: false,
@@ -1184,8 +1359,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-lk-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
+        moduleId: 'exp-mod-4',
+        moduleNumber: 4,
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 3,
         type: 'video',
@@ -1265,8 +1440,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-lk-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
+        moduleId: 'exp-mod-4',
+        moduleNumber: 4,
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 4,
         type: 'video',
@@ -1304,7 +1479,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
+            moduleNumber: 4,
             category: 'Plantillas de Mensajes',
             description: 'Guiones cortos para vacantes abiertas y contacto espontáneo a líderes de área.',
             isEssential: false,
@@ -1356,8 +1531,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-lk-05',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
+        moduleId: 'exp-mod-4',
+        moduleNumber: 4,
         moduleTitle: 'Creación y mejora de LinkedIn',
         lessonNumber: 5,
         type: 'video',
@@ -1431,23 +1606,23 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [4:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ Con esto completamos el Módulo 3: tu perfil de LinkedIn está optimizado y tenés las herramientas para generar visibilidad y contactos estratégicos.
-🏷️ Hito: Módulo 03 Completado (LinkedIn Estratégico) 🌐🏆
+🗣️ Con esto completamos el Módulo 4: tu perfil de LinkedIn está optimizado y tenés las herramientas para generar visibilidad y contactos estratégicos.
+🏷️ Hito: Módulo 04 Completado (LinkedIn Estratégico) 🌐🏆
 🔊 Pop de confirmación
 🗣️ En el próximo módulo vamos a expandir tu búsqueda a otros canales: portales de empleo, plataformas remotas internacionales y consultoras de selección.
-🏷️ Próximo: Módulo 04 — Dónde buscar ofertas 🗺️💼
-🔊 Swoosh final de módulo`,
+🏷️ Próximo: Módulo 05 — Dónde buscar ofertas 🗺️💼
+🔊 Fin de lección suave`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 4: DÓNDE BUSCAR OFERTAS (4 CLASES)
+  // MÓDULO 5: DÓNDE BUSCAR OFERTAS (4 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-4',
+    id: 'exp-mod-5',
     programId: 'exp-busqueda-laboral',
-    number: 4,
+    number: 5,
     title: 'Dónde buscar ofertas',
     tagline: 'Dominá el mapa de portales de empleo y descubrí vacantes ocultas antes que la competencia',
     totalDuration: '24 min · 4 clases',
@@ -1455,8 +1630,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-dnd-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-4',
-        moduleNumber: 4,
+        moduleId: 'exp-mod-5',
+        moduleNumber: 5,
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 1,
         type: 'video',
@@ -1494,7 +1669,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 4,
+            moduleNumber: 5,
             category: 'Directorio',
             description: 'Listado actualizado con enlaces directos a bolsas de empleo en Sudamérica, plataformas de trabajo remoto en USD y consultoras.',
             isEssential: false,
@@ -1543,8 +1718,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-dnd-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-4',
-        moduleNumber: 4,
+        moduleId: 'exp-mod-5',
+        moduleNumber: 5,
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 2,
         type: 'video',
@@ -1582,7 +1757,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 4,
+            moduleNumber: 5,
             category: 'Guía de Comandos',
             description: 'Plantilla con sintaxis booleanas listas para copiar y pegar en Google para rastrear software ATS.',
             isEssential: false,
@@ -1629,8 +1804,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-dnd-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-4',
-        moduleNumber: 4,
+        moduleId: 'exp-mod-5',
+        moduleNumber: 5,
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 3,
         type: 'video',
@@ -1642,7 +1817,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Señales tempranas de expansión que indican futuras contrataciones antes de que se publiquen avisos oficiales.',
         takeaways: [
           'Identificar rondas de inversión, apertura de mercados y nombramientos de directores en medios y redes de negocios.',
-          'La postulación espontánea de alto valor enfocada en resolver los nuevos desafíos de la empresa en expansión.',
+          'La postulación espontánea de alto valor enfocada en resolver los nuevos desafíos de la de la empresa en expansión.',
           'Llegar antes de la publicación masiva para iniciar conversaciones directas con líderes de área.',
         ],
         actionItems: [
@@ -1699,8 +1874,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-dnd-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-4',
-        moduleNumber: 4,
+        moduleId: 'exp-mod-5',
+        moduleNumber: 5,
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 4,
         type: 'video',
@@ -1778,23 +1953,23 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Tu tarea en esta clase es elegir una de las empresas de tu lista de objetivos y realizarle esta auditoría rápida de diez minutos antes de postularte.
 🏷️ Acción: Auditar 1 Empresa Target (Opiniones + Rotación) 🔍🏢
 🔊 Swoosh suave
-🗣️ Con esto completamos el Módulo 4: ahora tenés el mapa completo de dónde buscar, cómo rastrear vacantes ocultas y cómo elegir empresas que realmente valgan la pena.
-🏷️ Hito: Módulo 04 Completado (Dónde buscar ofertas) 🗺️✅
+🗣️ Con esto completamos el Módulo 5: ahora tenés el mapa completo de dónde buscar, cómo rastrear vacantes ocultas y cómo elegir empresas que realmente valgan la pena.
+🏷️ Hito: Módulo 05 Completado (Dónde buscar ofertas) 🗺️✅
 🔊 Pop de confirmación
-🗣️ En el Módulo 5 vamos a organizar tu sistema de postulación: armaremos tu kit profesional y utilizaremos el Tracker del campus para llevar el control diario de cada proceso y sus recordatorios de seguimiento.
-🏷️ Módulo 05: Postulación y organización 📊📁
-🔊 Swoosh final de módulo`,
+🗣️ En el Módulo 6 vamos a organizar tu sistema de postulación: armaremos tu kit profesional y utilizaremos el Tracker del campus para llevar el control diario de cada proceso y sus recordatorios de seguimiento.
+🏷️ Próximo: Módulo 06 — Postulación y organización 📊📁
+🔊 Fin de lección suave`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 5: POSTULACIÓN Y ORGANIZACIÓN (4 CLASES)
+  // MÓDULO 6: POSTULACIÓN Y ORGANIZACIÓN (4 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-5',
+    id: 'exp-mod-6',
     programId: 'exp-busqueda-laboral',
-    number: 5,
+    number: 6,
     title: 'Postulación y organización',
     tagline: 'Sistematizá tu seguimiento con el Tracker del campus, armá tu kit y gestioná recordatorios',
     totalDuration: '23 min · 4 clases',
@@ -1802,8 +1977,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-pst-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-5',
-        moduleNumber: 5,
+        moduleId: 'exp-mod-6',
+        moduleNumber: 6,
         moduleTitle: 'Postulación y organización',
         lessonNumber: 1,
         type: 'video',
@@ -1841,7 +2016,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
+            moduleNumber: 6,
             category: 'Plantillas de Redacción',
             description: 'Modelos de cartas de presentación en 3 párrafos para diferentes niveles y tipos de postulación.',
             isEssential: false,
@@ -1888,8 +2063,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-pst-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-5',
-        moduleNumber: 5,
+        moduleId: 'exp-mod-6',
+        moduleNumber: 6,
         moduleTitle: 'Postulación y organización',
         lessonNumber: 2,
         type: 'video',
@@ -1927,7 +2102,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
+            moduleNumber: 6,
             category: 'Métricas de Selección',
             description: 'Matriz para diagnosticar en qué etapa del embudo se frenan tus postulaciones y qué corregir.',
             isEssential: false,
@@ -1973,8 +2148,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-pst-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-5',
-        moduleNumber: 5,
+        moduleId: 'exp-mod-6',
+        moduleNumber: 6,
         moduleTitle: 'Postulación y organización',
         lessonNumber: 3,
         type: 'video',
@@ -2012,7 +2187,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
+            moduleNumber: 6,
             category: 'Plantillas de Seguimiento',
             description: 'Guiones estructurados para recontactar selectores tras postulaciones y entrevistas.',
             isEssential: false,
@@ -2057,8 +2232,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-pst-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-5',
-        moduleNumber: 5,
+        moduleId: 'exp-mod-6',
+        moduleNumber: 6,
         moduleTitle: 'Postulación y organización',
         lessonNumber: 4,
         type: 'video',
@@ -2081,24 +2256,24 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
+            moduleNumber: 6,
             category: 'Guía PDF',
             description: 'Lista de verificación de seguridad para blindar tus datos personales en internet.',
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nEn internet hay personas malintencionadas que se aprovechan de la necesidad de quienes buscan empleo. Hoy aprendés a blindarte contra cualquier estafa.\n\n[1:00 - Desarrollo del concepto]\nRegla de oro número 1: ninguna empresa seria jamás te va a pedir dinero para comprar un software, pagar un trámite o iniciar un proceso de selección. Analizamos las señales de alerta típicas: mensajes directos por WhatsApp sin haberte postulado, ofertas de 5.000 dólares por 2 horas de trabajo y contrataciones inmediatas sin videollamada. Cuidá tu información y aprendé a reportar estos avisos.\n\n[3:50 - Llamada a la acción]\nGuardá esta guía de seguridad y avanzamos al Módulo 6 para dominar las entrevistas cara a cara.`,
+          `[0:00 - Introducción]\nEn internet hay personas malintencionadas que se aprovechan de la necesidad de quienes buscan empleo. Hoy aprendés a blindarte contra cualquier estafa.\n\n[1:00 - Desarrollo del concepto]\nRegla de oro número 1: ninguna empresa seria jamás te va a pedir dinero para comprar un software, pagar un trámite o iniciar un proceso de selección. Analizamos las señales de alerta típicas: mensajes directos por WhatsApp sin haberte postulado, ofertas de 5.000 dólares por 2 horas de trabajo y contrataciones inmediatas sin videollamada. Cuidá tu información y aprendé a reportar estos avisos.\n\n[3:50 - Llamada a la acción]\nGuardá esta guía de seguridad y avanzamos al Módulo 7 para dominar las entrevistas cara a cara.`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 6: ENTREVISTA LABORAL (5 CLASES)
+  // MÓDULO 7: ENTREVISTA LABORAL (5 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-6',
+    id: 'exp-mod-7',
     programId: 'exp-busqueda-laboral',
-    number: 6,
+    number: 7,
     title: 'Entrevista Laboral',
     tagline: 'Preparate para cada etapa, dominá el Método STAR y negociá tu salario con total seguridad',
     totalDuration: '36 min · 5 clases',
@@ -2106,8 +2281,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-ent-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-6',
-        moduleNumber: 6,
+        moduleId: 'exp-mod-7',
+        moduleNumber: 7,
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 1,
         type: 'video',
@@ -2131,7 +2306,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 6,
+            moduleNumber: 7,
             category: 'Guía PDF',
             description: 'Configuración técnica y de entorno para entrevistas remotas por Zoom o Google Meet.',
           },
@@ -2142,8 +2317,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-ent-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-6',
-        moduleNumber: 6,
+        moduleId: 'exp-mod-7',
+        moduleNumber: 7,
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 2,
         type: 'video',
@@ -2166,7 +2341,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 6,
+            moduleNumber: 7,
             category: 'Guía PDF',
             description: 'Plantilla con historias reales estructuradas paso a paso con el método STAR.',
           },
@@ -2177,8 +2352,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-ent-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-6',
-        moduleNumber: 6,
+        moduleId: 'exp-mod-7',
+        moduleNumber: 7,
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 3,
         type: 'video',
@@ -2201,7 +2376,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 6,
+            moduleNumber: 7,
             category: 'Guía PDF',
             description: 'Respuestas modelo y consejos tácticos para las preguntas más complejas.',
           },
@@ -2212,8 +2387,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-ent-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-6',
-        moduleNumber: 6,
+        moduleId: 'exp-mod-7',
+        moduleNumber: 7,
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 4,
         type: 'video',
@@ -2236,7 +2411,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 6,
+            moduleNumber: 7,
             category: 'Guía PDF',
             description: 'Preguntas estratégicas para hacer al recruiter y al Hiring Manager.',
           },
@@ -2247,8 +2422,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-ent-05',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-6',
-        moduleNumber: 6,
+        moduleId: 'exp-mod-7',
+        moduleNumber: 7,
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 5,
         type: 'video',
@@ -2271,24 +2446,24 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 6,
+            moduleNumber: 7,
             category: 'Matriz Excel',
             description: 'Herramienta para calcular tu piso salarial y plantilla de correo para negociar ofertas.',
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nEl momento más incómodo para muchos es cuando preguntan por el sueldo. Hoy aprendés a manejar la conversación económica con total naturalidad y firmeza.\n\n[1:30 - Desarrollo del concepto]\nNunca des un número fijo cerrado en la primera charla; trabajamos siempre con rangos salariales basados en el mercado y decimos: 'Mi expectativa para una posición con estas responsabilidades se sitúa entre X e Y, dependiendo del paquete integral de beneficios y proyectos'. Y cuando llega la oferta formal por escrito, te enseño cómo evaluar el paquete completo y solicitar un ajuste de manera profesional.\n\n[5:45 - Llamada a la acción]\nDefiní tu banda salarial piso y objetivo con la calculadora del campus y practicá el guion de respuesta.`,
+          `[0:00 - Introducción]\nEl momento más incómodo para muchos es cuando preguntan por el sueldo. Hoy aprendés a manejar la conversación económica con total naturalidad y firmeza.\n\n[1:30 - Desarrollo del concepto]\nNunca des un número fijo cerrado en la primera charla; trabajamos siempre con rangos salariales basados en el mercado y decimos: 'Mi expectativa para una posición con estas responsabilidades se sitúa entre X e Y, dependiendo del paquete integral de beneficios y proyectos'. Y cuando llega la oferta formal por escrito, te enseño cómo evaluar el paquete completo y solicitar un ajuste de manera profesional.\n\n[5:45 - Llamada a la acción]\nDefiní tu banda salarial piso y objetivo con la calculadora del campus y practicá el guion de respuesta.\n\nCon esto completamos el Módulo 7 de Entrevistas. En el Módulo 8 (optativo) vamos a ver casos especiales de búsqueda: empleo internacional, postulación sin experiencia y cambio de carrera.`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 7: CASOS ESPECIALES DE BÚSQUEDA (OPTATIVA) (3 CLASES)
+  // MÓDULO 8: CASOS ESPECIALES DE BÚSQUEDA (OPTATIVA) (3 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-7',
+    id: 'exp-mod-8',
     programId: 'exp-busqueda-laboral',
-    number: 7,
+    number: 8,
     title: 'Casos especiales de Búsqueda (optativa)',
     tagline: 'Estrategias a medida para trabajo internacional, primer empleo y transición de carrera',
     totalDuration: '23 min · 3 clases',
@@ -2296,8 +2471,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-esp-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-7',
-        moduleNumber: 7,
+        moduleId: 'exp-mod-8',
+        moduleNumber: 8,
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 1,
         type: 'video',
@@ -2320,7 +2495,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 7,
+            moduleNumber: 8,
             category: 'Plantilla ATS',
             description: 'Modelo en inglés estándar adaptado para empresas de USA, Europa y mercado global.',
           },
@@ -2331,8 +2506,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-esp-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-7',
-        moduleNumber: 7,
+        moduleId: 'exp-mod-8',
+        moduleNumber: 8,
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 2,
         type: 'video',
@@ -2355,7 +2530,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 7,
+            moduleNumber: 8,
             category: 'Guía PDF',
             description: 'Estructura paso a paso para perfiles junior o recién egresados.',
           },
@@ -2366,8 +2541,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
       {
         id: 'exp-esp-03',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-7',
-        moduleNumber: 7,
+        moduleId: 'exp-mod-8',
+        moduleNumber: 8,
         moduleTitle: 'Casos especiales de Búsqueda (optativa)',
         lessonNumber: 3,
         type: 'video',
@@ -2390,7 +2565,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 7,
+            moduleNumber: 8,
             category: 'Matriz Excel',
             description: 'Plantilla para identificar competencias puente entre industrias.',
           },

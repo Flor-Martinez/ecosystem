@@ -44,7 +44,7 @@ export const inAppDocumentsRegistry: Record<string, InAppDocument> = {
     title: 'Checklist de 25 Puntos para Auditar tu CV antes de Postularte',
     category: 'CV & Presentación ATS',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 1,
+    moduleNumber: 3,
     badge: 'Auditoría ATS In-App',
     estimatedReadTime: '5 min de revisión interactiva',
     summary:
@@ -341,158 +341,148 @@ HABILIDADES & HERRAMIENTAS
       },
       {
         id: 'acerca-de-storytelling',
-        title: '3. Sección "Acerca de": Storytelling y Propuesta de Valor',
-        subtitle: 'Estructura en 4 párrafos que enganchan',
+        title: '3. Redacción del "Acerca de mí" con Storytelling',
+        subtitle: 'Estructura en 4 párrafos que convierte visitas en entrevistas',
         content:
           'Las primeras 3 líneas antes del botón "...ver más" deben generar curiosidad inmediata. Luego, sintetiza tus logros, tus pasiones profesionales y tu llamado a la acción con tu email de contacto.',
         copyableTemplate: {
-          label: 'Plantilla para el "Acerca de":',
-          text: `¿Qué me apasiona de mi trabajo? [Pregunta o afirmación que enganche].
-
-A lo largo de mis más de [X] años en [Industria o Área], me he especializado en [Especialidad clave], acompañando a organizaciones a [Problema que resolvés con métrica].
-
-Mi experiencia incluye:
-✓ [Logro o fortaleza 1]
-✓ [Logro o fortaleza 2]
-✓ [Logro o fortaleza 3]
-
-Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo].
-
-📩 ¿Buscás potenciar tu equipo de [Área]? Conectemos o escribime a [tu.email@email.com].`,
+          label: 'Estructura recomendada en 4 párrafos:',
+          text:
+            '• Párrafo 1 (Gancho): Quién sos, tu especialidad principal y qué problemas concretos resolvés.\n' +
+            '• Párrafo 2 (Trayectoria): Resumen de tu experiencia destacando proyectos y áreas de conocimiento.\n' +
+            '• Párrafo 3 (Logros): 3 viñetas con impacto medible y herramientas clave.\n' +
+            '• Párrafo 4 (Llamada a la Acción): Tu email de contacto directo para propuestas profesionales.',
         },
       },
     ],
   },
-
   'directorio-portales-empleo-remoto': {
     id: 'directorio-portales-empleo-remoto',
     slug: 'directorio-portales-empleo-remoto',
     title: 'Directorio de Portales de Empleo y Consultoras de Selección',
-    category: 'Ecosistema de Plataformas',
+    category: 'Canales de Búsqueda',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 4,
-    badge: 'Directorio Vivo In-App',
-    estimatedReadTime: '5 min de consulta',
+    moduleNumber: 5,
+    badge: 'Directorio Activo In-App',
+    estimatedReadTime: '4 min de navegación',
     summary:
-      'Directorio clasificado de bolsas masivas en Sudamérica, plataformas de trabajo remoto internacional en USD y consultoras de selección.',
+      'Listado clasificado de más de 30 plataformas de empleo en Sudamérica, portales de trabajo remoto global en USD y consultoras de headhunting con enlaces directos.',
     author: 'Flor Martínez · Selección & Empleabilidad',
     version: 'Edición 2026 (Actualizada)',
     sections: [
       {
         id: 'portales-masivos-sudamerica',
-        title: '1. Bolsas Masivas Líderes en Sudamérica',
-        subtitle: 'Para posiciones locales corporativas, presenciales e híbridas',
-        content: 'Plataformas principales con mayor volumen de ofertas activas en la región:',
+        title: '1. Bolsas de Empleo Masivas Líderes en Sudamérica',
+        subtitle: 'Plataformas consolidadas para puestos corporativos, híbridos y presenciales',
+        content:
+          'Recomendamos concentrar las postulaciones en las plataformas con mayor volumen de vacantes por país y configurar alertas automáticas por correo:',
         tableData: {
-          headers: ['Plataforma', 'Presencia Regional', 'Tipo de Vacantes'],
+          headers: ['Plataforma', 'Cobertura Principal', 'Tipo de Vacantes'],
           rows: [
-            ['Computrabajo', 'Toda Sudamérica (Argentina, Colombia, Perú, Chile, etc.)', 'Corporativas, pymes, operativas y comerciales'],
-            ['Indeed', 'Global & Multirregional Latam', 'Agregador masivo de ofertas directas'],
-            ['Bumeran / Laborum / Multitrabajos', 'Argentina, Chile, Perú, Ecuador, Venezuela', 'Grandes corporaciones y mandos medios'],
-            ['LinkedIn Jobs', 'Global y Regional', 'Multinacionales, agencias, cargos calificados'],
+            ['Computrabajo', 'Argentina, Colombia, Chile, Perú, México', 'Corporativo, Comercial, Administración, Operaciones'],
+            ['Bumeran / Laborum', 'Argentina, Perú, Chile, Ecuador, Panamá', 'Mandos medios, Profesionales, Multinacionales'],
+            ['Indeed', 'Regional e Internacional', 'Metabuscador masivo de todas las fuentes'],
+            ['ZonaJobs', 'Argentina', 'Perfiles profesionales y corporativos'],
+            ['LinkedIn Jobs', 'Global / Regional', 'Perfiles especializados, mandos medios y tecnología'],
           ],
         },
       },
       {
         id: 'portales-remoto-usd',
         title: '2. Portales de Nicho y Trabajo Remoto Global (USD / EUR)',
-        subtitle: 'Para contratación internacional, perfiles digitales y startups',
-        content: 'Plataformas especializadas en esquemas contractor y salarios en moneda extranjera:',
+        subtitle: 'Para trabajar desde Latinoamérica exportando servicios',
+        content:
+          'Plataformas internacionales donde las contrataciones se realizan bajo modalidad Contractor o EOR:',
         tableData: {
-          headers: ['Plataforma', 'Especialidad', 'Modalidad'],
+          headers: ['Plataforma', 'Especialidad', 'Modalidad / Moneda'],
           rows: [
-            ['Wellfound (AngelList)', 'Startups tecnológicas y de producto', 'Remoto Internacional (USD)'],
-            ['RemoteOK', 'Desarrollo, Producto, Data, Diseño, Ventas B2B', '100% Remoto Global'],
-            ['We Work Remotely', 'Operaciones, Marketing, Soporte, Gestión', 'Remoto Internacional'],
-            ['Torre.ai', 'Perfiles bilingües y talento de Latinoamérica', 'Remoto regional / global'],
-            ['Get on Board', 'Startups digitales de Latinoamérica', 'Remoto Latam'],
+            ['Wellfound (AngelList)', 'Startups internacionales, Producto, Ventas tech', 'Remoto Global · USD'],
+            ['RemoteOK', 'Marketing, Operaciones, Soporte, Desarrollo', 'Remoto 100% · USD'],
+            ['Torre.ai', 'Perfiles profesionales de toda Latinoamérica', 'Híbrido / Remoto · Multimoneda'],
+            ['We Work Remotely', 'Empresas de USA y Europa sin límite geográfico', 'Remoto Global · USD'],
+            ['FlexJobs', 'Vacantes verificadas sin spam (Plataforma curada)', 'Remoto Internacional'],
           ],
         },
       },
       {
         id: 'consultoras-headhunting',
-        title: '3. Consultoras de Selección & Agencias de Headhunting',
-        subtitle: 'Para mandos medios, líderes de área y posiciones técnicas especializadas',
-        content: 'Agencias donde conviene cargar tu CV en su base de datos interna y conectar con sus recruiters:',
+        title: '3. Consultoras de Selección & Headhunters Internacionales',
+        subtitle: 'Registrá tu CV en su base de datos interna y conectá con sus recruiters',
+        content:
+          'Las consultoras de selección gestionan procesos confidenciales que no se publican en portales públicos:',
         tableData: {
-          headers: ['Consultora', 'Especialidad', 'Alcance'],
+          headers: ['Consultora', 'Especialidad', 'Recomendación'],
           rows: [
-            ['PageGroup (Michael Page / Page Personnel)', 'Mandos medios, ejecutivos y especialistas', 'Multinacional (Latam & Global)'],
-            ['Randstad', 'Perfiles corporativos, tecnología y profesionales', 'Regional & Global'],
-            ['Adecco', 'Perfiles comerciales, industriales y administrativos', 'Regional & Global'],
-            ['Hays', 'Perfiles de alta especialización técnica y directivos', 'Internacional'],
+            ['PageGroup (Michael Page / Page Personnel)', 'Mandos medios, ejecutivos, finanzas, comex y tech', 'Cargar CV en su portal y conectar con recruiters de tu área en LinkedIn'],
+            ['Randstad', 'Perfiles profesionales, logística, operaciones y comerciales', 'Revisar portal de empleos semanalmente'],
+            ['Adecco / Manpower', 'Volumen operativo, mandos iniciales e intermedios', 'Registro en base de datos nacional'],
+            ['Hays', 'Perfiles técnicos y de alta especialización', 'Seguir a sus líderes de práctica en LinkedIn'],
           ],
         },
       },
     ],
   },
-
   'matriz-sueldos-negociacion': {
     id: 'matriz-sueldos-negociacion',
     slug: 'matriz-sueldos-negociacion',
-    title: 'Matriz de Cálculo Salarial & Negociación de Ofertas',
-    category: 'Negociación & Carrera',
+    title: 'Matriz de Negociación Salarial y Cálculo de Piso Económico',
+    category: 'Negociación & Compensaciones',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 6,
-    badge: 'Herramienta In-App',
-    estimatedReadTime: '7 min de análisis',
+    moduleNumber: 7,
+    badge: 'Herramienta de Negociación',
+    estimatedReadTime: '5 min de aplicación',
     summary:
-      'Metodología y fórmulas para definir tu piso salarial, tu expectativa de mercado y los guiones exactos para responder a "¿cuál es tu remuneración pretendida?".',
-    author: 'Flor Martínez',
-    version: '2025 VIP',
+      'Framework para calcular tu banda salarial piso y objetivo, guiones para responder a la pregunta de pretensión y protocolo de contrapropuesta.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
     sections: [
       {
         id: 'formula-piso-salarial',
-        title: '1. Cómo calcular tu Rango Pretendido de Mercado',
-        subtitle: 'Fórmula de 3 bandas (Piso, Target, Techo)',
+        title: '1. Cómo Calcular tu Piso Salarial No Negociable',
+        subtitle: 'Fórmula financiera para no negociar a ciegas',
         content:
-          'Nunca des un número fijo único. Un número fijo te encasilla o te deja fuera de la mesa. Planteá siempre un rango con un margen de holgura del 15% al 20%.',
-        callout: {
-          type: 'formula',
-          text: 'PISO: Costo de vida + 25% ahorro | TARGET: Media de mercado para tu seniority | TECHO: Target + 20% para margen de negociación.',
-        },
+          'Tu piso salarial no se define por lo que cobrabas antes, sino por tus costos de vida actuales más un margen de ahorro profesional:\n\n' +
+          '**FÓRMULA:** `(Gastos Fijos Mensuales + Ahorro Mínimo 15% + Costos Impositivos / Salud) = PISO SALARIAL NETO MÍNIMO`\n\n' +
+          'A partir de este piso, definís tu **Banda Objetivo** sumando entre un 25% y un 40% adicional según la complejidad del puesto y la media del mercado.',
       },
       {
         id: 'guion-respuesta-sueldo',
-        title: '2. Guión para Responder en la Primera Entrevista',
-        subtitle: 'Respuesta elegante cuando el selector insiste en saber tu número',
-        content: 'Utilizá este guión para no desvalorizarte y abrir la negociación con profesionalismo.',
+        title: '2. Guiones Verbales para Responder "¿Cuál es tu pretensión salarial?"',
+        subtitle: 'Manejo firme y profesional de la conversación económica',
+        content: 'Estructuras de respuesta recomendadas según la etapa de la conversación:',
         copyableTemplate: {
-          label: 'Guión de Respuesta Salarial:',
-          text: `"En base a los requerimientos del puesto, mi trayectoria liderando [Tu Especialidad] y los valores actuales del mercado para una posición con este nivel de impacto, mi expectativa salarial bruta se encuentra en el rango de [Monto Mínimo] a [Monto Máximo], dependiendo del paquete integral de beneficios, flexibilidad y oportunidades de desarrollo que ofrezca la compañía."`,
+          label: 'Guion Modelo para Primer Screening Telefónico:',
+          text: `"En base a las responsabilidades que implica el puesto y a la investigación de mercado que realicé para este nivel de rol, mi expectativa salarial se sitúa en un rango de [Monto Mínimo] a [Monto Objetivo] netos mensuales. De todas formas, me interesa conocer el paquete integral de beneficios y entender cuál es el presupuesto que tienen asignado para la posición."`,
         },
       },
     ],
   },
-
   'framework-star-entrevistas': {
     id: 'framework-star-entrevistas',
     slug: 'framework-star-entrevistas',
-    title: 'Framework STAR para Respuestas de Entrevistas de Alto Impacto',
+    title: 'Framework STAR: Cómo Responder Preguntas por Competencias',
     category: 'Entrevistas Laborales',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 6,
+    moduleNumber: 7,
     badge: 'Framework In-App',
-    estimatedReadTime: '9 min de preparación',
+    estimatedReadTime: '5 min de preparación',
     summary:
-      'Estructura de 4 pasos (Situación, Tarea, Acción, Resultado) para responder preguntas por competencias en entrevistas con reclutadores y directores.',
-    author: 'Flor Martínez · Selección',
-    version: '2025 Didáctico',
+      'Metodología internacional para estructurar historias de logros contundentes con Situación, Tarea, Acción y Resultado medible.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2025 (In-App)',
     sections: [
       {
         id: 'los-4-pasos-star',
-        title: '1. Los 4 Componentes del Método STAR',
-        subtitle: 'Desglose del tiempo de respuesta (2 a 3 minutos en total)',
+        title: '1. Los 4 Pasos del Método STAR',
+        subtitle: 'Estructura temporal de tu respuesta (máximo 2 minutos)',
         content:
-          'El 70% del tiempo de tu respuesta debe concentrarse en las ACCIONES que tomaste y los RESULTADOS cuantificables que conseguiste.',
-        tableData: {
-          headers: ['Fase', '% del Tiempo', 'Qué debe explicar'],
-          rows: [
-            ['S - Situación', '15%', 'Contexto breve: empresa, momento, problema u oportunidad.'],
-            ['T - Tarea', '15%', 'Cuál era tu responsabilidad u objetivo puntual asignado.'],
-            ['A - Acción', '50%', 'Paso a paso qué hiciste vos: herramientas, decisiones, liderazgo.'],
-            ['R - Resultado', '20%', 'Impacto final cuantificado, aprendizajes y beneficios para el negocio.'],
-          ],
+          '• **Situación (15% del tiempo):** Contexto breve. Dónde estabas, cuándo ocurrió y qué problema existía.\n' +
+          '• **Tarea (15% del tiempo):** Cuál era tu responsabilidad directa y cuál era el objetivo a alcanzar.\n' +
+          '• **Acción (50% del tiempo):** Qué decisiones tomaste vos, qué herramientas usaste y cómo lideraste la solución.\n' +
+          '• **Resultado (20% del tiempo):** Qué impacto concreto se logró (métricas, porcentajes, aprendizajes o felicitaciones).',
+        callout: {
+          type: 'formula',
+          text: 'REGLA DE ORO: El 70% de tu tiempo debe concentrarse en la ACCIÓN que tomaste vos y en el RESULTADO obtenido. No te extiendas en la Situación.',
         },
       },
       {
@@ -510,13 +500,69 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
       },
     ],
   },
+  'guia-metodo-trabajo-ideal': {
+    id: 'guia-metodo-trabajo-ideal',
+    slug: 'guia-metodo-trabajo-ideal',
+    title: 'Guía de las 4 Preguntas: Cómo Identificar y Construir tu Trabajo Ideal',
+    category: 'Autoconocimiento & Claridad Laboral',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 1,
+    badge: 'Ejercicio de Claridad In-App',
+    estimatedReadTime: '4 min de reflexión aplicada',
+    summary:
+      'Metodología de 4 preguntas para conectar tus habilidades actuales, tus intereses, la demanda del mercado y trazar el plan de acción para llegar a tu trabajo ideal.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'las-4-preguntas-clave',
+        title: '1. Las 4 Preguntas de Autodiagnóstico',
+        subtitle: 'Bajar a papel tu punto de partida y tu dirección profesional',
+        content:
+          'Tu trabajo ideal no aparece por casualidad: se construye encontrando la intersección entre lo que sabés hacer, lo que disfrutás y lo que las organizaciones están dispuestas a pagar.',
+        checklistItems: [
+          {
+            id: 'p1',
+            text: '1. ¿En qué sos bueno hoy? (Tus habilidades y conocimientos actuales)',
+            description: 'Anotá tus herramientas, tareas donde te destacás y aprendizajes de tus experiencias previas.',
+          },
+          {
+            id: 'p2',
+            text: '2. ¿Qué es lo que te gusta hacer? (Tus intereses y motivaciones)',
+            description: 'Identificá los tipos de proyectos, problemas y dinámicas de trabajo que realmente disfrutás.',
+          },
+          {
+            id: 'p3',
+            text: '3. ¿Cómo podés monetizarlo? (Identificación de roles en el mercado)',
+            description: 'Mapeá qué puestos y empresas demandan y pagan por esa combinación de habilidades e intereses.',
+          },
+          {
+            id: 'p4',
+            text: '4. ¿Qué te falta para llegar ahí? (Brechas a cerrar)',
+            description: 'Revisá qué certificaciones, herramientas técnicas o contactos necesitás incorporar a tu plan.',
+          },
+        ],
+      },
+      {
+        id: 'estrategia-de-construccion',
+        title: '2. Estrategia y Plan de Acción Progresivo',
+        subtitle: 'El puente entre donde estás hoy y el trabajo que querés',
+        content:
+          'La mayoría de las personas se queda esperando que aparezca la oportunidad perfecta. Quienes avanzan son los que construyen un plan concreto con pasos progresivos:',
+        callout: {
+          type: 'quote',
+          text: 'Tu trabajo ideal no aparece: se construye. Cada paso, por más chico que sea, te va acercando hasta tu objetivo.',
+        },
+      },
+    ],
+  },
   'fases-proceso-seleccion': {
     id: 'fases-proceso-seleccion',
     slug: 'fases-proceso-seleccion',
     title: 'Fases de un Proceso de Selección Típico',
     category: 'Guía de Tiempos & Circuitos',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 1,
+    moduleNumber: 2,
     badge: 'Guía Rápida In-App',
     estimatedReadTime: '3 min de lectura',
     summary:
@@ -641,7 +687,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Plan de Acción y Cronograma Semanal de Búsqueda',
     category: 'Cronograma Operativo',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 1,
+    moduleNumber: 2,
     badge: 'Documento de Consulta In-App',
     estimatedReadTime: '3 min de lectura',
     summary:
@@ -704,7 +750,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Guía de Mapeo de Palabras Clave y Variantes de CV',
     category: 'Estrategia de CV & Keywords',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 2,
+    moduleNumber: 3,
     badge: 'Matriz In-App',
     estimatedReadTime: '4 min de consulta',
     summary:
@@ -746,7 +792,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Diccionario de 100 Verbos de Acción de Alto Impacto',
     category: 'Vocabulario & Redacción de Logros',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 2,
+    moduleNumber: 3,
     badge: 'Guía de Consulta Rápida',
     estimatedReadTime: '3 min de consulta',
     summary:
@@ -807,7 +853,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Checklist de Auditoría Pre-Envío (5 Puntos Clave)',
     category: 'Control de Calidad de CV',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 2,
+    moduleNumber: 3,
     badge: 'Checklist Rápido In-App',
     estimatedReadTime: '2 min de verificación',
     summary:
@@ -860,7 +906,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Guía de Copywriting para LinkedIn (Titular & Acerca de mí)',
     category: 'Marca Personal & Redacción',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 3,
+    moduleNumber: 4,
     badge: 'Guía de Consulta Rápida',
     estimatedReadTime: '4 min de lectura',
     summary:
@@ -902,7 +948,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Scripts de Mensajes de Conexión para Recruiters & Líderes',
     category: 'Prospección & Networking',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 3,
+    moduleNumber: 4,
     badge: 'Plantillas de Mensajes',
     estimatedReadTime: '3 min de consulta',
     summary:
@@ -934,7 +980,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Comandos de Búsqueda Avanzada en Google (CheatSheet)',
     category: 'Estrategias de Búsqueda',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 4,
+    moduleNumber: 5,
     badge: 'CheatSheet In-App',
     estimatedReadTime: '3 min de consulta',
     summary:
@@ -975,7 +1021,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Checklist de Auditoría de Empresas y Clima Laboral',
     category: 'Evaluación de Empresas',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 4,
+    moduleNumber: 5,
     badge: 'Checklist In-App',
     estimatedReadTime: '3 min de lectura',
     summary:
@@ -1023,7 +1069,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Plantillas de Carta de Presentación (Cover Letter)',
     category: 'Materiales de Postulación',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 5,
+    moduleNumber: 6,
     badge: 'Plantillas In-App',
     estimatedReadTime: '4 min de lectura',
     summary:
@@ -1052,7 +1098,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Guía de Métricas y Diagnóstico del Tracker',
     category: 'Métricas de Selección',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 5,
+    moduleNumber: 6,
     badge: 'Guía de Diagnóstico In-App',
     estimatedReadTime: '3 min de lectura',
     summary:
@@ -1068,9 +1114,9 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
         tableData: {
           headers: ['Síntoma en el Tracker', 'Diagnóstico Real', 'Acción de Corrección'],
           rows: [
-            ['+20 postulaciones y 0 llamadas / contactos', 'Filtro ATS no superado o falta de palabras clave requeridas.', 'Ajustar palabras clave y hard skills en el CV (Módulo 2).'],
-            ['Te llaman al screening pero no pasás a la entrevista técnica', 'El CV funciona pero falla el pitch de 90s, salario pretendido o seguridad al hablar.', 'Entrenar el pitch de presentación y respuestas difíciles (Módulo 6).'],
-            ['Llegás a la entrevista técnica final pero no recibís oferta', 'Falta profundizar en ejemplos prácticos STAR o negociación salarial.', 'Entrenar resolución de casos y preguntas de cierre (Módulo 6 y 7).'],
+            ['+20 postulaciones y 0 llamadas / contactos', 'Filtro ATS no superado o falta de palabras clave requeridas.', 'Ajustar palabras clave y hard skills en el CV (Módulo 3).'],
+            ['Te llaman al screening pero no pasás a la entrevista técnica', 'El CV funciona pero falla el pitch de 90s, salario pretendido o seguridad al hablar.', 'Entrenar el pitch de presentación y respuestas difíciles (Módulo 7).'],
+            ['Llegás a la entrevista técnica final pero no recibís oferta', 'Falta profundizar en ejemplos prácticos STAR o negociación salarial.', 'Entrenar resolución de casos y preguntas de cierre (Módulo 7).'],
           ],
         },
       },
@@ -1082,7 +1128,7 @@ Fuera de la oficina, disfruto [toque humano / pasatiempo / aprendizaje continuo]
     title: 'Plantillas de Mensajes de Seguimiento y Follow-Up',
     category: 'Estrategia de Seguimiento',
     programTitle: 'Experiencia Búsqueda Laboral',
-    moduleNumber: 5,
+    moduleNumber: 6,
     badge: 'Plantillas In-App',
     estimatedReadTime: '3 min de lectura',
     summary:
