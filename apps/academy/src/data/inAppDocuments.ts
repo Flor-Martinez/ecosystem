@@ -38,6 +38,112 @@ export interface InAppDocument {
 }
 
 export const inAppDocumentsRegistry: Record<string, InAppDocument> = {
+  'checklist-6-errores-cv': {
+    id: 'checklist-6-errores-cv',
+    slug: 'checklist-6-errores-cv',
+    title: 'Checklist: Los 6 Errores que Arruinan tu CV',
+    category: 'Auditoría de CV',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Checklist Interactivo In-App',
+    estimatedReadTime: '3 min de verificación',
+    summary:
+      'Identificá y corregí los 6 errores más comunes que provocan el descarte automático de un currículum para maximizar tus posibilidades de conseguir entrevistas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'los-6-errores-cv',
+        title: '1. Los 6 Errores Críticos y sus Soluciones',
+        subtitle: 'Evitá estos patrones para destacar frente al reclutador',
+        content: 'Verificá que tu currículum esté libre de estos 6 fallos habituales:',
+        checklistItems: [
+          {
+            id: 'err-1',
+            text: 'Longitud excesiva: Más páginas no significa mejor CV. Mantené tu currículum en 1 página (o máximo 2 páginas para perfiles senior con más de 10 años).',
+          },
+          {
+            id: 'err-2',
+            text: 'Objetivo genérico: Evitá frases vacías como "Busco crecer profesionalmente". Reemplazalo por tu perfil profesional con propuesta de valor concreta.',
+          },
+          {
+            id: 'err-3',
+            text: 'Solo describir funciones: No hagas listas pasivas de tareas u obligaciones. Destacá logros medibles, mejoras de procesos e impacto real.',
+          },
+          {
+            id: 'err-4',
+            text: 'Diseño recargado: Eliminá el exceso de colores, gráficos, íconos o barras de porcentaje. Priorizá un diseño simple, limpio y profesional.',
+          },
+          {
+            id: 'err-5',
+            text: 'Errores de ortografía o fechas inconsistentes: Un solo error de tipeo o fechas contradictorias puede descartarte. Hacé una doble revisión antes de enviar.',
+          },
+          {
+            id: 'err-6',
+            text: 'El mismo CV para todas las búsquedas: No uses un archivo único genérico. Mantené un CV base y adaptalo a los requisitos clave de cada oferta.',
+          },
+        ],
+      },
+      {
+        id: 'principio-clave-cv',
+        title: '2. Principio Rector de Empleabilidad',
+        subtitle: 'La premisa para evaluar tu documento',
+        content:
+          '> *"Un buen CV no es el más largo. Es el que consigue entrevistas."*\n\n' +
+          'Tu currículum es un documento comercial de alto impacto: cada línea debe justificar por qué sos la persona indicada para resolver los problemas del puesto.',
+      },
+    ],
+  },
+  'guia-cv-segun-perfil': {
+    id: 'guia-cv-segun-perfil',
+    slug: 'guia-cv-segun-perfil',
+    title: 'Guía: El CV según tu Perfil y Momento de Carrera',
+    category: 'Estrategia y Posicionamiento',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Matriz de Carrera In-App',
+    estimatedReadTime: '4 min de lectura',
+    summary:
+      'Estrategias de jerarquía, enfoque y redacción para adaptar tu currículum según tu nivel de experiencia: Junior / Sin experiencia, Experiencia Media (3 a 10 años) o Senior (+10 años).',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'matriz-niveles-experiencia',
+        title: '1. Estructura y Enfoque según Seniority',
+        subtitle: 'Dónde poner el foco en cada etapa profesional',
+        content:
+          'No existe un CV universal. El documento debe reflejar con autenticidad dónde estás hoy y hacia dónde querés proyectar tu carrera:',
+        tableData: {
+          headers: ['Nivel de Perfil', 'Bloques Prioritarios', 'Enfoque Estratégico'],
+          rows: [
+            [
+              'Perfil 1: Sin experiencia / Poca experiencia',
+              '• Formación académica, cursos y certificaciones.\n• Experiencia inicial: voluntariados, pasantías y proyectos personales.\n• Habilidades técnicas, idiomas y herramientas.',
+              'Mostrar potencial, iniciativa, agilidad y compromiso de aprendizaje.',
+            ],
+            [
+              'Perfil 2: Experiencia media (3 a 10 años)',
+              '• Crecimiento profesional y evolución entre puestos.\n• Logros cuantificables y responsabilidades clave.\n• Personalización y palabras clave según el aviso.',
+              'Demostrar el valor que podés aportar desde el primer día con autonomía.',
+            ],
+            [
+              'Perfil 3: Senior (+10 años / Liderazgo)',
+              '• Logros de alto impacto en el negocio o facturación.\n• Liderazgo de equipos, proyectos transversales y decisiones.\n• Visión estratégica y optimización a gran escala.',
+              'Transmitir experiencia consolidada, autoridad, solvencia y confianza.',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'regla-transversal',
+        title: '2. Regla Universal en Todos los Casos',
+        subtitle: 'Personalización estratégica para cada postulación',
+        content:
+          'Sea cual sea tu nivel de antigüedad, **no existe el CV perfecto: existe un CV adaptado al puesto al que querés postularte**. Alineá tus términos y logros con las prioridades de la vacante.',
+      },
+    ],
+  },
   'checklist-optimizacion-cv-ats': {
     id: 'checklist-optimizacion-cv-ats',
     slug: 'checklist-optimizacion-cv-ats',

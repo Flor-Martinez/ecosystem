@@ -94,9 +94,9 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 3,
     moduleStepLabel: 'MÓDULO 03',
-    title: 'Creación & Mejora de CV',
+    title: 'Creación y mejora de CV',
     subtitle: 'Ruta Troncal · Paso 3 de 8',
-    description: 'Optimizá tu currículum para superar filtros ATS y captar la atención de reclutadores.',
+    description: 'Evitá los 6 errores comunes, superá filtros ATS y armá tu CV paso a paso con logros medibles.',
     icon: 'FileText',
     colorScheme: {
       primary: '#7C3AED',
@@ -110,8 +110,8 @@ export const eblCards: EblDashboardCard[] = [
     completedSteps: 0,
     badge: 'Pendiente',
     features: [
-      { iconName: 'PlayCircle', label: '5 Clases + Plantillas ATS Word/Notion' },
-      { iconName: 'CheckCircle2', label: 'Checklist de Auditoría Pre-Envío' },
+      { iconName: 'PlayCircle', label: '5 Clases: 6 Errores, ATS, Perfiles & Estructura' },
+      { iconName: 'CheckCircle2', label: 'Plantillas Word/Notion + Checklist Pre-Envío' },
     ],
     quickActionLabel: 'Entrar a Módulo 3',
     targetView: 'modulo-cv',

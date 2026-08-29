@@ -680,7 +680,6 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Click sutil
 🗣️ Segundo: tener LinkedIn incompleto o sin palabras clave. LinkedIn también funciona como una herramienta para que los reclutadores puedan encontrarte.
 🏷️ 2. LinkedIn Incompleto: Sin palabras clave para que te encuentren 🌐🔍
-🔊 Click sutil
 🗣️ Tercero: no llevar un registro de tus postulaciones. Necesitamos saber dónde postulamos, cuándo y en qué etapa estamos.
 🏷️ 3. Sin Registro: Control de empresas, fechas y etapas 📊📁
 🔊 Click sutil
@@ -725,7 +724,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 3,
     title: 'Creación y mejora de CV',
     tagline: 'Construí un currículum moderno, adaptado a filtros ATS y optimizado para el escaneo de 6 segundos',
-    totalDuration: '35 min · 5 clases',
+    totalDuration: '38 min · 5 clases',
     lessons: [
       {
         id: 'exp-cv-01',
@@ -735,100 +734,86 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 1,
         type: 'video',
-        title: 'Estructura y formato de un CV moderno',
-        duration: '8 min',
-        videoDuration: '4:10 min',
+        title: '6 errores que arruinan tu CV',
+        duration: '7 min',
+        videoDuration: '3:50 min',
         completed: false,
         description:
-          'Secciones obligatorias, qué descartar por completo y reglas técnicas de diseño, tipografía, extensión y formato de exportación.',
+          'Los 6 errores más frecuentes que provocan el descarte de tu postulación y cómo presentar un CV enfocado en conseguir entrevistas.',
         takeaways: [
-          'Secciones esenciales: Encabezado profesional, Resumen de impacto, Experiencia (orden cronológico inverso), Educación y Skills.',
-          'Qué eliminar: DNI, dirección física exacta, estado civil, fecha de nacimiento y gráficos de porcentaje de habilidades.',
-          'Regla de longitud: 1 página (perfiles junior/mid) o máximo 2 páginas (senior/liderazgo). Exportación siempre en PDF.',
-          'Criterio de foto: Opcional en Latam (si suma profesionalismo); eliminada en procesos para USA/UK/Canadá.',
+          'El principio rector: Un buen CV no es el más largo, es el que consigue entrevistas (1 o máximo 2 páginas son suficientes).',
+          'Los 6 errores fatales: Longitud excesiva, objetivo genérico, solo funciones pasivas, diseño recargado, faltas de ortografía y CV único sin adaptar.',
+          'Propuesta de valor vs. tareas: Enfocar el currículum en lo que podés resolver y aportar en lugar de listas pasivas de obligaciones.',
         ],
         actionItems: [
           {
             id: 'act-cv-1-1',
-            title: 'Descargar la plantilla base en Word o Notion',
-            description: 'Accedé a los Documentos de esta clase para descargar tu modelo en formato .docx o duplicarlo en Notion.',
+            title: 'Auditar tu CV con el Checklist de los 6 Errores',
+            description: 'Accedé a los Documentos de esta clase para verificar que tu currículum no contenga ninguno de los 6 fallos críticos.',
           },
           {
             id: 'act-cv-1-2',
-            title: 'Configurar el encabezado limpio',
-            description: 'Volcá tu nombre, rol target, ubicación, datos de contacto y enlace a LinkedIn eliminando datos obsoletos.',
+            title: 'Limpiar elementos innecesarios',
+            description: 'Eliminá datos obsoletos (DNI, estado civil, dirección completa) y barras o íconos que recarguen el diseño.',
           },
         ],
         mindsetPrompt:
-          'Tu CV no es tu autobiografía: es un documento comercial donde el selector debe entender en 6 segundos por qué sos la solución al puesto.',
+          'Un buen CV no es el más largo ni el más decorado: es el que comunica con claridad y consigue entrevistas.',
         resources: [
           {
-            id: 'plantilla-estructura-cv-editorial',
-            title: 'Plantilla CV ATS Editorial (Word .docx)',
-            type: 'word',
-            fileSize: '145 KB',
+            id: 'checklist-6-errores-cv',
+            title: 'Checklist: Los 6 Errores que Arruinan tu CV',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 3,
-            category: 'Plantilla ATS',
-            description: 'Modelo en Word formateado en 1 columna optimizado para filtros ATS de Workday y Greenhouse.',
+            category: 'Auditoría de CV',
+            description: 'Lista de verificación interactiva para identificar y corregir los 6 errores más comunes en tu currículum.',
             isEssential: true,
-          },
-          {
-            id: 'plantilla-cv-minimalista-notion',
-            title: 'Plantilla CV Minimalista en Notion',
-            type: 'notion',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Workspace Notion',
-            description: 'Estructura modular para actualizar tu experiencia y exportar a PDF limpio.',
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Tu CV no es tu autobiografía; es un documento comercial de alto valor donde el producto sos vos.
-🏷️ Tu CV = Documento comercial de alto valor 📄💼
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL PRINCIPIO RECTOR]
+🗣️ Cuando una postulación no recibe respuestas, lo primero que solemos pensar es que nos falta experiencia o que el mercado está difícil.
+🏷️ "¿Por qué no me llaman? ¿Qué tiene mi CV?" 💭❓
 🔊 Swoosh suave
-🗣️ El error más común es intentar contar todo lo que hiciste desde tu primer empleo, cuando en realidad un selector necesita entender en 6 segundos qué problemas resolvés y por qué encajás en la vacante.
-🏷️ El escaneo inicial: 6 segundos clave ⏱️
+🗣️ Pero muchas veces el problema está en pequeños errores en el currículum que hacen que el reclutador pase de largo en los primeros segundos.
+🏷️ Pequeños errores que generan descartes automáticos ⚠️📄
 🔊 Pop sutil
-🗣️ Menos información irrelevante significa más claridad y más entrevistas.
-🏷️ Menos datos irrelevantes = Más entrevistas 🎯
-
-[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA ESTRUCTURA EN 5 BLOQUES]
-🗣️ Vamos a ordenar tu CV en 5 bloques limpios.
-🗣️ Empezamos por el encabezado: solo tu nombre, título profesional, ciudad/país, teléfono con código internacional, mail y link clickeable a tu LinkedIn. Eliminamos datos obsoletos como tu DNI o estado civil que solo ocupan espacio y restan profesionalismo.
-🏷️ 1. Encabezado: Contacto útil + LinkedIn (Sin DNI ni estado civil) 📇
-🔊 Click sutil
-🗣️ El segundo bloque es tu perfil profesional: un resumen breve de 3 a 4 líneas donde explicás quién sos, cuál es tu especialidad y qué valor concreto aportás al puesto.
-🏷️ 2. Perfil profesional: Resumen de impacto de 3-4 líneas 💡
-🔊 Click sutil
-🗣️ El tercer bloque, y el más importante, es tu experiencia laboral: la ordenamos en orden cronológico inverso, desde tu trabajo actual hacia atrás, destacando responsabilidades clave y logros medibles en lugar de listas interminables de tareas.
-🏷️ 3. Experiencia laboral: Cronológico inverso + Logros medibles 💼
-🔊 Click sutil
-🗣️ El cuarto bloque es tu educación: ponemos tus títulos oficiales y únicamente las certificaciones o cursos que sean relevantes para el puesto al que aspirás.
-🏷️ 4. Educación: Títulos y certificaciones relevantes 🎓
-🔊 Click sutil
-🗣️ Y el quinto bloque son tus habilidades técnicas: las herramientas, softwares y palabras clave que los selectores y los algoritmos van a buscar en tu perfil. De ser necesario, en este bloque podés destacar tus idiomas.
-🏷️ 5. Habilidades técnicas: Herramientas · Palabras clave · Idiomas ⚙️🌐
-🔊 Click sutil
-🗣️ En cuanto al diseño, priorizá algo fundamental: que sea fácil de leer. No necesitamos un CV lleno de gráficos, colores o información. Necesitamos que lo importante se encuentre rápido.
-🏷️ Diseño Limpio: Legibilidad rápida sin gráficos excesivos 📄✨
-🔊 Swoosh suave
-🗣️ Recordá esta regla: menos información irrelevante y más información estratégica.
-🏷️ Regla de Oro: Menos información irrelevante, más información estratégica 🎯
+🗣️ Antes de empezar a escribir, quiero que grabes este principio: un buen CV no es el más largo. Es el que consigue entrevistas.
+🏷️ "Un buen CV no es el más largo: es el que consigue entrevistas" 🎯⭐
 🔊 Pop de confirmación
 
-[6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es ir a la sección de Documentos de esta clase y descargar tu plantilla base de CV en Word o en Notion. Tomate tu tiempo para volcar tus datos de contacto respetando la estructura de 5 bloques que vimos en esta clase.
-🏷️ Documentos: Plantilla CV ATS en Word & Notion 📥
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 6 ERRORES QUE ARRUINAN TU CV]
+🗣️ Hay seis errores muy comunes que quiero que evites por completo:
+🗣️ Primero: el CV demasiado largo. Más páginas no significa un mejor currículum: una o dos páginas son más que suficientes para mostrar tu trayectoria con poder de síntesis.
+🏷️ 1. CV Demasiado Largo: 1 o 2 páginas son suficientes 📄⏳
+🔊 Click sutil
+🗣️ Segundo: el objetivo genérico. Frases como "Busco crecer profesionalmente en una empresa líder" no dicen nada; en su lugar, mostrá tu perfil y tu propuesta de valor concreta.
+🏷️ 2. Objetivo Genérico ❌ -> Mostrá tu Propuesta de Valor ✔️ 💡
+🔊 Click sutil
+🗣️ Tercero: solo describir funciones. No te limites a contar tareas u obligaciones pasivas: destacá logros, mejoras y resultados que hayas obtenido.
+🏷️ 3. Solo Funciones ❌ -> Destacá Logros y Resultados ✔️ 📈
+🔊 Click sutil
+🗣️ Cuarto: diseño recargado. Llenar el documento de muchos colores, gráficos o barras de porcentaje de habilidades dificulta la lectura: priorizá un diseño simple, limpio y profesional.
+🏷️ 4. Diseño Recargado ❌ -> Diseño Simple y Profesional ✔️ 📐
+🔊 Click sutil
+🗣️ Quinto: errores de ortografía y fechas inconsistentes. Un solo error de redacción o fechas contradictorias puede transmitirte falta de atención al detalle y descartarte.
+🏷️ 5. Errores de Ortografía y Fechas: Revisá antes de enviar ✍️🔍
+🔊 Click sutil
+🗣️ Y sexto: tener un solo CV para todas las búsquedas. Mandar el mismo archivo idéntico a todas las postulaciones reduce tus posibilidades: la clave es tener un CV base y adaptarlo a cada oportunidad.
+🏷️ 6. Mismo CV para Todo ❌ -> Adaptalo a cada oportunidad ✔️ 🎯
+🔊 Pop de confirmación
+🖼️ Placa flotante resumiendo los 6 errores vs. las 6 soluciones profesionales.
+
+[4:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ En los Documentos de esta clase tenés el Checklist interactivo con los seis errores para revisar tu currículum punto por punto.
+🏷️ Documentos: Checklist de los 6 Errores del CV 📋📥
 🔊 Pop sutil
-🖼️ Captura flotante mostrando las plantillas editables en Word y Notion.
-🗣️ En la próxima clase vamos a analizar cómo funcionan los sistemas ATS para que entiendas exactamente cómo los algoritmos escanean tu CV antes de que llegue a manos de un selector.
-🏷️ Próxima clase: Cómo funcionan los filtros ATS 🤖📄
+🗣️ En la próxima clase vamos a ver qué son los filtros ATS y cómo leer un aviso laboral para hacer match con las palabras clave exactas que busca el reclutador.
+🏷️ Próxima clase: Filtros ATS y cómo hacer match con el aviso 🤖🎯
 🔊 Fin de lección suave`,
       },
       {
@@ -839,120 +824,32 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 2,
         type: 'video',
-        title: 'Cómo funcionan los filtros ATS',
+        title: 'Filtros ATS: Cómo hacer match con el aviso laboral',
         duration: '7 min',
-        videoDuration: '3:50 min',
+        videoDuration: '3:55 min',
         completed: false,
         description:
-          'Cómo procesan el texto los softwares ATS, qué elementos rompen la lectura automática y cómo garantizar 100% de compatibilidad.',
+          'Qué son los sistemas ATS, cómo escanean las palabras clave y el método en 3 pasos para hacer coincidir tu CV con los requisitos de la vacante.',
         takeaways: [
-          'Los ATS (Workday, Taleo, Greenhouse, Lever) extraen texto plano y ordenan candidatos según coincidencia de palabras clave.',
-          'Mito: "El robot descarta automáticamente". Realidad: El sistema clasifica por relevancia y el selector humano revisa la lista ordenada.',
-          'Elementos que dañan la lectura: tablas de doble columna complejas, cuadros de texto flotantes, íconos incrustados como imágenes.',
-          'Regla de oro: Maquetación en 1 sola columna vertical con encabezados estándar y exportación en PDF con texto seleccionable.',
+          'Qué es un ATS: Sistemas automáticos que usan las empresas para escanear y filtrar CVs buscando palabras clave antes de la revisión humana.',
+          'Idea clave: El ATS no entiende como una persona; busca coincidencias de palabras clave exactas.',
+          'Método del MATCH en 3 pasos: Leé el anuncio, identificá y usá esas palabras en tu perfil, y aumentá tus posibilidades de pasar el filtro.',
+          'Regla ética innegociable: Adaptar un CV no significa inventar; significa destacar de tu experiencia real aquello que es más relevante.',
         ],
         actionItems: [
           {
             id: 'act-cv-2-1',
-            title: 'Auditar tu CV con el Checklist ATS',
-            description: 'Accedé a los Documentos de esta clase para verificar que tu archivo cumpla las pautas técnicas de lectura.',
+            title: 'Mapear las palabras clave de 3 avisos',
+            description: 'Compará 3 ofertas laborales similares e identificá los requisitos técnicos y herramientas que más se repiten.',
           },
           {
             id: 'act-cv-2-2',
-            title: 'Realizar la prueba de texto plano',
-            description: 'Copiá y pegá el contenido de tu PDF en un bloc de notas para confirmar que se lea en orden sin caracteres rotos.',
+            title: 'Incorporar keywords en tu borrador',
+            description: 'Volcá de forma natural las herramientas y conocimientos que realmente poseés en tu perfil y experiencia.',
           },
         ],
         mindsetPrompt:
-          'Un ATS no es un enemigo con IA que te descarta: es un lector de texto plano que premia la claridad, el orden y las palabras clave.',
-        resources: [
-          {
-            id: 'checklist-optimizacion-cv-ats',
-            title: 'Checklist de Compatibilidad ATS (25 Puntos)',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Checklist Técnico',
-            description: 'Lista de verificación interactiva para comprobar que tu documento no contenga elementos que bloqueen el parseo.',
-            isEssential: true,
-          },
-        ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ ¿Escuchaste hablar del famoso 'robot que descarta CVs'? En internet hay mucho mito sobre los sistemas ATS, pero la realidad es mucho más simple.
-🏷️ Mito vs. Realidad: ¿Cómo funciona un ATS? 🤖📄
-🔊 Swoosh suave
-🗣️ Un ATS no es una inteligencia artificial que decide si servís o no; es una base de datos que convierte tu documento a texto plano y lo indexa según palabras clave.
-🏷️ ATS = Base de datos de indexación por palabras clave 🔍
-🔊 Pop sutil
-🗣️ Por eso necesitamos que nuestro CV sea fácil de interpretar tanto para el sistema como para el reclutador.
-🏷️ Fácil de interpretar: Para el sistema y para el reclutador 🎯🤝
-🔊 Pop de confirmación
-
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — ESTRUCTURA CLARA, DISEÑO SIMPLE Y PALABRAS CLAVE]
-🗣️ ¿Cómo lo hacemos?
-🗣️ Primero, utilizando una estructura clara, con títulos reconocibles como Experiencia Laboral, Educación, Habilidades e Idiomas.
-🏷️ 1. Estructura Clara: Títulos estándar reconocibles 📋
-🔊 Click sutil
-🗣️ Segundo, evitando diseños excesivamente complejos: si utilizamos demasiadas columnas, gráficos, íconos o elementos decorativos, podemos dificultar la lectura o extracción de información en algunos sistemas.
-🏷️ 2. Diseño Limpio: Evitar columnas complejas, gráficos e íconos ⚠️📄
-🔊 Click sutil
-🖼️ Captura flotante mostrando la comparación de un CV sobrecargado vs. un CV estructurado y legible.
-🗣️ Y tercero, utilizando las palabras clave correctas: si una oferta busca, por ejemplo, "Excel avanzado", "SAP" o "gestión de equipos" y realmente tenés esas habilidades, es importante que aparezcan claramente en tu CV.
-🏷️ 3. Palabras Clave Relevantes: Hard skills y herramientas requeridas 🔍⭐
-🔊 Click sutil
-🗣️ Pero atención: no se trata de llenar el currículum de palabras clave; se trata de describir tu experiencia utilizando términos relevantes para la posición.
-🏷️ Describir tu experiencia con términos relevantes 🎯
-🔊 Swoosh suave
-🗣️ La regla es simple: CV claro, estructura sencilla y palabras clave relevantes.
-🏷️ Regla de Oro: CV Claro + Estructura Sencilla + Palabras Clave Relevantes ✨✅
-🔊 Pop de confirmación
-
-[5:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a la sección de Documentos de esta clase y pasá tu CV por el Checklist de Compatibilidad ATS: si encontrás tablas dobles, barritas o cajas flotantes, es momento de limpiarlo y pasar tu información a la plantilla de una columna.
-🏷️ Documentos: Checklist de Compatibilidad ATS 📥📋
-🔊 Pop sutil
-🖼️ Captura flotante del Checklist interactivo in-app.
-🗣️ Una vez que el formato esté asegurado, en la siguiente clase te voy a enseñar cómo mapear e incorporar las palabras clave exactas de cada vacante para que tu perfil destaque en las búsquedas.
-🏷️ Próxima clase: Palabras clave y adaptación del CV 🎯📄
-🔊 Fin de lección suave`,
-      },
-      {
-        id: 'exp-cv-03',
-        programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
-        moduleTitle: 'Creación y mejora de CV',
-        lessonNumber: 3,
-        type: 'video',
-        title: 'Palabras clave y adaptación del CV',
-        duration: '7 min',
-        videoDuration: '3:45 min',
-        completed: false,
-        description:
-          'Cómo escanear una oferta laboral, mapear los términos técnicos exigidos y armar versiones estratégicas según el puesto.',
-        takeaways: [
-          'Método del CV Maestro: Mantener un archivo integral y derivar 2 variantes según tus sub-especialidades target.',
-          'Técnica de los 3 avisos: Identificar términos recurrentes en herramientas técnicas, metodologías y competencias centrales.',
-          'Integración estratégica: Volcar las keywords en el titular, en las primeras 3 líneas del perfil y dentro de los logros.',
-        ],
-        actionItems: [
-          {
-            id: 'act-cv-3-1',
-            title: 'Mapear las Keywords de 3 avisos reales',
-            description: 'Extraé los términos técnicos y herramientas que más se repiten en tu área.',
-          },
-          {
-            id: 'act-cv-3-2',
-            title: 'Configurar tus 2 variantes de CV en Mi Perfil',
-            description: 'Definí los títulos y palabras clave de tus dos versiones objetivo en tu perfil de estudiante.',
-          },
-        ],
-        mindsetPrompt:
-          'Adaptar tu CV no es inventar experiencia: es hablar el dialecto exacto de la vacante para que el sistema y el selector reconozcan tu valor al instante.',
+          'El ATS no entiende como una persona: busca palabras clave. Hablar el dialecto exacto de la vacante es lo que te abre la puerta a la entrevista.',
         resources: [
           {
             id: 'guia-mapeo-keywords-industria',
@@ -969,42 +866,148 @@ const expBusquedaLaboralModules: CampusModule[] = [
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Uno de los errores más comunes es tener un solo CV y usarlo para todas las postulaciones.
-🏷️ Error Común: Un solo CV para todas las postulaciones ⚠️📄
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN — ¿QUÉ SON LOS FILTROS ATS?]
+🗣️ Muchas veces enviamos nuestro currículum a través de portales o sitios corporativos y sentimos que cae en un agujero negro.
+🏷️ El filtro previo al reclutador humano 🤖📄
 🔊 Swoosh suave
-🗣️ No significa que tengas que hacer un currículum completamente nuevo para cada oferta: la idea es tener un CV base y adaptarlo según el tipo de puesto.
-🏷️ Estrategia: CV Base y Versiones Adaptadas 📄🎯
-🔊 Pop de confirmación
-
-[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — TÉCNICA DE LOS 3 AVISOS Y ADAPTACIÓN ÉTICA]
-🗣️ ¿Cómo lo hacemos? Primero, leé el aviso y detectá las palabras que aparecen como requisitos: herramientas, conocimientos, competencias y experiencia.
-🏷️ 1. Detección de Requisitos: Herramientas · Conocimientos · Competencias 🔍
-🔊 Swoosh suave
-🗣️ Por ejemplo, si una búsqueda menciona varias veces SAP, Excel avanzado, gestión de equipos o análisis de datos, y vos realmente tenés esa experiencia, esas palabras deberían aparecer claramente en tu CV.
-🏷️ Palabras Clave Reales: SAP · Excel · Gestión · Datos 📊✨
-🔊 Click sutil
-🖼️ Captura flotante mostrando el resaltado de requisitos en un aviso laboral real.
-🗣️ Una técnica muy simple es analizar tres avisos similares al puesto que buscás. Comparalos y fijate qué requisitos se repiten: esas palabras te muestran qué está buscando el mercado.
-🏷️ Técnica de los 3 Avisos: Requisitos que se repiten 📋🎯
+🗣️ Esto sucede porque la mayoría de las medianas y grandes empresas utilizan sistemas ATS: softwares que escanean y filtran los CVs buscando palabras clave antes de que los vea una persona.
+🏷️ ¿Qué son los Filtros ATS? Sistemas de escaneo previo 🔍⚙️
 🔊 Pop sutil
-🗣️ Después incorporalas naturalmente en tu perfil profesional, experiencia y habilidades.
-🏷️ Integración Natural: Perfil · Experiencia · Habilidades ✍️
-🔊 Click sutil
-🗣️ Importante: nunca agregues conocimientos o experiencia que no tengas. Adaptar un CV no significa inventar; significa destacar de tu experiencia aquello que es más relevante para esa oportunidad.
-🏷️ Regla Clave: Adaptar no es inventar, es priorizar lo relevante 🛡️
-🔊 Swoosh suave
-🗣️ La idea es simple: no necesitamos veinte CV distintos; podemos tener un CV maestro y algunas versiones adaptadas según los puestos a los que apuntamos.
-🏷️ CV Maestro + Versiones Enfocadas 📁🚀
+🗣️ La idea clave que tenés que entender es que el ATS no lee ni interpreta como un ser humano: solo busca coincidencias directas de palabras clave.
+🏷️ "El ATS no entiende como una persona: busca coincidencias" 💡
 🔊 Pop de confirmación
 
-[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a los Documentos de esta clase para consultar la Guía de Mapeo de Palabras Clave y armá tus dos versiones adaptadas de CV según tus sub-especialidades.
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CÓMO HACER MATCH EN 3 PASOS]
+🗣️ ¿Cómo hacemos match para que tu CV pase el filtro y llegue a manos del reclutador?
+🗣️ Paso 1: Leé el anuncio con atención e identificá los requisitos obligatorios y las palabras clave principales.
+🏷️ Paso 1: Leé el Anuncio (Herramientas · Conocimientos · Requisitos) 📖🔍
+🔊 Click sutil
+🗣️ Por ejemplo, si un aviso para Analista de Marketing Digital menciona Google Analytics, Google Ads, Meta Ads, SEO, Excel avanzado y Análisis de datos, esas son las palabras clave prioritarias.
+🏷️ Ejemplo de Keywords: Google Analytics · Meta Ads · SEO · Excel 📊✨
+🔊 Click sutil
+🖼️ Captura flotante mostrando el anuncio de marketing con los requisitos resaltados vs. la lista de keywords del aviso.
+🗣️ Paso 2: Identificá cuáles de esas competencias tenés realmente e incorporalas de forma natural en tu perfil profesional, en tus habilidades y en la descripción de tu experiencia.
+🏷️ Paso 2: Usá esas palabras de forma natural en tu CV ✍️🎯
+🔊 Click sutil
+🗣️ Y Paso 3: Más match, más posibilidades: cuantas más coincidencias reales tenga tu CV con el anuncio, más alto vas a posicionar en el sistema y más chances tenés de pasar al screening telefónico.
+🏷️ Paso 3: Más Match = Más Posibilidades de Entrevista 🚀📈
+🔊 Pop de confirmación
+🗣️ Una técnica muy simple es comparar tres avisos similares al puesto que buscás: fijate qué requisitos se repiten, porque esas palabras te muestran exactamente qué está buscando el mercado.
+🏷️ Técnica de los 3 Avisos: Patrones que busca el mercado 📋🔍
+🔊 Swoosh suave
+🗣️ Importante: nunca agregues conocimientos o herramientas que no tengas. Adaptar un CV no significa inventar; significa destacar estratégicamente lo que es más relevante para esa vacante.
+🏷️ Regla Innegociable: Adaptar no es inventar, es priorizar lo relevante 🛡️✅
+🔊 Pop de confirmación
+
+[4:40 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ En los Documentos de esta clase tenés la Guía de Mapeo de Palabras Clave para clasificar los términos de tu área y aplicarlos a tu perfil.
 🏷️ Documentos: Guía de Mapeo de Palabras Clave 📥📊
 🔊 Pop sutil
-🖼️ Captura flotante de la sincronización de las 2 variantes en "Mi Perfil".
-🗣️ En la siguiente clase vamos a ver cómo convertir descripciones de tareas aburridas en declaraciones de alto valor usando verbos de acción y resultados medibles.
-🏷️ Próxima clase: Verbos de acción y logros cuantificables 📈🎯
+🗣️ En la próxima clase vamos a ver cómo estructurar tu currículum según el momento exacto de tu carrera: sin experiencia previa, experiencia media o nivel senior.
+🏷️ Próxima clase: El CV según tu perfil (Junior, Mid o Senior) 🧭💼
+🔊 Fin de lección suave`,
+      },
+      {
+        id: 'exp-cv-03',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
+        moduleTitle: 'Creación y mejora de CV',
+        lessonNumber: 3,
+        type: 'video',
+        title: 'El CV según tu perfil: Junior, Experiencia Media y Senior',
+        duration: '8 min',
+        videoDuration: '4:15 min',
+        completed: false,
+        description:
+          'Cómo estructurar la jerarquía, el foco y los bloques de tu currículum según tu nivel de trayectoria: sin experiencia previa, 3 a 10 años o perfiles senior.',
+        takeaways: [
+          'No existe un CV universal: El CV debe reflejar dónde estás hoy y hacia dónde querés proyectar tu carrera.',
+          'Perfil 1 (Sin experiencia / Junior): Foco en formación académica, proyectos, voluntariados, habilidades y ganas de aprender.',
+          'Perfil 2 (Experiencia media 3 a 10 años): Foco en crecimiento profesional, evolución de puestos, logros medibles y valor agregado.',
+          'Perfil 3 (Senior +10 años / Liderazgo): Foco en logros de alto impacto, liderazgo de equipos, proyectos clave y visión estratégica.',
+        ],
+        actionItems: [
+          {
+            id: 'act-cv-3-1',
+            title: 'Identificar tu nivel de perfil y enfoque',
+            description: 'Determiná si tu postulación se apoya en formación inicial, crecimiento comprobado o liderazgo senior.',
+          },
+          {
+            id: 'act-cv-3-2',
+            title: 'Consultar la Guía de Estructura según Seniority',
+            description: 'Revisá la jerarquía de secciones sugerida en los Documentos de la clase para ordenar tus bloques.',
+          },
+        ],
+        mindsetPrompt:
+          'Tu antigüedad no te define: lo que te posiciona es cómo contás tu evolución y los resultados que aportás al equipo.',
+        resources: [
+          {
+            id: 'guia-cv-segun-perfil',
+            title: 'Guía: El CV según tu Perfil y Momento de Carrera',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Estrategia y Posicionamiento',
+            description: 'Matriz interactiva con la jerarquía y enfoque recomendado según tus años de experiencia.',
+            isEssential: true,
+          },
+        ],
+        videoScript:
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN — NO EXISTE UN CV UNIVERSAL]
+🗣️ Uno de los mayores errores es creer que hay un único modelo de CV que le sirve a todo el mundo por igual.
+🏷️ Mito: "Hay un formato universal para todos" ❌
+🔊 Swoosh suave
+🗣️ No existe un CV universal. El currículum debe adaptarse al momento exacto de tu carrera: debe reflejar con claridad dónde estás hoy y hacia dónde querés ir.
+🏷️ "El CV debe reflejar dónde estás hoy y hacia dónde querés ir" 🧭✨
+🔊 Pop de confirmación
+
+[1:20 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 3 PERFILES PROFESIONALES]
+🗣️ Vamos a analizar tres perfiles y cómo estructurar la información en cada caso:
+🗣️ Perfil 1: Si no tenés experiencia formal o contás con poca experiencia laboral.
+🏷️ Perfil 1: Sin Experiencia o Poca Experiencia (Junior) 🎓🌱
+🔊 Swoosh suave
+🗣️ En este caso tu fortaleza está en la Formación: destacá proyectos académicos, cursos, certificaciones y talleres prácticos.
+🏷️ Formación: Proyectos Académicos · Cursos · Certificaciones 📚
+🔊 Click sutil
+🗣️ En Experiencia, sumá voluntariados, pasantías o actividades extracurriculares. Y resaltá tus habilidades técnicas, idiomas y herramientas.
+🏷️ Experiencia Inicial: Voluntariados · Pasantías · Habilidades 🛠️🌐
+🔊 Click sutil
+🗣️ Tu enfoque principal debe ser mostrar tu potencial, tu iniciativa y tus ganas de aprender.
+🏷️ Enfoque Junior: Mostrar Potencial y Ganas de Aprender 🌟🚀
+🔊 Pop sutil
+🗣️ Perfil 2: Si tenés experiencia media, entre tres y diez años de trayectoria.
+🏷️ Perfil 2: Experiencia Media (3 a 10 años · Semi-Senior) 💼📈
+🔊 Swoosh suave
+🗣️ Acá el foco está en el Crecimiento: mostrá cómo evolucionaste profesionalmente y asumiste mayores responsabilidades.
+🏷️ Crecimiento: Evolución profesional y mayores desafíos 📊
+🔊 Click sutil
+🗣️ Destacá logros y resultados concretos con números, y personalizá el CV para cada búsqueda. Tu enfoque es demostrar el valor que podés aportar desde el día uno.
+🏷️ Enfoque Semi-Senior: Logros Concretos y Aporte de Valor 🎯⭐
+🔊 Pop sutil
+🗣️ Y Perfil 3: Si sos un perfil Senior, con más de diez años de trayectoria o roles de liderazgo.
+🏷️ Perfil 3: Senior (+10 años de experiencia · Liderazgo) 👔👑
+🔊 Swoosh suave
+🗣️ Priorizá tus logros más importantes y de mayor impacto en el negocio. Resaltá tu capacidad para liderar equipos, gestionar proyectos de envergadura y tomar decisiones estratégicas.
+🏷️ Liderazgo e Impacto: Equipos · Proyectos · Decisiones Estratégicas 🏆
+🔊 Click sutil
+🗣️ Tu enfoque debe transmitir experiencia consolidada, autoridad profesional y total confianza.
+🏷️ Enfoque Senior: Autoridad, Solvencia y Confianza 🛡️💼
+🔊 Pop de confirmación
+🖼️ Placa interactiva mostrando las 3 columnas de perfiles y sus bloques destacados.
+🗣️ Recordá que en todos los casos la regla de oro se mantiene: no existe el CV perfecto, existe un CV adaptado al puesto al que querés postularte.
+🏷️ Regla Clave: CV Adaptado al Puesto Target 🎯✨
+🔊 Pop sutil
+
+[5:10 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Revisá en qué perfil te encontrás hoy y consultá la Guía de Estructura según Seniority en los Documentos de la clase.
+🏷️ Documentos: Guía de CV según tu Perfil 📥📋
+🔊 Pop sutil
+🗣️ En la próxima clase vamos a construir el CV juntos paso a paso: datos personales, la foto profesional, perfil profesional, educación y habilidades.
+🏷️ Próxima clase: Hagamos el CV juntos: Secciones y foto 📸📄
 🔊 Fin de lección suave`,
       },
       {
@@ -1015,31 +1018,148 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 4,
         type: 'video',
-        title: 'Verbos de acción y logros cuantificables',
-        duration: '8 min',
-        videoDuration: '3:55 min',
+        title: 'Hagamos el CV juntos: Secciones y foto profesional',
+        duration: '9 min',
+        videoDuration: '4:45 min',
         completed: false,
         description:
-          'Transformá listas de tareas pasivas en declaraciones de valor con métricas, porcentajes y verbos de acción fuertes.',
+          'Construcción paso a paso de cada bloque del currículum: datos de contacto indispensables, foto adecuada vs. errores de imagen, perfil profesional, educación y habilidades.',
         takeaways: [
-          'La fórmula del logro: [Verbo de acción en pasado] + [Contexto / Herramienta] + [Métrica o Resultado de negocio].',
-          'Eliminar frases pasivas: Desterrar "Responsable de...", "Encargado de..." o "Tareas de soporte".',
-          'Cuantificar sin ser financiero: Medir por tiempo ahorrado, volumen de operaciones, calidad o personas coordinadas.',
+          'Estructura integral paso a paso: Datos de contacto, perfil profesional, educación, habilidades e idiomas.',
+          'Datos indispensables del encabezado: Nombre completo destacado, titular/posición profesional clara, teléfono con código de área, mail profesional y LinkedIn.',
+          'Criterios de la foto profesional: Cuándo suma (cercanía, credibilidad, confianza) y qué errores evitar (selfies, escotes, mala luz, fondos distractores).',
+          'Perfil profesional de alto impacto: Resumen de 3 a 4 líneas que sintetiza quién sos, tu especialidad y el valor concreto que aportás.',
         ],
         actionItems: [
           {
             id: 'act-cv-4-1',
-            title: 'Aplicar la fórmula de logros en tu CV',
-            description: 'Revisá las viñetas de tu experiencia y agregales verbos activos y resultados cuantificables.',
+            title: 'Descargar la Plantilla Oficial de CV',
+            description: 'Accedé a los Documentos de esta clase para descargar tu plantilla base en formato Word (.docx) o duplicarla en Notion.',
           },
           {
             id: 'act-cv-4-2',
-            title: 'Consultar el Diccionario de Verbos (Opcional)',
-            description: 'Si necesitás ideas de vocabulario, revisá la lista de 100 verbos en los Documentos de la clase.',
+            title: 'Completar encabezado, foto y perfil profesional',
+            description: 'Volcá tus datos actualizados, elegí una foto profesional adecuada y redactá tu resumen de 3-4 líneas.',
           },
         ],
         mindsetPrompt:
-          'A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor y los resultados que conseguiste.',
+          'Cada sección de tu CV cuenta: la claridad y el orden visual generan una primera impresión de confianza inmediata.',
+        resources: [
+          {
+            id: 'plantilla-estructura-cv-editorial',
+            title: 'Plantilla CV ATS Editorial (Word .docx)',
+            type: 'word',
+            fileSize: '145 KB',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Plantilla ATS',
+            description: 'Modelo profesional en Word formateado en 1 columna optimizado para lectura visual y filtros ATS.',
+            isEssential: true,
+          },
+          {
+            id: 'plantilla-cv-minimalista-notion',
+            title: 'Plantilla CV Minimalista en Notion',
+            type: 'notion',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Workspace Notion',
+            description: 'Estructura modular editable en Notion lista para exportar a PDF limpio.',
+          },
+        ],
+        videoScript:
+          `[0:00 - SECCIÓN 1: HAGAMOS EL CV JUNTOS — METODOLOGÍA PASO A PASO]
+🗣️ Ahora que ya conocemos los errores y cómo enfocar nuestro perfil, vamos a construir tu currículum juntos: paso a paso, de manera práctica y 100% profesional.
+🏷️ Hagamos el CV Juntos: Paso a Paso · Práctico · Profesional 🛠️📄
+🔊 Swoosh suave
+🗣️ Cada sección de tu documento cuenta: vamos a asegurarnos de que muestre tu mejor versión en una sola página.
+🏷️ ¡Vos podés! Tu próximo trabajo empieza con un gran CV 🚀✨
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — SECCIONES Y CRITERIOS DE FOTO]
+🗣️ Empecemos por la parte superior: tus datos personales y de contacto.
+🗣️ Esta información debe ser clara, completa y estar siempre al inicio de tu CV.
+🏷️ Paso 1: Datos Personales y de Contacto 📇✨
+🔊 Swoosh suave
+🗣️ Tu nombre completo debe destacar en tipografía más grande y ser muy fácil de encontrar.
+🏷️ Nombre Completo: Destacado y Visible 👤
+🔊 Click sutil
+🗣️ Justo debajo colocá tu posición profesional o titular: indicá tu especialidad o el puesto exacto al que aplicás, por ejemplo: "Analista Administrativa" o "Especialista en Marketing Digital".
+🏷️ Posición Profesional / Titular: Rol objetivo o especialidad 🎯
+🔊 Click sutil
+🗣️ Y en los datos de contacto incluí únicamente lo indispensable: teléfono con código de país, email profesional, ciudad y tu link actualizado a LinkedIn. Eliminamos datos innecesarios como DNI, estado civil o dirección física completa.
+🏷️ Contacto Útil: Teléfono · Mail · Ciudad · LinkedIn (Sin DNI ni estado civil) 📬
+🔊 Click sutil
+🖼️ Captura flotante mostrando la cabecera del CV modelo de María Fernández con los datos resaltados.
+🗣️ Hablemos de la foto: una buena foto suma cuando transmite profesionalismo, confianza, cercanía y credibilidad.
+🏷️ La Foto Profesional: Profesionalismo · Confianza · Cercanía 📸🤝
+🔊 Pop sutil
+🗣️ Evitá por completo selfies, fotos con escotes pronunciados, maquillaje excesivo, fotos recortadas de fiestas, personas de espaldas, fotos oscuras o con fondos distractores.
+🏷️ Errores de Foto a Evitar: Selfies · Mala Luz · Ropa Arrugada · Fiestas ❌📸
+🔊 Click sutil
+🖼️ Gráfica comparativa con ejemplos visuales de fotos no recomendadas vs. foto profesional correcta.
+🗣️ Elegí un plano medio con buena luz frontal, fondo neutro, ropa acorde a tu industria y una sonrisa natural. Si postulás a países anglosajones como Estados Unidos o Reino Unido, recordá que por normativa legal el CV va sin foto.
+🏷️ Foto Correcta: Buena Luz · Fondo Neutro · Ropa Profesional ✔️
+🔊 Pop de confirmación
+🗣️ Pasemos al segundo bloque: tu Perfil Profesional.
+🏷️ Paso 2: Perfil Profesional (Resumen de 3 a 4 líneas) 💡✍️
+🔊 Swoosh suave
+🗣️ Es un breve resumen de quién sos, tu trayectoria, tu especialidad principal y el valor que aportás al equipo. Sé conciso y andá directo al grano.
+🏷️ Quién sos · Tu especialidad · El valor que aportás 🎯
+🔊 Click sutil
+🗣️ Y en la parte inferior organizamos la Educación, las Habilidades y los Idiomas.
+🏷️ Paso 3: Educación · Habilidades · Idiomas 🎓🛠️🌐
+🔊 Click sutil
+🗣️ En Educación poné tu título más relevante, institución y año de egreso. En Habilidades, destacá competencias técnicas y blandas alineadas con lo que busca la vacante. Y en Idiomas y Herramientas, listá el software que realmente dominás.
+🏷️ Formación Relevante + Habilidades Específicas + Software Real 📋✅
+🔊 Pop de confirmación
+
+[6:15 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ Andá a la sección de Documentos de esta clase, descargá tu Plantilla de CV en Word o Notion y completá estos primeros tres bloques.
+🏷️ Documentos: Plantilla Oficial de CV en Word & Notion 📥📄
+🔊 Pop sutil
+🗣️ En la próxima clase nos metemos de lleno en el corazón de tu currículum: cómo redactar la experiencia laboral con logros cuantificables y realizar la auditoría final antes de enviarlo.
+🏷️ Próxima clase: Experiencia laboral con logros y auditoría final 📈🔍
+🔊 Fin de lección suave`,
+      },
+      {
+        id: 'exp-cv-05',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-3',
+        moduleNumber: 3,
+        moduleTitle: 'Creación y mejora de CV',
+        lessonNumber: 5,
+        type: 'video',
+        title: 'Experiencia laboral con logros y auditoría final',
+        duration: '8 min',
+        videoDuration: '4:15 min',
+        completed: false,
+        description:
+          'Cómo transformar tareas pasivas en declaraciones de logros cuantificables, las 4 reglas de diseño en una página y el checklist de 5 puntos antes de postularte.',
+        takeaways: [
+          'La fórmula del logro: [Verbo de acción fuerte] + [Contexto / Tarea] + [Métrica o Resultado de impacto].',
+          'Eliminar frases pasivas: Desterrar "Responsable de..." (\'Responsable de ventas\' ❌ -> \'Gestioné una cartera de 30 clientes y aumenté las ventas un 20%\' ✔️).',
+          'Resultados cualitativos: Si no tenés números exactos, no los inventes; explicá la mejora o el impacto de manera cualitativa.',
+          'Las 4 reglas de diseño: 1 sola página, diseño limpio y profesional, fácil de escanear y adaptado al puesto.',
+          'Los 5 puntos de la Auditoría Final: Contacto actualizado, ortografía/fechas, palabras clave del aviso, maquetación ordenada y guardado en PDF profesional (CV_Nombre_Apellido.pdf).',
+        ],
+        actionItems: [
+          {
+            id: 'act-cv-5-1',
+            title: 'Reescribir las viñetas de tu experiencia con logros',
+            description: 'Aplicá verbos de acción fuertes y métricas o impactos cualitativos a cada rol de tu trayectoria.',
+          },
+          {
+            id: 'act-cv-5-2',
+            title: 'Exportar en PDF y realizar la prueba de los 6 segundos',
+            description: 'Guardá tu archivo como CV_Nombre_Apellido.pdf y verificalo con el Checklist de Auditoría Pre-Envío.',
+          },
+        ],
+        mindsetPrompt:
+          'Un CV impecable en sus logros y detalles es tu mejor carta de presentación para abrir puertas a entrevistas.',
         resources: [
           {
             id: 'diccionario-100-verbos-accion',
@@ -1054,82 +1174,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
             description: 'Listado de verbos activos clasificados por área (Liderazgo, Optimización, Ventas, Innovación) para inspirar tu redacción.',
             isEssential: false,
           },
-        ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ El error más común al describir la experiencia laboral es listar las obligaciones del puesto en lugar de los resultados que conseguiste.
-🏷️ Obligaciones vs. Resultados de Negocio 📄⚠️
-🔊 Swoosh suave
-🗣️ A un líder de contratación no le interesa lo que estabas obligado a hacer, sino el valor concreto que aportaste al equipo.
-🏷️ Objetivo: Demostrar tu impacto con autoridad 🚀
-🔊 Pop sutil
-🗣️ Vamos a ver cómo aplicar verbos de acción y métricas reales a cada viñeta de tu currículum para demostrar tu impacto profesional.
-🏷️ Fórmula: Verbo Activo + Herramienta + Métrica 📈
-🔊 Pop de confirmación
-
-[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LA FÓRMULA DEL LOGRO Y CÓMO CUANTIFICAR]
-🗣️ Eliminá para siempre la frase 'responsable de' de tu CV.
-🏷️ Frases Prohibidas: ❌ 'Responsable de...' ❌ 'Encargado de...'
-🔊 Swoosh suave
-🗣️ Cada viñeta de tu experiencia laboral debe iniciar con un verbo fuerte: Implementé, Negocié, Optimicé, Diseñé, Automaticé.
-🏷️ Verbos Fuertes: Implementé · Negocié · Optimicé · Automaticé
-🔊 Clicks sutiles por verbo
-🗣️ Por ejemplo, en vez de escribir: "Responsable de ventas", podemos decir: "Gestioné una cartera de 30 clientes y aumenté las ventas un 20%".
-🏷️ Ejemplo de Logro: "Gestioné 30 clientes y aumenté ventas 20%" 📈⭐
-🔊 Swoosh suave
-🖼️ Captura flotante mostrando la comparación: "Responsable de ventas" vs. "Gestioné 30 clientes y aumenté ventas 20%".
-🗣️ Si no tenés números exactos, no los inventes: podés explicar el resultado de manera cualitativa.
-🏷️ Sin inventar números: Explicar mejoras cualitativas 🛡️✨
-🔊 Pop de confirmación
-
-[6:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es abrir tu plantilla de CV, revisar las viñetas de tu experiencia y corregirlas aplicando esta fórmula de logros con métricas.
-🏷️ Acción: Corregir viñetas con la fórmula de logros ✍️
-🔊 Pop sutil
-🗣️ Si necesitás inspiración para encontrar las palabras más potentes, en la sección de Documentos de esta clase tenés una lista con 100 verbos de acción clasificados por área.
-🏷️ Opcional en Documentos: 100 Verbos de Acción 📥📖
-🔊 Pop sutil
-🗣️ En la próxima clase vamos a hacer la auditoría final de tu currículum: un control de calidad paso a paso para asegurarnos de que no haya quedado ningún detalle suelto antes de pasar a tu estrategia de LinkedIn.
-🏷️ Próxima clase: Auditoría final y checklist antes de enviar 🔍🚀
-🔊 Fin de lección suave`,
-      },
-      {
-        id: 'exp-cv-05',
-        programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
-        moduleTitle: 'Creación y mejora de CV',
-        lessonNumber: 5,
-        type: 'video',
-        title: 'Auditoría final y checklist antes de enviar',
-        duration: '5 min',
-        videoDuration: '3:30 min',
-        completed: false,
-        description:
-          'Auditoría final de 5 puntos clave antes del envío para asegurar consistencia, datos de contacto actualizados y cero errores.',
-        takeaways: [
-          'Control de calidad en 5 puntos: Contacto actualizado, ortografía/fechas, keywords del puesto, diseño ordenado y formato PDF.',
-          'Nombre de archivo profesional: Guardar siempre como `CV_Nombre_Apellido.pdf` para facilitar la lectura del selector.',
-          'La mirada del reclutador: Asegurar que en 6 segundos se entienda quién sos, qué sabés hacer y qué podés aportar.',
-        ],
-        actionItems: [
-          {
-            id: 'act-cv-5-1',
-            title: 'Exportar tu PDF final optimizado',
-            description: 'Guardá tu CV definitivo con la nomenclatura `CV_Nombre_Apellido.pdf`.',
-          },
-          {
-            id: 'act-cv-5-2',
-            title: 'Consultar el Checklist de Auditoría (Opcional)',
-            description: 'Revisá los puntos de control en los Documentos de la clase para validar tu archivo.',
-          },
-        ],
-        mindsetPrompt:
-          'Un CV impecable en los detalles demuestra el mismo rigor y profesionalismo con el que vas a trabajar en la empresa.',
-        resources: [
           {
             id: 'checklist-auditoria-pre-envio',
-            title: 'Checklist de Auditoría Pre-Envío',
+            title: 'Checklist de Auditoría Pre-Envío (5 Puntos Clave)',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
@@ -1137,57 +1184,83 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 3,
             category: 'Checklist de Control',
-            description: 'Guía rápida de puntos de verificación técnica y visual para validar tu CV antes de postularte.',
-            isEssential: false,
+            description: 'Guía interactiva de verificación técnica y visual para validar tu CV antes de postularte.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Ya tenemos nuestro CV armado, pero antes de enviarlo quiero que hagamos una última revisión.
-🏷️ Última Revisión del CV antes del Envío 🔍📄
+          `[0:00 - SECCIÓN 1: EXPERIENCIA LABORAL Y FÓRMULA DE LOGROS]
+🗣️ Llegamos al bloque más importante de todo tu currículum: la Experiencia Laboral.
+🏷️ Bloque Clave: Experiencia Laboral con Logros Medibles 💼⭐
 🔊 Swoosh suave
-🗣️ Muchas veces un pequeño error puede generar una mala primera impresión: una falta de ortografía, un teléfono incorrecto, un link que no funciona o información desactualizada.
-🏷️ Evitar errores: Ortografía · Contacto · Links · Fechas ⚠️
-🔊 Pop sutil
+🗣️ Ordenamos tus empleos en orden cronológico inverso, desde el actual o más reciente hacia atrás.
+🏷️ Orden Cronológico Inverso: De lo actual hacia atrás 🗓️
+🔊 Click sutil
+🗣️ Y en cada puesto, eliminá para siempre frases pasivas como 'Responsable de' o 'Encargado de'.
+🏷️ Frases Prohibidas: ❌ 'Responsable de...' ❌ 'Encargado de...'
+🔊 Error sutil
+🗣️ Cada viñeta debe iniciar con un verbo de acción fuerte: Gestioné, Implementé, Negocié, Optimicé, Diseñé o Coordiné.
+🏷️ Verbos de Acción Fuertes: Gestioné · Implementé · Optimicé · Coordiné ⚡
+🔊 Clicks sutiles por verbo
+🗣️ Por ejemplo, en vez de escribir: "Responsable de ventas", podemos decir: "Gestioné una cartera de 30 clientes y aumenté las ventas un 20%".
+🏷️ Ejemplo de Logro: "Gestioné 30 clientes y aumenté ventas 20%" 📈⭐
+🔊 Swoosh suave
+🖼️ Captura flotante mostrando la comparación entre la tarea genérica vs. el logro cuantificado.
+🗣️ Si no tenés números exactos, no los inventes: podés explicar el resultado de manera cualitativa, mencionando mejoras de procesos, tiempos ahorrados o satisfacción de clientes.
+🏷️ Sin inventar números: Explicar mejoras cualitativas reales 🛡️✨
+🔊 Pop de confirmación
 
-[1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 5 PUNTOS DE CONTROL]
-🗣️ Antes de postularte, revisá estos puntos:
+[1:45 - SECCIÓN 2: LAS 4 REGLAS DE DISEÑO Y LOS 5 PUNTOS DE AUDITORÍA]
+🗣️ Para que tu CV sea impecable, tené en cuenta estas cuatro reglas clave de diseño y lectura:
+🗣️ Primera: Una sola página. Sé conciso y mostrá lo más importante.
+🏷️ 1. Una Sola Página: Capacidad de síntesis ejecutiva 📄⏱️
+🔊 Click sutil
+🗣️ Segunda: Diseño limpio y profesional. Usá espacios, márgenes y tipografías claras.
+🏷️ 2. Diseño Limpio: Márgenes, espacios y tipografía clara 📐✨
+🔊 Click sutil
+🗣️ Tercera: Fácil de leer y escanear. Usá títulos claros, viñetas y resaltá lo importante.
+🏷️ 3. Fácil de Escanear: Títulos claros y viñetas ordenadas 👁️🔍
+🔊 Click sutil
+🗣️ Y cuarta: Adaptado al puesto. Ajustá tu CV a cada búsqueda utilizando las palabras clave del anuncio.
+🏷️ 4. Adaptado al Puesto: Palabras clave relevantes del aviso 🎯
+🔊 Pop de confirmación
+🗣️ Y antes de enviarlo, pasá tu archivo por estos cinco puntos de control:
 🗣️ Primero: verificá que tu nombre, teléfono, mail y LinkedIn estén correctos y actualizados.
-🏷️ 1. Datos de Contacto: Teléfono · Mail · LinkedIn actualizados 📇
+🏷️ Control 1: Contacto útil y LinkedIn actualizados 📇
 🔊 Click sutil
 🗣️ Segundo: revisá ortografía, redacción y que las fechas de tu experiencia sean coherentes.
-🏷️ 2. Redacción y Coherencia: Ortografía y fechas claras ✍️🗓️
+🏷️ Control 2: Ortografía impecable y coherencia en fechas ✍️🗓️
 🔊 Click sutil
 🗣️ Tercero: comprobá que el CV esté adaptado al puesto y contenga las palabras clave relevantes.
-🏷️ 3. Adaptación: Palabras clave relevantes del puesto 🎯
+🏷️ Control 3: Match de palabras clave del anuncio 🎯
 🔊 Click sutil
 🗣️ Cuarto: asegurate de que el diseño sea claro, ordenado y fácil de leer.
-🏷️ 4. Diseño Limpio: Ordenado y fácil de escanear 📐✨
+🏷️ Control 4: Maquetación limpia y libre de saturación 📐
 🔊 Click sutil
 🗣️ Y quinto: guardalo en PDF y poné un nombre profesional al archivo, por ejemplo: CV_Florencia_Martinez.pdf.
-🏷️ 5. Formato PDF: CV_Nombre_Apellido.pdf 💾📄
-🔊 Click sutil
-🖼️ Captura flotante mostrando el archivo PDF bien nombrado y la vista previa limpia.
+🏷️ Control 5: Guardado en PDF como CV_Nombre_Apellido.pdf 💾📄
+🔊 Pop sutil
+🖼️ Captura flotante mostrando el archivo PDF bien nombrado y su vista previa limpia.
 🗣️ Un último consejo: antes de enviarlo, abrí el PDF y miralo como si fueras un reclutador.
-🏷️ Ponete en el lugar del reclutador 👥🔍
+🏷️ La Prueba de los 6 Segundos: La mirada del reclutador 👥🔍
 🔊 Swoosh suave
 🗣️ Preguntate: "¿Entiendo rápidamente quién es esta persona, qué sabe hacer y qué puede aportar?".
 🏷️ "¿Quién es? ¿Qué sabe hacer? ¿Qué puede aportar?" 💭💡
 🔊 Pop sutil
 🗣️ Si la respuesta es sí, tu CV está listo.
-🏷️ ¡Tu CV está 100% listo para enviar! 🚀✅
+🏷️ ¡Tu CV está 100% listo para salir a la cancha! 🚀✅
 🔊 Pop de confirmación
 
-[4:00 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ En la sección de Documentos de esta clase tenés el checklist de auditoría para validar estos puntos en cualquier momento.
-🏷️ Documentos: Checklist de Auditoría Pre-Envío 📋📥
+[5:15 - SECCIÓN 3: CIERRE DE MÓDULO Y TRANSICIÓN]
+🗣️ En la sección de Documentos de esta clase tenés el Diccionario de 100 Verbos de Acción y el Checklist de Auditoría Pre-Envío para validar tu archivo final.
+🏷️ Documentos: Checklist de Auditoría y Diccionario de Verbos 📋📥
 🔊 Pop sutil
 🗣️ Con esto completamos el Módulo 3: tenés un currículum moderno, adaptado a filtros ATS y enfocado en resultados.
 🏷️ Hito: Módulo 03 Completado (Creación y mejora de CV) 📄🏆
 🔊 Pop de confirmación
 🗣️ En el próximo módulo vamos a trabajar en tu perfil de LinkedIn para que los reclutadores y empresas empiecen a encontrarte a vos.
 🏷️ Próximo: Módulo 04 — Creación y mejora de LinkedIn 🌐🚀
-🔊 Swoosh final de módulo`,
+🔊 Fin de lección suave`,
       },
     ],
   },
