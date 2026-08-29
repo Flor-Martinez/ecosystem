@@ -97,13 +97,13 @@ export interface CampusProgram {
 // =============================================================================
 const expBusquedaLaboralModules: CampusModule[] = [
   // ---------------------------------------------------------------------------
-  // MÓDULO 1: ¿CÓMO CONSEGUIR MI TRABAJO IDEAL? (4 CLASES)
+  // MÓDULO 1: ¿CÓMO CONSEGUIR TU TRABAJO IDEAL? (4 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-1',
     programId: 'exp-busqueda-laboral',
     number: 1,
-    title: '¿Cómo conseguir mi trabajo ideal?',
+    title: '¿Cómo conseguir tu trabajo ideal?',
     tagline: 'Autoconocimiento, método de 4 preguntas, límites no negociables y test vocacional',
     totalDuration: '24 min · 4 clases',
     lessons: [
@@ -112,7 +112,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        moduleTitle: '¿Cómo conseguir tu trabajo ideal?',
         lessonNumber: 1,
         type: 'video',
         title: 'Introducción',
@@ -181,7 +181,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        moduleTitle: '¿Cómo conseguir tu trabajo ideal?',
         lessonNumber: 2,
         type: 'video',
         title: 'El método para descubrir tu trabajo ideal',
@@ -268,7 +268,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        moduleTitle: '¿Cómo conseguir tu trabajo ideal?',
         lessonNumber: 3,
         type: 'video',
         title: 'Definición de target y no negociables',
@@ -363,7 +363,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
-        moduleTitle: '¿Cómo conseguir mi trabajo ideal?',
+        moduleTitle: '¿Cómo conseguir tu trabajo ideal?',
         lessonNumber: 4,
         type: 'video',
         title: 'Test vocacional: Descubrí tu perfil y afinidad laboral',
@@ -422,7 +422,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Acción: Realizar el Test Vocacional en la plataforma 📝🧭
 🔊 Pop sutil
 🗣️ Con esto cerramos el primer módulo: ya tenés claridad sobre quién sos, qué buscás y hacia dónde querés proyectar tu carrera.
-🏷️ Hito: Módulo 01 Completado (¿Cómo conseguir mi trabajo ideal?) 🏆🌟
+🏷️ Hito: Módulo 01 Completado (¿Cómo conseguir tu trabajo ideal?) 🏆🌟
 🔊 Pop de confirmación
 🗣️ En el próximo módulo vamos a ponernos del otro lado del mostrador y entender cómo funciona la búsqueda laboral: cómo piensan los reclutadores, cuánto tardan las empresas en contratar y qué errores evitar.
 🏷️ Próximo: Módulo 02 — ¿Cómo funciona la búsqueda laboral? 👥📊

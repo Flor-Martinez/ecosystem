@@ -40,7 +40,7 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 1,
     moduleStepLabel: 'MÓDULO 01',
-    title: '¿Cómo conseguir mi trabajo ideal?',
+    title: '¿Cómo conseguir tu trabajo ideal?',
     subtitle: 'Ruta Troncal · Paso 1 de 8',
     description: 'Autoconocimiento, método de 4 preguntas, límites no negociables y test vocacional.',
     icon: 'Compass',
