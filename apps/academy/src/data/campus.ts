@@ -172,7 +172,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ La idea no es solamente mirar clases: quiero que vayamos haciendo todo juntos.
 🏷️ ¡Hagámoslo juntos paso a paso! 🌟🤝
 🔊 Pop de confirmación
-🗣️ En la próxima clase vamos a ver las cuatro preguntas clave para descubrir y empezar a construir tu trabajo ideal.
+🗣️ Arrancamos ahora mismo: en la siguiente clase te muestro las cuatro preguntas clave para descubrir y empezar a construir tu trabajo ideal.
 🏷️ Próxima clase: El método para descubrir tu trabajo ideal 📝✨
 🔊 Fin de lección suave`,
       },
@@ -256,11 +256,11 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Click sutil
 
 [3:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tomate unos minutos para bajar estas cuatro respuestas por escrito.
-🏷️ Acción: Responder las 4 preguntas en papel ✍️📄
+🗣️ Tomate tu tiempo para bajar estas cuatro respuestas por escrito y armar ese plan de acción. No te vas a arrepentir.
+🏷️ Acción: Responder las 4 preguntas y plan de acción ✍️📄
 🔊 Pop sutil
-🗣️ En la próxima clase vamos a definir tu Target Laboral y tus No Negociables, para transformar esta visión en un objetivo concreto y delimitar exactamente qué condiciones vas a aceptar.
-🏷️ Próxima clase: Definición de target y no negociables 🎯📋
+🗣️ Ya tenemos la dirección general. Ahora toca afinar la puntería: delimitar tu target laboral exacto y qué condiciones vas a aceptar.
+🏷️ Próximo paso: Definición de target y no negociables 🎯📋
 🔊 Fin de lección suave`,
       },
       {
@@ -295,8 +295,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
           },
           {
             id: 'act-3-3',
-            title: 'Listar tus 15 Empresas Objetivo',
-            description: 'Anotá 15 organizaciones donde tu perfil resuelva un problema directo para iniciar tu prospección activa.',
+            title: 'Listar tus Empresas Objetivo',
+            description: 'Anotá las organizaciones donde tu perfil resuelva un problema directo para iniciar tu prospección activa.',
           },
         ],
         mindsetPrompt:
@@ -350,12 +350,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Pop de confirmación
 
 [6:20 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en los Documentos de esta clase. Podés completar tus 6 filtros, tus no negociables y tus 15 empresas objetivo directamente en la pantalla, y se guarda automáticamente en tu perfil.
+🗣️ Tu siguiente paso es abrir la Matriz de Target que tenés en los Documentos de esta clase. Podés completar tus 6 filtros, tus no negociables y tus empresas objetivo directamente en la pantalla, y se guarda automáticamente en tu perfil.
 🏷️ Documentos: Matriz de Target 📋
 🔊 Pop sutil
 🖼️ Video flotante mostrando cómo se completan los campos y el cartel de sincronización con "Mi Perfil".
-🗣️ En la próxima clase vamos a hablar del Test Vocacional: por qué es una herramienta clave de autoconocimiento y cómo podés realizar el test de nuestra plataforma para clarificar tu rumbo.
-🏷️ Próxima clase: Test Vocacional y autoconocimiento 🧭📊
 🔊 Fin de lección suave`,
       },
       {
@@ -413,20 +411,17 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ 3. Claridad y Confianza: Enfoque seguro en tu postulación 🚀🛡️
 🔊 Pop de confirmación
 🖼️ Captura flotante mostrando la interfaz del Test Vocacional en el campus y el reporte de arquetipo resultante.
-🗣️ En nuestra plataforma tenemos un Test Vocacional diseñado especialmente para acompañarte en este proceso. Si todavía no lo hiciste, te invito a realizarlo directamente desde el campus.
-🏷️ Test Vocacional disponible en nuestra plataforma 🖥️⭐
+🗣️ En nuestra plataforma tenemos un Test Vocacional diseñado especialmente para acompañarte en este proceso. Si todavía no lo hiciste, debajo de este video te dejo un link para realizarlo.
+🏷️ Link directo al Test Vocacional 🖥️⭐
 🔊 Swoosh suave
 
-[3:30 - SECCIÓN 3: CIERRE DE MÓDULO Y TRANSICIÓN]
-🗣️ Ingresá a la sección del Test Vocacional en el menú de la plataforma, respondé con sinceridad a cada pregunta y guardá tus resultados.
-🏷️ Acción: Realizar el Test Vocacional en la plataforma 📝🧭
-🔊 Pop sutil
-🗣️ Con esto cerramos el primer módulo: ya tenés claridad sobre quién sos, qué buscás y hacia dónde querés proyectar tu carrera.
+[3:30 - SECCIÓN 3: CIERRE DE MÓDULO Y VISIÓN GLOBAL DEL PROGRAMA]
+🗣️ Con esto cerramos el Módulo N°1: ya tenés claridad sobre quién sos, qué buscás y hacia dónde querés proyectar tu carrera.
 🏷️ Hito: Módulo 01 Completado (¿Cómo conseguir tu trabajo ideal?) 🏆🌟
 🔊 Pop de confirmación
-🗣️ En el próximo módulo vamos a ponernos del otro lado del mostrador y entender cómo funciona la búsqueda laboral: cómo piensan los reclutadores, cuánto tardan las empresas en contratar y qué errores evitar.
-🏷️ Próximo: Módulo 02 — ¿Cómo funciona la búsqueda laboral? 👥📊
-🔊 Fin de lección suave`,
+🗣️ En los próximos módulos vamos a transformar esta claridad en oportunidades reales: vamos a entender la mentalidad del reclutador, armar tu CV de alto impacto, optimizar tu perfil de LinkedIn, encontrar vacantes estratégicas y prepararte para destacarte en cada una de tus entrevistas laborales.
+🏷️ Ruta Completa: Mercado · CV · LinkedIn · Prospección · Entrevistas 🚀💼
+🔊 Swoosh final de módulo`,
       },
     ],
   },
