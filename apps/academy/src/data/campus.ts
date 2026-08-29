@@ -97,7 +97,7 @@ export interface CampusProgram {
 // =============================================================================
 const expBusquedaLaboralModules: CampusModule[] = [
   // ---------------------------------------------------------------------------
-  // MÓDULO 1: ¿CÓMO FUNCIONA LA BÚSQUEDA LABORAL? (4 CLASES)
+  // MÓDULO 1: ¿CÓMO FUNCIONA LA BÚSQUEDA LABORAL? (5 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-1',
@@ -105,7 +105,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 1,
     title: '¿Cómo funciona la búsqueda laboral?',
     tagline: 'Comprendé el proceso de selección real y definí tu target sin tirar CVs al azar',
-    totalDuration: '26 min · 4 clases',
+    totalDuration: '30 min · 5 clases',
     lessons: [
       {
         id: 'exp-fun-01',
@@ -114,6 +114,72 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleNumber: 1,
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
         lessonNumber: 1,
+        type: 'video',
+        title: 'Introducción',
+        duration: '4 min',
+        videoDuration: '3:15 min',
+        completed: true,
+        description:
+          'Presentación de Florencia Martínez, su trayectoria profesional y el enfoque 100% práctico de la Experiencia de Búsqueda Laboral.',
+        takeaways: [
+          'Trayectoria profesional: Licenciada en Comercio Internacional, Gerente de filial de multinacional y Máster en la Universidad de Barcelona.',
+          'Doble perspectiva: La visión real de quien selecciona candidatos en empresas combinada con la experiencia propia de buscar empleo.',
+          'Enfoque 100% práctico: Construir juntos un CV enfocado, LinkedIn optimizado, prospección de vacantes y preparación para entrevistas.',
+        ],
+        actionItems: [
+          {
+            id: 'act-intro-1',
+            title: 'Recorrer el campus y configurar tu perfil',
+            description: 'Explorá las herramientas, documentos y completá tus datos iniciales en Mi Perfil.',
+          },
+        ],
+        mindsetPrompt:
+          'La idea no es solamente mirar clases pasivamente: vamos a ir construyendo juntos tus herramientas de búsqueda.',
+        resources: [],
+        videoScript:
+          `[0:00 - SECCIÓN 1: BIENVENIDA Y TRAYECTORIA]
+🗣️ Hola a todos, soy Florencia Martínez y les doy la bienvenida a esta Experiencia de Búsqueda Laboral.
+🏷️ Florencia Martínez · Experiencia Búsqueda Laboral 👋✨
+🔊 Swoosh suave
+🗣️ Antes de empezar quiero contarles brevemente quién soy.
+🏷️ Quién soy 👤✨
+🔊 Pop sutil
+🗣️ Soy Licenciada en Comercio Internacional, actualmente soy Gerente de la oficina de Mendoza de una empresa multinacional de origen chino y recientemente terminé mi Máster en Dirección Comercial y Liderazgo Comercial en la Universidad de Barcelona.
+🏷️ Lic. Comercio Internacional · Gerente Filial Multinacional · Máster UB 🎓🏢
+🔊 Click sutil
+🗣️ Además, a lo largo de mi carrera hice distintas capacitaciones en áreas como logística minera, vinos, inglés, Excel y marketing digital.
+🏷️ Logística Minera · Vinos · Inglés · Excel · Marketing Digital 🌐🍷
+🔊 Click sutil
+
+[1:15 - SECCIÓN 2: LA PERSPECTIVA COMO RECLUTADORA Y CANDIDATA]
+🗣️ Pero hoy quiero hablarles especialmente desde mi faceta como reclutadora.
+🏷️ Mi Faceta como Reclutadora 👥🔍
+🔊 Swoosh suave
+🗣️ Como gerente, me ha tocado recibir currículums, entrevistar candidatos y seleccionar personas para formar parte de mis equipos. Entonces conozco qué pasa del otro lado: qué miramos en un CV, qué buscamos en un candidato y qué evaluamos en una entrevista.
+🏷️ Qué miramos en un CV · Qué buscamos en un candidato · Entrevistas 📋🎯
+🔊 Pop sutil
+🗣️ Y también estuve del otro lado: yo también busqué trabajo, mandé currículums y pasé por procesos de selección.
+🏷️ De ambos lados del proceso: Candidata y Reclutadora 🤝💡
+🔊 Click sutil
+
+[2:30 - SECCIÓN 3: ENFOQUE PRÁCTICO Y LLAMADA A LA ACCIÓN]
+🗣️ Por eso armé este curso de una manera muy práctica.
+🏷️ Un Curso 100% Práctico y Aplicable 🚀
+🔊 Swoosh suave
+🗣️ Quiero que cuando termines tengas un CV que realmente te sirva, un LinkedIn actualizado —o creado desde cero—, sepas cómo buscar oportunidades, cómo generar contactos y cómo prepararte para una entrevista.
+🏷️ CV de Impacto · LinkedIn Optimizado · Oportunidades · Entrevistas ✨📄
+🔊 Pop sutil
+🗣️ La idea no es solamente mirar clases: quiero que vayamos haciendo todo juntos.
+🏷️ ¡Hagámoslo juntos paso a paso! 🌟🤝
+🔊 Fin de lección suave`,
+      },
+      {
+        id: 'exp-fun-02',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-1',
+        moduleNumber: 1,
+        moduleTitle: '¿Cómo funciona la búsqueda laboral?',
+        lessonNumber: 2,
         type: 'video',
         title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
         duration: '6 min',
@@ -145,12 +211,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Hola a todos, soy Flor Martínez y te doy la bienvenida a esta Experiencia de Búsqueda Laboral.
-🏷️ Flor Martínez · Experiencia Búsqueda Laboral 👋✨
-🔊 Swoosh suave
 🗣️ Quiero empezar este curso hablando de uno de los errores que más veo cuando una persona está buscando trabajo: mandar currículums de manera masiva.
 🏷️ Error Común: Mandar currículums de manera masiva ⚠️📄
-🔊 Pop sutil
+🔊 Swoosh suave
 🗣️ Mandás 50, 100 currículums… y no te llama nadie. O recibís solamente esos mails automáticos que dicen que decidieron avanzar con otros candidatos.
 🏷️ 50 - 100 postulaciones sin respuesta 📥🚫
 🔊 Pop sutil
@@ -200,12 +263,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-fun-02',
+        id: 'exp-fun-03',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 2,
+        lessonNumber: 3,
         type: 'video',
         title: 'Tiempos y fases reales de contratación',
         duration: '5 min',
@@ -217,6 +280,13 @@ const expBusquedaLaboralModules: CampusModule[] = [
           'Duración estándar: Un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
           'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
           'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
+        ],
+        actionItems: [
+          {
+            id: 'act-2-1',
+            title: 'Mapear tu colchón de tiempo',
+            description: 'Calculá tus tiempos de búsqueda contemplando que un proceso saludable toma entre 20 y 60 días.',
+          },
         ],
         mindsetPrompt:
           'Tu meta no es conseguir trabajo mañana a cualquier costo, sino construir un flujo constante de 2 a 3 entrevistas semanales de calidad.',
@@ -276,12 +346,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-fun-03',
+        id: 'exp-fun-04',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 3,
+        lessonNumber: 4,
         type: 'video',
         title: 'Definición de target y no negociables',
         duration: '8 min',
@@ -370,12 +440,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Próxima clase: 5 errores típicos y plan semanal 📅`,
       },
       {
-        id: 'exp-fun-04',
+        id: 'exp-fun-05',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-1',
         moduleNumber: 1,
         moduleTitle: '¿Cómo funciona la búsqueda laboral?',
-        lessonNumber: 4,
+        lessonNumber: 5,
         type: 'video',
         title: '5 errores típicos y plan semanal',
         duration: '7 min',
