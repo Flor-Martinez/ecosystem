@@ -242,34 +242,29 @@ function CampusContent() {
   // Card click routing from Tablero -> Takes student to the current active class in that module!
   const handleSelectViewFromCard = (targetView: string) => {
     setActiveCelebrationModule(null);
-    if (targetView === 'modulo-fundamentos' || targetView === 'modulo-1') {
+    if (targetView === 'modulo-trabajo-ideal' || targetView === 'modulo-1') {
       setSelectedLesson(getActiveLessonForModuleNumber(1));
       handleNavChangeView('lesson');
-    } else if (targetView === 'modulo-cv' || targetView === 'modulo-2') {
+    } else if (targetView === 'modulo-fundamentos' || targetView === 'modulo-2') {
       setSelectedLesson(getActiveLessonForModuleNumber(2));
       handleNavChangeView('lesson');
-    } else if (targetView === 'modulo-linkedin' || targetView === 'modulo-3') {
-      if (membershipTier === 'free') {
-        handleNavChangeView('paywall-modulo-3');
-      } else {
-        setSelectedLesson(getActiveLessonForModuleNumber(3));
-        handleNavChangeView('lesson');
-      }
-    } else if (targetView === 'modulo-donde-buscar' || targetView === 'modulo-4') {
+    } else if (targetView === 'modulo-cv' || targetView === 'modulo-3') {
+      setSelectedLesson(getActiveLessonForModuleNumber(3));
+      handleNavChangeView('lesson');
+    } else if (targetView === 'modulo-linkedin' || targetView === 'modulo-4') {
       setSelectedLesson(getActiveLessonForModuleNumber(4));
       handleNavChangeView('lesson');
-    } else if (targetView === 'modulo-postulacion' || targetView === 'modulo-5') {
-      if (membershipTier === 'free') {
-        handleNavChangeView('paywall-modulo-5');
-      } else {
-        setSelectedLesson(getActiveLessonForModuleNumber(5));
-        handleNavChangeView('lesson');
-      }
-    } else if (targetView === 'modulo-entrevistas' || targetView === 'modulo-6') {
+    } else if (targetView === 'modulo-donde-buscar' || targetView === 'modulo-5') {
+      setSelectedLesson(getActiveLessonForModuleNumber(5));
+      handleNavChangeView('lesson');
+    } else if (targetView === 'modulo-postulacion' || targetView === 'modulo-6') {
       setSelectedLesson(getActiveLessonForModuleNumber(6));
       handleNavChangeView('lesson');
-    } else if (targetView === 'modulo-casos-especiales' || targetView === 'modulo-7') {
+    } else if (targetView === 'modulo-entrevistas' || targetView === 'modulo-7') {
       setSelectedLesson(getActiveLessonForModuleNumber(7));
+      handleNavChangeView('lesson');
+    } else if (targetView === 'modulo-casos-especiales' || targetView === 'modulo-8') {
+      setSelectedLesson(getActiveLessonForModuleNumber(8));
       handleNavChangeView('lesson');
     } else if (targetView === 'perfil') {
       if (membershipTier === 'free') {

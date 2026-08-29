@@ -99,13 +99,14 @@ export function EblDashboardGrid({
       if (card.type !== 'modulo' || !program) return card;
 
       let modNumber = card.number || 1;
-      if (card.id === 'mod-fundamentos') modNumber = 1;
-      else if (card.id === 'mod-cv') modNumber = 2;
-      else if (card.id === 'mod-linkedin') modNumber = 3;
-      else if (card.id === 'mod-donde-buscar') modNumber = 4;
-      else if (card.id === 'mod-postulacion') modNumber = 5;
-      else if (card.id === 'mod-entrevistas') modNumber = 6;
-      else if (card.id === 'mod-casos-especiales') modNumber = 7;
+      if (card.id === 'mod-trabajo-ideal') modNumber = 1;
+      else if (card.id === 'mod-fundamentos') modNumber = 2;
+      else if (card.id === 'mod-cv') modNumber = 3;
+      else if (card.id === 'mod-linkedin') modNumber = 4;
+      else if (card.id === 'mod-donde-buscar') modNumber = 5;
+      else if (card.id === 'mod-postulacion') modNumber = 6;
+      else if (card.id === 'mod-entrevistas') modNumber = 7;
+      else if (card.id === 'mod-casos-especiales') modNumber = 8;
 
       const mod = program.modules.find((m) => m.number === modNumber);
       if (!mod) return card;
@@ -131,10 +132,10 @@ export function EblDashboardGrid({
     });
   }, [program, completedLessons]);
 
-  // Calculate overall program progress from dynamic module cards (excluding optional Module 7)
+  // Calculate overall program progress from dynamic module cards (excluding optional Module 8)
   const allProgramLessons = program ? program.modules.flatMap((m) => m.lessons) : [];
-  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 7);
-  const totalModuleSteps = requiredProgramLessons.length || 27;
+  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 8);
+  const totalModuleSteps = requiredProgramLessons.length || 30;
   const completedModuleSteps = requiredProgramLessons.length > 0
     ? requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length
     : 0;
@@ -215,7 +216,7 @@ export function EblDashboardGrid({
           <p className={styles.heroDesc}>
             {membershipTier === 'free'
               ? 'Estás en la versión de prueba gratuita. Accedé a los módulos habilitados o pasate a la Membresía VIP para desbloquear todo el ecosistema.'
-              : 'Seguí la ruta de los 5 módulos paso a paso y utilizá las herramientas complementarias para gestionar tus entrevistas y mentorías.'}
+              : 'Seguí la ruta de los 8 módulos paso a paso y utilizá las herramientas complementarias para gestionar tus entrevistas y mentorías.'}
           </p>
 
           {/* Global Search Bar */}

@@ -93,31 +93,17 @@ export function CampusLockedModal({
           ],
         };
       case 'mod-entrevistas':
-      case 'modulo-3':
+      case 'modulo-7':
         return {
           icon: <GraduationCap size={32} className={styles.icon} />,
-          badge: 'MÓDULO 03 EXCLUSIVO VIP',
-          title: 'Módulo 03: Simulación de Entrevistas & Método STAR',
+          badge: 'MÓDULO 07 EXCLUSIVO VIP',
+          title: 'Módulo 07: Entrevistas Laborales & Método STAR',
           description:
             'Entrená respuestas a preguntas difíciles, preguntas trampa y estructura tus logros profesionales para destacar en entrevistas individuales y técnicas.',
           benefits: [
             'Simulador práctico con casos reales de selección internacional.',
             'Estructura STAR: Situación, Tarea, Acción y Resultado Cuantificable.',
             'Guía de preguntas para hacerle vos al reclutador al final de la entrevista.',
-          ],
-        };
-      case 'mod-aptitudes':
-      case 'modulo-5':
-        return {
-          icon: <GraduationCap size={32} className={styles.icon} />,
-          badge: 'MÓDULO 05 EXCLUSIVO VIP',
-          title: 'Módulo 05: Negociación Salarial & Cierre de Ofertas',
-          description:
-            'Aprenderás a negociar tu remuneración pretendida en moneda local y dólares con técnicas de anclaje alto, beneficios y bonos por desempeño.',
-          benefits: [
-            'Fórmulas exactas para responder "¿Cuál es tu remuneración pretendida?".',
-            'Técnicas de contraoferta salarial sin poner en riesgo la propuesta.',
-            'Evaluación final de acreditación y emisión de Certificado Oficial.',
           ],
         };
       default:

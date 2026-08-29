@@ -75,8 +75,8 @@ export function CampusSidebar({
   // Flat list of all lessons across the entire curriculum
   const allProgramLessons = currentProgram.modules.flatMap((m) => m.lessons);
 
-  // Required core lessons (excluding optional Module 7: Casos Especiales)
-  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 7);
+  // Required core lessons (excluding optional Module 8: Casos Especiales)
+  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 8);
   const completedRequiredCount = requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length;
   const totalRequiredCount = requiredProgramLessons.length;
   const overallPercent = totalRequiredCount > 0
