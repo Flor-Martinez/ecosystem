@@ -267,7 +267,7 @@ export function CampusHeader({
               <div className={styles.toolsDropdownWrap}>
                 <button
                   type="button"
-                  className={`${styles.navTabBtn} ${styles.toolsMenuBtn} ${['recursos', 'tracker', 'agenda', 'zoom', 'test-vocacional', 'evaluaciones', 'perfil'].includes(currentView) ? styles.toolsMenuBtnActive : ''}`}
+                  className={`${styles.navTabBtn} ${styles.toolsMenuBtn} ${['recursos', 'tracker', 'agenda', 'zoom', 'test-vocacional', 'evaluaciones'].includes(currentView) ? styles.toolsMenuBtnActive : ''}`}
                   onClick={() => setShowToolsMenu(!showToolsMenu)}
                   title="Acceso directo a todas las herramientas del campus"
                 >
@@ -411,83 +411,13 @@ export function CampusHeader({
                             <span className={styles.toolSubtitle}>Índice de competencias y logros</span>
                           </div>
                         </button>
-
-                        {/* 7. Mi Perfil & Expediente */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'perfil' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            if (membershipTier === 'free') {
-                              if (onLockedClick) onLockedClick('perfil');
-                            } else {
-                              setCurrentView('perfil');
-                            }
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#EEF2FF', color: '#4338CA' }}>
-                            <UserCheck size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Expediente del Alumno & Perfil</strong>
-                            <span className={styles.toolSubtitle}>CV, LinkedIn y preferencias</span>
-                          </div>
-                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
-                        </button>
                       </div>
                     </div>
                   </>
                 )}
               </div>
 
-              <button
-                type="button"
-                className={`${styles.navTabBtn} ${currentView === 'recursos' ? styles.navTabActive : ''}`}
-                onClick={() => setCurrentView('recursos')}
-                title="Biblioteca de Recursos & Plantillas"
-              >
-                <FolderDown size={16} />
-                <span>Recursos</span>
-              </button>
-
-              {currentProgram.hasTracker && (
-                <button
-                  type="button"
-                  className={`${styles.navTabBtn} ${membershipTier === 'free' ? styles.navTabLocked : ''} ${currentView === 'tracker' ? styles.navTabActive : ''}`}
-                  onClick={() => {
-                    if (membershipTier === 'free') {
-                      if (onLockedClick) onLockedClick('tracker');
-                    } else {
-                      setCurrentView('tracker');
-                    }
-                  }}
-                  title={membershipTier === 'free' ? '🔒 Requiere Membresía VIP para activar este panel' : 'Tracker de Postulaciones'}
-                >
-                  <Table size={16} />
-                  <span>Tracker</span>
-                  {membershipTier === 'free' && <Lock size={11} className={styles.tabLockIcon} />}
-                </button>
-              )}
-
-              {currentProgram.hasZoom && (
-                <button
-                  type="button"
-                  className={`${styles.navTabBtn} ${membershipTier === 'free' ? styles.navTabLocked : ''} ${currentView === 'zoom' || currentView === 'agenda' ? styles.navTabActive : ''}`}
-                  onClick={() => {
-                    if (membershipTier === 'free') {
-                      if (onLockedClick) onLockedClick('agenda');
-                    } else {
-                      setCurrentView('agenda');
-                    }
-                  }}
-                  title={membershipTier === 'free' ? '🔒 Requiere Membresía VIP para activar este panel' : 'Agenda & Mentorías'}
-                >
-                  <Calendar size={16} />
-                  <span>Agenda</span>
-                  {membershipTier === 'free' && <Lock size={11} className={styles.tabLockIcon} />}
-                </button>
-              )}
-
+              {/* DIRECT MI PERFIL BUTTON */}
               <button
                 type="button"
                 className={`${styles.navTabBtn} ${membershipTier === 'free' ? styles.navTabLocked : ''} ${currentView === 'perfil' ? styles.navTabActive : ''}`}

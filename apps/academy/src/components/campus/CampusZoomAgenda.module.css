@@ -1,6 +1,6 @@
 .agendaWrapper {
-  padding: 2.5rem clamp(1.25rem, 3.5vw, 2.5rem) 4rem;
-  max-width: 1400px;
+  padding: 2rem clamp(1rem, 3vw, 2rem) 4rem;
+  max-width: 1180px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -125,10 +125,10 @@
   box-shadow: 0 3px 10px rgba(37, 99, 235, 0.16) !important;
 }
 
-/* CALENDAR LAYOUT GRID */
+/* CALENDAR LAYOUT GRID (COMPACT & PROPORTIONAL) */
 .calendarLayoutGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 420px);
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: flex-start;
   width: 100%;
@@ -141,7 +141,7 @@
   background: #FFFFFF;
   border: 1.5px solid #FED7AA;
   border-radius: var(--radius-2xl);
-  padding: 1.5rem;
+  padding: 1.35rem;
   box-shadow: 0 4px 16px rgba(234, 88, 12, 0.05);
   min-width: 0;
   width: 100%;

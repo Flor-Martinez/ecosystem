@@ -519,7 +519,7 @@
   position: absolute;
   top: calc(100% + 0.65rem);
   right: 0;
-  width: 380px;
+  width: 360px;
   background: #0F172A;
   border: 1.5px solid rgba(255, 255, 255, 0.16);
   border-radius: var(--radius-2xl, 1.25rem);
@@ -529,6 +529,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+  box-sizing: border-box;
+  overflow: hidden;
   animation: dropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -559,8 +561,10 @@
 .toolsGrid {
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  max-height: 420px;
+  gap: 0.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
   overflow-y: auto;
 }
 
@@ -568,7 +572,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.55rem 0.65rem;
+  padding: 0.55rem 0.75rem;
   border-radius: var(--radius-lg, 0.75rem);
   border: 1px solid transparent;
   background: transparent;
@@ -576,12 +580,12 @@
   cursor: pointer;
   transition: all var(--transition-fast);
   width: 100%;
+  box-sizing: border-box;
 }
 
 .toolItem:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.12);
-  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .toolItemActive {
