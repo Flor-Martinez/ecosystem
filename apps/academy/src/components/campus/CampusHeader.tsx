@@ -139,8 +139,9 @@ export function CampusHeader({
     },
   ];
 
-  // Favorited tools appear at the top
+  // Favorited tools appear at the top (only for VIP members)
   const sortedTools = [...toolItems].sort((a, b) => {
+    if (membershipTier === 'free') return 0;
     const aFav = favoriteIds?.has(a.id) ? 1 : 0;
     const bFav = favoriteIds?.has(b.id) ? 1 : 0;
     return bFav - aFav;
@@ -367,7 +368,7 @@ export function CampusHeader({
                       <div className={styles.toolsGrid}>
                         {sortedTools.map((tool) => {
                           const IconComp = tool.icon;
-                          const isFav = favoriteIds?.has(tool.id) ?? false;
+                          const isFav = membershipTier !== 'free' && (favoriteIds?.has(tool.id) ?? false);
                           const isActive = currentView === tool.targetView;
 
                           return (
@@ -400,7 +401,7 @@ export function CampusHeader({
 
                               {tool.isLocked ? (
                                 <Lock size={12} className={styles.toolLock} />
-                              ) : onToggleFavorite ? (
+                              ) : (membershipTier !== 'free' && onToggleFavorite) ? (
                                 <button
                                   type="button"
                                   className={`${styles.favToggleBtn} ${isFav ? styles.favToggleActive : ''}`}
