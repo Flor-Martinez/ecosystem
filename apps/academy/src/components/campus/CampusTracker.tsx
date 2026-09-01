@@ -523,18 +523,18 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                         className={`${styles.statusSelect} ${getStatusBadgeClass(app.status)}`}
                         aria-label="Cambiar estado"
                       >
-                        <option value="Identificada / Por postular">🟣 Identificada / Por postular</option>
-                        <option value="Postulado">🟡 Postulado</option>
-                        <option value="Entrevista RRHH">🟣 Entrevista RRHH</option>
-                        <option value="Prueba Técnica">🔵 Prueba Técnica</option>
-                        <option value="Oferta Recibida">🟢 Oferta Recibida 🎉</option>
-                        <option value="Descartado">🔴 Descartado</option>
+                        <option value="Identificada / Por postular">Identificada / Por postular</option>
+                        <option value="Postulado">Postulado</option>
+                        <option value="Entrevista RRHH">Entrevista RRHH</option>
+                        <option value="Prueba Técnica">Prueba Técnica</option>
+                        <option value="Oferta Recibida">Oferta Recibida</option>
+                        <option value="Descartado">Descartado</option>
                       </select>
                     </td>
                     <td className={styles.tdSalary}>
                       <span className={styles.salaryText}>{app.salary || '-'}</span>
                     </td>
-                    <td className={styles.tdNotes}>
+                    <td className={styles.tdNotes} title={app.notes && app.notes !== '-' ? app.notes : undefined}>
                       <span className={styles.notesText}>{app.notes || '-'}</span>
                     </td>
                     <td className={styles.tdJobUrl}>
@@ -640,6 +640,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                   <input
                     type="text"
                     required
+                    maxLength={100}
                     placeholder="Ej. Mercado Libre, Globant, Startup..."
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
@@ -655,6 +656,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                   <input
                     type="text"
                     required
+                    maxLength={100}
                     placeholder="Ej. Product Designer, HR Specialist..."
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
@@ -675,12 +677,12 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                     onChange={(e) => setStatus(e.target.value as JobApplication['status'])}
                     className={styles.didacticSelect}
                   >
-                    <option value="Identificada / Por postular">🟣 Identificada / Por postular</option>
-                    <option value="Postulado">🟡 Postulado</option>
-                    <option value="Entrevista RRHH">🟣 Entrevista RRHH</option>
-                    <option value="Prueba Técnica">🔵 Prueba Técnica</option>
-                    <option value="Oferta Recibida">🟢 Oferta Recibida 🎉</option>
-                    <option value="Descartado">🔴 Descartado</option>
+                    <option value="Identificada / Por postular">Identificada / Por postular</option>
+                    <option value="Postulado">Postulado</option>
+                    <option value="Entrevista RRHH">Entrevista RRHH</option>
+                    <option value="Prueba Técnica">Prueba Técnica</option>
+                    <option value="Oferta Recibida">Oferta Recibida</option>
+                    <option value="Descartado">Descartado</option>
                   </select>
                 </div>
 
@@ -691,6 +693,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                   </label>
                   <input
                     type="text"
+                    maxLength={80}
                     placeholder="Ej. $1.500.000 ARS o $1.800 USD (opcional)"
                     value={salary}
                     onChange={(e) => setSalary(e.target.value)}
@@ -708,6 +711,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                 <div className={styles.urlInputWrap}>
                   <input
                     type="url"
+                    maxLength={500}
                     placeholder="https://www.linkedin.com/jobs/view/... o portal de empleo (opcional)"
                     value={jobUrl}
                     onChange={(e) => setJobUrl(e.target.value)}
@@ -724,6 +728,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
                 </label>
                 <textarea
                   rows={2}
+                  maxLength={1000}
                   placeholder="Ej. Versión de CV enviada, feedback recibido, contacto de reclutador... (opcional)"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}

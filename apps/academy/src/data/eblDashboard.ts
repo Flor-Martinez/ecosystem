@@ -352,7 +352,7 @@ export const eblCards: EblDashboardCard[] = [
     type: 'herramienta',
     title: 'Charlas Semanales vía Zoom',
     subtitle: 'Mentoría en Vivo',
-    description: 'Sesiones de feedback en vivo los miércoles 19 hs, auditorías de CV y grabaciones.',
+    description: 'Sesiones de dudas y feedback en vivo los miércoles 19 hs y grabaciones.',
     icon: 'Video',
     colorScheme: {
       primary: '#2563EB',
@@ -365,7 +365,7 @@ export const eblCards: EblDashboardCard[] = [
     badge: 'Miércoles 19 hs',
     features: [
       { iconName: 'Video', label: 'Sala Zoom en vivo + Grabaciones' },
-      { iconName: 'UploadCloud', label: 'Postular CV para revisión en vivo' },
+      { iconName: 'HelpCircle', label: 'Espacio de dudas y feedback' },
     ],
     quickActionLabel: 'Ver Agenda Zoom',
     targetView: 'zoom',
@@ -378,12 +378,12 @@ export const eblCards: EblDashboardCard[] = [
     description: 'Fechas de tus próximas entrevistas, pruebas técnicas y sincronización con Google Calendar.',
     icon: 'Calendar',
     colorScheme: {
-      primary: '#059669',
-      bgGradient: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
-      border: '#E2E8F0',
-      accent: '#047857',
-      pillBg: '#ECFDF5',
-      pillColor: '#059669',
+      primary: '#EA580C',
+      bgGradient: 'linear-gradient(135deg, #FFF7ED 0%, #FFFFFF 100%)',
+      border: '#FED7AA',
+      accent: '#C2410C',
+      pillBg: '#FFEDD5',
+      pillColor: '#EA580C',
     },
     badge: '2 Próximos',
     features: [

@@ -163,11 +163,11 @@ export function EblCard({
       normalBg = 'linear-gradient(180deg, #EFF6FF 0%, #F5F9FF 30%, #FFFFFF 100%)';
       borderColor = '#BFDBFE';
     } else if (card.id === 'tool-agenda' || card.targetView === 'agenda') {
-      topColor = '#059669';
-      topHoverColor = '#10B981';
-      glowColor = 'rgba(16, 185, 129, 0.28)';
-      normalBg = 'linear-gradient(180deg, #ECFDF5 0%, #F2FDF8 30%, #FFFFFF 100%)';
-      borderColor = '#A7F3D0';
+      topColor = '#EA580C';
+      topHoverColor = '#F97316';
+      glowColor = 'rgba(249, 115, 22, 0.28)';
+      normalBg = 'linear-gradient(180deg, #FFF7ED 0%, #FFFAF0 30%, #FFFFFF 100%)';
+      borderColor = '#FED7AA';
     } else if (card.id === 'tool-evaluaciones' || card.targetView === 'evaluaciones') {
       topColor = '#0D9488';
       topHoverColor = '#14B8A6';

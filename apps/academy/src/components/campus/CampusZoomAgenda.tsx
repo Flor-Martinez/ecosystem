@@ -6,7 +6,6 @@ import {
   Calendar as CalendarIcon,
   Clock,
   CheckCircle2,
-  Send,
   Sparkles,
   PlayCircle,
   Plus,
@@ -15,6 +14,8 @@ import {
   ChevronRight,
   Briefcase,
   CalendarDays,
+  Building2,
+  FileText,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -38,29 +39,29 @@ export interface CalendarEvent {
 const defaultEvents: CalendarEvent[] = [
   {
     id: 'zoom-aug-20',
-    title: '🎙️ Zoom Semanal: Auditoría de CVs & LinkedIn en Vivo',
+    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
     date: '2025-08-20',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Espacio semanal de mentoría y feedback directo con Flor Martinez.',
+    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
     zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
   },
   {
     id: 'zoom-aug-27',
-    title: '🎙️ Zoom Semanal: Simulación de Entrevistas & Negociación USD',
+    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
     date: '2025-08-27',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Preguntas trampa, método STAR y técnicas de anclaje de salario.',
+    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
     zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
   },
   {
     id: 'zoom-sep-03',
-    title: '🎙️ Zoom Semanal: Búsqueda en Portales Remotos & Networking',
+    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
     date: '2025-09-03',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Optimización de filtros en Wellfound, Remotive y mensajes en frío.',
+    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
     zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
   },
   {
@@ -77,15 +78,24 @@ const defaultEvents: CalendarEvent[] = [
 const pastRecordings = [
   {
     id: 'past-1',
-    date: 'Miércoles 13 de Agosto',
-    title: 'Cómo estructurar el CV si tenés poca experiencia o cambio de rubro',
+    date: 'Miércoles 13 de Agosto de 2025',
+    title: 'Sesión en Vivo — 13 de Agosto',
     duration: '1h 15m',
+    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
   },
   {
     id: 'past-2',
-    date: 'Miércoles 06 de Agosto',
-    title: 'Estrategia de mensajes en frío para conectar con recruiters en LinkedIn',
+    date: 'Miércoles 06 de Agosto de 2025',
+    title: 'Sesión en Vivo — 06 de Agosto',
     duration: '1h 22m',
+    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
+  },
+  {
+    id: 'past-3',
+    date: 'Miércoles 30 de Julio de 2025',
+    title: 'Sesión en Vivo — 30 de Julio',
+    duration: '1h 10m',
+    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
   },
 ];
 
@@ -108,10 +118,6 @@ export function CampusZoomAgenda() {
   const [newTime, setNewTime] = useState('15:00 hs');
   const [newCompany, setNewCompany] = useState('');
   const [newNotes, setNewNotes] = useState('');
-
-  // CV Audit Question Box State
-  const [cvSubmitted, setCvSubmitted] = useState(false);
-  const [cvNote, setCvNote] = useState('');
 
   // Load from database (with localStorage fallback)
   useEffect(() => {
@@ -201,14 +207,7 @@ export function CampusZoomAgenda() {
     }
   };
 
-  const handleSubmitCvAudit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setCvSubmitted(true);
-    setCvNote('');
-    setTimeout(() => setCvSubmitted(false), 5000);
-  };
-
-  // Calendar calculations (August 2025)
+  // Calendar calculations
   const monthNames = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -265,14 +264,14 @@ export function CampusZoomAgenda() {
           </p>
         </div>
 
-        {/* Tab switcher */}
+        {/* Tab switcher with prominence */}
         <div className={styles.tabButtons}>
           <button
             type="button"
             className={`${styles.tabBtn} ${activeTab === 'calendar' ? styles.tabBtnActive : ''}`}
             onClick={() => setActiveTab('calendar')}
           >
-            <CalendarIcon size={15} />
+            <CalendarIcon size={16} />
             <span>Mi Calendario</span>
           </button>
           <button
@@ -280,8 +279,8 @@ export function CampusZoomAgenda() {
             className={`${styles.tabBtn} ${activeTab === 'recordings' ? styles.tabBtnActive : ''}`}
             onClick={() => setActiveTab('recordings')}
           >
-            <PlayCircle size={15} />
-            <span>Grabaciones Anteriores</span>
+            <PlayCircle size={16} />
+            <span>Grabaciones Zoom ({pastRecordings.length})</span>
           </button>
         </div>
       </div>
@@ -344,7 +343,7 @@ export function CampusZoomAgenda() {
 
                 const dayEvents = events.filter((e) => e.date === item.dateStr);
                 const hasZoom = dayEvents.some((e) => e.type === 'zoom');
-                const hasInterview = dayEvents.some((e) => e.type === 'entrevista' || e.type === 'prueba');
+                const hasInterview = dayEvents.some((e) => e.type === 'entrevista' || e.type === 'prueba' || e.type === 'seguimiento');
                 const isSelected = selectedDate === item.dateStr;
 
                 return (
@@ -357,7 +356,7 @@ export function CampusZoomAgenda() {
                     <span className={styles.dayNum}>{item.day}</span>
                     <div className={styles.dayDotsRow}>
                       {hasZoom && <span className={`${styles.dot} ${styles.dotZoom}`} title="Zoom Semanal" />}
-                      {hasInterview && <span className={`${styles.dot} ${styles.dotInterview}`} title="Entrevista" />}
+                      {hasInterview && <span className={`${styles.dot} ${styles.dotInterview}`} title="Entrevista Laboral" />}
                     </div>
                   </button>
                 );
@@ -372,7 +371,7 @@ export function CampusZoomAgenda() {
               </div>
               <div className={styles.legendItem}>
                 <span className={`${styles.dot} ${styles.dotInterview}`} />
-                <span>Entrevistas & Pruebas Técnicas</span>
+                <span>Entrevistas & Pruebas Técnicas (Tracker)</span>
               </div>
             </div>
           </div>
@@ -410,11 +409,11 @@ export function CampusZoomAgenda() {
                       </div>
                     </div>
 
-                    <h4 className={styles.eventTitle}>{ev.title}</h4>
-                    {ev.notes && <p className={styles.eventNotes}>{ev.notes}</p>}
+                    <h4 className={styles.eventTitle} title={ev.title}>{ev.title}</h4>
+                    {ev.notes && <p className={styles.eventNotes} title={ev.notes}>{ev.notes}</p>}
 
                     <div className={styles.eventActionsRow}>
-                      {ev.zoomLink && (
+                      {ev.zoomLink ? (
                         <a
                           href={ev.zoomLink}
                           target="_blank"
@@ -428,7 +427,7 @@ export function CampusZoomAgenda() {
                           <Video size={14} />
                           <span>Entrar al Zoom</span>
                         </a>
-                      )}
+                      ) : <span />}
 
                       {!ev.id.startsWith('zoom-') && (
                         <button
@@ -461,84 +460,72 @@ export function CampusZoomAgenda() {
                 </button>
               </div>
             )}
-
-            {/* Quick Ask Box for Next Zoom */}
-            <div className={styles.quickAuditBox}>
-              <div className={styles.auditBoxHeader}>
-                <Sparkles size={16} className={styles.auditSparkle} />
-                <strong>¿Deseás que Flor audite tu CV este Miércoles?</strong>
-              </div>
-              <p className={styles.auditBoxSub}>
-                Enviá tu consulta o enlace de CV para ponerlo en pantalla en el Zoom semanal.
-              </p>
-
-              {cvSubmitted ? (
-                <div className={styles.auditSuccessAlert}>
-                  <CheckCircle2 size={16} />
-                  <span>¡Consulta agendada para el próximo Zoom semanal!</span>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmitCvAudit} className={styles.auditForm}>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Ej. Dudas sobre mi sección de Experiencia en Comercio..."
-                    value={cvNote}
-                    onChange={(e) => setCvNote(e.target.value)}
-                    className={styles.auditInput}
-                  />
-                  <button type="submit" className={styles.auditSubmitBtn}>
-                    <Send size={14} />
-                    <span>Enviar al Zoom</span>
-                  </button>
-                </form>
-              )}
-            </div>
           </div>
         </div>
       ) : (
-        /* RECORDINGS TAB */
-        <div className={styles.recordingsGrid}>
-          <div className={styles.recordingsCol}>
+        /* RECORDINGS TAB - PROMINENT DATE-FOCUSED LIST */
+        <div className={styles.recordingsWrapper}>
+          <div className={styles.recordingsHeaderBox}>
             <h3 className={styles.colTitle}>Grabaciones de Sesiones Anteriores</h3>
             <p className={styles.recordingsSubtitle}>
-              Si no pudiste asistir al vivo, podés consultar las grabaciones con marcas de tiempo.
+              Accedé a las grabaciones completas de los encuentros semanales para repasar las respuestas a dudas y consultas de alumnos.
             </p>
+          </div>
 
-            <div className={styles.recordingsList}>
-              {pastRecordings.map((rec) => (
-                <div key={rec.id} className={styles.recordingCard}>
-                  <div className={styles.recPlayIcon}>
-                    <PlayCircle size={24} />
-                  </div>
-                  <div className={styles.recInfo}>
-                    <span className={styles.recDate}>{rec.date} · Duración: {rec.duration}</span>
-                    <h4 className={styles.recTitle}>{rec.title}</h4>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.watchRecBtn}
-                    onClick={() => alert(`Reproduciendo grabación: ${rec.title}`)}
-                  >
-                    Ver Grabación
-                  </button>
+          <div className={styles.recordingsList}>
+            {pastRecordings.map((rec) => (
+              <div key={rec.id} className={styles.recordingCard}>
+                <div className={styles.recPlayIcon}>
+                  <PlayCircle size={32} />
                 </div>
-              ))}
-            </div>
+                <div className={styles.recInfo}>
+                  <div className={styles.recDateBadge}>
+                    <CalendarDays size={13} />
+                    <span>{rec.date}</span>
+                  </div>
+                  <h4 className={styles.recTitle}>{rec.title}</h4>
+                  <p className={styles.recDesc}>{rec.description}</p>
+                  <div className={styles.recMetaRow}>
+                    <span className={styles.recDuration}>
+                      <Clock size={13} />
+                      <span>Duración: {rec.duration}</span>
+                    </span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className={styles.watchRecBtn}
+                  onClick={() => alert(`Reproduciendo grabación: ${rec.title}`)}
+                >
+                  <PlayCircle size={15} />
+                  <span>Ver Grabación</span>
+                </button>
+              </div>
+            ))}
           </div>
         </div>
       )}
 
-      {/* MODAL TO ADD CUSTOM EVENT */}
+      {/* UNIFIED DESIGN MODAL TO ADD CUSTOM EVENT */}
       {showAddModal && (
         <div className={styles.modalOverlay} onClick={() => setShowAddModal(false)}>
           <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitle}>Agendar Nuevo Evento</h3>
+              <div className={styles.modalHeaderInfo}>
+                <div className={styles.modalPillBadge}>
+                  <Sparkles size={13} />
+                  <span>GESTOR DE CALENDARIO</span>
+                </div>
+                <h3 className={styles.modalTitle}>Agendar Nuevo Evento</h3>
+                <p className={styles.modalSubtitle}>
+                  Registrá tus próximas entrevistas laborales, pruebas técnicas y recordatorios.
+                </p>
+              </div>
               <button
                 type="button"
                 className={styles.closeBtn}
                 onClick={() => setShowAddModal(false)}
+                aria-label="Cerrar modal"
               >
                 ✕
               </button>
@@ -546,70 +533,98 @@ export function CampusZoomAgenda() {
 
             <form onSubmit={handleAddEvent} className={styles.modalForm}>
               <div className={styles.formGroup}>
-                <label>Título del Evento *</label>
+                <label className={styles.fieldLabel}>
+                  <Briefcase size={14} className={styles.labelIconRole} />
+                  <span>Título del Evento *</span>
+                </label>
                 <input
                   type="text"
                   required
+                  maxLength={100}
                   placeholder="Ej. Entrevista Técnica con Líder de Producto..."
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
+                  className={styles.didacticInput}
                 />
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label>Tipo de Evento</label>
+                  <label className={styles.fieldLabel}>
+                    <Clock size={14} className={styles.labelIconStatus} />
+                    <span>Tipo de Evento</span>
+                  </label>
                   <select
                     value={newType}
                     onChange={(e) => setNewType(e.target.value as CalendarEvent['type'])}
+                    className={styles.didacticSelect}
                   >
                     <option value="entrevista">💼 Entrevista RRHH / Manager</option>
                     <option value="prueba">💻 Prueba Técnica / Live Coding</option>
                     <option value="seguimiento">✉️ Follow-up / Seguimiento</option>
-                    <option value="zoom">🎙️ Zoom Semanal Alumnos</option>
                   </select>
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Empresa (opcional)</label>
+                  <label className={styles.fieldLabel}>
+                    <Building2 size={14} className={styles.labelIconCompany} />
+                    <span>Empresa (opcional)</span>
+                  </label>
                   <input
                     type="text"
+                    maxLength={100}
                     placeholder="Ej. Mercado Libre, Ualá..."
                     value={newCompany}
                     onChange={(e) => setNewCompany(e.target.value)}
+                    className={styles.didacticInput}
                   />
                 </div>
               </div>
 
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>
-                  <label>Fecha *</label>
+                  <label className={styles.fieldLabel}>
+                    <CalendarDays size={14} className={styles.labelIconCalendar} />
+                    <span>Fecha *</span>
+                  </label>
                   <input
                     type="date"
                     required
                     value={newDate}
                     onChange={(e) => setNewDate(e.target.value)}
+                    className={styles.didacticInput}
                   />
                 </div>
 
                 <div className={styles.formGroup}>
-                  <label>Hora *</label>
+                  <label className={styles.fieldLabel}>
+                    <Clock size={14} className={styles.labelIconTime} />
+                    <span>Hora *</span>
+                  </label>
                   <input
                     type="text"
+                    required
+                    maxLength={50}
                     placeholder="Ej. 15:00 hs (Arg)"
                     value={newTime}
                     onChange={(e) => setNewTime(e.target.value)}
+                    className={styles.didacticInput}
                   />
                 </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label>Notas / Preguntas preparadas</label>
+                <label className={styles.fieldLabel}>
+                  <FileText size={14} className={styles.labelIconNotes} />
+                  <span>Notas / Preguntas preparadas</span>
+                </label>
                 <textarea
                   rows={3}
-                  placeholder="Ej. Tener a mano portfolio, preparar preguntas sobre cultura del equipo..."
+                  maxLength={1000}
+                  placeholder="Ej. Tener a mano portfolio, preparar preguntas sobre cultura del equipo... (opcional)"
                   value={newNotes}
                   onChange={(e) => setNewNotes(e.target.value)}
+                  className={styles.didacticTextarea}
                 />
               </div>
 
@@ -622,7 +637,8 @@ export function CampusZoomAgenda() {
                   Cancelar
                 </button>
                 <button type="submit" className={styles.submitModalBtn}>
-                  Guardar en Calendario
+                  <Sparkles size={15} />
+                  <span>Guardar en Calendario</span>
                 </button>
               </div>
             </form>
