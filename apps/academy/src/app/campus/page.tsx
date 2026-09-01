@@ -509,6 +509,7 @@ function CampusContent() {
                 isDevMode={isDevMode}
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
                 onNavigateToVocationalTest={() => handleNavChangeView('test-vocacional')}
+                onNavigateToEvaluations={() => handleNavChangeView('evaluaciones')}
               />
             )
           )}
@@ -654,7 +655,10 @@ function CampusContent() {
                 onUpgrade={handleToggleMembership}
               />
             ) : (
-              <CampusTracker onNavigateToAgenda={() => handleNavChangeView('agenda')} />
+              <CampusTracker
+                onNavigateToAgenda={() => handleNavChangeView('agenda')}
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+              />
             )
           )}
 
@@ -668,7 +672,7 @@ function CampusContent() {
                   onUpgrade={handleToggleMembership}
                 />
               ) : (
-                <CampusZoomAgenda />
+                <CampusZoomAgenda onBackToDashboard={() => handleNavChangeView('dashboard')} />
               )
             )}
         </main>

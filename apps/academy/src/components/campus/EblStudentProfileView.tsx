@@ -19,6 +19,8 @@ import {
   Layers,
   Building2,
   Lock,
+  TrendingUp,
+  BarChart3,
 } from 'lucide-react';
 import { LinkedinIcon } from '@/components/ui/Icons';
 import { useAuth } from '@/context/AuthContext';
@@ -29,12 +31,14 @@ interface EblStudentProfileViewProps {
   onBackToDashboard: () => void;
   isDevMode?: boolean;
   onNavigateToVocationalTest?: () => void;
+  onNavigateToEvaluations?: () => void;
 }
 
 export function EblStudentProfileView({
   onBackToDashboard,
   isDevMode = false,
   onNavigateToVocationalTest,
+  onNavigateToEvaluations,
 }: EblStudentProfileViewProps) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
@@ -588,12 +592,58 @@ export function EblStudentProfileView({
             )}
           </div>
 
-          {/* 3. Certificates Earned */}
+          {/* 3. Evaluaciones, Score & Certificados */}
           <div className={styles.sectionCard}>
-            <h2 className={styles.cardTitle}>
-              <Award size={18} className={styles.cardIcon} />
-              <span>Certificados Emitidos & Logros</span>
-            </h2>
+            <div className={styles.cardHeaderBetween}>
+              <h2 className={styles.cardTitle}>
+                <Award size={18} className={styles.cardIcon} />
+                <span>Evaluaciones & Certificados</span>
+              </h2>
+
+              {onNavigateToEvaluations && (
+                <button
+                  type="button"
+                  className={styles.goToEvaluationsBtn}
+                  onClick={onNavigateToEvaluations}
+                  title="Ver desglose completo de competencias y score"
+                >
+                  <BarChart3 size={13} />
+                  <span>Ver Evaluaciones ↗</span>
+                </button>
+              )}
+            </div>
+
+            {/* Score Overview Box */}
+            <div className={styles.scoreOverviewBox}>
+              <div className={styles.scoreTopRow}>
+                <div className={styles.scoreMetricGroup}>
+                  <span className={styles.scoreMetricLabel}>Índice General</span>
+                  <div className={styles.scoreMetricValue}>
+                    <strong>85</strong>
+                    <span>/100</span>
+                  </div>
+                </div>
+                <span className={styles.scoreStatusPill}>
+                  <CheckCircle2 size={13} />
+                  <span>Perfil Competitivo</span>
+                </span>
+              </div>
+
+              <div className={styles.moduleScoresRow}>
+                <div className={styles.moduleScoreChip}>
+                  <span className={styles.modChipName}>CV ATS</span>
+                  <strong className={styles.modChipScore} style={{ color: '#7C3AED' }}>85%</strong>
+                </div>
+                <div className={styles.moduleScoreChip}>
+                  <span className={styles.modChipName}>LinkedIn SEO</span>
+                  <strong className={styles.modChipScore} style={{ color: '#0284C7' }}>70%</strong>
+                </div>
+                <div className={styles.moduleScoreChip}>
+                  <span className={styles.modChipName}>Método STAR</span>
+                  <strong className={styles.modChipScore} style={{ color: '#059669' }}>60%</strong>
+                </div>
+              </div>
+            </div>
 
             <div className={styles.certificatesList}>
               <div className={styles.certItem}>

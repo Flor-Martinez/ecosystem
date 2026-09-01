@@ -18,6 +18,7 @@ import {
   Clock,
   CalendarPlus,
   Table,
+  ArrowLeft,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -108,9 +109,10 @@ const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
 
 interface CampusTrackerProps {
   onNavigateToAgenda?: () => void;
+  onBackToDashboard?: () => void;
 }
 
-export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
+export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusTrackerProps) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
 
@@ -382,6 +384,20 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
 
   return (
     <div className={styles.trackerWrapper}>
+      {/* Top Back Navigation */}
+      {onBackToDashboard && (
+        <div className={styles.topBackRow}>
+          <button
+            type="button"
+            className={styles.backBtn}
+            onClick={onBackToDashboard}
+          >
+            <ArrowLeft size={16} />
+            <span>Volver al Tablero</span>
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className={styles.trackerHeader}>
         <div>

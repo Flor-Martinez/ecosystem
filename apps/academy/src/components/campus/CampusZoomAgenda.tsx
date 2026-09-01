@@ -16,6 +16,7 @@ import {
   CalendarDays,
   Building2,
   FileText,
+  ArrowLeft,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -101,7 +102,11 @@ const pastRecordings = [
 
 const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
 
-export function CampusZoomAgenda() {
+interface CampusZoomAgendaProps {
+  onBackToDashboard?: () => void;
+}
+
+export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = {}) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
 
@@ -118,118 +123,103 @@ export function CampusZoomAgenda() {
   const [newTime, setNewTime] = useState('15:00 hs');
   const [newCompany, setNewCompany] = useState('');
   const [newNotes, setNewNotes] = useState('');
+  const [newZoomLink, setNewZoomLink] = useState('');
 
-  // Load from database (with localStorage fallback)
+  // Load from database on mount (with localStorage fallback)
   useEffect(() => {
-    async function loadEvents() {
+    async function loadData() {
       try {
         const res = await getCampusInitialDataAction(activeEmail);
         if (res.success && res.data && res.data.calendarEvents.length > 0) {
-          setEvents(res.data.calendarEvents);
-          localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(res.data.calendarEvents));
-          return;
-        }
-      } catch (e) {
-        console.error('Error cargando eventos desde DB:', e);
-      }
-
-      try {
-        const saved = localStorage.getItem(CALENDAR_STORAGE_KEY);
-        if (saved) {
-          const parsed: CalendarEvent[] = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const ids = new Set(parsed.map((e) => e.id));
-            const merged = [...parsed, ...defaultEvents.filter((d) => !ids.has(d.id))];
-            setEvents(merged);
+          // Merge with default zoom events so students always see live weekly sessions
+          const dbEvents = res.data.calendarEvents;
+          const merged: CalendarEvent[] = [...dbEvents];
+          defaultEvents.forEach((defEv) => {
+            if (!merged.some((e) => e.id === defEv.id || (e.title === defEv.title && e.date === defEv.date))) {
+              merged.push(defEv);
+            }
+          });
+          setEvents(merged);
+          localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(merged));
+        } else {
+          const saved = localStorage.getItem(CALENDAR_STORAGE_KEY);
+          if (saved) {
+            try {
+              setEvents(JSON.parse(saved));
+            } catch {
+              // ignore
+            }
           }
         }
-      } catch {
-        // ignore
+      } catch (err) {
+        console.error('Error cargando eventos de la agenda:', err);
       }
     }
-    loadEvents();
+    loadData();
   }, [activeEmail]);
 
-  const persistEvents = (newEvents: CalendarEvent[]) => {
-    setEvents(newEvents);
-    try {
-      localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(newEvents));
-    } catch {
-      // ignore
-    }
+  // Helper functions for calendar
+  const getDaysInMonth = (y: number, m: number) => new Date(y, m + 1, 0).getDate();
+  const getFirstDayOfMonth = (y: number, m: number) => {
+    const d = new Date(y, m, 1).getDay();
+    return d === 0 ? 6 : d - 1; // Mon=0, Sun=6
   };
 
-  const handleAddEvent = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTitle.trim()) return;
-
-    const payload = {
-      title: newTitle.trim(),
-      type: newType,
-      date: newDate,
-      time: newTime.trim() || 'Horario a confirmar',
-      company: newCompany.trim() || undefined,
-      notes: newNotes.trim() || undefined,
-    };
-
-    const newEv: CalendarEvent = {
-      id: `temp-${Date.now()}`,
-      ...payload,
-    };
-
-    persistEvents([newEv, ...events]);
-    setShowAddModal(false);
-    setSelectedDate(newDate);
-    setNewTitle('');
-    setNewCompany('');
-    setNewNotes('');
-
-    try {
-      const res = await saveCalendarEventAction(activeEmail, payload);
-      if (res.success && res.data) {
-        setEvents((prev) =>
-          prev.map((evt) => (evt.id === newEv.id ? res.data! : evt))
-        );
-      }
-    } catch (err) {
-      console.warn('Error al guardar evento en DB:', err);
-    }
-  };
-
-  const handleDeleteEvent = async (id: string) => {
-    const updated = events.filter((e) => e.id !== id);
-    persistEvents(updated);
-
-    try {
-      await deleteCalendarEventAction(activeEmail, id);
-    } catch (err) {
-      console.warn('Error al eliminar evento en DB:', err);
-    }
-  };
-
-  // Calendar calculations
   const monthNames = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  const daysInMonth = new Date(currentMonth.year, currentMonth.month + 1, 0).getDate();
-  const firstDayOfWeek = new Date(currentMonth.year, currentMonth.month, 1).getDay(); // 0 = Sun
-  // Convert to Mon-based (0 = Mon, 6 = Sun)
-  const startOffset = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
+  const handleOpenAddModal = (forDate?: string) => {
+    setNewDate(forDate || selectedDate);
+    setNewTitle('');
+    setNewType('entrevista');
+    setNewTime('15:00 hs');
+    setNewCompany('');
+    setNewNotes('');
+    setNewZoomLink('');
+    setShowAddModal(true);
+  };
 
-  const calendarDays = [];
-  for (let i = 0; i < startOffset; i++) {
-    calendarDays.push(null);
-  }
-  for (let d = 1; d <= daysInMonth; d++) {
-    const formattedD = d < 10 ? `0${d}` : `${d}`;
-    const formattedM = currentMonth.month + 1 < 10 ? `0${currentMonth.month + 1}` : `${currentMonth.month + 1}`;
-    calendarDays.push({
-      day: d,
-      dateStr: `${currentMonth.year}-${formattedM}-${formattedD}`,
-    });
-  }
+  const handleSaveEvent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle.trim()) return;
+
+    const newEv: CalendarEvent = {
+      id: `custom-${Date.now()}`,
+      title: newTitle.trim(),
+      type: newType,
+      date: newDate,
+      time: newTime.trim() || '12:00 hs',
+      company: newCompany.trim() || undefined,
+      notes: newNotes.trim() || undefined,
+      zoomLink: newZoomLink.trim() || undefined,
+    };
+
+    const updated = [...events, newEv];
+    setEvents(updated);
+    localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(updated));
+    setShowAddModal(false);
+
+    try {
+      await saveCalendarEventAction(activeEmail, newEv);
+    } catch (err) {
+      console.error('Error guardando evento en DB:', err);
+    }
+  };
+
+  const handleDeleteEvent = async (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    const updated = events.filter((ev) => ev.id !== id);
+    setEvents(updated);
+    localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(updated));
+
+    try {
+      await deleteCalendarEventAction(activeEmail, id);
+    } catch (err) {
+      console.error('Error eliminando evento en DB:', err);
+    }
+  };
 
   const handlePrevMonth = () => {
     if (currentMonth.month === 0) {
@@ -247,10 +237,36 @@ export function CampusZoomAgenda() {
     }
   };
 
+  const { year, month } = currentMonth;
+  const totalDays = getDaysInMonth(year, month);
+  const startDay = getFirstDayOfMonth(year, month);
+
+  const calendarDays = [];
+  for (let i = 0; i < startDay; i++) calendarDays.push(null);
+  for (let d = 1; d <= totalDays; d++) {
+    const fd = d < 10 ? `0${d}` : `${d}`;
+    const fm = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
+    calendarDays.push({ day: d, dateStr: `${year}-${fm}-${fd}` });
+  }
+
   const selectedDateEvents = events.filter((e) => e.date === selectedDate);
 
   return (
     <div className={styles.agendaWrapper}>
+      {/* Top Back Navigation */}
+      {onBackToDashboard && (
+        <div className={styles.topBackRow}>
+          <button
+            type="button"
+            className={styles.backBtn}
+            onClick={onBackToDashboard}
+          >
+            <ArrowLeft size={16} />
+            <span>Volver al Tablero</span>
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className={styles.agendaHeader}>
         <div>
@@ -268,18 +284,18 @@ export function CampusZoomAgenda() {
         <div className={styles.tabButtons}>
           <button
             type="button"
-            className={`${styles.tabBtn} ${activeTab === 'calendar' ? styles.tabBtnActive : ''}`}
+            className={`${styles.tabBtn} ${styles.tabBtnCalendar} ${activeTab === 'calendar' ? styles.tabBtnCalendarActive : ''}`}
             onClick={() => setActiveTab('calendar')}
           >
-            <CalendarIcon size={16} />
+            <CalendarIcon size={17} />
             <span>Mi Calendario</span>
           </button>
           <button
             type="button"
-            className={`${styles.tabBtn} ${activeTab === 'recordings' ? styles.tabBtnActive : ''}`}
+            className={`${styles.tabBtn} ${styles.tabBtnRecordings} ${activeTab === 'recordings' ? styles.tabBtnRecordingsActive : ''}`}
             onClick={() => setActiveTab('recordings')}
           >
-            <PlayCircle size={16} />
+            <PlayCircle size={17} />
             <span>Grabaciones Zoom ({pastRecordings.length})</span>
           </button>
         </div>
@@ -531,7 +547,7 @@ export function CampusZoomAgenda() {
               </button>
             </div>
 
-            <form onSubmit={handleAddEvent} className={styles.modalForm}>
+            <form onSubmit={handleSaveEvent} className={styles.modalForm}>
               <div className={styles.formGroup}>
                 <label className={styles.fieldLabel}>
                   <Briefcase size={14} className={styles.labelIconRole} />

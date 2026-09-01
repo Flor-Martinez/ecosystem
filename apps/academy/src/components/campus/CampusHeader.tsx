@@ -18,6 +18,9 @@ import {
   Compass,
   BookOpen,
   Code2,
+  Sparkles,
+  TrendingUp,
+  Video,
 } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useAuth } from '@/context/AuthContext';
@@ -55,6 +58,7 @@ export function CampusHeader({
 }: CampusHeaderProps) {
   const { user, openAuthModal, logout } = useAuth();
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
+  const [showToolsMenu, setShowToolsMenu] = useState(false);
 
   const progressPercent = totalLessonsCount > 0
     ? Math.round((completedCount / totalLessonsCount) * 100)
@@ -258,6 +262,183 @@ export function CampusHeader({
                 <PlayCircle size={16} />
                 <span>Aula</span>
               </button>
+
+              {/* DEDICATED HERRAMIENTAS DROPDOWN MENU */}
+              <div className={styles.toolsDropdownWrap}>
+                <button
+                  type="button"
+                  className={`${styles.navTabBtn} ${styles.toolsMenuBtn} ${['recursos', 'tracker', 'agenda', 'zoom', 'test-vocacional', 'evaluaciones', 'perfil'].includes(currentView) ? styles.toolsMenuBtnActive : ''}`}
+                  onClick={() => setShowToolsMenu(!showToolsMenu)}
+                  title="Acceso directo a todas las herramientas del campus"
+                >
+                  <Sparkles size={16} className={styles.toolsSparkleIcon} />
+                  <span>Herramientas</span>
+                  <ChevronDown size={14} className={`${styles.toolsChevron} ${showToolsMenu ? styles.toolsChevronOpen : ''}`} />
+                </button>
+
+                {showToolsMenu && (
+                  <>
+                    <div
+                      className={styles.toolsMenuBackdrop}
+                      onClick={() => setShowToolsMenu(false)}
+                    />
+                    <div className={styles.toolsDropdownPanel}>
+                      <div className={styles.toolsDropdownHeader}>
+                        <Sparkles size={13} color="#7C3AED" />
+                        <span>HERRAMIENTAS & RECURSOS DISPONIBLES</span>
+                      </div>
+
+                      <div className={styles.toolsGrid}>
+                        {/* 1. Recursos */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'recursos' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            setCurrentView('recursos');
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FEF3C7', color: '#D97706' }}>
+                            <FolderDown size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Bóveda de Recursos</strong>
+                            <span className={styles.toolSubtitle}>28 Plantillas protegidas</span>
+                          </div>
+                        </button>
+
+                        {/* 2. Tracker */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'tracker' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            if (membershipTier === 'free') {
+                              if (onLockedClick) onLockedClick('tracker');
+                            } else {
+                              setCurrentView('tracker');
+                            }
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#ECFEFF', color: '#0891B2' }}>
+                            <Table size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Tracker de Postulaciones</strong>
+                            <span className={styles.toolSubtitle}>Gestión de procesos activos</span>
+                          </div>
+                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
+                        </button>
+
+                        {/* 3. Agenda & Calendario */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'agenda' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            if (membershipTier === 'free') {
+                              if (onLockedClick) onLockedClick('agenda');
+                            } else {
+                              setCurrentView('agenda');
+                            }
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FFF7ED', color: '#EA580C' }}>
+                            <Calendar size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Agenda & Calendario</strong>
+                            <span className={styles.toolSubtitle}>Entrevistas y fechas clave</span>
+                          </div>
+                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
+                        </button>
+
+                        {/* 4. Zoom Semanales */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'zoom' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            if (membershipTier === 'free') {
+                              if (onLockedClick) onLockedClick('zoom');
+                            } else {
+                              setCurrentView('zoom');
+                            }
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#EFF6FF', color: '#2563EB' }}>
+                            <Video size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Charlas Semanales Zoom</strong>
+                            <span className={styles.toolSubtitle}>Mentorías en vivo y grabaciones</span>
+                          </div>
+                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
+                        </button>
+
+                        {/* 5. Test Vocacional */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'test-vocacional' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            setCurrentView('test-vocacional');
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FDF2F8', color: '#EC4899' }}>
+                            <Compass size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Test Vocacional & Orientación</strong>
+                            <span className={styles.toolSubtitle}>Diagnóstico de fortalezas</span>
+                          </div>
+                        </button>
+
+                        {/* 6. Evaluaciones & Score */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'evaluaciones' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            setCurrentView('evaluaciones');
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#F0FDFA', color: '#0D9488' }}>
+                            <TrendingUp size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Evaluaciones de Módulos & Score</strong>
+                            <span className={styles.toolSubtitle}>Índice de competencias y logros</span>
+                          </div>
+                        </button>
+
+                        {/* 7. Mi Perfil & Expediente */}
+                        <button
+                          type="button"
+                          className={`${styles.toolItem} ${currentView === 'perfil' ? styles.toolItemActive : ''}`}
+                          onClick={() => {
+                            if (membershipTier === 'free') {
+                              if (onLockedClick) onLockedClick('perfil');
+                            } else {
+                              setCurrentView('perfil');
+                            }
+                            setShowToolsMenu(false);
+                          }}
+                        >
+                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#EEF2FF', color: '#4338CA' }}>
+                            <UserCheck size={17} />
+                          </div>
+                          <div className={styles.toolInfo}>
+                            <strong className={styles.toolTitle}>Expediente del Alumno & Perfil</strong>
+                            <span className={styles.toolSubtitle}>CV, LinkedIn y preferencias</span>
+                          </div>
+                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
+                        </button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
 
               <button
                 type="button"

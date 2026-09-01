@@ -305,6 +305,129 @@
   border: 1px solid var(--fm-border);
 }
 
+.cardHeaderBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.goToEvaluationsBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.71875rem;
+  font-weight: 800;
+  color: #0D9488;
+  background-color: #F0FDFA;
+  border: 1px solid #99F6E4;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.goToEvaluationsBtn:hover {
+  background-color: #CCFBF1;
+  color: #0F766E;
+  transform: translateY(-1px);
+}
+
+.scoreOverviewBox {
+  background: linear-gradient(135deg, #F0FDFA 0%, #FAF5FF 100%);
+  border: 1.5px solid #99F6E4;
+  border-radius: var(--radius-xl);
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.scoreTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.scoreMetricGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.scoreMetricLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.scoreMetricValue {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.15rem;
+}
+
+.scoreMetricValue strong {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #0F766E;
+  line-height: 1;
+}
+
+.scoreMetricValue span {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-subtle);
+}
+
+.scoreStatusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #047857;
+  background-color: #D1FAE5;
+  border: 1px solid #A7F3D0;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+.moduleScoresRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.moduleScoreChip {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+}
+
+.modChipName {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  white-space: nowrap;
+}
+
+.modChipScore {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 900;
+}
+
 /* Certificates */
 .certificatesList {
   display: flex;
