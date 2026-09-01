@@ -17,6 +17,7 @@ import {
   FileText,
   Clock,
   CalendarPlus,
+  Table,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -385,7 +386,7 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
       <div className={styles.trackerHeader}>
         <div>
           <div className={styles.headerBadge}>
-            <Sparkles size={13} className={styles.sparkleIcon} />
+            <Table size={13} className={styles.sparkleIcon} />
             <span>HERRAMIENTA DE GESTIÓN</span>
           </div>
           <h2 className={styles.trackerTitle}>Mi Tracker de Búsquedas Activas</h2>
@@ -394,14 +395,20 @@ export function CampusTracker({ onNavigateToAgenda }: CampusTrackerProps) {
           </p>
         </div>
 
-        <button
-          type="button"
-          className={styles.addBtn}
-          onClick={handleOpenAddModal}
-        >
-          <Plus size={16} />
-          <span>Nueva Postulación</span>
-        </button>
+        <div className={styles.headerRightActions}>
+          <div className={styles.countPill}>
+            <Sparkles size={14} />
+            <span>{applications.length} postulaciones registradas</span>
+          </div>
+          <button
+            type="button"
+            className={styles.addBtn}
+            onClick={handleOpenAddModal}
+          >
+            <Plus size={16} />
+            <span>Nueva Postulación</span>
+          </button>
+        </div>
       </div>
 
       {/* Metrics Row */}

@@ -264,13 +264,13 @@ export const eblCards: EblDashboardCard[] = [
     icon: 'FolderDown',
     colorScheme: {
       primary: '#D97706',
-      bgGradient: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
-      border: '#E2E8F0',
+      bgGradient: 'linear-gradient(180deg, #FEF3C7 0%, #FFFBEB 30%, #FFFFFF 100%)',
+      border: '#FDE68A',
       accent: '#B45309',
-      pillBg: '#FFFBEB',
-      pillColor: '#D97706',
+      pillBg: '#FEF3C7',
+      pillColor: '#B45309',
     },
-    badge: '12 Plantillas',
+    badge: '28 materiales protegidos',
     features: [
       { iconName: 'FileText', label: 'Modelos ATS Word & Notion' },
       { iconName: 'BadgePercent', label: 'Cupón 25% OFF Tienda FM' },

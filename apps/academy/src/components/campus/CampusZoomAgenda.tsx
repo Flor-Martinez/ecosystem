@@ -256,7 +256,7 @@ export function CampusZoomAgenda() {
         <div>
           <div className={styles.headerBadge}>
             <CalendarDays size={13} />
-            <span>ORGANIZACIÓN & SESIONES EN VIVO</span>
+            <span>CRONOGRAMA & SESIONES EN VIVO</span>
           </div>
           <h2 className={styles.agendaTitle}>Agenda & Calendario de Postulaciones</h2>
           <p className={styles.agendaSubtitle}>

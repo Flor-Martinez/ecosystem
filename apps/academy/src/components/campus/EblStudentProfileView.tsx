@@ -192,12 +192,18 @@ export function EblStudentProfileView({
 
         <div>
           <div className={styles.badgeRow}>
-            <span className={styles.topBadge}>PERFIL DEL ALUMNO</span>
-            <span className={styles.statusPill}>Membresía Activa</span>
+            <span className={styles.topBadge}>
+              <UserCheck size={13} />
+              <span>EXPEDIENTE DEL ALUMNO</span>
+            </span>
+            <span className={styles.statusPill}>
+              <CheckCircle2 size={13} />
+              <span>Expediente Al Día</span>
+            </span>
           </div>
           <h1 className={styles.title}>Mi Perfil & Preferencias de Carrera</h1>
           <p className={styles.desc}>
-            Mantené actualizado tu perfil para que nuestro equipo pueda auditar tus documentos en los Zooms semanales y recomendarte búsquedas acordes a tu target.
+            Mantené actualizado tu perfil para que nuestro equipo pueda orientar tu estrategia y recomendarte vacantes acordes a tu target.
           </p>
         </div>
       </div>

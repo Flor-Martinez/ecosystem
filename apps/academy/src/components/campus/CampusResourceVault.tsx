@@ -9,6 +9,7 @@ import {
   BookOpen,
   Lock,
   ArrowLeft,
+  FolderDown,
 } from 'lucide-react';
 import { allCampusResources, CampusResource, campusPrograms } from '@/data/campus';
 import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
@@ -108,6 +109,10 @@ export function CampusResourceVault({
       {/* Header */}
       <div className={styles.vaultHeader}>
         <div>
+          <div className={styles.headerBadge}>
+            <FolderDown size={13} />
+            <span>BÓVEDA DE PLANTILLAS</span>
+          </div>
           <h2 className={styles.vaultTitle}>Biblioteca Central de Recursos & Plantillas In-App</h2>
           <p className={styles.vaultSubtitle}>
             Accedé y visualizá en pantalla todas las plantillas, checklists auditables, guías estratégicas y matrices de tus programas.
@@ -115,7 +120,7 @@ export function CampusResourceVault({
         </div>
 
         <div className={styles.countPill}>
-          <Layers size={15} />
+          <Layers size={14} />
           <span>{filteredResources.length} materiales protegidos</span>
         </div>
       </div>
