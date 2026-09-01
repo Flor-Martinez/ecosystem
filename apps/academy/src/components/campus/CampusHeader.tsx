@@ -21,6 +21,7 @@ import {
   Sparkles,
   TrendingUp,
   Video,
+  Star,
 } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useAuth } from '@/context/AuthContext';
@@ -40,6 +41,8 @@ interface CampusHeaderProps {
   onLockedClick?: (featureId: string) => void;
   isDevMode?: boolean;
   onToggleDevMode?: () => void;
+  favoriteIds?: Set<string>;
+  onToggleFavorite?: (id: string) => void;
 }
 
 export function CampusHeader({
@@ -55,6 +58,8 @@ export function CampusHeader({
   onLockedClick,
   isDevMode = true,
   onToggleDevMode,
+  favoriteIds,
+  onToggleFavorite,
 }: CampusHeaderProps) {
   const { user, openAuthModal, logout } = useAuth();
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
@@ -69,6 +74,77 @@ export function CampusHeader({
 
   const experiencePrograms = campusPrograms.filter((p) => p.type === 'experiencia');
   const coursePrograms = campusPrograms.filter((p) => p.type === 'curso');
+
+  // Herramientas list with dynamic favorite sorting
+  const toolItems = [
+    {
+      id: 'tool-recursos',
+      targetView: 'recursos',
+      title: 'Bóveda de Recursos',
+      subtitle: '28 Plantillas protegidas',
+      icon: FolderDown,
+      iconBg: '#FEF3C7',
+      iconColor: '#D97706',
+      isLocked: false,
+    },
+    {
+      id: 'tool-tracker',
+      targetView: 'tracker',
+      title: 'Tracker de Postulaciones',
+      subtitle: 'Gestión de procesos activos',
+      icon: Table,
+      iconBg: '#ECFEFF',
+      iconColor: '#0891B2',
+      isLocked: membershipTier === 'free',
+    },
+    {
+      id: 'tool-agenda',
+      targetView: 'agenda',
+      title: 'Agenda & Calendario',
+      subtitle: 'Entrevistas y fechas clave',
+      icon: Calendar,
+      iconBg: '#FFF7ED',
+      iconColor: '#EA580C',
+      isLocked: membershipTier === 'free',
+    },
+    {
+      id: 'tool-zoom',
+      targetView: 'zoom',
+      title: 'Charlas Semanales Zoom',
+      subtitle: 'Mentorías en vivo y grabaciones',
+      icon: Video,
+      iconBg: '#EFF6FF',
+      iconColor: '#2563EB',
+      isLocked: membershipTier === 'free',
+    },
+    {
+      id: 'tool-vocacional',
+      targetView: 'test-vocacional',
+      title: 'Test Vocacional & Orientación',
+      subtitle: 'Diagnóstico de fortalezas',
+      icon: Compass,
+      iconBg: '#FDF2F8',
+      iconColor: '#EC4899',
+      isLocked: false,
+    },
+    {
+      id: 'tool-evaluaciones',
+      targetView: 'evaluaciones',
+      title: 'Evaluaciones de Módulos & Score',
+      subtitle: 'Índice de competencias y logros',
+      icon: TrendingUp,
+      iconBg: '#F0FDFA',
+      iconColor: '#0D9488',
+      isLocked: false,
+    },
+  ];
+
+  // Favorited tools appear at the top
+  const sortedTools = [...toolItems].sort((a, b) => {
+    const aFav = favoriteIds?.has(a.id) ? 1 : 0;
+    const bFav = favoriteIds?.has(b.id) ? 1 : 0;
+    return bFav - aFav;
+  });
 
   return (
     <header className={styles.campusHeader}>
@@ -289,128 +365,61 @@ export function CampusHeader({
                       </div>
 
                       <div className={styles.toolsGrid}>
-                        {/* 1. Recursos */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'recursos' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            setCurrentView('recursos');
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FEF3C7', color: '#D97706' }}>
-                            <FolderDown size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Bóveda de Recursos</strong>
-                            <span className={styles.toolSubtitle}>28 Plantillas protegidas</span>
-                          </div>
-                        </button>
+                        {sortedTools.map((tool) => {
+                          const IconComp = tool.icon;
+                          const isFav = favoriteIds?.has(tool.id) ?? false;
+                          const isActive = currentView === tool.targetView;
 
-                        {/* 2. Tracker */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'tracker' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            if (membershipTier === 'free') {
-                              if (onLockedClick) onLockedClick('tracker');
-                            } else {
-                              setCurrentView('tracker');
-                            }
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#ECFEFF', color: '#0891B2' }}>
-                            <Table size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Tracker de Postulaciones</strong>
-                            <span className={styles.toolSubtitle}>Gestión de procesos activos</span>
-                          </div>
-                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
-                        </button>
+                          return (
+                            <div
+                              key={tool.id}
+                              className={`${styles.toolItem} ${isActive ? styles.toolItemActive : ''} ${isFav ? styles.toolItemFav : ''}`}
+                              onClick={() => {
+                                if (tool.isLocked) {
+                                  if (onLockedClick) onLockedClick(tool.targetView);
+                                } else {
+                                  setCurrentView(tool.targetView);
+                                }
+                                setShowToolsMenu(false);
+                              }}
+                            >
+                              <div
+                                className={styles.toolIconWrap}
+                                style={{ backgroundColor: tool.iconBg, color: tool.iconColor }}
+                              >
+                                <IconComp size={17} />
+                              </div>
 
-                        {/* 3. Agenda & Calendario */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'agenda' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            if (membershipTier === 'free') {
-                              if (onLockedClick) onLockedClick('agenda');
-                            } else {
-                              setCurrentView('agenda');
-                            }
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FFF7ED', color: '#EA580C' }}>
-                            <Calendar size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Agenda & Calendario</strong>
-                            <span className={styles.toolSubtitle}>Entrevistas y fechas clave</span>
-                          </div>
-                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
-                        </button>
+                              <div className={styles.toolInfo}>
+                                <div className={styles.toolTitleRow}>
+                                  <strong className={styles.toolTitle}>{tool.title}</strong>
+                                  {isFav && <span className={styles.favBadgeMini}>Favorito</span>}
+                                </div>
+                                <span className={styles.toolSubtitle}>{tool.subtitle}</span>
+                              </div>
 
-                        {/* 4. Zoom Semanales */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'zoom' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            if (membershipTier === 'free') {
-                              if (onLockedClick) onLockedClick('zoom');
-                            } else {
-                              setCurrentView('zoom');
-                            }
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#EFF6FF', color: '#2563EB' }}>
-                            <Video size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Charlas Semanales Zoom</strong>
-                            <span className={styles.toolSubtitle}>Mentorías en vivo y grabaciones</span>
-                          </div>
-                          {membershipTier === 'free' && <Lock size={12} className={styles.toolLock} />}
-                        </button>
-
-                        {/* 5. Test Vocacional */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'test-vocacional' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            setCurrentView('test-vocacional');
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#FDF2F8', color: '#EC4899' }}>
-                            <Compass size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Test Vocacional & Orientación</strong>
-                            <span className={styles.toolSubtitle}>Diagnóstico de fortalezas</span>
-                          </div>
-                        </button>
-
-                        {/* 6. Evaluaciones & Score */}
-                        <button
-                          type="button"
-                          className={`${styles.toolItem} ${currentView === 'evaluaciones' ? styles.toolItemActive : ''}`}
-                          onClick={() => {
-                            setCurrentView('evaluaciones');
-                            setShowToolsMenu(false);
-                          }}
-                        >
-                          <div className={styles.toolIconWrap} style={{ backgroundColor: '#F0FDFA', color: '#0D9488' }}>
-                            <TrendingUp size={17} />
-                          </div>
-                          <div className={styles.toolInfo}>
-                            <strong className={styles.toolTitle}>Evaluaciones de Módulos & Score</strong>
-                            <span className={styles.toolSubtitle}>Índice de competencias y logros</span>
-                          </div>
-                        </button>
+                              {tool.isLocked ? (
+                                <Lock size={12} className={styles.toolLock} />
+                              ) : onToggleFavorite ? (
+                                <button
+                                  type="button"
+                                  className={`${styles.favToggleBtn} ${isFav ? styles.favToggleActive : ''}`}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    onToggleFavorite(tool.id);
+                                  }}
+                                  title={isFav ? 'Quitar de favoritos' : 'Fijar en favoritos arriba'}
+                                >
+                                  <Star
+                                    size={15}
+                                    fill={isFav ? '#F59E0B' : 'transparent'}
+                                    color={isFav ? '#F59E0B' : '#94A3B8'}
+                                  />
+                                </button>
+                              ) : null}
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   </>

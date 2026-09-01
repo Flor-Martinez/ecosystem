@@ -110,7 +110,6 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
 
-  const [activeTab, setActiveTab] = useState<'calendar' | 'recordings'>('calendar');
   const [events, setEvents] = useState<CalendarEvent[]>(defaultEvents);
   const [selectedDate, setSelectedDate] = useState<string>('2025-08-20');
   const [currentMonth, setCurrentMonth] = useState({ year: 2025, month: 7 }); // 0-indexed: 7 = August
@@ -272,37 +271,16 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
         <div>
           <div className={styles.headerBadge}>
             <CalendarDays size={13} />
-            <span>CRONOGRAMA & SESIONES EN VIVO</span>
+            <span>CRONOGRAMA DE POSTULACIONES</span>
           </div>
-          <h2 className={styles.agendaTitle}>Agenda & Calendario de Postulaciones</h2>
+          <h2 className={styles.agendaTitle}>Agenda & Calendario de Entrevistas</h2>
           <p className={styles.agendaSubtitle}>
-            Seguimiento de tus entrevistas laborales agendadas y acceso a todos los Zoom semanales de mentoría en vivo los miércoles.
+            Seguimiento de tus entrevistas laborales agendadas, fechas de pruebas técnicas y recordatorios de tus procesos de selección.
           </p>
-        </div>
-
-        {/* Tab switcher with prominence */}
-        <div className={styles.tabButtons}>
-          <button
-            type="button"
-            className={`${styles.tabBtn} ${styles.tabBtnCalendar} ${activeTab === 'calendar' ? styles.tabBtnCalendarActive : ''}`}
-            onClick={() => setActiveTab('calendar')}
-          >
-            <CalendarIcon size={17} />
-            <span>Mi Calendario</span>
-          </button>
-          <button
-            type="button"
-            className={`${styles.tabBtn} ${styles.tabBtnRecordings} ${activeTab === 'recordings' ? styles.tabBtnRecordingsActive : ''}`}
-            onClick={() => setActiveTab('recordings')}
-          >
-            <PlayCircle size={17} />
-            <span>Grabaciones Zoom ({pastRecordings.length})</span>
-          </button>
         </div>
       </div>
 
-      {activeTab === 'calendar' ? (
-        <div className={styles.calendarLayoutGrid}>
+      <div className={styles.calendarLayoutGrid}>
           {/* LEFT: Interactive Month Calendar */}
           <div className={styles.calendarCard}>
             <div className={styles.calendarHeaderRow}>
@@ -478,49 +456,6 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
             )}
           </div>
         </div>
-      ) : (
-        /* RECORDINGS TAB - PROMINENT DATE-FOCUSED LIST */
-        <div className={styles.recordingsWrapper}>
-          <div className={styles.recordingsHeaderBox}>
-            <h3 className={styles.colTitle}>Grabaciones de Sesiones Anteriores</h3>
-            <p className={styles.recordingsSubtitle}>
-              Accedé a las grabaciones completas de los encuentros semanales para repasar las respuestas a dudas y consultas de alumnos.
-            </p>
-          </div>
-
-          <div className={styles.recordingsList}>
-            {pastRecordings.map((rec) => (
-              <div key={rec.id} className={styles.recordingCard}>
-                <div className={styles.recPlayIcon}>
-                  <PlayCircle size={32} />
-                </div>
-                <div className={styles.recInfo}>
-                  <div className={styles.recDateBadge}>
-                    <CalendarDays size={13} />
-                    <span>{rec.date}</span>
-                  </div>
-                  <h4 className={styles.recTitle}>{rec.title}</h4>
-                  <p className={styles.recDesc}>{rec.description}</p>
-                  <div className={styles.recMetaRow}>
-                    <span className={styles.recDuration}>
-                      <Clock size={13} />
-                      <span>Duración: {rec.duration}</span>
-                    </span>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className={styles.watchRecBtn}
-                  onClick={() => alert(`Reproduciendo grabación: ${rec.title}`)}
-                >
-                  <PlayCircle size={15} />
-                  <span>Ver Grabación</span>
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* UNIFIED DESIGN MODAL TO ADD CUSTOM EVENT */}
       {showAddModal && (

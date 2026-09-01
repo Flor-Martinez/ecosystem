@@ -16,6 +16,7 @@ import { CampusPlayer } from '@/components/campus/CampusPlayer';
 import { CampusModuleCelebration } from '@/components/campus/CampusModuleCelebration';
 import { CampusTracker } from '@/components/campus/CampusTracker';
 import { CampusZoomAgenda } from '@/components/campus/CampusZoomAgenda';
+import { CampusZoomLiveView } from '@/components/campus/CampusZoomLiveView';
 import { CampusResourceVault } from '@/components/campus/CampusResourceVault';
 import { CampusCatalogModal } from '@/components/campus/CampusCatalogModal';
 import { CampusLockedModal } from '@/components/campus/CampusLockedModal';
@@ -84,6 +85,39 @@ function CampusContent() {
 
   // Completed lessons set (strictly empty for unauthenticated visitors)
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
+
+  // Synchronized Favorites across Tablero and Navbar Herramientas dropdown
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('campus_ebl_favorites');
+        if (saved) {
+          return new Set(JSON.parse(saved));
+        }
+      } catch {
+        // ignore
+      }
+    }
+    return new Set(['tool-recursos', 'tool-tracker']);
+  });
+
+  const handleToggleFavorite = (id: string) => {
+    if (membershipTier === 'free') return;
+    setFavoriteIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      try {
+        localStorage.setItem('campus_ebl_favorites', JSON.stringify(Array.from(next)));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
 
   // Load from DB on mount / when authUser changes
   useEffect(() => {
@@ -454,6 +488,8 @@ function CampusContent() {
         onLockedClick={(featureId) => setLockedModalFeature(featureId)}
         isDevMode={isDevMode}
         onToggleDevMode={handleToggleDevMode}
+        favoriteIds={favoriteIds}
+        onToggleFavorite={handleToggleFavorite}
       />
 
       {/* Campus Main Workspace */}
@@ -493,6 +529,8 @@ function CampusContent() {
               program={currentProgram}
               completedLessons={completedLessons}
               membershipTier={membershipTier}
+              favoriteIds={favoriteIds}
+              onToggleFavorite={handleToggleFavorite}
             />
           )}
 
@@ -662,19 +700,34 @@ function CampusContent() {
             )
           )}
 
-          {/* ZOOM AGENDA & CALENDAR - LOCKED IN FREE */}
-          {(currentView === 'zoom' || currentView === 'agenda') &&
-            currentProgram.type === 'experiencia' && (
-              membershipTier === 'free' ? (
-                <CampusLockedPaywallView
-                  viewType="agenda"
-                  onBackToDashboard={() => handleNavChangeView('dashboard')}
-                  onUpgrade={handleToggleMembership}
-                />
-              ) : (
-                <CampusZoomAgenda onBackToDashboard={() => handleNavChangeView('dashboard')} />
-              )
-            )}
+          {/* AGENDA & CALENDARIO - LOCKED IN FREE */}
+          {currentView === 'agenda' && currentProgram.type === 'experiencia' && (
+            membershipTier === 'free' ? (
+              <CampusLockedPaywallView
+                viewType="agenda"
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+                onUpgrade={handleToggleMembership}
+              />
+            ) : (
+              <CampusZoomAgenda onBackToDashboard={() => handleNavChangeView('dashboard')} />
+            )
+          )}
+
+          {/* CHARLAS SEMANALES ZOOM - LOCKED IN FREE */}
+          {currentView === 'zoom' && currentProgram.type === 'experiencia' && (
+            membershipTier === 'free' ? (
+              <CampusLockedPaywallView
+                viewType="zoom"
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+                onUpgrade={handleToggleMembership}
+              />
+            ) : (
+              <CampusZoomLiveView
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+                onNavigateToAgenda={() => handleNavChangeView('agenda')}
+              />
+            )
+          )}
         </main>
       </div>
 

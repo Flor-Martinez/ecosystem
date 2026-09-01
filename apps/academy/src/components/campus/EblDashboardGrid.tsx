@@ -24,6 +24,8 @@ interface EblDashboardGridProps {
   program?: CampusProgram;
   completedLessons?: Set<string>;
   membershipTier?: 'free' | 'paid';
+  favoriteIds?: Set<string>;
+  onToggleFavorite?: (id: string) => void;
 }
 
 export function EblDashboardGrid({
@@ -32,30 +34,40 @@ export function EblDashboardGrid({
   program,
   completedLessons = new Set(),
   membershipTier = 'paid',
+  favoriteIds: externalFavoriteIds,
+  onToggleFavorite: externalToggleFavorite,
 }: EblDashboardGridProps) {
   const [globalSearch, setGlobalSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState<'todos' | 'modulos' | 'herramientas' | 'favoritos'>('todos');
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(() => new Set());
+  const [internalFavoriteIds, setInternalFavoriteIds] = useState<Set<string>>(() => new Set());
+
+  const favoriteIds = externalFavoriteIds ?? internalFavoriteIds;
 
   React.useEffect(() => {
     if (membershipTier === 'free') {
-      setFavoriteIds(new Set());
+      if (!externalFavoriteIds) {
+        setInternalFavoriteIds(new Set());
+      }
       if (activeFilter === 'favoritos') {
         setActiveFilter('todos');
       }
     }
-  }, [membershipTier, activeFilter]);
+  }, [membershipTier, activeFilter, externalFavoriteIds]);
 
   const toggleFavorite = (id: string) => {
     if (membershipTier === 'free') return;
-    const next = new Set(favoriteIds);
+    if (externalToggleFavorite) {
+      externalToggleFavorite(id);
+      return;
+    }
+    const next = new Set(internalFavoriteIds);
     if (next.has(id)) {
       next.delete(id);
     } else {
       next.add(id);
     }
-    setFavoriteIds(next);
+    setInternalFavoriteIds(next);
   };
 
   // Helper to check if a card is locked in Free Tier
