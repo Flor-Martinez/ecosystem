@@ -21,7 +21,8 @@ interface AuthContextType {
   modalTab: 'login' | 'register';
   setModalTab: (tab: 'login' | 'register') => void;
   login: (email: string, password?: string) => Promise<boolean>;
-  loginWithSocial: (provider: 'google' | 'linkedin', customEmail?: string) => Promise<boolean>;
+  loginWithGoogle: () => Promise<boolean>;
+  loginWithSocial: (provider: 'google', customEmail?: string, customName?: string, customAvatar?: string) => Promise<boolean>;
   loginDemo: () => void;
   register: (name: string, email: string, password?: string) => Promise<boolean>;
   logout: () => void;
@@ -216,20 +217,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return false;
   };
 
-  const loginWithSocial = async (provider: 'google' | 'linkedin', customEmail?: string): Promise<boolean> => {
+  const loginWithSocial = async (
+    provider: 'google',
+    customEmail?: string,
+    customName?: string,
+    customAvatar?: string
+  ): Promise<boolean> => {
     setIsLoading(true);
     try {
-      let emailToUse = customEmail ? customEmail.trim() : '';
-      if (!emailToUse) {
-        emailToUse = 'santiago.morales@ejemplo.com';
-      }
+      let emailToUse = customEmail ? customEmail.trim() : 'santiago.morales@ejemplo.com';
+      let nameToUse: string = customName?.trim() || emailToUse.split('@')[0] || 'Usuario';
+      let avatarToUse: string = customAvatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
 
-      const res = await loginUserAction(emailToUse);
+      const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
       if (res.success && res.user) {
         const newUser: EcosystemUser = {
           id: res.user.id,
-          name: res.user.name || emailToUse.split('@')[0] || (provider === 'google' ? 'Usuario Google' : 'Usuario LinkedIn'),
+          name: res.user.name || nameToUse,
           email: res.user.email,
+          avatarUrl: res.user.avatarUrl || avatarToUse,
           role: 'student',
           enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
         };
@@ -239,10 +245,57 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return true;
       }
     } catch (e) {
-      console.error('Error en login con red social:', e);
+      console.error('Error en login con Google:', e);
     }
     setIsLoading(false);
     return false;
+  };
+
+  const loginWithGoogle = async (): Promise<boolean> => {
+    return new Promise((resolve) => {
+      if (typeof window === 'undefined') {
+        resolve(false);
+        return;
+      }
+
+      const width = 500;
+      const height = 620;
+      const left = window.screenX + (window.outerWidth - width) / 2;
+      const top = window.screenY + (window.outerHeight - height) / 2;
+
+      const popup = window.open(
+        '/auth/google',
+        'GoogleLoginPopup',
+        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes,status=no,toolbar=no,menubar=no`
+      );
+
+      if (!popup) {
+        console.warn('Popup blocked by browser, redirecting...');
+        window.location.href = '/auth/google';
+        resolve(false);
+        return;
+      }
+
+      const handleAuthMessage = async (event: MessageEvent) => {
+        if (event.origin !== window.location.origin) return;
+        if (event.data?.type === 'GOOGLE_AUTH_SUCCESS') {
+          window.removeEventListener('message', handleAuthMessage);
+          const { profile } = event.data;
+          const ok = await loginWithSocial('google', profile.email, profile.name, profile.avatarUrl);
+          resolve(ok);
+        }
+      };
+
+      window.addEventListener('message', handleAuthMessage);
+
+      const checkClosed = setInterval(() => {
+        if (popup.closed) {
+          clearInterval(checkClosed);
+          window.removeEventListener('message', handleAuthMessage);
+          resolve(false);
+        }
+      }, 500);
+    });
   };
 
   const loginDemo = () => {
@@ -250,6 +303,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       id: 'usr_demo_1',
       name: 'Santiago Morales',
       email: 'santiago.morales@ejemplo.com',
+      avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=Santiago%20Morales&backgroundColor=EA580C,2563EB',
       role: 'student',
       enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
     };
@@ -296,6 +350,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         modalTab,
         setModalTab,
         login,
+        loginWithGoogle,
         loginWithSocial,
         loginDemo,
         register,

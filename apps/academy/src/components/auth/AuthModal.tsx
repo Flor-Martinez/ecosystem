@@ -6,33 +6,21 @@ import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './AuthModal.module.css';
 
 export function AuthModal() {
-  const { isModalOpen, closeAuthModal, modalTab, setModalTab, login, register, loginWithSocial, loginDemo, isLoading } = useEcosystemAuth();
+  const { isModalOpen, closeAuthModal, modalTab, setModalTab, login, register, loginWithGoogle, loginDemo, isLoading } = useEcosystemAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [isGoogleExpanded, setIsGoogleExpanded] = useState(false);
-  const [googleEmailInput, setGoogleEmailInput] = useState('');
 
   if (!isModalOpen) return null;
 
-  const handleGoogleClick = async () => {
+  const handleGoogleLogin = async () => {
     setError(null);
-    if (email && email.includes('@')) {
-      await loginWithSocial('google', email);
-      return;
+    try {
+      await loginWithGoogle();
+    } catch {
+      setError('No se pudo completar el inicio de sesión con Google.');
     }
-    setIsGoogleExpanded((prev) => !prev);
-  };
-
-  const handleGoogleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    if (!googleEmailInput || !googleEmailInput.includes('@')) {
-      setError('Por favor, ingresá un correo de Google válido (ej: tu-nombre@gmail.com).');
-      return;
-    }
-    await loginWithSocial('google', googleEmailInput);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -142,8 +130,8 @@ export function AuthModal() {
         <div className={styles.socialGroup}>
           <button
             type="button"
-            className={`${styles.socialBtn} ${isGoogleExpanded ? styles.socialBtnActive : ''}`}
-            onClick={handleGoogleClick}
+            className={styles.socialBtn}
+            onClick={handleGoogleLogin}
             disabled={isLoading}
           >
             <svg className={styles.socialIcon} viewBox="0 0 24 24" width="18" height="18">
@@ -165,42 +153,6 @@ export function AuthModal() {
               />
             </svg>
             <span>Continuar con Google</span>
-          </button>
-
-          {isGoogleExpanded && (
-            <form onSubmit={handleGoogleSubmit} className={styles.googleInlineBox}>
-              <div className={styles.googleInlineRow}>
-                <input
-                  type="email"
-                  placeholder="tu.cuenta@gmail.com"
-                  value={googleEmailInput}
-                  onChange={(e) => setGoogleEmailInput(e.target.value)}
-                  className={styles.googleInput}
-                  autoFocus
-                  required
-                />
-                <button
-                  type="submit"
-                  className={styles.googleSubmitBtn}
-                  disabled={isLoading}
-                >
-                  <span>Acceder</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-            </form>
-          )}
-
-          <button
-            type="button"
-            className={`${styles.socialBtn} ${styles.linkedinBtn}`}
-            onClick={() => loginWithSocial('linkedin')}
-            disabled={isLoading}
-          >
-            <svg className={styles.socialIcon} viewBox="0 0 24 24" width="18" height="18" fill="#0077B5">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-            <span>Continuar con LinkedIn</span>
           </button>
         </div>
 

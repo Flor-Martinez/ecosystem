@@ -216,11 +216,6 @@
   transform: translateY(-1px);
 }
 
-.linkedinBtn:hover {
-  background-color: #F0F7FF;
-  border-color: #93C5FD;
-}
-
 /* Divider */
 .divider {
   display: flex;

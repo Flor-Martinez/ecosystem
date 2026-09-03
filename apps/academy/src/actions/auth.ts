@@ -5,7 +5,7 @@ import { db, Role } from '@repo/db';
 
 const SESSION_COOKIE = 'fm_session_token';
 
-export async function loginUserAction(email: string) {
+export async function loginUserAction(email: string, name?: string, avatarUrl?: string) {
   if (!email || !email.includes('@')) {
     return { success: false, error: 'Ingresá un correo electrónico válido.' };
   }
@@ -18,13 +18,14 @@ export async function loginUserAction(email: string) {
 
     if (!user) {
       const namePart = formattedEmail.split('@')[0] || 'Usuario';
-      const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+      const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
       user = await db.user.create({
         data: {
           email: formattedEmail,
           name: formattedName,
           role: Role.STUDENT,
           membershipTier: 'VIP',
+          avatarUrl: avatarUrl || undefined,
         },
       });
 
@@ -42,6 +43,15 @@ export async function loginUserAction(email: string) {
       } catch {
         // profile already exists or error
       }
+    } else if (name || avatarUrl) {
+      // Update avatar or name if provided
+      user = await db.user.update({
+        where: { id: user.id },
+        data: {
+          ...(name ? { name: name.trim() } : {}),
+          ...(avatarUrl ? { avatarUrl } : {}),
+        },
+      });
     }
 
     const sessionToken = 'sess_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -71,6 +81,7 @@ export async function loginUserAction(email: string) {
         name: user.name,
         email: user.email,
         role: user.role,
+        avatarUrl: user.avatarUrl || avatarUrl,
       },
     };
   } catch (e) {
