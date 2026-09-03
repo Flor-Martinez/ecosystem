@@ -118,6 +118,16 @@ function CampusContent() {
     });
   };
 
+  const handleClearAllFavorites = () => {
+    if (membershipTier === 'free') return;
+    setFavoriteIds(new Set());
+    try {
+      localStorage.setItem('campus_ebl_favorites', JSON.stringify([]));
+    } catch {
+      // ignore
+    }
+  };
+
   // Load from DB on mount / when authUser changes
   useEffect(() => {
     if (!authUser) {
@@ -558,6 +568,7 @@ function CampusContent() {
               membershipTier={membershipTier}
               favoriteIds={favoriteIds}
               onToggleFavorite={handleToggleFavorite}
+              onClearAllFavorites={handleClearAllFavorites}
             />
           )}
 

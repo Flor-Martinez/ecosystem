@@ -12,6 +12,7 @@ import {
   GraduationCap,
   LayoutGrid,
   List,
+  Trash2,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { CampusProgram } from '@/data/campus';
@@ -27,6 +28,7 @@ interface EblDashboardGridProps {
   membershipTier?: 'free' | 'paid';
   favoriteIds?: Set<string>;
   onToggleFavorite?: (id: string) => void;
+  onClearAllFavorites?: () => void;
 }
 
 export function EblDashboardGrid({
@@ -37,6 +39,7 @@ export function EblDashboardGrid({
   membershipTier = 'paid',
   favoriteIds: externalFavoriteIds,
   onToggleFavorite: externalToggleFavorite,
+  onClearAllFavorites: externalClearAllFavorites,
 }: EblDashboardGridProps) {
   const { user: authUser } = useAuth();
 
@@ -100,6 +103,20 @@ export function EblDashboardGrid({
       next.add(id);
     }
     setInternalFavoriteIds(next);
+  };
+
+  const handleClearAllFavorites = () => {
+    if (membershipTier === 'free') return;
+    if (externalClearAllFavorites) {
+      externalClearAllFavorites();
+      return;
+    }
+    setInternalFavoriteIds(new Set());
+    try {
+      localStorage.setItem('campus_ebl_favorites', JSON.stringify([]));
+    } catch {
+      // ignore
+    }
   };
 
   // Helper to check if a card is locked in Free Tier
@@ -418,9 +435,21 @@ export function EblDashboardGrid({
                     <p className={styles.sectionSub}>Accesos directos fijados para tener siempre a mano.</p>
                   </div>
                 </div>
-                <span className={styles.sectionCountPill}>
-                  {filteredFavorites.length} {filteredFavorites.length === 1 ? 'Favorito' : 'Favoritos'}
-                </span>
+                <div className={styles.favHeaderActions}>
+                  <span className={styles.sectionCountPill}>
+                    {filteredFavorites.length} {filteredFavorites.length === 1 ? 'Favorito' : 'Favoritos'}
+                  </span>
+                  <button
+                    type="button"
+                    className={styles.clearAllFavsBtn}
+                    onClick={handleClearAllFavorites}
+                    title="Borrar todos los favoritos"
+                    aria-label="Borrar todos los favoritos"
+                  >
+                    <Trash2 size={13} />
+                    <span>Borrar todos</span>
+                  </button>
+                </div>
               </div>
 
               <div className={layoutMode === 'grid' ? styles.grid : styles.listView}>
