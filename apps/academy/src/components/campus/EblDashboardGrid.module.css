@@ -349,16 +349,30 @@
   flex-shrink: 0;
 }
 
+.sectionIconBadgeFavorites {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  flex-shrink: 0;
+}
+
+.sectionIconBadgeTools,
 .sectionIconBadgeTool {
   width: 2.25rem;
   height: 2.25rem;
   border-radius: var(--radius-md);
-  background-color: #F1F5F9;
-  color: #475569;
-  border: 1px solid #CBD5E1;
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
   flex-shrink: 0;
 }
 

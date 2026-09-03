@@ -13,6 +13,7 @@ import {
   LayoutGrid,
   List,
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import { CampusProgram } from '@/data/campus';
 import { eblCards } from '@/data/eblDashboard';
 import { EblCard } from './EblCard';
@@ -37,10 +38,41 @@ export function EblDashboardGrid({
   favoriteIds: externalFavoriteIds,
   onToggleFavorite: externalToggleFavorite,
 }: EblDashboardGridProps) {
+  const { user: authUser } = useAuth();
+
+  const userStorageKey = useMemo(() => {
+    if (authUser?.id) return `campus_ebl_layout_mode_${authUser.id}`;
+    if (authUser?.email) return `campus_ebl_layout_mode_${authUser.email}`;
+    return 'campus_ebl_layout_mode_guest';
+  }, [authUser]);
+
   const [globalSearch, setGlobalSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState<'todos' | 'modulos' | 'herramientas' | 'favoritos'>('todos');
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
   const [internalFavoriteIds, setInternalFavoriteIds] = useState<Set<string>>(() => new Set());
+
+  // Restore user's layout preference on mount or when user changes
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const saved = localStorage.getItem(userStorageKey) || localStorage.getItem('campus_ebl_layout_mode');
+      if (saved === 'list' || saved === 'grid') {
+        setLayoutMode(saved);
+      }
+    } catch {
+      // ignore
+    }
+  }, [userStorageKey]);
+
+  const handleLayoutModeChange = (mode: 'grid' | 'list') => {
+    setLayoutMode(mode);
+    try {
+      localStorage.setItem(userStorageKey, mode);
+      localStorage.setItem('campus_ebl_layout_mode', mode);
+    } catch {
+      // ignore
+    }
+  };
 
   const favoriteIds = externalFavoriteIds ?? internalFavoriteIds;
 
@@ -195,6 +227,11 @@ export function EblDashboardGrid({
 
   const showSections = activeFilter === 'todos' && globalSearch.trim() === '';
 
+  const filteredFavorites = useMemo(() => {
+    if (membershipTier === 'free') return [];
+    return dynamicCards.filter((c) => favoriteIds.has(c.id));
+  }, [dynamicCards, favoriteIds, membershipTier]);
+
   const filteredModules = useMemo(() => {
     return filteredCards.filter((c) => c.type === 'modulo');
   }, [filteredCards]);
@@ -265,7 +302,7 @@ export function EblDashboardGrid({
                 </strong>
               </div>
               <div className={styles.ovMeta} style={{ marginTop: '0.4rem' }}>
-                <span>🔒 Módulos 3, 5 y herramientas requieren Membresía VIP</span>
+                <span>🔒 Módulos 2 al 8 y herramientas avanzadas requieren Membresía VIP</span>
               </div>
             </div>
           ) : (
@@ -281,7 +318,7 @@ export function EblDashboardGrid({
 
               <div className={styles.ovMeta}>
                 <span>{completedModuleSteps} de {totalModuleSteps} clases completadas</span>
-                <span>· 5 Módulos Troncales</span>
+                <span>· 8 Módulos Troncales</span>
               </div>
             </div>
           )}
@@ -336,7 +373,7 @@ export function EblDashboardGrid({
             <button
               type="button"
               className={`${styles.viewToggleBtn} ${layoutMode === 'grid' ? styles.viewToggleBtnActive : ''}`}
-              onClick={() => setLayoutMode('grid')}
+              onClick={() => handleLayoutModeChange('grid')}
               title="Vista en Tarjetas"
               aria-label="Vista en tarjetas"
             >
@@ -346,7 +383,7 @@ export function EblDashboardGrid({
             <button
               type="button"
               className={`${styles.viewToggleBtn} ${layoutMode === 'list' ? styles.viewToggleBtnActive : ''}`}
-              onClick={() => setLayoutMode('list')}
+              onClick={() => handleLayoutModeChange('list')}
               title="Vista en Lista"
               aria-label="Vista en lista"
             >
@@ -359,7 +396,7 @@ export function EblDashboardGrid({
         {membershipTier !== 'free' && (
           <div className={styles.filterHintRow}>
             <span className={styles.hintText}>
-              ⭐ Marcá bloques como favoritos para fijarlos arriba.
+              ⭐ Marcá bloques como favoritos para tenerlos fijados arriba en su sección destacada.
             </span>
           </div>
         )}
@@ -368,6 +405,42 @@ export function EblDashboardGrid({
       {/* 3. DYNAMIC CONTENT: SECTIONED OR UNIFIED */}
       {showSections ? (
         <div className={styles.sectionsContainer}>
+          {/* SECTION 0: FAVORITES SECTION (WHEN USER HAS FAVORITES) */}
+          {filteredFavorites.length > 0 && membershipTier !== 'free' && (
+            <section className={styles.boardSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.sectionTitleWrap}>
+                  <div className={styles.sectionIconBadgeFavorites}>
+                    <Star size={16} />
+                  </div>
+                  <div>
+                    <h2 className={styles.sectionHeading}>Tus Bloques Favoritos</h2>
+                    <p className={styles.sectionSub}>Accesos directos fijados para tener siempre a mano.</p>
+                  </div>
+                </div>
+                <span className={styles.sectionCountPill}>
+                  {filteredFavorites.length} {filteredFavorites.length === 1 ? 'Favorito' : 'Favoritos'}
+                </span>
+              </div>
+
+              <div className={layoutMode === 'grid' ? styles.grid : styles.listView}>
+                {filteredFavorites.map((card) => (
+                  <EblCard
+                    key={`fav-${card.id}`}
+                    card={card}
+                    isFavorite={true}
+                    onToggleFavorite={toggleFavorite}
+                    onCardClick={(view) => handleCardClick(card.id, view, card.type)}
+                    isLocked={isCardLocked(card)}
+                    hideProgress={false}
+                    canFavorite={true}
+                    layoutMode={layoutMode}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
           {/* SECTION 1: COURSE MODULES ROADMAP */}
           <section className={styles.boardSection}>
             <div className={styles.sectionHeader}>
@@ -376,7 +449,7 @@ export function EblDashboardGrid({
                   <GraduationCap size={16} />
                 </div>
                 <div>
-                  <h2 className={styles.sectionHeading}>Ruta de Formación (Módulos 01 al 05)</h2>
+                  <h2 className={styles.sectionHeading}>Ruta de Formación (Módulos 01 al {filteredModules.length.toString().padStart(2, '0')})</h2>
                   <p className={styles.sectionSub}>La secuencia troncal del curso para preparar tu búsqueda paso a paso.</p>
                 </div>
               </div>
