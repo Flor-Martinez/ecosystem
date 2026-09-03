@@ -48,7 +48,7 @@ export function CampusSidebar({
   // Single active module accordion: can be closed by clicking again
   const [activeModuleId, setActiveModuleId] = useState<string | null>(() => {
     // If selected lesson is in locked module in Free tier, default to module 1
-    if (membershipTier === 'free' && (selectedLesson.moduleNumber === 3 || selectedLesson.moduleNumber === 5)) {
+    if (membershipTier === 'free' && selectedLesson.moduleNumber !== 1) {
       return currentProgram.modules[0]!.id;
     }
     return selectedLesson.moduleId || currentProgram.modules[0]!.id;
@@ -57,7 +57,7 @@ export function CampusSidebar({
   // Synchronize active accordion automatically and smooth-scroll to active module in sidebar
   useEffect(() => {
     if (selectedLesson.moduleId) {
-      if (!(membershipTier === 'free' && (selectedLesson.moduleNumber === 3 || selectedLesson.moduleNumber === 5))) {
+      if (!(membershipTier === 'free' && selectedLesson.moduleNumber !== 1)) {
         setActiveModuleId(selectedLesson.moduleId);
       }
     }
@@ -85,11 +85,12 @@ export function CampusSidebar({
 
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
-    if (isDevMode) return true; // In Dev Mode, all lessons are unlocked!
     const mod = currentProgram.modules.find((m) =>
       m.lessons.some((l) => l.id === lessonId)
     );
     if (!mod) return true;
+    if (membershipTier === 'free' && mod.number !== 1) return false;
+    if (isDevMode) return true; // In Dev Mode, all allowed lessons are unlocked!
     const idxInModule = mod.lessons.findIndex((l) => l.id === lessonId);
     if (idxInModule <= 0) return true; // First lesson of ANY module is always unlocked!
     for (let k = 0; k < idxInModule; k++) {
@@ -108,7 +109,7 @@ export function CampusSidebar({
 
   // When clicking a module header: toggle open/closed, and if opening, auto-select its current class
   const handleModuleClick = (mod: CampusModule) => {
-    if (membershipTier === 'free' && (mod.number === 3 || mod.number === 5)) {
+    if (membershipTier === 'free' && mod.number !== 1) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -127,7 +128,7 @@ export function CampusSidebar({
 
   // Helper to switch module from rail when collapsed
   const handleSelectModuleFromRail = (mod: CampusModule) => {
-    if (membershipTier === 'free' && (mod.number === 3 || mod.number === 5)) {
+    if (membershipTier === 'free' && mod.number !== 1) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -357,7 +358,7 @@ export function CampusSidebar({
                   (completedInMod / Math.max(1, mod.lessons.length)) * 100
                 );
 
-                const isModuleLockedInFree = membershipTier === 'free' && (mod.number === 3 || mod.number === 5);
+                const isModuleLockedInFree = membershipTier === 'free' && mod.number !== 1;
 
                 return (
                   <div

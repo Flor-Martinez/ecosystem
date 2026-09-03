@@ -74,9 +74,9 @@ export function EblDashboardGrid({
   const isCardLocked = (card: { id: string; type: string; targetView: string }): boolean => {
     if (membershipTier === 'paid') return false;
     // In Free Tier:
-    // Modules: Module 3 ('mod-entrevistas') and Module 5 ('mod-aptitudes') are locked!
+    // ONLY Module 1 ('mod-trabajo-ideal') is free. All modules 2 through 8 are VIP exclusive!
     if (card.type === 'modulo') {
-      return card.id === 'mod-entrevistas' || card.id === 'mod-aptitudes';
+      return card.id !== 'mod-trabajo-ideal';
     }
     // Tools available in Free Tier:
     // - Biblioteca de Recursos ('tool-recursos' / 'recursos')
@@ -89,7 +89,7 @@ export function EblDashboardGrid({
     ) {
       return false;
     }
-    // All other tools (perfil, tracker, zoom, agenda, evaluaciones) are locked in Free Tier!
+    // All other tools (perfil, tracker, zoom, agenda) are locked in Free Tier!
     return true;
   };
 

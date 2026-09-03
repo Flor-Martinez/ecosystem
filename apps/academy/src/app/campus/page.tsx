@@ -279,26 +279,54 @@ function CampusContent() {
       setSelectedLesson(getActiveLessonForModuleNumber(1));
       handleNavChangeView('lesson');
     } else if (targetView === 'modulo-fundamentos' || targetView === 'modulo-2') {
-      setSelectedLesson(getActiveLessonForModuleNumber(2));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-2');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(2));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-cv' || targetView === 'modulo-3') {
-      setSelectedLesson(getActiveLessonForModuleNumber(3));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-3');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(3));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-linkedin' || targetView === 'modulo-4') {
-      setSelectedLesson(getActiveLessonForModuleNumber(4));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-4');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(4));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-donde-buscar' || targetView === 'modulo-5') {
-      setSelectedLesson(getActiveLessonForModuleNumber(5));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-5');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(5));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-postulacion' || targetView === 'modulo-6') {
-      setSelectedLesson(getActiveLessonForModuleNumber(6));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-6');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(6));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-entrevistas' || targetView === 'modulo-7') {
-      setSelectedLesson(getActiveLessonForModuleNumber(7));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-7');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(7));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'modulo-casos-especiales' || targetView === 'modulo-8') {
-      setSelectedLesson(getActiveLessonForModuleNumber(8));
-      handleNavChangeView('lesson');
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-8');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(8));
+        handleNavChangeView('lesson');
+      }
     } else if (targetView === 'perfil') {
       if (membershipTier === 'free') {
         handleNavChangeView('paywall-perfil');
@@ -318,7 +346,7 @@ function CampusContent() {
       );
       if (!mod) return true;
 
-      if (membershipTier === 'free' && (mod.number === 3 || mod.number === 5)) {
+      if (membershipTier === 'free' && mod.number !== 1) {
         return false;
       }
 
@@ -344,8 +372,8 @@ function CampusContent() {
       for (let i = curIdx - 1; i >= 0; i--) {
         const candidate = allLessons[i]!;
 
-        // 1. Skip locked modules in Free tier
-        if (membershipTier === 'free' && (candidate.moduleNumber === 3 || candidate.moduleNumber === 5)) {
+        // 1. Skip locked modules in Free tier (only Module 1 is free)
+        if (membershipTier === 'free' && candidate.moduleNumber !== 1) {
           continue;
         }
 
@@ -378,8 +406,8 @@ function CampusContent() {
       for (let i = curIdx + 1; i < allLessons.length; i++) {
         const candidate = allLessons[i]!;
 
-        // 1. Skip locked modules in Free tier
-        if (membershipTier === 'free' && (candidate.moduleNumber === 3 || candidate.moduleNumber === 5)) {
+        // 1. Skip locked modules in Free tier (only Module 1 is free)
+        if (membershipTier === 'free' && candidate.moduleNumber !== 1) {
           continue;
         }
 
@@ -500,7 +528,7 @@ function CampusContent() {
             selectedLesson={selectedLesson}
             onSelectLesson={(lesson) => {
               setActiveCelebrationModule(null);
-              if (!isDevMode && membershipTier === 'free' && (lesson.moduleNumber === 3 || lesson.moduleNumber === 5)) {
+              if (!isDevMode && membershipTier === 'free' && lesson.moduleNumber !== 1) {
                 setLockedModalFeature(`modulo-${lesson.moduleNumber}`);
               } else {
                 setSelectedLesson(lesson);
@@ -558,18 +586,10 @@ function CampusContent() {
             />
           )}
 
-          {/* LOCKED PAYWALL FOR MODULES 3 & 5 IN FREE TIER */}
-          {currentView === 'paywall-modulo-3' && (
+          {/* LOCKED PAYWALL FOR ANY VIP MODULE IN FREE TIER */}
+          {currentView.startsWith('paywall-modulo-') && (
             <CampusLockedPaywallView
-              viewType="modulo-3"
-              onBackToDashboard={() => handleNavChangeView('dashboard')}
-              onUpgrade={handleToggleMembership}
-            />
-          )}
-
-          {currentView === 'paywall-modulo-5' && (
-            <CampusLockedPaywallView
-              viewType="modulo-5"
+              viewType={currentView.replace('paywall-', '')}
               onBackToDashboard={() => handleNavChangeView('dashboard')}
               onUpgrade={handleToggleMembership}
             />
@@ -596,16 +616,16 @@ function CampusContent() {
                   program={currentProgram}
                   completedModule={activeCelebrationModule}
                   isAllProgramCompleted={currentProgram.modules.every((m) => {
-                    if (m.number === 7) return true; // optional module
-                    if (membershipTier === 'free' && (m.number === 3 || m.number === 5)) {
-                      return true; // considered finished or not required in free
+                    if (m.number === 8) return true; // optional module
+                    if (membershipTier === 'free' && m.number !== 1) {
+                      return true; // only module 1 required in free
                     }
                     return m.lessons.every((l) => completedLessons.has(l.id));
                   })}
                   nextTargetModule={(() => {
                     const pending = currentProgram.modules.filter((m) => {
-                      if (m.number === 7) return false; // optional module
-                      if (membershipTier === 'free' && (m.number === 3 || m.number === 5)) {
+                      if (m.number === 8) return false; // optional module
+                      if (membershipTier === 'free' && m.number !== 1) {
                         return false;
                       }
                       return !m.lessons.every((l) => completedLessons.has(l.id));

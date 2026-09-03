@@ -45,11 +45,8 @@ export function CampusResourceVault({
 
   const isResourceLocked = (res: CampusResource): boolean => {
     if (membershipTier === 'paid') return false;
-    // In Free Tier: Modules 3 & 5, Notion databases, or advanced negotiation sheets are VIP exclusive
-    if (res.moduleNumber === 3 || res.moduleNumber === 5) return true;
-    if (res.type === 'notion') return true;
-    if (res.category === 'Matriz Excel' && res.title.toLowerCase().includes('sueldo')) return true;
-    return false;
+    // In Free Tier: ONLY Module 1 resources are free! All other modules (2..8) are VIP exclusive
+    return res.moduleNumber !== 1;
   };
 
   const filteredResources = useMemo(() => {
