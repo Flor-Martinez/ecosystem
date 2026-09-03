@@ -393,27 +393,4 @@ export const eblCards: EblDashboardCard[] = [
     quickActionLabel: 'Ver Agenda',
     targetView: 'agenda',
   },
-  {
-    id: 'tool-evaluaciones',
-    type: 'herramienta',
-    title: 'Mis Evaluaciones & Score',
-    subtitle: 'Diagnóstico Laboral',
-    description: 'Diagnóstico de tu nivel de preparación y recomendaciones para optimizar tus resultados.',
-    icon: 'BarChart3',
-    colorScheme: {
-      primary: '#0D9488',
-      bgGradient: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
-      border: '#E2E8F0',
-      accent: '#0F766E',
-      pillBg: '#F0FDFA',
-      pillColor: '#0D9488',
-    },
-    badge: 'Score: 78/100',
-    features: [
-      { iconName: 'ShieldCheck', label: 'Diagnóstico de 5 competencias' },
-      { iconName: 'TrendingUp', label: 'Plan de acción personalizado' },
-    ],
-    quickActionLabel: 'Ver Evaluaciones',
-    targetView: 'evaluaciones',
-  },
 ];

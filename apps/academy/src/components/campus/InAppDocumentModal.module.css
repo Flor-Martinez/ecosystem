@@ -139,24 +139,6 @@
   gap: 0.65rem;
 }
 
-.zoomControls {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background-color: var(--fm-surface-subtle, #F8FAFC);
-  border: 1px solid var(--fm-border, #E2E8F0);
-  border-radius: var(--radius-full, 9999px);
-  padding: 0.2rem 0.4rem;
-}
-
-.zoomLabel {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  color: var(--fm-text-muted, #64748B);
-  min-width: 2.25rem;
-  text-align: center;
-}
-
 .controlBtn {
   width: 1.85rem;
   height: 1.85rem;

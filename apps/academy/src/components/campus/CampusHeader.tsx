@@ -127,16 +127,6 @@ export function CampusHeader({
       iconColor: '#EC4899',
       isLocked: false,
     },
-    {
-      id: 'tool-evaluaciones',
-      targetView: 'evaluaciones',
-      title: 'Evaluaciones de Módulos & Score',
-      subtitle: 'Índice de competencias y logros',
-      icon: TrendingUp,
-      iconBg: '#F0FDFA',
-      iconColor: '#0D9488',
-      isLocked: false,
-    },
   ];
 
   // Favorited tools appear at the top (only for VIP members)

@@ -101,7 +101,7 @@ export function CampusModuleCelebration({
                 <span className={styles.certIssuer}>
                   Directora Académica: <strong>Lic. Florencia Martínez</strong>
                 </span>
-                <span className={styles.certId}>ID: FM-CERT-2025-9482</span>
+                <span className={styles.certId}>ID: FM-CERT-2026-9482</span>
               </div>
             </div>
           </div>

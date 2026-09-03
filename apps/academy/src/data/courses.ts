@@ -49,7 +49,7 @@ export const coursesData: Course[] = [
         id: 'mod-1',
         number: 1,
         title: 'La radiografía de un CV moderno',
-        description: 'Cómo leen los reclutadores en 2025 y qué busca realmente un algoritmo ATS.',
+        description: 'Cómo leen los reclutadores en 2026 y qué busca realmente un algoritmo ATS.',
         duration: '40 min',
         lessons: [
           'Los 3 errores mortales que hacen que descarten tu CV al instante',

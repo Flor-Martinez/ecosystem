@@ -8,8 +8,6 @@ import {
   ShieldCheck,
   Maximize2,
   Minimize2,
-  ZoomIn,
-  ZoomOut,
   Sparkles,
   AlertTriangle,
   FileText,
@@ -39,7 +37,6 @@ export function InAppDocumentModal({
   const activeEmail = user?.email || 'demo@academiaflormartinez.com';
 
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [zoomLevel, setZoomLevel] = useState<number>(100);
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const [copiedSectionId, setCopiedSectionId] = useState<string | null>(null);
   const [activeSectionId, setActiveSectionId] = useState<string>(
@@ -202,27 +199,6 @@ export function InAppDocumentModal({
           </div>
 
           <div className={styles.headerActions}>
-            {/* Zoom Controls */}
-            <div className={styles.zoomControls}>
-              <button
-                type="button"
-                className={styles.controlBtn}
-                onClick={() => setZoomLevel((prev) => Math.max(90, prev - 10))}
-                title="Reducir tamaño de letra"
-              >
-                <ZoomOut size={15} />
-              </button>
-              <span className={styles.zoomLabel}>{zoomLevel}%</span>
-              <button
-                type="button"
-                className={styles.controlBtn}
-                onClick={() => setZoomLevel((prev) => Math.min(130, prev + 10))}
-                title="Aumentar tamaño de letra"
-              >
-                <ZoomIn size={15} />
-              </button>
-            </div>
-
             {/* Fullscreen Toggle */}
             <button
               type="button"
@@ -280,7 +256,6 @@ export function InAppDocumentModal({
             ref={viewerRef}
             onScroll={handleViewerScroll}
             className={styles.documentViewer}
-            style={{ fontSize: `${zoomLevel / 100}rem` }}
           >
             {/* Subtle Watermark Tag */}
             <div className={styles.watermarkBar}>

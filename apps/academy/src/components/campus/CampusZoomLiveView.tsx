@@ -32,15 +32,15 @@ interface CampusZoomLiveViewProps {
 const pastRecordings = [
   {
     id: 'rec-1',
-    date: 'Miércoles 13 de Agosto, 2025',
-    title: 'Auditoría de CVs ATS y Técnica de Anclaje Salarial',
+    date: 'Miércoles 02 de Septiembre, 2026',
+    title: 'Auditoría de CVs y Técnica de Anclaje Salarial',
     duration: '1h 25m',
     topics: ['Auditoría en vivo de 3 CVs de alumnos', 'Cómo justificar el rango salarial', 'Tips de LinkedIn Search'],
     videoUrl: 'https://youtube.com',
   },
   {
     id: 'rec-2',
-    date: 'Miércoles 06 de Agosto, 2025',
+    date: 'Miércoles 26 de Agosto, 2026',
     title: 'Método STAR en Entrevistas de Screening & Negociación',
     duration: '1h 18m',
     topics: ['Estructuración de historias de logro', 'Respuestas a preguntas difíciles', 'Preguntas para hacerle al reclutador'],
@@ -48,10 +48,10 @@ const pastRecordings = [
   },
   {
     id: 'rec-3',
-    date: 'Miércoles 30 de Julio, 2025',
+    date: 'Miércoles 19 de Agosto, 2026',
     title: 'Optimización de LinkedIn SEO & Prospección en Frío',
     duration: '1h 12m',
-    topics: ['Algoritmo de LinkedIn 2025', 'Mensajes directos a Hiring Managers', 'Networking efectivo sin sonar invasivo'],
+    topics: ['Algoritmo de LinkedIn 2026', 'Mensajes directos a Hiring Managers', 'Networking efectivo sin sonar invasivo'],
     videoUrl: 'https://youtube.com',
   },
 ];
@@ -175,7 +175,7 @@ export function CampusZoomLiveView({
                 <CalendarDays size={20} />
               </div>
               <div className={styles.scheduleText}>
-                <strong>Miércoles 20 de Agosto de 2025</strong>
+                <strong>Miércoles 09 de Septiembre de 2026</strong>
                 <span>19:00 a 20:30 hs (Arg / Uru) · 17:00 hs (Col / Per / Mex)</span>
               </div>
             </div>
@@ -199,11 +199,11 @@ export function CampusZoomLiveView({
               <div className={styles.credentialBox}>
                 <span className={styles.credLabel}>Código de Acceso:</span>
                 <div className={styles.credValueRow}>
-                  <code>EBL2025</code>
+                  <code>EBL2026</code>
                   <button
                     type="button"
                     className={styles.copyBtn}
-                    onClick={() => handleCopy('EBL2025', 'pass')}
+                    onClick={() => handleCopy('EBL2026', 'pass')}
                     title="Copiar Contraseña"
                   >
                     {copiedPass ? <Check size={13} color="#059669" /> : <Copy size={13} />}

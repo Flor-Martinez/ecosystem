@@ -278,18 +278,21 @@
 }
 
 .resProgramTag {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   font-size: 0.6875rem;
   color: #B45309;
   font-weight: 700;
   background-color: #FEF3C7;
   border: 1px solid #FDE68A;
-  padding: 0.3rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   margin-bottom: 1rem;
-  width: fit-content;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .topBackRow {

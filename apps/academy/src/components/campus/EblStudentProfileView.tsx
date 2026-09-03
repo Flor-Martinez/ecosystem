@@ -19,8 +19,6 @@ import {
   Layers,
   Building2,
   Lock,
-  TrendingUp,
-  BarChart3,
 } from 'lucide-react';
 import { LinkedinIcon } from '@/components/ui/Icons';
 import { useAuth } from '@/context/AuthContext';
@@ -31,14 +29,12 @@ interface EblStudentProfileViewProps {
   onBackToDashboard: () => void;
   isDevMode?: boolean;
   onNavigateToVocationalTest?: () => void;
-  onNavigateToEvaluations?: () => void;
 }
 
 export function EblStudentProfileView({
   onBackToDashboard,
   isDevMode = false,
   onNavigateToVocationalTest,
-  onNavigateToEvaluations,
 }: EblStudentProfileViewProps) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
@@ -64,7 +60,7 @@ export function EblStudentProfileView({
     '1. Mercado Libre\n2. Ualá\n3. Despegar\n4. Auth0\n5. Tiendanube'
   );
 
-  // CV Strategy & Keywords (Module 02)
+  // CV Strategy & Keywords (Module 03)
   const [cvKeywordsTech, setCvKeywordsTech] = useState(
     'SAP ERP, Salesforce CRM, Power BI, Excel Avanzado (VBA), SQL básico'
   );
@@ -74,7 +70,7 @@ export function EblStudentProfileView({
   const [cvVariant1, setCvVariant1] = useState('Key Account Manager B2B (Target Principal)');
   const [cvVariant2, setCvVariant2] = useState('Analista Comercial Senior (Target Alternativo)');
 
-  const [cvFileName, setCvFileName] = useState('CV_Santiago_Martinez_ATS_2025.pdf');
+  const [cvFileName, setCvFileName] = useState('CV_Santiago_Martinez_2026.pdf');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showVocationalModal, setShowVocationalModal] = useState(false);
@@ -407,15 +403,15 @@ export function EblStudentProfileView({
               />
             </div>
 
-            {/* Mini-sección D: Estrategia de CV & Keywords Mapeadas (Módulo 02) */}
+            {/* Mini-sección D: Estrategia de CV & Palabras Clave Mapeadas (Módulo 03) */}
             <div className={styles.subSection}>
               <div className={styles.subSectionHeader}>
                 <div className={styles.subSectionTitleRow}>
                   <Sparkles size={16} color="#7C3AED" />
-                  <strong className={styles.subSectionTitle}>D. Estrategia de CV & Keywords Mapeadas</strong>
+                  <strong className={styles.subSectionTitle}>D. Estrategia de CV & Palabras Clave Mapeadas</strong>
                 </div>
                 <span className={styles.subSectionBadge} style={{ backgroundColor: '#F5F3FF', color: '#6D28D9' }}>
-                  Módulo 2 · CV ATS
+                  Módulo 3 · Creación de CV
                 </span>
               </div>
               <p className={styles.subSectionHint}>
@@ -492,14 +488,14 @@ export function EblStudentProfileView({
           <div className={styles.sectionCard}>
             <h2 className={styles.cardTitle}>
               <FileText size={18} className={styles.cardIcon} />
-              <span>Mi Currículum Actual (ATS)</span>
+              <span>Mi Currículum Actual</span>
             </h2>
 
             <div className={styles.cvDisplayCard}>
               <FileText size={36} className={styles.cvBigIcon} />
               <div className={styles.cvInfo}>
                 <strong className={styles.cvFileName}>{cvFileName}</strong>
-                <span className={styles.cvFileMeta}>Última actualización: 12 de Agosto, 2025 · 184 KB</span>
+                <span className={styles.cvFileMeta}>Última actualización: 12 de Agosto, 2026 · 184 KB</span>
               </div>
             </div>
 
@@ -517,7 +513,7 @@ export function EblStudentProfileView({
                 type="button"
                 className={styles.cvUploadBtn}
                 onClick={() => {
-                  const newName = prompt('Nombre de nuevo archivo:', 'Mi_Nuevo_CV_2025.pdf');
+                  const newName = prompt('Nombre de nuevo archivo:', 'Mi_Nuevo_CV_2026.pdf');
                   if (newName) setCvFileName(newName);
                 }}
               >
@@ -537,112 +533,63 @@ export function EblStudentProfileView({
             {isDevMode ? (
               // Modo Dev: Simulamos que NO ha hecho el test
               <div className={styles.vocationalEmptyBox}>
-                <Compass size={32} className={styles.vocationalEmptyIcon} />
-                <h4 className={styles.vocationalEmptyTitle}>Test Vocacional Pendiente</h4>
-                <p className={styles.vocationalEmptyDesc}>
-                  Completá las 12 preguntas para descubrir tu arquetipo dominante y los roles con mayor proyección para tu perfil.
+                <p className={styles.vocationalEmptyText}>
+                  Descubrí tu perfil profesional, áreas de mayor afinidad y fortalezas dominantes completando nuestro diagnóstico.
                 </p>
-                <button
-                  type="button"
-                  className={styles.startVocationalBtn}
-                  onClick={onNavigateToVocationalTest}
-                >
-                  <Compass size={14} />
-                  <span>Realizar Test Vocacional (5 min)</span>
-                </button>
-              </div>
-            ) : (
-              // Modo Alumno: Simulamos que SÍ tiene hecho el test con diagnóstico completo
-              <div className={styles.vocationalResultBox}>
-                <div className={styles.vocationalTopRow}>
-                  <span className={styles.vocationalArchetypeBadge}>
-                    <Sparkles size={12} />
-                    <span>Arquetipo: Estratégico & Creativo</span>
-                  </span>
-                  <span className={styles.vocationalScoreTag}>92% Precisión</span>
-                </div>
-
-                <h4 className={styles.vocationalTitle}>
-                  Estrategia & Innovación de Soluciones
-                </h4>
-                <p className={styles.vocationalDesc}>
-                  Perfil orientado a liderar proyectos de transformación, prototipar soluciones de negocio y conectar necesidades de usuarios con objetivos comerciales.
-                </p>
-
-                <div className={styles.vocationalActionsRow}>
+                {onNavigateToVocationalTest && (
                   <button
                     type="button"
-                    className={styles.viewFullReportBtn}
+                    className={styles.startVocationalBtn}
+                    onClick={onNavigateToVocationalTest}
+                  >
+                    <Compass size={15} />
+                    <span>Realizar Test Vocacional</span>
+                  </button>
+                )}
+              </div>
+            ) : (
+              // Modo Normal: Muestra el resultado
+              <div className={styles.vocationalResultBox}>
+                <div className={styles.vocationalHeader}>
+                  <div className={styles.vocationalLeft}>
+                    <span className={styles.vocationalTag}>PERFIL VOCACIONAL</span>
+                    <h3 className={styles.vocationalRoleTitle}>Estratega Comercial & B2B</h3>
+                  </div>
+                  <span className={styles.vocationalScoreBadge}>Afinidad 94%</span>
+                </div>
+
+                <p className={styles.vocationalSummary}>
+                  Tu perfil destaca por su capacidad de negociación analítica, orientación a resultados y habilidad para liderar relaciones con clientes corporativos.
+                </p>
+
+                <div className={styles.vocationalTraits}>
+                  <span className={styles.traitPill}>Orientación a Objetivos</span>
+                  <span className={styles.traitPill}>Negociación B2B</span>
+                  <span className={styles.traitPill}>Pensamiento Analítico</span>
+                  <span className={styles.traitPill}>Liderazgo de Cuentas</span>
+                </div>
+
+                <div className={styles.vocationalFooter}>
+                  <button
+                    type="button"
+                    className={styles.viewReportBtn}
                     onClick={() => setShowVocationalModal(true)}
                   >
                     <span>Ver Diagnóstico Completo</span>
                     <ExternalLink size={13} />
-                  </button>
-
-                  <button
-                    type="button"
-                    className={styles.retakeTestBtn}
-                    onClick={onNavigateToVocationalTest}
-                    title="Volver a realizar la evaluación vocacional"
-                  >
-                    <span>Rehacer Test</span>
                   </button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* 3. Evaluaciones, Score & Certificados */}
+          {/* 3. Certificados Oficiales & Logros */}
           <div className={styles.sectionCard}>
             <div className={styles.cardHeaderBetween}>
               <h2 className={styles.cardTitle}>
                 <Award size={18} className={styles.cardIcon} />
-                <span>Evaluaciones & Certificados</span>
+                <span>Certificados Oficiales & Logros</span>
               </h2>
-
-              {onNavigateToEvaluations && (
-                <button
-                  type="button"
-                  className={styles.goToEvaluationsBtn}
-                  onClick={onNavigateToEvaluations}
-                  title="Ver desglose completo de competencias y score"
-                >
-                  <BarChart3 size={13} />
-                  <span>Ver Evaluaciones ↗</span>
-                </button>
-              )}
-            </div>
-
-            {/* Score Overview Box */}
-            <div className={styles.scoreOverviewBox}>
-              <div className={styles.scoreTopRow}>
-                <div className={styles.scoreMetricGroup}>
-                  <span className={styles.scoreMetricLabel}>Índice General</span>
-                  <div className={styles.scoreMetricValue}>
-                    <strong>85</strong>
-                    <span>/100</span>
-                  </div>
-                </div>
-                <span className={styles.scoreStatusPill}>
-                  <CheckCircle2 size={13} />
-                  <span>Perfil Competitivo</span>
-                </span>
-              </div>
-
-              <div className={styles.moduleScoresRow}>
-                <div className={styles.moduleScoreChip}>
-                  <span className={styles.modChipName}>CV ATS</span>
-                  <strong className={styles.modChipScore} style={{ color: '#7C3AED' }}>85%</strong>
-                </div>
-                <div className={styles.moduleScoreChip}>
-                  <span className={styles.modChipName}>LinkedIn SEO</span>
-                  <strong className={styles.modChipScore} style={{ color: '#0284C7' }}>70%</strong>
-                </div>
-                <div className={styles.moduleScoreChip}>
-                  <span className={styles.modChipName}>Método STAR</span>
-                  <strong className={styles.modChipScore} style={{ color: '#059669' }}>60%</strong>
-                </div>
-              </div>
             </div>
 
             <div className={styles.certificatesList}>
@@ -651,13 +598,13 @@ export function EblStudentProfileView({
                   <Award size={16} />
                 </div>
                 <div className={styles.certText}>
-                  <strong>Armado de CV ATS Profesional</strong>
-                  <span>Aprobado el 10 de Agosto, 2025</span>
+                  <strong>Armado de CV Profesional</strong>
+                  <span>Aprobado el 10 de Agosto, 2026</span>
                 </div>
                 <button
                   type="button"
                   className={styles.certDownloadBtn}
-                  onClick={() => handleDownloadCert('Armado de CV ATS Profesional')}
+                  onClick={() => handleDownloadCert('Armado de CV Profesional')}
                 >
                   <Download size={14} />
                   <span>PDF</span>
@@ -670,7 +617,7 @@ export function EblStudentProfileView({
                 </div>
                 <div className={styles.certText}>
                   <strong>LinkedIn SEO & Marca Personal</strong>
-                  <span>Aprobado el 14 de Agosto, 2025</span>
+                  <span>Aprobado el 14 de Agosto, 2026</span>
                 </div>
                 <button
                   type="button"
@@ -688,7 +635,7 @@ export function EblStudentProfileView({
                 </div>
                 <div className={styles.certText}>
                   <strong>Experiencia Búsqueda Laboral Completa</strong>
-                  <span>Programa Integral Acreditado</span>
+                  <span>Programa Integral Acreditado · 2026</span>
                 </div>
                 <button
                   type="button"

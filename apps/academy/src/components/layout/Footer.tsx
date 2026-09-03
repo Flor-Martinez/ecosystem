@@ -99,7 +99,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/recursos/checklist-optimizacion-cv-ats" className={styles.link}>
-                  Checklist CV ATS 2025
+                  Checklist CV ATS 2026
                 </Link>
               </li>
               <li>
@@ -108,7 +108,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/recursos/guia-optimizacion-linkedin-2025" className={styles.link}>
+                <Link href="/recursos/guia-optimizacion-linkedin-2026" className={styles.link}>
                   Guía LinkedIn SEO
                 </Link>
               </li>

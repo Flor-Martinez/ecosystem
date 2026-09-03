@@ -32,7 +32,7 @@ export function CampusTabs({ lesson }: CampusTabsProps) {
     if (lower.includes('plantilla') || lower.includes('cv')) {
       slug = 'plantilla-estructura-cv-editorial';
     } else if (lower.includes('linkedin')) {
-      slug = 'guia-optimizacion-linkedin-2025';
+      slug = 'guia-optimizacion-linkedin-2026';
     } else if (lower.includes('portal') || lower.includes('remoto')) {
       slug = 'directorio-portales-empleo-remoto';
     } else if (lower.includes('sueldo') || lower.includes('negociacion')) {

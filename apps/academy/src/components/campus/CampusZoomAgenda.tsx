@@ -39,64 +39,49 @@ export interface CalendarEvent {
 
 const defaultEvents: CalendarEvent[] = [
   {
-    id: 'zoom-aug-20',
+    id: 'zoom-sep-09',
     title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
-    date: '2025-08-20',
+    date: '2026-09-09',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
     notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
+    zoomLink: 'zoom-live',
   },
   {
-    id: 'zoom-aug-27',
+    id: 'zoom-sep-16',
     title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
-    date: '2025-08-27',
+    date: '2026-09-16',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
     notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
+    zoomLink: 'zoom-live',
   },
   {
-    id: 'zoom-sep-03',
+    id: 'zoom-sep-23',
     title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
     type: 'zoom',
-    date: '2025-09-03',
+    date: '2026-09-23',
     time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
     notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'https://zoom.us/j/mock-academia-flor-martinez',
+    zoomLink: 'zoom-live',
+  },
+  {
+    id: 'zoom-sep-30',
+    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
+    type: 'zoom',
+    date: '2026-09-30',
+    time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
+    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
+    zoomLink: 'zoom-live',
   },
   {
     id: 'ent-1',
     title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
     type: 'entrevista',
-    date: '2025-08-21',
+    date: '2026-09-10',
     time: '15:00 hs (Arg)',
     company: 'Mercado Libre',
     notes: 'Llamada con Hiring Manager sobre proyectos B2B.',
-  },
-];
-
-const pastRecordings = [
-  {
-    id: 'past-1',
-    date: 'Miércoles 13 de Agosto de 2025',
-    title: 'Sesión en Vivo — 13 de Agosto',
-    duration: '1h 15m',
-    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
-  },
-  {
-    id: 'past-2',
-    date: 'Miércoles 06 de Agosto de 2025',
-    title: 'Sesión en Vivo — 06 de Agosto',
-    duration: '1h 22m',
-    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
-  },
-  {
-    id: 'past-3',
-    date: 'Miércoles 30 de Julio de 2025',
-    title: 'Sesión en Vivo — 30 de Julio',
-    duration: '1h 10m',
-    description: 'Espacio de resolución de dudas y consultas de alumnos en vivo.',
   },
 ];
 
@@ -104,21 +89,34 @@ const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
 
 interface CampusZoomAgendaProps {
   onBackToDashboard?: () => void;
+  onNavigateToZoom?: () => void;
 }
 
-export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = {}) {
+export function CampusZoomAgenda({
+  onBackToDashboard,
+  onNavigateToZoom,
+}: CampusZoomAgendaProps = {}) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
 
   const [events, setEvents] = useState<CalendarEvent[]>(defaultEvents);
-  const [selectedDate, setSelectedDate] = useState<string>('2025-08-20');
-  const [currentMonth, setCurrentMonth] = useState({ year: 2025, month: 7 }); // 0-indexed: 7 = August
+  const [selectedDate, setSelectedDate] = useState<string>('2026-09-09');
+  const [currentMonth, setCurrentMonth] = useState({ year: 2026, month: 8 }); // 0-indexed: 8 = Septiembre
+
+  // Navigation limits: from Join Month (Septiembre 2026) to 1 year ahead (Septiembre 2027)
+  const JOIN_YEAR = 2026;
+  const JOIN_MONTH = 8; // Septiembre 2026
+  const MAX_YEAR = 2027;
+  const MAX_MONTH = 8; // Septiembre 2027
+
+  const canPrev = (currentMonth.year > JOIN_YEAR) || (currentMonth.year === JOIN_YEAR && currentMonth.month > JOIN_MONTH);
+  const canNext = (currentMonth.year < MAX_YEAR) || (currentMonth.year === MAX_YEAR && currentMonth.month < MAX_MONTH);
 
   // Modal New Event
   const [showAddModal, setShowAddModal] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newType, setNewType] = useState<CalendarEvent['type']>('entrevista');
-  const [newDate, setNewDate] = useState('2025-08-20');
+  const [newDate, setNewDate] = useState('2026-09-09');
   const [newTime, setNewTime] = useState('15:00 hs');
   const [newCompany, setNewCompany] = useState('');
   const [newNotes, setNewNotes] = useState('');
@@ -221,6 +219,7 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
   };
 
   const handlePrevMonth = () => {
+    if (!canPrev) return;
     if (currentMonth.month === 0) {
       setCurrentMonth({ year: currentMonth.year - 1, month: 11 });
     } else {
@@ -229,6 +228,7 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
   };
 
   const handleNextMonth = () => {
+    if (!canNext) return;
     if (currentMonth.month === 11) {
       setCurrentMonth({ year: currentMonth.year + 1, month: 0 });
     } else {
@@ -246,6 +246,10 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
     const fd = d < 10 ? `0${d}` : `${d}`;
     const fm = month + 1 < 10 ? `0${month + 1}` : `${month + 1}`;
     calendarDays.push({ day: d, dateStr: `${year}-${fm}-${fd}` });
+  }
+  // Fill exactly 42 slots (6 rows x 7 days) so month height is always constant
+  while (calendarDays.length < 42) {
+    calendarDays.push(null);
   }
 
   const selectedDateEvents = events.filter((e) => e.date === selectedDate);
@@ -289,7 +293,9 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
                   type="button"
                   className={styles.navMonthBtn}
                   onClick={handlePrevMonth}
+                  disabled={!canPrev}
                   aria-label="Mes anterior"
+                  title={canPrev ? 'Mes anterior' : 'Límite de inicio de membresía'}
                 >
                   <ChevronLeft size={16} />
                 </button>
@@ -300,7 +306,9 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
                   type="button"
                   className={styles.navMonthBtn}
                   onClick={handleNextMonth}
+                  disabled={!canNext}
                   aria-label="Mes siguiente"
+                  title={canNext ? 'Mes siguiente' : 'Límite de 1 año en adelante'}
                 >
                   <ChevronRight size={16} />
                 </button>
@@ -310,7 +318,7 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
                 type="button"
                 className={styles.addEventBtn}
                 onClick={() => {
-                  setNewDate(selectedDate || '2025-08-20');
+                  setNewDate(selectedDate || '2026-09-09');
                   setShowAddModal(true);
                 }}
               >
@@ -408,19 +416,18 @@ export function CampusZoomAgenda({ onBackToDashboard }: CampusZoomAgendaProps = 
 
                     <div className={styles.eventActionsRow}>
                       {ev.zoomLink ? (
-                        <a
-                          href={ev.zoomLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          type="button"
                           className={styles.joinZoomLinkBtn}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            alert('Abriendo enlace de sesión Zoom semanal.');
+                          onClick={() => {
+                            if (onNavigateToZoom) {
+                              onNavigateToZoom();
+                            }
                           }}
                         >
                           <Video size={14} />
                           <span>Entrar al Zoom</span>
-                        </a>
+                        </button>
                       ) : <span />}
 
                       {!ev.id.startsWith('zoom-') && (

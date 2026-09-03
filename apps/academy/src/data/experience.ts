@@ -42,7 +42,7 @@ export const experienceProgram = {
   headline: 'La experiencia integral para conseguir el trabajo que querés',
   tagline:
     'No es solo un curso grabado: es una membresía activa donde te acompañamos semana a semana con clases en vivo, herramientas exclusivas, revisión de tu CV y un método probado.',
-  badge: 'Experiencia Activa 2025 · Cupos Limitados',
+  badge: 'Experiencia Activa 2026 · Cupos Limitados',
   modality: 'Online en vivo + Campus 24/7 + Herramientas de seguimiento',
   duration: 'Acceso continuo mientras dure tu suscripción',
   communityCount: '+450 profesionales activos',

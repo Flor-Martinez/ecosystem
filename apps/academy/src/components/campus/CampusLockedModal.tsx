@@ -164,7 +164,7 @@ export function CampusLockedModal({
         {/* Guarantee Banner */}
         <div className={styles.guaranteeRow}>
           <ShieldCheck size={16} className={styles.shieldIcon} />
-          <span>Acceso de por vida · Actualizaciones 2025 · Soporte en Zooms semanales</span>
+          <span>Acceso de por vida · Actualizaciones 2026 · Soporte en Zooms semanales</span>
         </div>
 
         {/* Actions */}

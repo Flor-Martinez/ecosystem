@@ -23,7 +23,6 @@ import { CampusLockedModal } from '@/components/campus/CampusLockedModal';
 import { CampusLockedPaywallView } from '@/components/campus/CampusLockedPaywallView';
 import { EblDashboardGrid } from '@/components/campus/EblDashboardGrid';
 import { EblStudentProfileView } from '@/components/campus/EblStudentProfileView';
-import { EblEvaluationsView } from '@/components/campus/EblEvaluationsView';
 import { EblVocationalTestView } from '@/components/campus/EblVocationalTestView';
 import styles from './campus.module.css';
 
@@ -547,7 +546,6 @@ function CampusContent() {
                 isDevMode={isDevMode}
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
                 onNavigateToVocationalTest={() => handleNavChangeView('test-vocacional')}
-                onNavigateToEvaluations={() => handleNavChangeView('evaluaciones')}
               />
             )
           )}
@@ -575,11 +573,6 @@ function CampusContent() {
               onBackToDashboard={() => handleNavChangeView('dashboard')}
               onUpgrade={handleToggleMembership}
             />
-          )}
-
-          {/* INDIVIDUAL EVALUATION SCREEN */}
-          {currentView === 'evaluaciones' && (
-            <EblEvaluationsView onBackToDashboard={() => handleNavChangeView('dashboard')} />
           )}
 
           {/* VIRTUAL CLASSROOM & PLAYER VIEW */}
@@ -709,7 +702,10 @@ function CampusContent() {
                 onUpgrade={handleToggleMembership}
               />
             ) : (
-              <CampusZoomAgenda onBackToDashboard={() => handleNavChangeView('dashboard')} />
+              <CampusZoomAgenda
+                onBackToDashboard={() => handleNavChangeView('dashboard')}
+                onNavigateToZoom={() => handleNavChangeView('zoom')}
+              />
             )
           )}
 

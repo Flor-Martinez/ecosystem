@@ -156,7 +156,7 @@ export const inAppDocumentsRegistry: Record<string, InAppDocument> = {
     summary:
       'Guía y lista de verificación interactiva paso a paso para asegurar que tu currículum supere los filtros algorítmicos ATS y capture la atención del selector en los primeros 6 segundos.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (Protegida In-App)',
+    version: 'Edición 2026 (Protegida In-App)',
     sections: [
       {
         id: 'formato-y-estructura',
@@ -306,7 +306,7 @@ export const inAppDocumentsRegistry: Record<string, InAppDocument> = {
     summary:
       'Estructura editorial maestra de 1 página optimizada para superar lectores ATS y capturar la atención de selectores de Argentina y el exterior.',
     author: 'Flor Martínez · Academia',
-    version: '2025.2 Editorial',
+    version: '2026.1 Editorial',
     sections: [
       {
         id: 'anatomia-de-la-plantilla',
@@ -386,7 +386,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Estructura modular en Notion lista para duplicar, mantener actualizada tu trayectoria profesional y exportar a PDF limpio con un solo clic.',
     author: 'Flor Martínez · Academia',
-    version: 'Edición 2025 (Notion Template)',
+    version: 'Edición 2026 (Notion Template)',
     sections: [
       {
         id: 'instrucciones-duplicacion',
@@ -409,9 +409,9 @@ HABILIDADES & HERRAMIENTAS
     ],
   },
 
-  'guia-optimizacion-linkedin-2025': {
-    id: 'guia-optimizacion-linkedin-2025',
-    slug: 'guia-optimizacion-linkedin-2025',
+  'guia-optimizacion-linkedin-2026': {
+    id: 'guia-optimizacion-linkedin-2026',
+    slug: 'guia-optimizacion-linkedin-2026',
     title: 'Guía Rápida: Optimización de LinkedIn en 7 Pasos Clave',
     category: 'LinkedIn & Posicionamiento',
     programTitle: 'Experiencia Búsqueda Laboral',
@@ -421,7 +421,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Estrategia completa para configurar tu perfil de LinkedIn de modo que aparezca en las primeras búsquedas de LinkedIn Recruiter y genere contactos orgánicos de empresas.',
     author: 'Flor Martínez',
-    version: '2025 Pro',
+    version: '2026 Pro',
     sections: [
       {
         id: 'algoritmo-recruiter',
@@ -540,7 +540,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Framework para calcular tu banda salarial piso y objetivo, guiones para responder a la pregunta de pretensión y protocolo de contrapropuesta.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'formula-piso-salarial',
@@ -575,7 +575,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Metodología internacional para estructurar historias de logros contundentes con Situación, Tarea, Acción y Resultado medible.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'los-4-pasos-star',
@@ -674,7 +674,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Línea de tiempo paso a paso con las 4 etapas internas de contratación en una empresa y la duración estimada de cada fase.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'fase-1-preseleccion',
@@ -726,7 +726,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Guía metodológica para definir tus 6 filtros de postulación diana, delimitar tu piso salarial y establecer tus líneas rojas antes de postularte.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'los-6-filtros-target',
@@ -799,7 +799,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Estructura de trabajo semanal en 3 bloques de alta productividad para mantener un flujo de 2 a 3 entrevistas por semana.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'bloque-1-mapeo',
@@ -862,7 +862,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Metodología para extraer las keywords técnicas de 3 ofertas reales y configurar tus 2 variantes de CV sincronizadas con Mi Perfil.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'clasificacion-keywords',
@@ -904,7 +904,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Listado clasificado de verbos activos por área para erradicar frases pasivas y formular logros con autoridad y métricas.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'verbos-liderazgo-gestion',
@@ -1018,7 +1018,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Fórmulas estructuradas y ejemplos reales redactados para optimizar el SEO de tu titular y conectar humanamente en tu extracto.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'ejemplos-titulares-por-area',
@@ -1060,7 +1060,7 @@ HABILIDADES & HERRAMIENTAS
     summary:
       'Guiones cortos (< 300 caracteres) y sin presión para conectar con selectores y Hiring Managers con alta tasa de respuesta.',
     author: 'Flor Martínez · Selección & Empleabilidad',
-    version: 'Edición 2025 (In-App)',
+    version: 'Edición 2026 (In-App)',
     sections: [
       {
         id: 'script-vacante-abierta',
@@ -1305,7 +1305,7 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
     return inAppDocumentsRegistry['plantilla-estructura-cv-editorial']!;
   }
   if (clean.includes('linkedin')) {
-    return inAppDocumentsRegistry['guia-optimizacion-linkedin-2025']!;
+    return inAppDocumentsRegistry['guia-optimizacion-linkedin-2026']!;
   }
   if (clean.includes('portal') || clean.includes('remoto')) {
     return inAppDocumentsRegistry['directorio-portales-empleo-remoto']!;
@@ -1327,7 +1327,7 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
     estimatedReadTime: '3 min de lectura',
     summary: 'Documento interactivo exclusivo de la Academia Flor Martínez. Visualización directa en plataforma.',
     author: 'Flor Martínez · Academia',
-    version: '2025 In-App',
+    version: '2026 In-App',
     sections: [
       {
         id: 'introduccion-general',
