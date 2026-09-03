@@ -37,43 +37,37 @@ export interface CalendarEvent {
   zoomLink?: string;
 }
 
+function generateWednesdayZooms(): CalendarEvent[] {
+  const zoomEvents: CalendarEvent[] = [];
+  // From 2026-09-01 to 2027-12-31
+  const start = new Date(2026, 8, 1);
+  const end = new Date(2027, 11, 31);
+  const current = new Date(start);
+
+  while (current <= end) {
+    if (current.getDay() === 3) {
+      // 3 = Wednesday
+      const y = current.getFullYear();
+      const m = String(current.getMonth() + 1).padStart(2, '0');
+      const d = String(current.getDate()).padStart(2, '0');
+      const dateStr = `${y}-${m}-${d}`;
+      zoomEvents.push({
+        id: `zoom-${dateStr}`,
+        title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
+        type: 'zoom',
+        date: dateStr,
+        time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
+        notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
+        zoomLink: 'zoom-live',
+      });
+    }
+    current.setDate(current.getDate() + 1);
+  }
+  return zoomEvents;
+}
+
 const defaultEvents: CalendarEvent[] = [
-  {
-    id: 'zoom-sep-09',
-    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
-    type: 'zoom',
-    date: '2026-09-09',
-    time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'zoom-live',
-  },
-  {
-    id: 'zoom-sep-16',
-    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
-    type: 'zoom',
-    date: '2026-09-16',
-    time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'zoom-live',
-  },
-  {
-    id: 'zoom-sep-23',
-    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
-    type: 'zoom',
-    date: '2026-09-23',
-    time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'zoom-live',
-  },
-  {
-    id: 'zoom-sep-30',
-    title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
-    type: 'zoom',
-    date: '2026-09-30',
-    time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-    notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-    zoomLink: 'zoom-live',
-  },
+  ...generateWednesdayZooms(),
   {
     id: 'ent-1',
     title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
@@ -122,32 +116,52 @@ export function CampusZoomAgenda({
   const [newNotes, setNewNotes] = useState('');
   const [newZoomLink, setNewZoomLink] = useState('');
 
-  // Load from database on mount (with localStorage fallback)
+  // Load from DB / LocalStorage
   useEffect(() => {
     async function loadData() {
       try {
         const res = await getCampusInitialDataAction(activeEmail);
+        const wednesdayZooms = generateWednesdayZooms();
+        let loadedEvents: CalendarEvent[] = [];
+
         if (res.success && res.data && res.data.calendarEvents.length > 0) {
-          // Merge with default zoom events so students always see live weekly sessions
-          const dbEvents = res.data.calendarEvents;
-          const merged: CalendarEvent[] = [...dbEvents];
-          defaultEvents.forEach((defEv) => {
-            if (!merged.some((e) => e.id === defEv.id || (e.title === defEv.title && e.date === defEv.date))) {
-              merged.push(defEv);
-            }
-          });
-          setEvents(merged);
-          localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(merged));
+          loadedEvents = res.data.calendarEvents;
         } else {
           const saved = localStorage.getItem(CALENDAR_STORAGE_KEY);
           if (saved) {
             try {
-              setEvents(JSON.parse(saved));
+              loadedEvents = JSON.parse(saved);
             } catch {
-              // ignore
+              loadedEvents = defaultEvents;
             }
+          } else {
+            loadedEvents = defaultEvents;
           }
         }
+
+        // Merge all Wednesday Zooms into loadedEvents so all Wednesdays always have the weekly Zoom
+        const merged: CalendarEvent[] = [...loadedEvents];
+        wednesdayZooms.forEach((zoomEv) => {
+          if (!merged.some((e) => e.date === zoomEv.date && e.type === 'zoom')) {
+            merged.push(zoomEv);
+          }
+        });
+
+        // Ensure default initial interview is there
+        if (!merged.some((e) => e.id === 'ent-1')) {
+          merged.push({
+            id: 'ent-1',
+            title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
+            type: 'entrevista',
+            date: '2026-09-10',
+            time: '15:00 hs (Arg)',
+            company: 'Mercado Libre',
+            notes: 'Llamada con Hiring Manager sobre proyectos B2B.',
+          });
+        }
+
+        setEvents(merged);
+        localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(merged));
       } catch (err) {
         console.error('Error cargando eventos de la agenda:', err);
       }

@@ -264,8 +264,8 @@
 .dayCell {
   aspect-ratio: 1 / 1;
   border-radius: var(--radius-xl);
-  border: 1px solid #F1F5F9;
-  background: #FAF9FE;
+  border: 1.5px solid #F1F5F9;
+  background: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -277,17 +277,28 @@
   position: relative;
 }
 
-.dayCell:hover {
+.dayCellHasEvents {
   border-color: #FED7AA;
+  background: #FFFDF9;
+  box-shadow: 0 1px 4px rgba(234, 88, 12, 0.08);
+}
+
+.dayCellHasEvents .dayNum {
+  color: #EA580C;
+  font-weight: 800;
+}
+
+.dayCell:hover {
+  border-color: #FDBA74;
   background: #FFF7ED;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .dayCellSelected {
   background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%) !important;
   border-color: #EA580C !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
 }
 
 .dayCellSelected .dayNum {
@@ -887,7 +898,7 @@
   font-size: 0.8125rem;
   color: var(--fm-azul-marino);
   outline: none;
-  background-color: #FAF9FE;
+  background-color: #F8FAFC;
   transition: all var(--transition-fast);
 }
 
