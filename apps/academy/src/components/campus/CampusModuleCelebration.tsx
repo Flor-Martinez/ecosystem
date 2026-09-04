@@ -154,7 +154,7 @@ export function CampusModuleCelebration({
 
           <p className={styles.subtitle}>
             {completedModule.tagline ||
-              'Completaste todas las clases teóricas, plantillas de trabajo y la evaluación final de este bloque temático.'}
+              'Completaste todas las clases teóricas, plantillas de trabajo y la evaluación práctica de este módulo.'}
           </p>
 
           <div className={styles.moduleStatsBanner}>
@@ -170,11 +170,79 @@ export function CampusModuleCelebration({
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statVal}>100%</span>
-              <span className={styles.statLabel}>Progreso del bloque</span>
+              <span className={styles.statLabel}>Progreso del Módulo 0{completedModule.number}</span>
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {/* DEDICATED VIP UPSELL BLOCK FOR FREE USERS */}
+          {membershipTier === 'free' && (
+            <div className={styles.freeUpsellCard}>
+              <div className={styles.freeUpsellHeader}>
+                <div className={styles.crownIconWrap}>
+                  <Sparkles size={22} className={styles.crownIcon} />
+                </div>
+                <div className={styles.freeUpsellHeaderText}>
+                  <span className={styles.freeUpsellBadge}>PASO SIGUIENTE RECOMENDADO</span>
+                  <h3 className={styles.freeUpsellTitle}>
+                    ¿Te interesó y sirvió lo que viste en este Módulo 01?
+                  </h3>
+                  <p className={styles.freeUpsellSubtitle}>
+                    Tu estrategia de búsqueda laboral recién comienza. Desbloqueá la <strong>Experiencia Búsqueda Laboral Completa (VIP)</strong> para dominar todo el proceso y multiplicar tus entrevistas.
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.freeUpsellGrid}>
+                <div className={styles.freeUpsellItem}>
+                  <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
+                  <div>
+                    <strong>Módulos 02 al 08 Troncales</strong>
+                    <span>Armado de CV ATS, LinkedIn optimizado, Simulador STAR de entrevistas y Negociación Salarial.</span>
+                  </div>
+                </div>
+
+                <div className={styles.freeUpsellItem}>
+                  <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
+                  <div>
+                    <strong>Bóveda de Recursos & Plantillas VIP</strong>
+                    <span>Más de 12 plantillas editables en Word (.docx), bases de Notion y matrices de cálculo.</span>
+                  </div>
+                </div>
+
+                <div className={styles.freeUpsellItem}>
+                  <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
+                  <div>
+                    <strong>Tracker de Postulaciones & Agenda</strong>
+                    <span>Herramientas interactivas para gestionar procesos y agendar tus entrevistas reales.</span>
+                  </div>
+                </div>
+
+                <div className={styles.freeUpsellItem}>
+                  <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
+                  <div>
+                    <strong>Sesiones Semanales en Vivo</strong>
+                    <span>Mentorías en directo con Flor Martínez todos los miércoles para auditar tu CV y tus avances.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.freeUpsellCtaWrap}>
+                <a
+                  href="/experiencia"
+                  className={styles.vipUnlockBtn}
+                >
+                  <Sparkles size={18} />
+                  <span>Comprar Experiencia Completa (Membresía VIP)</span>
+                  <ArrowRight size={18} />
+                </a>
+                <span className={styles.guaranteeText}>
+                  🛡️ Acceso de por vida · Actualizaciones 2026 · Certificado Oficial al finalizar
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Bottom Secondary Action Buttons */}
           <div className={styles.actionsRow}>
             {nextTargetModule ? (
               <button
@@ -189,25 +257,7 @@ export function CampusModuleCelebration({
                 </span>
                 <ArrowRight size={18} />
               </button>
-            ) : membershipTier === 'free' ? (
-              <a
-                href="/experiencia"
-                className={styles.primaryNextBtn}
-                style={{ textDecoration: 'none' }}
-              >
-                <Sparkles size={18} />
-                <span>Desbloquear Módulos 03 y 05 (Membresía VIP)</span>
-              </a>
-            ) : (
-              <button
-                type="button"
-                className={styles.primaryNextBtn}
-                onClick={onReviewModule}
-              >
-                <RotateCcw size={18} />
-                <span>Repasar Módulo</span>
-              </button>
-            )}
+            ) : null}
 
             {isExperience ? (
               <button
@@ -218,16 +268,16 @@ export function CampusModuleCelebration({
                 <LayoutGrid size={18} />
                 <span>Volver al Tablero</span>
               </button>
-            ) : (
-              <button
-                type="button"
-                className={styles.secondaryDashBtn}
-                onClick={onReviewModule}
-              >
-                <BookOpen size={18} />
-                <span>Repasar Clases del Módulo</span>
-              </button>
-            )}
+            ) : null}
+
+            <button
+              type="button"
+              className={styles.secondaryDashBtn}
+              onClick={onReviewModule}
+            >
+              <RotateCcw size={16} />
+              <span>Repasar Módulo 0{completedModule.number}</span>
+            </button>
           </div>
         </div>
       )}

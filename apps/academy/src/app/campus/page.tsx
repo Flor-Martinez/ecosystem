@@ -629,19 +629,20 @@ function CampusContent() {
                 <CampusModuleCelebration
                   program={currentProgram}
                   completedModule={activeCelebrationModule}
-                  isAllProgramCompleted={currentProgram.modules.every((m) => {
-                    if (m.number === 8) return true; // optional module
-                    if (membershipTier === 'free' && m.number !== 1) {
-                      return true; // only module 1 required in free
-                    }
-                    return m.lessons.every((l) => completedLessons.has(l.id));
-                  })}
+                  isAllProgramCompleted={
+                    membershipTier === 'free'
+                      ? false
+                      : currentProgram.modules.every((m) => {
+                          if (m.number === 8) return true; // optional module
+                          return m.lessons.every((l) => completedLessons.has(l.id));
+                        })
+                  }
                   nextTargetModule={(() => {
+                    if (membershipTier === 'free') {
+                      return null;
+                    }
                     const pending = currentProgram.modules.filter((m) => {
                       if (m.number === 8) return false; // optional module
-                      if (membershipTier === 'free' && m.number !== 1) {
-                        return false;
-                      }
                       return !m.lessons.every((l) => completedLessons.has(l.id));
                     });
                     return pending.sort((a, b) => a.number - b.number)[0] || null;

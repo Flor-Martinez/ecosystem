@@ -797,7 +797,7 @@ export function CampusPlayer({
               ? isModuleAlreadyFinished
                 ? hasNext
                   ? 'Siguiente Clase'
-                  : 'Programa Completado'
+                  : 'Ver Módulo Finalizado'
                 : 'Finalizar Módulo'
               : hasNext
               ? 'Siguiente Clase'
