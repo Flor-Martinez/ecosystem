@@ -110,7 +110,7 @@ export function CampusHeader({
     {
       id: 'tool-zoom',
       targetView: 'zoom',
-      title: 'Charlas Semanales Zoom',
+      title: 'Sesiones en Vivo',
       subtitle: 'Mentorías en vivo y grabaciones',
       icon: Video,
       iconBg: '#EFF6FF',

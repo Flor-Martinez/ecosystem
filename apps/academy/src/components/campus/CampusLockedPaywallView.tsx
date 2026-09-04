@@ -76,11 +76,11 @@ export function CampusLockedPaywallView({
         return {
           icon: <Calendar size={38} className={styles.heroIcon} />,
           badge: 'MENTORÍAS & AGENDA VIP',
-          title: 'Los Zooms Semanales & la Agenda son exclusivos de la Experiencia Búsqueda Laboral',
+          title: 'Las Sesiones en Vivo & la Agenda son exclusivas de la Experiencia Búsqueda Laboral',
           description:
-            'Participá todos los miércoles de los Zooms en vivo donde Flor Martínez y su equipo auditan en vivo CVs, LinkedIn y preparan tus entrevistas.',
+            'Participá todos los miércoles de las Sesiones en Vivo donde Flor Martínez y su equipo auditan en vivo CVs, LinkedIn y preparan tus entrevistas.',
           benefits: [
-            'Zooms grupales en vivo todos los miércoles a las 19:00 hs (Arg).',
+            'Sesiones grupales en vivo todos los miércoles a las 19:00 hs (Arg).',
             'Buzón prioritario de dudas y auditorías en directo de tus perfiles.',
             'Calendario interactivo para agendar y sincronizar tus entrevistas reales.',
           ],

@@ -689,7 +689,7 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION C: DESPLEGABLE DE DUDAS PARA EL ZOOM SEMANAL (SOLO PARA EXPERIENCIAS CON ZOOM) */}
+          {/* SECTION C: DESPLEGABLE DE DUDAS PARA LA SESIÓN EN VIVO SEMANAL (SOLO PARA EXPERIENCIAS CON MENTORÍA) */}
           {currentProgram.hasZoom && (
             <div className={styles.zoomAccordionWrapper}>
               <button
@@ -703,7 +703,7 @@ export function CampusPlayer({
                     <MessageSquare size={16} />
                   </div>
                   <span className={styles.zoomToggleText}>
-                    ¿Tenés alguna duda para ver en el Zoom semanal de alumnos?
+                    ¿Tenés alguna duda para ver en la Sesión en Vivo de alumnos?
                   </span>
                 </div>
                 <div className={styles.zoomToggleChevron}>
@@ -714,7 +714,7 @@ export function CampusPlayer({
               {isZoomAccordionOpen && (
                 <div className={styles.zoomAccordionBody}>
                   <div className={styles.zoomNoticeCard}>
-                    <strong>🎙️ Sesión de Zoom semanal en vivo todos los miércoles 19:00 hs (Arg)</strong>
+                    <strong>🎙️ Sesión en Vivo todos los miércoles a las 19:00 hs (Arg)</strong>
                     <p>
                       Dejanos tu consulta puntual sobre esta lección o sobre tu postulación actual. Flor y el equipo la revisarán en vivo con feedback directo.
                     </p>
@@ -725,12 +725,12 @@ export function CampusPlayer({
                       <CheckCircle2 size={20} className={styles.sentCheckIcon} />
                       <div>
                         <strong>¡Tu consulta fue recibida con éxito!</strong>
-                        <span>La sumamos a la orden del día del próximo Zoom semanal.</span>
+                        <span>La sumamos a la orden del día de la próxima Sesión en Vivo.</span>
                       </div>
                     </div>
                   ) : (
                     <form onSubmit={handleSubmitQuestion} className={styles.zoomForm}>
-                      <label className={styles.zoomLabel}>Escribí tu pregunta para el Zoom semanal:</label>
+                      <label className={styles.zoomLabel}>Escribí tu pregunta para la Sesión en Vivo:</label>
                       <textarea
                         rows={3}
                         required

@@ -42,7 +42,7 @@ export default function ExperienciaPage() {
               </h1>
 
               <p className={styles.subtitle}>
-                La búsqueda de trabajo no tiene por qué ser solitaria ni desordenada. Te acompañamos semana a semana con un método integral que combina clases prácticas, revisión en vivo de tus documentos vía Zoom y herramientas exclusivas para gestionar tus postulaciones.
+                La búsqueda de trabajo no tiene por qué ser solitaria ni desordenada. Te acompañamos semana a semana con un método integral que combina clases prácticas, revisión en vivo de tus documentos en sesiones grupales y herramientas exclusivas para gestionar tus postulaciones.
               </p>
 
               <div className={styles.statsRow}>
@@ -53,7 +53,7 @@ export default function ExperienciaPage() {
                 <div className={styles.statDivider} />
                 <div className={styles.statItem}>
                   <strong className={styles.statNumber}>Semanal</strong>
-                  <span className={styles.statLabel}>Feedback en Zoom</span>
+                  <span className={styles.statLabel}>Sesiones en Vivo</span>
                 </div>
                 <div className={styles.statDivider} />
                 <div className={styles.statItem}>
@@ -113,8 +113,8 @@ export default function ExperienciaPage() {
                   <li>
                     <Check size={16} className={styles.checkIcon} />
                     <div>
-                      <strong>Charlas Semanales en Zoom en Vivo</strong>
-                      <span>Revisión de tu CV cara a cara con nuestro equipo.</span>
+                      <strong>Sesiones Semanales en Vivo</strong>
+                      <span>Revisión de tu CV y consultas cara a cara con nuestro equipo.</span>
                     </div>
                   </li>
                   <li>

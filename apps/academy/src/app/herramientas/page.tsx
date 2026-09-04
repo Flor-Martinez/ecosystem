@@ -10,7 +10,7 @@ import styles from './herramientas.module.css';
 export const metadata: Metadata = {
   title: 'Herramientas de Búsqueda Laboral & Tracker — Academia Flor Martinez',
   description:
-    'Explorá las herramientas exclusivas de la Academia: Tracker de postulaciones activas, agenda semanal de entrevistas, sesiones de feedback por Zoom y cupones de descuento.',
+    'Explorá las herramientas exclusivas de la Academia: Tracker de postulaciones activas, agenda semanal de entrevistas, sesiones en vivo con feedback profesional y cupones de descuento.',
 };
 
 export default function HerramientasPage() {

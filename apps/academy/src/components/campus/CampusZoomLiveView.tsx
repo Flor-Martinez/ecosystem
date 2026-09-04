@@ -144,14 +144,14 @@ export function CampusZoomLiveView({
             <Video size={13} />
             <span>MENTORÍAS EN VIVO & NETWORKING</span>
           </div>
-          <h1 className={styles.zoomTitle}>Charlas Semanales vía Zoom</h1>
+          <h1 className={styles.zoomTitle}>Sesiones en Vivo</h1>
           <p className={styles.zoomSubtitle}>
-            Sesiones grupales en vivo los <strong>miércoles a las 19:00 hs (Arg)</strong> con Flor Martínez. Podés dejar tus dudas antes del encuentro para recibir feedback personalizado y ver todas las grabaciones anteriores.
+            Encuentros grupales en vivo los <strong>miércoles a las 19:00 hs (Arg)</strong> con Flor Martínez. Podés dejar tus dudas antes del encuentro para recibir feedback personalizado y ver todas las grabaciones anteriores.
           </p>
         </div>
       </div>
 
-      {/* Hero Grid: Next Live Zoom (Left) + Tus Dudas (Right) */}
+      {/* Hero Grid: Next Live Session (Left) + Tus Dudas (Right) */}
       <div className={styles.heroGrid}>
         {/* LEFT CARD: Próxima Sesión en Vivo */}
         <div className={styles.liveZoomCard}>
@@ -161,7 +161,7 @@ export function CampusZoomLiveView({
                 <span className={styles.liveDot} />
                 <span>PRÓXIMO ENCUENTRO EN VIVO</span>
               </span>
-              <span className={styles.zoomAppBadge}>Sala Oficial Zoom</span>
+              <span className={styles.zoomAppBadge}>Sala Virtual Oficial</span>
             </div>
             <h2 className={styles.liveCardTitle}>Mentoría Grupal & Casos Reales</h2>
             <p className={styles.liveCardDesc}>
@@ -182,7 +182,7 @@ export function CampusZoomLiveView({
 
             <div className={styles.credentialsRow}>
               <div className={styles.credentialBox}>
-                <span className={styles.credLabel}>ID de Reunión:</span>
+                <span className={styles.credLabel}>ID de Conexión:</span>
                 <div className={styles.credValueRow}>
                   <code>849 2039 1102</code>
                   <button
@@ -220,7 +220,7 @@ export function CampusZoomLiveView({
                 className={styles.joinLiveBtn}
               >
                 <Video size={18} />
-                <span>Entrar a la Sala Zoom en Vivo ↗</span>
+                <span>Entrar a la Sala Virtual en Vivo ↗</span>
               </a>
 
               {onNavigateToAgenda && (
@@ -247,7 +247,7 @@ export function CampusZoomLiveView({
             <div>
               <h2 className={styles.qCardTitle}>Tus Dudas para Flor</h2>
               <p className={styles.qCardSubtitle}>
-                Dejá tus preguntas acá para que Flor las responda en vivo durante el Zoom del miércoles.
+                Dejá tus preguntas acá para que Flor las responda durante la sesión en vivo del miércoles.
               </p>
             </div>
           </div>
@@ -275,7 +275,7 @@ export function CampusZoomLiveView({
               {successAlert && (
                 <div className={styles.sentAlert}>
                   <CheckCircle2 size={14} />
-                  <span>¡Pregunta registrada para el próximo Zoom!</span>
+                  <span>¡Pregunta registrada para la próxima sesión en vivo!</span>
                 </div>
               )}
             </div>

@@ -1,0 +1,170 @@
+.logoWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+  text-decoration: none;
+}
+
+.monogramBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  position: relative;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.logoWrap:hover .monogramBox {
+  transform: scale(1.04);
+}
+
+/* Sizes */
+.sm {
+  font-size: 0.9375rem;
+}
+.sm .brandName {
+  font-size: 0.9375rem;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+}
+
+.md {
+  font-size: 1.1875rem;
+}
+.md .brandName {
+  font-size: 1.1875rem;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+}
+
+.lg {
+  font-size: 1.4375rem;
+}
+.lg .brandName {
+  font-size: 1.4375rem;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+}
+
+/* Wordmark typography */
+.wordmarkWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brandName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.subtitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.25rem;
+}
+
+.subLine {
+  height: 1.5px;
+  width: 14px;
+  background-color: currentColor;
+  opacity: 0.7;
+}
+
+.branchName {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.genericSub {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+/* Variants */
+.light .monogramBox,
+.light .brandName {
+  color: var(--fm-azul-marino);
+}
+.light .subtitleRow {
+  color: var(--fm-primary);
+}
+
+.orange .monogramBox,
+.orange .brandName {
+  color: var(--fm-primary);
+}
+.orange .subtitleRow {
+  color: var(--fm-primary-hover);
+}
+
+.dark .monogramBox,
+.dark .brandName {
+  color: var(--fm-marfil);
+}
+.dark .subtitleRow {
+  color: var(--fm-orange-soft);
+}
+
+.arena .monogramBox,
+.arena .brandName {
+  color: var(--fm-arena);
+}
+.arena .subtitleRow {
+  color: var(--fm-marfil);
+}
+
+/* Standalone Circular Emblems */
+.monogramCircle {
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.circle-orange {
+  background: linear-gradient(135deg, var(--fm-orange-primary) 0%, var(--fm-orange-dark) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+}
+
+.circle-navy {
+  background-color: var(--fm-azul-marino);
+  color: var(--fm-marfil);
+}
+
+.circle-blue {
+  background-color: var(--fm-azul-profundo);
+  color: #ffffff;
+}
+
+.circle-arena {
+  background-color: var(--fm-arena);
+  color: var(--fm-azul-marino);
+}
+
+.circle-marfil {
+  background-color: var(--fm-marfil);
+  color: var(--fm-azul-marino);
+  border: 1px solid var(--fm-border);
+}
+
+.plain {
+  background-color: transparent;
+  color: var(--fm-azul-marino);
+  box-shadow: none;
+}

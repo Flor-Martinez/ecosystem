@@ -1,0 +1,47 @@
+.main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalogSection {
+  padding: 3rem 0 5rem;
+  background-color: var(--fm-marfil-light);
+}
+
+.pageHeader {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 2.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.pageTag {
+  display: inline-flex;
+  padding: 0.2rem 0.75rem;
+  background-color: var(--fm-primary-subtle);
+  border: 1px solid var(--fm-primary-border);
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--fm-primary);
+  text-transform: uppercase;
+}
+
+.pageTitle {
+  font-family: var(--font-heading, 'Lora', Georgia, serif);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  line-height: 1.15;
+}
+
+.pageSubtitle {
+  font-size: 1rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.5;
+}

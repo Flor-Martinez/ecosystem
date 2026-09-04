@@ -105,10 +105,15 @@ const initialApplications: JobApplication[] = [
 ];
 
 const LOCAL_STORAGE_KEY = 'campus_job_applications_v4';
-const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
+export interface CalendarPrefillData {
+  title?: string;
+  company?: string;
+  notes?: string;
+  type?: 'entrevista' | 'prueba' | 'seguimiento';
+}
 
 interface CampusTrackerProps {
-  onNavigateToAgenda?: () => void;
+  onNavigateToAgenda?: (prefill?: CalendarPrefillData) => void;
   onBackToDashboard?: () => void;
 }
 
@@ -213,32 +218,15 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
     setShowModal(true);
   };
 
-  const addEventToCalendar = (comp: string, postRole: string, step: string) => {
-    try {
-      const saved = localStorage.getItem(CALENDAR_STORAGE_KEY);
-      const existing: CalendarEvent[] = saved ? JSON.parse(saved) : [];
-      const newEvent: CalendarEvent = {
-        id: `event-${Date.now()}`,
-        title: `Entrevista con ${comp} (${postRole})`,
-        type: 'entrevista',
-        date: new Date().toISOString().split('T')[0] || '2026-09-03',
-        time: '15:00 hs',
-        notes: step || 'Entrevista agendada desde el Tracker de Búsquedas.',
-        company: comp,
-      };
-      localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify([newEvent, ...existing]));
-    } catch {
-      // ignore
-    }
-  };
-
   const handleScheduleFromRow = (app: JobApplication, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    addEventToCalendar(app.company, app.role, app.notes);
     if (onNavigateToAgenda) {
-      onNavigateToAgenda();
-    } else {
-      alert(`¡Entrevista con ${app.company} agregada al Calendario!`);
+      onNavigateToAgenda({
+        title: `💼 Entrevista con ${app.company} (${app.role})`,
+        company: app.company === '-' ? '' : app.company,
+        notes: app.notes && app.notes !== '-' ? app.notes : `Proceso de selección para el puesto de ${app.role}`,
+        type: 'entrevista',
+      });
     }
   };
 
@@ -250,9 +238,7 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
     const formattedNotes = notes.trim() ? notes.trim() : '-';
     const formattedJobUrl = jobUrl.trim() ? jobUrl.trim() : '-';
 
-    if (autoScheduleInCalendar) {
-      addEventToCalendar(company.trim(), role.trim(), 'Seguimiento de postulación');
-    }
+    const willScheduleInCalendar = autoScheduleInCalendar;
 
     const payload = {
       id: editingAppId || undefined,
@@ -310,8 +296,13 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
       console.warn('Error al guardar en base de datos:', err);
     }
 
-    if (autoScheduleInCalendar && onNavigateToAgenda) {
-      onNavigateToAgenda();
+    if (willScheduleInCalendar && onNavigateToAgenda) {
+      onNavigateToAgenda({
+        title: `💼 Postulación: ${company.trim()} (${role.trim()})`,
+        company: company.trim(),
+        notes: formattedNotes !== '-' ? formattedNotes : 'Seguimiento de postulación',
+        type: 'seguimiento',
+      });
     }
   };
 

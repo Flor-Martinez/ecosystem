@@ -15,7 +15,7 @@ import { CampusSidebar } from '@/components/campus/CampusSidebar';
 import { CampusPlayer } from '@/components/campus/CampusPlayer';
 import { CampusModuleCelebration } from '@/components/campus/CampusModuleCelebration';
 import { CampusTracker } from '@/components/campus/CampusTracker';
-import { CampusZoomAgenda } from '@/components/campus/CampusZoomAgenda';
+import { CampusZoomAgenda, CalendarPrefillData } from '@/components/campus/CampusZoomAgenda';
 import { CampusZoomLiveView } from '@/components/campus/CampusZoomLiveView';
 import { CampusResourceVault } from '@/components/campus/CampusResourceVault';
 import { CampusCatalogModal } from '@/components/campus/CampusCatalogModal';
@@ -234,6 +234,9 @@ function CampusContent() {
 
   // Module completion celebration screen state
   const [activeCelebrationModule, setActiveCelebrationModule] = useState<CampusModule | null>(null);
+
+  // Prefill state for Agenda when coming from Tracker
+  const [agendaPrefill, setAgendaPrefill] = useState<CalendarPrefillData | null>(null);
 
   // Helper to switch view from navbar, cards, or buttons (pushing to browser history)
   const handleNavChangeView = (nextView: string, shouldPushState = true) => {
@@ -718,7 +721,10 @@ function CampusContent() {
               />
             ) : (
               <CampusTracker
-                onNavigateToAgenda={() => handleNavChangeView('agenda')}
+                onNavigateToAgenda={(prefill) => {
+                  if (prefill) setAgendaPrefill(prefill);
+                  handleNavChangeView('agenda');
+                }}
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
               />
             )
@@ -736,6 +742,8 @@ function CampusContent() {
               <CampusZoomAgenda
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
                 onNavigateToZoom={() => handleNavChangeView('zoom')}
+                prefillData={agendaPrefill}
+                onClearPrefill={() => setAgendaPrefill(null)}
               />
             )
           )}

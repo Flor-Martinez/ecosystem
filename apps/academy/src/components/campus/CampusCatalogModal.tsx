@@ -200,7 +200,7 @@ export function CampusCatalogModal({
           <div className={styles.footerNote}>
             <GraduationCap size={18} className={styles.footerIcon} />
             <span>
-              <strong>Diferencia de entornos:</strong> Las Experiencias incluyen Tablero, Tracker y Zooms semanales. Los Cursos individuales van directo al Aula Virtual sin elementos secundarios.
+              <strong>Diferencia de entornos:</strong> Las Experiencias incluyen Tablero, Tracker y Sesiones en Vivo semanales. Los Cursos individuales van directo al Aula Virtual sin elementos secundarios.
             </span>
           </div>
         </div>

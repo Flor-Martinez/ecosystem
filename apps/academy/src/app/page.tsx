@@ -24,7 +24,7 @@ export default function HomePage() {
       {/* 3. LA EXPERIENCIA CENTRAL: 5 Ejes Modulares de Formación */}
       <ExperienceFeature />
 
-      {/* 4. HERRAMIENTAS EXCLUSIVAS: Tracker, Agenda, Zoom en Vivo y Tienda FM */}
+      {/* 4. HERRAMIENTAS EXCLUSIVAS: Tracker, Agenda, Sesiones en Vivo y Tienda FM */}
       <ExperienceTools />
 
       {/* 5. PLANES & MEMBRESÍA: Suscripción Mensual, Trimestral y Anual */}

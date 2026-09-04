@@ -53,7 +53,7 @@ function generateWednesdayZooms(): CalendarEvent[] {
       const dateStr = `${y}-${m}-${d}`;
       zoomEvents.push({
         id: `zoom-${dateStr}`,
-        title: '🎙️ Zoom Semanal: Mentoría y Consultas en Vivo',
+        title: '🎙️ Sesión en Vivo: Mentoría y Consultas Semanales',
         type: 'zoom',
         date: dateStr,
         time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
@@ -81,14 +81,25 @@ const defaultEvents: CalendarEvent[] = [
 
 const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
 
+export interface CalendarPrefillData {
+  title?: string;
+  company?: string;
+  notes?: string;
+  type?: 'entrevista' | 'prueba' | 'seguimiento';
+}
+
 interface CampusZoomAgendaProps {
   onBackToDashboard?: () => void;
   onNavigateToZoom?: () => void;
+  prefillData?: CalendarPrefillData | null;
+  onClearPrefill?: () => void;
 }
 
 export function CampusZoomAgenda({
   onBackToDashboard,
   onNavigateToZoom,
+  prefillData,
+  onClearPrefill,
 }: CampusZoomAgendaProps = {}) {
   const { user } = useAuth();
   const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
@@ -96,15 +107,6 @@ export function CampusZoomAgenda({
   const [events, setEvents] = useState<CalendarEvent[]>(defaultEvents);
   const [selectedDate, setSelectedDate] = useState<string>('2026-09-09');
   const [currentMonth, setCurrentMonth] = useState({ year: 2026, month: 8 }); // 0-indexed: 8 = Septiembre
-
-  // Navigation limits: from Join Month (Septiembre 2026) to 1 year ahead (Septiembre 2027)
-  const JOIN_YEAR = 2026;
-  const JOIN_MONTH = 8; // Septiembre 2026
-  const MAX_YEAR = 2027;
-  const MAX_MONTH = 8; // Septiembre 2027
-
-  const canPrev = (currentMonth.year > JOIN_YEAR) || (currentMonth.year === JOIN_YEAR && currentMonth.month > JOIN_MONTH);
-  const canNext = (currentMonth.year < MAX_YEAR) || (currentMonth.year === MAX_YEAR && currentMonth.month < MAX_MONTH);
 
   // Modal New Event
   const [showAddModal, setShowAddModal] = useState(false);
@@ -115,6 +117,22 @@ export function CampusZoomAgenda({
   const [newCompany, setNewCompany] = useState('');
   const [newNotes, setNewNotes] = useState('');
   const [newZoomLink, setNewZoomLink] = useState('');
+
+  // Handle incoming prefill data from Tracker (e.g. "Agendar Entrevista")
+  useEffect(() => {
+    if (prefillData) {
+      setNewTitle(prefillData.title || '');
+      setNewCompany(prefillData.company || '');
+      setNewNotes(prefillData.notes || '');
+      setNewType(prefillData.type || 'entrevista');
+      setNewTime('15:00 hs');
+      setNewDate(selectedDate);
+      setShowAddModal(true);
+      if (onClearPrefill) {
+        onClearPrefill();
+      }
+    }
+  }, [prefillData, onClearPrefill, selectedDate]);
 
   // Load from DB / LocalStorage
   useEffect(() => {
@@ -231,6 +249,15 @@ export function CampusZoomAgenda({
       console.error('Error eliminando evento en DB:', err);
     }
   };
+
+  // Month navigation boundaries:
+  // Starts on join date (Septiembre 2026) and extends up to 1 year ahead (at least Diciembre 2027)
+  const minMonthIndex = 2026 * 12 + 8; // Septiembre 2026 (0-indexed month 8)
+  const maxMonthIndex = 2027 * 12 + 11; // Diciembre 2027
+  const currentMonthIndex = currentMonth.year * 12 + currentMonth.month;
+
+  const canPrev = currentMonthIndex > minMonthIndex;
+  const canNext = currentMonthIndex < maxMonthIndex;
 
   const handlePrevMonth = () => {
     if (!canPrev) return;
@@ -371,7 +398,7 @@ export function CampusZoomAgenda({
                   >
                     <span className={styles.dayNum}>{item.day}</span>
                     <div className={styles.dayDotsRow}>
-                      {hasZoom && <span className={`${styles.dot} ${styles.dotZoom}`} title="Zoom Semanal" />}
+                      {hasZoom && <span className={`${styles.dot} ${styles.dotZoom}`} title="Sesión en Vivo Semanal" />}
                       {hasInterview && <span className={`${styles.dot} ${styles.dotInterview}`} title="Entrevista Laboral" />}
                     </div>
                   </button>
@@ -383,7 +410,7 @@ export function CampusZoomAgenda({
             <div className={styles.calendarLegend}>
               <div className={styles.legendItem}>
                 <span className={`${styles.dot} ${styles.dotZoom}`} />
-                <span>Zoom Semanal (Miércoles 19 hs)</span>
+                <span>Sesión en Vivo (Miércoles 19 hs)</span>
               </div>
               <div className={styles.legendItem}>
                 <span className={`${styles.dot} ${styles.dotInterview}`} />
@@ -417,7 +444,7 @@ export function CampusZoomAgenda({
                         ) : (
                           <Briefcase size={13} />
                         )}
-                        <span>{ev.type === 'zoom' ? 'ZOOM SEMANAL EN VIVO' : 'ENTREVISTA LABORAL'}</span>
+                        <span>{ev.type === 'zoom' ? 'SESIÓN EN VIVO SEMANAL' : 'ENTREVISTA LABORAL'}</span>
                       </div>
                       <div className={styles.eventTime}>
                         <Clock size={13} />
@@ -440,7 +467,7 @@ export function CampusZoomAgenda({
                           }}
                         >
                           <Video size={14} />
-                          <span>Entrar al Zoom</span>
+                          <span>Entrar a la Sesión en Vivo</span>
                         </button>
                       ) : <span />}
 

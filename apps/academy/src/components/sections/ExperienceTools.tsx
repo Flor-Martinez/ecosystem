@@ -90,7 +90,7 @@ export function ExperienceTools() {
             onClick={() => setActiveTab('zoom')}
           >
             <Video size={16} />
-            <span>3. Charlas Semanales en Zoom</span>
+            <span>3. Sesiones en Vivo Semanales</span>
           </button>
           <button
             type="button"
@@ -225,7 +225,7 @@ export function ExperienceTools() {
                       <div className={styles.calDotViolet} />
                       <div className={styles.calItemContent}>
                         <span className={styles.calTime}>Miércoles 19:00 hs</span>
-                        <strong>Sesión Zoom en Vivo de la Academia</strong>
+                        <strong>Sesión en Vivo de la Academia</strong>
                         <p>Revisión grupal de CVs y simulacro de entrevista técnica.</p>
                       </div>
                     </div>
@@ -253,12 +253,12 @@ export function ExperienceTools() {
             </div>
           )}
 
-          {/* TAB 3: ZOOM */}
+          {/* TAB 3: SESIONES EN VIVO */}
           {activeTab === 'zoom' && (
             <div className={styles.tabContentGrid}>
               <div className={styles.tabInfo}>
                 <span className={styles.tabBadge}>Feedback Humano Directo</span>
-                <h3 className={styles.tabTitle}>Charlas semanales en vivo vía Zoom con feedback</h3>
+                <h3 className={styles.tabTitle}>Sesiones semanales en vivo con feedback profesional</h3>
                 <p className={styles.tabDesc}>
                   Lo más valioso de la Academia: todos los miércoles nos conectamos en directo con el equipo docente. Abrimos micrófonos, compartimos pantalla y auditamos tus documentos en vivo.
                 </p>
@@ -283,7 +283,7 @@ export function ExperienceTools() {
                   <div className={styles.zoomTop}>
                     <div className={styles.liveIndicator}>
                       <span className={styles.redPulse} />
-                      <span>ZOOM EN VIVO · TODOS LOS MIÉRCOLES</span>
+                      <span>SALA EN VIVO · TODOS LOS MIÉRCOLES</span>
                     </div>
                     <span className={styles.zoomTime}>19:00 a 20:30 hs (Arg)</span>
                   </div>

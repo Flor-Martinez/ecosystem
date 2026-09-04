@@ -350,9 +350,9 @@ export const eblCards: EblDashboardCard[] = [
   {
     id: 'tool-zoom',
     type: 'herramienta',
-    title: 'Charlas Semanales vía Zoom',
-    subtitle: 'Mentoría en Vivo',
-    description: 'Sesiones de dudas y feedback en vivo los miércoles 19 hs y grabaciones.',
+    title: 'Sesiones en Vivo',
+    subtitle: 'Mentoría Semanal',
+    description: 'Encuentros de resolución de dudas y feedback en vivo los miércoles 19 hs y grabaciones.',
     icon: 'Video',
     colorScheme: {
       primary: '#2563EB',
@@ -364,10 +364,10 @@ export const eblCards: EblDashboardCard[] = [
     },
     badge: 'Miércoles 19 hs',
     features: [
-      { iconName: 'Video', label: 'Sala Zoom en vivo + Grabaciones' },
+      { iconName: 'Video', label: 'Sala Virtual en vivo + Grabaciones' },
       { iconName: 'HelpCircle', label: 'Espacio de dudas y feedback' },
     ],
-    quickActionLabel: 'Ver Agenda Zoom',
+    quickActionLabel: 'Entrar a Sesiones en Vivo',
     targetView: 'zoom',
   },
   {

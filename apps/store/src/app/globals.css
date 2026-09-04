@@ -1,0 +1,194 @@
+/* ==========================================================================
+   TIENDA FLOR MARTINEZ — DESIGN SYSTEM & TOKENS
+   E-commerce Corporativo & Prendas Formales
+   Colores Principales: Naranja (Primario) & Azul Marino (Secundario)
+   ========================================================================== */
+
+:root {
+  /* --- PALETA NARANJA CORPORATIVO (PRIMARIO) --- */
+  --fm-orange-deep: #9A3412;
+  --fm-orange-dark: #C2410C;
+  --fm-orange-primary: #EA580C;
+  --fm-orange-bright: #F97316;
+  --fm-orange-light: #FB923C;
+  --fm-orange-soft: #FDBA74;
+  --fm-orange-pastel: #FED7AA;
+  --fm-orange-subtle: #FFF7ED;
+  --fm-orange-glow: rgba(234, 88, 12, 0.16);
+  --fm-orange-glow-strong: rgba(234, 88, 12, 0.32);
+
+  /* Primary Mapping for Store */
+  --fm-primary: var(--fm-orange-primary);
+  --fm-primary-hover: var(--fm-orange-dark);
+  --fm-primary-active: var(--fm-orange-deep);
+  --fm-primary-light: var(--fm-orange-bright);
+  --fm-primary-subtle: var(--fm-orange-subtle);
+  --fm-primary-border: var(--fm-orange-pastel);
+
+  /* --- PALETA AZUL INSTITUCIONAL FLOR MARTINEZ (SECUNDARIO) --- */
+  --fm-azul-marino: #0D1B2A;
+  --fm-azul-profundo: #1E3A5F;
+  --fm-azul-cielo: #4F7FAF;
+  --fm-azul-slate: #334155;
+  --fm-secondary: var(--fm-azul-marino);
+  --fm-secondary-hover: #172B40;
+  --fm-secondary-light: #EDF3F8;
+  --fm-secondary-border: #C8D9E8;
+
+  /* Accents & Luxury */
+  --fm-arena: #D9C8B6;
+  --fm-arena-light: #ECE4DA;
+  --fm-gold: #C29D59;
+  --fm-gold-subtle: #FDF9F0;
+
+  /* Surfaces & Backgrounds */
+  --fm-bg: #FFFFFF;
+  --fm-marfil: #FAF5EE;
+  --fm-marfil-light: #FAF8F5;
+  --fm-surface: #FFFFFF;
+  --fm-surface-card: #FFFFFF;
+  --fm-surface-subtle: #FBF9F6;
+  --fm-surface-orange: #FFF7ED;
+  --fm-surface-dark: var(--fm-azul-marino);
+
+  /* Borders */
+  --fm-border: #E8E0D5;
+  --fm-border-light: #F3ECE2;
+  --fm-border-subtle: #EFE9E0;
+  --fm-border-orange: var(--fm-orange-pastel);
+  --fm-border-dark: #1E293B;
+
+  /* Text & Typography Colors */
+  --fm-text-primary: #0D1B2A;
+  --fm-text-secondary: #334155;
+  --fm-text-muted: #64748B;
+  --fm-text-subtle: #94A3B8;
+  --fm-text-inverse: #FFFFFF;
+  --fm-text-orange: #C2410C;
+
+  /* Functional Status */
+  --fm-success: #15803D;
+  --fm-success-subtle: #DCFCE7;
+  --fm-warning: #B45309;
+  --fm-warning-subtle: #FEF3C7;
+  --fm-error: #B91C1C;
+  --fm-error-subtle: #FEE2E2;
+  --fm-info: #0284C7;
+
+  /* 8pt Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Layout Containers - Expanded for full screen richness */
+  --container-default: 1520px;
+  --container-wide: 1680px;
+  --container-narrow: 1040px;
+
+  /* Radii — Identical to Flor Martinez System */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-full: 9999px;
+
+  /* Dynamic Elevation Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(13, 27, 42, 0.04);
+  --shadow-sm: 0 2px 6px 0 rgba(13, 27, 42, 0.06);
+  --shadow-md: 0 8px 20px -4px rgba(13, 27, 42, 0.09), 0 2px 6px -1px rgba(13, 27, 42, 0.04);
+  --shadow-lg: 0 16px 32px -6px rgba(13, 27, 42, 0.12), 0 4px 10px -2px rgba(13, 27, 42, 0.05);
+  --shadow-xl: 0 24px 48px -12px rgba(13, 27, 42, 0.18);
+  --shadow-orange: 0 8px 24px -4px rgba(234, 88, 12, 0.28);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Reset & Typography Defaults */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  color: var(--fm-text-primary);
+  background-color: var(--fm-marfil-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--fm-text-primary);
+  background-color: var(--fm-marfil-light);
+  line-height: 1.6;
+}
+
+main {
+  flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading, 'Lora', Georgia, serif);
+  font-weight: 700;
+  color: var(--fm-azul-marino);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+p {
+  color: var(--fm-text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--fm-orange-primary);
+  color: #FFFFFF;
+}
+
+/* Accessibility Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--fm-orange-primary);
+  outline-offset: 2px;
+}
