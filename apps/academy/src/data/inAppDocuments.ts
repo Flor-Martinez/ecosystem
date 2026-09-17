@@ -701,6 +701,270 @@ HABILIDADES & HERRAMIENTAS
       },
     ],
   },
+  'guia-evaluacion-requisitos-ofertas': {
+    id: 'guia-evaluacion-requisitos-ofertas',
+    slug: 'guia-evaluacion-requisitos-ofertas',
+    title: 'Guía de Evaluación de Requisitos y Match Laboral',
+    category: 'Evaluación de Vacantes',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 6,
+    badge: 'Herramienta de Decisión In-App',
+    estimatedReadTime: '4 min de aplicación',
+    summary:
+      'Metodología para clasificar los requisitos de cualquier oferta laboral en tres niveles (indispensables, importantes y deseables) y tomar decisiones de postulación sin auto-descarte.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'los-3-niveles-requisitos',
+        title: '1. Los 3 Niveles de Requisitos en una Descripción de Puesto',
+        subtitle: 'Cómo interpretar la búsqueda con la mirada de un selector',
+        content:
+          'Una descripción de puesto suele representar el perfil ideal que la empresa busca, pero casi nunca se cumple el 100% de los requisitos. Clasificá la oferta en estos 3 grupos:',
+        tableData: {
+          headers: ['Nivel de Requisito', 'Definición & Criterio', 'Ejemplos Habituales', '¿Cómo proceder?'],
+          rows: [
+            [
+              '1. Indispensables',
+              'Imprescindibles para poder realizar el trabajo diario. Sin ellos es casi imposible operar.',
+              'Matrícula habilitante, idioma de uso diario con clientes externos, licencia obligatoria o base técnica central.',
+              'Si no los cumplís, evalúa no postularte para no generar frustración.',
+            ],
+            [
+              '2. Importantes',
+              'Competencias de alto peso pero donde existe margen de compensación según tu perfil general.',
+              'Años de experiencia (ej. piden 5 y tenés 3), herramientas de software secundarias o metodologías ágiles.',
+              'Si cumplís con el resto y tu experiencia es sólida, ¡postulate!',
+            ],
+            [
+              '3. Deseables',
+              'Conocimientos "nice to have" que suman valor adicional pero cuya ausencia no te descalifica.',
+              'Cursos complementarios, conocimientos de herramientas accesorias o industrias afines.',
+              'Nunca dejes de postularte por no tener un requisito deseable.',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'checklist-autodiagnostico-match',
+        title: '2. Checklist Rápido de Match antes de Postular',
+        subtitle: 'Preguntas para tomar una decisión informada en 2 minutos',
+        content: 'Respondé mentalmente estas 3 preguntas frente a cualquier vacante:',
+        checklistItems: [
+          {
+            id: 'match-chk-1',
+            text: '¿Cumplo con los requisitos indispensables para realizar las tareas operativas centrales?',
+            description: 'Verificar competencias técnicas base, matriculación o idioma de trabajo.',
+          },
+          {
+            id: 'match-chk-2',
+            text: '¿Mi experiencia previa o conocimientos tienen relación demostrable con este puesto?',
+            description: 'Tener trayectoria o habilidades transferibles que justifiquen tu candidatura.',
+          },
+          {
+            id: 'match-chk-3',
+            text: '¿Estoy evitando auto-descartarme solo porque me falta un punto menor?',
+            description: 'Recordar que el selector busca a la mejor persona real, no a un perfil de manual inalcanzable.',
+          },
+        ],
+      },
+    ],
+  },
+  'plantilla-postulacion-profesional-cover-letter': {
+    id: 'plantilla-postulacion-profesional-cover-letter',
+    slug: 'plantilla-postulacion-profesional-cover-letter',
+    title: 'Plantilla de Mensajes de Presentación & Checklist Pre-Envío',
+    category: 'Postulación Profesional',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 6,
+    badge: 'Plantillas & Checklist In-App',
+    estimatedReadTime: '4 min de aplicación',
+    summary:
+      'Estructura breve y profesional de 3 partes para postulaciones por correo electrónico o formularios con nota, ejemplos adaptables y checklist de verificación antes del envío.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'estructura-3-partes-mensaje',
+        title: '1. Estructura del Mensaje de Presentación en 3 Partes',
+        subtitle: 'Sin cartas de venta agresivas ni párrafos interminables',
+        content:
+          'Cuando la postulación se realiza por correo electrónico o la plataforma solicita una nota de presentación, utilizá esta estructura concisa:\n\n' +
+          '• **Parte 1 — Presentación y Puesto:** Tu nombre y la posición exacta a la que aplicás.\n' +
+          '• **Parte 2 — Vínculo de Experiencia:** Breve síntesis de tu trayectoria vinculada a los desafíos del rol.\n' +
+          '• **Parte 3 — Cierre & Disponibilidad:** Mención del CV adjunto y cordial disposición para ampliar información.',
+        copyableTemplate: {
+          label: 'Plantilla Base Adaptable (Mensaje / Email):',
+          text: `Hola, mi nombre es [Tu Nombre y Apellido] y me contacto para postularme a la posición de [Nombre del Puesto].
+
+Cuento con experiencia en [Área o Especialidad 1] y [Área o Especialidad 2], especialmente vinculada a [Logro, función principal o sector relacionado].
+
+Adjunto mi CV para su consideración y quedo a total disposición para ampliar cualquier información.
+
+Muchas gracias.
+[Tu Nombre y Apellido] · [Teléfono / WhatsApp] · [Enlace a LinkedIn]`,
+        },
+      },
+      {
+        id: 'checklist-pre-envio-postulacion',
+        title: '2. Checklist de Verificación Pre-Envío',
+        subtitle: 'Qué revisar antes de hacer clic en enviar',
+        content: 'Verificá estos 5 elementos críticos antes de confirmar la postulación:',
+        checklistItems: [
+          {
+            id: 'chk-pre-1',
+            text: 'Versión del CV correcta y actualizada',
+            description: 'El CV está adaptado con las palabras clave y logros pertinentes para esta búsqueda (Módulo 3).',
+          },
+          {
+            id: 'chk-pre-2',
+            text: 'Nombre del archivo profesional',
+            description: 'El archivo está guardado en PDF con formato claro: CV_Nombre_Apellido_Puesto.pdf.',
+          },
+          {
+            id: 'chk-pre-3',
+            text: 'Canal oficial respetado',
+            description: 'Se utilizó el medio solicitado por la empresa (formulario, ATS o correo específico).',
+          },
+          {
+            id: 'chk-pre-4',
+            text: 'Asunto de correo claro y prolijo (si aplica)',
+            description: 'Ejemplo: Postulación [Puesto] - [Nombre y Apellido].',
+          },
+          {
+            id: 'chk-pre-5',
+            text: 'Datos de contacto e hipervínculos funcionales',
+            description: 'Teléfono, correo y enlace a LinkedIn perfectamente legibles y activos.',
+          },
+        ],
+      },
+    ],
+  },
+  'guia-seguimiento-profesional-protocolos': {
+    id: 'guia-seguimiento-profesional-protocolos',
+    slug: 'guia-seguimiento-profesional-protocolos',
+    title: 'Guía de Seguimiento Profesional y Protocolos de Recontacto',
+    category: 'Seguimiento & Follow-Up',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 6,
+    badge: 'Guía & Scripts In-App',
+    estimatedReadTime: '4 min de consulta',
+    summary:
+      'Protocolos para recontactar selectores con criterio: respetar plazos informados, redactar mensajes profesionales de agradecimiento y registrar el estado en el Tracker sin paralizar la búsqueda.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'criterio-tiempos-seguimiento',
+        title: '1. Criterio de Tiempos y Respeto de Plazos',
+        subtitle: 'Cuándo escribir y cuándo esperar',
+        content:
+          '• **Si te informaron un plazo específico:** (Ejemplo: "Te avisamos a mediados de la semana próxima"). Esperá a que venza el plazo antes de enviar un mensaje.\n' +
+          '• **Si venció el plazo informado:** Podés enviar un recontacto breve, cordial y profesional para consultar el estado del proceso.\n' +
+          '• **Si no hubo plazo explícito:** Una ventana prudencial para consultas es de 5 a 7 días hábiles posteriores a la última comunicación.\n' +
+          '• **Regla de Oro:** Continuá con tu búsqueda en paralelo. Ningún proceso está cerrado hasta que exista una propuesta formal firmada.',
+      },
+      {
+        id: 'modelos-recontacto-profesional',
+        title: '2. Modelos de Mensaje para Seguimiento',
+        subtitle: 'Scripts elegantes y sin presión',
+        content: 'Elegí el modelo adecuado según tu situación:',
+        copyableTemplate: {
+          label: 'Modelo 1: Seguimiento Posterior a una Entrevista (Plazo Vencido):',
+          text: `Hola, [Nombre del Selector/a]. ¿Cómo estás?
+
+Quería agradecerte nuevamente por el espacio de la entrevista del pasado [Día] y consultar si existen novedades respecto del proceso de selección para la posición de [Nombre del Puesto].
+
+Continúo muy interesado/a en la oportunidad y en los desafíos del equipo, y quedo a total disposición si necesitan información adicional.
+
+Muchas gracias.
+[Tu Nombre y Apellido]`,
+        },
+      },
+      {
+        id: 'modelo-post-postulacion-directa',
+        title: '3. Modelo 2: Consulta sobre Postulación Directa',
+        subtitle: 'Cuando postulaste por correo o mensaje a un recruiter',
+        content: 'Para enviar sobre el mismo hilo de correo original:',
+        copyableTemplate: {
+          label: 'Modelo 2: Consulta de Recepción y Estado:',
+          text: `Hola, [Nombre]. ¿Cómo estás?
+
+Te escribo brevemente sobre este hilo para confirmar si tuvieron oportunidad de recibir mi postulación para la búsqueda de [Nombre del Puesto].
+
+Reitero mi interés en la posición y quedo a disposición ante cualquier consulta sobre mi perfil.
+
+¡Muchas gracias y que tengas una excelente semana!
+[Tu Nombre y Apellido]`,
+        },
+      },
+    ],
+  },
+  'guia-seguridad-laboral-ofertas-sospechosas': {
+    id: 'guia-seguridad-laboral-ofertas-sospechosas',
+    slug: 'guia-seguridad-laboral-ofertas-sospechosas',
+    title: 'Guía de Seguridad Laboral y Detección de Ofertas Sospechosas',
+    category: 'Seguridad & Verificación',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 6,
+    badge: 'Guía de Seguridad In-App',
+    estimatedReadTime: '4 min de prevención',
+    summary:
+      'Guía práctica para identificar señales de alerta en búsquedas laborales dudosas, proteger tus datos personales y validar la autenticidad de empresas y reclutadores.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'senales-alerta-criticas',
+        title: '1. Las 6 Señales de Alerta Críticas (Red Flags)',
+        subtitle: 'Patrones recurrentes en propuestas dudosas o fraudulentas',
+        content:
+          'Mantené una postura de verificación inmediata ante cualquiera de estas señales:',
+        checklistItems: [
+          {
+            id: 'sec-chk-1',
+            text: '1. Solicitudes de dinero o pagos para iniciar el proceso',
+            description: 'Ninguna empresa seria te pedirá pagar por exámenes médicos, trámites, capacitaciones iniciales o compra de software/equipos.',
+          },
+          {
+            id: 'sec-chk-2',
+            text: '2. Pedido prematuro de datos sensibles o financieros',
+            description: 'Desconfiá si solicitan datos de cuentas bancarias, claves, números de tarjeta o fotos de documentación antes de una entrevista formal.',
+          },
+          {
+            id: 'sec-chk-3',
+            text: '3. Dominios de correo genéricos o identidades dudosas',
+            description: 'Supuestos selectores de grandes compañías que escriben desde cuentas @gmail/@hotmail o dominios web que no coinciden con la empresa oficial.',
+          },
+          {
+            id: 'sec-chk-4',
+            text: '4. Presión desmedida y urgencia para aceptar ya',
+            description: 'Mensajes que exigen respuestas inmediatas o contratación instantánea sin haber tenido siquiera una videollamada de conocimiento.',
+          },
+          {
+            id: 'sec-chk-5',
+            text: '5. Salarios extraordinarios sin requisitos de experiencia',
+            description: 'Ofertas de miles de dólares o sueldos fuera de cualquier lógica de mercado por tareas simples de 1 o 2 horas diarias.',
+          },
+          {
+            id: 'sec-chk-6',
+            text: '6. Mensajes no solicitados por canales informales',
+            description: 'Contactos por WhatsApp o Telegram de números desconocidos ofreciendo empleo sin que te hayas postulado previamente.',
+          },
+        ],
+      },
+      {
+        id: 'protocolo-verificacion-empresas',
+        title: '2. Protocolo de Verificación de Legitimidad',
+        subtitle: 'Cómo comprobar si la búsqueda y la empresa son reales',
+        content:
+          '• **Verificar el sitio oficial:** Ingresá al portal corporativo de la empresa y constatá si la vacante figura en su sección de "Carreras" / "Trabajá con nosotros".\n' +
+          '• **Auditar el perfil del reclutador en LinkedIn:** Comprobá si la persona que te contacta trabaja formalmente en la empresa y cuenta con trayectoria comprobable.\n' +
+          '• **Canales corporativos:** Confirmá que las comunicaciones provengan de direcciones con el dominio oficial de la organización.\n' +
+          '• **Priorizá tu seguridad:** Ante cualquier duda fundada, no compartas información confidencial y consultá en las sesiones semanales de la Academia.',
+      },
+    ],
+  },
   'matriz-sueldos-negociacion': {
     id: 'matriz-sueldos-negociacion',
     slug: 'matriz-sueldos-negociacion',
@@ -1488,6 +1752,18 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
   }
   if (clean.includes('star') || clean.includes('entrevista')) {
     return inAppDocumentsRegistry['framework-star-entrevistas']!;
+  }
+  if (clean.includes('requisito') || clean.includes('match') || clean.includes('evalua')) {
+    return inAppDocumentsRegistry['guia-evaluacion-requisitos-ofertas']!;
+  }
+  if (clean.includes('cover') || clean.includes('presentacion') || clean.includes('pre-envio')) {
+    return inAppDocumentsRegistry['plantilla-postulacion-profesional-cover-letter']!;
+  }
+  if (clean.includes('seguimiento') || clean.includes('recontacto') || clean.includes('follow')) {
+    return inAppDocumentsRegistry['guia-seguimiento-profesional-protocolos']!;
+  }
+  if (clean.includes('sospech') || clean.includes('estafa') || clean.includes('seguridad')) {
+    return inAppDocumentsRegistry['guia-seguridad-laboral-ofertas-sospechosas']!;
   }
 
   // Generic fallback document generator for any course/lesson resource
