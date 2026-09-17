@@ -965,81 +965,452 @@ Reitero mi interés en la posición y quedo a disposición ante cualquier consul
       },
     ],
   },
-  'matriz-sueldos-negociacion': {
-    id: 'matriz-sueldos-negociacion',
-    slug: 'matriz-sueldos-negociacion',
-    title: 'Matriz de Negociación Salarial y Cálculo de Piso Económico',
-    category: 'Negociación & Compensaciones',
+  'checklist-preparacion-fases-entrevistas': {
+    id: 'checklist-preparacion-fases-entrevistas',
+    slug: 'checklist-preparacion-fases-entrevistas',
+    title: 'Checklist de Preparación por Fases y Puesta a Punto Virtual',
+    category: 'Entrevistas & Puesta a Punto',
     programTitle: 'Experiencia Búsqueda Laboral',
     moduleNumber: 7,
-    badge: 'Herramienta de Negociación',
-    estimatedReadTime: '5 min de aplicación',
+    badge: 'Checklist In-App',
+    estimatedReadTime: '4 min de verificación',
     summary:
-      'Framework para calcular tu banda salarial piso y objetivo, guiones para responder a la pregunta de pretensión y protocolo de contrapropuesta.',
+      'Guía paso a paso para auditar tu entorno técnico virtual (cámara, audio, iluminación) y preparar tu mensaje según el interlocutor de cada fase (RRHH, Hiring Manager o Prueba Técnica).',
     author: 'Flor Martínez · Selección & Empleabilidad',
     version: 'Edición 2026 (In-App)',
     sections: [
       {
-        id: 'formula-piso-salarial',
-        title: '1. Cómo Calcular tu Piso Salarial No Negociable',
-        subtitle: 'Fórmula financiera para no negociar a ciegas',
-        content:
-          'Tu piso salarial no se define por lo que cobrabas antes, sino por tus costos de vida actuales más un margen de ahorro profesional:\n\n' +
-          '**FÓRMULA:** `(Gastos Fijos Mensuales + Ahorro Mínimo 15% + Costos Impositivos / Salud) = PISO SALARIAL NETO MÍNIMO`\n\n' +
-          'A partir de este piso, definís tu **Banda Objetivo** sumando entre un 25% y un 40% adicional según la complejidad del puesto y la media del mercado.',
+        id: 'puesta-a-punto-virtual',
+        title: '1. Puesta a Punto Técnica y Entorno de Videollamada',
+        subtitle: 'Detalles que comunican solvencia y profesionalismo antes de decir una sola palabra',
+        content: 'Verificá estos 6 elementos al menos 15 minutos antes de conectar:',
+        checklistItems: [
+          {
+            id: 'tec-1',
+            text: 'Cámara a la altura de los ojos: Elevá tu laptop o monitor para mantener contacto visual natural a la lente.',
+            description: 'Evitá ángulos en contrapicado o enfocar el techo.',
+          },
+          {
+            id: 'tec-2',
+            text: 'Iluminación frontal suave: Fuente de luz principal ubicada frente a tu rostro, nunca a tus espaldas (evitar contraluz).',
+            description: 'Si tenés una ventana detrás, cerrá la cortina y usá una lámpara cálida o neutra al frente.',
+          },
+          {
+            id: 'tec-3',
+            text: 'Audio nítido y probado: Auriculares con micrófono o micrófono probado en la plataforma (Zoom / Google Meet / Teams).',
+            description: 'Hacé una prueba de sonido previa para eliminar eco ambiental.',
+          },
+          {
+            id: 'tec-4',
+            text: 'Fondo ordenado y profesional: Espacio despejado, pared neutra o desenfoque leve si el entorno no es óptimo.',
+            description: 'Evitá fondos virtuales artificiales que parpadeen con tus movimientos.',
+          },
+          {
+            id: 'tec-5',
+            text: 'Conexión y notificaciones silenciadas: Cerrá pestañas pesadas y activá "No molestar" en computadora y celular.',
+            description: 'Garantizá ancho de banda estable para evitar cortes o congelamientos de imagen.',
+          },
+          {
+            id: 'tec-6',
+            text: 'Vaso de agua, libreta física y CV a mano: Para tomar notas de nombres y dudas clave sin teclear frente a cámara.',
+            description: 'Tener agua al lado te permite hacer una pausa natural si necesitás aclarar la garganta.',
+          },
+        ],
       },
       {
-        id: 'guion-respuesta-sueldo',
-        title: '2. Guiones Verbales para Responder "¿Cuál es tu pretensión salarial?"',
-        subtitle: 'Manejo firme y profesional de la conversación económica',
-        content: 'Estructuras de respuesta recomendadas según la etapa de la conversación:',
-        copyableTemplate: {
-          label: 'Guion Modelo para Primer Screening Telefónico:',
-          text: `"En base a las responsabilidades que implica el puesto y a la investigación de mercado que realicé para este nivel de rol, mi expectativa salarial se sitúa en un rango de [Monto Mínimo] a [Monto Objetivo] netos mensuales. De todas formas, me interesa conocer el paquete integral de beneficios y entender cuál es el presupuesto que tienen asignado para la posición."`,
+        id: 'fases-y-objetivos-interlocutor',
+        title: '2. Qué Evalúa Realmente Cada Interlocutor',
+        subtitle: 'Adaptá tu enfoque y profundidad técnica según quién te entrevista',
+        content: 'No des el mismo tipo de respuesta a todos los evaluadores:',
+        tableData: {
+          headers: ['Fase / Interlocutor', 'Objetivo Principal del Evaluador', 'Foco de tu Preparación'],
+          rows: [
+            [
+              '1. Screening / RRHH (15-30 min)',
+              'Validar requisitos básicos: disponibilidad, rango salarial, estabilidad y encaje con la cultura.',
+              'Pitch de 90s impecable, claridad en pretensión económica y motivos de cambio positivos.',
+            ],
+            [
+              '2. Hiring Manager / Futuro Jefe (45-60 min)',
+              'Comprobar criterio técnico, capacidad de resolución de problemas reales y autonomía diaria.',
+              'Historias STAR con foco en metodologías, decisiones tomadas y métricas de impacto en el negocio.',
+            ],
+            [
+              '3. Prueba Técnica / Caso Práctico',
+              'Evaluar razonamiento analítico, estructura de trabajo, priorización y justificación de decisiones.',
+              'Explicar tu proceso mental, supuestos de negocio y cómo argumentás técnicamente tu solución.',
+            ],
+            [
+              '4. Entrevista Final / Directiva',
+              'Validar visión estratégica, valores humanos a largo plazo y sinergia con el liderazgo.',
+              'Preguntas estratégicas sobre el futuro del negocio y compromiso con los objetivos de la compañía.',
+            ],
+          ],
         },
+      },
+      {
+        id: 'regla-de-oro-entrevistas',
+        title: '3. Regla de Oro de Preparación',
+        subtitle: 'El cambio de mentalidad fundamental',
+        content:
+          '> *"No prepares solo respuestas de memoria. Prepará tu historia profesional y demostrá con hechos cómo agregás valor."*\n\n' +
+          'Una entrevista no es un examen donde tenés que adivinar una respuesta "correcta": es una conversación profesional de igual a igual para evaluar si existe un encaje mutuo de trabajo.',
       },
     ],
   },
   'framework-star-entrevistas': {
     id: 'framework-star-entrevistas',
     slug: 'framework-star-entrevistas',
-    title: 'Framework STAR: Cómo Responder Preguntas por Competencias',
+    title: 'Framework STAR y Banco de las 5 Historias Maestras',
     category: 'Entrevistas Laborales',
     programTitle: 'Experiencia Búsqueda Laboral',
     moduleNumber: 7,
     badge: 'Framework In-App',
-    estimatedReadTime: '5 min de preparación',
+    estimatedReadTime: '6 min de preparación',
     summary:
-      'Metodología internacional para estructurar historias de logros contundentes con Situación, Tarea, Acción y Resultado medible.',
+      'Estructura en 3 partes para responder "Contame sobre vos", metodología STAR para preguntas por competencias y plantilla para construir tus 5 historias profesionales maestras.',
     author: 'Flor Martínez · Selección & Empleabilidad',
     version: 'Edición 2026 (In-App)',
     sections: [
       {
-        id: 'los-4-pasos-star',
-        title: '1. Los 4 Pasos del Método STAR',
-        subtitle: 'Estructura temporal de tu respuesta (máximo 2 minutos)',
+        id: 'apertura-contame-sobre-vos',
+        title: '1. Estructura en 3 Partes para "Contame sobre vos"',
+        subtitle: 'Cómo responder a la pregunta inicial en 90 segundos con máxima claridad',
         content:
-          '• **Situación (15% del tiempo):** Contexto breve. Dónde estabas, cuándo ocurrió y qué problema existía.\n' +
-          '• **Tarea (15% del tiempo):** Cuál era tu responsabilidad directa y cuál era el objetivo a alcanzar.\n' +
-          '• **Acción (50% del tiempo):** Qué decisiones tomaste vos, qué herramientas usaste y cómo lideraste la solución.\n' +
-          '• **Resultado (20% del tiempo):** Qué impacto concreto se logró (métricas, porcentajes, aprendizajes o felicitaciones).',
+          'La pregunta de apertura no es para recitar tu CV ni para contar tu vida personal. Es tu presentación de valor profesional organizada en 3 bloques consecutivos:',
         callout: {
           type: 'formula',
-          text: 'REGLA DE ORO: El 70% de tu tiempo debe concentrarse en la ACCIÓN que tomaste vos y en el RESULTADO obtenido. No te extiendas en la Situación.',
+          text: 'FÓRMULA 3 PARTES: [1. Quién sos hoy y tu especialidad] + [2. Recorrido con 1 o 2 logros destacados] + [3. Por qué te entusiasma esta vacante puntual]',
+        },
+        copyableTemplate: {
+          label: 'Plantilla Modelo para "Contame sobre vos" (90s):',
+          text: `“Soy [Tu Profesión / Rol actual o en búsqueda], especializado en [Tus 2 o 3 herramientas o áreas clave]. Cuento con +[X] años de trayectoria liderando [tipo de procesos o proyectos].
+A lo largo de mi experiencia en empresas como [Empresa previa o proyectos], me enfoqué principalmente en [Logro o impacto concreto, ej. optimizar los tiempos de entrega en un 30% / liderar la migración de sistemas / gestionar cuentas clave].
+Lo que más me entusiasma de este rol en [Nombre de la Empresa] es la oportunidad de aplicar este enfoque en [Desafío puntual que viste en la vacante], aportando mi experiencia en [Herramienta/Metodología] para ayudar al equipo a alcanzar sus metas.”`,
         },
       },
       {
-        id: 'ejemplo-resuelto-liderazgo',
-        title: '2. Ejemplo Real Resuelto: Manejo de Conflicto en Equipo',
-        subtitle: 'Pregunta: "Contame una ocasión en la que tuviste un desacuerdo con un compañero"',
-        content: 'Respuesta modelo estructurada con el método STAR:',
-        copyableTemplate: {
-          label: 'Ejemplo STAR Modelo:',
-          text: `[SITUACIÓN]: En mi anterior puesto en [Empresa], estábamos por entregar un proyecto clave con fecha límite inamovible y surgieron desacuerdos sobre qué metodología técnica priorizar.
-[TAREA]: Como responsable de entrega, mi objetivo era alinear al equipo sin generar retrasos ni resentimientos.
-[ACCIÓN]: Convoqué a una reunión de 30 minutos, escuché los fundamentos de ambas partes y propuse una matriz objetiva evaluando riesgos y tiempos. Acordamos implementar la opción más rápida para la primera versión y agendar una refactorización posterior.
-[RESULTADO]: Entregamos el proyecto 2 días antes de la fecha límite y el cliente nos felicitó por la puntualidad. Además, el clima de trabajo mejoró notablemente.`,
+        id: 'metodologia-star-detalle',
+        title: '2. Metodología STAR para Preguntas por Competencias',
+        subtitle: 'Distribución óptima del tiempo en cada respuesta situacional (máx. 2 min)',
+        content:
+          'Cuando te pregunten *"Contame una ocasión en la que..."*, estructurá tu respuesta con esta distribución cronológica:',
+        tableData: {
+          headers: ['Fase STAR', '% de Tiempo', 'Qué debes responder'],
+          rows: [
+            ['S - Situación', '15% (15-20 seg)', 'Contexto indispensable: empresa, proyecto, fecha y cuál era el problema.'],
+            ['T - Tarea', '15% (15-20 seg)', 'Cuál era tu responsabilidad directa y el objetivo específico a alcanzar.'],
+            ['A - Acción', '50% (50-60 seg)', 'Las decisiones que tomaste vos, herramientas usadas y cómo lideraste el plan.'],
+            ['R - Resultado', '20% (20-30 seg)', 'Métricas de impacto, lección aprendida y beneficios reales para el negocio.'],
+          ],
         },
+        callout: {
+          type: 'warning',
+          text: 'Error frecuente: Gastar 1 minuto y medio describiendo la Situación. Recordá: el 70% del tiempo debe estar en la ACCIÓN y en el RESULTADO.',
+        },
+      },
+      {
+        id: 'banco-5-historias-maestras',
+        title: '3. El Banco de las 5 Historias Maestras',
+        subtitle: 'Las 5 experiencias que tenés que tener preparadas para responder cualquier pregunta',
+        content:
+          'Prepará con anticipación una historia real para cada uno de estos 5 ejes:',
+        checklistItems: [
+          {
+            id: 'hist-1',
+            text: 'Historia 1: Tu Mayor Logro Cuantificable. Un proyecto donde superaste objetivos, redujiste costos o aumentaste ingresos.',
+          },
+          {
+            id: 'hist-2',
+            text: 'Historia 2: Un Problema Operativo o Crisis Resuelto. Situación imprevista donde mantuviste la calma y aplicaste una solución creativa.',
+          },
+          {
+            id: 'hist-3',
+            text: 'Historia 3: Un Error del que Aprendiste. Un fallo real que reconociste a tiempo, corregiste y convertiste en una mejora de proceso duradera.',
+          },
+          {
+            id: 'hist-4',
+            text: 'Historia 4: Una Situación Difícil o Manejo de Desacuerdo. Cómo gestionaste una discrepancia técnica o con un cliente priorizando el resultado común.',
+          },
+          {
+            id: 'hist-5',
+            text: 'Historia 5: Trabajo en Equipo o Liderazgo con Impacto. Cómo colaboraste transversalmente para destrabar una meta conjunta.',
+          },
+        ],
+      },
+      {
+        id: 'ejemplo-resuelto-star',
+        title: '4. Ejemplo STAR Resuelto: Manejo de Desacuerdo Técnico',
+        subtitle: 'Pregunta: "Contame una situación en la que tuviste un desacuerdo con un compañero de equipo"',
+        content: 'Ejemplo de respuesta con balance profesional:',
+        copyableTemplate: {
+          label: 'Respuesta Modelo STAR Copiable:',
+          text: `[SITUACIÓN]: En mi puesto anterior en [Empresa], estábamos a dos semanas de lanzar una nueva funcionalidad y surgieron dos posturas opuestas en el equipo sobre qué arquitectura técnica implementar.
+[TAREA]: Como responsable de entrega, mi desafío era destrabar la decisión sin demorar el cronograma ni generar fricciones en el equipo.
+[ACCIÓN]: Convoqué a una sesión de trabajo de 30 minutos, listamos los pros y contras de cada alternativa con foco en el cliente final y propuse una solución escalonada: implementar la alternativa más ágil para la primera entrega y programar la refactorización técnica para el siguiente sprint.
+[RESULTADO]: Lanzamos el proyecto 2 días antes de la fecha límite pactada, no hubo incidentes en producción y el equipo acordó adoptar este esquema de evaluación para futuros desacuerdos.`,
+        },
+      },
+    ],
+  },
+  'guia-preguntas-dificiles-entrevista': {
+    id: 'guia-preguntas-dificiles-entrevista',
+    slug: 'guia-preguntas-dificiles-entrevista',
+    title: 'Guía de Preguntas Difíciles y Respuestas con Madurez Profesional',
+    category: 'Entrevistas Laborales',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 7,
+    badge: 'Guía Táctica In-App',
+    estimatedReadTime: '6 min de lectura',
+    summary:
+      'Estrategias y respuestas modelo para sortear las preguntas incómodas de entrevistas: motivos de cambio, lagunas laborales, debilidades reales y qué hacer si no sabés una respuesta técnica.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'reglas-preguntas-dificiles',
+        title: '1. Las 4 Reglas de Oro ante Preguntas Incómodas',
+        subtitle: 'Criterio para responder con aplomo y credibilidad',
+        content:
+          '• **Regla 1: Jamás critiques a tus empleadores o jefes anteriores.** Hablar mal de un ex trabajo proyecta conflictividad futura.\n' +
+          '• **Regla 2: Enfocate en lo que buscás hacia adelante.** Tu motivación debe orientarse al crecimiento, aprendizaje y nuevos retos.\n' +
+          '• **Regla 3: Desterrá los clichés falsos.** Decir "soy demasiado perfeccionista" resta credibilidad. Planteá una debilidad real y cómo la gestionás.\n' +
+          '• **Regla 4: No inventes respuestas si no sabés algo técnico.** La honestidad inteligente y la velocidad de aprendizaje valen más que una mentira.',
+      },
+      {
+        id: 'preguntas-dificiles-modelos',
+        title: '2. Respuestas Modelo a las Preguntas Más Temidas',
+        subtitle: 'Guiones y estructuras recomendadas para cada caso',
+        content: 'Modelos de respuesta listos para adaptar a tu historia:',
+        tableData: {
+          headers: ['Pregunta Difícil', 'Enfoque Recomendado', 'Ejemplo de Respuesta Modelo'],
+          rows: [
+            [
+              '¿Por qué estás buscando un cambio de trabajo?',
+              'Enfocarse en crecimiento profesional y búsqueda de nuevos desafíos, agradeciendo la experiencia previa.',
+              '"En mi posición actual aprendí muchísimo y alcancé logros importantes junto al equipo. Hoy siento que cumplí una etapa y busco un proyecto con mayores desafíos en [Área/Tecnología], donde pueda aportar mi experiencia y seguir creciendo profesionalmente."',
+            ],
+            [
+              '¿Por qué te fuiste / te desvincularon de tu último empleo?',
+              'Explicación transparente y natural, sin dramatizar ni colocarse en rol de víctima.',
+              '"La empresa atravesó una reestructuración de áreas / cierre de unidad de negocios que afectó a varias posiciones, incluida la mía. Me llevé excelentes relaciones y aprendizajes valiosos, y aproveché este tiempo para capacitarme en [Herramienta] y reenfocar mi búsqueda."',
+            ],
+            [
+              '¿Qué hiciste durante este tiempo sin trabajar (laguna laboral)?',
+              'Mostrar actividad, actualización y búsqueda intencional.',
+              '"Durante estos meses decidí capacitarme a fondo en [Área/Certificación], realicé proyectos de consultoría independiente y me tomé el tiempo de enfocar mi búsqueda laboral de manera estratégica en empresas alineadas a mis metas."',
+            ],
+            [
+              '¿Cuál es tu mayor debilidad o aspecto de mejora?',
+              'Mencionar una debilidad real no excluyente para el puesto + el sistema concreto que usás para gestionarla.',
+              '"Al principio me costaba delegar tareas operativas cuando los plazos eran muy ajustados. Al identificarlo, comencé a utilizar herramientas de gestión de proyectos y checkpoints semanales, lo que me permitió empoderar al equipo y mejorar los tiempos de entrega sin sobrecargarme."',
+            ],
+            [
+              '¿Qué harías si te hacen una pregunta técnica y no sabés la respuesta?',
+              'Honestidad profesional + razonamiento deductivo + disposición de aprendizaje rápido.',
+              '"No trabajé directamente con esa herramienta/escenario puntual, pero por mi experiencia en [Herramienta análoga] entiendo que la lógica de resolución pasa por [explicar enfoque general]. Cuento con gran agilidad para investigar la documentación y familiarizarme en cuestión de días."',
+            ],
+            [
+              '¿Por qué deberíamos contratarte a vos y no a otros candidatos?',
+              'Propuesta de valor única combinando experiencia técnica, método de trabajo y motivación genuina.',
+              '"Más allá de cumplir con los requisitos técnicos en [Herramienta/Área], aporto una sólida orientación a resultados y capacidad de integrarme rápidamente al equipo para resolver los desafíos de [objetivo del puesto] desde las primeras semanas."',
+            ],
+          ],
+        },
+      },
+    ],
+  },
+  'preguntas-inteligentes-candidato-entrevistador': {
+    id: 'preguntas-inteligentes-candidato-entrevistador',
+    slug: 'preguntas-inteligentes-candidato-entrevistador',
+    title: 'Banco de Preguntas Estratégicas del Candidato al Entrevistador',
+    category: 'Evaluación Bidireccional',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 7,
+    badge: 'Banco de Preguntas In-App',
+    estimatedReadTime: '4 min de lectura',
+    summary:
+      'Preguntas de alto impacto para formular al selector y al Hiring Manager, demostrando criterio y evaluando si la empresa es el lugar adecuado para vos.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'el-valor-de-preguntar',
+        title: '1. El Valor Estratégico de Hacer Preguntas',
+        subtitle: 'La entrevista como conversación bidireccional',
+        content:
+          'Cuando el entrevistador pregunta *"¿Tenés alguna duda para nosotros?"*, responder *"No, ninguna, todo muy claro"* es desaprovechar una oportunidad de oro.\n\n' +
+          'Hacer preguntas estratégicas comunica **seniority, interés real y visión de negocio**, además de darte información vital para saber si realmente querés trabajar allí.',
+      },
+      {
+        id: 'preguntas-para-hiring-manager',
+        title: '2. Preguntas de Alto Impacto para el Líder de Área (Hiring Manager)',
+        subtitle: 'Para evaluar expectativas, desafíos y dinámica de equipo',
+        content: 'Elegí 2 o 3 de estas preguntas para tu conversación técnica:',
+        checklistItems: [
+          {
+            id: 'hm-1',
+            text: '“¿Cuáles son los principales desafíos u objetivos prioritarios que tiene el equipo para los próximos 6 meses?”',
+          },
+          {
+            id: 'hm-2',
+            text: '“¿Cómo se mide el éxito en esta posición durante los primeros 90 días? ¿Qué esperan que esté resuelto en ese período?”',
+          },
+          {
+            id: 'hm-3',
+            text: '“¿Qué es lo que más valorás en la dinámica de trabajo de los miembros de tu equipo?”',
+          },
+          {
+            id: 'hm-4',
+            text: '“¿Esta vacante surge por un reemplazo o por el crecimiento y expansión de un área nueva?”',
+          },
+        ],
+      },
+      {
+        id: 'preguntas-para-rrhh',
+        title: '3. Preguntas para el Selector de Recursos Humanos',
+        subtitle: 'Para evaluar cultura, proyección y próximos pasos del proceso',
+        checklistItems: [
+          {
+            id: 'rh-1',
+            text: '“¿Cómo describirías la cultura de trabajo y los valores del equipo en el día a día?”',
+          },
+          {
+            id: 'rh-2',
+            text: '“¿Qué oportunidades de desarrollo profesional o formación continua ofrece la compañía?”',
+          },
+          {
+            id: 'rh-3',
+            text: '“¿Cuáles son los próximos pasos del proceso de selección y qué tiempos estiman para la siguiente etapa?”',
+          },
+        ],
+      },
+      {
+        id: 'pregunta-maestra-cierre',
+        title: '4. La Pregunta Maestra de Cierre de Profundización',
+        subtitle: 'Para despejar dudas antes de desconectarte',
+        content:
+          'Utilizá esta pregunta en los últimos minutos de la entrevista para asegurarte de que no queden dudas sobre tu perfil:',
+        copyableTemplate: {
+          label: 'Pregunta Maestra de Cierre:',
+          text: `“Antes de terminar, me gustaría consultar: en base a lo que conversamos hoy, ¿hay algún punto de mi perfil o experiencia que te gustaría que profundice o sobre el que te haya quedado alguna duda?”`,
+        },
+      },
+    ],
+  },
+  'matriz-sueldos-negociacion': {
+    id: 'matriz-sueldos-negociacion',
+    slug: 'matriz-sueldos-negociacion',
+    title: 'Matriz de Compensación, Cálculo de Piso y Negociación Salarial',
+    category: 'Negociación & Compensaciones',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 7,
+    badge: 'Matriz de Negociación In-App',
+    estimatedReadTime: '6 min de aplicación',
+    summary:
+      'Framework para calcular tu piso salarial no negociable, guiones para responder sobre pretensión económica y salario actual, y plantilla de negociación por escrito.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'calculo-piso-y-banda',
+        title: '1. Cómo Calcular tu Piso Salarial y Banda Objetivo',
+        subtitle: 'Fórmula financiera para no negociar a ciegas',
+        content:
+          'Tu pretensión salarial no se basa en lo que ganabas antes, sino en tus costos reales y en el valor de mercado de la posición:',
+        callout: {
+          type: 'formula',
+          text: 'FÓRMULA PISO NETO: (Gastos Fijos Mensuales + Ahorro Mínimo 15% + Costos de Cobertura/Impuestos) = PISO SALARIAL NETO NO NEGOCIABLE',
+        },
+        tableData: {
+          headers: ['Nivel de Banda', 'Cálculo Respecto al Piso', 'Objetivo Estratégico'],
+          rows: [
+            ['Piso No Negociable', 'Base mínima calculada', 'Tu límite absoluto: por debajo de este monto no aceptás.'],
+            ['Banda Media (Target)', 'Piso + 20% a 30%', 'Tu objetivo real en base a tu experiencia de mercado.'],
+            ['Banda Alta (Aspiracional)', 'Piso + 35% a 50%', 'Monto para negociar en roles con alta exigencia técnica o volumen.'],
+          ],
+        },
+      },
+      {
+        id: 'guiones-verbales-sueldo',
+        title: '2. Guiones para Responder "¿Cuál es tu pretensión salarial?"',
+        subtitle: 'Manejo firme y profesional en el primer screening',
+        content: 'Estructura de respuesta recomendada sin dar números cerrados que te limiten:',
+        copyableTemplate: {
+          label: 'Guion Recomendado para Screening Telefónico:',
+          text: `“En base a las responsabilidades que estuvimos conversando y a la investigación de mercado para este nivel de rol, mi expectativa salarial se sitúa en un rango de [Monto Mínimo] a [Monto Objetivo] netos mensuales. De todas formas, este valor puede variar en función del paquete integral de beneficios, revisiones periódicas y esquema de trabajo. ¿Tienen un presupuesto asignado para la posición?”`,
+        },
+      },
+      {
+        id: 'manejo-salario-actual',
+        title: '3. Cómo Responder si Preguntan "¿Cuánto estás ganando hoy?"',
+        subtitle: 'Reenfocar elegantemente en el valor del nuevo puesto',
+        content:
+          'Si un selector te consulta por tu sueldo presente, no te sientas obligado a revelar un número que perjudique tu negociación:',
+        copyableTemplate: {
+          label: 'Guion de Reenfoque Salarial:',
+          text: `“En mi puesto actual cuento con un esquema de compensación adaptado a responsabilidades y proyectos diferentes a los de esta búsqueda. Por eso, prefiero enfocar la conversación económica en el valor de mercado y en los desafíos específicos de este nuevo rol, donde mi pretensión se ubica en el rango de [Monto Mínimo] a [Monto Objetivo].”`,
+        },
+      },
+      {
+        id: 'evaluacion-paquete-integral',
+        title: '4. Evaluación Integral de la Oferta (Más Allá del Sueldo Base)',
+        subtitle: 'Aspectos a considerar antes de aceptar o contraofertar',
+        checklistItems: [
+          {
+            id: 'paq-1',
+            text: 'Monto neto en mano y moneda de pago (Moneda local / USD / Mixto).',
+          },
+          {
+            id: 'paq-2',
+            text: 'Frecuencia y mecanismo de actualización por inflación o revisiones por desempeño.',
+          },
+          {
+            id: 'paq-3',
+            text: 'Cobertura de salud (Plan médico para vos y tu grupo familiar).',
+          },
+          {
+            id: 'paq-4',
+            text: 'Modalidad de trabajo (100% remoto / Híbrido) y flexibilidad horaria.',
+          },
+          {
+            id: 'paq-5',
+            text: 'Días de vacaciones adicionales a los legales y feriados flexibles.',
+          },
+          {
+            id: 'paq-6',
+            text: 'Equipamiento de trabajo provisto (Laptop, monitor, bono de conectividad).',
+          },
+        ],
+      },
+      {
+        id: 'plantilla-contrapropuesta-escrita',
+        title: '5. Plantilla de Negociación de Contrapropuesta por Escrito',
+        subtitle: 'Para cuando la propuesta económica quedó un poco por debajo de tus expectativas',
+        content: 'Modelo de correo profesional y constructivo:',
+        copyableTemplate: {
+          label: 'Email de Contrapropuesta Salarial:',
+          text: `Hola [Nombre del Selector / Líder],
+
+Muchas gracias por la propuesta para sumarme como [Nombre del Puesto] en [Nombre de la Empresa]. Estoy muy entusiasmado/a con la visión del equipo y los desafíos que conversamos.
+
+Revisando los términos de la propuesta, noté que la compensación fija propuesta de [Monto Ofrecido] se encuentra un poco por debajo de la banda que conversamos inicialmente ([Tu Rango Pretendido]).
+
+Considerando el impacto que puedo aportar desde el primer día en [Especialidad/Métrica clave], me gustaría consultar si existe margen para acercar la remuneración a [Monto Objetivo Deseado] netos, o evaluar alternativas dentro del paquete de beneficios como [revisión a los 3 meses / bono por objetivos / días libres].
+
+Quedo a total disposición para conversarlo brevemente. ¡Muchísimas gracias por su confianza y consideración!
+
+Un cordial saludo,
+[Tu Nombre y Apellido]`,
+        },
+      },
+      {
+        id: 'regla-oro-renuncia',
+        title: '6. Regla de Oro Inquebrantable',
+        subtitle: 'Cuidá tu estabilidad profesional',
+        content:
+          '> ⚠️ **NUNCA renuncies a tu trabajo actual hasta no tener la propuesta laboral formal POR ESCRITO y firmada por ambas partes.**\n\n' +
+          'Los acuerdos verbales o intenciones de contratación pueden demorarse o cancelarse por factores ajenos a vos. Tu renuncia se presenta únicamente con el contrato o carta de oferta formal rubricada.',
       },
     ],
   },
@@ -1732,6 +2103,15 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
   if (found) return found;
 
   // Keyword smart matching
+  if (clean.includes('dificil') || clean.includes('incomod') || clean.includes('defecto') || clean.includes('debilidad')) {
+    return inAppDocumentsRegistry['guia-preguntas-dificiles-entrevista']!;
+  }
+  if (clean.includes('pregunta') && (clean.includes('inteligente') || clean.includes('candidato') || clean.includes('entrevistador') || clean.includes('hacer') || clean.includes('vos'))) {
+    return inAppDocumentsRegistry['preguntas-inteligentes-candidato-entrevistador']!;
+  }
+  if (clean.includes('virtual') || clean.includes('puesta a punto') || clean.includes('entorno') || clean.includes('setup') || (clean.includes('fase') && clean.includes('entrevista'))) {
+    return inAppDocumentsRegistry['checklist-preparacion-fases-entrevistas']!;
+  }
   if (clean.includes('fase') || clean.includes('cronograma') || clean.includes('tiempo') || clean.includes('seleccion')) {
     return inAppDocumentsRegistry['fases-proceso-seleccion']!;
   }
@@ -1747,10 +2127,10 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
   if (clean.includes('portal') || clean.includes('remoto')) {
     return inAppDocumentsRegistry['directorio-portales-empleo-remoto']!;
   }
-  if (clean.includes('sueldo') || clean.includes('salari') || clean.includes('negocia')) {
+  if (clean.includes('sueldo') || clean.includes('salari') || clean.includes('negocia') || clean.includes('compensacion') || clean.includes('piso')) {
     return inAppDocumentsRegistry['matriz-sueldos-negociacion']!;
   }
-  if (clean.includes('star') || clean.includes('entrevista')) {
+  if (clean.includes('star') || clean.includes('historia') || clean.includes('logro') || clean.includes('contame')) {
     return inAppDocumentsRegistry['framework-star-entrevistas']!;
   }
   if (clean.includes('requisito') || clean.includes('match') || clean.includes('evalua')) {

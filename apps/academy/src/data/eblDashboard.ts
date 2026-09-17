@@ -202,9 +202,9 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 7,
     moduleStepLabel: 'MÓDULO 07',
-    title: 'Entrevistas & Negociación',
+    title: 'Entrevista Laboral',
     subtitle: 'Ruta Troncal · Paso 7 de 8',
-    description: 'Estructurá respuestas de impacto con el método STAR y negociá tu remuneración.',
+    description: 'Superá cada etapa con confianza, dominá el Método STAR con tus 5 historias maestras y negociá tu salario profesionalmente.',
     icon: 'Users',
     colorScheme: {
       primary: '#7C3AED',
@@ -218,8 +218,8 @@ export const eblCards: EblDashboardCard[] = [
     completedSteps: 0,
     badge: 'Pendiente',
     features: [
-      { iconName: 'Bot', label: 'Matriz STAR con 10 Casos Resueltos' },
-      { iconName: 'HelpCircle', label: 'Guía de 30 Preguntas Frecuentes' },
+      { iconName: 'MessageSquare', label: 'Estructura 3 Partes & Método STAR' },
+      { iconName: 'DollarSign', label: 'Matriz Salarial & Preguntas Difíciles' },
     ],
     quickActionLabel: 'Empezar Módulo 7',
     targetView: 'modulo-entrevistas',

@@ -2577,7 +2577,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 7,
     title: 'Entrevista Laboral',
     tagline: 'Preparate para cada etapa, dominá el Método STAR y negociá tu salario con total seguridad',
-    totalDuration: '36 min · 5 clases',
+    totalDuration: '43 min · 5 clases',
     lessons: [
       {
         id: 'exp-ent-01',
@@ -2587,33 +2587,110 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 1,
         type: 'video',
-        title: 'Fases de la entrevista y filtro inicial',
-        duration: '7 min',
+        title: 'Qué pasa realmente en un proceso de entrevistas',
+        duration: '8 min',
+        videoDuration: '4:15 min',
         completed: false,
         description:
-          'Entendé las etapas de un proceso: screening telefónico, entrevista con RRHH, entrevista con Hiring Manager, prueba técnica y grupal.',
+          'Descubrí qué evalúa cada interlocutor (RRHH, Líder de Área / Hiring Manager, Evaluador Técnico) y cómo preparar tu entorno virtual para transmitir máxima solvencia.',
         takeaways: [
-          'Screening telefónico (15 min): validación de datos, pretensión salarial y disponibilidad.',
-          'Entrevista RRHH: motivación, encaje con la cultura del equipo y habilidades blandas.',
-          'Entrevista con Hiring Manager (líder directo): resolución de problemas operativos, autonomía y visión técnica.',
-          'Puesta a punto técnica: iluminación frontal, cámara a la altura de los ojos y audio sin ruidos.',
+          'No todas las entrevistas evalúan lo mismo: RRHH valida ajuste general, motivación, condiciones y cultura; el Líder de Área evalúa si sabés hacer el trabajo y resolver los problemas del equipo.',
+          'Si hay prueba técnica o panel con pares, el foco cambia hacia el razonamiento analítico, estructura de trabajo y colaboración.',
+          'Error común a evitar: Preparar la entrevista como un examen con respuestas fijas de memoria.',
+          'Puesta a punto técnica remota: cámara a la altura de los ojos, iluminación frontal, audio probado sin eco, libreta y agua a mano.',
+          'Regla de Oro de este módulo: "No prepares solo respuestas. Prepará tu historia profesional."',
         ],
+        actionItems: [
+          {
+            id: 'act-ent-1-1',
+            title: 'Auditar tu setup de videollamada',
+            description: 'Hacé una prueba de 2 minutos grabándote con la cámara de tu equipo para verificar encuadre, luz y claridad de audio.',
+          },
+          {
+            id: 'act-ent-1-2',
+            title: 'Revisar el Checklist de Fases de Entrevistas',
+            description: 'Consultá el documento interactivo para adaptar tu mensaje según el interlocutor de tu próxima llamada.',
+          },
+        ],
+        mindsetPrompt:
+          'Una entrevista no es un examen donde tenés que adivinar una respuesta correcta: es una conversación profesional de mutua evaluación para ver si ambos pueden construir valor juntos.',
         resources: [
           {
-            id: 'res-ent-01',
-            title: 'Checklist de Preparación para Entrevistas Virtuales',
+            id: 'checklist-preparacion-fases-entrevistas',
+            title: 'Checklist de Preparación por Fases y Puesta a Punto Virtual',
             type: 'pdf',
-            fileSize: '220 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 7,
-            category: 'Guía PDF',
-            description: 'Configuración técnica y de entorno para entrevistas remotas por Zoom o Google Meet.',
+            category: 'Entrevistas & Puesta a Punto',
+            description: 'Checklist de entorno técnico y matriz de enfoque por interlocutor.',
+            isEssential: true,
+          },
+          {
+            id: 'fases-proceso-seleccion',
+            title: 'Guía de Fases del Proceso de Selección y Tiempos de Respuesta',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 7,
+            category: 'Proceso de Selección',
+            description: 'Cronograma típico de etapas, tiempos de respuesta y seguimiento.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nNo podés responderle lo mismo a la persona de Recursos Humanos que al Director Técnico que será tu jefe. Cada uno busca cosas totalmente distintas.\n\n[1:30 - Desarrollo del concepto]\nEn esta clase desglosamos las 4 etapas clásicas de un proceso. RRHH evalúa si encajás con la cultura y el equipo; el Hiring Manager evalúa si podés hacer el trabajo y quitarle dolores de cabeza. Además, repasamos el protocolo de videollamada: mirar a la lente de la cámara (no a la pantalla), probar micrófono antes de entrar y cuidar el lenguaje no verbal.\n\n[5:30 - Llamada a la acción]\nHacé un simulacro de 2 minutos grabándote con la cámara de tu computadora para evaluar tu encuadre, iluminación y tono de voz.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ANSIEDAD EN LA ENTREVISTA]
+🗣️ Hola a todos. Llegamos a una de las etapas que más ansiedad suele generar en una búsqueda laboral: la entrevista.
+🏷️ MÓDULO 07: Entrevista Laboral 🎙️💼
+🔊 Swoosh suave
+🗣️ Y quiero empezar diciéndote algo que aprendí estando del otro lado, entrevistando candidatos: no todas las entrevistas buscan evaluar lo mismo.
+🏷️ No todas las entrevistas buscan evaluar lo mismo 🎯
+🔊 Pop sutil
+🗣️ Muchas veces una persona tiene una primera entrevista excelente con Recursos Humanos y después siente que la entrevista con su posible jefe fue completamente diferente. Y es normal, porque cada persona que participa del proceso está tratando de responder preguntas diferentes.
+🏷️ RRHH vs. Líder de Área vs. Prueba Técnica 👥🔍
+🔊 Pop de confirmación
+
+[1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — QUÉ EVALÚA CADA INTERLOCUTOR]
+🗣️ En una primera llamada o screening, Recursos Humanos normalmente necesita validar cuestiones generales de tu perfil y de la búsqueda.
+🏷️ 1. Screening / RRHH: Validación general y cultura 📞📋
+🔊 Swoosh suave
+🗣️ Puede preguntarte por tu experiencia general, por qué estás buscando un cambio, tu disponibilidad horaria, tu remuneración pretendida y cómo encajás con la cultura de la empresa.
+🏷️ Disponibilidad · Rango salarial · Motivación · Encaje cultural 🏢✨
+🔊 Click sutil
+🗣️ En cambio, el líder del área o tu posible jefe va a evaluar algo completamente distinto: ¿Esta persona realmente sabe hacer el trabajo? ¿Tiene el criterio técnico necesario? ¿Me va a ayudar a resolver los problemas que tengo hoy en el equipo?
+🏷️ 2. Líder de Área (Hiring Manager): Criterio y resolución de problemas 🛠️📈
+🔊 Pop de confirmación
+🗣️ Y si después hay una prueba técnica o una entrevista con pares, el foco vuelve a cambiar hacia la metodología, estructura analítica y trabajo colaborativo.
+🏷️ 3. Prueba Técnica / Pares: Razonamiento y trabajo en equipo 💻🤝
+🔊 Click sutil
+🗣️ Por eso, el error más común es preparar una entrevista como si fuera un examen escolar donde te toman siempre lo mismo.
+
+[2:30 - SECCIÓN 3: PUESTA A PUNTO TÉCNICA DEL ENTORNO VIRTUAL]
+🗣️ En esta clase también vamos a ver cómo preparar tu entorno para entrevistas virtuales: cámara, luz, audio y encuadre.
+🏷️ Puesta a Punto Virtual: Cámara · Iluminación · Audio 🎥💡🎙️
+🔊 Swoosh suave
+🗣️ Cámara a la altura de los ojos para mantener contacto visual natural a la lente; fuente de luz suave al frente para que tu rostro se vea nítido sin contraluz; y audio probado previamente sin eco.
+🏷️ Contacto visual a la lente · Luz frontal · Audio limpio 👁️✨
+🔊 Click sutil
+🗣️ Tené a mano un vaso de agua, una libreta física para anotar nombres o dudas clave, y cerrá todas las notificaciones en tu computadora. En una videollamada, estos detalles comunican profesionalismo desde el primer segundo.
+🏷️ Libreta física · Vaso de agua · Notificaciones silenciadas 📝🔇
+🔊 Pop de confirmación
+
+[3:40 - SECCIÓN 4: REGLA DE ORO Y LLAMADA A LA ACCIÓN]
+🗣️ La regla de oro de este módulo que quiero que te grabes es: No prepares solo respuestas. Prepará tu historia profesional.
+🏷️ Regla de Oro: "No prepares solo respuestas. Prepará tu historia profesional" 💡🏆
+🔊 Swoosh suave
+🗣️ En la sección de Documentos tenés el Checklist de Preparación por Fases y Puesta a Punto Virtual para auditar tu setup antes de tu próxima llamada.
+🏷️ Documentos: Checklist de Preparación por Fases 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando el checklist interactivo de puesta a punto y fases.
+🗣️ ¡En la siguiente clase vamos a ver cómo responder de forma impecable a la pregunta que abre casi todas las entrevistas: "Contame sobre vos"!
+🏷️ Próxima clase: Cómo responder "Contame sobre vos" y Método STAR 🚀
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-ent-02',
@@ -2623,32 +2700,99 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 2,
         type: 'video',
-        title: 'El método STAR para contar tus logros',
-        duration: '8 min',
+        title: 'Cómo responder "Contame sobre vos" y contar tus logros',
+        duration: '9 min',
+        videoDuration: '4:45 min',
         completed: false,
         description:
-          'La técnica internacional para estructurar respuestas claras y contundentes a preguntas situacionales y de comportamiento.',
+          'Dominá la apertura de 90 segundos con la fórmula en 3 partes, la metodología STAR para preguntas por competencias y tu banco de 5 historias maestras.',
         takeaways: [
-          'Estructura STAR: Situación (contexto breve), Tarea (el reto), Acción (lo que hiciste vos) y Resultado (impacto medible).',
-          'El 70% del tiempo debe concentrarse en las Acciones concretas y en los Resultados obtenidos.',
-          'Armar un banco de 5 historias maestras sobre liderazgo, resolución de conflictos, manejo de presión y errores superados.',
+          'La pregunta "Contame sobre vos" no es una charla informal ni recitar tu CV: es tu presentación de valor profesional en menos de 2 minutos.',
+          'Fórmula en 3 partes: 1) Quién sos hoy y tu especialidad, 2) Tu recorrido con logros concretos, 3) Por qué te entusiasma esta oportunidad puntual.',
+          'Metodología STAR para preguntas situacionales: Situación (15%), Tarea (15%), Acción (50% - tus decisiones y herramientas) y Resultado (20% - métricas y aprendizajes).',
+          'El 70% de tu tiempo debe concentrarse en la Acción y en el Resultado medible, no en la descripción del problema.',
+          'El Banco de 5 Historias Maestras: 1 logro principal, 1 problema resuelto, 1 error del que aprendiste, 1 situación difícil/conflicto y 1 ejemplo de trabajo en equipo o liderazgo.',
         ],
+        actionItems: [
+          {
+            id: 'act-ent-2-1',
+            title: 'Redactar tu pitch "Contame sobre vos"',
+            description: 'Completá la plantilla en 3 partes y cronometrate para no superar los 90 segundos.',
+          },
+          {
+            id: 'act-ent-2-2',
+            title: 'Estructurar tus 5 Historias Maestras STAR',
+            description: 'Completá el framework interactivo en la sección de Documentos para tener tus ejemplos listos.',
+          },
+        ],
+        mindsetPrompt:
+          'No le pidas al selector que imagine tu potencial: mostrale con hechos y datos concretos cómo ya resolviste situaciones similares en el pasado.',
         resources: [
           {
-            id: 'res-ent-02',
-            title: 'Matriz STAR con 10 Ejemplos Resueltos (PDF)',
+            id: 'framework-star-entrevistas',
+            title: 'Framework STAR y Banco de las 5 Historias Maestras',
             type: 'pdf',
-            fileSize: '380 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 7,
-            category: 'Guía PDF',
-            description: 'Plantilla con historias reales estructuradas paso a paso con el método STAR.',
+            category: 'Metodología STAR',
+            description: 'Estructura en 3 partes para apertura y plantilla de las 5 historias maestras.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nCuando el selector te dice 'Contame una vez que tuviste un conflicto con un compañero', no quiere que improvises. Quiere ver tu capacity de resolución bajo la estructura STAR.\n\n[1:45 - Desarrollo del concepto]\nSTAR es el estándar internacional de evaluación por competencias. El 70% de tu tiempo de respuesta debe estar en la Acción (las decisiones que tomaste vos) y en el Resultado (cómo terminó la historia y qué aprendiste). Te muestro ejemplos reales de respuestas modelo para perfiles junior, intermedios y directivos.\n\n[6:30 - Llamada a la acción]\nEscribí 3 historias maestras usando la plantilla STAR que tenés en los materiales descargables.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL ERROR DE LA APERTURA]
+🗣️ Casi todas las entrevistas empiezan con la misma pregunta: "Bueno, contame un poco sobre vos". O su versión parecida: "Haceme un resumen de tu experiencia".
+🏷️ Cómo Responder: "Contame sobre vos" 💬🎯
+🔊 Swoosh suave
+🗣️ Y acá es donde muchísimas personas se pierden: algunos repiten punto por punto todo su CV de memoria; otros empiezan a hablar de cosas personales; y otros se ponen tan nerviosos que dan una respuesta desordenada de cinco minutos.
+🏷️ No es charla informal · No es recitar el CV 🚫
+🔊 Pop sutil
+🗣️ La pregunta "Contame sobre vos" es tu oportunidad de oro para presentar tu perfil profesional en menos de dos minutos y dejar una primera impresión clara, sólida y atractiva.
+🏷️ Pitch de Impacto: < 2 minutos estructurados ⏱️✨
+🔊 Pop de confirmación
+
+[1:10 - SECCIÓN 2: FÓRMULA EN 3 PARTES PARA "CONTAME SOBRE VOS"]
+🗣️ Para responder impecable, vas a usar una estructura en tres partes:
+🏷️ Estructura en 3 Partes para la Apertura 📐
+🔊 Swoosh suave
+🗣️ Primera parte: Quién sos profesionalmente hoy y cuál es tu especialidad principal.
+🏷️ 1. Quién sos hoy y tu especialidad principal 👤💼
+🔊 Click sutil
+🗣️ Segunda parte: Cuál fue tu recorrido profesional, destacando uno o dos logros concretos o proyectos clave donde generaste impacto.
+🏷️ 2. Recorrido profesional con logros concretos 📈🏆
+🔊 Click sutil
+🗣️ Y tercera parte: Por qué te interesa esta oportunidad puntual y cómo tu perfil se conecta con lo que la empresa necesita.
+🏷️ 3. Por qué te entusiasma este puesto y empresa 🏢🎯
+🔊 Pop de confirmación
+
+[2:20 - SECCIÓN 3: METODOLOGÍA STAR Y EL BANCO DE 5 HISTORIAS MAESTRAS]
+🗣️ Pero además, a lo largo de la entrevista van a aparecer preguntas por competencias como: "Contame una vez que tuviste que resolver una crisis" o "Contame cómo manejás la presión".
+🏷️ Preguntas por Competencias y Metodología STAR 🌟
+🔊 Swoosh suave
+🗣️ Acá aplicamos la metodología internacional STAR: Situación, Tarea, Acción y Resultado.
+🏷️ S: Situación · T: Tarea · A: Acción · R: Resultado 🧩
+🔊 Click sutil
+🗣️ Situación: contexto breve en 15 segundos. Tarea: cuál era tu reto específico. Acción: qué decisiones tomaste vos y qué herramientas usaste, concentrando el 50% de tu tiempo. Y Resultado: el impacto medible y qué aprendiste.
+🏷️ 70% del tiempo en la ACCIÓN y en el RESULTADO 📊✅
+🔊 Pop de confirmación
+🗣️ Al responder con STAR, dejás de decir frases genéricas como "soy resolutivo" o "sé trabajar bajo presión" y empezás a demostrarlo con evidencia concreta.
+🏷️ Demostrar con hechos, no solo adjetivos 💡
+🔊 Click sutil
+🗣️ Al terminar esta clase vas a armar tu banco de 5 historias maestras: un logro principal, un problema que resolviste, un error del que aprendiste, una situación difícil o conflicto, y un ejemplo de trabajo en equipo o liderazgo.
+🏷️ Las 5 Historias Maestras: Logro · Problema · Error · Conflicto · Equipo 📚⭐
+🔊 Pop de confirmación
+
+[4:00 - SECCIÓN 4: EJERCICIO PRÁCTICO Y LLAMADA A LA ACCIÓN]
+🗣️ Con estas 5 historias bien preparadas, vas a poder responder prácticamente cualquier pregunta situacional que te hagan en una entrevista.
+🏷️ Documentos: Framework STAR y 5 Historias Maestras 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando la plantilla interactiva de Historias STAR.
+🗣️ Redactá tu pitch de 90 segundos y tus historias en la plantilla del campus. ¡En la siguiente clase vamos a ver cómo responder las preguntas difíciles que realmente aparecen!
+🏷️ Próxima clase: Las preguntas difíciles que realmente aparecen 🛡️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-ent-03',
@@ -2658,32 +2802,88 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 3,
         type: 'video',
-        title: 'Preguntas difíciles y puntos ciegos',
-        duration: '8 min',
+        title: 'Las preguntas difíciles que realmente aparecen',
+        duration: '9 min',
+        videoDuration: '4:30 min',
         completed: false,
         description:
-          'Cómo sortear con éxito las preguntas difíciles: motivos de cambio, mayores debilidades y el pitch de diferenciación.',
+          'Aprendé a sortear con madurez y honestidad las preguntas incómodas: motivos de cambio, desvinculaciones o baches laborales, debilidades reales y qué decir cuando no sabés una respuesta.',
         takeaways: [
-          'Explicar motivos de cambio de trabajo enfocándose en crecimiento y nuevos retos, sin críticas a empresas anteriores.',
-          'Responder a "debilidades" con un área de mejora real y las acciones concretas que estás implementando para superarla.',
-          'Construir tu pitch de 60 segundos para responder a "¿Por qué deberíamos contratarte a vos?".',
+          'Las 4 Reglas de Oro ante preguntas incómodas: nunca hablar mal de ex empleadores, enfocarte en metas futuras, no usar clichés defensivos y demostrar capacidad de aprendizaje.',
+          'Motivos de cambio: explicarlos desde la búsqueda de nuevos desafíos, tecnología o proyectos con mayor impacto.',
+          'Desvinculaciones y lagunas laborales: naturalidad y serenidad profesional, destacando proyectos personales, capacitación o redireccionamiento durante el período.',
+          'Debilidades y defectos: desterrar "soy perfeccionista" y presentar un área de mejora real junto con el sistema concreto que implementás hoy para gestionarla.',
+          'Qué hacer cuando no sabés una respuesta técnica: reconocerlo con honestidad, explicar tu razonamiento deductivo y destacar tu velocidad de aprendizaje.',
         ],
+        actionItems: [
+          {
+            id: 'act-ent-3-1',
+            title: 'Preparar tus respuestas a las preguntas difíciles',
+            description: 'Utilizá la Guía de Preguntas Difíciles para pulir tu motivo de cambio y tu área de mejora real.',
+          },
+        ],
+        mindsetPrompt:
+          'La madurez profesional no se demuestra sabiendo todo ni teniendo una carrera perfecta, sino mostrando cómo asumís responsabilidades y cómo aprendés de cada experiencia.',
         resources: [
           {
-            id: 'res-ent-03',
-            title: 'Guía de 30 Preguntas Frecuentes de Entrevistas Resueltas',
+            id: 'guia-preguntas-dificiles-entrevista',
+            title: 'Guía de Preguntas Difíciles y Respuestas con Madurez Profesional',
             type: 'pdf',
-            fileSize: '510 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 7,
-            category: 'Guía PDF',
-            description: 'Respuestas modelo y consejos tácticos para las preguntas más complejas.',
+            category: 'Entrevistas Laborales',
+            description: 'Guiones modelo y respuestas a las 7 preguntas más complejas del mercado.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nDecir 'mi mayor defecto es que soy demasiado responsable y perfeccionista' hace que cualquier selector ponga los ojos en blanco. Hoy aprendemos a responder con madurez profesional y autenticidad.\n\n[1:40 - Desarrollo del concepto]\nAnalizamos las 5 preguntas más difíciles del mercado y cómo responderlas con altura. Si hablás de un cambio de empleo, enfocalo en tu deseo de crecimiento y nuevos desafíos, nunca en quejas sobre tu jefe anterior. Si hablás de un error, mostrá tu capacidad de asumir la responsabilidad y la solución que implementaste.\n\n[6:30 - Llamada a la acción]\nPrepará tu respuesta en voz alta a las 3 preguntas clave usando la guía de apoyo.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL MIEDO A LAS PREGUNTAS INCÓMODAS]
+🗣️ En las entrevistas siempre aparecen preguntas que generan incomodidad: "¿Por qué estás buscando un cambio?", "¿Por qué te fuiste de tu último trabajo?", "¿Cuál es tu mayor defecto?" o preguntas sobre momentos donde las cosas no salieron bien.
+🏷️ Cómo Responder a las Preguntas Difíciles 🛡️💬
+🔊 Swoosh suave
+🗣️ El problema no son las preguntas: el problema es que la mayoría de las personas intenta esquivarlas, dar respuestas cliché o ponerse a la defensiva.
+🏷️ Evitar clichés y posturas defensivas 🚫
+🔊 Pop sutil
+🗣️ Por ejemplo, responder "mi mayor defecto es que soy demasiado perfeccionista" ya no convence a ningún entrevistador. Y hablar mal de tu empresa anterior o de tu jefe actual siempre te deja mal parado a vos, nunca a ellos.
+🏷️ Jamás hablar mal de ex empleadores · Proyectar madurez 🤝
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: CÓMO RESPONDER MOTIVOS DE CAMBIO Y LAGUNAS LABORALES]
+🗣️ Vamos a ver cómo encarar estas preguntas con honestidad, profesionalismo y altura.
+🏷️ Motivos de Cambio y Períodos sin Trabajar 🔄
+🔊 Swoosh suave
+🗣️ Para explicar motivos de cambio: enfocarte siempre en lo que buscás construir hacia adelante. Agradecé lo aprendido en tu puesto actual o anterior, y explicá que sentís haber cumplido una etapa y que buscás nuevos desafíos técnicos o de escala.
+🏷️ Motivo de cambio: Enfoque hacia adelante y nuevos desafíos 🚀
+🔊 Click sutil
+🗣️ Si te preguntan por una desvinculación o un bache laboral: hablalo con naturalidad, sin dramatizarlo ni victimizarte. Si hubo una reestructuración de la empresa, mencionalo claramente y destacá qué hiciste durante ese tiempo: capacitación, proyectos independientes o búsqueda estratégica enfocada.
+🏷️ Desvinculaciones y lagunas: Naturalidad y actualización continua 📚✨
+🔊 Pop de confirmación
+
+[2:35 - SECCIÓN 3: DEBILIDADES REALES Y QUÉ HACER CUANDO NO SABÉS UNA RESPUESTA]
+🗣️ Cuando te pregunten por tu mayor debilidad o defecto: presentá una debilidad real que no sea excluyente para el rol, y lo más importante: explicá qué sistema o hábito concreto usás hoy para mejorarla.
+🏷️ Debilidad real + Sistema concreto de mejora 🛠️📈
+🔊 Swoosh suave
+🗣️ Por ejemplo: "Al principio me costaba delegar tareas en momentos de alta demanda; para gestionarlo, implementé tableros de gestión y checkpoints semanales que me permiten delegar con seguimiento sin sobrecargarme".
+🏷️ Ejemplo: De la dificultad al hábito operativo 📋✅
+🔊 Click sutil
+🗣️ ¿Y qué pasa si te hacen una pregunta técnica o de negocio y no sabés la respuesta?
+🏷️ Qué hacer cuando no sabés una respuesta técnica ❓💡
+🔊 Pop sutil
+🗣️ Pista clave: la honestidad inteligente y la disposición para aprender suman mucho más que inventar. Podés decir: "No trabajé puntualmente con esa herramienta, pero por mi manejo en X entiendo que la lógica pasa por ahí, y tengo gran velocidad para familiarizarme con la documentación en pocos días".
+🏷️ Honestidad inteligente + Razonamiento lógico + Curva rápida 🧠⚡
+🔊 Pop de confirmación
+
+[3:50 - SECCIÓN 4: GUÍA TÁCTICA Y LLAMADA A LA ACCIÓN]
+🗣️ En la sección de Documentos te dejé la Guía de Preguntas Difíciles con respuestas modelo para los 7 escenarios más habituales.
+🏷️ Documentos: Guía de Preguntas Difíciles 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando las respuestas modelo de la guía.
+🗣️ Prepará tus respuestas en voz alta. ¡En la siguiente clase vamos a ver el poder de las preguntas que VOS tenés que hacerle al entrevistador!
+🏷️ Próxima clase: Las preguntas que VOS tenés que hacer 🙋‍♂️
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-ent-04',
@@ -2693,32 +2893,99 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 4,
         type: 'video',
-        title: 'Preguntas inteligentes para el selector',
-        duration: '6 min',
+        title: 'Las preguntas que VOS tenés que hacer',
+        duration: '7 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
-          'Técnicas para calmar la ansiedad antes de conectar y preguntas de impacto para hacerle al entrevistador al final.',
+          'Convertí la entrevista en una evaluación bidireccional: banco de preguntas inteligentes para el selector y el Hiring Manager, y la pregunta maestra de cierre.',
         takeaways: [
-          'Reencuadre mental: una entrevista es una conversación profesional de mutua evaluación, no un interrogatorio.',
-          'Técnica de respiración diafragmática 4-4-4 para reducir pulsaciones antes de iniciar la videollamada.',
-          'Preguntas de alto nivel para el selector: "¿Cuáles son las metas prioritarias de los primeros 90 días?" o "¿Qué retos enfrenta el equipo actualmente?".',
+          'Una entrevista es una conversación profesional de mutua evaluación, no un interrogatorio unilateral.',
+          'Decir "No tengo preguntas, me quedó todo claro" transmite desinterés o falta de visión estratégica.',
+          'Preguntas para el Hiring Manager: desafíos prioritarios a 6 meses, definición de éxito a 90 días y dinámica de toma de decisiones.',
+          'Preguntas para RRHH: cultura de trabajo cotidiana, oportunidades de crecimiento y próximos pasos del proceso.',
+          'La Pregunta Maestra de Cierre: "En base a lo que conversamos hoy, ¿hay algún punto de mi perfil o experiencia que te gustaría que profundice o sobre el que te haya quedado alguna duda?".',
         ],
+        actionItems: [
+          {
+            id: 'act-ent-4-1',
+            title: 'Elegir tus 3 preguntas clave para tu próxima entrevista',
+            description: 'Seleccioná 2 preguntas de equipo/negocio y la pregunta maestra de cierre de la guía interactiva.',
+          },
+        ],
+        mindsetPrompt:
+          'Una buena pregunta comunica tanto o más sobre tu seniority y pensamiento crítico que una respuesta ensayada.',
         resources: [
           {
-            id: 'res-ent-04',
-            title: 'Banco de 15 Preguntas Inteligentes para el Entrevistador',
+            id: 'preguntas-inteligentes-candidato-entrevistador',
+            title: 'Banco de Preguntas Estratégicas del Candidato al Entrevistador',
             type: 'pdf',
-            fileSize: '180 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 7,
-            category: 'Guía PDF',
-            description: 'Preguntas estratégicas para hacer al recruiter y al Hiring Manager.',
+            category: 'Evaluación Bidireccional',
+            description: 'Preguntas estratégicas para RRHH, Hiring Manager y pregunta de cierre.',
+            isEssential: true,
+          },
+          {
+            id: 'checklist-auditoria-empresas-cultura',
+            title: 'Checklist de Auditoría de Empresas y Clima Laboral',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 7,
+            category: 'Evaluación de Empresas',
+            description: 'Controles para evaluar clima, rotación y cultura antes de aceptar.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nCuando el selector te pregunta '¿Tenés alguna duda para nosotros?' y vos decís 'No, ninguna, todo muy claro', perdiste la oportunidad de oro de lucirte.\n\n[1:20 - Desarrollo del concepto]\nHacer buenas preguntas demuestra seniority, curiosidad y criterio. Te enseño qué preguntar para entender la realidad del equipo, los objetivos del puesto y los próximos pasos del proceso. Además, vemos ejercicios de respiración de 3 minutos para bajar las pulsaciones antes de prender la cámara.\n\n[4:50 - Llamada a la acción]\nAnotá 3 preguntas que vas a hacerle al selector en tu próxima entrevista.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y LA OPORTUNIDAD PERDIDA AL FINAL]
+🗣️ Hay un momento clave en casi todas las entrevistas que muchos candidatos desaprovechan por completo. Pasa casi al final, cuando el entrevistador te mira y te dice: "Bueno, ¿tenés alguna pregunta para nosotros?".
+🏷️ Las Preguntas que VOS tenés que Hacer 🙋‍♀️💼
+🔊 Swoosh suave
+🗣️ Y la respuesta típica de muchísima gente es: "No, la verdad que no, me quedó todo súper claro". Grave error.
+🏷️ "No, me quedó todo claro" = Oportunidad perdida ❌
+🔊 Pop sutil
+🗣️ Una entrevista no es un interrogatorio donde solo vos tenés que responder: es una conversación profesional bidireccional donde ambas partes están evaluando si tiene sentido trabajar juntas.
+🏷️ Conversación Bidireccional de Mutua Evaluación 🔄🤝
+🔊 Pop de confirmación
+🗣️ Cuando no hacés preguntas, podés transmitir falta de interés, falta de curiosidad o que aceptás cualquier cosa. En cambio, cuando hacés buenas preguntas, demostrás seniority, criterio profesional y un interés genuino en la posición.
+🏷️ Demostrar seniority, criterio e interés genuino ✨
+🔊 Click sutil
+
+[1:10 - SECCIÓN 2: PREGUNTAS ESTRATÉGICAS PARA EL HIRING MANAGER Y RRHH]
+🗣️ En esta clase te voy a enseñar qué tipo de preguntas conviene hacer y cuáles es mejor evitar en una primera instancia.
+🏷️ Preguntas Estratégicas según el Evaluador 🎯
+🔊 Swoosh suave
+🗣️ Al Líder de Área o futuro jefe directo, preguntale por los desafíos reales: "¿Cuáles son los principales retos que tiene el equipo para los próximos 6 meses?" o "¿Cómo evalúan el éxito en esta posición durante los primeros 90 días?".
+🏷️ Al Líder: Retos a 6 meses · Éxito a 90 días · Dinámica de equipo 🛠️📊
+🔊 Click sutil
+🗣️ A Recursos Humanos, preguntale por la cultura cotidiana y los próximos pasos: "¿Cómo describirías la dinámica de trabajo del equipo?" y "¿Cuáles son las siguientes etapas del proceso y tiempos estimados?".
+🏷️ A RRHH: Cultura cotidiana · Oportunidades · Próximos pasos 🏢⏳
+🔊 Pop de confirmación
+
+[2:30 - SECCIÓN 3: LA PREGUNTA MAESTRA DE CIERRE DE PROFUNDIZACIÓN]
+🗣️ Y te voy a dar una pregunta de cierre fundamental que podés usar antes de terminar para no irte con dudas:
+🏷️ Pregunta Maestra de Cierre de Profundización 🔑
+🔊 Swoosh suave
+🗣️ Podés decir: "Antes de terminar, me gustaría consultar: en base a lo que conversamos hoy, ¿hay algún punto de mi perfil o experiencia que te gustaría que profundice o sobre el que te haya quedado alguna duda?".
+🏷️ "¿Hay algún punto de mi perfil sobre el que te haya quedado alguna duda?" 💬⭐
+🔊 Pop de confirmación
+🗣️ Esta sola pregunta te permite aclarar cualquier duda o malentendido en el acto, en lugar de enterarte semanas después.
+
+[3:15 - SECCIÓN 4: LLAMADA A LA ACCIÓN]
+🗣️ En la sección de Documentos tenés el Banco de Preguntas Estratégicas listo para consultar.
+🏷️ Documentos: Banco de Preguntas Estratégicas 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando el listado de preguntas categorizadas.
+🗣️ Elegí 3 preguntas para tu próxima entrevista. ¡En la última clase del módulo entramos al tema económico: cómo responder cuánto querés ganar y cómo negociar tu propuesta!
+🏷️ Próxima clase: Sueldo y negociación salarial 💰🚀
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-ent-05',
@@ -2728,32 +2995,99 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Entrevista Laboral',
         lessonNumber: 5,
         type: 'video',
-        title: 'Técnicas de negociación salarial',
-        duration: '7 min',
+        title: 'Sueldo: qué decir cuando te preguntan cuánto querés ganar',
+        duration: '10 min',
+        videoDuration: '5:00 min',
         completed: false,
         description:
-          'Cómo manejar la pregunta de remuneración pretendida en la primera llamada y cómo negociar la propuesta final completa.',
+          'Dominá la conversación económica: cómo calcular tu piso y banda salarial, responder en el screening inicial, manejar la pregunta de salario actual, y evaluar y negociar una oferta formal por escrito.',
         takeaways: [
-          'Estrategia de banda salarial: responder con un rango basado en el mercado y preguntar por el presupuesto asignado.',
-          'Negociación integral del paquete: salario base, bonos por desempeño, días de vacaciones extra, equipamiento y revisiones periódicas.',
-          'Cómo aceptar o realizar una contrapropuesta por escrito manteniendo una relación excelente.',
+          'Cálculo de piso salarial no negociable (gastos fijos + ahorro mínimo 15% + impuestos/salud) vs. banda objetivo (piso + 20% a 40%).',
+          'Respuesta en el primer screening: dar un rango basado en el mercado y repreguntar con cordialidad por el presupuesto asignado.',
+          'Manejo si preguntan "¿Cuánto ganás hoy?": reenfocar cortésmente en el valor y desafíos del nuevo puesto, no en compensaciones previas.',
+          'Evaluación del paquete integral: sueldo neto, bonos, cláusulas de ajuste por inflación, salud, vacaciones, equipamiento y modelo contractual.',
+          'Protocolo de negociación por escrito: cómo enviar una contrapropuesta respetuosa si los números están cerca.',
+          'Regla de Oro Inquebrantable: NUNCA renuncies a tu trabajo actual sin tener la propuesta formal por escrito y debidamente firmada.',
         ],
+        actionItems: [
+          {
+            id: 'act-ent-5-1',
+            title: 'Calcular tu piso y banda salarial en la Matriz',
+            description: 'Definí tu límite no negociable y tu rango objetivo antes de tu próxima llamada.',
+          },
+          {
+            id: 'act-ent-5-2',
+            title: 'Practicar el guion de respuesta salarial',
+            description: 'Ensayá la respuesta en voz alta para expresarla con firmeza y naturalidad.',
+          },
+        ],
+        mindsetPrompt:
+          'Negociar tu compensación con fundamentos y serenidad no es arrogancia: es el reflejo directo de tu criterio profesional y del valor que aportás al negocio.',
         resources: [
           {
-            id: 'res-ent-05',
-            title: 'Calculadora de Banda Salarial y Script de Negociación',
+            id: 'matriz-sueldos-negociacion',
+            title: 'Matriz de Compensación, Cálculo de Piso y Negociación Salarial',
             type: 'excel',
-            fileSize: '175 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 7,
-            category: 'Matriz Excel',
-            description: 'Herramienta para calcular tu piso salarial y plantilla de correo para negociar ofertas.',
+            category: 'Negociación & Compensaciones',
+            description: 'Calculadora de piso, banda objetivo y plantilla de contrapropuesta por escrito.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nEl momento más incómodo para muchos es cuando preguntan por el sueldo. Hoy aprendés a manejar la conversación económica con total naturalidad y firmeza.\n\n[1:30 - Desarrollo del concepto]\nNunca des un número fijo cerrado en la primera charla; trabajamos siempre con rangos salariales basados en el mercado y decimos: 'Mi expectativa para una posición con estas responsabilidades se sitúa entre X e Y, dependiendo del paquete integral de beneficios y proyectos'. Y cuando llega la oferta formal por escrito, te enseño cómo evaluar el paquete completo y solicitar un ajuste de manera profesional.\n\n[5:45 - Llamada a la acción]\nDefiní tu banda salarial piso y objetivo con la calculadora del campus y practicá el guion de respuesta.\n\nCon esto completamos el Módulo 7 de Entrevistas. En el Módulo 8 (optativo) vamos a ver casos especiales de búsqueda: empleo internacional, postulación sin experiencia y cambio de carrera.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y LA INCOMODIDAD DE HABLAR DE DINERO]
+🗣️ Llegamos al tema que más incomodidad suele generar en cualquier proceso de selección: la conversación sobre el dinero.
+🏷️ Sueldo: Qué decir cuando te preguntan cuánto querés ganar 💰💼
+🔊 Swoosh suave
+🗣️ Aparece casi siempre en dos momentos: al principio, cuando te preguntan "¿Cuál es tu remuneración pretendida?", o al final, cuando llega una oferta y hay que evaluarla o negociarla.
+🏷️ Screening inicial vs. Oferta final por escrito ⚖️
+🔊 Pop sutil
+🗣️ Muchas personas cometen uno de dos errores: o tiran un número al azar sin fundamentos y quedan fuera por pedir demasiado, o terminan cobrando muy por debajo de lo que deberían. O se ponen tan incómodos que dicen "lo que ustedes consideren", perdiendo completamente el control de su valor profesional.
+🏷️ Evitar números al azar o frases de sumisión 🚫
+🔊 Pop de confirmación
+
+[1:15 - SECCIÓN 2: CÁLCULO DE PISO SALARIAL Y GUION PARA EL SCREENING]
+🗣️ En esta clase vamos a aprender a manejar la conversación económica con fundamentos y total tranquilidad.
+🏷️ Cálculo de Piso Salarial y Banda Objetivo 📊
+🔊 Swoosh suave
+🗣️ Primero: calculá tu piso salarial no negociable sumando tus costos fijos de vida, cobertura de salud/impuestos y un ahorro mínimo del 15%. A partir de ahí, definís tu banda objetivo entre un 20% y un 40% adicional según la media del mercado.
+🏷️ Piso No Negociable vs. Banda Target (+20% a +40%) 🎯💵
+🔊 Click sutil
+🗣️ Cuando te pregunten en el primer screening telefónico por tu pretensión, respondé siempre con un rango justificado: "En base a las responsabilidades del puesto y la investigación de mercado, mi expectativa se ubica en un rango de X a Y netos mensuales, dependiendo del paquete integral de beneficios. ¿Tienen un presupuesto asignado para el rol?".
+🏷️ Guion: Rango justificado + Consulta sobre presupuesto asignado 🗣️📋
+🔊 Pop de confirmación
+
+[2:40 - SECCIÓN 3: MANEJO DEL SALARIO ACTUAL Y EVALUACIÓN DEL PAQUETE INTEGRAL]
+🗣️ ¿Y cómo manejar la pregunta "¿Cuánto estás ganando hoy?" sin sentirte acorralado?
+🏷️ Cómo responder: "¿Cuánto estás ganando hoy?" 🔒
+🔊 Swoosh suave
+🗣️ Reenfocá la conversación con elegancia: "En mi trabajo actual tengo un esquema acorde a responsabilidades distintas; por eso prefiero enfocarme en los desafíos de esta nueva posición, donde mi expectativa está en el rango de X a Y".
+🏷️ Reenfoque elegante en el valor del nuevo puesto 🤝
+🔊 Click sutil
+🗣️ Cuando llega la oferta, evaluá el paquete completo: no solo el sueldo base neto, sino la moneda de pago, frecuencia de ajuste por inflación, cobertura médica, días libres y modalidad de trabajo.
+🏷️ Paquete Total: Neto · Ajustes por inflación · Salud · Modalidad 🏥🏖️
+🔊 Pop de confirmación
+
+[3:50 - SECCIÓN 4: NEGOCIACIÓN POR ESCRITO Y LA REGLA DE ORO DE RENUNCIA]
+🗣️ Si la oferta está cerca pero necesitás ajustar algún punto, te enseño a enviar una contrapropuesta por escrito profesional y constructiva, agradeciendo la propuesta y fundamentando el ajuste en el impacto que vas a aportar.
+🏷️ Contrapropuesta profesional y fundamentada por escrito 📝✉️
+🔊 Click sutil
+🗣️ Y una regla de oro fundamental que no podés olvidar jamás: Nunca renuncies a tu trabajo actual hasta no tener la propuesta formal por escrito, con todas las condiciones claras y firmada por ambas partes.
+🏷️ Regla de Oro: NUNCA renunciar sin propuesta formal FIRMADA ⚠️📄
+🔊 Pop de confirmación
+
+[4:30 - SECCIÓN 5: CIERRE DEL MÓDULO 7 Y PUENTE A CASOS ESPECIALES]
+🗣️ En la sección de Documentos tenés la Matriz de Compensación y Negociación Salarial con la calculadora y los guiones listos.
+🏷️ Documentos: Matriz de Negociación Salarial 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando la calculadora de bandas y plantilla de contraoferta.
+🗣️ Con esto completamos el Módulo 7 de Entrevistas. En el Módulo 8 (optativo) vamos a ver casos especiales: búsqueda de empleo internacional en USD, postulación sin experiencia y cambio de carrera. ¡Nos vemos ahí!
+🏷️ Hito: Módulo 07 Completado (Entrevista Laboral) 🏆🎉
+🔊 Fin de lección suave`,
       },
     ],
   },
