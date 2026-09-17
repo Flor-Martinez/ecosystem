@@ -465,14 +465,14 @@ HABILIDADES & HERRAMIENTAS
   'directorio-portales-empleo-remoto': {
     id: 'directorio-portales-empleo-remoto',
     slug: 'directorio-portales-empleo-remoto',
-    title: 'Directorio de Portales de Empleo y Consultoras de Selección',
+    title: 'Directorio Actualizado de Portales y Consultoras',
     category: 'Canales de Búsqueda',
     programTitle: 'Experiencia Búsqueda Laboral',
     moduleNumber: 5,
     badge: 'Directorio Activo In-App',
     estimatedReadTime: '4 min de navegación',
     summary:
-      'Listado clasificado de más de 30 plataformas de empleo en Sudamérica, portales de trabajo remoto global en USD y consultoras de headhunting con enlaces directos.',
+      'Listado dinámico y clasificado de plataformas de empleo en Sudamérica, portales de nicho y trabajo remoto global, y consultoras de selección / headhunters con enlaces directos.',
     author: 'Flor Martínez · Selección & Empleabilidad',
     version: 'Edición 2026 (Actualizada)',
     sections: [

@@ -148,9 +148,9 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 5,
     moduleStepLabel: 'MÓDULO 05',
-    title: 'Dónde Buscar Ofertas & Portales',
+    title: 'Dónde Buscar Ofertas & Canales',
     subtitle: 'Ruta Troncal · Paso 5 de 8',
-    description: 'Ecosistema de bolsas de empleo, portales remotos en USD, Google Dorks y mercado oculto.',
+    description: 'Los 3 canales del mercado, Directorio Actualizado en Documentos, búsquedas avanzadas y mercado oculto.',
     icon: 'Compass',
     colorScheme: {
       primary: '#7C3AED',
@@ -164,8 +164,8 @@ export const eblCards: EblDashboardCard[] = [
     completedSteps: 0,
     badge: 'Pendiente',
     features: [
-      { iconName: 'Globe', label: 'Directorio de Portales & Consultoras' },
-      { iconName: 'Search', label: 'Comandos de Búsqueda Avanzada Google' },
+      { iconName: 'Globe', label: 'Los 3 Canales del Mercado Laboral' },
+      { iconName: 'Search', label: 'Comandos de Búsqueda Avanzada & ATS' },
     ],
     quickActionLabel: 'Explorar Módulo 5',
     targetView: 'modulo-donde-buscar',

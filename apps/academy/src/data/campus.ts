@@ -1699,35 +1699,35 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Dónde buscar ofertas',
         lessonNumber: 1,
         type: 'video',
-        title: 'Portales de empleo y consultoras',
-        duration: '6 min',
-        videoDuration: '3:45 min',
+        title: 'Dónde buscar ofertas: los canales del mercado laboral',
+        duration: '5 min',
+        videoDuration: '3:30 min',
         completed: false,
         description:
-          'Dónde buscar según tu perfil: bolsas masivas de Sudamérica, plataformas de trabajo remoto internacional en USD y consultoras.',
+          'Conocé los tres grandes canales de búsqueda (generalistas, especializados y consultoras) y cómo diversificar tus fuentes con el Directorio Actualizado en Documentos.',
         takeaways: [
-          'Los 3 canales principales: Bolsas masivas líderes (Computrabajo, Indeed, Bumeran), portales de trabajo remoto global (Wellfound, RemoteOK, Torre) y consultoras de headhunting.',
-          'Estrategia pan-regional: Enfocar la búsqueda en las plataformas líderes según si buscás rol local corporativo o trabajo remoto internacional en USD.',
-          'Automatización con alertas inteligentes: Configurar filtros exactos por correo para que las vacantes lleguen a tu bandeja de entrada sin scrolling manual.',
+          'El mercado laboral está distribuido: no existe una única plataforma donde se publiquen todas las búsquedas.',
+          'Los 3 canales clave: Portales de empleo generalistas, plataformas especializadas y consultoras de selección / headhunters.',
+          'Estrategia viva y dinámica: Acceder al Directorio Actualizado en la sección de Documentos para consultar opciones vigentes sin depender de nombres estáticos en el video.',
         ],
         actionItems: [
           {
             id: 'act-dnd-1-1',
-            title: 'Consultar el Directorio de Portales en Documentos',
-            description: 'Revisá el listado interactivo con enlaces directos a las plataformas líderes del mercado.',
+            title: 'Consultar el Directorio en Documentos',
+            description: 'Explorá el Directorio Actualizado de Portales y Consultoras organizado por categorías.',
           },
           {
             id: 'act-dnd-1-2',
-            title: 'Configurar 3 alertas automáticas de empleo',
-            description: 'Activá filtros por cargo y modalidad en los portales seleccionados para tu perfil.',
+            title: 'Identificar tus canales prioritarios',
+            description: 'Definí qué mezcla de canales generalistas, especializados y consultoras se adapta mejor a tu perfil.',
           },
         ],
         mindsetPrompt:
-          'Postularte en diez portales al azar genera dispersión: el secreto está en elegir los dos o tres canales donde realmente contratan tu especialidad.',
+          'El objetivo no es memorizar nombres de páginas que pueden cambiar con el tiempo, sino entender cómo está distribuido el mercado laboral para ampliar tus oportunidades.',
         resources: [
           {
             id: 'directorio-portales-empleo-remoto',
-            title: 'Directorio de Portales de Empleo y Consultoras de Selección',
+            title: 'Directorio Actualizado de Portales y Consultoras',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
@@ -1735,48 +1735,58 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
             category: 'Directorio',
-            description: 'Listado actualizado con enlaces directos a bolsas de empleo en Sudamérica, plataformas de trabajo remoto en USD y consultoras.',
+            description: 'Listado dinámico y actualizado organizado por categorías: portales generalistas, especializados y consultoras de selección.',
             isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ No todas las plataformas de empleo sirven para todos los perfiles.
-🏷️ Estrategia de Canales: Dónde está tu rol objetivo 🗺️🎯
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y CONEXIÓN CON EL PROCESO]
+🗣️ Hasta acá ya definimos nuestro objetivo laboral, trabajamos nuestro CV y optimizamos LinkedIn. Ahora llega el momento de ampliar nuestra búsqueda y entender dónde podemos encontrar oportunidades.
+🏷️ Ampliar la Búsqueda: Dónde encontrar oportunidades 🗺️💼
 🔊 Swoosh suave
-🗣️ Si estás buscando un puesto remoto internacional o una posición ejecutiva en portales locales generalistas, estás perdiendo tiempo y energía valiosa.
-🏷️ El error de buscar en plataformas equivocadas ⏱️⚠️
+🗣️ Y algo importante: no existe un único lugar donde estén publicadas todas las búsquedas laborales.
+🏷️ El mercado laboral está distribuido 🌐
 🔊 Pop sutil
-🖼️ Placa comparativa mostrando: Portales Masivos Locales vs. Plataformas Remotas Globales vs. Consultoras de Selección.
-🗣️ En esta clase vamos a mapear los tres grandes canales del mercado laboral para que sepas exactamente en qué plataformas enfocarte y cómo automatizar alertas inteligentes.
-🏷️ Mapa del Mercado: Bolsas Locales · Remoto USD · Consultoras 🏢🌐
+🗣️ Hay oportunidades que aparecen en grandes portales de empleo, otras en plataformas especializadas y otras que son gestionadas directamente por consultoras de selección.
+🏷️ 3 Canales: Portales Generalistas · Plataformas Especializadas · Consultoras 🏢
+🔊 Pop de confirmación
+🗣️ Por eso, en esta clase vamos a conocer los tres grandes canales de búsqueda y para qué sirve cada uno.
+🏷️ Mapa de los Canales del Mercado Laboral 🗺️🎯
+🔊 Swoosh suave
+
+[1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS TRES GRANDES CANALES]
+🗣️ El primer canal son los portales de empleo generalistas.
+🗣️ Son plataformas que concentran búsquedas de muchas empresas, industrias y niveles de experiencia. Suelen reunir oportunidades presenciales, híbridas y también algunas remotas.
+🏷️ 1. Portales Generalistas: Concentración de empresas y niveles 🏢🌎
+🔊 Click sutil
+🗣️ El segundo canal son las plataformas especializadas.
+🗣️ Algunas se enfocan en determinadas modalidades, industrias, perfiles profesionales o mercados internacionales. Son útiles para ampliar la búsqueda más allá de los portales tradicionales.
+🏷️ 2. Plataformas Especializadas: Modalidad, industria y perfiles 🌐💻
+🔊 Click sutil
+🗣️ El tercer canal son las consultoras de selección y headhunters.
+🗣️ Muchas empresas delegan sus procesos de búsqueda y selección en consultoras externas. Por eso, algunas oportunidades pueden llegar a través de estos intermediarios y no necesariamente desde una publicación directa de la empresa.
+🏷️ 3. Consultoras de Selección & Headhunters: Procesos delegados 👥📁
+🔊 Click sutil
+🗣️ La clave no es elegir un solo canal. Es entender que el mercado laboral está distribuido y que ampliar las fuentes de búsqueda también amplía las posibilidades de encontrar oportunidades.
+🏷️ Clave: Diversificar y ampliar tus fuentes de búsqueda 🚀📊
 🔊 Pop de confirmación
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CANALES EN SUDAMÉRICA Y PLATAFORMAS REMOTAS]
-🗣️ Para ordenar tu búsqueda vamos a dividir las plataformas en tres grandes canales según tu objetivo:
-🗣️ Primero, las bolsas de empleo masivas líderes en toda la región, como Computrabajo, Indeed, Bumeran, Laborum o Multitrabajos, ideales para puestos presenciales, híbridos o empresas corporativas tradicionales de tu país.
-🏷️ 1. Bolsas Líderes en Sudamérica: Computrabajo · Indeed · Bumeran · Laborum 🏢🌎
-🔊 Swoosh suave
-🗣️ Segundo, los portales de nicho y trabajo remoto global como Wellfound, RemoteOK, Torre o We Work Remotely, si tu objetivo es trabajar para startups, el sector digital o cobrar en dólares desde cualquier lugar de Latinoamérica.
-🏷️ 2. Portales Remotos Globales (USD): Wellfound · RemoteOK · Torre 🌐💵
-🔊 Click sutil
-🖼️ Captura flotante mostrando plataformas de trabajo remoto internacional con salarios en USD.
-🗣️ Y tercero, las consultoras de selección y agencias de headhunting internacionales como PageGroup, Randstad, Adecco o Hays, donde lo importante es registrar tu perfil en su base de datos interna y conectar con sus recruiters.
-🏷️ 3. Consultoras de Selección & Headhunters: Carga en Base Interna 👥📁
-🔊 Click sutil
-🗣️ Tené en cuenta que estas plataformas son las más activas a mediados de 2026, pero el mercado digital evoluciona constantemente:
-🗣️ Por eso, en la sección de Documentos de esta clase tenés el Directorio de Portales de Empleo con el listado completo y actualizado con los enlaces directos.
-🏷️ Documentos: Directorio Actualizado de Portales & Consultoras 📥🗺️
+[2:30 - SECCIÓN 3: RECURSO ACTUALIZABLE EN LA SECCIÓN DE DOCUMENTOS]
+🗣️ Como estas plataformas, consultoras y sitios pueden cambiar con el tiempo, no voy a darte una lista cerrada dentro de esta clase.
+🏷️ Contenido Siempre Actualizado 🔄✨
 🔊 Pop sutil
-🖼️ Captura flotante del directorio interactivo in-app clasificado por país y modalidad.
-🗣️ Y para no perder horas abriendo diez sitios web todos los días, configurá alertas inteligentes por correo con tu cargo y modalidad: dejá que las vacantes lleguen a tu bandeja de entrada de forma automática.
-🏷️ Automatización: Alertas Inteligentes por Correo 📬⚙️
+🗣️ En la sección de Documentos vas a encontrar un Directorio Actualizado de Portales y Consultoras, organizado por categorías, para que puedas consultar las opciones disponibles al momento en que estés realizando el curso.
+🏷️ Documentos: Directorio Actualizado de Portales y Consultoras 📥📋
+🔊 Click sutil
+🖼️ Captura flotante del Directorio Interactivo In-App organizado por categorías.
+🗣️ De esta manera, el objetivo no es que memorices nombres de páginas, sino que entiendas qué tipos de canales existen y dónde podés ampliar tu búsqueda.
+🏷️ Comprensión de Canales vs. Memorizar Páginas 💡🎯
 🔊 Pop de confirmación
 
-[4:40 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ En la próxima clase vamos a ir un paso más allá de los portales:
-🗣️ Te voy a enseñar cómo hacer búsquedas avanzadas con comandos en Google para encontrar ofertas ocultas y cómo aprovechar comunidades profesionales para enterarte antes que nadie.
-🏷️ Próxima clase: Búsquedas avanzadas en Google y comunidades 🔍🌐
+[3:15 - SECCIÓN 4: CIERRE Y PRÓXIMO PASO]
+🗣️ Ahora que ya conocemos los principales canales donde pueden aparecer oportunidades, en la próxima clase vamos a ir un paso más allá:
+🗣️ Vamos a aprender a encontrar búsquedas que no siempre aparecen de manera evidente en los portales tradicionales.
+🏷️ Próxima clase: Búsquedas que no aparecen en portales tradicionales 🔍🌐
 🔊 Fin de lección suave`,
       },
       {
