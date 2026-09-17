@@ -39,6 +39,21 @@ export function CampusModuleCelebration({
   membershipTier = 'paid',
 }: CampusModuleCelebrationProps) {
   const isExperience = program.type === 'experiencia';
+  const [certDateStr, setCertDateStr] = React.useState('17 de septiembre de 2026');
+
+  React.useEffect(() => {
+    try {
+      setCertDateStr(
+        new Date().toLocaleDateString('es-AR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })
+      );
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const handleDownloadCertificate = () => {
     // Generate an instant simulation download of the certificate
@@ -83,13 +98,7 @@ export function CampusModuleCelebration({
                 <Sparkles size={16} />
                 <span>CERTIFICACIÓN OFICIAL ACADÉMICA</span>
               </div>
-              <span className={styles.certDate}>
-                {new Date().toLocaleDateString('es-AR', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric',
-                })}
-              </span>
+              <span className={styles.certDate}>{certDateStr}</span>
             </div>
 
             <div className={styles.certBody}>

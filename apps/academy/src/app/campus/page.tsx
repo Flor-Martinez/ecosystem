@@ -58,23 +58,7 @@ function CampusContent() {
   });
 
   // Dedicated Dev Mode Switch: allows viewing recording scripts & unlocking all lessons
-  const [isDevMode, setIsDevMode] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('campus_is_dev_mode');
-      return saved === 'false' ? false : true; // Default true for editing/filming workflow!
-    }
-    return true;
-  });
-
-  const handleToggleDevMode = () => {
-    setIsDevMode((prev) => {
-      const next = !prev;
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('campus_is_dev_mode', String(next));
-      }
-      return next;
-    });
-  };
+  const [isDevMode, setIsDevMode] = useState<boolean>(true);
 
   // Catalog Explorer Modal state
   const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
@@ -86,19 +70,36 @@ function CampusContent() {
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
 
   // Synchronized Favorites across Tablero and Navbar Herramientas dropdown
-  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        const saved = localStorage.getItem('campus_ebl_favorites');
-        if (saved) {
-          return new Set(JSON.parse(saved));
-        }
-      } catch {
-        // ignore
+  const [favoriteIds, setFavoriteIds] = useState<Set<string>>(
+    () => new Set(['tool-recursos', 'tool-tracker'])
+  );
+
+  // Hydrate user preferences from localStorage on mount
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const savedDevMode = localStorage.getItem('campus_is_dev_mode');
+      if (savedDevMode !== null) {
+        setIsDevMode(savedDevMode !== 'false');
       }
+      const savedFavs = localStorage.getItem('campus_ebl_favorites');
+      if (savedFavs) {
+        setFavoriteIds(new Set(JSON.parse(savedFavs)));
+      }
+    } catch {
+      // ignore
     }
-    return new Set(['tool-recursos', 'tool-tracker']);
-  });
+  }, []);
+
+  const handleToggleDevMode = () => {
+    setIsDevMode((prev) => {
+      const next = !prev;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('campus_is_dev_mode', String(next));
+      }
+      return next;
+    });
+  };
 
   const handleToggleFavorite = (id: string) => {
     if (membershipTier === 'free') return;
