@@ -2,7 +2,7 @@ export interface DocumentSection {
   id: string;
   title: string;
   subtitle?: string;
-  content: string;
+  content?: string;
   callout?: {
     type: 'tip' | 'warning' | 'formula' | 'quote';
     text: string;
@@ -523,6 +523,179 @@ HABILIDADES & HERRAMIENTAS
             ['Randstad', 'Perfiles profesionales, logística, operaciones y comerciales', 'Revisar portal de empleos semanalmente'],
             ['Adecco / Manpower', 'Volumen operativo, mandos iniciales e intermedios', 'Registro en base de datos nacional'],
             ['Hays', 'Perfiles técnicos y de alta especialización', 'Seguir a sus líderes de práctica en LinkedIn'],
+          ],
+        },
+      },
+    ],
+  },
+  'plantilla-registro-empresas-objetivo': {
+    id: 'plantilla-registro-empresas-objetivo',
+    slug: 'plantilla-registro-empresas-objetivo',
+    title: 'Plantilla de Registro de Sitios de Empleo de Empresas Objetivo',
+    category: 'Empresas Objetivo',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Plantilla In-App',
+    estimatedReadTime: '4 min de aplicación',
+    summary:
+      'Planilla estructurada para auditar y registrar los portales de talento, sistemas ATS y opciones de perfil de tus 15 empresas objetivo del Módulo 1.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'registro-sistemas-carreras',
+        title: '1. Registro de Ecosistemas de Contratación de Empresas Target',
+        subtitle: 'Auditoría de cómo contrata cada una de tus 15 empresas',
+        content:
+          'Completá esta tabla ingresando a la web oficial de cada empresa de tu lista del Módulo 1:',
+        tableData: {
+          headers: ['#', 'Empresa Objetivo', 'URL de Carreras / Trabaja con Nosotros', 'Sistema (ATS propio / Base / Formulario)', '¿Permite Alertas?'],
+          rows: [
+            ['1', 'Mercado Libre', 'mercadolibre.com/careers', 'Portal propio con perfil', 'Sí (Por área y país)'],
+            ['2', 'Globant', 'globant.com/careers', 'Base de talentos global', 'Sí (Alertas por rol)'],
+            ['3', 'Auth0 / Okta', 'okta.com/company/careers', 'Software ATS (Greenhouse)', 'Sí (Notificaciones por correo)'],
+            ['4', '[Tu Empresa 4]', 'https://...', 'Portal propio / Formulario', 'Pendiente de registrar'],
+            ['5', '[Tu Empresa 5]', 'https://...', 'Portal propio / Formulario', 'Pendiente de registrar'],
+          ],
+        },
+      },
+      {
+        id: 'preguntas-auditoria-empresas',
+        title: '2. Checklist de Preguntas para la Auditoría de Carrera',
+        subtitle: 'Qué verificar al ingresar a la web de la empresa',
+        content:
+          'Utilizá este checklist cada vez que navegues el sitio oficial de una empresa target para no perder oportunidades de postulación:',
+        checklistItems: [
+          {
+            id: 'chk-car-1',
+            text: '¿Tiene un portal de carreras propio o deriva a un formulario externo?',
+            description: 'Identificar si tienen plataforma dedicada o reciben CV por correo.',
+          },
+          {
+            id: 'chk-car-2',
+            text: '¿Permite crear un perfil de candidato y cargar CV en su base de talentos?',
+            description: 'Aunque no haya vacante hoy, registrar el perfil para futuras búsquedas.',
+          },
+          {
+            id: 'chk-car-3',
+            text: '¿Permite configurar alertas automáticas por país, área o modalidad?',
+            description: 'Activar avisos para recibir notificaciones inmediatas ante nuevas aperturas.',
+          },
+        ],
+      },
+    ],
+  },
+  'guia-fuentes-no-tradicionales': {
+    id: 'guia-fuentes-no-tradicionales',
+    slug: 'guia-fuentes-no-tradicionales',
+    title: 'Guía de Fuentes No Tradicionales y Búsqueda Estratégica',
+    category: 'Estrategias de Búsqueda',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Guía de Estrategia',
+    estimatedReadTime: '4 min de consulta',
+    summary:
+      'Estrategias para descubrir vacantes fuera de las bolsas masivas: cámaras empresariales, asociaciones, ferias y combinación estratégica de términos en buscadores.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'canales-no-tradicionales-principales',
+        title: '1. Los 4 Canales No Tradicionales de Alta Efectividad',
+        subtitle: 'Dónde buscar cuando querés evitar la sobrepoblación de postulantes',
+        content:
+          '• **Cámaras y Asociaciones Sectoriales:** Cámaras de comercio bilateral (AmCham, Cámara Franco-Argentina, etc.), cámaras industriales y colegios profesionales que tienen bolsas internas.\n' +
+          '• **Ferias y Congresos Profesionales:** Eventos presenciales o virtuales organizados por universidades, cámaras o polos tecnológicos.\n' +
+          '• **Comunidades y Espacios de Nicho:** Grupos en Slack, Discord o newsletters temáticos donde líderes de área publican avisos antes de abrir procesos masivos.\n' +
+          '• **Búsqueda Estratégica en Internet:** Combinaciones específicas de términos en buscadores web para encontrar portales de empleo directo.',
+      },
+      {
+        id: 'combinaciones-busqueda-estrategica',
+        title: '2. Combinaciones Clave para Buscadores Web',
+        subtitle: 'Fórmulas para encontrar portales de carreras de empresas',
+        content:
+          'Utilizá estas combinaciones booleanas y de palabras clave directamente en Google para descubrir páginas de carreras y vacantes directas no indexadas en portales masivos:',
+        tableData: {
+          headers: ['Objetivo de Búsqueda', 'Combinación de Términos'],
+          rows: [
+            ['Páginas de carreras por puesto y país', '"[Tu Puesto]" ("trabaja con nosotros" OR "oportunidades laborales") "[País]"'],
+            ['Vacantes en startups o empresas de nicho', '"[Tu Puesto]" ("careers" OR "jobs") ("remoto" OR "remote") "[Región]"'],
+            ['Bolsas de empleo de asociaciones', '"bolsa de trabajo" OR "oportunidades" "[Tu Profesión o Industria]"'],
+          ],
+        },
+      },
+    ],
+  },
+  'mapa-fuentes-laborales': {
+    id: 'mapa-fuentes-laborales',
+    slug: 'mapa-fuentes-laborales',
+    title: '🗺️ Mi Mapa de Fuentes Laborales',
+    category: 'Ecosistema de Búsqueda',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 5,
+    badge: 'Herramienta Troncal In-App',
+    estimatedReadTime: '5 min de aplicación',
+    summary:
+      'Tu ecosistema personalizado de búsqueda laboral en 4 cuadrantes: portales relevantes para tu perfil, empresas objetivo con sus sitios de carrera, consultoras/headhunters de tu sector y fuentes especializadas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (Plantilla Activa)',
+    sections: [
+      {
+        id: 'cuadrante-1-portales',
+        title: '1. Cuadrante 1: Portales de Empleo Seleccionados',
+        subtitle: 'Solo aquellas plataformas que tienen vacantes reales para tu perfil y modalidad',
+        content:
+          'Completá tus portales clave (generales o de nicho) y la frecuencia con la que vas a revisarlos o activar alertas:',
+        tableData: {
+          headers: ['Portal de Empleo', 'Tipo (General / Especializado)', 'Modalidad / Región', 'Frecuencia de Revisión'],
+          rows: [
+            ['[Ej. Portal Generalista]', 'Generalista', 'Híbrido / Presencial (Nacional)', 'Alertas automáticas activas'],
+            ['[Ej. Portal Remoto Tech / Digital]', 'Especializado en Remoto', 'Remoto Global (USD / EUR)', 'Martes y Jueves'],
+            ['[Ej. Portal de tu Industria / Nicho]', 'Especializado por Sector', 'Nacional / Regional', 'Semanal'],
+          ],
+        },
+      },
+      {
+        id: 'cuadrante-2-empresas-objetivo',
+        title: '2. Cuadrante 2: Empresas Objetivo & Sitios de Carrera',
+        subtitle: 'Tus 15 empresas del Módulo 1 con sus enlaces directos a sus portales de talento',
+        content:
+          'Registrá el enlace directo a la sección de carreras de tus empresas deseadas y el estado de tu postulación o registro en base de talentos:',
+        tableData: {
+          headers: ['Empresa Objetivo', 'Enlace a Carreras / Empleos', '¿Tiene Base de Talentos?', 'Estado'],
+          rows: [
+            ['[Empresa Target 1]', 'https://empresa1.com/careers', 'Sí (Perfil creado)', 'Guardada en radar'],
+            ['[Empresa Target 2]', 'https://empresa2.com/jobs', 'Sí (CV cargado en ATS)', 'Alerta de vacantes activa'],
+            ['[Empresa Target 3]', 'https://empresa3.com/talento', 'No (Monitoreo mensual)', 'Revisión periódica'],
+          ],
+        },
+      },
+      {
+        id: 'cuadrante-3-consultoras',
+        title: '3. Cuadrante 3: Consultoras de Selección & Headhunters',
+        subtitle: 'Firmas de reclutamiento que intermedian en tu industria, seniority o especialidad',
+        content:
+          'Mapeá las consultoras que gestionan procesos confidenciales o tercerizados en tu área:',
+        tableData: {
+          headers: ['Consultora / Agencia', 'Especialidad / Seniority', 'Acción Realizada', 'Contacto / Recruiter'],
+          rows: [
+            ['[Consultora Ejecutiva / Mandos Medios]', 'Finanzas, Operaciones, Tech', 'CV registrado en base interna', 'Conexión enviada en LinkedIn'],
+            ['[Consultora Sectorial de tu Rubro]', 'Industria específica', 'Suscripción a newsletter de empleos', 'Seguimiento mensual'],
+          ],
+        },
+      },
+      {
+        id: 'cuadrante-4-fuentes-especializadas',
+        title: '4. Cuadrante 4: Fuentes Especializadas & Canales No Tradicionales',
+        subtitle: 'Cámaras, asociaciones, ferias, comunidades y newsletters de nicho',
+        content:
+          'Tus canales complementarios donde circulan oportunidades que no llegan a los portales masivos:',
+        tableData: {
+          headers: ['Fuente Especializada', 'Tipo de Canal (Cámara / Comunidad / Evento)', 'Cómo acceder', 'Beneficio'],
+          rows: [
+            ['[Colegio / Asociación Profesional]', 'Asociación Profesional', 'Bolsa de trabajo exclusiva miembros', 'Vacantes con poca competencia'],
+            ['[Comunidad en Slack / Discord]', 'Comunidad Profesional', 'Canal #jobs / #oportunidades', 'Contacto directo con líderes'],
+            ['[Feria Laboral / Congreso Anual]', 'Evento del Sector', 'Asistencia anual / networking', 'Descubrimiento de empresas nuevas'],
           ],
         },
       },

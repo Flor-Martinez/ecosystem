@@ -148,9 +148,9 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 5,
     moduleStepLabel: 'MÓDULO 05',
-    title: 'Dónde Buscar Ofertas & Canales',
+    title: '¿Dónde encontrar oportunidades laborales?',
     subtitle: 'Ruta Troncal · Paso 5 de 8',
-    description: 'Los 3 canales del mercado, Directorio Actualizado en Documentos, búsquedas avanzadas y mercado oculto.',
+    description: 'Construí tu mapa de fuentes laborales en 4 cuadrantes: portales, empresas objetivo, consultoras y canales de nicho.',
     icon: 'Compass',
     colorScheme: {
       primary: '#7C3AED',
@@ -164,8 +164,8 @@ export const eblCards: EblDashboardCard[] = [
     completedSteps: 0,
     badge: 'Pendiente',
     features: [
-      { iconName: 'Globe', label: 'Los 3 Canales del Mercado Laboral' },
-      { iconName: 'Search', label: 'Comandos de Búsqueda Avanzada & ATS' },
+      { iconName: 'Globe', label: '4 Canales & Búsqueda Estratégica' },
+      { iconName: 'Map', label: '🗺️ Mi Mapa de Fuentes Laborales (In-App)' },
     ],
     quickActionLabel: 'Explorar Módulo 5',
     targetView: 'modulo-donde-buscar',

@@ -1674,60 +1674,55 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ ¡Completaste el Módulo N°4! Tu perfil de LinkedIn está optimizado y tenés las herramientas para generar visibilidad y contactos estratégicos. En el Módulo N°5 expandimos el radar: vamos a dominar los mejores portales de empleo y plataformas remotas internacionales.
 🏷️ Hito: Módulo 04 Completado (LinkedIn Estratégico) 🌐🏆
 🔊 Pop de confirmación
-🏷️ Próximo: Módulo 05 — Dónde buscar ofertas 🗺️💼
+🏷️ Próximo: Módulo 05 — ¿Dónde encontrar oportunidades laborales? 🗺️💼
 🔊 Fin de lección suave`,
       },
     ],
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 5: DÓNDE BUSCAR OFERTAS (4 CLASES)
+  // MÓDULO 5: ¿DÓNDE ENCONTRAR OPORTUNIDADES LABORALES? (4 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-5',
     programId: 'exp-busqueda-laboral',
     number: 5,
-    title: 'Dónde buscar ofertas',
-    tagline: 'Dominá el mapa de portales de empleo y descubrí vacantes ocultas antes que la competencia',
-    totalDuration: '24 min · 4 clases',
+    title: '¿Dónde encontrar oportunidades laborales?',
+    tagline: 'Construí tu propio mapa de fuentes laborales y descubrí vacantes en portales, empresas, consultoras y canales especializados',
+    totalDuration: '25 min · 4 clases',
     lessons: [
       {
         id: 'exp-dnd-01',
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-5',
         moduleNumber: 5,
-        moduleTitle: 'Dónde buscar ofertas',
+        moduleTitle: '¿Dónde encontrar oportunidades laborales?',
         lessonNumber: 1,
         type: 'video',
-        title: 'Dónde buscar ofertas: los canales del mercado laboral',
-        duration: '5 min',
-        videoDuration: '3:30 min',
+        title: 'No todas las oportunidades están en el mismo lugar',
+        duration: '6 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
-          'Conocé los tres grandes canales de búsqueda (generalistas, especializados y consultoras) y cómo diversificar tus fuentes con el Directorio Actualizado en Documentos.',
+          'Dejá de buscar en un solo sitio: descubrí los cuatro grandes grupos de fuentes laborales (portales, empresas, consultoras y canales especializados) y cómo diversificar tu búsqueda.',
         takeaways: [
-          'El mercado laboral está distribuido: no existe una única plataforma donde se publiquen todas las búsquedas.',
-          'Los 3 canales clave: Portales de empleo generalistas, plataformas especializadas y consultoras de selección / headhunters.',
-          'Estrategia viva y dinámica: Acceder al Directorio Actualizado en la sección de Documentos para consultar opciones vigentes sin depender de nombres estáticos en el video.',
+          'El mercado laboral está distribuido: concentrar toda la búsqueda en un solo portal limita drásticamente tus posibilidades reales.',
+          'Los 4 grandes grupos de fuentes: Portales de empleo, sitios de carrera de empresas, consultoras/headhunters y fuentes especializadas.',
+          'Recurso vivo y complementario: El Directorio Actualizado en Documentos te permite consultar plataformas vigentes sin depender de nombres fijos en el video.',
         ],
         actionItems: [
           {
             id: 'act-dnd-1-1',
-            title: 'Consultar el Directorio en Documentos',
-            description: 'Explorá el Directorio Actualizado de Portales y Consultoras organizado por categorías.',
-          },
-          {
-            id: 'act-dnd-1-2',
-            title: 'Identificar tus canales prioritarios',
-            description: 'Definí qué mezcla de canales generalistas, especializados y consultoras se adapta mejor a tu perfil.',
+            title: 'Explorar el Directorio en Documentos',
+            description: 'Revisá el Directorio de Portales y Recursos para familiarizarte con las categorías disponibles.',
           },
         ],
         mindsetPrompt:
-          'El objetivo no es memorizar nombres de páginas que pueden cambiar con el tiempo, sino entender cómo está distribuido el mercado laboral para ampliar tus oportunidades.',
+          'Dejá de preguntarte "¿cuál es la mejor página?" y empezá a preguntarte "¿cuáles son las fuentes relevantes para mi perfil?".',
         resources: [
           {
             id: 'directorio-portales-empleo-remoto',
-            title: 'Directorio Actualizado de Portales y Consultoras',
+            title: 'Directorio Actualizado de Portales y Recursos',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
@@ -1735,58 +1730,61 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
             category: 'Directorio',
-            description: 'Listado dinámico y actualizado organizado por categorías: portales generalistas, especializados y consultoras de selección.',
+            description: 'Listado dinámico y clasificado de plataformas de empleo en Sudamérica, portales de nicho y trabajo remoto global, y consultoras de selección / headhunters.',
             isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y CONEXIÓN CON EL PROCESO]
-🗣️ Hasta acá ya definimos nuestro objetivo laboral, trabajamos nuestro CV y optimizamos LinkedIn. Ahora llega el momento de ampliar nuestra búsqueda y entender dónde podemos encontrar oportunidades.
-🏷️ Ampliar la Búsqueda: Dónde encontrar oportunidades 🗺️💼
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y CAMBIO DE MENTALIDAD]
+🗣️ ¡Hola a todos! Hasta acá ya definimos qué tipo de trabajo estamos buscando, preparamos nuestro CV y trabajamos nuestro perfil de LinkedIn.
+🏷️ Siguiente Paso: Dónde encontrar oportunidades 🗺️💼
 🔊 Swoosh suave
-🗣️ Y algo importante: no existe un único lugar donde estén publicadas todas las búsquedas laborales.
-🏷️ El mercado laboral está distribuido 🌐
+🗣️ Ahora viene una pregunta fundamental: ¿Dónde encontramos las oportunidades?
+🏷️ Pregunta Clave: ¿Dónde están las vacantes? ❓
 🔊 Pop sutil
-🗣️ Hay oportunidades que aparecen en grandes portales de empleo, otras en plataformas especializadas y otras que son gestionadas directamente por consultoras de selección.
-🏷️ 3 Canales: Portales Generalistas · Plataformas Especializadas · Consultoras 🏢
+🗣️ Uno de los errores más comunes es concentrar toda la búsqueda laboral en un solo lugar. Entramos siempre al mismo portal, hacemos una búsqueda rápida, vemos qué apareció y sentimos que esas son todas las oportunidades que existen.
+🏷️ El error de depender de un único portal ⚠️📉
+🔊 Pop sutil
+🗣️ Pero el mercado laboral funciona de una manera mucho más amplia. Una oportunidad puede aparecer en un portal de empleo, directamente en la página de una empresa, a través de una consultora de selección o en una fuente especializada de tu industria.
+🏷️ Mercado Distribuido: Portales · Empresas · Consultoras · Especializadas 🌐
 🔊 Pop de confirmación
-🗣️ Por eso, en esta clase vamos a conocer los tres grandes canales de búsqueda y para qué sirve cada uno.
-🏷️ Mapa de los Canales del Mercado Laboral 🗺️🎯
+🗣️ Por eso, quiero que a partir de ahora dejes de pensar: "¿Cuál es la mejor página para buscar trabajo?"... y empieces a pensar: "¿Cuáles son las fuentes que tengo que revisar para encontrar oportunidades relacionadas con mi perfil?".
+🏷️ Cambio de Enfoque: Fuentes relevantes para tu perfil 💡🎯
 🔊 Swoosh suave
 
-[1:00 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS TRES GRANDES CANALES]
-🗣️ El primer canal son los portales de empleo generalistas.
-🗣️ Son plataformas que concentran búsquedas de muchas empresas, industrias y niveles de experiencia. Suelen reunir oportunidades presenciales, híbridas y también algunas remotas.
-🏷️ 1. Portales Generalistas: Concentración de empresas y niveles 🏢🌎
+[1:15 - SECCIÓN 2: DESARROLLO — LOS 4 GRANDES GRUPOS DE FUENTES]
+🗣️ Vamos a dividir estas fuentes en cuatro grandes grupos:
+🗣️ Primero, los portales de empleo. Son sitios que concentran búsquedas de distintas empresas y sectores. Algunos son generales y otros están especializados en determinadas industrias, perfiles o modalidades de trabajo.
+🏷️ 1. Portales de Empleo: Generales y especializados 🏢💻
 🔊 Click sutil
-🗣️ El segundo canal son las plataformas especializadas.
-🗣️ Algunas se enfocan en determinadas modalidades, industrias, perfiles profesionales o mercados internacionales. Son útiles para ampliar la búsqueda más allá de los portales tradicionales.
-🏷️ 2. Plataformas Especializadas: Modalidad, industria y perfiles 🌐💻
+🗣️ Segundo, los portales de carrera de las propias empresas. Muchas organizaciones tienen dentro de su página web una sección específica donde publican sus oportunidades laborales.
+🏷️ 2. Portales de Carrera: Publicaciones directas de empresas 💼🌐
 🔊 Click sutil
-🗣️ El tercer canal son las consultoras de selección y headhunters.
-🗣️ Muchas empresas delegan sus procesos de búsqueda y selección en consultoras externas. Por eso, algunas oportunidades pueden llegar a través de estos intermediarios y no necesariamente desde una publicación directa de la empresa.
-🏷️ 3. Consultoras de Selección & Headhunters: Procesos delegados 👥📁
+🗣️ Tercero, las consultoras de selección y headhunters. Hay empresas que tercerizan parte o todo su proceso de selección. Por eso, determinadas oportunidades son gestionadas por consultoras y no aparecen publicadas directamente por la empresa contratante.
+🏷️ 3. Consultoras & Headhunters: Procesos tercerizados 👥📁
 🔊 Click sutil
-🗣️ La clave no es elegir un solo canal. Es entender que el mercado laboral está distribuido y que ampliar las fuentes de búsqueda también amplía las posibilidades de encontrar oportunidades.
-🏷️ Clave: Diversificar y ampliar tus fuentes de búsqueda 🚀📊
+🗣️ Y cuarto, las fuentes especializadas. Dependiendo de tu profesión o industria, pueden existir bolsas de empleo específicas, asociaciones profesionales, universidades, cámaras empresariales o comunidades donde también se difunden oportunidades.
+🏷️ 4. Fuentes Especializadas: Cámaras, asociaciones y comunidades 🏛️💬
 🔊 Pop de confirmación
+🗣️ Entonces, a partir de ahora no vamos a depender de una única fuente: vamos a construir nuestro propio mapa de búsqueda laboral.
+🏷️ Construí tu propio mapa de búsqueda 🗺️🚀
+🔊 Swoosh suave
 
-[2:30 - SECCIÓN 3: RECURSO ACTUALIZABLE EN LA SECCIÓN DE DOCUMENTOS]
-🗣️ Como estas plataformas, consultoras y sitios pueden cambiar con el tiempo, no voy a darte una lista cerrada dentro de esta clase.
+[2:40 - SECCIÓN 3: RECURSO ACTUALIZABLE EN DOCUMENTOS]
+🗣️ Y algo importante: no voy a darte en este video una lista cerrada de páginas, porque las plataformas cambian, aparecen nuevas y otras pueden dejar de funcionar.
 🏷️ Contenido Siempre Actualizado 🔄✨
 🔊 Pop sutil
-🗣️ En la sección de Documentos vas a encontrar un Directorio Actualizado de Portales y Consultoras, organizado por categorías, para que puedas consultar las opciones disponibles al momento en que estés realizando el curso.
-🏷️ Documentos: Directorio Actualizado de Portales y Consultoras 📥📋
+🗣️ Por eso, dentro de los Documentos de esta clase vas a encontrar un Directorio Actualizado de Portales y Recursos, que vas a poder consultar como complemento.
+🏷️ Documentos: Directorio Actualizado de Portales y Recursos 📥📋
 🔊 Click sutil
-🖼️ Captura flotante del Directorio Interactivo In-App organizado por categorías.
-🗣️ De esta manera, el objetivo no es que memorices nombres de páginas, sino que entiendas qué tipos de canales existen y dónde podés ampliar tu búsqueda.
-🏷️ Comprensión de Canales vs. Memorizar Páginas 💡🎯
+🖼️ Captura flotante mostrando el Directorio Interactivo In-App con las distintas categorías de plataformas.
+🗣️ Lo importante de esta clase no es que memorices nombres: lo importante es que entiendas dónde pueden estar las oportunidades y que aprendas a diversificar tu búsqueda.
+🏷️ Comprensión Estratégica vs. Memorizar Páginas 🎯💡
 🔊 Pop de confirmación
 
-[3:15 - SECCIÓN 4: CIERRE Y PRÓXIMO PASO]
-🗣️ Ahora que ya conocemos los principales canales donde pueden aparecer oportunidades, en la próxima clase vamos a ir un paso más allá:
-🗣️ Vamos a aprender a encontrar búsquedas que no siempre aparecen de manera evidente en los portales tradicionales.
-🏷️ Próxima clase: Búsquedas que no aparecen en portales tradicionales 🔍🌐
+[3:25 - SECCIÓN 4: CIERRE Y PRÓXIMO PASO]
+🗣️ En la próxima clase vamos a trabajar con algo que ya hicimos al comienzo del curso: tu lista de empresas objetivo. Y vamos a convertir esa lista en una fuente concreta de oportunidades.
+🏷️ Próxima clase: Buscá oportunidades directamente en tus empresas objetivo 🏢🎯
 🔊 Fin de lección suave`,
       },
       {
@@ -1794,85 +1792,91 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-5',
         moduleNumber: 5,
-        moduleTitle: 'Dónde buscar ofertas',
+        moduleTitle: '¿Dónde encontrar oportunidades laborales?',
         lessonNumber: 2,
         type: 'video',
-        title: 'Búsquedas avanzadas en Google y comunidades',
-        duration: '7 min',
-        videoDuration: '3:40 min',
+        title: 'Buscá oportunidades directamente en tus empresas objetivo',
+        duration: '6 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
-          'Cómo utilizar comandos booleanos avanzados en Google para acceder a vacantes en portales ATS de empresas sin publicidad.',
+          'Hacé el camino inverso: cómo transformar tu lista de 15 empresas objetivo del Módulo 1 en fuentes reales de oportunidades e ingresar a sus ecosistemas de contratación.',
         takeaways: [
-          'Comandos clave de Google: `site:greenhouse.io "[puesto]" "[remoto]"`, `site:lever.co`, `site:ashbyhq.com`, `site:workday.com`.',
-          'Comunidades profesionales en Slack, Discord y Telegram donde se comparten vacantes en tiempo real antes de llegar a los portales.',
-          'Ventaja competitiva: Postularse de forma temprana cuando compiten menos de 10 candidatos en lugar de cientos en un portal masivo.',
+          'El camino inverso: Primero identificamos las organizaciones donde queremos trabajar y luego investigamos activamente sus oportunidades.',
+          'Ecosistema de contratación: Evaluar si el sitio de carrera permite crear perfil, cargar CV, sumarse a la base de talentos o activar alertas por país/región.',
+          'Persistencia estratégica: Si hoy no hay vacante activa, registrá tu perfil o conservá la empresa en tu mapa para seguimiento periódico.',
         ],
         actionItems: [
           {
             id: 'act-dnd-2-1',
-            title: 'Probar comandos de búsqueda en Google',
-            description: 'Copiá la sintaxis de la clase y rastreá vacantes directas en software ATS para tu cargo.',
-          },
-          {
-            id: 'act-dnd-2-2',
-            title: 'Unirte a una comunidad profesional',
-            description: 'Sumate a al menos un canal o grupo de tu especialidad en Slack, Discord o Telegram.',
+            title: 'Auditar los sitios de empleo de 3 a 5 empresas objetivo',
+            description: 'Ingresá a la web de tus empresas elegidas, localizá su sección de carreras y registrá si cuentan con base de talentos o alertas.',
           },
         ],
         mindsetPrompt:
-          'Las mejores oportunidades no siempre tienen publicidad: con los comandos adecuados podés acceder a vacantes donde casi no hay competencia.',
+          'No esperes a que una vacante aparezca por azar en un portal: andá a buscar activamente a las empresas en las que querés estar.',
         resources: [
           {
-            id: 'comandos-busqueda-avanzada-google',
-            title: 'Comandos de Búsqueda Avanzada en Google (CheatSheet)',
+            id: 'plantilla-registro-empresas-objetivo',
+            title: 'Plantilla de Registro de Sitios de Empleo de Empresas Objetivo',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 5,
-            category: 'Guía de Comandos',
-            description: 'Plantilla con sintaxis booleanas listas para copiar y pegar en Google para rastrear software ATS.',
+            category: 'Empresas Objetivo',
+            description: 'Planilla estructurada para auditar y registrar los portales de talento, sistemas ATS y opciones de perfil de tus empresas objetivo.',
             isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Las mejores oportunidades laborales suelen ser las que casi nadie ve en los portales masivos.
-🏷️ Vacantes Ocultas en Software de Selección 🔍⚙️
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y CONEXIÓN CON EL MÓDULO 1]
+🗣️ En el primer módulo de esta experiencia te pedí que crearas una lista de 15 empresas en las que realmente te gustaría trabajar.
+🏷️ Reconexión: Tu lista de 15 empresas objetivo 📋🎯
 🔊 Swoosh suave
-🗣️ Muchas empresas publican sus búsquedas directamente en sus propios sistemas internos y no pagan cientos de dólares por publicitar el aviso en bolsas de empleo tradicionales.
-🏷️ Avisos Directos en Greenhouse · Lever · Ashby · Workday 🏢
+🗣️ Ahora vamos a volver a buscar esa lista porque llegó el momento de utilizarla.
+🏷️ De la lista a la acción 🚀
 🔊 Pop sutil
-🖼️ Placa comparativa: 800 postulantes en portal masivo vs. 8 postulantes en el ATS directo de la empresa.
-🗣️ En esta clase te voy a enseñar cómo rastrear estas ofertas ocultas desde el buscador y cómo sumarte a comunidades de tu industria donde se comparten oportunidades en tiempo real.
-🏷️ Búsqueda Avanzada + Comunidades Profesionales 🚀💬
+🗣️ Muchas veces hacemos exactamente al revés: primero encontramos una vacante y recién ahí conocemos la empresa.
+🏷️ El error habitual: Buscar puestos a ciegas ⚠️
+🔊 Pop sutil
+🗣️ Yo quiero enseñarte a hacer el camino contrario: primero identificamos la empresa y después investigamos qué oportunidades tiene.
+🏷️ Estrategia Inversa: Primero la empresa, luego la oportunidad 🏢🔍
 🔊 Pop de confirmación
 
-[1:30 - SECCIÓN 2: DESARROLLO CONCEPTUAL — OPERADORES DE BÚSQUEDA Y COMUNIDADES]
-🗣️ Para encontrar estas publicaciones vamos a usar los comandos avanzados de Google:
-🗣️ Escribiendo el operador 'site:' seguido del dominio del software de selección, le indicamos que busque exclusivamente dentro de las páginas de carreras de las empresas.
-🏷️ 1. Operador 'site:' -> Buscar en Greenhouse · Lever · Ashby 🔍🖥️
-🔊 Swoosh suave
-🖼️ Video flotante mostrando la barra de Google con el comando \`site:greenhouse.io "Supply Chain Analyst" "Remote"\`.
-🗣️ Agregá tu puesto objetivo entre comillas exactas y sumale palabras como 'remoto', 'Latam' o el nombre de tu país para filtrar las vacantes compatibles.
-🏷️ Sintaxis: site:lever.co "[Tu Puesto]" "Remoto" ⌨️🎯
+[1:05 - SECCIÓN 2: DESARROLLO — CÓMO INVESTIGAR EL ECOSISTEMA DE CONTRATACIÓN]
+🗣️ Elegí una de tus empresas objetivo. Ingresá a su página web oficial y buscá su sección de oportunidades laborales.
+🗣️ Puede aparecer con diferentes nombres: empleo, carreras, oportunidades, talento, trabajá con nosotros o expresiones similares.
+🏷️ Secciones clave: Carreras · Empleos · Trabajá con nosotros 🌐💼
 🔊 Click sutil
-🗣️ En la sección de Documentos te dejo la lista completa de comandos listos para copiar, pegar y reemplazar con tu cargo.
-🏷️ Documentos: Comandos Avanzados de Búsqueda 📋📥
+🖼️ Captura de pantalla mostrando cómo ubicar la sección de carreras en el footer o menú principal de una empresa.
+🗣️ Una vez que encuentres esa sección, no mires solamente si hoy existe una vacante abierta para vos: quiero que investigues cómo funciona el sistema de contratación de esa empresa.
+🏷️ Auditoría del Sistema de Contratación 🔍⚙️
 🔊 Pop sutil
-🗣️ La segunda gran fuente son las comunidades profesionales en Slack, Discord o Telegram:
-🗣️ Grupos de diseño, tecnología, ventas B2B o logística donde los líderes de equipo publican vacantes directas y piden recomendaciones antes de abrir los procesos formales.
-🏷️ 2. Comunidades en Slack / Discord: Vacantes Tempranas en Tiempo Real 💬🌐
+🗣️ Hacete estas preguntas: ¿Tiene un portal propio? ¿Permite crear un perfil? ¿Podés cargar tu currículum? ¿Tiene una base de talentos? ¿Permite configurar algún tipo de alerta? ¿Publica oportunidades por país o región?
+🏷️ Checklist: Portal propio · Base de talentos · Alertas por país 📋✅
+🔊 Click sutil
+🗣️ Toda esta información nos ayuda a entender cómo ingresar al ecosistema de contratación de esa compañía.
+🗣️ Y puede pasar que hoy no haya ninguna vacante relacionada con tu perfil: eso no significa que tengamos que eliminar esa empresa de nuestra lista.
+🏷️ Si no hay vacante hoy: ¿Qué hacemos? 💡
+🔊 Pop sutil
+🗣️ Si permite crear un perfil o ingresar a su base de candidatos, hacelo. Y si no tiene ninguna de esas opciones, simplemente conservamos la empresa dentro de nuestro mapa para revisarla periódicamente.
+🏷️ Cargar CV en base interna + Mantener en el radar 👥📁
 🔊 Pop de confirmación
 
-[5:30 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Probá los comandos en Google con tu cargo objetivo y unite a un grupo de tu especialidad.
-🏷️ Búsqueda Avanzada + Red en Comunidades 🚀
-🔊 Pop sutil
-🗣️ En la próxima clase vamos a analizar señales tempranas de contratación y cómo hacer postulaciones espontáneas de alto impacto.
-🏷️ Próxima clase: Detección de búsquedas no publicadas 🎯
+[2:50 - SECCIÓN 3: HERRAMIENTA EN DOCUMENTOS Y ACCIÓN]
+🗣️ Ahora quiero que hagas este ejercicio con tus 15 empresas objetivo. No hace falta hacerlo todo de una vez: lo importante es que empieces a transformar esa lista en fuentes reales de oportunidades.
+🏷️ Práctica: Relevar los portales de empleo de tu lista 📝🏢
+🔊 Swoosh suave
+🗣️ En los Documentos de esta clase vas a encontrar una plantilla para registrar las páginas de empleo de tus empresas objetivo y llevar un control ordenado.
+🏷️ Documentos: Plantilla de Registro de Sitios de Empleo 📥📊
+🔊 Click sutil
+🖼️ Captura flotante de la plantilla interactiva para registrar URLs de carreras y tipos de portal.
+
+[3:25 - SECCIÓN 4: CIERRE Y PRÓXIMO PASO]
+🗣️ En la próxima clase vamos a salir de los caminos más evidentes y aprender a detectar oportunidades que pueden aparecer fuera de los portales tradicionales.
+🏷️ Próxima clase: Cómo encontrar oportunidades fuera de los portales tradicionales 🔍🌐
 🔊 Fin de lección suave`,
       },
       {
@@ -1880,69 +1884,92 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-5',
         moduleNumber: 5,
-        moduleTitle: 'Dónde buscar ofertas',
+        moduleTitle: '¿Dónde encontrar oportunidades laborales?',
         lessonNumber: 3,
         type: 'video',
-        title: 'Cómo detectar búsquedas no publicadas',
-        duration: '5 min',
-        videoDuration: '3:15 min',
+        title: 'Cómo encontrar oportunidades fuera de los portales tradicionales',
+        duration: '6 min',
+        videoDuration: '3:45 min',
         completed: false,
         description:
-          'Señales tempranas de expansión que indican futuras contrataciones antes de que se publiquen avisos oficiales.',
+          'Ampliá tu radar hacia canales no evidentes: organizaciones sectoriales, ferias y congresos, comunidades profesionales y búsquedas estratégicas en Internet.',
         takeaways: [
-          'Identificar rondas de inversión, apertura de mercados y nombramientos de directores en medios y redes de negocios.',
-          'La postulación espontánea de alto valor enfocada en resolver los nuevos desafíos de la de la empresa en expansión.',
-          'Llegar antes de la publicación masiva para iniciar conversaciones directas con líderes de área.',
+          'Fuentes no tradicionales: Cámaras empresariales, asociaciones profesionales, colegios de graduados y universidades.',
+          'Eventos y comunidades: Ferias de empleo, congresos sectoriales, grupos profesionales y newsletters de nicho.',
+          'Búsqueda estratégica en buscadores: Combinar términos clave de rol, sector, ubicación y expresiones de contratación sin depender de fórmulas rígidas.',
         ],
         actionItems: [
           {
             id: 'act-dnd-3-1',
-            title: 'Mapear 2 empresas en expansión',
-            description: 'Identificá organizaciones de tu sector con noticias de crecimiento reciente y sumalas a tu lista.',
-          },
-          {
-            id: 'act-dnd-3-2',
-            title: 'Localizar al líder de área en LinkedIn',
-            description: 'Detectá al responsable del equipo de tu especialidad para proyectar un contacto de valor.',
+            title: 'Identificar 1 fuente no tradicional',
+            description: 'Encontrá al menos una cámara, asociación profesional, evento o comunidad de tu sector y guardá el enlace.',
           },
         ],
         mindsetPrompt:
-          'Los profesionales más cotizados no esperan a que salgan los avisos: detectan las empresas que están creciendo y se presentan en el momento justo.',
-        resources: [],
+          'Una búsqueda más específica y creativa te conecta con vacantes donde la competencia es infinitamente menor.',
+        resources: [
+          {
+            id: 'guia-fuentes-no-tradicionales',
+            title: 'Guía de Fuentes No Tradicionales y Búsqueda Estratégica',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 5,
+            category: 'Estrategias de Búsqueda',
+            description: 'Guía práctica para explorar cámaras, asociaciones, ferias, comunidades de nicho y operadores de búsqueda.',
+            isEssential: false,
+          },
+        ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Esperar a que una vacante se publique en un portal significa competir desde el inicio con cientos de personas.
-🏷️ El Riesgo de Postularse Tarde en Procesos Masivos ⚠️
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y APERTURA DE HORIZONTES]
+🗣️ Hasta ahora vimos portales, empresas y consultoras. Pero el mercado laboral no termina ahí.
+🏷️ Más allá de lo evidente: El mercado no tradicional 🔍🌐
 🔊 Swoosh suave
-🗣️ Los profesionales más cotizados no esperan a que salgan los avisos: detectan las empresas que están creciendo y se presentan en el momento justo.
-🏷️ Prospección Estratégica en Empresas en Escala 🚀
+🗣️ Hay oportunidades que pueden aparecer en lugares que quizás no revisarías si tu búsqueda consiste solamente en entrar a una bolsa de empleo.
+🏷️ Oportunidades fuera del radar común 💡
 🔊 Pop sutil
-🗣️ Vamos a ver cuáles son las fuentes de información clave para anticiparte a las contrataciones y abrir tus propias oportunidades.
-🏷️ Fuentes de Inteligencia de Mercado & Negocios 🌐💼
+🗣️ Por eso quiero enseñarte a ampliar tus fuentes de información explorando canales que la mayoría de los candidatos pasa por alto.
+🏷️ Ampliando fuentes de información estratégica 🎯
 🔊 Pop de confirmación
 
-[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LAS 3 SEÑALES Y EL CONTACTO ESPONTÁNEO]
-🗣️ Para detectar estas oportunidades monitoreamos tres señales clave en medios de negocios y redes profesionales:
-🗣️ Primero, empresas que reciben rondas de inversión o financiamiento para escalar sus operaciones.
-🏷️ 1. Señal: Rondas de Inversión y Financiamiento 💵📈
+[0:55 - SECCIÓN 2: DESARROLLO — LAS 4 FUENTES NO TRADICIONALES]
+🗣️ Una primera fuente son las organizaciones relacionadas con tu sector.
+🗣️ Dependiendo de tu profesión, puede haber cámaras empresariales, asociaciones profesionales, colegios profesionales, universidades u organizaciones sectoriales que compartan oportunidades, programas de talento o convocatorias directas.
+🏷️ 1. Organizaciones Sectoriales: Cámaras, asociaciones y colegios 🏛️📋
+🔊 Click sutil
+🗣️ Una segunda fuente son las ferias laborales y eventos profesionales.
+🗣️ Muchas empresas participan en universidades, exposiciones, congresos y encuentros de determinados sectores. Y estos espacios no sirven solamente para entregar un currículum: también te permiten descubrir empresas que quizás no conocías, entender qué perfiles están buscando y ampliar tu mapa del mercado.
+🏷️ 2. Ferias & Eventos: Congresos, exposiciones y encuentros 🎪👥
+🔊 Click sutil
+🗣️ Una tercera fuente son las comunidades profesionales especializadas.
+🗣️ Hay industrias y profesiones que cuentan con comunidades, grupos, foros o newsletters donde circulan oportunidades específicas antes de que salgan a la luz de forma masiva.
+🏷️ 3. Comunidades Profesionales: Grupos y newsletters de nicho 💬📧
+🔊 Click sutil
+🗣️ Y también podemos utilizar los buscadores de Internet de una manera mucho más estratégica.
+🗣️ En lugar de buscar solamente "trabajo + mi profesión", podemos combinar términos relacionados con nuestro puesto, industria, ubicación y expresiones asociadas a oportunidades laborales.
+🏷️ 4. Búsqueda Estratégica en Internet: Combinación de términos clave 🔍⌨️
 🔊 Swoosh suave
-🖼️ Captura flotante mostrando noticias de negocios y portales de inversión.
-🗣️ Segundo, anuncios de apertura de oficinas, nuevas líneas de producto o desembarco en otros países.
-🏷️ 2. Señal: Expansión a Nuevos Mercados y Proyectos 🌎🏢
-🔊 Click sutil
-🗣️ Y tercero, el nombramiento de nuevos directores o líderes de área, quienes en sus primeros tres meses siempre buscan sumar talento de confianza a sus equipos.
-🏷️ 3. Señal: Nuevos Líderes y Directores de Área 👥⭐
-🔊 Click sutil
-🗣️ Cuando detectás cualquiera de estas tres señales, identificás al responsable en LinkedIn y le enviás un mensaje felicitándolo por el hito y contándole en dos líneas cómo tu experiencia puede resolver los nuevos desafíos del área.
-🏷️ Contacto Espontáneo: Felicitación + Propuesta de Solución 💬🎯
+🖼️ Video demostrativo en pantalla mostrando búsquedas en Google combinando palabras clave de industria, modalidad y términos de contratación.
+🗣️ El objetivo no es aprender una fórmula de memoria: el objetivo es entender que una búsqueda más específica puede llevarnos a oportunidades que no encontramos haciendo siempre la misma consulta.
+🏷️ Especificidad: Menos competencia, mejores resultados 🎯✨
 🔊 Pop de confirmación
 
-[4:00 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Tu tarea en esta clase es identificar dos empresas de tu sector que hayan anunciado expansiones recientes y agregarlas a tu lista de prospección.
-🏷️ Acción: 2 Empresas en Expansión a tu Lista 📋🏢
-🔊 Swoosh suave
-🗣️ En la próxima clase cerramos este módulo con un paso crítico: cómo investigar la cultura, reputación y clima laboral de una empresa antes de enviar tu postulación.
-🏷️ Próxima clase: Investigación previa de empresa y cultura 🔍🛡️
+[2:50 - SECCIÓN 3: RECOMENDACIÓN PRÁCTICA Y DOCUMENTO]
+🗣️ Quiero que pruebes diferentes combinaciones relacionadas con tu perfil y observes qué nuevas fuentes aparecen. Guardá aquellas que realmente sean relevantes para vos.
+🏷️ Práctica: Explorar y guardar fuentes relevantes 📌
+🔊 Pop sutil
+🗣️ Porque nuevamente, no estamos intentando acumular cientos de páginas: estamos construyendo un sistema de fuentes que tenga sentido para nuestra búsqueda.
+🏷️ Sistema de Fuentes con Sentido Estratégico 🧭
+🔊 Click sutil
+🗣️ En la sección de Documentos te dejo la Guía de Fuentes No Tradicionales y Búsqueda Estratégica para que tengas ejemplos prácticos de consulta.
+🏷️ Documentos: Guía de Fuentes No Tradicionales 📥📋
+🔊 Pop de confirmación
+
+[3:25 - SECCIÓN 4: CIERRE Y PUENTE AL ENTREGABLE FINAL]
+🗣️ En la próxima clase vamos a unir todo lo que vimos en este módulo y vas a crear tu propio Mapa Personal de Fuentes Laborales.
+🏷️ Próxima clase: Creá tu Mapa Personal de Fuentes Laborales 🗺️🏆
 🔊 Fin de lección suave`,
       },
       {
@@ -1950,87 +1977,108 @@ const expBusquedaLaboralModules: CampusModule[] = [
         programId: 'exp-busqueda-laboral',
         moduleId: 'exp-mod-5',
         moduleNumber: 5,
-        moduleTitle: 'Dónde buscar ofertas',
+        moduleTitle: '¿Dónde encontrar oportunidades laborales?',
         lessonNumber: 4,
         type: 'video',
-        title: 'Investigación previa de empresa y cultura',
-        duration: '6 min',
-        videoDuration: '3:35 min',
+        title: 'Creá tu Mapa Personal de Fuentes Laborales',
+        duration: '7 min',
+        videoDuration: '4:00 min',
         completed: false,
         description:
-          'Cómo evaluar la reputación, salud financiera, rotación de personal y bandas salariales antes de postularte.',
+          'La actividad central del Módulo 5: consolidá tu propio ecosistema de búsqueda en 4 cuadrantes (portales, empresas, consultoras y fuentes especializadas) y preparate para postular.',
         takeaways: [
-          'La búsqueda laboral es un proceso de doble vía: mientras la empresa te evalúa, vos también debés auditar si la cultura y el clima son saludables.',
-          'Los 3 pilares de la Auditoría Express (10 min): Reseñas en Glassdoor/Openqube, tiempo de permanencia del equipo en LinkedIn y bandas salariales.',
-          'Usar los datos para formular preguntas clave e inteligentes durante las entrevistas con el líder de área.',
+          'Tu ecosistema propio: Un mapa personalizado en 4 cuadrantes adaptado a tu industria, rol y modalidad objetivo.',
+          'Estrategia a medida: No existe una lista única para todo el mundo; tu mapa responde a tus metas (primer empleo, especialista o remoto global).',
+          'Entregable troncal: Completar y guardar "Mi Mapa de Fuentes Laborales" para usarlo en el seguimiento diario del Módulo 6.',
         ],
         actionItems: [
           {
             id: 'act-dnd-4-1',
-            title: 'Auditar 1 empresa objetivo',
-            description: 'Revisá las opiniones en Glassdoor, la rotación en LinkedIn y el rango salarial estimado.',
-          },
-          {
-            id: 'act-dnd-4-2',
-            title: 'Formular 2 preguntas de clima para la entrevista',
-            description: 'Anotá dudas puntuales sobre los desafíos y dinámica del equipo para consultar al Hiring Manager.',
+            title: 'Completar 🗺️ Mi Mapa de Fuentes Laborales (Actividad Obligatoria)',
+            description: 'Descargá o completá en la app tu Mapa Personal con tus portales clave, tus empresas objetivo, consultoras y fuentes especializadas.',
           },
         ],
         mindsetPrompt:
-          'El objetivo de una búsqueda laboral no es conseguir cualquier trabajo: es encontrar un lugar donde reconozcan tu valor, paguen acorde y cuiden tu bienestar.',
+          'No dependas de listas ajenas: cuando construís tu propio mapa de fuentes, tomás el control total de tu proceso de búsqueda.',
         resources: [
           {
-            id: 'checklist-auditoria-empresas-cultura',
-            title: 'Checklist de Auditoría de Empresas y Clima Laboral',
+            id: 'mapa-fuentes-laborales',
+            title: '🗺️ Mi Mapa de Fuentes Laborales (Entregable Troncal)',
+            type: 'pdf',
+            fileSize: 'Herramienta In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 5,
+            category: 'Ecosistema de Búsqueda',
+            description: 'Herramienta central del módulo para consolidar tu mapa de fuentes en 4 cuadrantes listo para postular.',
+            isEssential: true,
+          },
+          {
+            id: 'directorio-portales-empleo-remoto',
+            title: 'Directorio Actualizado de Portales y Recursos',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 4,
-            category: 'Checklist de Control',
-            description: 'Checklist rápido de 3 pasos para investigar la salud financiera, rotación y clima de una empresa.',
+            moduleNumber: 5,
+            category: 'Directorio',
+            description: 'Listado dinámico y clasificado de plataformas de empleo en Sudamérica, portales de nicho y trabajo remoto global, y consultoras de selección / headhunters.',
             isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
-🗣️ Una búsqueda laboral exitosa no consiste en conseguir cualquier trabajo: el objetivo es conseguir un empleo donde reconozcan tu valor, paguen acorde al mercado y cuiden tu bienestar.
-🏷️ Búsqueda Estratégica: Empleo Saludable + Buena Remuneración 🛡️💼
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ACTIVIDAD CENTRAL]
+🗣️ Llegamos al final de este módulo. Y no quiero que termines simplemente sabiendo que existen muchos lugares donde buscar trabajo: quiero que termines con algo concreto... tu propio Mapa de Fuentes Laborales.
+🏷️ Hito Central: Tu propio Mapa de Fuentes Laborales 🗺️🏆
 🔊 Swoosh suave
-🗣️ Recordá siempre que un proceso de selección es de doble vía: mientras la empresa te evalúa, vos también tenés que auditar a la empresa.
-🏷️ Evaluación Mutua: Vos también elegís dónde trabajar ⚖️
+🗣️ Entrá a los Documentos de esta clase y abrí la herramienta que preparé para este ejercicio: "Mi Mapa de Fuentes Laborales".
+🏷️ Documentos: 🗺️ Mi Mapa de Fuentes Laborales 📥📋
 🔊 Pop sutil
-🖼️ Placa comparativa mostrando: Postulación a ciegas vs. Postulación auditada con información previa.
-🗣️ En esta clase te voy a enseñar una auditoría rápida de diez minutos para revisar la reputación, rotación de personal y clima laboral de cualquier organización antes de postularte.
-🏷️ Auditoría Express: Reputación · Clima · Rotación 🔍📊
+🖼️ Captura flotante mostrando la plantilla interactiva de 4 cuadrantes organizada para completar.
+🗣️ Vamos a dividir nuestro mapa en cuatro categorías clave:
+🏷️ Estructura del Mapa en 4 Cuadrantes 📐
 🔊 Pop de confirmación
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — AUDITORÍA EXPRESS DE 3 PASOS]
-🗣️ Para auditar una empresa antes de avanzar, aplicamos tres pasos muy simples en diez minutos:
-🗣️ Primero, revisá las opiniones de empleados en plataformas como Glassdoor u Openqube, buscando patrones repetitivos sobre liderazgo, beneficios y cumplimiento de acuerdos.
-🏷️ 1. Reseñas Reales: Glassdoor · Openqube · Opiniones 💬⭐
-🔊 Swoosh suave
-🖼️ Captura flotante mostrando un perfil de empresa en Glassdoor con la puntuación y comentarios destacados.
-🗣️ Segundo, entrá al perfil de la empresa en LinkedIn y hacé clic en la pestaña de 'Personas' para observar la antigüedad del equipo:
-🗣️ Si la mayoría renuncia antes del año, hay una señal de alerta; pero si la permanencia promedio es de dos a cuatro años, es síntoma de estabilidad y crecimiento.
-🏷️ 2. Rotación en LinkedIn: Pestaña 'Personas' y Tiempo de Permanencia 👥⏱️
+[1:05 - SECCIÓN 2: DESARROLLO — LOS 4 CUADRANTES DE TU MAPA]
+🗣️ Primero: Portales de empleo relevantes para mi perfil.
+🗣️ No agregues páginas porque sí: seleccioná solamente aquellas que realmente tengan oportunidades relacionadas con lo que buscás, ya sean generales o de nicho.
+🏷️ Cuadrante 1: Portales de empleo seleccionados 🏢💻
 🔊 Click sutil
-🗣️ Y tercero, consultá las estimaciones salariales para asegurarte de que la compañía pague tarifas acordes a tus límites no negociables.
-🏷️ 3. Bandas Salariales: Validación con tu Piso Salarial 💵📊
+🗣️ Segundo: Empresas objetivo.
+🗣️ Acá vamos a incorporar las empresas que ya definimos en el primer módulo y los enlaces directos a sus respectivos sitios de empleo o sistemas de talento.
+🏷️ Cuadrante 2: Empresas objetivo y sitios de carrera 💼🌐
 🔊 Click sutil
-🗣️ Esta información no solo te protege de ambientes conflictivos, sino que te da argumentos sólidos para hacer preguntas inteligentes cuando te entrevistes con el líder de área.
-🏷️ Postura Profesional: Preguntas Clave en la Entrevista 🎯🤝
+🗣️ Tercero: Consultoras y empresas de selección relevantes.
+🗣️ Identificá aquellas consultoras o headhunters que trabajen específicamente con tu industria, profesión, seniority o mercado geográfico.
+🏷️ Cuadrante 3: Consultoras y Headhunters de tu sector 👥📁
+🔊 Click sutil
+🗣️ Cuarto: Fuentes especializadas.
+🗣️ Acá podés incorporar cámaras, asociaciones, universidades, bolsas sectoriales, comunidades profesionales u otras fuentes que hayas descubierto en la clase anterior.
+🏷️ Cuadrante 4: Fuentes especializadas y comunidades 🏛️💬
 🔊 Pop de confirmación
 
-[4:45 - SECCIÓN 3: CIERRE DE MÓDULO Y LLAMADA A LA ACCIÓN]
-🗣️ Tu tarea en esta clase es elegir una de las empresas de tu lista de objetivos y realizarle esta auditoría rápida de diez minutos antes de postularte.
-🏷️ Acción: Auditar 1 Empresa Target (Opiniones + Rotación) 🔍🏢
+[2:25 - SECCIÓN 3: POR QUÉ CADA MAPA ES ÚNICO]
+🗣️ Cuando termines, vas a tener algo mucho más valioso que una lista genérica de páginas: vas a tener tu propio ecosistema de búsqueda laboral.
+🏷️ Tu propio ecosistema de búsqueda personalizado ✨🧭
 🔊 Swoosh suave
-🗣️ Con esto completamos el Módulo 5: ahora tenés el mapa completo de dónde buscar, cómo rastrear vacantes ocultas y cómo elegir empresas que realmente valgan la pena.
-🏷️ Hito: Módulo 05 Completado (Dónde buscar ofertas) 🗺️✅
+🗣️ Y esto es muy importante porque cada persona que está haciendo esta experiencia puede terminar con un mapa completamente diferente.
+🗣️ Una persona que busca su primer trabajo probablemente necesite determinadas fuentes... un profesional especializado puede necesitar otras... y alguien que busca oportunidades internacionales posiblemente construya un mapa totalmente distinto.
+🏷️ Mapa Adaptado a tu Meta: Primer Empleo · Especialista · Remoto Global 🎯
+🔊 Pop sutil
+🗣️ Por eso no existe una lista perfecta que funcione para todo el mundo: existe una estrategia de búsqueda adaptada a tu objetivo.
+🏷️ Estrategia a Medida de tus Metas 💡
+🔊 Click sutil
+🗣️ Y recordá que dentro de la Academia también tenés siempre disponible mi Directorio Actualizado de Portales y Recursos, para descubrir nuevas fuentes y agregarlas a tu mapa cada vez que lo necesites.
+🏷️ Directorio Actualizado como fuente de consulta continua 🔄📚
 🔊 Pop de confirmación
-🗣️ En el Módulo 6 vamos a organizar tu sistema de postulación: armaremos tu kit profesional y utilizaremos el Tracker del campus para llevar el control diario de cada proceso y sus recordatorios de seguimiento.
+
+[3:35 - SECCIÓN 4: CIERRE DE MÓDULO Y PUENTE AL MÓDULO 6]
+🗣️ Con esto terminamos el Módulo 5. Ya sabemos qué buscamos, tenemos nuestras herramientas profesionales preparadas y ahora también sabemos con precisión dónde detectar oportunidades.
+🏷️ Hito: Módulo 05 Completado (¿Dónde encontrar oportunidades laborales?) 🗺️✅
+🔊 Pop de confirmación
+🗣️ En el próximo módulo vamos a dar el siguiente gran paso: vamos a organizar tu sistema de postulación, armar tu kit profesional y utilizar el Tracker del campus para llevar el control diario de tus procesos.
 🏷️ Próximo: Módulo 06 — Postulación y organización 📊📁
 🔊 Fin de lección suave`,
       },
