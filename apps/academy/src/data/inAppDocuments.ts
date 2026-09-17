@@ -2072,6 +2072,225 @@ Un cordial saludo,
       },
     ],
   },
+  'guia-empleo-remoto-internacional': {
+    id: 'guia-empleo-remoto-internacional',
+    slug: 'guia-empleo-remoto-internacional',
+    title: 'Guía de Empleo Remoto Internacional y Checklist Contractual',
+    category: 'Casos Especiales · Empleo Remoto',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 8,
+    badge: 'Guía Internacional In-App',
+    estimatedReadTime: '5 min de lectura',
+    summary:
+      'Criterios de elegibilidad geográfica (Worldwide vs. LATAM), esquemas contractuales (Contractor vs. EOR), moneda de pago y checklist de prevención de estafas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'criterios-elegibilidad-geografica',
+        title: '1. Criterios de Elegibilidad Geográfica en Búsquedas Remotas',
+        subtitle: 'Por qué "Remoto" no significa automáticamente desde cualquier país',
+        content:
+          'Las empresas establecen restricciones por cuestiones fiscales, regulatorias y husos horarios. Antes de postularte, verificá el alcance de la vacante:',
+        tableData: {
+          headers: ['Etiqueta en la Oferta', 'Significado Real', '¿Sos Elegible desde LATAM?'],
+          rows: [
+            ['Remote - Worldwide / Anywhere', 'Contratación abierta sin restricción de residencia física.', '✅ Sí, 100% elegible.'],
+            ['Remote - LATAM / Latin America', 'Búsqueda acotada a candidatos residentes en países de América Latina.', '✅ Sí, ideal para nuestra región.'],
+            ['Remote - US / EU Only', 'Remoto pero restringido legalmente a residentes fiscales en EE.UU. o Unión Europea.', '❌ No, descarte automático salvo permiso de trabajo legal.'],
+            ['Must be based in [País]', 'La empresa exige residencia local por regulaciones impositivas o presencialidad híbrida.', '❌ Solo elegible si residís en ese país.'],
+          ],
+        },
+      },
+      {
+        id: 'esquemas-contratacion-internacional',
+        title: '2. Modalidades de Contratación Internacional',
+        subtitle: 'Cómo te contrata una empresa extranjera y qué implica cada formato',
+        content: 'Existen 3 estructuras habituales en el mercado global:',
+        tableData: {
+          headers: ['Modalidad', 'Cómo Funciona', 'Aspectos Clave a Considerar'],
+          rows: [
+            [
+              'Contractor Independiente (B2B)',
+              'Facturás como profesional independiente directamente a la empresa extranjera.',
+              'Mayor tarifa bruta en USD/EUR. Vos gestionás tus impuestos locales, cobertura médica y ahorros.',
+            ],
+            [
+              'Employer of Record (EOR) / Intermediario',
+              'Una plataforma como Deel, Remote u Ontop actúa como empleador legal registrado en tu país.',
+              'Contrato en relación de dependencia local con beneficios de ley y aportes patronales.',
+            ],
+            [
+              'Entidad Legal Propia (Subsidiaria Local)',
+              'La multinacional tiene sede constituida en tu país y te contrata bajo nómina formal.',
+              'Relación laboral estándar según la legislación de tu país con paquete corporativo.',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'preguntas-antes-de-aceptar-remoto',
+        title: '3. Checklist de 6 Preguntas antes de Aceptar una Propuesta Remota',
+        subtitle: 'Evaluación integral de condiciones laborales',
+        checklistItems: [
+          {
+            id: 'chk-rem-1',
+            text: '¿Bajo qué modalidad jurídica me contratan? (Contractor B2B vs. Nómina EOR local).',
+          },
+          {
+            id: 'chk-rem-2',
+            text: '¿En qué moneda se fija la remuneración y a través de qué plataforma se procesa el pago? (Wise, Payoneer, transferencia SWIFT o cuenta bancaria).',
+          },
+          {
+            id: 'chk-rem-3',
+            text: '¿Cuál es el huso horario y disponibilidad esperada? (Sincrónico con horario de la empresa vs. Asincrónico por objetivos).',
+          },
+          {
+            id: 'chk-rem-4',
+            text: '¿El contrato incluye días libres remunerados (PTO / Paid Time Off) y cómo se contemplan los feriados locales?',
+          },
+          {
+            id: 'chk-rem-5',
+            text: '¿Proveen bono de conectividad, equipamiento de trabajo (laptop/monitor) o estipendio de salud?',
+          },
+          {
+            id: 'chk-rem-6',
+            text: 'Seguridad verificada: Confirmé la identidad del recruiter en LinkedIn y el dominio corporativo del correo (nunca pagar trámites).',
+          },
+        ],
+      },
+    ],
+  },
+  'guia-primer-empleo-sin-experiencia': {
+    id: 'guia-primer-empleo-sin-experiencia',
+    slug: 'guia-primer-empleo-sin-experiencia',
+    title: 'Guía de Primer Empleo y Conversión de Proyectos en Evidencia',
+    category: 'Casos Especiales · Primer Empleo',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 8,
+    badge: 'Guía Práctica In-App',
+    estimatedReadTime: '5 min de aplicación',
+    summary:
+      'Cómo convertir proyectos universitarios, voluntariados y portfolios en evidencia de habilidades, y cómo responder en la entrevista ante la falta de experiencia formal.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'filosofia-evidencia-practica',
+        title: '1. No tener experiencia formal ≠ No tener nada que mostrar',
+        subtitle: 'Cómo generar credibilidad técnica desde el primer momento',
+        content:
+          'Cuando todavía no tuviste un empleo registrado, tu experiencia son los **proyectos reales y aplicaciones prácticas** que realizaste durante tu formación o por iniciativa propia:\n\n' +
+          '• **Proyectos Universitarios / Terciarios:** Campañas de marketing, planes de exportación, auditorías de procesos o trabajos de investigación aplicada.\n' +
+          '• **Proyectos Personales & Portfolios:** Sitios web, dashboards de Business Intelligence en Power BI/Excel, piezas de diseño o casos de estudio.\n' +
+          '• **Voluntariados y Prácticas:** Coordinación de eventos, gestión de redes sociales o soporte administrativo en ONGs o iniciativas comunitarias.',
+      },
+      {
+        id: 'guion-entrevista-sin-experiencia',
+        title: '2. Cómo Responder en la Entrevista: "Veo que no tenés experiencia previa"',
+        subtitle: 'Respuesta con madurez, aplomo y enfoque en resultados',
+        content: 'Evitá quejarte del mercado o colocarte a la defensiva. Usá este modelo estructurado:',
+        copyableTemplate: {
+          label: 'Guion Modelo para Entrevistas Iniciales:',
+          text: `“Es cierto, estoy buscando mi primera oportunidad profesional en el área. Durante mi formación en [Carrera/Especialidad] desarrollé proyectos prácticos en [Materia/Herramienta], donde por ejemplo lideré [describir brevemente un proyecto: ej. el análisis de un caso real / la creación de un tablero en Excel / una propuesta comercial].
+Justamente busco una posición inicial donde pueda aportar esta base técnica, mi capacidad de aprendizaje rápido y compromiso de sumar valor al equipo desde el primer día.”`,
+        },
+      },
+      {
+        id: 'ejercicio-3-habilidades-proyecto',
+        title: '3. Ejercicio: De las 3 Habilidades Clave al Caso Demostrativo',
+        subtitle: 'Estrategia de 3 pasos para tu próxima postulación',
+        checklistItems: [
+          {
+            id: 'paso-1-ini',
+            text: '1. Identificá 1 oferta junior/trainee que te interese y anotá las 3 habilidades técnicas más solicitadas (ej. Excel avanzado, redacción comercial, atención a usuarios).',
+          },
+          {
+            id: 'paso-2-ini',
+            text: '2. Mapeá un proyecto propio donde hayas aplicado cada una de esas herramientas (incluso un ejercicio académico bien pulido).',
+          },
+          {
+            id: 'paso-3-ini',
+            text: '3. Incluí ese proyecto en tu CV dentro de la sección "Proyectos Destacados" utilizando la fórmula Acción + Contexto + Resultado.',
+          },
+        ],
+      },
+    ],
+  },
+  'matriz-habilidades-transferibles-transicion': {
+    id: 'matriz-habilidades-transferibles-transicion',
+    slug: 'matriz-habilidades-transferibles-transicion',
+    title: 'Matriz de Mapeo de Habilidades Transferibles y Pitch del Puente',
+    category: 'Casos Especiales · Transición Laboral',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 8,
+    badge: 'Matriz de Carrera In-App',
+    estimatedReadTime: '5 min de aplicación',
+    summary:
+      'Metodología para traducir tu trayectoria previa a una nueva industria, detectar brechas técnicas y articular el pitch del puente en 3 frases.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (In-App)',
+    sections: [
+      {
+        id: 'principio-traduccion-profesional',
+        title: '1. Principio Rector: "No borres tu pasado profesional, tradúcelo"',
+        subtitle: 'Tus años previos son tu ventaja competitiva si encontrás el puente',
+        content:
+          'Cambiar de carrera o especialidad no significa arrancar de cero. Las habilidades blandas y metodológicas desarrolladas a lo largo de los años tienen un valor inmenso si las articulás con el lenguaje del nuevo rol:',
+        tableData: {
+          headers: ['Rol o Industria de Origen', 'Habilidades Transferibles Desarrolladas', 'Nuevo Rol Objetivo'],
+          rows: [
+            [
+              'Atención al Cliente / Recepción',
+              'Escucha activa, manejo de objeciones, resolución de conflictos bajo presión, empatía y seguimiento.',
+              'Ventas B2B / Customer Success / Account Management',
+            ],
+            [
+              'Docencia / Educación',
+              'Capacidad pedagógica, oratoria, diseño instruccional, evaluación de desempeño y liderazgo de grupos.',
+              'Capacitación y Desarrollo / Recursos Humanos / People Care',
+            ],
+            [
+              'Administración / Contabilidad',
+              'Rigor analítico, conciliación de datos, atención al detalle, manejo avanzado de planillas y procesos.',
+              'Data Analytics / Business Operations / FinOps',
+            ],
+            [
+              'Logística / Depósito',
+              'Planificación de rutas, gestión de inventario, negociación con proveedores y optimización de tiempos.',
+              'Compras / Supply Chain / Gestión de Proyectos Operativos',
+            ],
+          ],
+        },
+      },
+      {
+        id: 'deteccion-brechas-skills-gap',
+        title: '2. Detección de la Brecha Técnica (Skills Gap)',
+        subtitle: 'Capacitación intencional basada en datos del mercado',
+        content:
+          '• **Paso 1:** Buscá entre 5 y 10 ofertas de empleo del puesto al que querés migrar.\n' +
+          '• **Paso 2:** Listá los requisitos técnicos que se repiten con frecuencia y que hoy no dominás (ej. una certificación puntual, un software ERP, un CRM o un lenguaje).\n' +
+          '• **Paso 3:** Capacitate con foco exclusivo en cerrar esa brecha concreta. No hagas 20 cursos dispersos: hacé el curso exacto que te pide la vacante.',
+      },
+      {
+        id: 'formula-pitch-del-puente',
+        title: '3. La Fórmula del Puente en 3 Frases para Entrevistas',
+        subtitle: 'Cómo responder "¿Por qué querés cambiar de área?" con total solvencia',
+        content:
+          'Nunca construyas tu respuesta desde la queja o el desgaste del rol anterior. Construila como una evolución lógica:',
+        callout: {
+          type: 'formula',
+          text: 'FÓRMULA DEL PUENTE: [1. Vengo de...] + [2. Durante esos años desarrollé...] + [3. Ahora quiero pasar a... y me preparé haciendo...]',
+        },
+        copyableTemplate: {
+          label: 'Guion Modelo del Pitch del Puente:',
+          text: `“Durante los últimos [X] años me desempeñé en [Tu Área/Puesto Anterior], donde desarrollé una sólida experiencia en [Tus 2 habilidades transferibles más fuertes, ej. relación con clientes, resolución de problemas y gestión operativa].
+Con el tiempo identifiqué que mi mayor motivación y proyección están en el área de [Nuevo Rol Objetivo]. Por eso, durante el último año me capacité en [Curso/Certificación/Herramienta clave] y desarrollé proyectos prácticos en [Tecnología].
+Hoy busco sumarme a este equipo para combinar mi experiencia consolidada en [Habilidad previa] con mis nuevos conocimientos técnicos en [Nueva especialidad].”`,
+        },
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
@@ -2103,6 +2322,15 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
   if (found) return found;
 
   // Keyword smart matching
+  if (clean.includes('remoto-internacional') || clean.includes('contractor') || (clean.includes('remoto') && clean.includes('internacional')) || clean.includes('eor')) {
+    return inAppDocumentsRegistry['guia-empleo-remoto-internacional']!;
+  }
+  if (clean.includes('sin experiencia') || clean.includes('primer empleo') || clean.includes('junior') || clean.includes('trainee') || clean.includes('proyecto demostrativo')) {
+    return inAppDocumentsRegistry['guia-primer-empleo-sin-experiencia']!;
+  }
+  if (clean.includes('transferible') || clean.includes('transicion') || clean.includes('cambio de carrera') || clean.includes('puente')) {
+    return inAppDocumentsRegistry['matriz-habilidades-transferibles-transicion']!;
+  }
   if (clean.includes('dificil') || clean.includes('incomod') || clean.includes('defecto') || clean.includes('debilidad')) {
     return inAppDocumentsRegistry['guia-preguntas-dificiles-entrevista']!;
   }

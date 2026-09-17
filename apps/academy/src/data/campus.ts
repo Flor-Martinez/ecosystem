@@ -3080,13 +3080,19 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Regla de Oro: NUNCA renunciar sin propuesta formal FIRMADA ⚠️📄
 🔊 Pop de confirmación
 
-[4:30 - SECCIÓN 5: CIERRE DEL MÓDULO 7 Y PUENTE A CASOS ESPECIALES]
+[4:30 - SECCIÓN 5: CIERRE TOTAL DEL PROGRAMA Y MÓDULO DE CASOS ESPECIALES]
 🗣️ En la sección de Documentos tenés la Matriz de Compensación y Negociación Salarial con la calculadora y los guiones listos.
 🏷️ Documentos: Matriz de Negociación Salarial 📥📋
 🔊 Pop sutil
 🖼️ Captura flotante mostrando la calculadora de bandas y plantilla de contraoferta.
-🗣️ Con esto completamos el Módulo 7 de Entrevistas. En el Módulo 8 (optativo) vamos a ver casos especiales: búsqueda de empleo internacional en USD, postulación sin experiencia y cambio de carrera. ¡Nos vemos ahí!
-🏷️ Hito: Módulo 07 Completado (Entrevista Laboral) 🏆🎉
+🗣️ ¡Felicitaciones! Con esta clase completaste la ruta troncal de Experiencia Búsqueda Laboral: desde definir tu objetivo, crear tu CV y optimizar LinkedIn, hasta rastrear ofertas, postularte y negociar tus entrevistas con total solidez.
+🏷️ ¡Ruta Troncal Completada con Éxito! 🎓🏆🚀
+🔊 Fanfarria / Pop de celebración
+🗣️ Si en tu camino particular te encontrás con situaciones muy específicas de búsqueda, recordá que tenés a disposición el módulo complementario de casos especiales dentro del campus.
+🏷️ Módulo Complementario: Casos Especiales Disponible 💡📚
+🔊 Click sutil
+🗣️ ¡Te deseo el mayor de los éxitos en tus próximas postulaciones y entrevistas!
+🏷️ ¡Muchos éxitos en tu camino profesional! ✨🤝
 🔊 Fin de lección suave`,
       },
     ],
@@ -3100,8 +3106,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
     programId: 'exp-busqueda-laboral',
     number: 8,
     title: 'Casos especiales de Búsqueda (optativa)',
-    tagline: 'Estrategias a medida para trabajo internacional, primer empleo y transición de carrera',
-    totalDuration: '23 min · 3 clases',
+    tagline: 'Estrategias a medida para trabajo remoto internacional, primer empleo y transición de carrera',
+    totalDuration: '28 min · 3 clases',
     lessons: [
       {
         id: 'exp-esp-01',
@@ -3112,31 +3118,107 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: 'Búsqueda de empleo remoto internacional',
-        duration: '8 min',
+        duration: '10 min',
+        videoDuration: '4:45 min',
         completed: false,
         description:
-          'Modalidades contractuales (Contractor, EOR), cobro en moneda extranjera y adaptación de perfil a estándares globales en inglés.',
+          'Criterios de elegibilidad geográfica (worldwide vs. regional), nivel real de inglés, convenciones de CV internacional, esquemas de contratación (Contractor vs. EOR) y prevención de estafas.',
         takeaways: [
-          'Diferencias entre contratación directa como Contractor (B2B) vs. intermediación por Employer of Record (Deel, Remote, Oyster).',
-          'Adaptación de CV y LinkedIn al estándar internacional en inglés sin foto y eliminando datos personales sensibles.',
-          'Plataformas de cobro internacional, husos horarios y manejo de impuestos.',
+          'Trabajo remoto no significa automáticamente elegible desde cualquier país: validar si la búsqueda indica "Remote worldwide", "Remote LATAM" o restricciones legales por país.',
+          'Nivel de idioma: indicar un nivel de inglés que puedas defender en la entrevista; si la vacante está en inglés, el screening será en ese idioma.',
+          'CV internacional: formato breve, sin fotografía ni datos personales sensibles, adaptado a estándares globales.',
+          'Modalidades contractuales: Contractor independiente (B2B) vs. Intermediación por Employer of Record (Deel, Remote) vs. Dependencia local.',
+          'Análisis del paquete integral: moneda de pago, costos de transferencia e impuestos, huso horario exigido, días libres y cobertura médica.',
+          'Seguridad laboral: verificar dominios corporativos y recordar que NUNCA debés pagar para que una empresa te contrate.',
         ],
+        actionItems: [
+          {
+            id: 'act-esp-1-1',
+            title: 'Auditar tu elegibilidad para búsquedas remotas',
+            description: 'Utilizá la Guía de Empleo Remoto Internacional para verificar husos horarios, nivel de inglés y esquema contractual antes de postularte.',
+          },
+        ],
+        mindsetPrompt:
+          'En el mercado remoto internacional, el objetivo no es solo encontrar una oferta que diga "Remote", sino validar que seas elegible y que las condiciones contractuales y horarias se adapten a tu realidad.',
         resources: [
           {
-            id: 'res-esp-01',
-            title: 'Plantilla CV Internacional en Inglés (Word .docx)',
-            type: 'word',
-            fileSize: '150 KB',
+            id: 'guia-empleo-remoto-internacional',
+            title: 'Guía de Empleo Remoto Internacional y Checklist Contractual',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Plantilla ATS',
-            description: 'Modelo en inglés estándar adaptado para empresas de USA, Europa y mercado global.',
+            category: 'Casos Especiales · Empleo Remoto',
+            description: 'Elegibilidad geográfica, esquemas Contractor/EOR y checklist de verificación.',
+            isEssential: true,
+          },
+          {
+            id: 'directorio-portales-empleo-remoto',
+            title: 'Directorio de Portales de Empleo Remoto Internacional',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 8,
+            category: 'Estrategias de Búsqueda',
+            description: 'Directorio de plataformas especializadas en trabajo remoto global.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nTrabajar desde tu casa para una empresa de Estados Unidos o Europa cobrando en dólares o euros ya no es solo para programadores. Hoy profesionales de todas las áreas están exportando sus servicios.\n\n[1:30 - Desarrollo del concepto]\nAnalizamos las 3 formas contractuales para trabajar hacia el exterior: ser contratado a través de un Employer of Record como Deel o trabajar bajo modalidad Contractor con facturación internacional. Vemos cómo adaptar tu CV al formato estándar anglosajón, cómo validar tu nivel de inglés en la práctica y en qué portales postularte.\n\n[6:30 - Llamada a la acción]\nSi tu objetivo es el mercado internacional, creá tu versión de CV en formato estándar internacional.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ELEGIBILIDAD GEOGRÁFICA]
+🗣️ Hola a todos. Esta clase es específicamente para vos si estás buscando trabajar de manera remota para una empresa del exterior.
+🏷️ MÓDULO 08 · Clase 1: Búsqueda de Empleo Remoto Internacional 🌐💻
+🔊 Swoosh suave
+🗣️ Y quiero empezar aclarando algo fundamental: trabajo remoto no significa automáticamente trabajo desde cualquier parte del mundo.
+🏷️ "Remoto" ≠ Elegible desde cualquier país ⚠️
+🔊 Pop sutil
+🗣️ Muchas veces encontrás una vacante que dice "Remote", cumplís los requisitos, te postulás y descubrís que la empresa solo contrata en EE.UU., Europa o determinados países por cuestiones legales, impositivas u horarias.
+🏷️ Razones legales · Fiscales · Horarias · Operativas ⚖️
+🔊 Click sutil
+🗣️ Por eso, desde Latinoamérica, revisá que la vacante especifique "Remote worldwide", "Remote - LATAM" o "Work from anywhere". Si dice "US only" o "Must be based in...", no es una búsqueda abierta para nuestra región.
+🏷️ Buscar: Remote worldwide · Remote LATAM · Work from anywhere 🌎✅
+🔊 Pop de confirmación
+
+[1:20 - SECCIÓN 2: IDIOMA, CV INTERNACIONAL Y MODALIDADES CONTRACTUALES]
+🗣️ Segundo punto: el idioma. Si la publicación está en inglés, el proceso se evaluará en inglés. No pongas "avanzado" si no podés sostener una conversación fluida; indicá un nivel que realmente puedas defender con soltura.
+🏷️ Nivel de idioma real y defendible en entrevista 🗣️🇬🇧
+🔊 Click sutil
+🗣️ En cuanto al CV: para procesos internacionales utilizá un formato conciso, sin fotografía y sin datos personales sensibles (como DNI, estado civil o dirección física), adaptado al estándar global.
+🏷️ CV Internacional: Breve · Sin foto · En inglés si aplica 📄✨
+🔊 Pop sutil
+🗣️ Y algo crucial que tenés que investigar: ¿Bajo qué modalidad te contratarían?
+🏷️ Modalidades de Contratación Internacional 📝
+🔊 Swoosh suave
+🗣️ Existen tres esquemas principales: Contractor independiente (donde facturás de forma directa y gestionás tus impuestos locales), intermediación por Employer of Record (plataformas como Deel o Remote con nómina local), o entidad legal propia de la empresa en tu país.
+🏷️ Contractor B2B · Employer of Record (Deel/Remote) · Dependencia local 💼🏦
+🔊 Pop de confirmación
+
+[2:50 - SECCIÓN 3: PAQUETE TOTAL, HUSOS HORARIOS Y PREVENCIÓN DE ESTAFAS]
+🗣️ Antes de aceptar cualquier propuesta, evaluá el paquete completo: en qué moneda te pagan, por qué plataforma transfieren, qué sucede con vacaciones y feriados, si hay cobertura médica y cuál es el horario esperado.
+🏷️ Moneda · Cobro · Vacaciones · Cobertura · Huso horario 💵🏖️
+🔊 Click sutil
+🗣️ Recordá que trabajar para otro país puede implicar una diferencia horaria importante: un puesto 100% remoto puede exigir sincronía con el horario laboral de la empresa.
+🏷️ Disponibilidad y diferencia horaria sincrónica ⏱️🌎
+🔊 Pop sutil
+🗣️ Y prestá mucha atención a la seguridad: que una empresa sea extranjera no la hace automáticamente legítima. Verificá perfiles en LinkedIn, dominios oficiales y recordá que NUNCA debés pagar dinero para que te contraten.
+🏷️ Seguridad: Verificar dominios · NUNCA pagar por trabajar 🛡️🚫
+🔊 Pop de confirmación
+
+[4:00 - SECCIÓN 4: CHECKLIST FINAL Y LLAMADA A LA ACCIÓN]
+🗣️ Antes de tu próxima postulación internacional, hacé este chequeo rápido: ¿Aceptan candidatos desde mi país? ¿Cumplo el idioma? ¿Mi CV está adaptado? ¿Puedo trabajar en ese huso horario? ¿Y entiendo la modalidad de contratación?
+🏷️ Los 5 Chequeos de Elegibilidad Internacional 📋✅
+🔊 Swoosh suave
+🗣️ En la sección de Documentos tenés la Guía de Empleo Remoto Internacional con el checklist completo para auditar cada oferta.
+🏷️ Documentos: Guía de Empleo Remoto Internacional 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando el checklist contractual y de elegibilidad.
+🗣️ ¡En la siguiente clase vamos a ver una estrategia concreta para quienes están buscando su primera oportunidad laboral sin experiencia previa!
+🏷️ Próxima clase: Cómo postularte sin experiencia previa 🚀
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-esp-02',
@@ -3147,31 +3229,103 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Cómo postularte sin experiencia previa',
-        duration: '7 min',
+        duration: '9 min',
+        videoDuration: '4:15 min',
         completed: false,
         description:
-          'Estrategia de CV funcional, proyectos demostrativos y validación de habilidades para recién graduados o personas en su primer empleo.',
+          'Cómo convertir proyectos universitarios, materias, voluntariados y casos prácticos en evidencia sólida de habilidades, y cómo responder en la entrevista con autenticidad.',
         takeaways: [
-          'El CV funcional: destacar proyectos académicos, voluntariados, cursos técnicos y certificaciones.',
-          'La estrategia del Proyecto Demostrativo: crear un caso práctico real para evidenciar tus competencias sin esperar un empleo previo.',
-          'Compensar la falta de antigüedad con actitud, proactividad y sólida preparación técnica.',
+          'No tener experiencia laboral formal no significa no tener nada que mostrar: tus proyectos, casos académicos, voluntariados y portfolios son tu evidencia práctica.',
+          'Buscar vacantes coherentes con el momento profesional: focalizarse en términos como Trainee, Pasantía, Junior, Asistente o Posiciones Iniciales.',
+          'Nunca inventar experiencia ni inflar fechas: la solidez se demuestra explicando cómo resolviste problemas en proyectos reales.',
+          'Respuesta modelo en entrevista: asumir con total serenidad que buscás tu primera oportunidad formal y conectar tus proyectos y herramientas con los requerimientos del rol.',
+          'Tu primer trabajo es una plataforma de aprendizaje: el objetivo es ganar antecedentes, referencias y habilidades para impulsarte.',
         ],
+        actionItems: [
+          {
+            id: 'act-esp-2-1',
+            title: 'Identificar 3 habilidades y tu proyecto demostrativo',
+            description: 'Elegí una oferta junior y redactá cómo tus proyectos o estudios demuestran tu capacidad práctica en 3 competencias clave.',
+          },
+        ],
+        mindsetPrompt:
+          'Si todavía ninguna empresa te dio la oportunidad de demostrar lo que sabés hacer, creá vos mismo la evidencia a través de proyectos, portfolios y casos prácticos.',
         resources: [
           {
-            id: 'res-esp-02',
-            title: 'Guía y Plantilla para CV sin Experiencia Previa (PDF)',
+            id: 'guia-primer-empleo-sin-experiencia',
+            title: 'Guía de Primer Empleo y Conversión de Proyectos en Evidencia',
             type: 'pdf',
-            fileSize: '290 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Guía PDF',
-            description: 'Estructura paso a paso para perfiles junior o recién egresados.',
+            category: 'Casos Especiales · Primer Empleo',
+            description: 'Cómo estructurar el CV y defender proyectos prácticos en entrevistas.',
+            isEssential: true,
+          },
+          {
+            id: 'guia-cv-segun-perfil',
+            title: 'Guía: El CV según tu Perfil y Momento de Carrera',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Estrategia y Posicionamiento',
+            description: 'Enfoques de jerarquía para perfiles sin experiencia previa o junior.',
+            isEssential: false,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nEl dilema de siempre: 'Me piden experiencia para trabajar, pero necesito trabajar para tener experiencia'. Rompamos ese círculo vicioso hoy.\n\n[1:20 - Desarrollo del concepto]\nCuando no tenés experiencia formal en empresas, tu experiencia son tus proyectos. Si estudiaste marketing, mostrá una campaña que hayas auditado; si estudiaste comercio exterior, mostrá un plan de exportación simulado; si estudiaste administración, armá un dashboard en Excel. El selector no solo busca años de antigüedad, busca evidencia de que sabés resolver problemas.\n\n[5:30 - Llamada a la acción]\nArmá un mini-caso práctico de 1 página que demuestre tu conocimiento en una herramienta clave de tu rubro.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL DILEMA DEL PRIMER EMPLEO]
+🗣️ Esta clase es para vos si abrís una oferta laboral y pensás: "¿Cómo quieren que tenga experiencia si nadie me da mi primera oportunidad?".
+🏷️ MÓDULO 08 · Clase 2: Cómo Postularte sin Experiencia Previa 🎓💼
+🔊 Swoosh suave
+🗣️ Es una situación súper común. Y quiero empezar diferenciando algo fundamental: no tener experiencia laboral formal no significa no tener nada para mostrar.
+🏷️ Sin experiencia formal ≠ Sin nada para mostrar 💡
+🔊 Pop sutil
+🗣️ Pero seamos realistas: si una empresa busca un perfil senior con 5 años liderando equipos, no es la búsqueda indicada para arrancar. Busquemos posiciones coherentes: prestá atención a términos como Trainee, Pasantía, Práctica Profesional, Junior, Asistente o Auxiliar.
+🏷️ Posiciones Iniciales: Trainee · Pasantía · Junior · Auxiliar 🎯
+🔊 Pop de confirmación
+
+[1:10 - SECCIÓN 2: CÓMO CONVERTIR PROYECTOS EN EVIDENCIA REAL]
+🗣️ Ahora aparece la gran pregunta: "¿Qué pongo en el CV si nunca trabajé?".
+🏷️ De la Falta de Experiencia a la Evidencia Práctica 📁
+🔊 Swoosh suave
+🗣️ La regla de oro es: no inventes experiencia, no infles meses y no pongas habilidades que no tenés. Lo que vamos a hacer es encontrar evidencia de lo que sí sabés hacer.
+🏷️ No inventar · Mostrar evidencia de lo que sabés hacer 🚫✅
+🔊 Click sutil
+🗣️ Pensá en tu universidad, colegio técnico, cursos, proyectos personales, voluntariados o trabajos informales. Si estudiaste marketing y armaste una campaña para una materia, eso es un proyecto: ¿qué analizaste?, ¿qué herramientas usaste?
+🏷️ Proyectos académicos · Voluntariados · Casos reales · Portfolios 📊
+🔊 Pop sutil
+🗣️ Si estudiaste comercio exterior y armaste un plan de exportación; si estudiás administración y creaste un dashboard en Excel; si programás o diseñás y tenés un portfolio visible.
+🏷️ "¿Cómo puedo demostrar lo que sé hacer antes de que me contraten?" 🧠✨
+🔊 Pop de confirmación
+
+[2:30 - SECCIÓN 3: CÓMO RESPONDER EN LA ENTREVISTA Y EXPECTATIVAS]
+🗣️ Ahora imaginemos que conseguís una entrevista y te dicen: "Veo que todavía no tenés experiencia previa".
+🏷️ Cómo Responder en la Entrevista: "No tenés experiencia" 🗣️💬
+🔊 Swoosh suave
+🗣️ No te quejes ni intentes esconderlo. Podés responder con total aplomo: "Es cierto, estoy buscando mi primera experiencia formal en el área. Durante mi formación desarrollé proyectos prácticos en X, donde aprendí a utilizar X herramientas. Justamente busco una posición inicial donde aplicar esta base y seguir aprendiendo con el equipo".
+🏷️ Respuesta con madurez: Asumir + Mostrar proyectos + Compromiso 🤝⭐
+🔊 Pop de confirmación
+🗣️ Y algo importante: tu primer trabajo probablemente no sea tu trabajo ideal en salario o puesto soñado. Pero es la plataforma para construir antecedentes, referencias y habilidades que te permitan dar los siguientes pasos.
+🏷️ Tu primer trabajo como plataforma de aprendizaje y referencias 🚀📈
+🔊 Click sutil
+
+[3:35 - SECCIÓN 4: EJERCICIO PRÁCTICO Y LLAMADA A LA ACCIÓN]
+🗣️ Después de esta clase quiero que hagas algo concreto: buscá una oferta junior, identificá las 3 habilidades centrales que piden y preguntate cómo podés demostrar que sabés hacer eso con tus proyectos o estudios.
+🏷️ Ejercicio: 3 Habilidades Clave → Tu Proyecto Demostrativo 📝🔍
+🔊 Swoosh suave
+🗣️ En la sección de Documentos tenés la Guía de Primer Empleo con plantillas y modelos de respuesta listos.
+🏷️ Documentos: Guía de Primer Empleo y Proyectos 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando la guía y ejemplos de proyectos demostrativos.
+🗣️ ¡En la siguiente clase vamos a ver cómo encarar una transición laboral o cambio de carrera sin empezar de cero!
+🏷️ Próxima clase: Transición y cambio de carrera 🔄
+🔊 Fin de lección suave`,
       },
       {
         id: 'exp-esp-03',
@@ -3182,31 +3336,90 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: 'Transición y cambio de carrera',
-        duration: '8 min',
+        duration: '9 min',
+        videoDuration: '4:30 min',
         completed: false,
         description:
-          'Cómo cambiar de rol o industria sin empezar desde cero, identificando tus competencias transferibles y armando una narrativa sólida.',
+          'Estrategias para cambiar de rol o industria: mapeo de habilidades transferibles, detección de brechas técnicas reales y la fórmula del puente en 3 frases para la entrevista.',
         takeaways: [
-          'Mapear habilidades transferibles (gestión de proyectos, liderazgo, negociación, análisis y atención al cliente).',
-          'Reescribir tu CV para que tus experiencias pasadas sean el trampolín natural hacia tu nueva especialidad.',
-          'La narrativa de transición en la entrevista: defender el cambio como una ventaja competitiva única.',
+          '"No borres tu pasado profesional: tradúcelo": tus años previos son tu diferencial si identificás tus habilidades transferibles (comunicación, análisis, resolución, liderazgo, negociación).',
+          'Detección de brechas reales (skills gap): auditar 5 a 10 ofertas del nuevo puesto para capacitarte con foco en herramientas indispensables, no en cursos al azar.',
+          'Construir el puente en la entrevista: nunca justificar el cambio desde la queja del trabajo anterior, sino desde la proyección y las acciones de capacitación realizadas.',
+          'La Fórmula del Puente en 3 frases: 1) "Vengo de...", 2) "Durante esos años desarrollé...", 3) "Ahora quiero pasar a... y me preparé haciendo...".',
+          'Realismo de seniority: evaluar si el cambio requiere ingresar inicialmente en un rol de menor nivel o lateral para consolidar la nueva especialidad.',
         ],
+        actionItems: [
+          {
+            id: 'act-esp-3-1',
+            title: 'Completar tu Matriz de Habilidades Transferibles',
+            description: 'Escribí tu pitch del puente en 3 frases y mapeá tus competencias anteriores hacia tu nuevo rol objetivo.',
+          },
+        ],
+        mindsetPrompt:
+          'Cambiar de carrera no significa empezar de cero: significa lograr que el entrevistador entienda por qué toda tu historia anterior tiene sentido para este nuevo paso.',
         resources: [
           {
-            id: 'res-esp-03',
-            title: 'Matriz de Mapeo de Habilidades Transferibles (Excel)',
+            id: 'matriz-habilidades-transferibles-transicion',
+            title: 'Matriz de Mapeo de Habilidades Transferibles y Pitch del Puente',
             type: 'excel',
-            fileSize: '165 KB',
+            fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Matriz Excel',
-            description: 'Plantilla para identificar competencias puente entre industrias.',
+            category: 'Casos Especiales · Transición Laboral',
+            description: 'Mapeo de competencias puente, auditoría de brechas y guion de entrevista.',
+            isEssential: true,
           },
         ],
         videoScript:
-          `[0:00 - Introducción]\nSi trabajaste 6 años en docencia o en atención al cliente y querés pasarte a Recursos Humanos o a Project Management, tus años anteriores no fueron tiempo perdido: son tu mayor diferencial.\n\n[1:40 - Desarrollo del concepto]\nLas empresas valoran la diversidad de perfiles si sabés justificar el puente entre tu carrera anterior y la nueva. Identificamos tus 'habilidades puente': capacidad analítica, resolución de conflictos, trabajo bajo presión y trato con clientes. Te enseño cómo redactar tu resumen profesional y cómo contar tu historia en la entrevista para que el cambio se perciba como una fortaleza única.\n\n[6:30 - Llamada a la acción]\nCompletá la matriz de habilidades transferibles y redactá tu pitch de transición en 3 frases.`,
+          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL PRINCIPIO DE LA TRADUCCIÓN]
+🗣️ Esta clase es para una situación diferente: ya tenés experiencia laboral, pero querés trabajar de otra cosa.
+🏷️ MÓDULO 08 · Clase 3: Transición y Cambio de Carrera 🔄🚀
+🔊 Swoosh suave
+🗣️ Quizás trabajaste años en administración y querés pasar a Recursos Humanos; o en atención al cliente y querés entrar a ventas o consultoría; o estudiaste algo nuevo y querés cambiar de rubro.
+🏷️ Cambiar de rol o industria con experiencia previa 👥✨
+🔊 Pop sutil
+🗣️ El dilema típico es mirar el CV y pensar: "Toda mi experiencia es de otra cosa, ¿cómo hago para que me contraten?".
+🏷️ Principio Rector: "No borres tu pasado profesional: tradúcelo" 💡
+🔊 Pop de confirmación
+🗣️ Tus años anteriores no desaparecen: lo que hacemos es identificar tus habilidades transferibles. Si estuviste en atención al cliente, desarrollaste comunicación, manejo de objeciones y negociación. Si fuiste docente, tenés oratoria, liderazgo y diseño pedagógico. No empezás de cero: construís un puente.
+🏷️ Habilidades Transferibles: Negociación · Liderazgo · Análisis · Comunicación 🌉
+🔊 Click sutil
+
+[1:25 - SECCIÓN 2: DETECCIÓN DE BRECHAS TÉCNICAS Y CAPACITACIÓN CON FOCO]
+🗣️ Ahora viene una parte fundamental: buscá entre 5 y 10 ofertas del puesto al que querés pasar y fijate qué conocimientos técnicos se repiten que hoy no tenés.
+🏷️ Detección de la Brecha Técnica (Skills Gap) 🔍📊
+🔊 Swoosh suave
+🗣️ Cambiar de carrera no es solo reformular el CV; puede haber una brecha real: un software específico, una certificación o un método. Ahí sí tiene sentido capacitarte, pero con foco. No hagas 20 cursos dispersos: cubrí la brecha exacta que pide el mercado.
+🏷️ Capacitación intencional basada en lo que pide el mercado 🎯📚
+🔊 Pop de confirmación
+
+[2:30 - SECCIÓN 3: EL PITCH DEL PUENTE EN 3 FRASES PARA LA ENTREVISTA]
+🗣️ ¿Y cómo explicás el cambio en una entrevista cuando te pregunten "¿Por qué querés cambiar de área?"?
+🏷️ La Fórmula del Puente en 3 Frases 📐💬
+🔊 Swoosh suave
+🗣️ Nunca construyas tu respuesta desde la queja o el cansancio de tu trabajo anterior. Construí un puente con esta estructura en 3 frases:
+🏷️ 1. Vengo de... · 2. Desarrollé... · 3. Quiero pasar a... y me preparé haciendo... 🗣️✨
+🔊 Click sutil
+🗣️ Por ejemplo: "Durante los últimos años trabajé en atención al cliente, donde desarrollé una sólida relación comercial y manejo de cuentas. Con el tiempo identifiqué mi vocación hacia las ventas B2B, por lo que me capacité en metodologías de prospección y CRM. Hoy busco sumarme a este equipo para combinar mi experiencia con clientes con estas nuevas herramientas".
+🏷️ "Vengo de acá, desarrollé esto, me preparé y ahora voy hacia allá" 🌟
+🔊 Pop de confirmación
+🗣️ Y seamos realistas: un cambio de carrera puede requerir inicialmente considerar una posición de menor seniority o lateral para consolidarte en el nuevo rubro. Evaluá si estás dispuesto a ese movimiento.
+🏷️ Evaluar seniority inicial y movimientos laterales estratégicos ⚖️
+🔊 Click sutil
+
+[3:45 - SECCIÓN 4: EJERCICIO PRÁCTICO Y CIERRE]
+🗣️ Para terminar, escribí tus 3 frases del puente: "Vengo de...", "Durante esos años desarrollé...", "Ahora quiero pasar a... y me preparé haciendo...".
+🏷️ Ejercicio: Redactar tus 3 Frases del Puente 📝🌉
+🔊 Swoosh suave
+🗣️ En la sección de Documentos tenés la Matriz de Habilidades Transferibles con ejemplos por industria para completar tu ejercicio.
+🏷️ Documentos: Matriz de Habilidades Transferibles 📥📋
+🔊 Pop sutil
+🖼️ Captura flotante mostrando la matriz de mapeo y plantilla del puente.
+🗣️ Con esto completamos el módulo de casos especiales. ¡Muchos éxitos en tu camino profesional y en la conquista de tus nuevas metas laborales!
+🏷️ ¡Éxitos en tu nueva etapa profesional! 🏆🌟🤝
+🔊 Fin de lección suave`,
       },
     ],
   },
