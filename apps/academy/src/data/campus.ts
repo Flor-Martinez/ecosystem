@@ -2086,7 +2086,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 6: DE LA OFERTA A LA POSTULACIÓN (4 CLASES + BONUS)
+  // MÓDULO 6: DE LA OFERTA A LA POSTULACIÓN (5 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-6',
@@ -2094,7 +2094,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 6,
     title: 'De la oferta a la postulación',
     tagline: 'Aprendé a evaluar una oportunidad, postularte correctamente, registrar el proceso y hacer seguimiento',
-    totalDuration: '30 min · 4 clases + Bonus',
+    totalDuration: '30 min · 5 clases',
     lessons: [
       {
         id: 'exp-pos-01',
@@ -2113,17 +2113,17 @@ const expBusquedaLaboralModules: CampusModule[] = [
         takeaways: [
           'Las ofertas representan perfiles ideales: casi ningún candidato cumple el 100% de los requisitos solicitados.',
           'Los 3 grupos de requisitos: Indispensables (claves para operar), Importantes (mucho peso pero con margen) y Deseables (suman valor pero no te descalifican).',
-          'El análisis correcto: No preguntarte "¿cumplo todo?", sino "¿cumplo lo fundamental para desempeñarme en este puesto?".',
+          'Cambio de enfoque profesional: Pasar de "¿cumplo todo?" a "¿cumplo lo fundamental para desempeñarme y aprender el resto?".',
         ],
         actionItems: [
           {
             id: 'act-pos-1-1',
-            title: 'Analizar una vacante real en 3 niveles',
-            description: 'Elegí una oferta de tu interés y clasificá sus requisitos en indispensables, importantes y deseables.',
+            title: 'Auditar 1 oferta con la Guía de Requisitos',
+            description: 'Seleccioná una búsqueda activa y clasificá sus requisitos en los 3 niveles antes de decidir tu postulación.',
           },
         ],
         mindsetPrompt:
-          'Si cumplís con lo fundamental y tu experiencia tiene relación con el puesto, no te descartes antes de que el selector evalúe tu perfil.',
+          'Una descripción de puesto es una lista de deseos de la empresa, no un examen eliminatorio: postulá si cumplís lo indispensable para aportar valor.',
         resources: [
           {
             id: 'guia-evaluacion-requisitos-ofertas',
@@ -2134,62 +2134,50 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 6,
-            category: 'Evaluación de Vacantes',
-            description: 'Metodología para clasificar requisitos en 3 niveles y checklist de autodiagnóstico previo a la postulación.',
-            isEssential: false,
+            category: 'Evaluación de Ofertas',
+            description: 'Matriz de 3 niveles para clasificar requisitos indispensables, importantes y deseables.',
+            isEssential: true,
           },
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL DILEMA DEL AUTO-DESCARTE]
-🗣️ Encontraste una oferta que te encanta.
-🏷️ El Dilema de la Vacante Atractiva 🎯💼
+🗣️ Encontraste una oferta que te encanta. Empezás a leer los requisitos y aparece el primer problema: cumplís algunos, otros parcialmente y hay uno o dos que no tenés.
+🏷️ MÓDULO 06: De la Oferta a la Postulación 🎯📋
 🔊 Swoosh suave
-🗣️ Empezás a leer los requisitos y aparece el primer problema: cumplís algunos, otros parcialmente y hay uno o dos que no tenés.
-🏷️ "Piden 5 años y tengo 3... ¿Me postulo igual?" ❓⚠️
+🗣️ Y entonces aparece la pregunta: "¿Me postulo igual o estoy perdiendo el tiempo?".
+🏷️ ¿Vale la pena postularme a esta oferta? ❓🤔
 🔊 Pop sutil
-🗣️ Y entonces aparece la pregunta: ¿Me postulo igual o estoy perdiendo el tiempo?
-🏷️ ¿Postularme o perder el tiempo? ⏳🤔
-🔊 Click sutil
-🗣️ Quiero que entiendas algo muy importante: una descripción de puesto representa el perfil ideal que una empresa está buscando, pero casi nunca vas a encontrar un candidato que cumpla absolutamente todos los puntos.
-🏷️ La oferta es el "perfil ideal", no una lista excluyente al 100% 🛡️✨
+🗣️ Quiero que entiendas algo importante: una descripción de puesto casi nunca describe a una persona real. Describe un perfil ideal.
+🏷️ Una oferta describe un perfil ideal, no una persona real 💡
 🔊 Pop de confirmación
+🗣️ Si una empresa esperara encontrar a alguien que cumpla el 100% de lo que pide, tardaría meses en contratar. Por eso, el objetivo no es cumplir absolutamente todo, sino saber evaluar qué requisitos son realmente excluyentes.
+🏷️ Evaluar qué es indispensable vs. qué es deseable ⚖️
+🔊 Click sutil
 
 [1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — LOS 3 NIVELES DE REQUISITOS]
-🗣️ Lo primero que vamos a hacer es separar los requisitos de cualquier aviso en tres grandes grupos:
-🏷️ Los 3 Grupos de Requisitos en un Aviso 📋📐
+🗣️ Para evaluar una oportunidad con criterio, dividí los requisitos en tres grupos:
+🏷️ Los 3 Grupos de Requisitos en una Oferta 📊
 🔊 Swoosh suave
-🗣️ Primero: requisitos indispensables. Son aquellos sin los cuales probablemente no puedas realizar el trabajo diario.
-🏷️ 1. Requisitos Indispensables: Centrales para operar ⚙️✅
+🗣️ Primero: Requisitos indispensables. Son aquellos sin los cuales no podés hacer el trabajo. Por ejemplo, una matrícula profesional obligatoria, un idioma de uso diario o el manejo de una herramienta central. Si no los tenés, difícilmente puedas avanzar.
+🏷️ 1. Indispensables: Claves para operar el puesto 🛑
 🔊 Click sutil
-🗣️ Por ejemplo: una matrícula habilitante para determinadas profesiones, un idioma necesario para trabajar diariamente con determinado mercado, una licencia específica o conocimientos técnicos centrales para la posición.
-🏷️ Ejemplos: Matrícula · Idioma de uso diario · Base técnica central 🌐📄
-🔊 Pop sutil
-🗣️ Segundo: requisitos importantes. Son conocimientos o experiencias que tienen mucho peso para la posición, pero donde puede existir cierto margen dependiendo del resto de tu perfil.
-🏷️ 2. Requisitos Importantes: Peso alto con margen de compensación ⚖️📈
+🗣️ Segundo: Requisitos importantes. Tienen mucho peso, pero se pueden compensar si el resto de tu perfil es muy sólido o si tenés experiencia equivalente.
+🏷️ 2. Importantes: Gran peso, pero compensables ⚖️
 🔊 Click sutil
-🗣️ Por ejemplo, si piden cinco años de experiencia y tenés tres, o si piden una herramienta de software que podés aprender rápidamente porque ya dominás herramientas equivalentes.
-🏷️ Años de experiencia previa · Herramientas afines 🛠️
-🔊 Click sutil
-🗣️ Y tercero: requisitos deseables. Son aquellos que suman valor adicional, pero cuya ausencia no necesariamente debería impedirte postularte.
-🏷️ 3. Requisitos Deseables: Suman valor, no excluyen 💡⭐
+🗣️ Y tercero: Requisitos deseables. Cosas que a la empresa le gustaría encontrar pero que no definen la contratación, como conocer una herramienta secundaria o venir de una industria específica.
+🏷️ 3. Deseables: Suman puntos pero no descalifican ✨
 🔊 Pop de confirmación
-🗣️ Entonces, cuando encuentres una oferta, no quiero que solamente pienses: "¿Cumplo todo?".
-🏷️ De "¿Cumplo todo?" a "¿Cumplo lo fundamental?" 🎯
-🔊 Swoosh suave
-🗣️ Quiero que analices: "¿Cumplo lo fundamental para poder desempeñarme con solidez en este puesto?".
-🏷️ Pregunta Clave: ¿Cumplo lo fundamental para operar? 🚀
+🗣️ Dejá de preguntarte "¿cumplo todo lo que piden?". La pregunta correcta es: "¿Cumplo lo fundamental para desempeñarme bien en este puesto?". Si la respuesta es sí, postulá.
+🏷️ "¿Cumplo lo fundamental para aportar valor?" 🎯🚀
 🔊 Pop de confirmación
 
-[3:00 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Si cumplís con los requisitos centrales y tu experiencia tiene relación con la posición, no te descartes automáticamente porque haya uno o dos puntos que todavía no tengas.
-🏷️ Criterio: No te autoelimines si cumplís lo central 🛡️💪
+[2:45 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
+🗣️ En la sección de Documentos te dejé la Guía de Evaluación de Requisitos con la matriz de análisis para auditar cualquier aviso en 3 minutos.
+🏷️ Documentos: Guía de Evaluación de Requisitos 📥📋
 🔊 Pop sutil
-🗣️ En la sección de Documentos te dejé la Guía de Evaluación de Requisitos y Match Laboral para que clasifiques cualquier vacante antes de decidir.
-🏷️ Documentos: Guía de Evaluación de Requisitos y Match 📥📋
-🔊 Click sutil
-🖼️ Captura flotante mostrando la tabla de los 3 niveles de requisitos y checklist interactivo.
-🗣️ Ahora sí, una vez que decidimos que una oportunidad tiene sentido para nosotros, en la próxima clase vamos a preparar nuestra postulación profesional.
-🏷️ Próxima clase: Cómo hacer una postulación profesional 📝📬
+🖼️ Captura flotante mostrando la matriz interactiva de evaluación de requisitos.
+🗣️ En la siguiente clase vamos a ver cómo hacer una postulación profesional: canal correcto, mensaje de presentación y checklist de pre-envío.
+🏷️ Próxima clase: Cómo hacer una postulación profesional 📬
 🔊 Fin de lección suave`,
       },
       {
@@ -2205,78 +2193,68 @@ const expBusquedaLaboralModules: CampusModule[] = [
         videoDuration: '4:00 min',
         completed: false,
         description:
-          'El paso a paso para postularte con rigor: utilizar la versión correspondiente de tu CV, respetar el canal solicitado por la empresa y redactar un mensaje de presentación conciso en tres partes.',
+          'Estrategia de postulación impecable: respetar el canal oficial, redactar mensajes de presentación en 3 partes y aplicar el checklist de pre-envío.',
         takeaways: [
-          'Evitar envíos apresurados: Tómate unos minutos para revisar antes de enviar en lugar de mandar cualquier archivo por impulso.',
-          'Respetar el canal oficial: Formularios web, portales corporativos/ATS o correo electrónico según lo requiera la empresa.',
-          'Estructura del mensaje en 3 partes: 1) Presentación y puesto, 2) Breve vínculo de experiencia y logros, 3) Cierre con adjunto de CV y disponibilidad.',
-          'Checklist pre-envío: Verificar destinatario, asunto profesional, archivos adjuntos y datos de contacto legibles.',
+          'No enviar por impulso: Una postulación profesional requiere versión correcta de CV, canal adecuado y mensaje personalizado.',
+          'Respetar el canal oficial: Si la empresa pide postular por su portal o formulario ATS, ese es el camino que garantiza el ingreso al proceso.',
+          'Mensaje de presentación en 3 partes: 1) Presentación y puesto, 2) Vínculo breve de experiencia/logros con la vacante, y 3) Cierre con CV adjunto y disponibilidad.',
+          'Checklist pre-envío: Verificar destinatario, asunto, adjunto en PDF y datos de contacto antes de presionar enviar.',
         ],
         actionItems: [
           {
             id: 'act-pos-2-1',
-            title: 'Adaptar tu mensaje de presentación en 3 partes',
-            description: 'Tomá el modelo de Flor en Documentos y personalizalo para tus próximas postulaciones por correo o nota.',
+            title: 'Personalizar tu plantilla de mensaje de presentación',
+            description: 'Completá la estructura en 3 partes para tu próxima postulación y guardala en tus notas.',
           },
         ],
         mindsetPrompt:
-          'Una postulación profesional no necesita sonar a técnica de venta agresiva: necesita claridad, respeto por el canal y alineación con la vacante.',
+          'Una postulación profesional no se mide por la velocidad con la que hacés clic, sino por la precisión y el cuidado con el que presentás tu candidatura.',
         resources: [
           {
             id: 'plantilla-postulacion-profesional-cover-letter',
-            title: 'Plantilla de Mensajes de Presentación & Checklist Pre-Envío',
+            title: 'Plantilla de Mensajes de Presentación y Checklist Pre-Envío',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 6,
-            category: 'Postulación Profesional',
-            description: 'Modelos de mensajes de acompañamiento en 3 partes y lista de control antes de enviar.',
-            isEssential: false,
+            category: 'Materiales de Postulación',
+            description: 'Plantillas de correo en 3 párrafos y lista de verificación de pre-envío.',
+            isEssential: true,
           },
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL ERROR DEL ENVÍO APURADO]
-🗣️ Ya decidimos que esta oportunidad tiene sentido para nuestro perfil. Ahora vamos a postularnos.
-🏷️ De la Decisión a la Postulación Profesional 🎯📬
+🗣️ Ya encontraste una oferta que vale la pena. Ahora llega el momento de postularte.
+🏷️ Cómo Hacer una Postulación Profesional 📬💼
 🔊 Swoosh suave
-🗣️ Y quiero que evites algo que pasa muchísimo: encontrar una vacante interesante y enviar rápidamente cualquier archivo solamente para "no perderla".
-🏷️ Error Común: Envío impulsivo de cualquier archivo ❌⚠️
+🗣️ Y acá muchas personas cometen un error por apuro: mandan cualquier versión del CV, no escriben nada en el mensaje o postulan por cualquier canal para no perder la oportunidad.
+🏷️ El error del envío automático y desordenado 🚫
 🔊 Pop sutil
-🗣️ Antes de hacer clic en enviar, vamos a revisar nuestra postulación con método y cuidado.
-🏷️ Método y Rigor antes de hacer clic en enviar 📋✨
+🗣️ Una postulación profesional tiene tres partes fundamentales: la versión correcta de tu CV, el canal adecuado y un mensaje de presentación claro.
+🏷️ CV Adaptado · Canal Oficial · Mensaje Claro 📋🎯
 🔊 Pop de confirmación
 
-[1:10 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CV, CANALES Y EL MENSAJE EN 3 PARTES]
-🗣️ Primero: utilizá la versión correspondiente de tu CV, aplicando todo lo que trabajamos en el Módulo 3.
-🏷️ 1. CV Correspondiente: Versión adaptada con palabras clave (Mod. 3) 📄🎯
+[1:05 - SECCIÓN 2: DESARROLLO CONCEPTUAL — CANAL OFICIAL Y MENSAJE EN 3 PARTES]
+🗣️ Primero: el CV. Como vimos en el Módulo 3, asegurate de enviar la versión que mejor se alinee con los requisitos principales de esa posición.
+🏷️ 1. Versión de CV alineada con la búsqueda 📄✅
 🔊 Click sutil
-🗣️ Segundo: revisá cómo solicita la empresa que realices la postulación. Puede ser mediante un formulario web, un portal corporativo o ATS, o por correo electrónico.
-🏷️ 2. Respetar el Canal Solicitado: Portal · Formulario · Email 🌐🏢
+🗣️ Segundo: respetá el canal oficial. Si la empresa pide postular a través de un formulario web o un portal específico, hacelo por ahí. Es el camino que garantiza que tu información entre al sistema de selección.
+🏷️ 2. Respetar el canal oficial de la empresa 🌐📥
 🔊 Click sutil
-🗣️ Respetá siempre el canal solicitado por la empresa. Si requiere completar un formulario, prestá atención a cada campo y verificá los datos antes de confirmar. Si solicita documentación adicional, adjuntá únicamente lo que corresponda.
-🏷️ Completar con atención cada campo y adjuntos solicitados ✍️📁
-🔊 Pop sutil
-🗣️ Y si la postulación se realiza por correo electrónico, ahí sí tenemos una gran oportunidad para diferenciarnos: el mensaje de presentación.
-🏷️ 3. El Mensaje de Presentación por Correo Electrónico 📩⭐
+🗣️ Tercero: el mensaje de presentación. Ya sea por correo o en un campo del formulario, acompañá tu postulación con un texto breve en tres partes:
+🏷️ Mensaje de Presentación en 3 Partes ✍️
 🔊 Swoosh suave
-🗣️ No necesitás escribir una carta de una página contando toda tu trayectoria. Podés utilizar una estructura breve y profesional de tres partes:
-🏷️ Estructura Breve en 3 Partes 📐
+🗣️ Parte uno: quién sos y a qué puesto te postulás.
+🏷️ 1. Presentación y puesto al que aspirás 👤
 🔊 Click sutil
-🗣️ Primero: presentate e indicá para qué posición estás aplicando.
-🏷️ Parte 1: Presentación y Puesto Objetivo 👤💼
-🔊 Pop sutil
-🗣️ Segundo: explicá brevemente por qué tu experiencia o conocimientos tienen relación directa con esa oportunidad.
-🏷️ Parte 2: Vínculo de Experiencia y Competencias 📈🤝
-🔊 Pop sutil
-🗣️ Y tercero: cerrá indicando que adjuntás tu CV y quedás disponible para ampliar información.
-🏷️ Parte 3: Mención del CV adjunto y Disponibilidad 📝🤝
+🗣️ Parte dos: por qué tu experiencia o conocimientos se vinculan con lo que la empresa necesita.
+🏷️ 2. Conexión de tu experiencia con la vacante 🔗
+🔊 Click sutil
+🗣️ Y parte tres: cierre cordial mencionando tu CV adjunto y tu disponibilidad.
+🏷️ 3. Cierre cordial, CV adjunto y contacto 🤝
 🔊 Pop de confirmación
-🗣️ Por ejemplo: "Hola, mi nombre es Florencia Martínez y me contacto para postularme a la posición de Especialista en Selección. Cuento con experiencia en atracción de talento y consultoría de RRHH, especialmente vinculada a perfiles técnicos. Adjunto mi CV para su consideración y quedo disponible para ampliar cualquier información. Muchas gracias."
-🏷️ Ejemplo: Mensaje profesional, conciso y directo 💬✨
-🔊 Swoosh suave
-🖼️ Captura flotante mostrando el correo estructurado con los 3 bloques resaltados.
 🗣️ No copies exactamente este texto para todas tus búsquedas: utilizalo como estructura base y adaptalo a cada oportunidad.
 🏷️ Adaptar la estructura a cada empresa y rol ✍️🎯
 🔊 Click sutil
@@ -2288,7 +2266,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ En la sección de Documentos te dejé la Plantilla de Mensajes de Presentación y el Checklist Pre-Envío para que lo tengas siempre a mano.
 🏷️ Documentos: Plantilla de Mensajes & Checklist Pre-Envío 📥📋
 🔊 Pop sutil
-🗣️ En la próxima clase vamos a resolver un problema clave: cómo registrar y controlar cada postulación que envíes utilizando el Job Tracker de nuestra Academia.
+🗣️ En la próxima clase vamos a resolver un problema clave: cómo registrar y controlar cada postulación que envíes utilizando el Tracker de postulaciones de nuestra Academia.
 🏷️ Próxima clase: Registrá tus postulaciones y controlá tu proceso 📊🖥️
 🔊 Fin de lección suave`,
       },
@@ -2300,12 +2278,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'De la oferta a la postulación',
         lessonNumber: 3,
         type: 'video',
-        title: 'Gestión de postulaciones con el Job Tracker',
+        title: 'Gestión de postulaciones con el Tracker',
         duration: '6 min',
         videoDuration: '3:30 min',
         completed: false,
         description:
-          'Cómo registrar cada oportunidad en el Job Tracker del campus, mantener el orden de tus búsquedas y analizar patrones reales de tu proceso para tomar mejores decisiones.',
+          'Cómo registrar cada oportunidad en el Tracker del campus, mantener el orden de tus búsquedas y analizar patrones reales de tu proceso para tomar mejores decisiones.',
         takeaways: [
           'Evitar el descontrol: Centralizar empresa, puesto, fecha, canal de postulación y estado para no olvidar ningún proceso abierto.',
           'El flujo de estados: Actualizar cada proceso a medida que avanza (Postulado → Contactado → Entrevista → Oferta → Cerrado).',
@@ -2314,9 +2292,9 @@ const expBusquedaLaboralModules: CampusModule[] = [
         actionItems: [
           {
             id: 'act-pos-3-1',
-            title: 'Cargar tus postulaciones en el Job Tracker',
+            title: 'Cargar tus postulaciones en el Tracker',
             description: 'Ingresá al Tracker del campus y registrá todas las candidaturas activas con sus datos y estados actuales.',
-            linkText: 'Ir al Job Tracker del Campus',
+            linkText: 'Ir al Tracker de Postulaciones',
             targetView: 'tracker',
           },
         ],
@@ -2345,10 +2323,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🗣️ Después de varias semanas podemos tener tantas búsquedas abiertas que empezamos a olvidarnos: ¿Dónde me postulé? ¿Cuándo? ¿Para qué puesto? ¿Me contactaron? ¿Tuve una entrevista?
 🏷️ ¿Dónde? · ¿Cuándo? · ¿Para qué puesto? · ¿En qué estado? ❓📁
 🔊 Pop sutil
-🗣️ Por eso vamos a utilizar el Job Tracker de nuestra Academia.
-🏷️ Job Tracker de la Academia: Tu Centro de Control 🖥️✨
+🗣️ Por eso vamos a utilizar el Tracker de postulaciones de nuestra Academia.
+🏷️ Tracker de la Academia: Tu Centro de Control 🖥️✨
 🔊 Pop de confirmación
-🖼️ Captura en pantalla mostrando la interfaz interactiva del Job Tracker en la barra superior.
+🖼️ Captura en pantalla mostrando la interfaz interactiva del Tracker en la barra superior.
 
 [1:05 - SECCIÓN 2: DESARROLLO — REGISTRO DE DATOS Y LECTURA DE PATRONES]
 🗣️ Cada vez que realices una postulación, registrá como mínimo: empresa, puesto, fecha, canal de postulación y estado del proceso.
@@ -2467,12 +2445,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Registrar seguimientos y fechas en el Tracker 📊✅
 🔊 Pop de confirmación
 
-[3:20 - SECCIÓN 3: CIERRE DE MÓDULO Y PUENTE AL MÓDULO 7]
-🗣️ Con esto cerramos la secuencia central del Módulo 6: aprendimos a evaluar vacantes, postularnos con rigor, registrar en el Tracker y hacer seguimiento.
-🏷️ Hito: Módulo 06 Completado (De la oferta a la postulación) 🏆📋
+[3:20 - SECCIÓN 3: CIERRE Y PRÓXIMA CLASE]
+🗣️ Con esto aprendimos el criterio profesional para dar seguimiento a cada proceso respetando los plazos de la empresa y manteniendo el registro ordenado en el Tracker.
+🏷️ Criterio de Seguimiento Profesional 🤝✅
 🔊 Pop de confirmación
-🗣️ En el Módulo 7 llega la instancia decisiva: cómo prepararte para la entrevista laboral, responder preguntas difíciles con el Método STAR y negociar tu propuesta económica con total seguridad.
-🏷️ Próximo: Módulo 07 — Entrevista Laboral 🎙️💼
+🗣️ En la siguiente clase vamos a ver un tema clave para tu tranquilidad y cuidado profesional: cómo detectar ofertas laborales sospechosas y proteger tus datos en internet.
+🏷️ Próxima clase: Cómo detectar ofertas laborales sospechosas 🛡️🔍
 🔊 Fin de lección suave`,
       },
       {
@@ -2483,12 +2461,12 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'De la oferta a la postulación',
         lessonNumber: 5,
         type: 'video',
-        title: '🎁 BONUS: Cómo detectar ofertas laborales sospechosas',
+        title: 'Cómo detectar ofertas laborales sospechosas',
         duration: '6 min',
         videoDuration: '3:30 min',
         completed: false,
         description:
-          'Lección especial de seguridad laboral: aprendé a identificar señales de alerta en búsquedas dudosas, proteger tus datos personales y validar la autenticidad de empresas y reclutadores.',
+          'Pautas de seguridad laboral: aprendé a identificar señales de alerta en búsquedas dudosas, proteger tus datos personales y validar la autenticidad de empresas y reclutadores.',
         takeaways: [
           'Las 6 señales de alerta (red flags): Pedidos de dinero, solicitudes prematuras de datos bancarios, dominios dudosos, urgencia desmedida, sueldos fuera de mercado y mensajes no solicitados por canales informales.',
           'Enseñar a verificar: Comprobar el portal de carreras oficial de la empresa, auditar perfiles en LinkedIn y verificar canales corporativos.',
@@ -2520,8 +2498,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
         ],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y SEGURIDAD LABORAL]
-🗣️ En esta lección bonus quiero hablarte de un tema fundamental para tu tranquilidad: la seguridad en la búsqueda laboral.
-🏷️ 🎁 BONUS: Seguridad Laboral y Detección de Ofertas Sospechosas 🛡️🔍
+🗣️ En esta clase quiero hablarte de un tema fundamental para tu tranquilidad: la seguridad en la búsqueda laboral.
+🏷️ Seguridad Laboral: Cómo Detectar Ofertas Sospechosas 🛡️🔍
 🔊 Swoosh suave
 🗣️ En internet vas a encontrar miles de ofertas reales y valiosas, pero también pueden circular publicaciones dudosas, intermediarios informales o directamente propuestas engañosas.
 🏷️ Aprender a verificar con criterio profesional 💡
@@ -2556,13 +2534,16 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Web oficial · Perfil de LinkedIn · Canales corporativos 🌐👤
 🔊 Pop de confirmación
 
-[2:50 - SECCIÓN 3: CIERRE DE LA LECCIÓN BONUS]
+[2:50 - SECCIÓN 3: CIERRE DEL MÓDULO 6 Y PUENTE AL MÓDULO 7]
 🗣️ En la sección de Documentos te dejé la Guía de Seguridad Laboral y Detección de Ofertas Sospechosas con el checklist completo para consultar cuando lo necesites.
 🏷️ Documentos: Guía de Seguridad Laboral 📥📋
 🔊 Pop sutil
 🖼️ Captura flotante mostrando la guía de prevención y checklist de seguridad.
-🗣️ Con todas tus herramientas y precauciones listas, ¡avanzamos al Módulo 7 para dominar las entrevistas cara a cara!
-🏷️ ¡Todo listo para el Módulo 07: Entrevista Laboral! 🎙️🚀
+🗣️ ¡Con esto completamos el Módulo 6! Aprendimos a evaluar vacantes, postularnos con rigor, gestionar el Tracker, hacer seguimiento y cuidar nuestra seguridad. En el Módulo 7 entramos a la instancia decisiva: la entrevista laboral.
+🏷️ Hito: Módulo 06 Completado (De la oferta a la postulación) 🏆📋
+🔊 Fanfarria / Pop de celebración
+🗣️ ¡Nos vemos en el Módulo 7 para preparar tus entrevistas y dominar la conversación cara a cara!
+🏷️ Próximo: Módulo 07 — Entrevista Laboral 🎙️💼
 🔊 Fin de lección suave`,
       },
     ],

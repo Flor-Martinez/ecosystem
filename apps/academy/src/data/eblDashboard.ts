@@ -177,7 +177,7 @@ export const eblCards: EblDashboardCard[] = [
     moduleStepLabel: 'MÓDULO 06',
     title: 'De la oferta a la postulación',
     subtitle: 'Ruta Troncal · Paso 6 de 8',
-    description: 'Aprendé a evaluar requisitos, postularte con rigor profesional, gestionar tu Job Tracker y hacer seguimiento.',
+    description: 'Aprendé a evaluar requisitos, postularte con rigor profesional, gestionar tus postulaciones en el Tracker y hacer seguimiento.',
     icon: 'CheckSquare',
     colorScheme: {
       primary: '#7C3AED',
@@ -192,7 +192,7 @@ export const eblCards: EblDashboardCard[] = [
     badge: 'Pendiente',
     features: [
       { iconName: 'CheckSquare', label: 'Evaluación de Requisitos & Match' },
-      { iconName: 'Table', label: 'Job Tracker & Protocolos de Seguimiento' },
+      { iconName: 'Table', label: 'Tracker de Postulaciones & Seguimiento' },
     ],
     quickActionLabel: 'Ver Módulo 6',
     targetView: 'modulo-postulacion',

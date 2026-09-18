@@ -2024,7 +2024,7 @@ Un cordial saludo,
         id: 'diagnostico-embudo-seleccion',
         title: '1. Diagnóstico del Embudo por Ratios de Conversión',
         subtitle: 'Cómo saber qué corregir según tus números reales',
-        content: 'Matriz de control según los datos arrojados por tu Job Tracker:',
+        content: 'Matriz de control según los datos arrojados por tu Tracker de postulaciones:',
         tableData: {
           headers: ['Síntoma en el Tracker', 'Diagnóstico Real', 'Acción de Corrección'],
           rows: [
