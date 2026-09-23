@@ -19,7 +19,6 @@ import {
   BookOpen,
   Code2,
   Sparkles,
-  TrendingUp,
   Video,
   Star,
 } from 'lucide-react';

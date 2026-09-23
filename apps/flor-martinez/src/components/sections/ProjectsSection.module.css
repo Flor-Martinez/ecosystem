@@ -14,11 +14,6 @@
   margin-bottom: 1.25rem;
 }
 
-.badgeIcon {
-  margin-right: 0.35rem;
-  color: var(--fm-azul-cielo);
-}
-
 .hubTitle {
   font-family: var(--font-heading);
   font-size: clamp(2.25rem, 4vw, 3.25rem);
@@ -231,8 +226,13 @@
 }
 
 .iconAgenciaDisabled {
-  background-color: #E2E8F0;
-  color: #64748B;
+  background-color: #EFF6FF;
+  color: #1E3A5F;
+}
+
+.iconAcademiaDisabled {
+  background-color: #F3E8FF;
+  color: #7C3AED;
 }
 
 .iconTiendaDisabled {

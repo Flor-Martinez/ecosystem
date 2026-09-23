@@ -68,10 +68,10 @@ const ecosystemBranches: EcosystemBranchInfo[] = [
     name: 'Academia',
     fullName: 'Academia Flor Martinez',
     tagline: 'Plataforma de Formación, Empleabilidad & Crecimiento',
-    status: 'active',
-    badge: 'Rama Activa',
-    href: 'http://localhost:3001',
-    external: true,
+    status: 'coming_soon',
+    badge: 'Próximamente',
+    href: '/proyecto/academia-flor-martinez',
+    external: false,
     color: '#58387D',
     accentBg: '#F4EFFF',
     borderColor: '#D8B4FE',
@@ -84,7 +84,7 @@ const ecosystemBranches: EcosystemBranchInfo[] = [
       'Mentoría aplicada de proyección y transición de carrera',
     ],
     audience: 'Estudiantes, graduados y profesionales en búsqueda de nuevas oportunidades.',
-    ctaText: 'Ingresar a la Academia',
+    ctaText: 'Ver detalles & desarrollo',
   },
   {
     id: 'tienda',
@@ -111,11 +111,18 @@ const ecosystemBranches: EcosystemBranchInfo[] = [
   },
 ];
 
-const navLinks = [
-  { label: 'Inicio', targetId: 'inicio' },
-  { label: 'Proyectos', targetId: 'proyectos' },
-  { label: 'Sobre mí', targetId: 'sobre-mi' },
-  { label: 'Contacto', targetId: 'contacto' },
+interface NavItem {
+  label: string;
+  targetId?: string;
+  href?: string;
+}
+
+const navLinks: NavItem[] = [
+  { label: 'Inicio', targetId: 'inicio', href: '/#inicio' },
+  { label: 'Soluciones', href: '/soluciones' },
+  { label: 'Proyectos', targetId: 'proyectos', href: '/#proyectos' },
+  { label: 'Sobre mí', targetId: 'sobre-mi', href: '/#sobre-mi' },
+  { label: 'Contacto', targetId: 'contacto', href: '/#contacto' },
 ];
 
 export function Navbar() {
@@ -242,13 +249,7 @@ export function Navbar() {
                 const isActive = branch.status === 'active';
                 const isHovered = activeHoverId === branch.id;
 
-                const isAgencia = branch.id === 'agencia';
-                const isAcademia = branch.id === 'academia';
-                const branchColorClass = isAcademia
-                  ? styles.btnActiveEcosystem
-                  : isAgencia
-                  ? styles.btnAgenciaColor
-                  : styles.btnComingEcosystem;
+                const branchColorClass = styles.btnComingEcosystem;
 
                 return (
                   <div
@@ -427,12 +428,25 @@ export function Navbar() {
           {/* Desktop Navigation Links */}
           <nav className={styles.navLinks} aria-label="Navegación principal">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.targetId;
+              if (link.href && !link.targetId) {
+                const isSolucionesActive = pathname.startsWith('/soluciones');
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={`${styles.navLink} ${isSolucionesActive ? styles.navLinkActive : ''}`}
+                  >
+                    {link.label}
+                    {isSolucionesActive && <span className={styles.activeIndicator} />}
+                  </Link>
+                );
+              }
+              const isActive = pathname === '/' && activeSection === link.targetId;
               return (
                 <a
-                  key={link.targetId}
-                  href={`#${link.targetId}`}
-                  onClick={(e) => scrollToSection(e, link.targetId)}
+                  key={link.label}
+                  href={link.href || `#${link.targetId}`}
+                  onClick={(e) => link.targetId && scrollToSection(e, link.targetId)}
                   className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
                 >
                   {link.label}
@@ -444,18 +458,6 @@ export function Navbar() {
 
           {/* Desktop Actions */}
           <div className={styles.actions}>
-            <a
-              href="http://localhost:3001"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.academyHighlightBtn}
-              title="Acceder a la plataforma Academia Flor Martinez"
-            >
-              <GraduationCap size={16} />
-              <span>Academia</span>
-              <span className={styles.livePill}>Activa</span>
-            </a>
-
             <Button
               href="/#contacto"
               onClick={(e: React.MouseEvent) => scrollToSection(e, 'contacto')}
@@ -577,12 +579,28 @@ export function Navbar() {
             <div className={styles.mobileSectionTitle}>Navegación</div>
             <nav className={styles.mobileNavLinks}>
               {navLinks.map((link) => {
-                const isActive = activeSection === link.targetId;
+                if (link.href && !link.targetId) {
+                  const isSolucionesActive = pathname.startsWith('/soluciones');
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setIsOpen(false)}
+                      className={`${styles.mobileNavLink} ${
+                        isSolucionesActive ? styles.mobileNavLinkActive : ''
+                      }`}
+                    >
+                      {link.label}
+                      {isSolucionesActive && <span className={styles.activeBadge}>Actual</span>}
+                    </Link>
+                  );
+                }
+                const isActive = pathname === '/' && activeSection === link.targetId;
                 return (
                   <a
-                    key={link.targetId}
-                    href={`#${link.targetId}`}
-                    onClick={(e) => scrollToSection(e, link.targetId)}
+                    key={link.label}
+                    href={link.href || `#${link.targetId}`}
+                    onClick={(e) => link.targetId && scrollToSection(e, link.targetId)}
                     className={`${styles.mobileNavLink} ${
                       isActive ? styles.mobileNavLinkActive : ''
                     }`}

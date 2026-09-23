@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, GraduationCap, Briefcase, ShoppingBag, Lock, Sparkles } from 'lucide-react';
+import { GraduationCap, Briefcase, ShoppingBag, Lock, Sparkles, ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import styles from './ProjectsSection.module.css';
@@ -18,15 +18,15 @@ export function ProjectsSection() {
             </Badge>
           </div>
           
-          <h2 className={styles.hubTitle}>Proyectos del Ecosistema</h2>
+          <h2 className={styles.hubTitle}>Unidades del Ecosistema</h2>
           <p className={styles.hubSubtitle}>
-            Accedé a los tres portales del ecosistema Flor Martinez. La <strong>Academia</strong> se encuentra actualmente activa y en vivo con programas de empleabilidad abiertos:
+            El Ecosistema Flor Martinez articula tres unidades especializadas interconectadas. Explorá las áreas de desarrollo estratégico:
           </p>
         </div>
 
-        {/* 3-Card Ecosystem Grid (1. Agencia, 2. Academia [Activa], 3. Tienda) */}
+        {/* 3-Card Ecosystem Grid (Symmetrical Units: 1. Agencia, 2. Academia, 3. Tienda) */}
         <div className={styles.derivationGrid}>
-          {/* 1. AGENCIA FLOR MARTINEZ (INHABILITADO / EN CONSTRUCCIÓN) */}
+          {/* 1. AGENCIA FLOR MARTINEZ */}
           <div className={`${styles.hubCard} ${styles.cardDisabled} ${styles.cardAgencia}`}>
             <div className={styles.cardTopRow}>
               <div className={`${styles.cardIconBox} ${styles.iconAgenciaDisabled}`}>
@@ -56,53 +56,49 @@ export function ProjectsSection() {
                 href="/proyecto/agencia-flor-martinez"
                 className={`${styles.hubActionBtn} ${styles.btnDisabledState}`}
               >
-                <Lock size={14} />
-                <span>En Construcción · Ver Ficha</span>
+                <span>Ver Ficha & Propuesta</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>
 
-          {/* 2. ACADEMIA FLOR MARTINEZ (RAMA ACTIVA - MÁXIMO PROTAGONISMO CENTRAL) */}
-          <div className={`${styles.hubCard} ${styles.cardAcademiaHeroActive}`}>
-            <div className={styles.activeSpotlightRibbon}>RAMA PRINCIPAL EN VIVO</div>
-            
+          {/* 2. ACADEMIA FLOR MARTINEZ */}
+          <div className={`${styles.hubCard} ${styles.cardDisabled} ${styles.cardAcademia}`}>
             <div className={styles.cardTopRow}>
-              <div className={`${styles.cardIconBox} ${styles.iconAcademiaActive}`}>
-                <GraduationCap size={32} />
+              <div className={`${styles.cardIconBox} ${styles.iconAcademiaDisabled}`}>
+                <GraduationCap size={26} />
               </div>
               <div className={styles.cardStatusRow}>
-                <span className={styles.statusLivePill}>
-                  <span className={styles.livePulseGlow} />
-                  Rama Activa · Acceso Inmediato
+                <span className={styles.statusDisabled}>
+                  <Lock size={12} />
+                  Próximamente · En Desarrollo
                 </span>
               </div>
             </div>
 
             <div className={styles.cardBody}>
-              <span className={styles.cardBranchLabelActive}>PLATAFORMA EDUCATIVA</span>
-              <h3 className={styles.cardBranchTitleActive}>Academia Flor Martinez</h3>
-              <p className={styles.cardBranchTaglineActive}>
+              <span className={styles.cardBranchLabelDisabled}>PLATAFORMA EDUCATIVA</span>
+              <h3 className={styles.cardBranchTitleDisabled}>Academia Flor Martinez</h3>
+              <p className={styles.cardBranchTaglineDisabled}>
                 Empleabilidad, LinkedIn de Alto Impacto, CV & Entrevistas
               </p>
-              <p className={styles.cardBranchDescActive}>
-                Plataforma formativa práctica para acelerar tu inserción laboral, optimizar tu perfil profesional y destacar ante reclutadores.
+              <p className={styles.cardBranchDescDisabled}>
+                Plataforma formativa práctica para optimizar tu perfil profesional, CV y destacar ante reclutadores e industrias exigentes.
               </p>
             </div>
 
             <div className={styles.cardActionArea}>
-              <a
-                href="http://localhost:3001"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${styles.hubActionBtn} ${styles.btnAcademiaHero}`}
+              <Link
+                href="/proyecto/academia-flor-martinez"
+                className={`${styles.hubActionBtn} ${styles.btnDisabledState}`}
               >
-                <span>Ingresar a la Academia</span>
-                <ArrowUpRight size={20} />
-              </a>
+                <span>Ver Ficha & Propuesta</span>
+                <ArrowRight size={14} />
+              </Link>
             </div>
           </div>
 
-          {/* 3. TIENDA FLOR MARTINEZ (INHABILITADO / EN CONSTRUCCIÓN) */}
+          {/* 3. TIENDA FLOR MARTINEZ */}
           <div className={`${styles.hubCard} ${styles.cardDisabled} ${styles.cardTienda}`}>
             <div className={styles.cardTopRow}>
               <div className={`${styles.cardIconBox} ${styles.iconTiendaDisabled}`}>
@@ -132,8 +128,8 @@ export function ProjectsSection() {
                 href="/proyecto/tienda-flor-martinez"
                 className={`${styles.hubActionBtn} ${styles.btnDisabledState}`}
               >
-                <Lock size={14} />
-                <span>En Construcción · Ver Ficha</span>
+                <span>Ver Ficha & Propuesta</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>

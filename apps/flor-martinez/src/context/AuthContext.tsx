@@ -225,9 +225,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   ): Promise<boolean> => {
     setIsLoading(true);
     try {
-      let emailToUse = customEmail ? customEmail.trim() : 'santiago.morales@ejemplo.com';
-      let nameToUse: string = customName?.trim() || emailToUse.split('@')[0] || 'Usuario';
-      let avatarToUse: string = customAvatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
+      const emailToUse = customEmail ? customEmail.trim() : 'santiago.morales@ejemplo.com';
+      const nameToUse: string = customName?.trim() || emailToUse.split('@')[0] || 'Usuario';
+      const avatarToUse: string = customAvatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
 
       const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
       if (res.success && res.user) {

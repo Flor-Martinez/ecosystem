@@ -105,7 +105,7 @@ export function ProductGrid({ products }: ProductGridProps) {
             <SlidersHorizontal size={14} className={styles.sortIcon} />
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
+              onChange={(e) => setSortBy(e.target.value as 'featured' | 'price-asc' | 'price-desc')}
               className={styles.sortSelect}
               aria-label="Ordenar catálogo"
             >
@@ -124,7 +124,7 @@ export function ProductGrid({ products }: ProductGridProps) {
         </span>
         {searchQuery && (
           <span className={styles.queryTag}>
-            Búsqueda: "{searchQuery}"
+            Búsqueda: &quot;{searchQuery}&quot;
           </span>
         )}
       </div>

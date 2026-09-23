@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // =============================================================================
@@ -397,4 +398,25 @@ model QuizSubmission {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("quiz_submissions")
+}
+
+// =============================================================================
+// SISTEMA DE LICENCIAS COMERCIALES (PLANILLA FINANCIERA)
+// =============================================================================
+
+model SpreadsheetLicense {
+  id              String   @id @default(cuid())
+  licenseKey      String   @unique // Ej. FM-9X2K-4M1P
+  customerName    String
+  customerEmail   String
+  customerPhone   String?
+  channel         String   @default("WEB") // "WEB" | "WHATSAPP" | "INSTAGRAM" | "TRANSFERENCIA" | "MANUAL"
+  status          String   @default("ACTIVA") // "ACTIVA" | "REVOCADA" | "PRUEBA"
+  spreadsheetId   String?  // ID de la copia vinculada cuando se activa
+  notes           String?
+  syncedToSheets  Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("spreadsheet_licenses")
 }

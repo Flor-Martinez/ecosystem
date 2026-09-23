@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   Sparkles,
   RotateCcw,
-  BookOpen,
 } from 'lucide-react';
 import { CampusProgram, CampusModule } from '@/data/campus';
 import styles from './CampusModuleCelebration.module.css';

@@ -14,7 +14,6 @@ import {
   Check,
   Calendar,
 } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
 import styles from './CampusZoomLiveView.module.css';
 
 interface SubmittedQuestion {
@@ -62,8 +61,6 @@ export function CampusZoomLiveView({
   onBackToDashboard,
   onNavigateToAgenda,
 }: CampusZoomLiveViewProps) {
-  const { user } = useAuth();
-  const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
 
   const [questionText, setQuestionText] = useState('');
   const [copiedId, setCopiedId] = useState(false);

@@ -18,7 +18,6 @@ import {
   X,
   Layers,
   Building2,
-  Lock,
 } from 'lucide-react';
 import { LinkedinIcon } from '@/components/ui/Icons';
 import { useAuth } from '@/context/AuthContext';

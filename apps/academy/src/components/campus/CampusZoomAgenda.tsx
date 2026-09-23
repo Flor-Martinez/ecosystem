@@ -3,11 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Video,
-  Calendar as CalendarIcon,
   Clock,
-  CheckCircle2,
   Sparkles,
-  PlayCircle,
   Plus,
   Trash2,
   ChevronLeft,
@@ -116,7 +113,6 @@ export function CampusZoomAgenda({
   const [newTime, setNewTime] = useState('15:00 hs');
   const [newCompany, setNewCompany] = useState('');
   const [newNotes, setNewNotes] = useState('');
-  const [newZoomLink, setNewZoomLink] = useState('');
 
   // Handle incoming prefill data from Tracker (e.g. "Agendar Entrevista")
   useEffect(() => {
@@ -199,16 +195,6 @@ export function CampusZoomAgenda({
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
 
-  const handleOpenAddModal = (forDate?: string) => {
-    setNewDate(forDate || selectedDate);
-    setNewTitle('');
-    setNewType('entrevista');
-    setNewTime('15:00 hs');
-    setNewCompany('');
-    setNewNotes('');
-    setNewZoomLink('');
-    setShowAddModal(true);
-  };
 
   const handleSaveEvent = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -222,7 +208,6 @@ export function CampusZoomAgenda({
       time: newTime.trim() || '12:00 hs',
       company: newCompany.trim() || undefined,
       notes: newNotes.trim() || undefined,
-      zoomLink: newZoomLink.trim() || undefined,
     };
 
     const updated = [...events, newEv];

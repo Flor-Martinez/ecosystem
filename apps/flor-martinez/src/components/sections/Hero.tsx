@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Sparkles, ShieldCheck, ArrowDown, ArrowUpRight } from 'lucide-react';
+import { Sparkles, ShieldCheck, ArrowDown, User } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
 import { FMMonogram } from '@/components/ui/BrandLogo';
@@ -51,24 +51,19 @@ export function Hero() {
                 <span>Explorar Ecosistema</span>
                 <ArrowDown size={18} />
               </Button>
-              <a
-                href="http://localhost:3001"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.heroAcademyLiveBtn}
-              >
-                <span>Academia En Vivo</span>
-                <ArrowUpRight size={16} />
-              </a>
+              <Button href="#sobre-mi" variant="outline" size="lg" className={styles.heroSecondaryBtn}>
+                <User size={16} />
+                <span>Sobre Mí</span>
+              </Button>
             </div>
           </div>
 
-          {/* Right: Real Editorial Portrait Photo */}
+          {/* Right: Real Editorial Portrait Photo (Foto 1: Rooftop con laptop y teléfono) */}
           <div className={styles.heroPhotoCol}>
             <div className={styles.photoFrame}>
               <div className={styles.photoContainer}>
                 <Image
-                  src="/images/flor-hero.jpg"
+                  src="/images/flor_rooftop_1.jpg"
                   alt="Flor Martinez — Especialista en Comercio Exterior, Marketing y Mentora Profesional"
                   width={520}
                   height={650}
@@ -89,7 +84,7 @@ export function Hero() {
               {/* Live Status Pill */}
               <div className={styles.liveIndicatorPill}>
                 <span className={styles.pulsingDot} />
-                <span>Ecosistema Activo · 2025</span>
+                <span>Ecosistema Flor Martinez</span>
               </div>
             </div>
           </div>

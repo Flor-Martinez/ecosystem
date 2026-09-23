@@ -37,7 +37,7 @@ export function AboutSection() {
             <div className={styles.leadPhotoCol}>
               <div className={styles.standingFrame}>
                 <Image
-                  src="/images/flor-standing.jpg"
+                  src="/images/flor_standing_2.jpg"
                   alt="Flor Martinez — Liderazgo y desarrollo profesional"
                   width={420}
                   height={560}
