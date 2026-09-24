@@ -72,10 +72,14 @@ Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor
 🔑 Tu Clave de Activación Oficial es:
 ${licenseKey}
 
-📌 Instrucciones de activación (solo te lleva 1 minuto):
-1. Abrí el enlace y presioná el botón azul 'Crear una copia'.
-2. En la portada 'Activar Licencia', escribí tu clave en la celda C7 y presioná Enter.
-3. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
+📌 Instrucciones de activación:
+1. Abrí el enlace desde una computadora (PC o Mac) en Google Chrome.
+2. Hacé clic en el botón azul 'Crear una copia'.
+3. Escribí tu clave en la celda blanca (C7) y presioná Enter.
+4. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para validar tu copia única.
+5. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
+
+💻 Nota importante: Es muy conveniente usar la planilla en una computadora en lugar de un celular para visualizar cómodamente todos los tableros, gráficos y cálculos financieros.
 
 Guardá este mensaje. ¡Cualquier duda que tengas estoy a disposición!`;
 }

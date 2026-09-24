@@ -56,8 +56,8 @@ export const solutionsData: SolutionItem[] = [
     videoTitle: 'Demostración en video: Cómo usar el Organizador de Finanzas',
     deliverables: [
       {
-        title: 'Plantilla de Finanzas Inteligente (Excel & Google Sheets)',
-        description: 'Matriz automatizada con gráficos de pastel, barras de presupuesto y cálculos de rentabilidad.',
+        title: 'Plantilla de Finanzas Inteligente (Google Sheets)',
+        description: 'Matriz ejecutiva automatizada con gráficos interactivos, presupuestos y cálculos. Optimizada para computadora (PC/Mac) en Google Chrome.',
       },
       {
         title: 'Guía en PDF & Video Tutorial Explicativo (15 min)',
@@ -76,8 +76,8 @@ export const solutionsData: SolutionItem[] = [
       },
       {
         stepNumber: 2,
-        title: 'Acceso Directo a tu Correo',
-        description: 'Recibís de forma automática el enlace de descarga e instrucciones para importar la plantilla.',
+        title: 'Acceso Directo a tu Correo o WhatsApp',
+        description: 'Recibís de forma automática el enlace de copia con tu clave única e instrucciones de activación.',
       },
       {
         stepNumber: 3,
@@ -87,8 +87,12 @@ export const solutionsData: SolutionItem[] = [
     ],
     faq: [
       {
-        question: '¿Necesito conocimientos avanzados de Excel?',
-        answer: 'Para nada. La plantilla viene completamente automatizada con fórmulas preconfiguradas y un video explicativo de 15 minutos donde te muestro exactamente dónde ingresar cada dato.',
+        question: '¿Necesito conocimientos avanzados de Excel o Google Sheets?',
+        answer: 'Para nada. La plantilla viene completamente automatizada con fórmulas preconfiguradas y un video explicativo donde te muestro exactamente dónde ingresar cada dato.',
+      },
+      {
+        question: '¿Puedo usar la plantilla desde un celular o computadora?',
+        answer: 'Es altamente conveniente y recomendado utilizarla desde una computadora (PC o Mac) en Google Chrome. Si bien podés consultar datos puntuales desde la app móvil, la activación inicial, los tableros ejecutivos, gráficos financieros y proyecciones automáticas están optimizados para la pantalla de una computadora.',
       },
       {
         question: '¿Funciona con varias monedas (pesos y dólares)?',

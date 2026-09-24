@@ -69,6 +69,15 @@ function onOpen(e) {
     }
     ss.toast("Esta copia requiere su propia clave de licencia comercial.", "🔒 Archivo Duplicado", 6);
   } else if (!savedId || estado !== "ACTIVO") {
+    // Si la fórmula IMPORTDATA ya dio OK (por ejemplo tras hacer clic en Permitir acceso)
+    var z20 = (db.getRange("Z20").getValue() || "").toString().trim();
+    if (z20 === "OK") {
+      var portadaLic = obtenerHojaActivacion(ss);
+      var key = (portadaLic ? portadaLic.getRange("C7").getValue() : "").toString().trim().toUpperCase();
+      var customer = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
+      completarActivacionExitosa(ss, currentId, key, customer);
+      return;
+    }
     bloquearHojasOperativas(ss);
     asegurarFormulasVinculacion(ss);
   }
@@ -97,6 +106,16 @@ function asegurarFormulasVinculacion(ss) {
   var formulaD7Actual = portada.getRange("D7").getFormula();
   if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1) {
     portada.getRange("D7").setFormula(formulaD7);
+  }
+
+  // Texto de ayuda sutil en C8
+  var c8Val = (portada.getRange("C8").getValue() || "").toString().trim();
+  if (!c8Val || c8Val.indexOf("💡") === 0) {
+    portada.getRange("C8")
+      .setValue("💡 Si ves una barra amarilla arriba, hacé clic en 'Permitir acceso'.")
+      .setFontColor("#64748B")
+      .setFontSize(8)
+      .setFontStyle("italic");
   }
 }
 

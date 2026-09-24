@@ -19,7 +19,7 @@ import {
   RotateCcw,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
-import { TEMPLATE_COPY_URL, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
+import { TEMPLATE_COPY_URL, generarMensajeEntrega, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
 import {
   checkIsAdminAction,
   adminLogoutAction,
@@ -141,20 +141,7 @@ export default function AdminLicenciasClient({
   };
 
   const handleCopyRowMessage = (rec: SpreadsheetLicenseRecord) => {
-    const primerNombre = rec.customerName.split(' ')[0] || 'Hola';
-    const msg = `¡Hola ${primerNombre}! Muchas gracias por tu compra. 🙌
-
-Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor Martínez:
-👉 ${TEMPLATE_COPY_URL}
-
-🔑 Tu Clave de Activación Oficial es:
-${rec.licenseKey}
-
-📌 Instrucciones de activación:
-1. Abrí el enlace y presioná 'Crear una copia'.
-2. En la portada 'Activar Licencia', escribí tu clave en la celda C7 y presioná Enter.
-3. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.`;
-
+    const msg = generarMensajeEntrega(rec.customerName, rec.licenseKey);
     navigator.clipboard.writeText(msg);
     setCopiedRowKey(rec.id);
     setTimeout(() => setCopiedRowKey(null), 2000);
