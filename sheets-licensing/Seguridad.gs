@@ -94,21 +94,31 @@ function asegurarFormulasVinculacion(ss) {
   var currentId = ss.getId();
   db.getRange("Z10").setValue(currentId);
 
+  // Ping pre-autorización en Z19 para disparar la barra amarilla de Google
+  // apenas el comprador abre su copia, antes de escribir la clave.
+  var formulaPing = '=IFERROR(IMPORTDATA("' + API_URL_ACTIVACION + '?ping=true"), "OK")';
+  var formulaPingActual = db.getRange("Z19").getFormula();
+  if (!formulaPingActual || formulaPingActual.indexOf("ping=true") === -1) {
+    db.getRange("Z19").setFormula(formulaPing);
+  }
+
   var nombrePortada = portada.getName();
-  var formulaZ20 = '=IF(ISBLANK(\'' + nombrePortada + '\'!C7), "", IFERROR(IMPORTDATA(CONCATENATE("' + API_URL_ACTIVACION + '?format=csv&key=", \'' + nombrePortada + '\'!C7, "&id=", Z10)), "ERROR"))';
+  // Z20: Sin IFERROR para que el estado pendiente (#REF! / #N/A) no se confunda con un rechazo
+  var formulaZ20 = '=IF(ISBLANK(\'' + nombrePortada + '\'!C7), "", IMPORTDATA(CONCATENATE("' + API_URL_ACTIVACION + '?format=csv&key=", \'' + nombrePortada + '\'!C7, "&id=", Z10)))';
 
   var formulaActual = db.getRange("Z20").getFormula();
-  if (!formulaActual || formulaActual.indexOf("activate") === -1) {
+  if (!formulaActual || formulaActual.indexOf("activate") === -1 || formulaActual.indexOf("IFERROR") !== -1) {
     db.getRange("Z20").setFormula(formulaZ20);
   }
 
-  var formulaD7 = '=IF(ISBLANK(C7), "👈 Escribí tu clave para activar", IF(ISERROR(Configuracion!Z20), "⏳ Validando...", IF(Configuracion!Z20="OK", "✅ ¡Licencia Oficial Activada!", IF(Configuracion!Z20="ERROR", Configuracion!AB20, "⏳ Validando..."))))';
+  // D7: Si Z20 tiene error nativo (#REF! mientras no se dio 'Permitir acceso'), muestra guía amable en vez de error falso.
+  var formulaD7 = '=IF(ISBLANK(C7), "👈 Escribí tu clave para activar", IF(ISERROR(Configuracion!Z20), "👉 Hacé clic en \'Permitir acceso\' en la barra amarilla de arriba", IF(Configuracion!Z20="OK", "✅ ¡Licencia Oficial Activada!", IF(Configuracion!Z20="ERROR", Configuracion!AB20, "⏳ Validando..."))))';
   var formulaD7Actual = portada.getRange("D7").getFormula();
-  if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1) {
+  if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1 || formulaD7Actual.indexOf("Permitir") === -1) {
     portada.getRange("D7").setFormula(formulaD7);
   }
 
-  // Aplicar formato condicional nativo en D7 para que sea VERDE en éxito y ROJO en error
+  // Aplicar formato condicional nativo en D7 para todos los estados
   aplicarFormatoCondicionalActivacion(portada);
 
   // Texto de ayuda sutil en C8
@@ -123,7 +133,7 @@ function asegurarFormulasVinculacion(ss) {
 }
 
 /**
- * Aplica reglas de formato condicional nativas a D7 para que NUNCA quede rojo en éxito
+ * Aplica reglas de formato condicional nativas a D7 para que NUNCA quede rojo en éxito o en espera de permiso
  */
 function aplicarFormatoCondicionalActivacion(portada) {
   try {
@@ -147,11 +157,29 @@ function aplicarFormatoCondicionalActivacion(portada) {
       .setRanges([d7])
       .build();
 
+    // Regla Guía (Permitir acceso): Si contiene "👉"
+    var ruleGuide = SpreadsheetApp.newConditionalFormatRule()
+      .whenTextContains("👉")
+      .setFontColor("#1E3A5F")
+      .setBackground("#FEF3C7")
+      .setBold(true)
+      .setRanges([d7])
+      .build();
+
     // Regla Azul/Gris: Si contiene "⏳" o "Validando"
     var rulePending = SpreadsheetApp.newConditionalFormatRule()
       .whenTextContains("⏳")
       .setFontColor("#1E3A5F")
       .setBackground("#F1F5F9")
+      .setBold(false)
+      .setRanges([d7])
+      .build();
+
+    // Regla Inicial (👈 Escribí tu clave...): Si contiene "👈"
+    var ruleInitial = SpreadsheetApp.newConditionalFormatRule()
+      .whenTextContains("👈")
+      .setFontColor("#64748B")
+      .setBackground("#F8FAFC")
       .setBold(false)
       .setRanges([d7])
       .build();
@@ -169,7 +197,7 @@ function aplicarFormatoCondicionalActivacion(portada) {
       }
       if (!hasD7) filtered.push(existing[i]);
     }
-    filtered.push(ruleGreen, ruleRed, rulePending);
+    filtered.push(ruleGreen, ruleRed, ruleGuide, rulePending, ruleInitial);
     portada.setConditionalFormatRules(filtered);
   } catch(e) {}
 }
@@ -190,7 +218,7 @@ function procesarActivacionCelda(e) {
 
   // Caso 1: Se editó la celda C7 (escribió o pegó la clave)
   if (row === 7 && col === 3) {
-    // Restaurar automáticamente el diseño visual de la celda C7 (evita que se pegue el formato de WhatsApp/Mail)
+    // Restaurar automáticamente el diseño visual y bordes de la celda C7 (evita que se pegue el formato de WhatsApp/Mail)
     try {
       range
         .setFontFamily("Plus Jakarta Sans")
@@ -199,7 +227,8 @@ function procesarActivacionCelda(e) {
         .setFontColor("#1E3A5F")
         .setBackground("#FFFFFF")
         .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle");
+        .setVerticalAlignment("middle")
+        .setBorder(true, true, true, true, false, false, "#0D1B2A", SpreadsheetApp.BorderStyle.SOLID);
     } catch(err) {}
 
     var valorCrudo = (range.getValue() || "").toString();
@@ -244,11 +273,12 @@ function procesarActivacionCelda(e) {
       Utilities.sleep(500);
       SpreadsheetApp.flush();
       var z20 = (db.getRange("Z20").getValue() || "").toString().trim();
+      var aa20 = (db.getRange("AA20").getValue() || "").toString().trim();
       if (z20 === "OK") {
         var customer = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
         completarActivacionExitosa(ss, currentId, claveIngresada, customer);
         return;
-      } else if (z20 === "ERROR") {
+      } else if (z20 === "ERROR" && (aa20 === "ALREADY_USED" || aa20 === "REVOKED" || aa20 === "NOT_FOUND")) {
         var errMsg = (db.getRange("AB20").getValue() || "").toString().trim() || "Esta clave ya fue activada en otra copia.";
         sheet.getRange("D7").setValue("❌ " + errMsg).setFontColor("#DC2626").setFontWeight("bold");
         ss.toast(errMsg, "❌ Licencia Rechazada", 6);
@@ -257,7 +287,7 @@ function procesarActivacionCelda(e) {
       }
     }
 
-    // Si la conexión tardó un instante más, la fórmula D7 mostrará el estado
+    // Si la conexión tardó un instante más o espera 'Permitir acceso', la fórmula D7 guiará al usuario
     return;
   }
 
@@ -322,10 +352,11 @@ function activarPlanillaBoton() {
   SpreadsheetApp.flush();
 
   var z20 = (db ? db.getRange("Z20").getValue() : "").toString().trim();
+  var aa20 = (db ? db.getRange("AA20").getValue() : "").toString().trim();
   if (z20 === "OK") {
     var customer = (db ? db.getRange("AB20").getValue() : "").toString().trim() || "Cliente Oficial";
     completarActivacionExitosa(ss, currentId, claveIngresada, customer);
-  } else if (z20 === "ERROR") {
+  } else if (z20 === "ERROR" && (aa20 === "ALREADY_USED" || aa20 === "REVOKED" || aa20 === "NOT_FOUND")) {
     var err = (db ? db.getRange("AB20").getValue() : "").toString().trim() || "Clave ya utilizada en otra copia.";
     portada.getRange("D7").setValue("❌ " + err).setFontColor("#DC2626").setFontWeight("bold");
     ss.toast(err, "❌ Error de Licencia", 5);
@@ -453,7 +484,8 @@ function prepararPlantillaParaVender() {
         .setFontColor("#1E3A5F")
         .setBackground("#FFFFFF")
         .setHorizontalAlignment("center")
-        .setVerticalAlignment("middle");
+        .setVerticalAlignment("middle")
+        .setBorder(true, true, true, true, false, false, "#0D1B2A", SpreadsheetApp.BorderStyle.SOLID);
     } catch(e) {}
     portada.getRange("C8").clearContent();
   }

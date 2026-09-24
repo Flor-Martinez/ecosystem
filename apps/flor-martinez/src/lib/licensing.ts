@@ -73,13 +73,12 @@ Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor
 ${licenseKey}
 
 📌 Instrucciones de activación:
-1. Abrí el enlace desde una computadora (PC o Mac) en Google Chrome.
-2. Hacé clic en el botón azul 'Crear una copia'.
+1. Abrí el enlace y hacé clic en el botón azul 'Crear una copia'.
+2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
 3. Escribí tu clave en la celda blanca (C7) y presioná Enter.
-4. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para validar tu copia única.
-5. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
+4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
-💻 Nota importante: Es muy conveniente usar la planilla en una computadora en lugar de un celular para visualizar cómodamente todos los tableros, gráficos y cálculos financieros.
+💡 Recomendación: Te sugerimos utilizar la planilla desde una computadora para disfrutar de una visualización mucho más cómoda y completa de todos los tableros y gráficos.
 
 Guardá este mensaje. ¡Cualquier duda que tengas estoy a disposición!`;
 }

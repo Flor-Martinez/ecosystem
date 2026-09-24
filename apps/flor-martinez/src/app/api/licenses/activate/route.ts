@@ -46,7 +46,15 @@ export async function GET(req: NextRequest) {
     const licenseKey = (searchParams.get('licenseKey') || searchParams.get('key') || searchParams.get('clave') || '').trim();
     const spreadsheetId = (searchParams.get('spreadsheetId') || searchParams.get('id') || '').trim();
     const reset = searchParams.get('reset') === 'true' || searchParams.get('action') === 'reset';
+    const ping = searchParams.get('ping') === 'true';
     const format = searchParams.get('format') || 'json';
+
+    if (ping) {
+      return new Response('OK,PING', {
+        status: 200,
+        headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      });
+    }
 
     if (!licenseKey) {
       return NextResponse.json(
