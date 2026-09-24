@@ -5,6 +5,7 @@ import {
   createLicenseRecord,
   getAllLicenses,
   deleteLicenseRecord,
+  unlinkLicenseDocument,
   generarMensajeEntrega,
   ADMIN_EMAILS,
   SALT_SEGURIDAD,
@@ -220,6 +221,31 @@ export async function deleteLicenseAction(licenseId: string): Promise<{
   } catch (err: any) {
     console.error('Error en deleteLicenseAction:', err);
     return { success: false, error: err.message || 'Error al eliminar la licencia.' };
+  }
+}
+
+/**
+ * Desvincula la licencia del archivo de Google Sheets actual (resetea para permitir nueva activación)
+ */
+export async function unlinkLicenseAction(licenseId: string): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  const adminCheck = await checkIsAdminAction();
+  if (!adminCheck.isAdmin) {
+    return { success: false, error: 'No autorizado.' };
+  }
+
+  if (!licenseId) {
+    return { success: false, error: 'ID de licencia no válido.' };
+  }
+
+  try {
+    await unlinkLicenseDocument(licenseId);
+    return { success: true };
+  } catch (err: any) {
+    console.error('Error en unlinkLicenseAction:', err);
+    return { success: false, error: err.message || 'Error al desvincular la licencia.' };
   }
 }
 

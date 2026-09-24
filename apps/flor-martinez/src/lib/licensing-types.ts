@@ -16,6 +16,7 @@ export interface SpreadsheetLicenseRecord {
   customerPhone?: string | null;
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   status: 'ACTIVA' | 'REVOCADA' | 'PRUEBA';
+  spreadsheetId?: string | null;
   notes?: string | null;
   syncedToSheets: boolean;
   createdAt: string;

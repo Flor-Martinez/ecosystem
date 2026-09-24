@@ -138,6 +138,7 @@ export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
           customerPhone: r.customerPhone,
           channel: r.channel as any,
           status: r.status as any,
+          spreadsheetId: r.spreadsheetId || null,
           notes: r.notes,
           syncedToSheets: Boolean(r.syncedToSheets),
           createdAt: r.createdAt ? new Date(r.createdAt).toISOString() : new Date().toISOString(),
@@ -180,6 +181,7 @@ export async function createLicenseRecord(data: {
     customerPhone: data.customerPhone?.trim() || null,
     channel: data.channel,
     status: 'ACTIVA',
+    spreadsheetId: null,
     notes: data.notes?.trim() || null,
     syncedToSheets: false,
     createdAt: new Date().toISOString(),
@@ -287,6 +289,169 @@ export async function deleteLicenseRecord(idOrKey: string): Promise<boolean> {
 
   return deleted;
 }
+
+/**
+ * Valida y activa una licencia vinculándola a un Spreadsheet ID único.
+ * Si la clave ya está vinculada a otro ID, se rechaza la activación.
+ */
+export async function activateLicenseOnDocument(
+  licenseKey: string,
+  spreadsheetId: string
+): Promise<{
+  success: boolean;
+  code?: 'ACTIVATED' | 'ALREADY_ACTIVE' | 'ALREADY_USED' | 'NOT_FOUND' | 'REVOKED' | 'INVALID_KEY';
+  message: string;
+  customerName?: string;
+}> {
+  if (!licenseKey) {
+    return { success: false, code: 'INVALID_KEY', message: 'Falta la clave de licencia.' };
+  }
+  if (!spreadsheetId) {
+    return { success: false, code: 'INVALID_KEY', message: 'Falta el ID del documento.' };
+  }
+
+  const cleanKey = licenseKey.trim().toUpperCase().replace(/[\s–—]/g, '-');
+  const cleanId = spreadsheetId.trim();
+
+  // Claves maestras de desarrollo/admin (siempre permitidas)
+  if (cleanKey === 'FM-ADMIN-MASTER' || cleanKey === 'FM-DEV-MASTER') {
+    return {
+      success: true,
+      code: 'ACTIVATED',
+      message: 'Licencia Maestra Autorizada',
+      customerName: 'Santiago (Master)',
+    };
+  }
+
+  // 1. Buscar la licencia en Prisma DB o storage local
+  let record: SpreadsheetLicenseRecord | null = null;
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'spreadsheetLicense' in db) {
+      const found = await db.spreadsheetLicense.findUnique({
+        where: { licenseKey: cleanKey },
+      });
+      if (found) {
+        record = {
+          id: found.id,
+          licenseKey: found.licenseKey,
+          customerName: found.customerName,
+          customerEmail: found.customerEmail,
+          customerPhone: found.customerPhone,
+          channel: found.channel as any,
+          status: found.status as any,
+          spreadsheetId: found.spreadsheetId || null,
+          notes: found.notes,
+          syncedToSheets: Boolean(found.syncedToSheets),
+          createdAt: found.createdAt ? new Date(found.createdAt).toISOString() : new Date().toISOString(),
+        };
+      }
+    }
+  } catch {}
+
+  if (!record) {
+    const local = readLocalLicenses();
+    record = local.find((l) => l.licenseKey.toUpperCase() === cleanKey) || null;
+  }
+
+  // 2. Si no existe en la base de datos
+  if (!record) {
+    return {
+      success: false,
+      code: 'NOT_FOUND',
+      message: 'Esta clave no está registrada en nuestro sistema de ventas.',
+    };
+  }
+
+  // 3. Si está revocada o dada de baja
+  if (record.status === 'REVOCADA') {
+    return {
+      success: false,
+      code: 'REVOKED',
+      message: 'Esta licencia comercial se encuentra revocada o dada de baja.',
+    };
+  }
+
+  // 4. Caso 1: Primera activación (No tiene ID asociado aún)
+  if (!record.spreadsheetId) {
+    // Guardar en Prisma DB
+    try {
+      const { db } = await import('@repo/db');
+      if (db && 'spreadsheetLicense' in db) {
+        await db.spreadsheetLicense.update({
+          where: { id: record.id },
+          data: {
+            spreadsheetId: cleanId,
+            status: 'ACTIVA',
+          },
+        });
+      }
+    } catch {}
+
+    // Guardar en storage local
+    try {
+      const currentLocal = readLocalLicenses();
+      const updated = currentLocal.map((l) =>
+        l.id === record!.id ? { ...l, spreadsheetId: cleanId, status: 'ACTIVA' as const } : l
+      );
+      saveLocalLicenses(updated);
+    } catch {}
+
+    return {
+      success: true,
+      code: 'ACTIVATED',
+      message: '¡Licencia activada con éxito y vinculada a tu archivo!',
+      customerName: record.customerName,
+    };
+  }
+
+  // 5. Caso 2: Misma planilla ya autorizada anteriormente
+  if (record.spreadsheetId === cleanId) {
+    return {
+      success: true,
+      code: 'ALREADY_ACTIVE',
+      message: 'Esta copia ya se encuentra activada y autorizada.',
+      customerName: record.customerName,
+    };
+  }
+
+  // 6. Caso 3: ¡LA CLAVE YA FUE USADA EN OTRO DOCUMENTO!
+  return {
+    success: false,
+    code: 'ALREADY_USED',
+    message: 'Esta clave ya fue activada en otra copia de Google Sheets y no puede ser reutilizada.',
+  };
+}
+
+/**
+ * Desvincula el Spreadsheet ID de una licencia (para permitir que el cliente la active en una nueva copia si es necesario)
+ */
+export async function unlinkLicenseDocument(licenseId: string): Promise<boolean> {
+  let unlinked = false;
+
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'spreadsheetLicense' in db) {
+      await db.spreadsheetLicense.update({
+        where: { id: licenseId },
+        data: { spreadsheetId: null },
+      });
+      unlinked = true;
+    }
+  } catch {}
+
+  try {
+    const currentLocal = readLocalLicenses();
+    const updated = currentLocal.map((l) =>
+      l.id === licenseId ? { ...l, spreadsheetId: null } : l
+    );
+    saveLocalLicenses(updated);
+    unlinked = true;
+  } catch {}
+
+  return unlinked;
+}
+
 
 
 // =============================================================================

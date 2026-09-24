@@ -146,7 +146,7 @@ export default function AdminDashboardClient({
                 <span className={styles.statLabel}>Sistema de Seguridad</span>
                 <div className={styles.statActive}>
                   <span className={styles.pulseDot} />
-                  <span>Zero-Auth Activo</span>
+                  <span>Seguridad Cloud (1 Uso Único)</span>
                 </div>
               </div>
             </div>

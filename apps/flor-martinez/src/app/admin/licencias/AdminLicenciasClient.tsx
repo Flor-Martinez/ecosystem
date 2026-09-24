@@ -16,6 +16,7 @@ import {
   MessageCircle,
   TrendingUp,
   Trash2,
+  RotateCcw,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { TEMPLATE_COPY_URL, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
@@ -25,6 +26,7 @@ import {
   issueLicenseAction,
   getLicensesListAction,
   deleteLicenseAction,
+  unlinkLicenseAction,
 } from '@/actions/licenses';
 import { logoutUserAction } from '@/actions/auth';
 import { useEcosystemAuth } from '@/context/AuthContext';
@@ -177,6 +179,28 @@ ${rec.licenseKey}
     }
   };
 
+  const handleUnlinkLicense = async (rec: SpreadsheetLicenseRecord) => {
+    if (
+      !confirm(
+        `¿Deseás desvincular el archivo asociado a la licencia de ${rec.customerName} (${rec.licenseKey})?\n\nEsto permitirá que la clave pueda volver a activarse en una nueva copia.`
+      )
+    ) {
+      return;
+    }
+    try {
+      const res = await unlinkLicenseAction(rec.id);
+      if (res.success) {
+        setLicenses((prev) =>
+          prev.map((l) => (l.id === rec.id ? { ...l, spreadsheetId: null } : l))
+        );
+      } else {
+        alert(res.error || 'Error al desvincular.');
+      }
+    } catch {
+      alert('Error inesperado al desvincular.');
+    }
+  };
+
   // Filtered table
   const filtered = licenses.filter((item) => {
     const matchesChannel = channelFilter === 'ALL' || item.channel === channelFilter;
@@ -221,17 +245,6 @@ ${rec.licenseKey}
               <ArrowLeft size={14} />
               <span>Panel Admin</span>
             </Link>
-
-            <a
-              href="https://docs.google.com/spreadsheets/d/1-8MYVSviA07R0e2Q7XNjCobcVMqGIMEoIUQrUqMvvYM/edit?gid=299532771#gid=299532771"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.masterSheetBtn}
-              title="Abrir la planilla Google Sheet matriz"
-            >
-              <span>Abrir Google Sheet Matriz</span>
-              <ExternalLink size={14} />
-            </a>
 
             <button onClick={handleLogout} className={styles.logoutBtn} title="Cerrar sesión">
               <LogOut size={15} />
@@ -433,6 +446,7 @@ ${rec.licenseKey}
                     <th>Clave de Licencia</th>
                     <th>Cliente</th>
                     <th>Canal</th>
+                    <th>Vinculación Google Sheets</th>
                     <th>Fecha</th>
                     <th>Acciones</th>
                   </tr>
@@ -464,6 +478,17 @@ ${rec.licenseKey}
                               {item.channel}
                             </span>
                           </td>
+                          <td>
+                            {item.spreadsheetId ? (
+                              <span className={styles.statusBound} title={`ID: ${item.spreadsheetId}`}>
+                                🔒 Activada (1 archivo)
+                              </span>
+                            ) : (
+                              <span className={styles.statusPending}>
+                                ⏳ Sin activar
+                              </span>
+                            )}
+                          </td>
                           <td>{formattedDate}</td>
                           <td className={styles.actionCell}>
                             <button
@@ -474,6 +499,16 @@ ${rec.licenseKey}
                             >
                               {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar'}
                             </button>
+                            {item.spreadsheetId && (
+                              <button
+                                type="button"
+                                onClick={() => handleUnlinkLicense(item)}
+                                className={styles.unlinkBtn}
+                                title="Desvincular copia para permitir activación en un nuevo archivo"
+                              >
+                                <RotateCcw size={13} />
+                              </button>
+                            )}
                             <button
                               type="button"
                               onClick={() => handleDeleteLicense(item)}
@@ -488,7 +523,7 @@ ${rec.licenseKey}
                     })
                   ) : (
                     <tr>
-                      <td colSpan={5} style={{ textAlign: 'center', padding: '30px', color: '#94A3B8' }}>
+                      <td colSpan={6} style={{ textAlign: 'center', padding: '30px', color: '#94A3B8' }}>
                         No se encontraron licencias registradas.
                       </td>
                     </tr>
