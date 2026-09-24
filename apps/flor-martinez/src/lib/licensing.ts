@@ -250,6 +250,45 @@ export async function syncToGoogleSheet(webhookUrl: string, record: SpreadsheetL
   }
 }
 
+/**
+ * Elimina una licencia de la base de datos y del almacenamiento local
+ */
+export async function deleteLicenseRecord(idOrKey: string): Promise<boolean> {
+  let deleted = false;
+
+  // 1. Eliminar de Prisma DB si está disponible
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'spreadsheetLicense' in db) {
+      await db.spreadsheetLicense.deleteMany({
+        where: {
+          OR: [{ id: idOrKey }, { licenseKey: idOrKey }],
+        },
+      });
+      deleted = true;
+    }
+  } catch (err) {
+    console.warn('Error al borrar de Prisma DB:', err);
+  }
+
+  // 2. Eliminar del storage local
+  try {
+    const currentLocal = readLocalLicenses();
+    const filtered = currentLocal.filter(
+      (l) => l.id !== idOrKey && l.licenseKey !== idOrKey
+    );
+    if (filtered.length !== currentLocal.length) {
+      saveLocalLicenses(filtered);
+      deleted = true;
+    }
+  } catch (err) {
+    console.warn('Error al borrar de storage local:', err);
+  }
+
+  return deleted;
+}
+
+
 // =============================================================================
 // GESTIÓN DINÁMICA DE EMAILS DE SUPERADMIN
 // =============================================================================

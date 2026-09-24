@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import {
   createLicenseRecord,
   getAllLicenses,
+  deleteLicenseRecord,
   generarMensajeEntrega,
   ADMIN_EMAILS,
   SALT_SEGURIDAD,
@@ -194,6 +195,31 @@ export async function getLicensesListAction(): Promise<{
   } catch (err) {
     console.error('Error en getLicensesListAction:', err);
     return { success: false, error: 'Error al consultar las licencias.' };
+  }
+}
+
+/**
+ * Elimina permanentemente una licencia comercial
+ */
+export async function deleteLicenseAction(licenseId: string): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  const adminCheck = await checkIsAdminAction();
+  if (!adminCheck.isAdmin) {
+    return { success: false, error: 'No autorizado para eliminar licencias.' };
+  }
+
+  if (!licenseId) {
+    return { success: false, error: 'ID de licencia no válido.' };
+  }
+
+  try {
+    await deleteLicenseRecord(licenseId);
+    return { success: true };
+  } catch (err: any) {
+    console.error('Error en deleteLicenseAction:', err);
+    return { success: false, error: err.message || 'Error al eliminar la licencia.' };
   }
 }
 

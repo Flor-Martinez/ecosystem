@@ -485,6 +485,9 @@
 
 .actionCell {
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .quickCopyBtn {
@@ -502,6 +505,25 @@
 .quickCopyBtn:hover {
   background-color: #0D1B2A;
   color: #FFFFFF;
+}
+
+.deleteLicenseBtn {
+  background: transparent;
+  border: 1px solid #CBD5E1;
+  color: #94A3B8;
+  padding: 4px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.deleteLicenseBtn:hover {
+  background-color: #FEE2E2;
+  color: #DC2626;
+  border-color: #FCA5A5;
 }
 
 /* LOGIN GATE CARD */

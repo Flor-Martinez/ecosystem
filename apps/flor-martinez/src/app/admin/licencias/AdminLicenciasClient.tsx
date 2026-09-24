@@ -15,6 +15,7 @@ import {
   ShoppingBag,
   MessageCircle,
   TrendingUp,
+  Trash2,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { TEMPLATE_COPY_URL, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
@@ -23,6 +24,7 @@ import {
   adminLogoutAction,
   issueLicenseAction,
   getLicensesListAction,
+  deleteLicenseAction,
 } from '@/actions/licenses';
 import { logoutUserAction } from '@/actions/auth';
 import { useEcosystemAuth } from '@/context/AuthContext';
@@ -154,6 +156,25 @@ ${rec.licenseKey}
     navigator.clipboard.writeText(msg);
     setCopiedRowKey(rec.id);
     setTimeout(() => setCopiedRowKey(null), 2000);
+  };
+
+  const handleDeleteLicense = async (rec: SpreadsheetLicenseRecord) => {
+    if (!confirm(`¿Estás seguro de que deseás eliminar permanentemente la licencia de ${rec.customerName} (${rec.licenseKey})?`)) {
+      return;
+    }
+    try {
+      const res = await deleteLicenseAction(rec.id);
+      if (res.success) {
+        setLicenses((prev) => prev.filter((l) => l.id !== rec.id));
+        if (lastIssued?.license?.id === rec.id) {
+          setLastIssued(null);
+        }
+      } else {
+        alert(res.error || 'No se pudo eliminar la licencia.');
+      }
+    } catch {
+      alert('Error inesperado al intentar eliminar la licencia.');
+    }
   };
 
   // Filtered table
@@ -451,7 +472,15 @@ ${rec.licenseKey}
                               className={styles.quickCopyBtn}
                               title="Copiar mensaje de entrega con enlace"
                             >
-                              {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar Mensaje'}
+                              {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteLicense(item)}
+                              className={styles.deleteLicenseBtn}
+                              title="Eliminar permanentemente esta licencia"
+                            >
+                              <Trash2 size={13} />
                             </button>
                           </td>
                         </tr>
