@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import { Lora, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
@@ -58,6 +59,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${lora.variable} ${plusJakarta.variable}`}>
       <body>
+        <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
         <AuthProvider>
           <Navbar />
           {children}

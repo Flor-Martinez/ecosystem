@@ -3,6 +3,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { loginUserAction, registerUserAction } from '@/actions/auth';
 
+declare global {
+  interface Window {
+    google?: any;
+  }
+}
+
 export interface EcosystemUser {
   id: string;
   name: string;
@@ -258,43 +264,79 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      const width = 500;
-      const height = 620;
-      const left = window.screenX + (window.outerWidth - width) / 2;
-      const top = window.screenY + (window.outerHeight - height) / 2;
+      const clientId =
+        process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+        '879169703831-qrj696v46jdsb9d2r0sufc00p04cdfd8.apps.googleusercontent.com';
 
-      const popup = window.open(
-        '/auth/google',
-        'GoogleLoginPopup',
-        `width=${width},height=${height},left=${left},top=${top},scrollbars=yes,resizable=yes,status=no,toolbar=no,menubar=no`
-      );
+      const triggerGoogleAuth = () => {
+        try {
+          if (!window.google?.accounts?.oauth2) {
+            console.error('El script de Google Identity Services aún no se ha cargado.');
+            resolve(false);
+            return;
+          }
 
-      if (!popup) {
-        console.warn('Popup blocked by browser, redirecting...');
-        window.location.href = '/auth/google';
-        resolve(false);
-        return;
-      }
+          const client = window.google.accounts.oauth2.initTokenClient({
+            client_id: clientId,
+            scope: 'email profile openid',
+            callback: async (tokenResponse: any) => {
+              if (tokenResponse?.error) {
+                console.error('Error devuelto por Google OAuth:', tokenResponse.error);
+                resolve(false);
+                return;
+              }
 
-      const handleAuthMessage = async (event: MessageEvent) => {
-        if (event.origin !== window.location.origin) return;
-        if (event.data?.type === 'GOOGLE_AUTH_SUCCESS') {
-          window.removeEventListener('message', handleAuthMessage);
-          const { profile } = event.data;
-          const ok = await loginWithSocial('google', profile.email, profile.name, profile.avatarUrl);
-          resolve(ok);
+              if (tokenResponse?.access_token) {
+                try {
+                  setIsLoading(true);
+                  const userInfoRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+                  });
+
+                  if (!userInfoRes.ok) {
+                    throw new Error('No se pudo obtener información del perfil de Google');
+                  }
+
+                  const profile = await userInfoRes.json();
+                  const ok = await loginWithSocial(
+                    'google',
+                    profile.email,
+                    profile.name,
+                    profile.picture
+                  );
+                  resolve(ok);
+                } catch (err) {
+                  console.error('Error al procesar perfil de Google:', err);
+                  setIsLoading(false);
+                  resolve(false);
+                }
+              } else {
+                resolve(false);
+              }
+            },
+          });
+
+          client.requestAccessToken({ prompt: 'select_account' });
+        } catch (err) {
+          console.error('Error al inicializar Google Auth:', err);
+          resolve(false);
         }
       };
 
-      window.addEventListener('message', handleAuthMessage);
-
-      const checkClosed = setInterval(() => {
-        if (popup.closed) {
-          clearInterval(checkClosed);
-          window.removeEventListener('message', handleAuthMessage);
+      if (window.google?.accounts?.oauth2) {
+        triggerGoogleAuth();
+      } else {
+        const script = document.createElement('script');
+        script.src = 'https://accounts.google.com/gsi/client';
+        script.async = true;
+        script.defer = true;
+        script.onload = () => triggerGoogleAuth();
+        script.onerror = () => {
+          console.error('No se pudo cargar el SDK de Google.');
           resolve(false);
-        }
-      }, 500);
+        };
+        document.head.appendChild(script);
+      }
     });
   };
 
