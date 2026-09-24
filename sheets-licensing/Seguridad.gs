@@ -1,13 +1,14 @@
 /**
  * ====================================================================
- * SISTEMA DE SEGURIDAD Y LICENCIAS - CLOUD & SINGLE USE BINDING
+ * SISTEMA DE SEGURIDAD Y LICENCIAS - ZERO-AUTH CONECTADO A SUPABASE
  * ====================================================================
  * Flor Martínez · Ecosistema Digital
  * 
- * - Validación oficial conectada a Supabase (1 clave = 1 archivo único).
- * - Si intentan usar la clave en una copia, el servidor la rechaza.
- * - Auto-renombrado a "Finanzas en Orden - Flor Martínez" (elimina "Copia de ").
- * - Auto-bloqueo al abrir copias duplicadas.
+ * - Validación 100% en la nube mediante fórmula nativa de Google (=IMPORTDATA).
+ * - CERO carteles de autorización de Google ("App no verificada / Página desconocida").
+ * - El cliente solo escribe su clave en C7 y presiona Enter.
+ * - Si hacen una copia y le pasan la clave a un amigo, Supabase la rechaza con ALREADY_USED.
+ * - Auto-renombrado a "Finanzas en Orden - Flor Martínez".
  * - Master bypass: "FM-ADMIN-MASTER" para administración.
  */
 
@@ -39,8 +40,8 @@ function onOpen(e) {
   try {
     var ui = SpreadsheetApp.getUi();
     ui.createMenu("🔒 Licencia")
-      .addItem("Activar Licencia Comercial", "activarPlanillaBoton")
       .addItem("Verificar Estado", "verificarEstadoLicencia")
+      .addItem("Desbloquear Planilla", "activarPlanillaBoton")
       .addToUi();
   } catch (err) {}
 
@@ -53,85 +54,123 @@ function onOpen(e) {
 
   // Si es una copia clonada con el ID del dueño anterior
   if (savedId && savedId !== currentId) {
-    db.getRange("Z10").clearContent();
+    db.getRange("Z10").setValue(currentId);
     db.getRange("Z11").clearContent();
     db.getRange("Z12").setValue("PENDIENTE");
     SpreadsheetApp.flush();
 
     bloquearHojasOperativas(ss);
+    asegurarFormulasVinculacion(ss);
 
     var hojaLic = obtenerHojaActivacion(ss);
     if (hojaLic) {
       hojaLic.getRange("C7").clearContent();
-      hojaLic.getRange("D7").setValue("👈 Escribí tu clave para activar esta copia").setFontColor("#0D1B2A").setFontWeight("normal");
+      hojaLic.getRange("C8").clearContent();
     }
-    ss.toast("Esta copia requiere su propia clave de licencia comercial.", "🔒 Archivo No Autorizado", 6);
+    ss.toast("Esta copia requiere su propia clave de licencia comercial.", "🔒 Archivo Duplicado", 6);
   } else if (!savedId || estado !== "ACTIVO") {
     bloquearHojasOperativas(ss);
+    asegurarFormulasVinculacion(ss);
   }
 }
 
 /**
- * Función principal para activar la planilla desde botón o menú.
+ * Asegura que la fórmula de consulta remota esté lista en Configuracion!Z20 y D7
  */
-function activarPlanillaBoton() {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
+function asegurarFormulasVinculacion(ss) {
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
   var portada = obtenerHojaActivacion(ss) || ss.getSheets()[0];
-  var celdaClave = portada.getRange("C7");
-  var celdaRespuesta = portada.getRange("D7");
-
-  var claveIngresada = (celdaClave.getValue() || "").toString().trim().toUpperCase();
-
-  if (!claveIngresada) {
-    var ui = SpreadsheetApp.getUi();
-    var respuesta = ui.prompt(
-      "Activar Planilla Finanzas en Orden",
-      "Ingresá tu Clave de Licencia Oficial (ej. FM-XXXX-YYYY):",
-      ui.ButtonSet.OK_CANCEL
-    );
-    if (respuesta.getSelectedButton() !== ui.Button.OK) {
-      return;
-    }
-    claveIngresada = (respuesta.getResponseText() || "").trim().toUpperCase();
-    if (!claveIngresada) {
-      ui.alert("Tenés que ingresar una clave para activar.");
-      return;
-    }
-    celdaClave.setValue(claveIngresada);
-  }
-
-  celdaRespuesta.setValue("⏳ Validando con el servidor...").setFontColor("#1E3A5F").setFontWeight("normal");
-  SpreadsheetApp.flush();
+  if (!db || !portada) return;
 
   var currentId = ss.getId();
+  db.getRange("Z10").setValue(currentId);
 
-  // Bypass para claves de desarrollo/admin
-  if (claveIngresada === "FM-ADMIN-MASTER" || claveIngresada === "FM-DEV-MASTER") {
-    completarActivacionExitosa(ss, currentId, claveIngresada, "Administrador");
-    return;
+  var nombrePortada = portada.getName();
+  var formulaZ20 = '=IF(ISBLANK(\'' + nombrePortada + '\'!C7), "", IFERROR(IMPORTDATA(CONCATENATE("' + API_URL_ACTIVACION + '?format=csv&key=", \'' + nombrePortada + '\'!C7, "&id=", Z10)), "ERROR"))';
+
+  var formulaActual = db.getRange("Z20").getFormula();
+  if (!formulaActual || formulaActual.indexOf("activate") === -1) {
+    db.getRange("Z20").setFormula(formulaZ20);
   }
 
-  // 1. Validación matemática previa
-  if (!validarClaveLicencia(claveIngresada)) {
-    celdaRespuesta.setValue("❌ Clave no válida. Revisá el código.").setFontColor("#DC2626").setFontWeight("bold");
-    ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
-    bloquearHojasOperativas(ss);
-    return;
+  var formulaD7 = '=IF(ISBLANK(C7), "👈 Escribí tu clave para activar", IF(ISERROR(Configuracion!Z20), "⏳ Validando...", IF(Configuracion!Z20="OK", "✅ ¡Licencia Oficial Activada!", IF(Configuracion!Z20="ERROR", Configuracion!AB20, "⏳ Validando..."))))';
+  var formulaD7Actual = portada.getRange("D7").getFormula();
+  if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1) {
+    portada.getRange("D7").setFormula(formulaD7);
   }
+}
 
-  // 2. Validación de uso único con Servidor Central (Supabase)
-  var resultado = consultarServidorActivacion(claveIngresada, currentId);
+/**
+ * Procesa la activación cuando se escribe en la celda C7 o se toca C8
+ */
+function procesarActivacionCelda(e) {
+  var range = e.range;
+  var ss = e.source || SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = range.getSheet();
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
+  if (!db) return;
 
-  if (resultado.success) {
-    completarActivacionExitosa(ss, currentId, claveIngresada, resultado.customerName);
-  } else {
-    var msg = resultado.error || "No se pudo activar la licencia.";
-    if (resultado.code === "ALREADY_USED") {
-      msg = "❌ Esta clave ya fue activada en otra copia y no puede ser reutilizada.";
+  var row = range.getRow();
+  var col = range.getColumn();
+  var currentId = ss.getId();
+
+  // Caso 1: Se editó la celda C7 (escribió la clave)
+  if (row === 7 && col === 3) {
+    var claveIngresada = (range.getValue() || "").toString().trim().toUpperCase();
+    sheet.getRange("C8").clearContent();
+
+    if (!claveIngresada) {
+      asegurarFormulasVinculacion(ss);
+      return;
     }
-    celdaRespuesta.setValue(msg).setFontColor("#DC2626").setFontWeight("bold");
-    ss.toast(msg, "❌ Error de Licencia", 6);
-    bloquearHojasOperativas(ss);
+
+    // Bypass para claves maestras de desarrollo/admin
+    if (claveIngresada === "FM-ADMIN-MASTER" || claveIngresada === "FM-DEV-MASTER") {
+      completarActivacionExitosa(ss, currentId, claveIngresada, "Administrador");
+      return;
+    }
+
+    // 1. Verificación matemática previa
+    if (!validarClaveLicencia(claveIngresada)) {
+      sheet.getRange("D7").setValue("❌ Clave no válida. Revisá el código.").setFontColor("#DC2626").setFontWeight("bold");
+      ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
+      bloquearHojasOperativas(ss);
+      return;
+    }
+
+    // 2. Clave con formato válido: aseguramos fórmulas
+    asegurarFormulasVinculacion(ss);
+
+    // 3. Esperamos la respuesta de IMPORTDATA (hasta 3.5 segundos)
+    for (var i = 0; i < 7; i++) {
+      Utilities.sleep(500);
+      SpreadsheetApp.flush();
+      var z20 = (db.getRange("Z20").getValue() || "").toString().trim();
+      if (z20 === "OK") {
+        var customer = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
+        completarActivacionExitosa(ss, currentId, claveIngresada, customer);
+        return;
+      } else if (z20 === "ERROR") {
+        var errMsg = (db.getRange("AB20").getValue() || "").toString().trim() || "Esta clave ya fue activada en otra copia.";
+        sheet.getRange("D7").setValue("❌ " + errMsg).setFontColor("#DC2626").setFontWeight("bold");
+        ss.toast(errMsg, "❌ Licencia Rechazada", 6);
+        bloquearHojasOperativas(ss);
+        return;
+      }
+    }
+
+    // Si la conexión tardó un instante más, la fórmula D7 mostrará el estado
+    return;
+  }
+
+  // Caso 2: Se tocó la celda C8
+  if (row === 8 && col === 3) {
+    var z20Check = (db.getRange("Z20").getValue() || "").toString().trim();
+    if (z20Check === "OK") {
+      var key = (sheet.getRange("C7").getValue() || "").toString().trim().toUpperCase();
+      var cust = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
+      completarActivacionExitosa(ss, currentId, key, cust);
+    }
   }
 }
 
@@ -149,10 +188,10 @@ function completarActivacionExitosa(ss, currentId, clave, customerName) {
 
   var portada = obtenerHojaActivacion(ss);
   if (portada) {
-    portada.getRange("D7").setValue("✅ ¡Licencia Activada con Éxito!").setFontColor("#16A34A").setFontWeight("bold");
+    portada.getRange("D7").setValue("✅ ¡Licencia Oficial Activada!").setFontColor("#15803D").setFontWeight("bold");
+    portada.getRange("C8").clearContent();
   }
 
-  // Renombrar automáticamente a nombre limpio
   try {
     var actual = ss.getName();
     if (actual.indexOf("Copia de ") === 0 || actual.indexOf("Copy of ") === 0) {
@@ -161,121 +200,68 @@ function completarActivacionExitosa(ss, currentId, clave, customerName) {
   } catch (err) {}
 
   desbloquearTodasLasHojas(ss);
-  ss.toast("¡Planilla activada y vinculada a este archivo!", "✅ Licencia Oficial", 5);
+  ss.toast("¡Bienvenido/a " + customerName + "! Planilla lista para usar.", "✅ Licencia Activada", 5);
 }
 
 /**
- * Consulta la API de Supabase en producción
+ * Función manual por botón o menú (no requiere OAuth externo)
  */
-function consultarServidorActivacion(clave, spreadsheetId) {
-  try {
-    var url = API_URL_ACTIVACION + "?key=" + encodeURIComponent(clave) + "&id=" + encodeURIComponent(spreadsheetId);
-    var response = UrlFetchApp.fetch(url, {
-      method: "get",
-      muteHttpExceptions: true
-    });
-    var status = response.getResponseCode();
-    var json = JSON.parse(response.getContentText() || "{}");
-    if (status === 200 && json.success) {
-      return { success: true, customerName: json.customerName, code: json.code };
-    }
-    return {
-      success: false,
-      code: json.code || "REJECTED",
-      error: json.message || json.error || "Clave no válida o ya utilizada."
-    };
-  } catch (err) {
-    var errStr = (err ? err.toString() : "");
-    if (errStr.indexOf("permission") !== -1 || errStr.indexOf("UrlFetchApp") !== -1 || errStr.indexOf("permiso") !== -1) {
-      return {
-        success: false,
-        code: "PERMISSION_REQUIRED",
-        error: "👉 Hacé clic en menú '🔒 Licencia' > 'Activar Licencia Comercial'"
-      };
-    }
-    return {
-      success: false,
-      code: "NETWORK_ERROR",
-      error: "Error al conectar con el servidor de licencias. Verificá tu conexión."
-    };
-  }
-}
+function activarPlanillaBoton() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
+  var portada = obtenerHojaActivacion(ss) || ss.getSheets()[0];
+  var currentId = ss.getId();
 
-/**
- * Procesa la activación cuando se escribe en la celda C7
- */
-function procesarActivacionCelda(e) {
-  var range = e.range;
-  var ss = e.source || SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = range.getSheet();
-
-  // Verificamos celda C7
-  if (range.getRow() !== 7 || range.getColumn() !== 3) {
-    return;
-  }
-
-  var claveIngresada = (range.getValue() || "").toString().trim().toUpperCase();
-  var celdaRespuesta = sheet.getRange("D7");
-  sheet.getRange("C8").clearContent();
-
+  var claveIngresada = (portada.getRange("C7").getValue() || "").toString().trim().toUpperCase();
   if (!claveIngresada) {
-    celdaRespuesta
-      .setValue("👈 Escribí tu clave para activar")
-      .setFontColor("#0D1B2A")
-      .setFontWeight("normal");
-    return;
+    var ui = SpreadsheetApp.getUi();
+    var resp = ui.prompt("Activar Planilla Finanzas en Orden", "Ingresá tu clave oficial (ej. FM-XXXX-YYYY):", ui.ButtonSet.OK_CANCEL);
+    if (resp.getSelectedButton() !== ui.Button.OK) return;
+    claveIngresada = (resp.getResponseText() || "").trim().toUpperCase();
+    if (!claveIngresada) return;
+    portada.getRange("C7").setValue(claveIngresada);
   }
 
-  // Bypass para claves de desarrollo/admin
-  if (claveIngresada === "FM-ADMIN-MASTER" || claveIngresada === "FM-DEV-MASTER") {
-    completarActivacionExitosa(ss, ss.getId(), claveIngresada, "Administrador");
-    return;
-  }
+  asegurarFormulasVinculacion(ss);
+  SpreadsheetApp.flush();
 
-  // 1. Verificación previa de formato y checksum
-  if (!validarClaveLicencia(claveIngresada)) {
-    celdaRespuesta
-      .setValue("❌ Clave no válida. Revisá el código.")
-      .setFontColor("#DC2626")
-      .setFontWeight("bold");
-    ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
-    bloquearHojasOperativas(ss);
-    return;
+  var z20 = (db ? db.getRange("Z20").getValue() : "").toString().trim();
+  if (z20 === "OK") {
+    var customer = (db ? db.getRange("AB20").getValue() : "").toString().trim() || "Cliente Oficial";
+    completarActivacionExitosa(ss, currentId, claveIngresada, customer);
+  } else if (z20 === "ERROR") {
+    var err = (db ? db.getRange("AB20").getValue() : "").toString().trim() || "Clave ya utilizada en otra copia.";
+    portada.getRange("D7").setValue("❌ " + err).setFontColor("#DC2626").setFontWeight("bold");
+    ss.toast(err, "❌ Error de Licencia", 5);
+  } else {
+    ss.toast("Validando con el servidor... la planilla se abrirá en segundos.", "⏳ Conectando", 4);
   }
-
-  // 2. Clave con formato válido: en onEdit no se puede hacer UrlFetchApp
-  // Guiamos al usuario a hacer clic en el menú o botón
-  celdaRespuesta
-    .setValue("👉 Clave válida. Hacé clic en menú '🔒 Licencia' > 'Activar'")
-    .setFontColor("#1E3A5F")
-    .setFontWeight("bold");
-  ss.toast("Para validar con el servidor, hacé clic en el menú 🔒 Licencia -> Activar Licencia Comercial", "🔑 Casi listo", 7);
 }
 
 /**
  * Detecta si la hoja es la de activación
  */
-function esHojaDeActivacion(nombreHoja) {
-  if (!nombreHoja) return false;
-  var n = nombreHoja.toLowerCase();
-  return n.indexOf("activar") !== -1 || n.indexOf("licencia") !== -1;
+function esHojaDeActivacion(nombre) {
+  if (!nombre) return false;
+  var n = nombre.toLowerCase();
+  return n.indexOf("activaci") !== -1 || n.indexOf("licencia") !== -1;
 }
 
 /**
- * Obtiene la referencia a la hoja de activación
+ * Encuentra la hoja de activación del spreadsheet
  */
 function obtenerHojaActivacion(ss) {
-  var hojas = ss.getSheets();
-  for (var i = 0; i < hojas.length; i++) {
-    if (esHojaDeActivacion(hojas[i].getName())) {
-      return hojas[i];
+  var sheets = ss.getSheets();
+  for (var i = 0; i < sheets.length; i++) {
+    if (esHojaDeActivacion(sheets[i].getName())) {
+      return sheets[i];
     }
   }
   return null;
 }
 
 /**
- * Verifica si el archivo cuenta con licencia activa
+ * Verifica si el archivo actual está debidamente licenciado
  */
 function estaLicenciaActiva() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -286,25 +272,21 @@ function estaLicenciaActiva() {
   var savedId = (db.getRange("Z10").getValue() || "").toString().trim();
   var estado = (db.getRange("Z12").getValue() || "").toString().trim();
 
-  // Si no tiene ID guardado o no coincide con este archivo
   if (!savedId || savedId !== currentId || estado !== "ACTIVO") {
     bloquearHojasOperativas(ss);
     return false;
   }
-
   return true;
 }
 
 /**
- * Desbloquea ÚNICAMENTE las hojas oficiales del producto
+ * Desbloquea y muestra todas las hojas operativas
  */
 function desbloquearTodasLasHojas(ss) {
   for (var i = 0; i < HOJAS_PRODUCTO.length; i++) {
-    var sh = ss.getSheetByName(HOJAS_PRODUCTO[i]);
-    if (sh) {
-      try {
-        sh.showSheet();
-      } catch (err) {}
+    var h = ss.getSheetByName(HOJAS_PRODUCTO[i]);
+    if (h) {
+      try { h.showSheet(); } catch(e) {}
     }
   }
 
@@ -313,17 +295,15 @@ function desbloquearTodasLasHojas(ss) {
     try {
       dash.showSheet();
       ss.setActiveSheet(dash);
-    } catch (err) {}
+    } catch(e) {}
   }
 
-  var hojas = ss.getSheets();
-  for (var j = 0; j < hojas.length; j++) {
-    var sh2 = hojas[j];
-    var n2 = sh2.getName().toLowerCase();
-    if (n2.indexOf("config") !== -1 || esHojaDeActivacion(sh2.getName())) {
-      try {
-        sh2.hideSheet();
-      } catch (err) {}
+  var todas = ss.getSheets();
+  for (var j = 0; j < todas.length; j++) {
+    var hoja = todas[j];
+    var nombreLower = hoja.getName().toLowerCase();
+    if (nombreLower.indexOf("config") !== -1 || esHojaDeActivacion(hoja.getName())) {
+      try { hoja.hideSheet(); } catch(e) {}
     }
   }
 
@@ -331,138 +311,137 @@ function desbloquearTodasLasHojas(ss) {
 }
 
 /**
- * Oculta las hojas oficiales
+ * Oculta todas las hojas operativas de la planilla y muestra solo la de activación
  */
 function bloquearHojasOperativas(ss) {
-  var hojaLic = obtenerHojaActivacion(ss);
-
-  if (hojaLic && hojaLic.isSheetHidden()) {
-    try {
-      hojaLic.showSheet();
-    } catch (err) {}
+  var hojaActivacion = obtenerHojaActivacion(ss);
+  if (hojaActivacion && hojaActivacion.isSheetHidden()) {
+    try { hojaActivacion.showSheet(); } catch(e) {}
   }
 
-  for (var j = 0; j < HOJAS_PRODUCTO.length; j++) {
-    var sh = ss.getSheetByName(HOJAS_PRODUCTO[j]);
-    if (sh && !sh.isSheetHidden()) {
-      try {
-        sh.hideSheet();
-      } catch (err) {}
+  for (var i = 0; i < HOJAS_PRODUCTO.length; i++) {
+    var h = ss.getSheetByName(HOJAS_PRODUCTO[i]);
+    if (h && !h.isSheetHidden()) {
+      try { h.hideSheet(); } catch(e) {}
     }
   }
 
-  var conf = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
-  if (conf && !conf.isSheetHidden()) {
-    try {
-      conf.hideSheet();
-    } catch (err) {}
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
+  if (db && !db.isSheetHidden()) {
+    try { db.hideSheet(); } catch(e) {}
   }
 
   SpreadsheetApp.flush();
 }
 
 /**
- * FUNCIÓN PARA PREPARAR LA PLANTILLA ANTES DE VENDERLA
+ * Función que ejecuta el creador antes de entregar o publicar la plantilla maestra
  */
 function prepararPlantillaParaVender() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
-  
   if (db) {
     db.getRange("Z10").clearContent();
     db.getRange("Z11").clearContent();
     db.getRange("Z12").setValue("PENDIENTE");
   }
 
-  var hojaLic = obtenerHojaActivacion(ss);
-  if (hojaLic) {
-    hojaLic.getRange("C7").clearContent();
-    hojaLic.getRange("C8").clearContent();
-    hojaLic
-      .getRange("D7")
-      .setValue("👈 Escribí tu clave y presioná Enter")
-      .setFontColor("#0D1B2A")
-      .setFontWeight("normal");
+  var portada = obtenerHojaActivacion(ss);
+  if (portada) {
+    portada.getRange("C7").clearContent();
+    portada.getRange("C8").clearContent();
   }
 
   bloquearHojasOperativas(ss);
+  asegurarFormulasVinculacion(ss);
   SpreadsheetApp.flush();
-  ss.toast("Plantilla bloqueada y lista para ser vendida.", "Modo Venta", 5);
+
+  ss.toast("Plantilla bloqueada y lista para vender en modo comercial.", "🔒 Modo Ventas", 5);
 }
 
 /**
- * Función de rescate manual
+ * Desbloqueo de emergencia del creador
  */
 function forzarDesbloqueoManual() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   for (var i = 0; i < HOJAS_PRODUCTO.length; i++) {
-    var sh = ss.getSheetByName(HOJAS_PRODUCTO[i]);
-    if (sh) {
-      try {
-        sh.showSheet();
-      } catch (e) {}
+    var h = ss.getSheetByName(HOJAS_PRODUCTO[i]);
+    if (h) {
+      try { h.showSheet(); } catch(e) {}
     }
   }
+
   var db = ss.getSheetByName("Configuracion");
   if (db) {
     db.getRange("Z10").setValue(ss.getId());
-    db.getRange("Z11").setValue("FM-DEV-MASTER");
+    db.getRange("Z11").setValue("FM-ADMIN-MASTER");
     db.getRange("Z12").setValue("ACTIVO");
     SpreadsheetApp.flush();
   }
-  ss.toast("Hojas oficiales desbloqueadas.", "Listo", 4);
+
+  ss.toast("Planilla desbloqueada en modo maestro.", "🔓 Admin", 4);
 }
 
 /**
- * Verificar estado actual de la copia
+ * Muestra el estado actual de la licencia
  */
 function verificarEstadoLicencia() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
   var ui = SpreadsheetApp.getUi();
-
   if (!db) {
-    ui.alert("Planilla no configurada.");
+    ui.alert("No se encontró la hoja de configuración.");
     return;
   }
 
   var currentId = ss.getId();
   var savedId = (db.getRange("Z10").getValue() || "").toString().trim();
-  var clave = (db.getRange("Z11").getValue() || "").toString().trim();
+  var savedKey = (db.getRange("Z11").getValue() || "").toString().trim();
   var estado = (db.getRange("Z12").getValue() || "").toString().trim();
 
   if (estado === "ACTIVO" && savedId === currentId) {
-    ui.alert("✅ Licencia Activa", "Tu copia está autorizada correctamente con la clave:\n" + clave, ui.ButtonSet.OK);
+    ui.alert("✅ Licencia Activa", "Tu planilla está autorizada y vinculada a este archivo.\nClave: " + savedKey, ui.ButtonSet.OK);
   } else {
-    ui.alert("🔒 Licencia Pendiente", "Esta copia no está activada o es un duplicado no autorizado.", ui.ButtonSet.OK);
+    ui.alert("🔒 Licencia Pendiente", "Esta copia requiere activación comercial.\nEscribí tu clave oficial en la celda C7.", ui.ButtonSet.OK);
   }
 }
 
 /**
- * ALGORITMO CRIPTOGRÁFICO DE VALIDACIÓN
+ * Valida matemáticamente el formato y checksum de una clave FM-XXXX-YYYY
  */
 function validarClaveLicencia(clave) {
   if (!clave) return false;
-  var limpia = clave.toString().trim().toUpperCase().replace(/[\s–—]/g, "-");
-  while (limpia.indexOf("--") !== -1) limpia = limpia.replace("--", "-");
+  var normalizada = clave.toString().trim().toUpperCase().replace(/[\s–—]/g, "-");
+  while (normalizada.indexOf("--") !== -1) {
+    normalizada = normalizada.replace("--", "-");
+  }
 
-  if (limpia === "FM-ADMIN-MASTER" || limpia === "FM-DEV-MASTER") return true;
+  if (normalizada === "FM-ADMIN-MASTER" || normalizada === "FM-DEV-MASTER") {
+    return true;
+  }
 
-  var partes = limpia.split("-");
-  if (partes.length !== 3 || partes[0] !== "FM") return false;
-  
+  var partes = normalizada.split("-");
+  if (partes.length !== 3 || partes[0] !== "FM") {
+    return false;
+  }
+
   var seed = partes[1];
-  var checkEsperado = calcularChecksumLicencia(seed);
-  return partes[2] === checkEsperado;
+  var checksumEsperado = calcularChecksumLicencia(seed);
+  return partes[2] === checksumEsperado;
 }
 
-function calcularChecksumLicencia(str) {
+/**
+ * Algoritmo criptográfico DJB2 modificado para generar el Checksum
+ */
+function calcularChecksumLicencia(seed) {
   var hash = 5381;
-  var combined = str + SALT_SEGURIDAD;
-  for (var i = 0; i < combined.length; i++) {
-    hash = ((hash * 33) ^ combined.charCodeAt(i)) >>> 0;
+  var str = seed + SALT_SEGURIDAD;
+  for (var i = 0; i < str.length; i++) {
+    hash = ((hash * 33) ^ str.charCodeAt(i)) >>> 0;
   }
-  var code = Math.abs(hash).toString(36).toUpperCase();
-  while (code.length < 4) code = "0" + code;
-  return code.substring(0, 4);
+  var base36 = Math.abs(hash).toString(36).toUpperCase();
+  while (base36.length < 4) {
+    base36 = "0" + base36;
+  }
+  return base36.substring(0, 4);
 }
