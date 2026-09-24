@@ -185,6 +185,14 @@ function consultarServidorActivacion(clave, spreadsheetId) {
       error: json.message || json.error || "Clave no válida o ya utilizada."
     };
   } catch (err) {
+    var errStr = (err ? err.toString() : "");
+    if (errStr.indexOf("permission") !== -1 || errStr.indexOf("UrlFetchApp") !== -1 || errStr.indexOf("permiso") !== -1) {
+      return {
+        success: false,
+        code: "PERMISSION_REQUIRED",
+        error: "👉 Hacé clic en menú '🔒 Licencia' > 'Activar Licencia Comercial'"
+      };
+    }
     return {
       success: false,
       code: "NETWORK_ERROR",
@@ -206,19 +214,42 @@ function procesarActivacionCelda(e) {
     return;
   }
 
-  var claveIngresada = (range.getValue() || "").toString().trim();
+  var claveIngresada = (range.getValue() || "").toString().trim().toUpperCase();
   var celdaRespuesta = sheet.getRange("D7");
   sheet.getRange("C8").clearContent();
 
   if (!claveIngresada) {
     celdaRespuesta
-      .setValue("👈 Escribí tu clave y presioná Enter")
+      .setValue("👈 Escribí tu clave para activar")
       .setFontColor("#0D1B2A")
       .setFontWeight("normal");
     return;
   }
 
-  activarPlanillaBoton();
+  // Bypass para claves de desarrollo/admin
+  if (claveIngresada === "FM-ADMIN-MASTER" || claveIngresada === "FM-DEV-MASTER") {
+    completarActivacionExitosa(ss, ss.getId(), claveIngresada, "Administrador");
+    return;
+  }
+
+  // 1. Verificación previa de formato y checksum
+  if (!validarClaveLicencia(claveIngresada)) {
+    celdaRespuesta
+      .setValue("❌ Clave no válida. Revisá el código.")
+      .setFontColor("#DC2626")
+      .setFontWeight("bold");
+    ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
+    bloquearHojasOperativas(ss);
+    return;
+  }
+
+  // 2. Clave con formato válido: en onEdit no se puede hacer UrlFetchApp
+  // Guiamos al usuario a hacer clic en el menú o botón
+  celdaRespuesta
+    .setValue("👉 Clave válida. Hacé clic en menú '🔒 Licencia' > 'Activar'")
+    .setFontColor("#1E3A5F")
+    .setFontWeight("bold");
+  ss.toast("Para validar con el servidor, hacé clic en el menú 🔒 Licencia -> Activar Licencia Comercial", "🔑 Casi listo", 7);
 }
 
 /**
