@@ -426,15 +426,18 @@ export async function activateLicenseOnDocument(
 /**
  * Desvincula el Spreadsheet ID de una licencia (para permitir que el cliente la active en una nueva copia si es necesario)
  */
-export async function unlinkLicenseDocument(licenseId: string): Promise<boolean> {
+export async function unlinkLicenseDocument(idOrKey: string): Promise<boolean> {
   let unlinked = false;
+  const clean = idOrKey.trim();
 
   try {
     const { db } = await import('@repo/db');
     if (db && 'spreadsheetLicense' in db) {
-      await db.spreadsheetLicense.update({
-        where: { id: licenseId },
-        data: { spreadsheetId: null },
+      await db.spreadsheetLicense.updateMany({
+        where: {
+          OR: [{ id: clean }, { licenseKey: clean.toUpperCase() }],
+        },
+        data: { spreadsheetId: null, status: 'PENDING' },
       });
       unlinked = true;
     }
@@ -443,7 +446,9 @@ export async function unlinkLicenseDocument(licenseId: string): Promise<boolean>
   try {
     const currentLocal = readLocalLicenses();
     const updated = currentLocal.map((l) =>
-      l.id === licenseId ? { ...l, spreadsheetId: null } : l
+      l.id === clean || l.licenseKey.toUpperCase() === clean.toUpperCase()
+        ? { ...l, spreadsheetId: null, status: 'PENDING' as const }
+        : l
     );
     saveLocalLicenses(updated);
     unlinked = true;
