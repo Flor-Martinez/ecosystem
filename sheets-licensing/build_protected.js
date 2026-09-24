@@ -27,7 +27,7 @@ const cmd = [
   'npx javascript-obfuscator',
   `"${rawPath}"`,
   `--output "${tempObfPath}"`,
-  '--reserved-names onEdit,onOpen,prepararPlantillaParaVender,forzarDesbloqueoManual',
+  '--reserved-names onEdit,onOpen,prepararPlantillaParaVender,forzarDesbloqueoManual,activarPlanillaBoton,verificarEstadoLicencia',
   '--compact true',
   '--control-flow-flattening false',
   '--string-array-rotate false',

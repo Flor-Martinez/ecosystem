@@ -1,16 +1,17 @@
 /**
  * ====================================================================
- * SISTEMA DE SEGURIDAD Y LICENCIAS ZERO-AUTH (VERSIÓN DEFINITIVA ROBUSTA)
+ * SISTEMA DE SEGURIDAD Y LICENCIAS - CLOUD & SINGLE USE BINDING
  * ====================================================================
- * Archivo: Seguridad.gs
+ * Flor Martínez · Ecosistema Digital
  * 
- * - Cero ventanas rojas de Google. Cero peticiones de permisos.
- * - Activación en celda C7 con feedback visual en D7 (Fila 8 siempre limpia).
- * - NO borra lo que escribe el usuario ni salta a A1 si la clave es incorrecta.
- * - Auto-bloqueo y limpieza en copias clonadas únicamente al abrir el archivo.
+ * - Validación oficial conectada a Supabase (1 clave = 1 archivo único).
+ * - Si intentan usar la clave en una copia, el servidor la rechaza.
+ * - Auto-renombrado a "Finanzas en Orden - Flor Martínez" (elimina "Copia de ").
+ * - Auto-bloqueo al abrir copias duplicadas.
  * - Master bypass: "FM-ADMIN-MASTER" para administración.
  */
 
+const API_URL_ACTIVACION = "https://ecosystem-flor-martinez.vercel.app/api/licenses/activate";
 const SALT_SEGURIDAD = "FLOR_MARTINEZ_2026_SECRET";
 
 // Lista oficial estricta de hojas que se deben mostrar al cliente
@@ -18,11 +19,31 @@ const HOJAS_PRODUCTO = ["Dashboard", "Movimientos", "Metas", "Informe Detallado"
 
 /**
  * onOpen: Se ejecuta automáticamente al abrir el archivo.
- * Si detecta que el ID del archivo no coincide con el autorizado (es una copia),
- * limpia la clave vieja de C7 y bloquea el archivo.
+ * - Auto-renombra si es copia nueva.
+ * - Detecta si el ID del archivo no coincide con el autorizado y bloquea.
  */
 function onOpen(e) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+  // 1. Auto-renombrar: quitar "Copia de " o "Copy of "
+  try {
+    var actual = ss.getName();
+    if (actual.indexOf("Copia de ") === 0) {
+      ss.rename(actual.replace(/^Copia de\s*/i, "").trim() || "Finanzas en Orden - Flor Martínez");
+    } else if (actual.indexOf("Copy of ") === 0) {
+      ss.rename(actual.replace(/^Copy of\s*/i, "").trim() || "Finanzas en Orden - Flor Martínez");
+    }
+  } catch (err) {}
+
+  // 2. Menú de Licencia en la barra de Google Sheets
+  try {
+    var ui = SpreadsheetApp.getUi();
+    ui.createMenu("🔒 Licencia")
+      .addItem("Activar Licencia Comercial", "activarPlanillaBoton")
+      .addItem("Verificar Estado", "verificarEstadoLicencia")
+      .addToUi();
+  } catch (err) {}
+
   var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
   if (!db) return;
 
@@ -39,36 +60,154 @@ function onOpen(e) {
 
     bloquearHojasOperativas(ss);
 
-    // En la copia clonada, limpiamos C7 para que no vean la clave anterior
     var hojaLic = obtenerHojaActivacion(ss);
     if (hojaLic) {
       hojaLic.getRange("C7").clearContent();
-      hojaLic.getRange("D7").setValue("👈 Escribí tu clave y presioná Enter").setFontColor("#0D1B2A").setFontWeight("normal");
+      hojaLic.getRange("D7").setValue("👈 Escribí tu clave para activar esta copia").setFontColor("#0D1B2A").setFontWeight("normal");
     }
     ss.toast("Esta copia requiere su propia clave de licencia comercial.", "🔒 Archivo No Autorizado", 6);
   } else if (!savedId || estado !== "ACTIVO") {
-    // Si todavía no está activado
     bloquearHojasOperativas(ss);
   }
 }
 
 /**
- * Procesa la activación cuando se escribe en la celda C7 de la hoja de licencia
+ * Función principal para activar la planilla desde botón o menú.
+ */
+function activarPlanillaBoton() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var portada = obtenerHojaActivacion(ss) || ss.getSheets()[0];
+  var celdaClave = portada.getRange("C7");
+  var celdaRespuesta = portada.getRange("D7");
+
+  var claveIngresada = (celdaClave.getValue() || "").toString().trim().toUpperCase();
+
+  if (!claveIngresada) {
+    var ui = SpreadsheetApp.getUi();
+    var respuesta = ui.prompt(
+      "Activar Planilla Finanzas en Orden",
+      "Ingresá tu Clave de Licencia Oficial (ej. FM-XXXX-YYYY):",
+      ui.ButtonSet.OK_CANCEL
+    );
+    if (respuesta.getSelectedButton() !== ui.Button.OK) {
+      return;
+    }
+    claveIngresada = (respuesta.getResponseText() || "").trim().toUpperCase();
+    if (!claveIngresada) {
+      ui.alert("Tenés que ingresar una clave para activar.");
+      return;
+    }
+    celdaClave.setValue(claveIngresada);
+  }
+
+  celdaRespuesta.setValue("⏳ Validando con el servidor...").setFontColor("#1E3A5F").setFontWeight("normal");
+  SpreadsheetApp.flush();
+
+  var currentId = ss.getId();
+
+  // Bypass para claves de desarrollo/admin
+  if (claveIngresada === "FM-ADMIN-MASTER" || claveIngresada === "FM-DEV-MASTER") {
+    completarActivacionExitosa(ss, currentId, claveIngresada, "Administrador");
+    return;
+  }
+
+  // 1. Validación matemática previa
+  if (!validarClaveLicencia(claveIngresada)) {
+    celdaRespuesta.setValue("❌ Clave no válida. Revisá el código.").setFontColor("#DC2626").setFontWeight("bold");
+    ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
+    bloquearHojasOperativas(ss);
+    return;
+  }
+
+  // 2. Validación de uso único con Servidor Central (Supabase)
+  var resultado = consultarServidorActivacion(claveIngresada, currentId);
+
+  if (resultado.success) {
+    completarActivacionExitosa(ss, currentId, claveIngresada, resultado.customerName);
+  } else {
+    var msg = resultado.error || "No se pudo activar la licencia.";
+    if (resultado.code === "ALREADY_USED") {
+      msg = "❌ Esta clave ya fue activada en otra copia y no puede ser reutilizada.";
+    }
+    celdaRespuesta.setValue(msg).setFontColor("#DC2626").setFontWeight("bold");
+    ss.toast(msg, "❌ Error de Licencia", 6);
+    bloquearHojasOperativas(ss);
+  }
+}
+
+/**
+ * Guarda el ID en la configuración oculta, desbloquea las hojas y renombra
+ */
+function completarActivacionExitosa(ss, currentId, clave, customerName) {
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
+  if (db) {
+    db.getRange("Z10").setValue(currentId);
+    db.getRange("Z11").setValue(clave);
+    db.getRange("Z12").setValue("ACTIVO");
+    SpreadsheetApp.flush();
+  }
+
+  var portada = obtenerHojaActivacion(ss);
+  if (portada) {
+    portada.getRange("D7").setValue("✅ ¡Licencia Activada con Éxito!").setFontColor("#16A34A").setFontWeight("bold");
+  }
+
+  // Renombrar automáticamente a nombre limpio
+  try {
+    var actual = ss.getName();
+    if (actual.indexOf("Copia de ") === 0 || actual.indexOf("Copy of ") === 0) {
+      ss.rename(actual.replace(/^(Copia de|Copy of)\s*/i, "").trim() || "Finanzas en Orden - Flor Martínez");
+    }
+  } catch (err) {}
+
+  desbloquearTodasLasHojas(ss);
+  ss.toast("¡Planilla activada y vinculada a este archivo!", "✅ Licencia Oficial", 5);
+}
+
+/**
+ * Consulta la API de Supabase en producción
+ */
+function consultarServidorActivacion(clave, spreadsheetId) {
+  try {
+    var url = API_URL_ACTIVACION + "?key=" + encodeURIComponent(clave) + "&id=" + encodeURIComponent(spreadsheetId);
+    var response = UrlFetchApp.fetch(url, {
+      method: "get",
+      muteHttpExceptions: true
+    });
+    var status = response.getResponseCode();
+    var json = JSON.parse(response.getContentText() || "{}");
+    if (status === 200 && json.success) {
+      return { success: true, customerName: json.customerName, code: json.code };
+    }
+    return {
+      success: false,
+      code: json.code || "REJECTED",
+      error: json.message || json.error || "Clave no válida o ya utilizada."
+    };
+  } catch (err) {
+    return {
+      success: false,
+      code: "NETWORK_ERROR",
+      error: "Error al conectar con el servidor de licencias. Verificá tu conexión."
+    };
+  }
+}
+
+/**
+ * Procesa la activación cuando se escribe en la celda C7
  */
 function procesarActivacionCelda(e) {
   var range = e.range;
   var ss = e.source || SpreadsheetApp.getActiveSpreadsheet();
   var sheet = range.getSheet();
-  
-  // Verificamos que sea estrictamente la celda C7 (Fila 7, Columna 3)
+
+  // Verificamos celda C7
   if (range.getRow() !== 7 || range.getColumn() !== 3) {
     return;
   }
 
   var claveIngresada = (range.getValue() || "").toString().trim();
   var celdaRespuesta = sheet.getRange("D7");
-
-  // Limpiamos C8 por si quedó algún texto residual
   sheet.getRange("C8").clearContent();
 
   if (!claveIngresada) {
@@ -79,46 +218,11 @@ function procesarActivacionCelda(e) {
     return;
   }
 
-  ss.toast("Comprobando clave...", "🔒 Seguridad", 2);
-
-  // 1. Validamos la clave con el algoritmo criptográfico
-  if (validarClaveLicencia(claveIngresada)) {
-    var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
-    var currentId = ss.getId();
-
-    if (db) {
-      db.getRange("Z10").setValue(currentId);       // ID del archivo autorizado
-      db.getRange("Z11").setValue(claveIngresada);  // Clave activada
-      db.getRange("Z12").setValue("ACTIVO");        // Estado
-      SpreadsheetApp.flush();
-    }
-
-    celdaRespuesta
-      .setValue("✅ ¡Licencia Activada!")
-      .setFontColor("#16A34A")
-      .setFontWeight("bold");
-
-    SpreadsheetApp.flush();
-
-    // 2. Desbloqueamos ÚNICAMENTE las hojas oficiales
-    desbloquearTodasLasHojas(ss);
-
-    ss.toast("¡Plantilla desbloqueada con éxito! Bienvenida/o.", "✅ Éxito", 5);
-
-  } else {
-    // Clave incorrecta:
-    // NO borramos la celda C7 ni saltamos a A1 para que el usuario pueda ver lo que escribió y corregirlo.
-    celdaRespuesta
-      .setValue("❌ Clave no válida. Revisá el código.")
-      .setFontColor("#DC2626")
-      .setFontWeight("bold");
-
-    ss.toast("La clave ingresada no es válida.", "❌ Error", 4);
-  }
+  activarPlanillaBoton();
 }
 
 /**
- * Detecta si la hoja es la de activación (con o sin emoji)
+ * Detecta si la hoja es la de activación
  */
 function esHojaDeActivacion(nombreHoja) {
   if (!nombreHoja) return false;
@@ -140,7 +244,7 @@ function obtenerHojaActivacion(ss) {
 }
 
 /**
- * Verifica si el archivo cuenta con licencia activa (para onEdit)
+ * Verifica si el archivo cuenta con licencia activa
  */
 function estaLicenciaActiva() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -151,7 +255,7 @@ function estaLicenciaActiva() {
   var savedId = (db.getRange("Z10").getValue() || "").toString().trim();
   var estado = (db.getRange("Z12").getValue() || "").toString().trim();
 
-  // Si no tiene ID guardado o no coincide con este archivo (copia clonada)
+  // Si no tiene ID guardado o no coincide con este archivo
   if (!savedId || savedId !== currentId || estado !== "ACTIVO") {
     bloquearHojasOperativas(ss);
     return false;
@@ -164,7 +268,6 @@ function estaLicenciaActiva() {
  * Desbloquea ÚNICAMENTE las hojas oficiales del producto
  */
 function desbloquearTodasLasHojas(ss) {
-  // PASO 1: Mostramos estrictamente las hojas oficiales
   for (var i = 0; i < HOJAS_PRODUCTO.length; i++) {
     var sh = ss.getSheetByName(HOJAS_PRODUCTO[i]);
     if (sh) {
@@ -174,7 +277,6 @@ function desbloquearTodasLasHojas(ss) {
     }
   }
 
-  // PASO 2: Ponemos Dashboard como hoja activa
   var dash = ss.getSheetByName("Dashboard") || ss.getSheetByName("dashboard");
   if (dash) {
     try {
@@ -183,7 +285,6 @@ function desbloquearTodasLasHojas(ss) {
     } catch (err) {}
   }
 
-  // PASO 3: Ocultamos hoja de activación y configuración
   var hojas = ss.getSheets();
   for (var j = 0; j < hojas.length; j++) {
     var sh2 = hojas[j];
@@ -199,7 +300,7 @@ function desbloquearTodasLasHojas(ss) {
 }
 
 /**
- * Oculta las hojas oficiales si no está activada (sin tocar la celda C7 del usuario)
+ * Oculta las hojas oficiales
  */
 function bloquearHojasOperativas(ss) {
   var hojaLic = obtenerHojaActivacion(ss);
@@ -210,7 +311,6 @@ function bloquearHojasOperativas(ss) {
     } catch (err) {}
   }
 
-  // Ocultamos únicamente las oficiales
   for (var j = 0; j < HOJAS_PRODUCTO.length; j++) {
     var sh = ss.getSheetByName(HOJAS_PRODUCTO[j]);
     if (sh && !sh.isSheetHidden()) {
@@ -231,9 +331,7 @@ function bloquearHojasOperativas(ss) {
 }
 
 /**
- * FUNCIÓN PARA PREPARAR LA PLANTILLA ANTES DE VENDERLA:
- * Ejecutala en Apps Script cuando quieras dejar la plantilla limpia y bloqueada,
- * lista para entregarle el enlace a tus compradores.
+ * FUNCIÓN PARA PREPARAR LA PLANTILLA ANTES DE VENDERLA
  */
 function prepararPlantillaParaVender() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -285,15 +383,38 @@ function forzarDesbloqueoManual() {
 }
 
 /**
+ * Verificar estado actual de la copia
+ */
+function verificarEstadoLicencia() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var db = ss.getSheetByName("Configuracion") || ss.getSheetByName("configuracion");
+  var ui = SpreadsheetApp.getUi();
+
+  if (!db) {
+    ui.alert("Planilla no configurada.");
+    return;
+  }
+
+  var currentId = ss.getId();
+  var savedId = (db.getRange("Z10").getValue() || "").toString().trim();
+  var clave = (db.getRange("Z11").getValue() || "").toString().trim();
+  var estado = (db.getRange("Z12").getValue() || "").toString().trim();
+
+  if (estado === "ACTIVO" && savedId === currentId) {
+    ui.alert("✅ Licencia Activa", "Tu copia está autorizada correctamente con la clave:\n" + clave, ui.ButtonSet.OK);
+  } else {
+    ui.alert("🔒 Licencia Pendiente", "Esta copia no está activada o es un duplicado no autorizado.", ui.ButtonSet.OK);
+  }
+}
+
+/**
  * ALGORITMO CRIPTOGRÁFICO DE VALIDACIÓN
- * Tolera espacios, guiones largos, mayúsculas y minúsculas
  */
 function validarClaveLicencia(clave) {
   if (!clave) return false;
   var limpia = clave.toString().trim().toUpperCase().replace(/[\s–—]/g, "-");
   while (limpia.indexOf("--") !== -1) limpia = limpia.replace("--", "-");
 
-  // Claves maestras para administración de Flor / Santi
   if (limpia === "FM-ADMIN-MASTER" || limpia === "FM-DEV-MASTER") return true;
 
   var partes = limpia.split("-");
