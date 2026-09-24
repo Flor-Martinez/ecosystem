@@ -133,9 +133,25 @@ function procesarActivacionCelda(e) {
   var col = range.getColumn();
   var currentId = ss.getId();
 
-  // Caso 1: Se editó la celda C7 (escribió la clave)
+  // Caso 1: Se editó la celda C7 (escribió o pegó la clave)
   if (row === 7 && col === 3) {
-    var claveIngresada = (range.getValue() || "").toString().trim().toUpperCase();
+    // Restaurar automáticamente el diseño visual de la celda C7 (evita que se pegue el formato de WhatsApp/Mail)
+    try {
+      range
+        .setFontFamily("Plus Jakarta Sans")
+        .setFontSize(11)
+        .setFontWeight("bold")
+        .setFontColor("#1E3A5F")
+        .setBackground("#FFFFFF")
+        .setHorizontalAlignment("center")
+        .setVerticalAlignment("middle");
+    } catch(err) {}
+
+    var valorCrudo = (range.getValue() || "").toString();
+    var claveIngresada = valorCrudo.trim().toUpperCase();
+    if (valorCrudo !== claveIngresada) {
+      range.setValue(claveIngresada);
+    }
     sheet.getRange("C8").clearContent();
 
     if (!claveIngresada) {
@@ -367,7 +383,17 @@ function prepararPlantillaParaVender() {
 
   var portada = obtenerHojaActivacion(ss);
   if (portada) {
-    portada.getRange("C7").clearContent();
+    var c7 = portada.getRange("C7");
+    c7.clearContent();
+    try {
+      c7.setFontFamily("Plus Jakarta Sans")
+        .setFontSize(11)
+        .setFontWeight("bold")
+        .setFontColor("#1E3A5F")
+        .setBackground("#FFFFFF")
+        .setHorizontalAlignment("center")
+        .setVerticalAlignment("middle");
+    } catch(e) {}
     portada.getRange("C8").clearContent();
   }
 
