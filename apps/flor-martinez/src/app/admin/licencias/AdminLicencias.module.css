@@ -528,7 +528,11 @@
 
 .actionCell {
   white-space: nowrap;
-  display: flex;
+  vertical-align: middle;
+}
+
+.actionBtnsWrap {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
 }

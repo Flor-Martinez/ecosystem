@@ -478,32 +478,34 @@ export default function AdminLicenciasClient({
                           </td>
                           <td>{formattedDate}</td>
                           <td className={styles.actionCell}>
-                            <button
-                              type="button"
-                              onClick={() => handleCopyRowMessage(item)}
-                              className={styles.quickCopyBtn}
-                              title="Copiar mensaje de entrega con enlace"
-                            >
-                              {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar'}
-                            </button>
-                            {item.spreadsheetId && (
+                            <div className={styles.actionBtnsWrap}>
                               <button
                                 type="button"
-                                onClick={() => handleUnlinkLicense(item)}
-                                className={styles.unlinkBtn}
-                                title="Desvincular copia para permitir activación en un nuevo archivo"
+                                onClick={() => handleCopyRowMessage(item)}
+                                className={styles.quickCopyBtn}
+                                title="Copiar mensaje de entrega con enlace"
                               >
-                                <RotateCcw size={13} />
+                                {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar'}
                               </button>
-                            )}
-                            <button
-                              type="button"
-                              onClick={() => handleDeleteLicense(item)}
-                              className={styles.deleteLicenseBtn}
-                              title="Eliminar permanentemente esta licencia"
-                            >
-                              <Trash2 size={13} />
-                            </button>
+                              {item.spreadsheetId && (
+                                <button
+                                  type="button"
+                                  onClick={() => handleUnlinkLicense(item)}
+                                  className={styles.unlinkBtn}
+                                  title="Desvincular copia para permitir activación en un nuevo archivo"
+                                >
+                                  <RotateCcw size={13} />
+                                </button>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteLicense(item)}
+                                className={styles.deleteLicenseBtn}
+                                title="Eliminar permanentemente esta licencia"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       );
