@@ -437,7 +437,7 @@ export async function unlinkLicenseDocument(idOrKey: string): Promise<boolean> {
         where: {
           OR: [{ id: clean }, { licenseKey: clean.toUpperCase() }],
         },
-        data: { spreadsheetId: null, status: 'PENDING' },
+        data: { spreadsheetId: null },
       });
       unlinked = true;
     }
@@ -447,7 +447,7 @@ export async function unlinkLicenseDocument(idOrKey: string): Promise<boolean> {
     const currentLocal = readLocalLicenses();
     const updated = currentLocal.map((l) =>
       l.id === clean || l.licenseKey.toUpperCase() === clean.toUpperCase()
-        ? { ...l, spreadsheetId: null, status: 'PENDING' as const }
+        ? { ...l, spreadsheetId: null }
         : l
     );
     saveLocalLicenses(updated);
