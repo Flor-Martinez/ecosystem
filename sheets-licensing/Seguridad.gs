@@ -108,6 +108,9 @@ function asegurarFormulasVinculacion(ss) {
     portada.getRange("D7").setFormula(formulaD7);
   }
 
+  // Aplicar formato condicional nativo en D7 para que sea VERDE en éxito y ROJO en error
+  aplicarFormatoCondicionalActivacion(portada);
+
   // Texto de ayuda sutil en C8
   var c8Val = (portada.getRange("C8").getValue() || "").toString().trim();
   if (!c8Val || c8Val.indexOf("💡") === 0) {
@@ -117,6 +120,58 @@ function asegurarFormulasVinculacion(ss) {
       .setFontSize(8)
       .setFontStyle("italic");
   }
+}
+
+/**
+ * Aplica reglas de formato condicional nativas a D7 para que NUNCA quede rojo en éxito
+ */
+function aplicarFormatoCondicionalActivacion(portada) {
+  try {
+    var d7 = portada.getRange("D7");
+
+    // Regla Verde: Si contiene "✅" o "Activada"
+    var ruleGreen = SpreadsheetApp.newConditionalFormatRule()
+      .whenTextContains("✅")
+      .setFontColor("#15803D")
+      .setBackground("#DCFCE7")
+      .setBold(true)
+      .setRanges([d7])
+      .build();
+
+    // Regla Roja: Si contiene "❌"
+    var ruleRed = SpreadsheetApp.newConditionalFormatRule()
+      .whenTextContains("❌")
+      .setFontColor("#DC2626")
+      .setBackground("#FEE2E2")
+      .setBold(true)
+      .setRanges([d7])
+      .build();
+
+    // Regla Azul/Gris: Si contiene "⏳" o "Validando"
+    var rulePending = SpreadsheetApp.newConditionalFormatRule()
+      .whenTextContains("⏳")
+      .setFontColor("#1E3A5F")
+      .setBackground("#F1F5F9")
+      .setBold(false)
+      .setRanges([d7])
+      .build();
+
+    var existing = portada.getConditionalFormatRules() || [];
+    var filtered = [];
+    for (var i = 0; i < existing.length; i++) {
+      var rgs = existing[i].getRanges();
+      var hasD7 = false;
+      for (var j = 0; j < rgs.length; j++) {
+        if (rgs[j].getA1Notation() === "D7") {
+          hasD7 = true;
+          break;
+        }
+      }
+      if (!hasD7) filtered.push(existing[i]);
+    }
+    filtered.push(ruleGreen, ruleRed, rulePending);
+    portada.setConditionalFormatRules(filtered);
+  } catch(e) {}
 }
 
 /**
@@ -173,10 +228,18 @@ function procesarActivacionCelda(e) {
       return;
     }
 
-    // 2. Clave con formato válido: aseguramos fórmulas
+    // 2. Clave con formato válido: aseguramos fórmulas y estilos
     asegurarFormulasVinculacion(ss);
 
-    // 3. Esperamos la respuesta de IMPORTDATA (hasta 3.5 segundos)
+    // 3. Si la fórmula en Z20 ya dio OK inmediatamente (por ejemplo, ya habían permitido acceso)
+    var z20Inmediato = (db.getRange("Z20").getValue() || "").toString().trim();
+    if (z20Inmediato === "OK") {
+      var customerInm = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
+      completarActivacionExitosa(ss, currentId, claveIngresada, customerInm);
+      return;
+    }
+
+    // 4. Esperamos la respuesta de IMPORTDATA (hasta 3.5 segundos)
     for (var i = 0; i < 7; i++) {
       Utilities.sleep(500);
       SpreadsheetApp.flush();
@@ -198,14 +261,12 @@ function procesarActivacionCelda(e) {
     return;
   }
 
-  // Caso 2: Se tocó la celda C8
-  if (row === 8 && col === 3) {
-    var z20Check = (db.getRange("Z20").getValue() || "").toString().trim();
-    if (z20Check === "OK") {
-      var key = (sheet.getRange("C7").getValue() || "").toString().trim().toUpperCase();
-      var cust = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
-      completarActivacionExitosa(ss, currentId, key, cust);
-    }
+  // Caso 2: Se editó cualquier celda de la portada cuando ya dio OK
+  var z20Cualquiera = (db.getRange("Z20").getValue() || "").toString().trim();
+  if (z20Cualquiera === "OK") {
+    var keyAuto = (sheet.getRange("C7").getValue() || "").toString().trim().toUpperCase();
+    var custAuto = (db.getRange("AB20").getValue() || "").toString().trim() || "Cliente Oficial";
+    completarActivacionExitosa(ss, currentId, keyAuto, custAuto);
   }
 }
 
