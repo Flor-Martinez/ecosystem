@@ -531,3 +531,54 @@
   font-weight: 600;
   margin-bottom: 16px;
 }
+
+.googleAdminBtn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #FFFFFF;
+  color: #1F2937;
+  border: 1px solid #D1D5DB;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.googleAdminBtn:hover:not(:disabled) {
+  background-color: #F9FAFB;
+  border-color: #9CA3AF;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.googleAdminBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gateDivider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  color: #94A3B8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.gateDivider::before,
+.gateDivider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #E2DBD2;
+}
+
+.gateDivider span {
+  padding: 0 12px;
+}

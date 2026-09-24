@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { checkIsAdminAction } from '@/actions/licenses';
-import { getAllLicenses, SpreadsheetLicenseRecord } from '@/lib/licensing';
+import { getAllLicenses, type SpreadsheetLicenseRecord } from '@/lib/licensing';
 import AdminLicenciasClient from './AdminLicenciasClient';
 
 export const metadata: Metadata = {
