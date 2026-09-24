@@ -249,3 +249,124 @@ export async function syncToGoogleSheet(webhookUrl: string, record: SpreadsheetL
     return false;
   }
 }
+
+// =============================================================================
+// GESTIÓN DINÁMICA DE EMAILS DE SUPERADMIN
+// =============================================================================
+
+const ADMIN_EMAILS_FILE = path.join(LOCAL_STORAGE_DIR, 'admin_emails.json');
+
+export async function getDynamicAdminEmails(): Promise<string[]> {
+  const list = new Set<string>(ADMIN_EMAILS.map((e) => e.toLowerCase().trim()));
+
+  // 1. Archivo local de almacenamiento
+  try {
+    if (fs.existsSync(ADMIN_EMAILS_FILE)) {
+      const raw = fs.readFileSync(ADMIN_EMAILS_FILE, 'utf8');
+      const saved: string[] = JSON.parse(raw);
+      if (Array.isArray(saved)) {
+        saved.forEach((e) => {
+          if (typeof e === 'string' && e.includes('@')) {
+            list.add(e.toLowerCase().trim());
+          }
+        });
+      }
+    }
+  } catch (err) {
+    console.warn('No se pudo leer admin_emails.json:', err);
+  }
+
+  // 2. Base de datos Prisma (usuarios con rol ADMIN)
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'user' in db) {
+      const admins = await db.user.findMany({
+        where: { role: 'ADMIN' },
+        select: { email: true },
+      });
+      admins.forEach((a: any) => {
+        if (a?.email) list.add(a.email.toLowerCase().trim());
+      });
+    }
+  } catch {
+    // DB en modo offline/fallback
+  }
+
+  return Array.from(list);
+}
+
+export async function saveDynamicAdminEmail(email: string): Promise<string[]> {
+  const formatted = email.toLowerCase().trim();
+  const current = await getDynamicAdminEmails();
+  if (!current.includes(formatted)) {
+    current.push(formatted);
+  }
+
+  // Guardar en archivo local
+  try {
+    ensureLocalStorageExists();
+    const nonDefault = current.filter(
+      (e) => !ADMIN_EMAILS.map((a) => a.toLowerCase()).includes(e)
+    );
+    fs.writeFileSync(ADMIN_EMAILS_FILE, JSON.stringify(nonDefault, null, 2), 'utf8');
+  } catch (err) {
+    console.warn('Error al guardar admin_emails.json:', err);
+  }
+
+  // Upsert en Prisma si está conectado
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'user' in db) {
+      await db.user.upsert({
+        where: { email: formatted },
+        update: { role: 'ADMIN' },
+        create: {
+          email: formatted,
+          name: formatted.split('@')[0] || 'Administrador',
+          role: 'ADMIN',
+        },
+      });
+    }
+  } catch {
+    // DB opcional
+  }
+
+  return current;
+}
+
+export async function removeDynamicAdminEmail(email: string): Promise<string[]> {
+  const formatted = email.toLowerCase().trim();
+  if (ADMIN_EMAILS.map((a) => a.toLowerCase()).includes(formatted)) {
+    throw new Error('No es posible eliminar a los administradores principales del sistema.');
+  }
+
+  let current = await getDynamicAdminEmails();
+  current = current.filter((e) => e !== formatted);
+
+  // Guardar en archivo local
+  try {
+    ensureLocalStorageExists();
+    const nonDefault = current.filter(
+      (e) => !ADMIN_EMAILS.map((a) => a.toLowerCase()).includes(e)
+    );
+    fs.writeFileSync(ADMIN_EMAILS_FILE, JSON.stringify(nonDefault, null, 2), 'utf8');
+  } catch (err) {
+    console.warn('Error al actualizar admin_emails.json:', err);
+  }
+
+  // En Prisma DB, cambiar rol a MEMBER
+  try {
+    const { db } = await import('@repo/db');
+    if (db && 'user' in db) {
+      await db.user.updateMany({
+        where: { email: formatted },
+        data: { role: 'MEMBER' },
+      });
+    }
+  } catch {
+    // DB opcional
+  }
+
+  return current;
+}
+

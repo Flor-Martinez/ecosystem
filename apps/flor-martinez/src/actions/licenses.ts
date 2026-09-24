@@ -8,6 +8,9 @@ import {
   ADMIN_EMAILS,
   SALT_SEGURIDAD,
   TEMPLATE_COPY_URL,
+  getDynamicAdminEmails,
+  saveDynamicAdminEmail,
+  removeDynamicAdminEmail,
   SpreadsheetLicenseRecord,
 } from '@/lib/licensing';
 import { getCurrentUserAction, loginUserAction } from './auth';
@@ -15,13 +18,15 @@ import { getCurrentUserAction, loginUserAction } from './auth';
 const ADMIN_COOKIE_NAME = 'fm_admin_session';
 
 export async function checkIsAdminAction(): Promise<{ isAdmin: boolean; email?: string }> {
+  const adminEmails = await getDynamicAdminEmails();
+
   // 1. Verificación por cookie de sesión de Superadmin (funciona siempre, incluso offline)
   try {
     const cookieStore = await cookies();
     const adminEmailCookie = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
     if (adminEmailCookie) {
       const emailLower = adminEmailCookie.toLowerCase().trim();
-      if (ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(emailLower)) {
+      if (adminEmails.includes(emailLower)) {
         return { isAdmin: true, email: adminEmailCookie };
       }
     }
@@ -29,16 +34,37 @@ export async function checkIsAdminAction(): Promise<{ isAdmin: boolean; email?: 
     // ignorar error de lectura de cookie
   }
 
-  // 2. Verificación por sesión de usuario estándar en Base de Datos
+  // 2. Verificación por cookie de sesión del ecosistema de cliente
+  try {
+    const cookieStore = await cookies();
+    const ecosystemSession = cookieStore.get('fm_ecosystem_session_data')?.value;
+    if (ecosystemSession) {
+      try {
+        const parsed = JSON.parse(decodeURIComponent(ecosystemSession));
+        if (parsed?.email) {
+          const emailLower = parsed.email.toLowerCase().trim();
+          if (adminEmails.includes(emailLower)) {
+            return { isAdmin: true, email: parsed.email };
+          }
+        }
+      } catch {}
+    }
+  } catch {
+    // ignorar
+  }
+
+  // 3. Verificación por sesión de usuario estándar en Base de Datos
   try {
     const user = await getCurrentUserAction();
     if (user && user.email) {
       const emailLower = user.email.toLowerCase().trim();
       const isAdmin =
-        ADMIN_EMAILS.map((e) => e.toLowerCase()).includes(emailLower) ||
+        adminEmails.includes(emailLower) ||
         user.role === 'ADMIN';
 
-      return { isAdmin, email: user.email };
+      if (isAdmin) {
+        return { isAdmin: true, email: user.email };
+      }
     }
   } catch {
     // Si la DB no está conectada, se apoya en el fallback
@@ -170,3 +196,78 @@ export async function getLicensesListAction(): Promise<{
     return { success: false, error: 'Error al consultar las licencias.' };
   }
 }
+
+/**
+ * Obtiene la lista de correos con permisos de Superadmin
+ */
+export async function getSuperAdminEmailsAction(): Promise<{
+  success: boolean;
+  emails?: string[];
+  primaryEmails?: string[];
+  error?: string;
+}> {
+  const adminCheck = await checkIsAdminAction();
+  if (!adminCheck.isAdmin) {
+    return { success: false, error: 'No autorizado' };
+  }
+
+  try {
+    const emails = await getDynamicAdminEmails();
+    return {
+      success: true,
+      emails,
+      primaryEmails: ADMIN_EMAILS.map((e) => e.toLowerCase().trim()),
+    };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Error al obtener administradores' };
+  }
+}
+
+/**
+ * Agrega un nuevo correo a la lista de Superadmins
+ */
+export async function addSuperAdminEmailAction(email: string): Promise<{
+  success: boolean;
+  emails?: string[];
+  error?: string;
+}> {
+  const adminCheck = await checkIsAdminAction();
+  if (!adminCheck.isAdmin) {
+    return { success: false, error: 'No autorizado' };
+  }
+
+  const cleanEmail = email?.trim().toLowerCase();
+  if (!cleanEmail || !cleanEmail.includes('@')) {
+    return { success: false, error: 'Ingresá un correo electrónico válido.' };
+  }
+
+  try {
+    const updated = await saveDynamicAdminEmail(cleanEmail);
+    return { success: true, emails: updated };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Error al guardar administrador' };
+  }
+}
+
+/**
+ * Remueve un correo de la lista de Superadmins
+ */
+export async function removeSuperAdminEmailAction(email: string): Promise<{
+  success: boolean;
+  emails?: string[];
+  error?: string;
+}> {
+  const adminCheck = await checkIsAdminAction();
+  if (!adminCheck.isAdmin) {
+    return { success: false, error: 'No autorizado' };
+  }
+
+  const cleanEmail = email?.trim().toLowerCase();
+  try {
+    const updated = await removeDynamicAdminEmail(cleanEmail);
+    return { success: true, emails: updated };
+  } catch (err: any) {
+    return { success: false, error: err.message || 'Error al remover administrador' };
+  }
+}
+

@@ -80,6 +80,26 @@
   flex-wrap: wrap;
 }
 
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #F1F5F9;
+  color: #0D1B2A;
+  border: 1px solid #CBD5E1;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover {
+  background-color: #E2E8F0;
+  border-color: #94A3B8;
+}
+
 .masterSheetBtn {
   display: inline-flex;
   align-items: center;

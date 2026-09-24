@@ -1,5 +1,6 @@
 import React from 'react';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { checkIsAdminAction } from '@/actions/licenses';
 import { getAllLicenses, type SpreadsheetLicenseRecord } from '@/lib/licensing';
 import AdminLicenciasClient from './AdminLicenciasClient';
@@ -14,14 +15,17 @@ export const metadata: Metadata = {
 
 export default async function AdminLicenciasPage() {
   const adminCheck = await checkIsAdminAction();
-  let initialLicenses: SpreadsheetLicenseRecord[] = [];
 
-  if (adminCheck.isAdmin) {
-    try {
-      initialLicenses = await getAllLicenses();
-    } catch {
-      initialLicenses = [];
-    }
+  // Stealth 404: Si no está autenticado como Superadmin, muestra 404
+  if (!adminCheck.isAdmin) {
+    notFound();
+  }
+
+  let initialLicenses: SpreadsheetLicenseRecord[] = [];
+  try {
+    initialLicenses = await getAllLicenses();
+  } catch {
+    initialLicenses = [];
   }
 
   return (
