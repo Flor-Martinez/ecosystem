@@ -23,8 +23,8 @@ export function AboutSection() {
             <div className={styles.leadTextCol}>
               <h2 className={styles.sectionTitle}>Sobre Flor Martinez</h2>
               <p className={styles.leadParagraph}>
-                Profesional especializada en Comercio Exterior, consultoría estratégica y desarrollo de talento.
-                Mi trabajo se fundamenta en un principio simple: transformar el conocimiento técnico en herramientas prácticas de crecimiento.
+                Licenciada en Comercio Internacional y Máster en Dirección Comercial (OBS Business School – Universidad de Barcelona).
+                Gerente de Oficina Mendoza en logística multinacional y creadora de contenido profesional sobre empleabilidad y desarrollo de carrera con +50.000 seguidores.
               </p>
 
               <div className={styles.tagPills}>
