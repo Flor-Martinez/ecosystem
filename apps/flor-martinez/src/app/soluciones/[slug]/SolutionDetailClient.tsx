@@ -57,32 +57,57 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     setIsModalOpen(false);
   };
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleSubmitOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage(null);
 
     try {
-      if (solution.slug === 'organizador-de-finanzas' || solution.id === 'sol-1') {
-        const res = await issueLicenseAction({
+      const endpoint =
+        paymentCurrency === 'ARS'
+          ? '/api/checkout/mercadopago'
+          : '/api/checkout/stripe';
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          solutionSlug: solution.slug,
           customerName: formData.name,
           customerEmail: formData.email,
-          customerPhone: formData.whatsapp,
-          channel: 'WEB',
-          notes: `Compra web automática en ${paymentCurrency} ($${solution.priceARS} ARS)`,
-        });
+          customerWhatsapp: formData.whatsapp,
+          currency: paymentCurrency,
+        }),
+      });
 
-        if (res.success && res.license && res.copyUrl) {
-          setIssuedLicense({
-            licenseKey: res.license.licenseKey,
-            copyUrl: res.copyUrl,
-          });
-        }
+      const data = await response.json();
+
+      if (!data.success) {
+        setErrorMessage(data.error || 'Ocurrió un error al procesar la orden.');
+        setIsSubmitting(false);
+        return;
       }
+
+      if (data.license) {
+        setIssuedLicense({
+          licenseKey: data.license.licenseKey,
+          copyUrl: data.copyUrl,
+        });
+      }
+
+      const redirectUrl = data.initPoint || data.checkoutUrl;
+      if (redirectUrl) {
+        window.open(redirectUrl, '_blank');
+      }
+
+      setIsSuccess(true);
     } catch (err) {
       console.error('Error al procesar pedido:', err);
+      setErrorMessage('Ocurrió un error de conexión al procesar el pago.');
     } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
     }
   };
 
@@ -386,6 +411,12 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                       className={styles.formInput}
                     />
                   </div>
+
+                  {errorMessage && (
+                    <div className={styles.errorAlertBox}>
+                      <span>{errorMessage}</span>
+                    </div>
+                  )}
 
                   <button
                     type="submit"
