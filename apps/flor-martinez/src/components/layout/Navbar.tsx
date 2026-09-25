@@ -13,6 +13,7 @@ import {
   ArrowRight,
   CheckCircle2,
   ChevronDown,
+  Sparkles,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
@@ -431,14 +432,19 @@ export function Navbar() {
               if (link.href && !link.targetId) {
                 const isSolucionesActive = pathname.startsWith('/soluciones');
                 return (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className={`${styles.navLink} ${isSolucionesActive ? styles.navLinkActive : ''}`}
-                  >
-                    {link.label}
-                    {isSolucionesActive && <span className={styles.activeIndicator} />}
-                  </Link>
+                  <React.Fragment key={link.label}>
+                    <span className={styles.navDivider} aria-hidden="true" />
+                    <Link
+                      href={link.href}
+                      className={`${styles.navLink} ${styles.solucionesNavLink} ${
+                        isSolucionesActive ? styles.navLinkActive : ''
+                      }`}
+                    >
+                      <Sparkles size={14} className={styles.solucionesIcon} />
+                      <span>{link.label}</span>
+                      {isSolucionesActive && <span className={styles.activeIndicator} />}
+                    </Link>
+                  </React.Fragment>
                 );
               }
               const isActive = pathname === '/' && activeSection === link.targetId;
@@ -582,17 +588,20 @@ export function Navbar() {
                 if (link.href && !link.targetId) {
                   const isSolucionesActive = pathname.startsWith('/soluciones');
                   return (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className={`${styles.mobileNavLink} ${
-                        isSolucionesActive ? styles.mobileNavLinkActive : ''
-                      }`}
-                    >
-                      {link.label}
-                      {isSolucionesActive && <span className={styles.activeBadge}>Actual</span>}
-                    </Link>
+                    <React.Fragment key={link.label}>
+                      <div className={styles.mobileNavDivider} />
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`${styles.mobileNavLink} ${styles.mobileSolucionesNavLink} ${
+                          isSolucionesActive ? styles.mobileNavLinkActive : ''
+                        }`}
+                      >
+                        <Sparkles size={16} className={styles.solucionesIcon} />
+                        <span>{link.label}</span>
+                        {isSolucionesActive && <span className={styles.activeBadge}>Actual</span>}
+                      </Link>
+                    </React.Fragment>
                   );
                 }
                 const isActive = pathname === '/' && activeSection === link.targetId;

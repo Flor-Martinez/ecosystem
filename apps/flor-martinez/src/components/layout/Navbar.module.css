@@ -668,6 +668,38 @@
   border-radius: var(--radius-full);
 }
 
+/* Vertical Separator for Soluciones */
+.navDivider {
+  width: 1px;
+  height: 1.15rem;
+  background-color: var(--fm-border);
+  margin: 0 0.35rem;
+  align-self: center;
+  opacity: 0.85;
+}
+
+.solucionesNavLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #B45309;
+  font-weight: 700;
+}
+
+.solucionesNavLink:hover {
+  color: #92400E;
+}
+
+.solucionesIcon {
+  color: #D97706;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.solucionesNavLink:hover .solucionesIcon {
+  transform: scale(1.2) rotate(12deg);
+}
+
 /* Desktop Actions */
 .actions {
   display: flex;
@@ -892,6 +924,17 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.mobileNavDivider {
+  height: 1px;
+  background-color: var(--fm-border-light);
+  margin: 0.5rem 0;
+}
+
+.mobileSolucionesNavLink {
+  color: #B45309;
+  font-weight: 700;
 }
 
 .mobileNavLink {
