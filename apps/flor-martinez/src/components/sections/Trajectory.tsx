@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { Calendar, Award, BookOpen, Briefcase } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -23,32 +22,10 @@ export function Trajectory() {
     <section className={styles.trajectory} id="trayectoria">
       <Container size="wide">
         <SectionHeader
-          badge="Experiencia & Metodología"
-          title="Trayectoria, formación y práctica profesional"
-          subtitle="Un recorrido enfocado en resolver desafíos reales de comercio internacional, estructuración de marca y empleabilidad."
+          badge="Carrera & Formación"
+          title="Trayectoria Profesional & Grado Académico"
+          subtitle="Recorrido ejecutivo en gestión comercial, operaciones de comercio exterior y titulación académica."
         />
-
-        {/* Working Context Banner */}
-        <div className={styles.workingBanner}>
-          <div className={styles.workingImgWrap}>
-            <Image
-              src="/images/flor-working.jpg"
-              alt="Flor Martinez en sesión de consultoría y planificación estratégica"
-              width={700}
-              height={450}
-              className={styles.workingImg}
-            />
-          </div>
-          <div className={styles.workingContent}>
-            <span className={styles.workingTag}>METODOLOGÍA DE TRABAJO</span>
-            <h3 className={styles.workingTitle}>Estrategia basada en la práctica</h3>
-            <p className={styles.workingDesc}>
-              Cada proyecto o mentoría se diseña desde la experiencia directa en operaciones de comercio
-              exterior y el conocimiento profundo del mercado laboral. Sin fórmulas genéricas, con foco
-              en la ejecución clara.
-            </p>
-          </div>
-        </div>
 
         {/* Timeline Container */}
         <div className={styles.timeline}>

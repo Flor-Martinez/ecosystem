@@ -109,20 +109,6 @@ export function ReachSection() {
                   Metodología orientada a resultados tangibles desde el primer día sin rodeos teóricos.
                 </p>
               </div>
-
-              {/* Stat 4: Ecosistema */}
-              <div className={`${styles.statCard} ${styles.statEcosystem}`}>
-                <div className={styles.statHeader}>
-                  <div className={styles.iconBoxEco}>
-                    <Award size={22} />
-                  </div>
-                </div>
-                <div className={styles.statNumber}>3</div>
-                <div className={styles.statLabel}>Unidades de Impacto</div>
-                <p className={styles.statDetail}>
-                  Arquitectura integral: Consultoría B2B, Formación Práctica y Merchandising Corporativo.
-                </p>
-              </div>
             </div>
           </div>
         </div>

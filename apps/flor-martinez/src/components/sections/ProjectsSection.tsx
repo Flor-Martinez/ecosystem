@@ -14,13 +14,13 @@ export function ProjectsSection() {
           <div className={styles.badgeWrap}>
             <Badge variant="primary" size="md">
               <Sparkles size={13} className={styles.badgeIcon} />
-              Central de Derivación Estratégica
+              Proyectos & Desarrollos Futuros
             </Badge>
           </div>
           
-          <h2 className={styles.hubTitle}>Unidades del Ecosistema</h2>
+          <h2 className={styles.hubTitle}>Proyectos en Desarrollo</h2>
           <p className={styles.hubSubtitle}>
-            El Ecosistema Flor Martinez articula tres unidades especializadas interconectadas. Explorá las áreas de desarrollo estratégico:
+            Iniciativas estratégicas en fase de diseño y producción futura dentro del Ecosistema Flor Martinez:
           </p>
         </div>
 
