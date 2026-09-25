@@ -118,6 +118,7 @@
 }
 
 .detailTitle {
+  font-family: var(--font-heading);
   font-size: 2.1rem;
   font-weight: 750;
   line-height: 1.25;
@@ -159,6 +160,7 @@
 }
 
 .videoTitle {
+  font-family: var(--font-heading);
   font-size: 1.1rem;
   font-weight: 700;
   color: #0F172A;
@@ -201,6 +203,7 @@
 }
 
 .sectionHeading {
+  font-family: var(--font-heading);
   font-size: 1.35rem;
   font-weight: 700;
   color: #0F172A;
@@ -425,6 +428,7 @@
 }
 
 .mainPriceARS {
+  font-family: var(--font-heading);
   font-size: 2.2rem;
   font-weight: 800;
   color: #0F172A;
@@ -578,6 +582,7 @@
 }
 
 .modalTitle {
+  font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 750;
   color: #0F172A;
@@ -608,6 +613,7 @@
 }
 
 .summaryItemTitle {
+  font-family: var(--font-heading);
   font-size: 1rem;
   font-weight: 700;
   color: #0F172A;
@@ -752,6 +758,7 @@
 }
 
 .successTitle {
+  font-family: var(--font-heading);
   font-size: 1.5rem;
   font-weight: 750;
   color: #0F172A;

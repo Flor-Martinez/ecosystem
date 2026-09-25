@@ -119,10 +119,10 @@ interface NavItem {
 
 const navLinks: NavItem[] = [
   { label: 'Inicio', targetId: 'inicio', href: '/#inicio' },
-  { label: 'Soluciones', href: '/soluciones' },
   { label: 'Proyectos', targetId: 'proyectos', href: '/#proyectos' },
   { label: 'Sobre mí', targetId: 'sobre-mi', href: '/#sobre-mi' },
   { label: 'Contacto', targetId: 'contacto', href: '/#contacto' },
+  { label: 'Soluciones', href: '/soluciones' },
 ];
 
 export function Navbar() {

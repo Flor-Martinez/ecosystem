@@ -450,10 +450,10 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                     <ol className={styles.licenseStepsList}>
                       <li>
                         Hacé clic en el botón superior y presioná el botón azul{' '}
-                        <strong>'Crear una copia'</strong>.
+                        <strong>&apos;Crear una copia&apos;</strong>.
                       </li>
                       <li>
-                        En la portada <em>'Activar Licencia'</em>, escribí tu clave en la celda{' '}
+                        En la portada <em>&apos;Activar Licencia&apos;</em>, escribí tu clave en la celda{' '}
                         <strong>C7</strong> y presioná Enter.
                       </li>
                       <li>
