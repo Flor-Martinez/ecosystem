@@ -2,12 +2,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { User, LogOut, ChevronDown, GraduationCap, ShoppingBag, Briefcase, Sparkles, Globe } from 'lucide-react';
+import { User, LogOut, ChevronDown, GraduationCap, ShoppingBag, Briefcase, Sparkles, Globe, ShieldCheck } from 'lucide-react';
 import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './AuthWidget.module.css';
 
 export function AuthWidget() {
-  const { user, openAuthModal, logout } = useEcosystemAuth();
+  const { user, isSuperAdmin, openAuthModal, logout } = useEcosystemAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +50,17 @@ export function AuthWidget() {
 
   return (
     <div className={styles.authWrapper} ref={dropdownRef}>
+      {isSuperAdmin && (
+        <Link
+          href="/admin"
+          className={styles.adminBtn}
+          title="Ir al Panel de Administración"
+        >
+          <ShieldCheck size={13} className={styles.adminIcon} />
+          <span>Panel Admin</span>
+        </Link>
+      )}
+
       <button
         type="button"
         className={`${styles.userBtn} ${dropdownOpen ? styles.userBtnActive : ''}`}
@@ -84,6 +95,23 @@ export function AuthWidget() {
           {/* Quick Ecosystem Hub Links */}
           <div className={styles.dropdownSection}>
             <span className={styles.sectionHeading}>Accesos del Ecosistema</span>
+
+            {isSuperAdmin && (
+              <Link
+                href="/admin"
+                className={styles.menuItem}
+                onClick={() => setDropdownOpen(false)}
+                style={{ backgroundColor: '#FEF3C7', border: '1px solid #FDE68A' }}
+              >
+                <div className={styles.menuIconBox} style={{ backgroundColor: '#D97706', color: '#FFFFFF' }}>
+                  <ShieldCheck size={14} />
+                </div>
+                <div className={styles.menuItemText}>
+                  <strong style={{ color: '#92400E' }}>Panel Admin ⚡</strong>
+                  <span style={{ color: '#B45309' }}>Gestión de clientes, licencias y CVs</span>
+                </div>
+              </Link>
+            )}
 
             <Link
               href="/"
