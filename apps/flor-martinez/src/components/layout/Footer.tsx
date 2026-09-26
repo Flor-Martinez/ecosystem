@@ -77,19 +77,13 @@ export function Footer() {
             <h3 className={styles.colTitle}>Ecosistema Flor Martinez</h3>
             <ul className={styles.linkList}>
               <li>
-                <a
-                  href="http://localhost:3001"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.link} ${styles.linkWithBadge}`}
-                >
+                <span className={`${styles.link} ${styles.linkWithBadge}`}>
                   <span className={styles.linkWithIcon}>
-                    <GraduationCap size={15} style={{ color: '#D8B4FE' }} />
+                    <GraduationCap size={15} style={{ color: '#94A3B8' }} />
                     <span>Academia</span>
                   </span>
-                  <span className={styles.activeTag}>Activa</span>
-                  <ArrowUpRight size={12} />
-                </a>
+                  <span className={styles.comingTag}>Próximamente</span>
+                </span>
               </li>
               <li>
                 <Link href="/#ecosistema" className={styles.link}>

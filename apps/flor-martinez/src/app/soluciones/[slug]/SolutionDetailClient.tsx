@@ -60,6 +60,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
   const [copiedKey, setCopiedKey] = useState(false);
 
   const isProduct = solution.type === 'producto';
+  const isExcel = solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden';
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -146,7 +147,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               <div className={styles.metaHeaderRow}>
                 <span
                   className={`${styles.typeBadge} ${
-                    isProduct ? styles.badgeProduct : styles.badgeService
+                    isExcel ? styles.badgeExcel : styles.badgeCv
                   }`}
                 >
                   {isProduct ? <ShoppingBag size={13} /> : <Briefcase size={13} />}
@@ -203,7 +204,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               <div className={styles.deliverablesList}>
                 {solution.deliverables.map((item, index) => (
                   <div key={index} className={styles.deliverableCard}>
-                    <CheckCircle2 size={18} className={styles.deliverableCheckIcon} />
+                    <CheckCircle2 size={18} className={`${styles.deliverableCheckIcon} ${isExcel ? styles.checkExcel : styles.checkCv}`} />
                     <div className={styles.deliverableContent}>
                       <h4>{item.title}</h4>
                       <p>{item.description}</p>
@@ -223,7 +224,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               <div className={styles.processList}>
                 {solution.processSteps.map((step) => (
                   <div key={step.stepNumber} className={styles.processStepCard}>
-                    <div className={styles.stepNumberCircle}>{step.stepNumber}</div>
+                    <div className={`${styles.stepNumberCircle} ${isExcel ? styles.stepExcel : styles.stepCv}`}>{step.stepNumber}</div>
                     <div className={styles.stepContent}>
                       <h4>{step.title}</h4>
                       <p>{step.description}</p>
@@ -262,7 +263,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
 
           {/* RIGHT COLUMN: Sticky Sidebar & Buy CTA */}
           <div className={styles.sidebarColumn}>
-            <div className={styles.stickySidebarCard}>
+            <div className={`${styles.stickySidebarCard} ${isExcel ? styles.sidebarCardExcel : styles.sidebarCardCv}`}>
               <div className={styles.sidebarPriceBlock}>
                 {solution.originalPriceARS && (
                   <div className={styles.originalPriceLine}>
@@ -270,7 +271,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </div>
                 )}
 
-                <div className={styles.mainPriceARS}>
+                <div className={`${styles.mainPriceARS} ${isExcel ? styles.priceExcel : styles.priceCv}`}>
                   ${solution.priceARS.toLocaleString('es-AR')}{' '}
                   <span className={styles.currencySuffix}>ARS</span>
                 </div>
@@ -288,7 +289,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               <button
                 type="button"
                 onClick={handleOpenModal}
-                className={styles.buyNowCtaBtn}
+                className={`${styles.buyNowCtaBtn} ${isExcel ? styles.btnExcel : styles.btnCv}`}
               >
                 <span>Adquirir Ahora</span>
                 <Sparkles size={18} />

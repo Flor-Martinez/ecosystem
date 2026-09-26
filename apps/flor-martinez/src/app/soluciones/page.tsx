@@ -104,7 +104,9 @@ export default function SolucionesPage() {
                     key={item.id}
                     variant="default"
                     padding="none"
-                    className={styles.solutionCard}
+                    className={`${styles.solutionCard} ${
+                      isExcel ? styles.cardExcel : styles.cardCv
+                    }`}
                   >
                     {/* Top Type Ribbon */}
                     <div className={styles.cardHeaderRow}>
@@ -129,10 +131,17 @@ export default function SolucionesPage() {
                       <p className={styles.itemTagline}>{item.tagline}</p>
 
                       {/* Deliverables Checklist Preview */}
-                      <div className={styles.deliverablesPreview}>
-                        {item.deliverables.slice(0, 2).map((del, idx) => (
+                      <div
+                        className={`${styles.deliverablesPreview} ${
+                          isExcel ? styles.deliverablesPreviewExcel : styles.deliverablesPreviewCv
+                        }`}
+                      >
+                        {item.deliverables.map((del, idx) => (
                           <div key={idx} className={styles.previewCheckItem}>
-                            <CheckCircle2 size={14} className={styles.checkIcon} />
+                            <CheckCircle2
+                              size={14}
+                              className={isExcel ? styles.checkExcel : styles.checkCv}
+                            />
                             <span>{del.title}</span>
                           </div>
                         ))}
@@ -159,7 +168,9 @@ export default function SolucionesPage() {
 
                       <Link
                         href={`/soluciones/${item.slug}`}
-                        className={styles.detailsCtaBtn}
+                        className={`${styles.detailsCtaBtn} ${
+                          isExcel ? styles.btnExcel : styles.btnCv
+                        }`}
                       >
                         <span>Ver detalles & Adquirir</span>
                         <ArrowRight size={16} />

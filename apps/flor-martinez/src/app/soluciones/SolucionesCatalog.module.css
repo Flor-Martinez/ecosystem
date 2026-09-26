@@ -375,6 +375,51 @@
   margin-bottom: 1.5rem;
 }
 
+/* Custom Thematic Cards */
+.cardExcel {
+  border-top: 4px solid #059669 !important;
+}
+
+.cardCv {
+  border-top: 4px solid #DC2626 !important;
+}
+
+.deliverablesPreviewExcel {
+  background-color: #ECFDF5 !important;
+  border: 1px solid #A7F3D0 !important;
+}
+
+.deliverablesPreviewCv {
+  background-color: #FEF2F2 !important;
+  border: 1px solid #FCA5A5 !important;
+}
+
+.checkExcel {
+  color: #059669 !important;
+}
+
+.checkCv {
+  color: #DC2626 !important;
+}
+
+.btnExcel {
+  background-color: #059669 !important;
+}
+
+.btnExcel:hover {
+  background-color: #047857 !important;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35) !important;
+}
+
+.btnCv {
+  background-color: #DC2626 !important;
+}
+
+.btnCv:hover {
+  background-color: #B91C1C !important;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35) !important;
+}
+
 .resetSearchBtn {
   padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
