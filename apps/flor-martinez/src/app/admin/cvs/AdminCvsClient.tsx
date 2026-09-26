@@ -250,9 +250,26 @@ export default function AdminCvsClient({ initialOrders }: AdminCvsClientProps) {
                         <td>
                           <div>{ord.customerEmail}</div>
                           {ord.customerPhone && (
-                            <div style={{ color: '#059669', fontWeight: 600, fontSize: '0.82rem', marginTop: '2px' }}>
-                              📱 {ord.customerPhone}
-                            </div>
+                            <a
+                              href={`https://wa.me/${ord.customerPhone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
+                                `¡Hola ${ord.customerName}! Recibimos tu pedido de CV ${ord.orderNumber} en Flor Martinez Ecosystem.`
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                color: '#059669',
+                                fontWeight: 700,
+                                fontSize: '0.82rem',
+                                marginTop: '4px',
+                                textDecoration: 'none'
+                              }}
+                              title="Abrir chat de WhatsApp directamente"
+                            >
+                              📱 {ord.customerPhone} ↗
+                            </a>
                           )}
                         </td>
                         <td>
