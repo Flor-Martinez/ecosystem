@@ -25,6 +25,11 @@ export const metadata: Metadata = {
   title: 'Flor Martinez — Marca Personal, Portfolio & Ecosistema Digital',
   description:
     'Especialista en Comercio Exterior, Marketing y Desarrollo Profesional. Hub central del ecosistema Flor Martinez: Agencia, Academia y Tienda.',
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   keywords: [
     'Flor Martinez',
     'Comercio Exterior',
