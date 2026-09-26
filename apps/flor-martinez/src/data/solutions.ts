@@ -52,16 +52,12 @@ export const solutionsData: SolutionItem[] = [
       'Finanzas en Orden es una herramienta inteligente desarrollada por Flor Martinez para eliminar el caos financiero y darte claridad absoluta sobre tu dinero. Incluye la plantilla de control en Google Sheets/Excel y el libro digital práctico de 12 módulos.',
     deliverables: [
       {
-        title: 'Plantilla de Finanzas Inteligente (Google Sheets & Excel)',
+        title: 'Planilla de Finanzas Inteligente (Google Sheets y Excel)',
         description: 'Matriz ejecutiva automatizada con gráficos interactivos, flujo mensual y presupuestos.',
       },
       {
-        title: 'E-book & Curso Práctico en PDF "Finanzas en Orden"',
-        description: 'Material complementario completo con 12 módulos y 4 bonus prácticos redactados por Florencia Martínez.',
-      },
-      {
-        title: 'Guía de Activación & Soporte Directo',
-        description: 'Paso a paso para personalizar la plantilla según tus fuentes de ingresos e ingresar tu clave de licencia.',
+        title: 'Curso práctico de finanzas en PDF',
+        description: 'E-book y guía práctica completa redactada por Florencia Martínez.',
       },
     ],
     processSteps: [
@@ -110,21 +106,13 @@ export const solutionsData: SolutionItem[] = [
     originalPriceARS: 42000,
     deliveryTime: 'Entrega en 48 a 72 horas hábiles',
     shortDescription:
-      'Reescribo y optimizo tu CV con formato editorial ejecutivo, palabras clave de tu industria y métricas de impacto.',
+      'Reescribo y optimizo tu CV con formato editorial ejecutivo y diagramación optimizada para filtros ATS.',
     fullDescription:
-      'Los reclutadores le dedican un promedio de 6 segundos a cada currículum y el 75% son descartados por sistemas automáticos (ATS). Con este servicio 1 a 1, tomo tu historial laboral y redacto un CV de alto nivel ejecutivo que resalta tus logros reales.',
+      'Los reclutadores le dedican un promedio de 6 segundos a cada currículum y muchos son descartados por sistemas automáticos (ATS). Con este servicio 1 a 1, tomo tu historial laboral y entrego tu CV final en PDF redactado con alto nivel ejecutivo.',
     deliverables: [
       {
-        title: 'CV Final Editado en PDF (Formato ATS & Imprimible)',
-        description: 'Diseño editorial pulido, tipografía ejecutiva y diagramación optimizada para lectura rápida.',
-      },
-      {
-        title: 'Archivo Editable en Microsoft Word (.docx)',
-        description: 'Para que puedas actualizar futuras experiencias o fechas cuando lo necesites.',
-      },
-      {
-        title: 'Resumen de Palabras Clave de tu Industria',
-        description: 'Lista de los términos más buscados por los reclutadores de tu sector.',
+        title: 'CV Final editado en PDF (Formato ATS & Imprimible)',
+        description: 'Diseño editorial pulido, tipografía ejecutiva y diagramación optimizada para lectura rápida y filtros ATS.',
       },
     ],
     processSteps: [

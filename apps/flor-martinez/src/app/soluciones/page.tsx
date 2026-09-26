@@ -90,7 +90,7 @@ export default function SolucionesPage() {
             </span>
             <div className={styles.guaranteePill}>
               <ShieldCheck size={14} color="#16A34A" />
-              <span>Garantía de Satisfacción & Pago Seguro</span>
+              <span>Garantía de Calidad & Pago Seguro</span>
             </div>
           </div>
 
