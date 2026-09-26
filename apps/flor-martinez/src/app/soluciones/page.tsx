@@ -2,7 +2,19 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, Sparkles, CheckCircle2, ArrowRight, Star, Clock, ShieldCheck, ShoppingBag, Briefcase } from 'lucide-react';
+import {
+  Search,
+  Sparkles,
+  CheckCircle2,
+  ArrowRight,
+  Star,
+  Clock,
+  ShieldCheck,
+  ShoppingBag,
+  Briefcase,
+  FileSpreadsheet,
+  FileText,
+} from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
@@ -85,7 +97,8 @@ export default function SolucionesPage() {
           {filteredSolutions.length > 0 ? (
             <div className={styles.solutionsGrid}>
               {filteredSolutions.map((item) => {
-                const isProduct = item.type === 'producto';
+                const isExcel = item.slug === 'organizador-de-finanzas' || item.slug === 'finanzas-en-orden';
+
                 return (
                   <Card
                     key={item.id}
@@ -97,18 +110,14 @@ export default function SolucionesPage() {
                     <div className={styles.cardHeaderRow}>
                       <span
                         className={`${styles.typeBadge} ${
-                          isProduct ? styles.badgeProduct : styles.badgeService
+                          isExcel ? styles.badgeExcel : styles.badgeCv
                         }`}
                       >
-                        {isProduct ? <ShoppingBag size={13} /> : <Briefcase size={13} />}
-                        <span>{item.badgeText}</span>
+                        {isExcel ? <FileSpreadsheet size={14} /> : <FileText size={14} />}
+                        <span>
+                          {isExcel ? 'Planilla Excel / Google Sheets' : 'Rediseño de CV Profesional'}
+                        </span>
                       </span>
-
-                      <div className={styles.ratingBadge}>
-                        <Star size={13} fill="#F59E0B" color="#F59E0B" />
-                        <span>{item.rating}</span>
-                        <small>({item.reviewsCount})</small>
-                      </div>
                     </div>
 
                     {/* Body Info */}
