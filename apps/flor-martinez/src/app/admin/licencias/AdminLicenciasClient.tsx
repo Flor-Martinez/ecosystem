@@ -53,7 +53,8 @@ export default function AdminLicenciasClient({
       const emailLower = user.email.toLowerCase().trim();
       if (
         emailLower === 'santisose01@gmail.com' ||
-        emailLower === 'licenciadaflormartinez@gmail.com'
+        emailLower === 'licenciadaflormartinez@gmail.com' ||
+        emailLower === 'lucianamartinez0696@gmail.com'
       ) {
         setIsAdmin(true);
         setAdminEmail(user.email);

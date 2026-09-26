@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { db } from '@repo/db';
 import { getLicensesListAction } from './licenses';
+import { getCvOrdersAction } from './cvOrders';
 
 export interface CustomerMetricRecord {
   id: string;
@@ -111,18 +112,33 @@ export async function getAdminMetricsAction() {
   const licensesRes = await getLicensesListAction();
   const licenses = licensesRes.licenses || [];
 
+  const cvOrdersRes = await getCvOrdersAction();
+  const cvOrders = cvOrdersRes.orders || [];
+
   // Map purchases to users by email
   const customersList: CustomerMetricRecord[] = Array.from(userMap.values()).map((user) => {
+    const userEmail = user.email.toLowerCase().trim();
     const userLicenses = licenses.filter(
-      (l) => l.customerEmail.toLowerCase().trim() === user.email.toLowerCase().trim()
+      (l) => l.customerEmail.toLowerCase().trim() === userEmail
+    );
+    const userCvOrders = cvOrders.filter(
+      (c) => c.customerEmail.toLowerCase().trim() === userEmail
     );
 
-    const purchases = userLicenses.map((lic) => ({
-      itemTitle: 'Planilla "Finanzas en Orden" (Licencia ' + lic.licenseKey + ')',
-      date: lic.createdAt,
-      amount: '$14.900 ARS',
-      channel: lic.channel,
-    }));
+    const purchases = [
+      ...userLicenses.map((lic) => ({
+        itemTitle: 'Planilla "Finanzas en Orden" (' + lic.licenseKey + ')',
+        date: lic.createdAt,
+        amount: '$14.900 ARS',
+        channel: lic.channel,
+      })),
+      ...userCvOrders.map((cv) => ({
+        itemTitle: 'Servicio "Te Hago Tu CV" (' + cv.orderNumber + ')',
+        date: cv.createdAt,
+        amount: `$${cv.priceARS.toLocaleString('es-AR')} ARS`,
+        channel: cv.channel,
+      })),
+    ];
 
     return {
       id: user.id,
@@ -133,18 +149,18 @@ export async function getAdminMetricsAction() {
     };
   });
 
-  // Also include customers who bought licenses but haven't registered an account yet
+  // Also include customers who bought licenses/CVs but haven't registered an account yet
   for (const lic of licenses) {
     const licEmail = lic.customerEmail.toLowerCase().trim();
     if (!userMap.has(licEmail)) {
       customersList.push({
-        id: 'cust_' + lic.id,
+        id: 'cust_lic_' + lic.id,
         name: lic.customerName || (licEmail.split('@')[0] ?? 'Cliente'),
         email: lic.customerEmail,
         createdAt: lic.createdAt,
         purchases: [
           {
-            itemTitle: 'Planilla "Finanzas en Orden" (Licencia ' + lic.licenseKey + ')',
+            itemTitle: 'Planilla "Finanzas en Orden" (' + lic.licenseKey + ')',
             date: lic.createdAt,
             amount: '$14.900 ARS',
             channel: lic.channel,
@@ -154,14 +170,37 @@ export async function getAdminMetricsAction() {
     }
   }
 
+  for (const cv of cvOrders) {
+    const cvEmail = cv.customerEmail.toLowerCase().trim();
+    if (!userMap.has(cvEmail) && !customersList.some((c) => c.email.toLowerCase() === cvEmail)) {
+      customersList.push({
+        id: 'cust_cv_' + cv.id,
+        name: cv.customerName || (cvEmail.split('@')[0] ?? 'Cliente'),
+        email: cv.customerEmail,
+        createdAt: cv.createdAt,
+        purchases: [
+          {
+            itemTitle: 'Servicio "Te Hago Tu CV" (' + cv.orderNumber + ')',
+            date: cv.createdAt,
+            amount: `$${cv.priceARS.toLocaleString('es-AR')} ARS`,
+            channel: cv.channel,
+          },
+        ],
+      });
+    }
+  }
+
   const totalRegisteredAccounts = userMap.size;
   const totalLicensesSold = licenses.length;
-  const estimatedRevenueARS = licenses.length * 14900;
+  const totalCvOrdersSold = cvOrders.length;
+  const estimatedRevenueARS =
+    licenses.length * 14900 + cvOrders.reduce((sum, c) => sum + (c.priceARS || 29900), 0);
 
   return {
     success: true,
     totalAccounts: totalRegisteredAccounts,
     totalLicenses: totalLicensesSold,
+    totalCvOrders: totalCvOrdersSold,
     totalRevenueARS: estimatedRevenueARS,
     customers: customersList,
   };

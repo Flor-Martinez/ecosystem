@@ -26,17 +26,16 @@ export default async function AdminPage() {
   }
 
   // Carga inicial de datos
-  const adminsRes = await getSuperAdminEmailsAction();
   const licensesRes = await getLicensesListAction();
   const metricsRes = await getAdminMetricsAction();
 
   return (
     <AdminDashboardClient
       currentAdminEmail={adminCheck.email || ''}
-      initialAdmins={adminsRes.emails || []}
-      primaryAdmins={adminsRes.primaryEmails || []}
       licensesCount={licensesRes.licenses?.length || 0}
-      metrics={metricsRes}
+      cvOrdersCount={metricsRes.totalCvOrders || 0}
+      totalCustomersCount={metricsRes.totalAccounts || 0}
+      totalRevenueARS={metricsRes.totalRevenueARS || 0}
     />
   );
 }

@@ -6,6 +6,7 @@ export const TEMPLATE_COPY_URL =
 export const ADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
+  'lucianamartinez0696@gmail.com',
 ];
 
 export interface SpreadsheetLicenseRecord {

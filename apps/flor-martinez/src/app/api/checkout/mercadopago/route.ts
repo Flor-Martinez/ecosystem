@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getSolutionBySlug } from '@/data/solutions';
 import { issueLicenseAction } from '@/actions/licenses';
+import { createCvOrderAction } from '@/actions/cvOrders';
 
 export async function POST(request: Request) {
   try {
@@ -22,24 +23,42 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Emitir la clave de licencia comercial y registrar en DB/local
-    const licenseResult = await issueLicenseAction({
-      customerName: customerName.trim(),
-      customerEmail: customerEmail.trim(),
-      customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
-      channel: 'WEB',
-      notes: `Compra web Mercado Pago — ${solution.title}`,
-    });
+    const isCv = solution.slug === 'te-hago-tu-cv';
 
-    if (!licenseResult.success || !licenseResult.license) {
+    let orderData: any = null;
+
+    if (isCv) {
+      const cvResult = await createCvOrderAction({
+        customerName: customerName.trim(),
+        customerEmail: customerEmail.trim(),
+        customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
+        channel: 'WEB',
+        priceARS: solution.priceARS,
+        status: 'PENDIENTE',
+        notes: `Compra web Mercado Pago — ${solution.title}`,
+      });
+      orderData = cvResult;
+    } else {
+      const licenseResult = await issueLicenseAction({
+        customerName: customerName.trim(),
+        customerEmail: customerEmail.trim(),
+        customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
+        channel: 'WEB',
+        notes: `Compra web Mercado Pago — ${solution.title}`,
+      });
+      orderData = licenseResult;
+    }
+
+    if (!orderData || !orderData.success) {
       return NextResponse.json(
-        { success: false, error: licenseResult.error || 'Error al procesar la licencia.' },
+        { success: false, error: orderData?.error || 'Error al procesar el pedido.' },
         { status: 500 }
       );
     }
 
     const mpAccessToken = process.env.MP_ACCESS_TOKEN;
     const origin = request.headers.get('origin') || 'https://flor-martinez-ecosystem.vercel.app';
+    const refCode = isCv ? orderData.order?.orderNumber : orderData.license?.licenseKey;
 
     // 2. Si las credenciales de Mercado Pago están presentes, crear la preferencia de pago oficial
     if (mpAccessToken && mpAccessToken.startsWith('APP_USR-')) {
@@ -60,12 +79,12 @@ export async function POST(request: Request) {
           phone: customerWhatsapp ? { number: customerWhatsapp } : undefined,
         },
         back_urls: {
-          success: `${origin}/soluciones/${solution.slug}?payment=success&key=${licenseResult.license.licenseKey}`,
+          success: `${origin}/soluciones/${solution.slug}?payment=success&ref=${refCode}`,
           failure: `${origin}/soluciones/${solution.slug}?payment=failure`,
           pending: `${origin}/soluciones/${solution.slug}?payment=pending`,
         },
         auto_return: 'approved',
-        external_reference: licenseResult.license.licenseKey,
+        external_reference: refCode,
         statement_descriptor: 'FLOR MARTINEZ',
       };
 
@@ -84,12 +103,10 @@ export async function POST(request: Request) {
           success: true,
           initPoint: preference.init_point || preference.sandbox_init_point,
           preferenceId: preference.id,
-          license: licenseResult.license,
-          copyUrl: licenseResult.copyUrl,
-          deliveryMessage: licenseResult.deliveryMessage,
+          license: isCv ? null : orderData.license,
+          cvOrder: isCv ? orderData.order : null,
+          copyUrl: isCv ? null : orderData.copyUrl,
         });
-      } else {
-        console.warn('Mercado Pago API returned non-OK status, falling back to instant mode.');
       }
     }
 
@@ -97,9 +114,9 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       initPoint: null,
-      license: licenseResult.license,
-      copyUrl: licenseResult.copyUrl,
-      deliveryMessage: licenseResult.deliveryMessage,
+      license: isCv ? null : orderData.license,
+      cvOrder: isCv ? orderData.order : null,
+      copyUrl: isCv ? null : orderData.copyUrl,
     });
   } catch (error: any) {
     console.error('Error en /api/checkout/mercadopago:', error);

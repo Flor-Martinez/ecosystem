@@ -7,7 +7,7 @@
 }
 
 .container {
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -90,31 +90,60 @@
   border-color: #FCA5A5;
 }
 
-/* CARDS GRID */
+/* SECTIONS */
+.adminSection {
+  margin-bottom: 40px;
+}
+
+.sectionHeading {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0D1B2A;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .cardsGrid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
+  gap: 20px;
+}
+
+@media (min-width: 640px) {
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .card {
   background-color: #FFFFFF;
   border: 1px solid #E2DBD2;
-  border-radius: 20px;
-  padding: 28px;
+  border-radius: 18px;
+  padding: 24px;
   box-shadow: 0 4px 16px rgba(13, 27, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(13, 27, 42, 0.06);
 }
 
 .cardHeader {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: 14px;
 }
 
 .cardIconWrap {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   border-radius: 12px;
   background-color: #F1F5F9;
   color: #1E3A5F;
@@ -125,297 +154,66 @@
 }
 
 .cardTitle {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: #0D1B2A;
   margin: 0 0 4px 0;
 }
 
-.cardDesc {
+.miniDesc {
   font-size: 13px;
   color: #64748B;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
-/* STATS ROW */
-.statsRow {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+.statsInlineRow {
+  display: flex;
+  align-items: center;
   gap: 16px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
   background-color: #F8FAFC;
   border: 1px solid #E2E8F0;
-  border-radius: 14px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .statItem {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
 .statLabel {
   font-size: 11px;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .statValue {
-  font-size: 22px;
-  font-weight: 900;
+  font-size: 16px;
+  font-weight: 800;
   color: #0D1B2A;
 }
 
-.statActive {
-  font-size: 13px;
-  font-weight: 700;
-  color: #16A34A;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-}
-
-.pulseDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #16A34A;
-}
-
-/* ACTION BUTTONS */
-.cardActions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.primaryActionBtn {
+.accessBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  padding: 11px 16px;
   background-color: #0D1B2A;
-  color: #FAF5EE;
+  color: #FFFFFF;
   font-size: 13px;
   font-weight: 700;
-  padding: 11px 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  margin-top: auto;
 }
 
-.primaryActionBtn:hover {
+.accessBtn:hover {
   background-color: #1E3A5F;
   transform: translateY(-1px);
 }
-
-.secondaryActionBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #FFFFFF;
-  color: #0D1B2A;
-  border: 1px solid #CBD5E1;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 11px 18px;
-  border-radius: 12px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.secondaryActionBtn:hover {
-  background-color: #F1F5F9;
-  border-color: #94A3B8;
-}
-
-/* SUPERADMIN LIST */
-.adminList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.adminItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background-color: #F8FAFC;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-  gap: 12px;
-}
-
-.adminInfo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.adminEmail {
-  font-size: 14px;
-  font-weight: 600;
-  color: #0D1B2A;
-}
-
-.primaryBadge {
-  background-color: #0D1B2A;
-  color: #FAF5EE;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-.addedBadge {
-  background-color: #DBEAFE;
-  color: #1D4ED8;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 6px;
-}
-
-.deleteBtn {
-  background: transparent;
-  border: none;
-  color: #94A3B8;
-  padding: 6px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.deleteBtn:hover {
-  color: #DC2626;
-  background-color: #FEE2E2;
-}
-
-/* ADD ADMIN FORM */
-.addForm {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.addInput {
-  flex: 1;
-  min-width: 260px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid #CBD5E1;
-  font-size: 13px;
-  color: #0D1B2A;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.addInput:focus {
-  border-color: #0D1B2A;
-}
-
-.addBtn {
-  background-color: #1E3A5F;
-  color: #FFFFFF;
-  border: none;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.addBtn:hover:not(:disabled) {
-  background-color: #0D1B2A;
-}
-
-.addBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.formMessage {
-  margin-top: 10px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.formSuccess {
-  color: #16A34A;
-}
-
-.formError {
-  color: #DC2626;
-}
-
-/* METRICS & CUSTOMER ACCOUNTS */
-.customerTableWrapper {
-  overflow-x: auto;
-  margin-top: 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 12px;
-}
-
-.customerTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-
-.customerTable th {
-  text-align: left;
-  padding: 12px 14px;
-  background-color: #F8FAFC;
-  color: #475569;
-  font-weight: 700;
-  border-bottom: 2px solid #E2E8F0;
-}
-
-.customerTable td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #F1F5F9;
-  color: #1E293B;
-  vertical-align: middle;
-}
-
-.customerTable tr:hover {
-  background-color: #F8FAFC;
-}
-
-.purchaseBadge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 8px;
-  background-color: #ECFDF5;
-  color: #047857;
-  border: 1px solid #A7F3D0;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.noPurchaseBadge {
-  display: inline-block;
-  padding: 3px 8px;
-  background-color: #F1F5F9;
-  color: #64748B;
-  border-radius: 6px;
-  font-size: 11px;
-}
-
