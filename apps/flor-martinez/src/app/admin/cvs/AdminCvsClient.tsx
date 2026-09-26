@@ -222,7 +222,8 @@ export default function AdminCvsClient({ initialOrders }: AdminCvsClientProps) {
                 <tr>
                   <th>N° Orden</th>
                   <th>Cliente</th>
-                  <th>Contacto</th>
+                  <th>Contacto & WhatsApp</th>
+                  <th>Información del CV / Notas</th>
                   <th>Canal</th>
                   <th>Monto ARS</th>
                   <th>Fecha</th>
@@ -249,7 +250,29 @@ export default function AdminCvsClient({ initialOrders }: AdminCvsClientProps) {
                         <td>
                           <div>{ord.customerEmail}</div>
                           {ord.customerPhone && (
-                            <small style={{ color: '#64748B' }}>{ord.customerPhone}</small>
+                            <div style={{ color: '#059669', fontWeight: 600, fontSize: '0.82rem', marginTop: '2px' }}>
+                              📱 {ord.customerPhone}
+                            </div>
+                          )}
+                        </td>
+                        <td>
+                          {ord.notes ? (
+                            <div style={{
+                              fontSize: '0.82rem',
+                              color: '#334155',
+                              maxWidth: '260px',
+                              maxHeight: '120px',
+                              overflowY: 'auto',
+                              whiteSpace: 'pre-wrap',
+                              backgroundColor: '#F8FAFC',
+                              padding: '0.5rem 0.65rem',
+                              borderRadius: '6px',
+                              border: '1px solid #E2E8F0'
+                            }}>
+                              {ord.notes}
+                            </div>
+                          ) : (
+                            <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Sin notas</span>
                           )}
                         </td>
                         <td>
@@ -294,7 +317,7 @@ export default function AdminCvsClient({ initialOrders }: AdminCvsClientProps) {
                   })
                 ) : (
                   <tr>
-                    <td colSpan={8} style={{ textAlign: 'center', color: '#64748B', padding: '20px' }}>
+                    <td colSpan={9} style={{ textAlign: 'center', color: '#64748B', padding: '20px' }}>
                       No hay pedidos de CV registrados.
                     </td>
                   </tr>

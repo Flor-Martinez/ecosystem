@@ -41,6 +41,7 @@
   .detailGrid {
     grid-template-columns: 1fr 380px;
     gap: 3rem;
+    align-items: start;
   }
 }
 
@@ -399,11 +400,13 @@
 /* Sticky Sidebar Column */
 .sidebarColumn {
   position: relative;
+  height: 100%;
 }
 
 .stickySidebarCard {
   position: sticky;
   top: 6.5rem;
+  align-self: start;
   background-color: #FFFFFF;
   border-radius: 1.25rem;
   padding: 1.75rem;

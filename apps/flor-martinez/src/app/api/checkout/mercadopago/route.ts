@@ -6,16 +6,16 @@ import { createCvOrderAction } from '@/actions/cvOrders';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { solutionSlug, customerName, customerEmail, customerWhatsapp } = body;
+    const { solutionSlug, customerName, customerEmail, customerWhatsapp, customerCvDetails } = body;
 
-    if (!customerName || !customerEmail) {
+    if (!customerName || !customerEmail || !customerWhatsapp) {
       return NextResponse.json(
-        { success: false, error: 'Nombre y correo electrónico son requeridos.' },
+        { success: false, error: 'Nombre, correo electrónico y WhatsApp son requeridos.' },
         { status: 400 }
       );
     }
 
-    const solution = getSolutionBySlug(solutionSlug || 'organizador-de-finanzas');
+    const solution = getSolutionBySlug(solutionSlug || 'finanzas-en-orden');
     if (!solution) {
       return NextResponse.json(
         { success: false, error: 'Solución no encontrada.' },
@@ -28,6 +28,10 @@ export async function POST(request: Request) {
     let orderData: any = null;
 
     if (isCv) {
+      const cvNotesText = customerCvDetails
+        ? `Información de CV: ${customerCvDetails.trim()}`
+        : `Compra web Mercado Pago — ${solution.title}`;
+
       const cvResult = await createCvOrderAction({
         customerName: customerName.trim(),
         customerEmail: customerEmail.trim(),
@@ -35,7 +39,7 @@ export async function POST(request: Request) {
         channel: 'WEB',
         priceARS: solution.priceARS,
         status: 'PENDIENTE',
-        notes: `Compra web Mercado Pago — ${solution.title}`,
+        notes: cvNotesText,
       });
       orderData = cvResult;
     } else {

@@ -36,7 +36,7 @@ export interface SolutionItem {
 export const solutionsData: SolutionItem[] = [
   {
     id: 'sol-1',
-    slug: 'organizador-de-finanzas',
+    slug: 'finanzas-en-orden',
     title: 'Finanzas en Orden',
     tagline: 'Una plantilla donde cargás tus ingresos y gastos, y podés ver tu flujo mensual, presupuesto y metas en tiempo real.',
     type: 'producto',
@@ -63,18 +63,18 @@ export const solutionsData: SolutionItem[] = [
     processSteps: [
       {
         stepNumber: 1,
-        title: 'Pago Seguro & Confirmación',
-        description: 'Realizás el pago a través de Mercado Pago o Stripe en nuestro portal seguro.',
+        title: 'Pago Seguro',
+        description: 'Realizás el pago a través de nuestro portal seguro.',
       },
       {
         stepNumber: 2,
-        title: 'Acceso Directo a tu Correo o WhatsApp',
-        description: 'Recibís de forma automática el enlace a la plantilla con tu clave de licencia y el E-book en PDF.',
+        title: 'Envío por WhatsApp',
+        description: 'Recibís por WhatsApp un link para copiar la planilla y tu clave de licencia.',
       },
       {
         stepNumber: 3,
-        title: 'Soporte & Actualizaciones',
-        description: 'Accedés a futuras mejoras de la plantilla sin costos adicionales.',
+        title: 'Activación Inmediata',
+        description: 'Ingresás la licencia en la planilla ¡y ya tenés todo listo para usar!',
       },
     ],
     faq: [
@@ -118,18 +118,18 @@ export const solutionsData: SolutionItem[] = [
     processSteps: [
       {
         stepNumber: 1,
-        title: 'Contratación & Cuestionario Inicial',
-        description: 'Al confirmar el servicio, completás un formulario breve y nos adjuntás tu CV actual.',
+        title: 'Pago & Información Inicial',
+        description: 'Realizás el pago y nos cargás la información de tu experiencia o tu CV actual.',
       },
       {
         stepNumber: 2,
-        title: 'Análisis & Redacción Editorial',
-        description: 'Flor Martinez y su equipo reestructuran tu Perfil Profesional, Experiencia y Logros.',
+        title: 'Redacción & Diseño Profesional',
+        description: 'Optimizamos la estructura, redacción ejecutiva y formato para filtros ATS.',
       },
       {
         stepNumber: 3,
-        title: 'Entrega Final & Ronda de Revisión',
-        description: 'Recibís tu nuevo CV en 48-72hs con opción de ajustes finos incluidos.',
+        title: 'Entrega Final en PDF',
+        description: 'Recibís tu nuevo CV en PDF listo para postularte (en 48 a 72hs hábiles).',
       },
     ],
     faq: [
@@ -139,7 +139,7 @@ export const solutionsData: SolutionItem[] = [
       },
       {
         question: '¿Tengo derecho a cambios si quiero ajustar algo?',
-        answer: 'Sí, el servicio incluye 1 ronda de revisiones ilimitadas sobre la versión entregada.',
+        answer: 'Sí, el servicio incluye 1 ronda de revisiones sobre la versión entregada.',
       },
     ],
     isFeatured: true,
@@ -147,8 +147,8 @@ export const solutionsData: SolutionItem[] = [
 ];
 
 export function getSolutionBySlug(slug: string): SolutionItem | undefined {
-  if (slug === 'finanzas-en-orden') {
-    return solutionsData.find((item) => item.slug === 'organizador-de-finanzas');
+  if (slug === 'organizador-de-finanzas') {
+    return solutionsData.find((item) => item.slug === 'finanzas-en-orden');
   }
   return solutionsData.find((item) => item.slug === slug);
 }

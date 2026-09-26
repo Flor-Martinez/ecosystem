@@ -40,6 +40,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     name: '',
     email: '',
     whatsapp: '',
+    cvDetails: '',
   });
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
 
   const isProduct = solution.type === 'producto';
   const isExcel = solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden';
+  const isCv = solution.slug === 'te-hago-tu-cv';
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -79,6 +81,12 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     setIsSubmitting(true);
     setErrorMessage(null);
 
+    if (!formData.name.trim() || !formData.email.trim() || !formData.whatsapp.trim()) {
+      setErrorMessage('Nombre, correo electrónico y WhatsApp son requeridos.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const endpoint =
         paymentCurrency === 'ARS'
@@ -93,6 +101,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
           customerName: formData.name,
           customerEmail: formData.email,
           customerWhatsapp: formData.whatsapp,
+          customerCvDetails: formData.cvDetails,
           currency: paymentCurrency,
         }),
       });
@@ -303,12 +312,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
 
                 <div className={styles.guaranteeItem}>
                   <CheckCircle2 size={16} className={styles.guaranteeIcon} />
-                  <span>{isProduct ? 'Acceso inmediato 24/7' : 'Contacto directo 1 a 1'}</span>
-                </div>
-
-                <div className={styles.guaranteeItem}>
-                  <CheckCircle2 size={16} className={styles.guaranteeIcon} />
-                  <span>Garantía de calidad Flor Martinez</span>
+                  <span>{isProduct ? 'Licencia de uso de por vida' : 'Contacto directo 1 a 1'}</span>
                 </div>
               </div>
 
@@ -428,16 +432,35 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="customerWhatsapp">WhatsApp (opcional para avisos)</label>
+                    <label htmlFor="customerWhatsapp">WhatsApp (Obligatorio para la entrega) *</label>
                     <input
                       id="customerWhatsapp"
                       type="tel"
+                      required
                       placeholder="+54 9 11 1234-5678"
                       value={formData.whatsapp}
                       onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                       className={styles.formInput}
                     />
                   </div>
+
+                  {isCv && (
+                    <div className={styles.formGroup}>
+                      <label htmlFor="customerCvDetails">
+                        Información para tu CV (Estudios, experiencia o qué querés mejorar) *
+                      </label>
+                      <textarea
+                        id="customerCvDetails"
+                        rows={3}
+                        required
+                        placeholder="Pegá el texto de tu CV actual o detallá tu experiencia laboral, estudios y el puesto al que aspirás postularte..."
+                        value={formData.cvDetails}
+                        onChange={(e) => setFormData({ ...formData, cvDetails: e.target.value })}
+                        className={styles.formInput}
+                        style={{ resize: 'vertical', fontFamily: 'inherit' }}
+                      />
+                    </div>
+                  )}
 
                   {errorMessage && (
                     <div className={styles.errorAlertBox}>

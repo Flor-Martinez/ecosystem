@@ -1,20 +1,21 @@
 import { NextResponse } from 'next/server';
 import { getSolutionBySlug } from '@/data/solutions';
 import { issueLicenseAction } from '@/actions/licenses';
+import { createCvOrderAction } from '@/actions/cvOrders';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { solutionSlug, customerName, customerEmail, customerWhatsapp } = body;
+    const { solutionSlug, customerName, customerEmail, customerWhatsapp, customerCvDetails } = body;
 
-    if (!customerName || !customerEmail) {
+    if (!customerName || !customerEmail || !customerWhatsapp) {
       return NextResponse.json(
-        { success: false, error: 'Nombre y correo electrónico son requeridos.' },
+        { success: false, error: 'Nombre, correo electrónico y WhatsApp son requeridos.' },
         { status: 400 }
       );
     }
 
-    const solution = getSolutionBySlug(solutionSlug || 'organizador-de-finanzas');
+    const solution = getSolutionBySlug(solutionSlug || 'finanzas-en-orden');
     if (!solution) {
       return NextResponse.json(
         { success: false, error: 'Solución no encontrada.' },
@@ -22,24 +23,44 @@ export async function POST(request: Request) {
       );
     }
 
-    // 1. Emitir clave de licencia comercial y registrar pedido
-    const licenseResult = await issueLicenseAction({
-      customerName: customerName.trim(),
-      customerEmail: customerEmail.trim(),
-      customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
-      channel: 'WEB',
-      notes: `Compra web Stripe USD — ${solution.title}`,
-    });
+    const isCv = solution.slug === 'te-hago-tu-cv';
+    let orderData: any = null;
 
-    if (!licenseResult.success || !licenseResult.license) {
+    if (isCv) {
+      const cvNotesText = customerCvDetails
+        ? `Información de CV: ${customerCvDetails.trim()}`
+        : `Compra web Stripe USD — ${solution.title}`;
+
+      orderData = await createCvOrderAction({
+        customerName: customerName.trim(),
+        customerEmail: customerEmail.trim(),
+        customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
+        channel: 'WEB',
+        priceARS: solution.priceARS,
+        status: 'PENDIENTE',
+        notes: cvNotesText,
+      });
+    } else {
+      orderData = await issueLicenseAction({
+        customerName: customerName.trim(),
+        customerEmail: customerEmail.trim(),
+        customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
+        channel: 'WEB',
+        notes: `Compra web Stripe USD — ${solution.title}`,
+      });
+    }
+
+    if (!orderData.success) {
       return NextResponse.json(
-        { success: false, error: licenseResult.error || 'Error al procesar la licencia.' },
+        { success: false, error: orderData.error || 'Error al procesar el pedido.' },
         { status: 500 }
       );
     }
 
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
     const origin = request.headers.get('origin') || 'https://flor-martinez-ecosystem.vercel.app';
+
+    const refCode = isCv ? orderData.order?.orderNumber : orderData.license?.licenseKey;
 
     // 2. Si las credenciales de Stripe están configuradas, crear la Checkout Session oficial
     if (stripeSecretKey && stripeSecretKey.startsWith('sk_')) {
@@ -52,9 +73,9 @@ export async function POST(request: Request) {
       params.append('line_items[0][quantity]', '1');
       params.append('mode', 'payment');
       params.append('customer_email', customerEmail);
-      params.append('success_url', `${origin}/soluciones/${solution.slug}?payment=success&key=${licenseResult.license.licenseKey}`);
+      params.append('success_url', `${origin}/soluciones/${solution.slug}?payment=success&ref=${refCode}`);
       params.append('cancel_url', `${origin}/soluciones/${solution.slug}?payment=cancelled`);
-      params.append('client_reference_id', licenseResult.license.licenseKey);
+      params.append('client_reference_id', refCode || 'REF');
 
       const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
         method: 'POST',
@@ -71,9 +92,9 @@ export async function POST(request: Request) {
           success: true,
           checkoutUrl: session.url,
           sessionId: session.id,
-          license: licenseResult.license,
-          copyUrl: licenseResult.copyUrl,
-          deliveryMessage: licenseResult.deliveryMessage,
+          license: isCv ? null : orderData.license,
+          cvOrder: isCv ? orderData.order : null,
+          copyUrl: isCv ? null : orderData.copyUrl,
         });
       } else {
         console.warn('Stripe API returned non-OK status, falling back to instant mode.');
@@ -84,9 +105,9 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       checkoutUrl: null,
-      license: licenseResult.license,
-      copyUrl: licenseResult.copyUrl,
-      deliveryMessage: licenseResult.deliveryMessage,
+      license: isCv ? null : orderData.license,
+      cvOrder: isCv ? orderData.order : null,
+      copyUrl: isCv ? null : orderData.copyUrl,
     });
   } catch (error: any) {
     console.error('Error en /api/checkout/stripe:', error);
