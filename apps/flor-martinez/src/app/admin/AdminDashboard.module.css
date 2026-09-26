@@ -362,3 +362,60 @@
 .formError {
   color: #DC2626;
 }
+
+/* METRICS & CUSTOMER ACCOUNTS */
+.customerTableWrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+}
+
+.customerTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.customerTable th {
+  text-align: left;
+  padding: 12px 14px;
+  background-color: #F8FAFC;
+  color: #475569;
+  font-weight: 700;
+  border-bottom: 2px solid #E2E8F0;
+}
+
+.customerTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #F1F5F9;
+  color: #1E293B;
+  vertical-align: middle;
+}
+
+.customerTable tr:hover {
+  background-color: #F8FAFC;
+}
+
+.purchaseBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background-color: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.noPurchaseBadge {
+  display: inline-block;
+  padding: 3px 8px;
+  background-color: #F1F5F9;
+  color: #64748B;
+  border-radius: 6px;
+  font-size: 11px;
+}
+

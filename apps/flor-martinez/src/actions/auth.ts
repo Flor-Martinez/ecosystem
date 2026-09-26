@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { db, Role } from '@repo/db';
+import { trackUserSignup } from './metrics';
 
 const SESSION_COOKIE = 'fm_session_token';
 
@@ -12,6 +13,11 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
 
   try {
     const formattedEmail = email.toLowerCase().trim();
+    const namePart = formattedEmail.split('@')[0] || 'Usuario';
+    const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
+
+    // Track user in metrics fallback
+    await trackUserSignup(formattedName, formattedEmail);
     let user = await db.user.findUnique({
       where: { email: formattedEmail },
     });

@@ -9,9 +9,8 @@
 
 .backNavSection {
   padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
-  background-color: #FFFFFF;
+  padding-bottom: 1rem;
+  background-color: transparent;
 }
 
 .backLink {
@@ -19,8 +18,8 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  font-weight: 5rem;
-  color: #64748B;
+  font-weight: 500;
+  color: #475569;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }

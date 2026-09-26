@@ -13,6 +13,9 @@ import {
   ArrowRight,
   CheckCircle2,
   AlertCircle,
+  TrendingUp,
+  ShoppingBag,
+  UserCheck,
 } from 'lucide-react';
 import { TEMPLATE_COPY_URL } from '@/lib/licensing-types';
 import {
@@ -22,6 +25,7 @@ import {
 } from '@/actions/licenses';
 import { logoutUserAction } from '@/actions/auth';
 import { useEcosystemAuth } from '@/context/AuthContext';
+import { CustomerMetricRecord } from '@/actions/metrics';
 import styles from './AdminDashboard.module.css';
 
 interface AdminDashboardClientProps {
@@ -29,6 +33,12 @@ interface AdminDashboardClientProps {
   initialAdmins: string[];
   primaryAdmins: string[];
   licensesCount: number;
+  metrics?: {
+    totalAccounts: number;
+    totalLicenses: number;
+    totalRevenueARS: number;
+    customers: CustomerMetricRecord[];
+  };
 }
 
 export default function AdminDashboardClient({
@@ -36,6 +46,7 @@ export default function AdminDashboardClient({
   initialAdmins,
   primaryAdmins,
   licensesCount,
+  metrics,
 }: AdminDashboardClientProps) {
   const [admins, setAdmins] = useState<string[]>(initialAdmins);
   const [newEmail, setNewEmail] = useState('');
@@ -240,6 +251,91 @@ export default function AdminDashboardClient({
                 <span>{message.text}</span>
               </div>
             )}
+          </div>
+
+          {/* MÓDULO 3: MÉTRICAS DE CLIENTES & CUENTAS CREADAS */}
+          <div className={styles.card}>
+            <div className={styles.cardHeader}>
+              <div className={styles.cardIconWrap}>
+                <TrendingUp size={24} />
+              </div>
+              <div>
+                <h2 className={styles.cardTitle}>Métricas de Clientes & Cuentas Creadas</h2>
+                <p className={styles.cardDesc}>
+                  Seguimiento en tiempo real de cuentas registradas en el ecosistema, fechas de alta y registro de ventas ($0 costo adicional de almacenamiento).
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.statsRow}>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Cuentas Registradas</span>
+                <span className={styles.statValue}>{metrics?.totalAccounts || 0}</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Ventas / Licencias</span>
+                <span className={styles.statValue}>{metrics?.totalLicenses || 0}</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>Ingresos Estimados</span>
+                <span className={styles.statValue}>
+                  ${(metrics?.totalRevenueARS || 0).toLocaleString('es-AR')} ARS
+                </span>
+              </div>
+            </div>
+
+            <h3 style={{ fontSize: '15px', fontWeight: 700, margin: '20px 0 8px 0', color: '#0D1B2A' }}>
+              Listado de Cuentas y Compras Realizadas
+            </h3>
+
+            <div className={styles.customerTableWrapper}>
+              <table className={styles.customerTable}>
+                <thead>
+                  <tr>
+                    <th>Nombre / Cliente</th>
+                    <th>Correo Electrónico</th>
+                    <th>Fecha de Alta</th>
+                    <th>Compras Mediante la Web</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {metrics?.customers && metrics.customers.length > 0 ? (
+                    metrics.customers.map((cust) => (
+                      <tr key={cust.id}>
+                        <td>
+                          <strong>{cust.name}</strong>
+                        </td>
+                        <td>{cust.email}</td>
+                        <td>
+                          {new Date(cust.createdAt).toLocaleDateString('es-AR', {
+                            day: 'numeric',
+                            month: 'short',
+                            year: 'numeric',
+                          })}
+                        </td>
+                        <td>
+                          {cust.purchases && cust.purchases.length > 0 ? (
+                            cust.purchases.map((p, idx) => (
+                              <span key={idx} className={styles.purchaseBadge}>
+                                <ShoppingBag size={12} /> {p.itemTitle} ({p.amount})
+                              </span>
+                            ))
+                          ) : (
+                            <span className={styles.noPurchaseBadge}>Sin compras registradas</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={4} style={{ textAlign: 'center', color: '#64748B', padding: '16px' }}>
+                        No hay datos registrados aún.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

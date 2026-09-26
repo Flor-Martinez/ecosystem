@@ -442,7 +442,7 @@ export function Navbar() {
                     >
                       <Sparkles size={14} className={styles.solucionesIcon} />
                       <span>{link.label}</span>
-                      {isSolucionesActive && <span className={styles.activeIndicator} />}
+                      {isSolucionesActive && <span className={styles.solucionesActiveIndicator} />}
                     </Link>
                   </React.Fragment>
                 );

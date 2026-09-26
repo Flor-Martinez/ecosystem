@@ -668,6 +668,16 @@
   border-radius: var(--radius-full);
 }
 
+.solucionesActiveIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #D97706;
+  border-radius: var(--radius-full);
+}
+
 /* Vertical Separator for Soluciones */
 .navDivider {
   width: 1px;

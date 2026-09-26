@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -19,10 +19,13 @@ import {
   Check,
   Zap,
   ExternalLink,
+  Download,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SolutionItem } from '@/data/solutions';
 import { issueLicenseAction } from '@/actions/licenses';
+import { useAuth } from '@/context/AuthContext';
+import SolutionReviewsSection from '@/components/solutions/SolutionReviewsSection';
 import styles from './SolutionDetail.module.css';
 
 interface SolutionDetailClientProps {
@@ -30,6 +33,7 @@ interface SolutionDetailClientProps {
 }
 
 export default function SolutionDetailClient({ solution }: SolutionDetailClientProps) {
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentCurrency, setPaymentCurrency] = useState<'ARS' | 'USD'>('ARS');
   const [formData, setFormData] = useState({
@@ -37,6 +41,16 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     email: '',
     whatsapp: '',
   });
+
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: prev.name || user.name || '',
+        email: prev.email || user.email || '',
+      }));
+    }
+  }, [user]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [issuedLicense, setIssuedLicense] = useState<{
@@ -140,12 +154,6 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                 </span>
 
                 <span className={styles.categoryLabel}>{solution.category}</span>
-
-                <div className={styles.ratingBadge}>
-                  <Star size={13} fill="#F59E0B" color="#F59E0B" />
-                  <span>{solution.rating}</span>
-                  <small>({solution.reviewsCount} opiniones)</small>
-                </div>
               </div>
 
               <h1 className={styles.detailTitle}>{solution.title}</h1>
@@ -247,6 +255,9 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                 </div>
               </div>
             )}
+
+            {/* Customer Reviews Section */}
+            <SolutionReviewsSection solutionSlug={solution.slug} initialUser={user} />
           </div>
 
           {/* RIGHT COLUMN: Sticky Sidebar & Buy CTA */}
@@ -374,6 +385,21 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
 
                 {/* Contact Form */}
                 <form onSubmit={handleSubmitOrder} className={styles.checkoutForm}>
+                  {user && (
+                    <div style={{
+                      padding: '0.6rem 0.85rem',
+                      backgroundColor: '#ECFDF5',
+                      border: '1px solid #A7F3D0',
+                      borderRadius: '8px',
+                      fontSize: '0.82rem',
+                      color: '#065F46',
+                      fontWeight: 600,
+                      marginBottom: '0.5rem'
+                    }}>
+                      ✓ Sesión activa como <strong>{user.name}</strong> ({user.email}). Datos completados automáticamente.
+                    </div>
+                  )}
+
                   <div className={styles.formGroup}>
                     <label htmlFor="customerName">Nombre Completo *</label>
                     <input
@@ -477,6 +503,20 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                       <span>Abrir y Copiar mi Planilla en Google Sheets</span>
                       <ExternalLink size={16} />
                     </a>
+
+                    {(solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden') && (
+                      <a
+                        href="/docs/Finanzas_en_Orden_Curso_Practico.pdf"
+                        download="Finanzas_en_Orden_Curso_Practico.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.openTemplateCtaBtn}
+                        style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
+                      >
+                        <span>Descargar E-Book & Curso Práctico (PDF)</span>
+                        <Download size={16} />
+                      </a>
+                    )}
 
                     <ol className={styles.licenseStepsList}>
                       <li>

@@ -6,6 +6,7 @@ import {
   getSuperAdminEmailsAction,
   getLicensesListAction,
 } from '@/actions/licenses';
+import { getAdminMetricsAction } from '@/actions/metrics';
 import AdminDashboardClient from './AdminDashboardClient';
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default async function AdminPage() {
   // Carga inicial de datos
   const adminsRes = await getSuperAdminEmailsAction();
   const licensesRes = await getLicensesListAction();
+  const metricsRes = await getAdminMetricsAction();
 
   return (
     <AdminDashboardClient
@@ -34,6 +36,7 @@ export default async function AdminPage() {
       initialAdmins={adminsRes.emails || []}
       primaryAdmins={adminsRes.primaryEmails || []}
       licensesCount={licensesRes.licenses?.length || 0}
+      metrics={metricsRes}
     />
   );
 }
