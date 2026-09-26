@@ -60,7 +60,7 @@ export function CampusHeader({
   favoriteIds,
   onToggleFavorite,
 }: CampusHeaderProps) {
-  const { user, openAuthModal, logout } = useAuth();
+  const { user, isSuperAdmin, openAuthModal, logout } = useAuth();
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
 
@@ -436,13 +436,13 @@ export function CampusHeader({
             </nav>
           )}
 
-          {/* DEVELOPER MEMBERSHIP SWITCH (Only available for authenticated user session) */}
-          {user && onToggleMembership && (
+          {/* DEVELOPER MEMBERSHIP SWITCH (Only visible to Superadmins in Ecosystem) */}
+          {isSuperAdmin && onToggleMembership && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${membershipTier === 'paid' ? styles.devTierPaid : styles.devTierFree}`}
               onClick={onToggleMembership}
-              title="Herramienta de desarrollo: alternar entre Membresía Pagada (VIP) y Gratuita (Free)"
+              title="Herramienta de superadmin: alternar entre Membresía Pagada (VIP) y Gratuita (Free)"
               aria-label="Alternar membresía de prueba"
             >
               {membershipTier === 'paid' ? (
@@ -459,13 +459,13 @@ export function CampusHeader({
             </button>
           )}
 
-          {/* MODO DEV TOGGLE SWITCH */}
-          {onToggleDevMode && (
+          {/* MODO DEV TOGGLE SWITCH (Only visible to Superadmins in Ecosystem) */}
+          {isSuperAdmin && onToggleDevMode && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${isDevMode ? styles.devModeActive : styles.devModeInactive}`}
               onClick={onToggleDevMode}
-              title="Alternar entre Modo Dev (ver guion y todas las clases desbloqueadas) y Modo Alumno"
+              title="Alternar entre Modo Dev (ver guion de producción y todas las clases desbloqueadas) y Modo Alumno"
               aria-label="Alternar Modo Dev"
             >
               <Code2 size={13} />
@@ -485,7 +485,9 @@ export function CampusHeader({
                   <span
                     className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
                   >
-                    {membershipTier === 'paid' ? 'VIP Activo' : 'Free Demo'}
+                    {isSuperAdmin
+                      ? (membershipTier === 'paid' ? 'Superadmin (VIP)' : 'Superadmin (Free)')
+                      : (membershipTier === 'paid' ? 'VIP Activo' : 'Free Demo')}
                   </span>
                 </div>
                 <button

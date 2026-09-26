@@ -7,6 +7,7 @@ export const ADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
+  'santiagocastillo98@hotmail.com',
 ];
 
 export interface SpreadsheetLicenseRecord {

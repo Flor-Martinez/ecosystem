@@ -3,17 +3,40 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react';
 import { loginUserAction, registerUserAction } from '@/actions/auth';
 
+export const SUPERADMIN_EMAILS = [
+  'santisose01@gmail.com',
+  'licenciadaflormartinez@gmail.com',
+  'lucianamartinez0696@gmail.com',
+  'santiagocastillo98@hotmail.com',
+];
+
 export interface EcosystemUser {
   id: string;
   name: string;
   email: string;
   avatarUrl?: string;
-  role: 'student' | 'client' | 'member';
+  role: 'student' | 'client' | 'member' | 'admin' | 'superadmin' | string;
   enrolledCourses?: string[];
+  isSuperAdmin?: boolean;
+}
+
+export function checkIsUserSuperAdmin(user: EcosystemUser | null, adminCookie?: string | null): boolean {
+  if (adminCookie) {
+    const clean = adminCookie.toLowerCase().trim();
+    if (SUPERADMIN_EMAILS.includes(clean)) return true;
+  }
+  if (!user) return false;
+  const emailLower = user.email ? user.email.toLowerCase().trim() : '';
+  if (emailLower && SUPERADMIN_EMAILS.includes(emailLower)) return true;
+  const roleLower = (user.role || '').toLowerCase();
+  if (roleLower === 'admin' || roleLower === 'superadmin') return true;
+  if (user.isSuperAdmin) return true;
+  return false;
 }
 
 interface AuthContextType {
   user: EcosystemUser | null;
+  isSuperAdmin: boolean;
   isLoading: boolean;
   isModalOpen: boolean;
   openAuthModal: (initialTab?: 'login' | 'register') => void;
@@ -66,6 +89,7 @@ function setCookie(name: string, value: string | null, days = 30) {
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<EcosystemUser | null>(null);
+  const [adminCookie, setAdminCookie] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalTab, setModalTab] = useState<'login' | 'register'>('login');
@@ -74,13 +98,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Sync state using the Shared Cookie as Single Source of Truth
   const syncSession = useCallback(() => {
     try {
+      const adminC = getCookie('fm_admin_session');
+      setAdminCookie(adminC);
+
       const cookieData = getCookie(COOKIE_KEY);
       if (cookieData) {
         try {
           const parsed: EcosystemUser = JSON.parse(cookieData);
           if (parsed && parsed.email) {
             setUser((prev) => {
-              if (!prev || prev.email !== parsed.email || prev.name !== parsed.name) {
+              if (!prev || prev.email !== parsed.email || prev.name !== parsed.name || prev.role !== parsed.role) {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
                 return parsed;
               }
@@ -161,6 +188,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, [syncSession]);
 
+  const isSuperAdmin = React.useMemo(() => {
+    return checkIsUserSuperAdmin(user, adminCookie);
+  }, [user, adminCookie]);
+
   const saveUserSession = (userData: EcosystemUser | null) => {
     setUser(userData);
     if (userData) {
@@ -198,11 +229,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await loginUserAction(email);
       if (res.success && res.user) {
+        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
         const newUser: EcosystemUser = {
           id: res.user.id,
           name: res.user.name || email.split('@')[0] || 'Usuario',
           email: res.user.email,
-          role: 'student',
+          role: isSuper ? 'admin' : 'student',
+          isSuperAdmin: isSuper,
           enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
         };
         saveUserSession(newUser);
@@ -231,12 +264,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
       if (res.success && res.user) {
+        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
         const newUser: EcosystemUser = {
           id: res.user.id,
           name: res.user.name || nameToUse,
           email: res.user.email,
           avatarUrl: res.user.avatarUrl || avatarToUse,
-          role: 'student',
+          role: isSuper ? 'admin' : 'student',
+          isSuperAdmin: isSuper,
           enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
         };
         saveUserSession(newUser);
@@ -305,6 +340,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email: 'santiago.morales@ejemplo.com',
       avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=Santiago%20Morales&backgroundColor=EA580C,2563EB',
       role: 'student',
+      isSuperAdmin: false,
       enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
     };
     saveUserSession(demoUser);
@@ -316,11 +352,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const res = await registerUserAction(name, email);
       if (res.success && res.user) {
+        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
         const newUser: EcosystemUser = {
           id: res.user.id,
           name: res.user.name || name,
           email: res.user.email,
-          role: 'student',
+          role: isSuper ? 'admin' : 'student',
+          isSuperAdmin: isSuper,
           enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
         };
         saveUserSession(newUser);
@@ -343,6 +381,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         user,
+        isSuperAdmin,
         isLoading,
         isModalOpen,
         openAuthModal,

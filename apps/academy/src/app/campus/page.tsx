@@ -29,7 +29,7 @@ import styles from './campus.module.css';
 const DEV_MEMBERSHIP_KEY = 'campus_dev_membership_tier';
 
 function CampusContent() {
-  const { user: authUser } = useAuth();
+  const { user: authUser, isSuperAdmin } = useAuth();
   const activeEmail = authUser?.email || 'santiago.morales@ejemplo.com';
 
   const searchParams = useSearchParams();
@@ -57,8 +57,8 @@ function CampusContent() {
     return 'paid';
   });
 
-  // Dedicated Dev Mode Switch: allows viewing recording scripts & unlocking all lessons
-  const [isDevMode, setIsDevMode] = useState<boolean>(true);
+  // Dedicated Dev Mode Switch: allows viewing recording scripts & unlocking all lessons (strictly false for non-superadmin)
+  const [isDevMode, setIsDevMode] = useState<boolean>(false);
 
   // Catalog Explorer Modal state
   const [isCatalogModalOpen, setIsCatalogModalOpen] = useState(false);
@@ -74,13 +74,19 @@ function CampusContent() {
     () => new Set(['tool-recursos', 'tool-tracker'])
   );
 
-  // Hydrate user preferences from localStorage on mount
+  // Hydrate user preferences from localStorage on mount (Dev mode only active for superadmins)
   useEffect(() => {
     if (typeof window === 'undefined') return;
     try {
-      const savedDevMode = localStorage.getItem('campus_is_dev_mode');
-      if (savedDevMode !== null) {
-        setIsDevMode(savedDevMode !== 'false');
+      if (isSuperAdmin) {
+        const savedDevMode = localStorage.getItem('campus_is_dev_mode');
+        if (savedDevMode !== null) {
+          setIsDevMode(savedDevMode !== 'false');
+        } else {
+          setIsDevMode(true);
+        }
+      } else {
+        setIsDevMode(false);
       }
       const savedFavs = localStorage.getItem('campus_ebl_favorites');
       if (savedFavs) {
@@ -89,9 +95,10 @@ function CampusContent() {
     } catch {
       // ignore
     }
-  }, []);
+  }, [isSuperAdmin]);
 
   const handleToggleDevMode = () => {
+    if (!isSuperAdmin) return;
     setIsDevMode((prev) => {
       const next = !prev;
       if (typeof window !== 'undefined') {
@@ -162,6 +169,7 @@ function CampusContent() {
   }, [authUser]);
 
   const handleToggleMembership = async () => {
+    if (!isSuperAdmin) return;
     const nextTier = membershipTier === 'paid' ? 'free' : 'paid';
     setMembershipTier(nextTier);
     try {
@@ -503,8 +511,8 @@ function CampusContent() {
 
   return (
     <div className={styles.campusRoot}>
-      {/* Dev membership simulation banner if in Free tier */}
-      {membershipTier === 'free' && (
+      {/* Dev membership simulation banner if in Free tier (only visible for superadmin in dev testing) */}
+      {isSuperAdmin && membershipTier === 'free' && (
         <div className={styles.devFreeBanner}>
           <div className={styles.devFreeBannerInner}>
             <Lock size={14} className={styles.devFreeBannerIcon} />
@@ -524,11 +532,11 @@ function CampusContent() {
         completedCount={completedProgramLessonsCount}
         totalLessonsCount={requiredLessons.length}
         membershipTier={membershipTier}
-        onToggleMembership={handleToggleMembership}
+        onToggleMembership={isSuperAdmin ? handleToggleMembership : undefined}
         onOpenCatalogModal={() => setIsCatalogModalOpen(true)}
         onLockedClick={(featureId) => setLockedModalFeature(featureId)}
-        isDevMode={isDevMode}
-        onToggleDevMode={handleToggleDevMode}
+        isDevMode={isSuperAdmin && isDevMode}
+        onToggleDevMode={isSuperAdmin ? handleToggleDevMode : undefined}
         favoriteIds={favoriteIds}
         onToggleFavorite={handleToggleFavorite}
       />
@@ -542,7 +550,7 @@ function CampusContent() {
             selectedLesson={selectedLesson}
             onSelectLesson={(lesson) => {
               setActiveCelebrationModule(null);
-              if (!isDevMode && membershipTier === 'free' && lesson.moduleNumber !== 1) {
+              if (!(isSuperAdmin && isDevMode) && membershipTier === 'free' && lesson.moduleNumber !== 1) {
                 setLockedModalFeature(`modulo-${lesson.moduleNumber}`);
               } else {
                 setSelectedLesson(lesson);
@@ -556,7 +564,7 @@ function CampusContent() {
             onClose={() => setIsSidebarOpen(false)}
             membershipTier={membershipTier}
             onLockedModuleClick={(featureId) => setLockedModalFeature(featureId)}
-            isDevMode={isDevMode}
+            isDevMode={isSuperAdmin && isDevMode}
           />
         )}
 
@@ -582,11 +590,11 @@ function CampusContent() {
               <CampusLockedPaywallView
                 viewType="perfil"
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
-                onUpgrade={handleToggleMembership}
+                onUpgrade={isSuperAdmin ? handleToggleMembership : () => setLockedModalFeature('perfil')}
               />
             ) : (
               <EblStudentProfileView
-                isDevMode={isDevMode}
+                isDevMode={isSuperAdmin && isDevMode}
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
                 onNavigateToVocationalTest={() => handleNavChangeView('test-vocacional')}
               />
@@ -597,7 +605,7 @@ function CampusContent() {
             <CampusLockedPaywallView
               viewType="perfil"
               onBackToDashboard={() => handleNavChangeView('dashboard')}
-              onUpgrade={handleToggleMembership}
+              onUpgrade={isSuperAdmin ? handleToggleMembership : () => setLockedModalFeature('perfil')}
             />
           )}
 
@@ -606,7 +614,7 @@ function CampusContent() {
             <CampusLockedPaywallView
               viewType={currentView.replace('paywall-', '')}
               onBackToDashboard={() => handleNavChangeView('dashboard')}
-              onUpgrade={handleToggleMembership}
+              onUpgrade={isSuperAdmin ? handleToggleMembership : () => setLockedModalFeature(currentView.replace('paywall-', ''))}
             />
           )}
 
@@ -688,7 +696,7 @@ function CampusContent() {
                   hasNext={hasNext}
                   completedLessons={completedLessons}
                   membershipTier={membershipTier}
-                  isDevMode={isDevMode}
+                  isDevMode={isSuperAdmin && isDevMode}
                   onNavigateView={(view) => handleSelectViewFromCard(view)}
                 />
               )}

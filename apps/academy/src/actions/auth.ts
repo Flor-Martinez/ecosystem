@@ -5,6 +5,13 @@ import { db, Role } from '@repo/db';
 
 const SESSION_COOKIE = 'fm_session_token';
 
+export const SUPERADMIN_EMAILS = [
+  'santisose01@gmail.com',
+  'licenciadaflormartinez@gmail.com',
+  'lucianamartinez0696@gmail.com',
+  'santiagocastillo98@hotmail.com',
+];
+
 export async function loginUserAction(email: string, name?: string, avatarUrl?: string) {
   if (!email || !email.includes('@')) {
     return { success: false, error: 'Ingresá un correo electrónico válido.' };
@@ -12,6 +19,7 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
 
   try {
     const formattedEmail = email.toLowerCase().trim();
+    const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
     let user = await db.user.findUnique({
       where: { email: formattedEmail },
     });
@@ -23,7 +31,7 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
         data: {
           email: formattedEmail,
           name: formattedName,
-          role: Role.STUDENT,
+          role: isSuper ? Role.ADMIN : Role.STUDENT,
           membershipTier: 'VIP',
           avatarUrl: avatarUrl || undefined,
         },
@@ -43,15 +51,26 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
       } catch {
         // profile already exists or error
       }
-    } else if (name || avatarUrl) {
-      // Update avatar or name if provided
-      user = await db.user.update({
-        where: { id: user.id },
-        data: {
-          ...(name ? { name: name.trim() } : {}),
-          ...(avatarUrl ? { avatarUrl } : {}),
-        },
-      });
+    } else {
+      if (isSuper && user.role !== Role.ADMIN) {
+        user = await db.user.update({
+          where: { id: user.id },
+          data: {
+            role: Role.ADMIN,
+            ...(name ? { name: name.trim() } : {}),
+            ...(avatarUrl ? { avatarUrl } : {}),
+          },
+        });
+      } else if (name || avatarUrl) {
+        // Update avatar or name if provided
+        user = await db.user.update({
+          where: { id: user.id },
+          data: {
+            ...(name ? { name: name.trim() } : {}),
+            ...(avatarUrl ? { avatarUrl } : {}),
+          },
+        });
+      }
     }
 
     const sessionToken = 'sess_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
@@ -97,6 +116,7 @@ export async function registerUserAction(name: string, email: string) {
 
   try {
     const formattedEmail = email.toLowerCase().trim();
+    const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
     const existing = await db.user.findUnique({ where: { email: formattedEmail } });
     if (existing) {
       return loginUserAction(formattedEmail);
@@ -106,7 +126,7 @@ export async function registerUserAction(name: string, email: string) {
       data: {
         name: name.trim(),
         email: formattedEmail,
-        role: Role.STUDENT,
+        role: isSuper ? Role.ADMIN : Role.STUDENT,
         membershipTier: 'VIP',
       },
     });
