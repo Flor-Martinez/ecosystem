@@ -58,16 +58,38 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     licenseKey: string;
     copyUrl: string;
   } | null>(null);
+  const [createdCvOrder, setCreatedCvOrder] = useState<{
+    orderNumber: string;
+  } | null>(null);
   const [copiedKey, setCopiedKey] = useState(false);
 
   const isProduct = solution.type === 'producto';
   const isExcel = solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden';
   const isCv = solution.slug === 'te-hago-tu-cv';
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const payment = params.get('payment');
+      const ref = params.get('ref') || params.get('key');
+      if (payment === 'success') {
+        setIsModalOpen(true);
+        setIsSuccess(true);
+        if (isExcel && ref) {
+          setIssuedLicense({
+            licenseKey: ref,
+            copyUrl: 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/copy',
+          });
+        }
+      }
+    }
+  }, [isExcel]);
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
     setIsSuccess(false);
     setIssuedLicense(null);
+    setCreatedCvOrder(null);
   };
 
   const handleCloseModal = () => {
@@ -114,19 +136,27 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
         return;
       }
 
-      if (data.license) {
-        setIssuedLicense({
-          licenseKey: data.license.licenseKey,
-          copyUrl: data.copyUrl,
-        });
-      }
-
       const redirectUrl = data.initPoint || data.checkoutUrl;
       if (redirectUrl) {
-        window.open(redirectUrl, '_blank');
+        window.location.href = redirectUrl;
+        return;
       }
 
-      setIsSuccess(true);
+      if (isCv) {
+        if (data.cvOrder) {
+          setCreatedCvOrder(data.cvOrder);
+        }
+        setIssuedLicense(null);
+        setIsSuccess(true);
+      } else {
+        if (data.license) {
+          setIssuedLicense({
+            licenseKey: data.license.licenseKey,
+            copyUrl: data.copyUrl,
+          });
+        }
+        setIsSuccess(true);
+      }
     } catch (err) {
       console.error('Error al procesar pedido:', err);
       setErrorMessage('Ocurrió un error de conexión al procesar el pago.');
@@ -484,79 +514,112 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </button>
                 </form>
               </>
+            ) : isCv ? (
+              /* CV Order Success View */
+              <div className={styles.successModalBox}>
+                <div className={styles.successIconWrapper} style={{ backgroundColor: '#FAF0F2', color: '#6B1D25' }}>
+                  <Check size={32} />
+                </div>
+                <h3 className={styles.successTitle}>¡Pedido de CV Registrado!</h3>
+                <p className={styles.successText}>
+                  ¡Muchas gracias <strong>{formData.name || 'por tu compra'}</strong>! Tu pedido{' '}
+                  <strong>{createdCvOrder?.orderNumber || ''}</strong> ha sido ingresado en nuestro sistema en estado{' '}
+                  <span style={{ color: '#D97706', fontWeight: 700 }}>PENDIENTE</span>.
+                </p>
+
+                <div style={{
+                  backgroundColor: '#FAF0F2',
+                  border: '1px solid #E8C4C8',
+                  borderRadius: '12px',
+                  padding: '1.25rem',
+                  marginTop: '1.25rem',
+                  textAlign: 'left',
+                  fontSize: '0.88rem',
+                  color: '#6B1D25'
+                }}>
+                  <strong style={{ display: 'block', marginBottom: '0.4rem', fontSize: '0.95rem' }}>📱 Entrega por WhatsApp Business:</strong>
+                  <p style={{ color: '#4A1218', lineHeight: 1.55, margin: 0 }}>
+                    Recibimos la información de tu experiencia. Nos comunicaremos directamente por <strong>WhatsApp Business</strong> al número <strong style={{ textDecoration: 'underline' }}>{formData.whatsapp}</strong> para coordinar la entrega de tu nuevo CV en PDF (en 48 a 72hs hábiles).
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className={styles.closeSuccessBtn}
+                  style={{ backgroundColor: '#8C2D38', marginTop: '1.5rem' }}
+                >
+                  Entendido, volver a la página
+                </button>
+              </div>
             ) : (
-              /* Success View */
+              /* Spreadsheet License Success View */
               <div className={styles.successModalBox}>
                 <div className={styles.successIconWrapper}>
                   <Check size={32} />
                 </div>
-                <h3 className={styles.successTitle}>
-                  {issuedLicense ? '¡Tu Planilla está Lista!' : '¡Pedido Registrado con Éxito!'}
-                </h3>
+                <h3 className={styles.successTitle}>¡Tu Planilla está Lista!</h3>
                 <p className={styles.successText}>
-                  ¡Gracias <strong>{formData.name || 'por tu compra'}</strong>!{' '}
-                  {issuedLicense
-                    ? 'Tu licencia comercial ha sido generada y registrada en el sistema.'
-                    : `Te enviamos los detalles de acceso e instrucciones a ${formData.email}.`}
+                  ¡Gracias <strong>{formData.name || 'por tu compra'}</strong>! Tu clave de activación oficial ha sido generada y registrada en el sistema.
                 </p>
 
-                {issuedLicense && (
-                  <div className={styles.licenseCard}>
-                    <div className={styles.licenseCardHeader}>Tu Clave de Activación Oficial:</div>
-                    <div className={styles.licenseKeyRow}>
-                      <span className={styles.licenseKeyText}>{issuedLicense.licenseKey}</span>
-                      <button
-                        type="button"
-                        onClick={() => {
+                <div className={styles.licenseCard}>
+                  <div className={styles.licenseCardHeader}>Tu Clave de Activación Oficial:</div>
+                  <div className={styles.licenseKeyRow}>
+                    <span className={styles.licenseKeyText}>
+                      {issuedLicense?.licenseKey || 'FM-2026-LIVE'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (issuedLicense?.licenseKey) {
                           navigator.clipboard.writeText(issuedLicense.licenseKey);
                           setCopiedKey(true);
                           setTimeout(() => setCopiedKey(false), 2000);
-                        }}
-                        className={styles.copyLicenseBtn}
-                      >
-                        {copiedKey ? '¡Copiada!' : 'Copiar Clave'}
-                      </button>
-                    </div>
-
-                    <a
-                      href={issuedLicense.copyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.openTemplateCtaBtn}
+                        }
+                      }}
+                      className={styles.copyLicenseBtn}
                     >
-                      <span>Abrir y Copiar mi Planilla en Google Sheets</span>
-                      <ExternalLink size={16} />
-                    </a>
-
-                    {(solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden') && (
-                      <a
-                        href="/docs/Finanzas_en_Orden_Curso_Practico.pdf"
-                        download="Finanzas_en_Orden_Curso_Practico.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.openTemplateCtaBtn}
-                        style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
-                      >
-                        <span>Descargar E-Book & Curso Práctico (PDF)</span>
-                        <Download size={16} />
-                      </a>
-                    )}
-
-                    <ol className={styles.licenseStepsList}>
-                      <li>
-                        Hacé clic en el botón superior y presioná el botón azul{' '}
-                        <strong>&apos;Crear una copia&apos;</strong>.
-                      </li>
-                      <li>
-                        En la portada <em>&apos;Activar Licencia&apos;</em>, escribí tu clave en la celda{' '}
-                        <strong>C7</strong> y presioná Enter.
-                      </li>
-                      <li>
-                        ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
-                      </li>
-                    </ol>
+                      {copiedKey ? '¡Copiada!' : 'Copiar Clave'}
+                    </button>
                   </div>
-                )}
+
+                  <a
+                    href={issuedLicense?.copyUrl || 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/copy'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.openTemplateCtaBtn}
+                  >
+                    <span>Abrir y Copiar mi Planilla en Google Sheets</span>
+                    <ExternalLink size={16} />
+                  </a>
+
+                  <a
+                    href="/docs/Finanzas_en_Orden_Curso_Practico.pdf"
+                    download="Finanzas_en_Orden_Curso_Practico.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.openTemplateCtaBtn}
+                    style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
+                  >
+                    <span>Descargar E-Book & Curso Práctico (PDF)</span>
+                    <Download size={16} />
+                  </a>
+
+                  <ol className={styles.licenseStepsList}>
+                    <li>
+                      Hacé clic en el botón superior y presioná el botón azul{' '}
+                      <strong>&apos;Crear una copia&apos;</strong>.
+                    </li>
+                    <li>
+                      En la portada <em>&apos;Activar Licencia&apos;</em>, escribí tu clave en la celda{' '}
+                      <strong>C7</strong> y presioná Enter.
+                    </li>
+                    <li>
+                      ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
+                    </li>
+                  </ol>
+                </div>
 
                 <button
                   type="button"

@@ -68,13 +68,13 @@ export const solutionsData: SolutionItem[] = [
       },
       {
         stepNumber: 2,
-        title: 'Envío por WhatsApp',
-        description: 'Recibís por WhatsApp un link para copiar la planilla y tu clave de licencia.',
+        title: 'Acceso Inmediato en la Web',
+        description: 'Al instante te mostramos en pantalla tu link para copiar la planilla y tu clave. Si la perdés o tenés dudas, podés pedirla por WhatsApp.',
       },
       {
         stepNumber: 3,
         title: 'Activación Inmediata',
-        description: 'Ingresás la licencia en la planilla ¡y ya tenés todo listo para usar!',
+        description: 'Ingresás tu clave en la planilla ¡y ya tenés todo listo para usar!',
       },
     ],
     faq: [
@@ -118,8 +118,8 @@ export const solutionsData: SolutionItem[] = [
     processSteps: [
       {
         stepNumber: 1,
-        title: 'Pago & Información Inicial',
-        description: 'Realizás el pago y nos cargás la información de tu experiencia o tu CV actual.',
+        title: 'Pago & Carga de Datos',
+        description: 'Realizás el pago y nos cargás la información de tu experiencia o tu CV actual en la web.',
       },
       {
         stepNumber: 2,
@@ -128,8 +128,8 @@ export const solutionsData: SolutionItem[] = [
       },
       {
         stepNumber: 3,
-        title: 'Entrega Final en PDF',
-        description: 'Recibís tu nuevo CV en PDF listo para postularte (en 48 a 72hs hábiles).',
+        title: 'Entrega por WhatsApp',
+        description: 'Te enviamos tu nuevo CV final en PDF directamente por WhatsApp Business (en 48 a 72hs hábiles).',
       },
     ],
     faq: [
