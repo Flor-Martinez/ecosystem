@@ -122,18 +122,41 @@ function saveLocalLicenses(licenses: SpreadsheetLicenseRecord[]) {
   }
 }
 
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 250): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('DB Timeout')), timeoutMs)
+    ),
+  ]);
+}
+
+let cachedLicenses: { data: SpreadsheetLicenseRecord[]; timestamp: number } | null = null;
+
+export function invalidateLicenseCache() {
+  cachedLicenses = null;
+}
+
 /**
- * Obtiene todas las licencias emitidas (intenta Prisma DB, si no existe o falla usa fallback local)
+ * Obtiene todas las licencias emitidas (intenta Prisma DB con timeout ultrarrápido, si no usa fallback local)
  */
 export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
+  const now = Date.now();
+  if (cachedLicenses && now - cachedLicenses.timestamp < 5000) {
+    return cachedLicenses.data;
+  }
+
   try {
     const { db } = await import('@repo/db');
     if (db && 'spreadsheetLicense' in db) {
-      const records = await db.spreadsheetLicense.findMany({
-        orderBy: { createdAt: 'desc' },
-      });
+      const records = await withTimeout(
+        db.spreadsheetLicense.findMany({
+          orderBy: { createdAt: 'desc' },
+        }),
+        250
+      );
       if (records && records.length > 0) {
-        return records.map((r: any) => ({
+        const result = records.map((r: any) => ({
           id: r.id,
           licenseKey: r.licenseKey,
           customerName: r.customerName,
@@ -146,13 +169,17 @@ export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
           syncedToSheets: Boolean(r.syncedToSheets),
           createdAt: r.createdAt ? new Date(r.createdAt).toISOString() : new Date().toISOString(),
         }));
+        cachedLicenses = { data: result, timestamp: now };
+        return result;
       }
     }
   } catch (e) {
-    // DB no disponible o tabla pendiente de migración, pasamos a storage local
+    // DB no disponible o timeout, pasamos a local
   }
 
-  return readLocalLicenses();
+  const local = readLocalLicenses();
+  cachedLicenses = { data: local, timestamp: now };
+  return local;
 }
 
 /**
@@ -468,7 +495,14 @@ export async function unlinkLicenseDocument(idOrKey: string): Promise<boolean> {
 
 const ADMIN_EMAILS_FILE = path.join(LOCAL_STORAGE_DIR, 'admin_emails.json');
 
+let cachedAdmins: { data: string[]; timestamp: number } | null = null;
+
 export async function getDynamicAdminEmails(): Promise<string[]> {
+  const now = Date.now();
+  if (cachedAdmins && now - cachedAdmins.timestamp < 10000) {
+    return cachedAdmins.data;
+  }
+
   const list = new Set<string>(ADMIN_EMAILS.map((e) => e.toLowerCase().trim()));
 
   // 1. Archivo local de almacenamiento
@@ -488,23 +522,28 @@ export async function getDynamicAdminEmails(): Promise<string[]> {
     console.warn('No se pudo leer admin_emails.json:', err);
   }
 
-  // 2. Base de datos Prisma (usuarios con rol ADMIN)
+  // 2. Base de datos Prisma (usuarios con rol ADMIN) con timeout ultrarrápido (200ms)
   try {
     const { db } = await import('@repo/db');
     if (db && 'user' in db) {
-      const admins = await db.user.findMany({
-        where: { role: 'ADMIN' },
-        select: { email: true },
-      });
+      const admins = await withTimeout(
+        db.user.findMany({
+          where: { role: 'ADMIN' },
+          select: { email: true },
+        }),
+        200
+      );
       admins.forEach((a: any) => {
         if (a?.email) list.add(a.email.toLowerCase().trim());
       });
     }
   } catch {
-    // DB en modo offline/fallback
+    // DB en modo offline/fallback o timeout
   }
 
-  return Array.from(list);
+  const result = Array.from(list);
+  cachedAdmins = { data: result, timestamp: now };
+  return result;
 }
 
 export async function saveDynamicAdminEmail(email: string): Promise<string[]> {

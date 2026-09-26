@@ -18,22 +18,23 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
-  const adminCheck = await checkIsAdminAction();
+  const [adminCheck, licensesRes, metricsRes] = await Promise.all([
+    checkIsAdminAction(),
+    getLicensesListAction(),
+    getAdminMetricsAction(),
+  ]);
 
   // Stealth 404: Si no está autenticado como Superadmin, muestra la pantalla 404
   if (!adminCheck.isAdmin) {
     notFound();
   }
 
-  // Carga inicial de datos
-  const licensesRes = await getLicensesListAction();
-  const metricsRes = await getAdminMetricsAction();
-
   return (
     <AdminDashboardClient
       currentAdminEmail={adminCheck.email || ''}
       licensesCount={licensesRes.licenses?.length || 0}
       cvOrdersCount={metricsRes.totalCvOrders || 0}
+      pendingCvOrdersCount={metricsRes.pendingCvOrders || 0}
       totalCustomersCount={metricsRes.totalAccounts || 0}
       totalRevenueARS={metricsRes.totalRevenueARS || 0}
     />

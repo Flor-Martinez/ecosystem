@@ -21,6 +21,7 @@ interface AdminDashboardClientProps {
   currentAdminEmail: string;
   licensesCount: number;
   cvOrdersCount: number;
+  pendingCvOrdersCount?: number;
   totalCustomersCount: number;
   totalRevenueARS: number;
 }
@@ -29,6 +30,7 @@ export default function AdminDashboardClient({
   currentAdminEmail,
   licensesCount,
   cvOrdersCount,
+  pendingCvOrdersCount = 0,
   totalCustomersCount,
   totalRevenueARS,
 }: AdminDashboardClientProps) {
@@ -150,12 +152,12 @@ export default function AdminDashboardClient({
 
               <div className={styles.statsInlineRow}>
                 <div className={styles.statItem}>
-                  <span className={styles.statLabel}>Licencias Emitidas</span>
+                  <span className={styles.statLabel}>Planillas Vendidas</span>
                   <span className={styles.statValue}>{licensesCount}</span>
                 </div>
               </div>
 
-              <Link href="/admin/licencias" className={styles.accessBtn}>
+              <Link href="/admin/finanzas-en-orden" className={styles.accessBtn}>
                 <span>Ver Menú Finanzas en Orden</span>
                 <ArrowRight size={15} />
               </Link>
@@ -178,7 +180,33 @@ export default function AdminDashboardClient({
               <div className={styles.statsInlineRow}>
                 <div className={styles.statItem}>
                   <span className={styles.statLabel}>CVs Vendidos</span>
-                  <span className={styles.statValue}>{cvOrdersCount}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className={styles.statValue}>{cvOrdersCount}</span>
+                    {pendingCvOrdersCount > 0 ? (
+                      <span style={{
+                        fontSize: '12px',
+                        fontWeight: 800,
+                        color: '#991B1B',
+                        backgroundColor: '#FEE2E2',
+                        padding: '2px 8px',
+                        borderRadius: '999px',
+                        border: '1px solid #FCA5A5'
+                      }}>
+                        {pendingCvOrdersCount} pendientes
+                      </span>
+                    ) : (
+                      <span style={{
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: '#065F46',
+                        backgroundColor: '#D1FAE5',
+                        padding: '2px 6px',
+                        borderRadius: '999px'
+                      }}>
+                        0 pendientes
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
 

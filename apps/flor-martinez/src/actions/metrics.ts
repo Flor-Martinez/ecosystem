@@ -69,21 +69,40 @@ export async function trackUserSignup(name: string, email: string) {
   }
 }
 
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 250): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('DB Timeout')), timeoutMs)
+    ),
+  ]);
+}
+
+let cachedMetrics: { data: any; timestamp: number } | null = null;
+
 export async function getAdminMetricsAction() {
+  const now = Date.now();
+  if (cachedMetrics && now - cachedMetrics.timestamp < 5000) {
+    return cachedMetrics.data;
+  }
+
   ensureUsersFileExists();
   let dbUsers: any[] = [];
   try {
-    dbUsers = await db.user.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+    dbUsers = await withTimeout(
+      db.user.findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          createdAt: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      250
+    );
   } catch {
-    // fallback if DB not reachable
+    // fallback if DB not reachable or timeout
   }
 
   let localUsers: any[] = [];
@@ -109,10 +128,12 @@ export async function getAdminMetricsAction() {
     }
   }
 
-  const licensesRes = await getLicensesListAction();
-  const licenses = licensesRes.licenses || [];
+  const [licensesRes, cvOrdersRes] = await Promise.all([
+    getLicensesListAction(),
+    getCvOrdersAction(),
+  ]);
 
-  const cvOrdersRes = await getCvOrdersAction();
+  const licenses = licensesRes.licenses || [];
   const cvOrders = cvOrdersRes.orders || [];
 
   // Map purchases to users by email
@@ -193,15 +214,20 @@ export async function getAdminMetricsAction() {
   const totalRegisteredAccounts = userMap.size;
   const totalLicensesSold = licenses.length;
   const totalCvOrdersSold = cvOrders.length;
+  const pendingCvOrdersCount = cvOrders.filter((c) => c.status === 'PENDIENTE').length;
   const estimatedRevenueARS =
     licenses.length * 14900 + cvOrders.reduce((sum, c) => sum + (c.priceARS || 29900), 0);
 
-  return {
+  const result = {
     success: true,
     totalAccounts: totalRegisteredAccounts,
     totalLicenses: totalLicensesSold,
     totalCvOrders: totalCvOrdersSold,
+    pendingCvOrders: pendingCvOrdersCount,
     totalRevenueARS: estimatedRevenueARS,
     customers: customersList,
   };
+
+  cachedMetrics = { data: result, timestamp: now };
+  return result;
 }
