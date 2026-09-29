@@ -96,9 +96,10 @@ function asegurarFormulasVinculacion(ss) {
 
   // Ping pre-autorización en Z19 para disparar la barra amarilla de Google
   // apenas el comprador abre su copia, antes de escribir la clave.
-  var formulaPing = '=IFERROR(IMPORTDATA("' + API_URL_ACTIVACION + '?ping=true"), "OK")';
+  // IMPORTANTE: Z19 va SIN IFERROR para que Google Sheets arroje #REF! mientras no se haya dado permiso.
+  var formulaPing = '=IMPORTDATA("' + API_URL_ACTIVACION + '?ping=true")';
   var formulaPingActual = db.getRange("Z19").getFormula();
-  if (!formulaPingActual || formulaPingActual.indexOf("ping=true") === -1) {
+  if (!formulaPingActual || formulaPingActual.indexOf("ping=true") === -1 || formulaPingActual.indexOf("IFERROR") !== -1) {
     db.getRange("Z19").setFormula(formulaPing);
   }
 
@@ -111,15 +112,23 @@ function asegurarFormulasVinculacion(ss) {
     db.getRange("Z20").setFormula(formulaZ20);
   }
 
-  // D7: Si Z20 tiene error nativo (#REF! mientras no se dio 'Permitir acceso'), muestra guía amable en vez de error falso.
-  var formulaD7 = '=IF(ISBLANK(C7), "👈 Escribí tu clave para activar", IF(ISERROR(Configuracion!Z20), "👉 Hacé clic en \'Permitir acceso\' en la barra amarilla de arriba", IF(Configuracion!Z20="OK", "✅ ¡Licencia Oficial Activada!", IF(Configuracion!Z20="ERROR", Configuracion!AB20, "⏳ Validando..."))))';
+  // D7:
+  // 1° Si Z19 arroja error (#REF! porque no se dio 'Permitir acceso'), muestra: "👉 1° Hacé clic en 'Permitir acceso' en la barra amarilla de arriba"
+  // 2° Una vez permitido el acceso (Z19 = OK), si C7 está vacía, muestra: "👈 2° Escribí tu clave para activar"
+  // 3° Si el usuario ingresó clave, evalúa Z20: si Z20 da OK -> "✅ ¡Licencia Oficial Activada!", si da ERROR -> Configuracion!AB20, de lo contrario -> "⏳ Validando..."
+  var formulaD7 = '=IF(ISERROR(Configuracion!Z19), "👉 1° Hacé clic en \'Permitir acceso\' en la barra amarilla de arriba", IF(ISBLANK(C7), "👈 2° Escribí tu clave para activar", IF(ISERROR(Configuracion!Z20), "👉 Hacé clic en \'Permitir acceso\' en la barra amarilla de arriba", IF(Configuracion!Z20="OK", "✅ ¡Licencia Oficial Activada!", IF(Configuracion!Z20="ERROR", Configuracion!AB20, "⏳ Validando...")))))';
   var formulaD7Actual = portada.getRange("D7").getFormula();
-  if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1 || formulaD7Actual.indexOf("Permitir") === -1) {
+  if (!formulaD7Actual || formulaD7Actual.indexOf("Configuracion") === -1 || formulaD7Actual.indexOf("1°") === -1) {
     portada.getRange("D7").setFormula(formulaD7);
   }
 
   // Aplicar formato condicional nativo en D7 para todos los estados
   aplicarFormatoCondicionalActivacion(portada);
+
+  // Asegurar borde corporativo grueso (#1E3A5F) en toda la fila de activación B7:D7
+  try {
+    portada.getRange("B7:D7").setBorder(true, true, true, true, true, false, "#1E3A5F", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
+  } catch(errBorders) {}
 
   // Texto de ayuda sutil en C8
   var c8Val = (portada.getRange("C8").getValue() || "").toString().trim();
@@ -228,7 +237,8 @@ function procesarActivacionCelda(e) {
         .setBackground("#FFFFFF")
         .setHorizontalAlignment("center")
         .setVerticalAlignment("middle")
-        .setBorder(true, true, true, true, false, false, "#0D1B2A", SpreadsheetApp.BorderStyle.SOLID);
+        .setBorder(true, true, true, true, false, false, "#1E3A5F", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
+      sheet.getRange("B7:D7").setBorder(true, true, true, true, true, false, "#1E3A5F", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
     } catch(err) {}
 
     var valorCrudo = (range.getValue() || "").toString();
@@ -485,7 +495,8 @@ function prepararPlantillaParaVender() {
         .setBackground("#FFFFFF")
         .setHorizontalAlignment("center")
         .setVerticalAlignment("middle")
-        .setBorder(true, true, true, true, false, false, "#0D1B2A", SpreadsheetApp.BorderStyle.SOLID);
+        .setBorder(true, true, true, true, false, false, "#1E3A5F", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
+      portada.getRange("B7:D7").setBorder(true, true, true, true, true, false, "#1E3A5F", SpreadsheetApp.BorderStyle.SOLID_MEDIUM);
     } catch(e) {}
     portada.getRange("C8").clearContent();
   }

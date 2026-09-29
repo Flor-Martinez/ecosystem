@@ -69,7 +69,7 @@ export async function trackUserSignup(name: string, email: string) {
   }
 }
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs = 250): Promise<T> {
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 8000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -99,7 +99,7 @@ export async function getAdminMetricsAction() {
         },
         orderBy: { createdAt: 'desc' },
       }),
-      250
+      8000
     );
   } catch {
     // fallback if DB not reachable or timeout

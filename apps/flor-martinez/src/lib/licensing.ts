@@ -122,7 +122,7 @@ function saveLocalLicenses(licenses: SpreadsheetLicenseRecord[]) {
   }
 }
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs = 250): Promise<T> {
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 8000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -138,7 +138,7 @@ export function invalidateLicenseCache() {
 }
 
 /**
- * Obtiene todas las licencias emitidas (intenta Prisma DB con timeout ultrarrápido, si no usa fallback local)
+ * Obtiene todas las licencias emitidas (intenta Prisma DB con timeout de 8s, si no usa fallback local)
  */
 export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
   const now = Date.now();
@@ -153,7 +153,7 @@ export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
         db.spreadsheetLicense.findMany({
           orderBy: { createdAt: 'desc' },
         }),
-        250
+        8000
       );
       if (records && records.length > 0) {
         const result = records.map((r: any) => ({
@@ -253,6 +253,7 @@ export async function createLicenseRecord(data: {
     });
   }
 
+  invalidateLicenseCache();
   return record;
 }
 
@@ -317,6 +318,7 @@ export async function deleteLicenseRecord(idOrKey: string): Promise<boolean> {
     console.warn('Error al borrar de storage local:', err);
   }
 
+  invalidateLicenseCache();
   return deleted;
 }
 
@@ -427,6 +429,7 @@ export async function activateLicenseOnDocument(
       saveLocalLicenses(updated);
     } catch {}
 
+    invalidateLicenseCache();
     return {
       success: true,
       code: 'ACTIVATED',
@@ -484,6 +487,7 @@ export async function unlinkLicenseDocument(idOrKey: string): Promise<boolean> {
     unlinked = true;
   } catch {}
 
+  invalidateLicenseCache();
   return unlinked;
 }
 
@@ -522,7 +526,7 @@ export async function getDynamicAdminEmails(): Promise<string[]> {
     console.warn('No se pudo leer admin_emails.json:', err);
   }
 
-  // 2. Base de datos Prisma (usuarios con rol ADMIN) con timeout ultrarrápido (200ms)
+  // 2. Base de datos Prisma (usuarios con rol ADMIN) con timeout de 8s
   try {
     const { db } = await import('@repo/db');
     if (db && 'user' in db) {
@@ -531,7 +535,7 @@ export async function getDynamicAdminEmails(): Promise<string[]> {
           where: { role: 'ADMIN' },
           select: { email: true },
         }),
-        200
+        8000
       );
       admins.forEach((a: any) => {
         if (a?.email) list.add(a.email.toLowerCase().trim());

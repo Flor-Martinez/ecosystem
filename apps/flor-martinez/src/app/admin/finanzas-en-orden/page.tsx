@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { checkIsAdminAction, getLicensesListAction } from '@/actions/licenses';
 import AdminLicenciasClient from '../licencias/AdminLicenciasClient';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: 'Finanzas en Orden | Admin',
   robots: { index: false, follow: false },

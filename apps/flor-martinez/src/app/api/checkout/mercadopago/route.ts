@@ -60,12 +60,12 @@ export async function POST(request: Request) {
       );
     }
 
-    const mpAccessToken = process.env.MP_ACCESS_TOKEN;
+    const mpAccessToken = (process.env.MP_ACCESS_TOKEN || process.env.MERCADOPAGO_ACCESS_TOKEN || '').trim();
     const origin = request.headers.get('origin') || 'https://flor-martinez-ecosystem.vercel.app';
     const refCode = isCv ? orderData.order?.orderNumber : orderData.license?.licenseKey;
 
     // 2. Si las credenciales de Mercado Pago están presentes, crear la preferencia de pago oficial
-    if (mpAccessToken && mpAccessToken.startsWith('APP_USR-')) {
+    if (mpAccessToken && (mpAccessToken.startsWith('APP_USR-') || mpAccessToken.startsWith('TEST-'))) {
       const preferenceData = {
         items: [
           {
