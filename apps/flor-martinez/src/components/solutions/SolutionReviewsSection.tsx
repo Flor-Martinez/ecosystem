@@ -18,7 +18,7 @@ interface SolutionReviewsSectionProps {
   initialUser?: { name?: string; email?: string } | null;
 }
 
-export default function SolutionReviewsSection({
+const SolutionReviewsSection = React.memo(function SolutionReviewsSection({
   solutionSlug,
   initialUser,
 }: SolutionReviewsSectionProps) {
@@ -226,4 +226,6 @@ export default function SolutionReviewsSection({
       </div>
     </section>
   );
-}
+});
+
+export default SolutionReviewsSection;

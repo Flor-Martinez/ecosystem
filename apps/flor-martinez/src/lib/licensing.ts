@@ -192,13 +192,13 @@ export async function createLicenseRecord(data: {
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   notes?: string | null;
 }): Promise<SpreadsheetLicenseRecord> {
-  const existing = await getAllLicenses();
-  const existingKeys = new Set(existing.map((l) => l.licenseKey.toUpperCase()));
+  const local = readLocalLicenses();
+  const existingKeys = new Set(local.map((l) => l.licenseKey.toUpperCase()));
 
   // Generamos clave asegurando 100% que no colisione
   let key = generarClaveCriptografica();
   let attempts = 0;
-  while (existingKeys.has(key) && attempts < 20) {
+  while (existingKeys.has(key) && attempts < 10) {
     key = generarClaveCriptografica();
     attempts++;
   }

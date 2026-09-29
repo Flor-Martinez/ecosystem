@@ -96,6 +96,17 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     setIsModalOpen(false);
   };
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isModalOpen]);
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSubmitOrder = async (e: React.FormEvent) => {
@@ -503,14 +514,21 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                     disabled={isSubmitting}
                     className={styles.submitOrderBtn}
                   >
-                    <Lock size={16} />
-                    <span>
-                      {isSubmitting
-                        ? 'Procesando pedido...'
-                        : paymentCurrency === 'ARS'
-                        ? `Pagar $${solution.priceARS.toLocaleString('es-AR')} ARS con Mercado Pago`
-                        : `Pagar USD $${solution.priceUSD} con Stripe`}
-                    </span>
+                    {isSubmitting ? (
+                      <>
+                        <span className={styles.btnSpinner} />
+                        <span>Conectando con {paymentCurrency === 'ARS' ? 'Mercado Pago' : 'Stripe'}...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock size={16} />
+                        <span>
+                          {paymentCurrency === 'ARS'
+                            ? `Pagar $${solution.priceARS.toLocaleString('es-AR')} ARS con Mercado Pago`
+                            : `Pagar USD $${solution.priceUSD} con Stripe`}
+                        </span>
+                      </>
+                    )}
                   </button>
                 </form>
               </>
@@ -612,11 +630,12 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                       <strong>&apos;Crear una copia&apos;</strong>.
                     </li>
                     <li>
-                      En la portada <em>&apos;Activar Licencia&apos;</em>, escribí tu clave en la celda{' '}
-                      <strong>C7</strong> y presioná Enter.
+                      En la barra amarilla superior, hacé clic en{' '}
+                      <strong>&apos;Permitir acceso&apos;</strong>.
                     </li>
                     <li>
-                      ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
+                      Escribí tu clave oficial en la celda{' '}
+                      <strong>C7</strong> y presioná Enter para activar.
                     </li>
                   </ol>
                 </div>
