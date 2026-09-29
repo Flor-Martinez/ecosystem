@@ -157,6 +157,16 @@ export default function SolucionesPage() {
                     {/* Card Footer Price & Action */}
                     <div className={styles.cardFooter}>
                       <div className={styles.priceContainer}>
+                        {item.originalPriceARS && (
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.2rem' }}>
+                            <span style={{ fontSize: '0.82rem', color: '#94A3B8', textDecoration: 'line-through' }}>
+                              ${item.originalPriceARS.toLocaleString('es-AR')}
+                            </span>
+                            <span style={{ fontSize: '0.66rem', fontWeight: 800, color: '#FFFFFF', backgroundColor: '#DC2626', padding: '0.12rem 0.45rem', borderRadius: '9999px', letterSpacing: '0.03em' }}>
+                              50% OFF
+                            </span>
+                          </div>
+                        )}
                         <div className={styles.priceMain}>
                           ${item.priceARS.toLocaleString('es-AR')}{' '}
                           <small className={styles.currencyCode}>ARS</small>

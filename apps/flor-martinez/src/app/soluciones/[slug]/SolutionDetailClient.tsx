@@ -316,8 +316,11 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
             <div className={`${styles.stickySidebarCard} ${isExcel ? styles.sidebarCardExcel : styles.sidebarCardCv}`}>
               <div className={styles.sidebarPriceBlock}>
                 {solution.originalPriceARS && (
-                  <div className={styles.originalPriceLine}>
-                    ${solution.originalPriceARS.toLocaleString('es-AR')} ARS
+                  <div className={styles.originalPriceRow}>
+                    <span className={styles.originalPriceLine}>
+                      ${solution.originalPriceARS.toLocaleString('es-AR')} ARS
+                    </span>
+                    <span className={styles.discountBadge}>50% OFF ESTRENO</span>
                   </div>
                 )}
 

@@ -42,9 +42,9 @@ export const solutionsData: SolutionItem[] = [
     type: 'producto',
     badgeText: 'Producto Digital',
     category: 'Productividad & Finanzas',
-    priceARS: 100,
-    priceUSD: 20,
-    originalPriceARS: 28000,
+    priceARS: 14900,
+    priceUSD: 15,
+    originalPriceARS: 29800,
     deliveryTime: 'Entrega Inmediata (Acceso 24/7)',
     shortDescription:
       'Plantilla interactiva para registrar ingresos y gastos con proyecciones automáticas, presupuesto y el E-book completo "Finanzas en Orden" en PDF por Florencia Martínez.',

@@ -422,11 +422,32 @@
   padding-bottom: 1.25rem;
 }
 
+.originalPriceRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
 .originalPriceLine {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #94A3B8;
   text-decoration: line-through;
-  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.discountBadge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, #DC2626, #B91C1C);
+  color: #FFFFFF;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
+  display: inline-flex;
+  align-items: center;
 }
 
 .mainPriceARS {
