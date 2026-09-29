@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Plus, Trash2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, CheckCircle2, AlertCircle, Lock } from 'lucide-react';
 import {
   addSuperAdminEmailAction,
   removeSuperAdminEmailAction,
@@ -115,31 +115,24 @@ export default function AdminSuperadminsClient({
             })}
           </div>
 
-          <form onSubmit={handleAddAdmin} className={styles.addForm}>
-            <input
-              type="email"
-              required
-              placeholder="Ingresá un nuevo correo de Google (ej. usuario@gmail.com)..."
-              value={newEmail}
-              onChange={(e) => setNewEmail(e.target.value)}
-              className={styles.input}
-            />
-            <button type="submit" disabled={isSubmitting} className={styles.addBtn}>
-              <Plus size={16} />
-              <span>{isSubmitting ? 'Guardando...' : 'Agregar Superadmin'}</span>
-            </button>
-          </form>
-
-          {message && (
-            <div style={{ marginTop: '12px', fontSize: '13px', fontWeight: 600 }}>
-              {message.isError ? (
-                <AlertCircle size={14} style={{ display: 'inline', marginRight: 4, color: '#DC2626' }} />
-              ) : (
-                <CheckCircle2 size={14} style={{ display: 'inline', marginRight: 4, color: '#16A34A' }} />
-              )}
-              <span>{message.text}</span>
-            </div>
-          )}
+          <div style={{
+            marginTop: '1.5rem',
+            padding: '1rem 1.25rem',
+            backgroundColor: '#F8FAFC',
+            border: '1px solid #E2E8F0',
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            fontSize: '0.88rem',
+            color: '#475569',
+            fontWeight: 500,
+          }}>
+            <Lock size={18} style={{ color: '#0F172A', flexShrink: 0 }} />
+            <span>
+              <strong>Acceso Cerrado y Protegido:</strong> Por política de seguridad, los permisos de superadministrador están estrictamente restringidos a los 3 fundadores autorizados.
+            </span>
+          </div>
         </div>
       </div>
     </main>

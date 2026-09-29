@@ -7,6 +7,9 @@ export const ADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
+];
+
+export const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 

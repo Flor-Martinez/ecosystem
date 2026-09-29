@@ -7,6 +7,9 @@ export const SUPERADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
+];
+
+export const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 
@@ -23,10 +26,12 @@ export interface EcosystemUser {
 export function checkIsUserSuperAdmin(user: EcosystemUser | null, adminCookie?: string | null): boolean {
   if (adminCookie) {
     const clean = adminCookie.toLowerCase().trim();
+    if (BANNED_EMAILS.includes(clean)) return false;
     if (SUPERADMIN_EMAILS.includes(clean)) return true;
   }
   if (!user) return false;
   const emailLower = user.email ? user.email.toLowerCase().trim() : '';
+  if (BANNED_EMAILS.includes(emailLower)) return false;
   if (emailLower && SUPERADMIN_EMAILS.includes(emailLower)) return true;
   const roleLower = (user.role || '').toLowerCase();
   if (roleLower === 'admin' || roleLower === 'superadmin') return true;

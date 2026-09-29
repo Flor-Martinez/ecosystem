@@ -8,6 +8,7 @@ import {
   unlinkLicenseDocument,
   generarMensajeEntrega,
   ADMIN_EMAILS,
+  BANNED_EMAILS,
   SALT_SEGURIDAD,
   TEMPLATE_COPY_URL,
   getDynamicAdminEmails,
@@ -28,6 +29,7 @@ export async function checkIsAdminAction(): Promise<{ isAdmin: boolean; email?: 
     const adminEmailCookie = cookieStore.get(ADMIN_COOKIE_NAME)?.value;
     if (adminEmailCookie) {
       const emailLower = adminEmailCookie.toLowerCase().trim();
+      if (BANNED_EMAILS.includes(emailLower)) return { isAdmin: false };
       if (adminEmails.includes(emailLower)) {
         return { isAdmin: true, email: adminEmailCookie };
       }
@@ -45,6 +47,7 @@ export async function checkIsAdminAction(): Promise<{ isAdmin: boolean; email?: 
         const parsed = JSON.parse(decodeURIComponent(ecosystemSession));
         if (parsed?.email) {
           const emailLower = parsed.email.toLowerCase().trim();
+          if (BANNED_EMAILS.includes(emailLower)) return { isAdmin: false };
           if (adminEmails.includes(emailLower)) {
             return { isAdmin: true, email: parsed.email };
           }
@@ -60,6 +63,7 @@ export async function checkIsAdminAction(): Promise<{ isAdmin: boolean; email?: 
     const user = await getCurrentUserAction();
     if (user && user.email) {
       const emailLower = user.email.toLowerCase().trim();
+      if (BANNED_EMAILS.includes(emailLower)) return { isAdmin: false };
       const isAdmin =
         adminEmails.includes(emailLower) ||
         user.role === 'ADMIN';
@@ -276,50 +280,30 @@ export async function getSuperAdminEmailsAction(): Promise<{
 }
 
 /**
- * Agrega un nuevo correo a la lista de Superadmins
+ * Lista de Superadmins cerrada por seguridad
  */
-export async function addSuperAdminEmailAction(email: string): Promise<{
+export async function addSuperAdminEmailAction(_email: string): Promise<{
   success: boolean;
   emails?: string[];
   error?: string;
 }> {
-  const adminCheck = await checkIsAdminAction();
-  if (!adminCheck.isAdmin) {
-    return { success: false, error: 'No autorizado' };
-  }
-
-  const cleanEmail = email?.trim().toLowerCase();
-  if (!cleanEmail || !cleanEmail.includes('@')) {
-    return { success: false, error: 'Ingresá un correo electrónico válido.' };
-  }
-
-  try {
-    const updated = await saveDynamicAdminEmail(cleanEmail);
-    return { success: true, emails: updated };
-  } catch (err: any) {
-    return { success: false, error: err.message || 'Error al guardar administrador' };
-  }
+  return {
+    success: false,
+    error: 'La lista de superadministradores está cerrada y protegida por seguridad. No se permiten nuevos accesos.',
+  };
 }
 
 /**
  * Remueve un correo de la lista de Superadmins
  */
-export async function removeSuperAdminEmailAction(email: string): Promise<{
+export async function removeSuperAdminEmailAction(_email: string): Promise<{
   success: boolean;
   emails?: string[];
   error?: string;
 }> {
-  const adminCheck = await checkIsAdminAction();
-  if (!adminCheck.isAdmin) {
-    return { success: false, error: 'No autorizado' };
-  }
-
-  const cleanEmail = email?.trim().toLowerCase();
-  try {
-    const updated = await removeDynamicAdminEmail(cleanEmail);
-    return { success: true, emails: updated };
-  } catch (err: any) {
-    return { success: false, error: err.message || 'Error al remover administrador' };
-  }
+  return {
+    success: false,
+    error: 'No es posible modificar los administradores oficiales del sistema.',
+  };
 }
 

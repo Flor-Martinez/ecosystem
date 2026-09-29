@@ -9,6 +9,9 @@ export const SUPERADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
+];
+
+export const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 
@@ -19,6 +22,9 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
 
   try {
     const formattedEmail = email.toLowerCase().trim();
+    if (BANNED_EMAILS.includes(formattedEmail)) {
+      return { success: false, error: 'Acceso denegado. Esta cuenta se encuentra bloqueada permanentemente.' };
+    }
     const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
     let user = await db.user.findUnique({
       where: { email: formattedEmail },
