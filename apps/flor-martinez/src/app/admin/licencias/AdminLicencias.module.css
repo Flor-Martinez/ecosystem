@@ -507,25 +507,6 @@
   border-radius: 6px;
 }
 
-.unlinkBtn {
-  background: transparent;
-  border: 1px solid #CBD5E1;
-  color: #64748B;
-  padding: 4px 7px;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-.unlinkBtn:hover {
-  background-color: #F1F5F9;
-  color: #0D1B2A;
-  border-color: #94A3B8;
-}
-
 .actionCell {
   white-space: nowrap;
   vertical-align: middle;
@@ -534,43 +515,99 @@
 .actionBtnsWrap {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .quickCopyBtn {
-  background: transparent;
-  border: 1px solid #CBD5E1;
-  color: #0D1B2A;
+  background-color: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  color: #166534;
   font-size: 11px;
   font-weight: 700;
-  padding: 4px 8px;
-  border-radius: 6px;
+  padding: 5px 9px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  height: 28px;
+  box-sizing: border-box;
 }
 
 .quickCopyBtn:hover {
-  background-color: #0D1B2A;
-  color: #FFFFFF;
+  background-color: #DCFCE7;
+  border-color: #86EFAC;
+  color: #14532D;
 }
 
-.deleteLicenseBtn {
-  background: transparent;
+.copyKeyRowBtn {
+  background-color: #FEF3C7;
+  border: 1px solid #FDE68A;
+  color: #92400E;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+  height: 28px;
+  box-sizing: border-box;
+}
+
+.copyKeyRowBtn:hover {
+  background-color: #FDE68A;
+  border-color: #FCD34D;
+  color: #78350F;
+}
+
+.unlinkBtn {
+  background-color: #F8FAFC;
   border: 1px solid #CBD5E1;
-  color: #94A3B8;
-  padding: 4px 7px;
-  border-radius: 6px;
+  color: #475569;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.unlinkBtn:hover {
+  background-color: #E2E8F0;
+  color: #0D1B2A;
+  border-color: #94A3B8;
+}
+
+.deleteLicenseBtn {
+  background-color: #FEF2F2;
+  border: 1px solid #FCA5A5;
+  color: #DC2626;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .deleteLicenseBtn:hover {
   background-color: #FEE2E2;
-  color: #DC2626;
-  border-color: #FCA5A5;
+  color: #991B1B;
+  border-color: #F87171;
 }
 
 /* LOGIN GATE CARD */

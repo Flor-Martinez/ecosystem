@@ -17,6 +17,7 @@ import {
   TrendingUp,
   Trash2,
   RotateCcw,
+  Key,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { TEMPLATE_COPY_URL, generarMensajeEntrega, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
@@ -86,6 +87,7 @@ export default function AdminLicenciasClient({
   const [copiedKey, setCopiedKey] = useState(false);
   const [copiedMsg, setCopiedMsg] = useState(false);
   const [copiedRowKey, setCopiedRowKey] = useState<string | null>(null);
+  const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
 
   const reloadLicenses = async () => {
     const res = await getLicensesListAction();
@@ -146,6 +148,12 @@ export default function AdminLicenciasClient({
     navigator.clipboard.writeText(msg);
     setCopiedRowKey(rec.id);
     setTimeout(() => setCopiedRowKey(null), 2000);
+  };
+
+  const handleCopyOnlyKey = (rec: SpreadsheetLicenseRecord) => {
+    navigator.clipboard.writeText(rec.licenseKey);
+    setCopiedCodeKey(rec.id);
+    setTimeout(() => setCopiedCodeKey(null), 2000);
   };
 
   const handleDeleteLicense = async (rec: SpreadsheetLicenseRecord) => {
@@ -484,9 +492,19 @@ export default function AdminLicenciasClient({
                                 type="button"
                                 onClick={() => handleCopyRowMessage(item)}
                                 className={styles.quickCopyBtn}
-                                title="Copiar mensaje de entrega con enlace"
+                                title="Copiar mensaje de entrega completo para WhatsApp"
                               >
-                                {copiedRowKey === item.id ? '¡Copiado!' : '📋 Copiar'}
+                                <MessageCircle size={13} />
+                                <span>{copiedRowKey === item.id ? '¡Mensaje Copiado!' : 'Copiar Mensaje'}</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleCopyOnlyKey(item)}
+                                className={styles.copyKeyRowBtn}
+                                title="Copiar solo la clave de licencia (ej. FM-XXXX-YYYY)"
+                              >
+                                <Key size={13} />
+                                <span>{copiedCodeKey === item.id ? '¡Clave Copiada!' : 'Copiar Clave'}</span>
                               </button>
                               {item.spreadsheetId && (
                                 <button
@@ -495,7 +513,7 @@ export default function AdminLicenciasClient({
                                   className={styles.unlinkBtn}
                                   title="Desvincular copia para permitir activación en un nuevo archivo"
                                 >
-                                  <RotateCcw size={13} />
+                                  <RotateCcw size={14} />
                                 </button>
                               )}
                               <button
@@ -504,7 +522,7 @@ export default function AdminLicenciasClient({
                                 className={styles.deleteLicenseBtn}
                                 title="Eliminar permanentemente esta licencia"
                               >
-                                <Trash2 size={13} />
+                                <Trash2 size={14} />
                               </button>
                             </div>
                           </td>
