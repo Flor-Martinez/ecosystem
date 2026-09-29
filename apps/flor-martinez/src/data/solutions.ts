@@ -42,7 +42,7 @@ export const solutionsData: SolutionItem[] = [
     type: 'producto',
     badgeText: 'Producto Digital',
     category: 'Productividad & Finanzas',
-    priceARS: 18500,
+    priceARS: 100,
     priceUSD: 20,
     originalPriceARS: 28000,
     deliveryTime: 'Entrega Inmediata (Acceso 24/7)',
