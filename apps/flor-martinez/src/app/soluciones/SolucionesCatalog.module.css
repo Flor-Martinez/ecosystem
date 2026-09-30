@@ -66,8 +66,8 @@
 
 .searchInput:focus {
   background-color: #ffffff;
-  border-color: #E2C288;
-  box-shadow: 0 0 0 3px rgba(226, 194, 136, 0.35);
+  border-color: var(--fm-azul-profundo);
+  box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.15);
 }
 
 .clearSearchBtn {
@@ -147,7 +147,7 @@
 .solutionCard:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
-  border-color: #E2C288;
+  border-color: var(--fm-azul-profundo);
 }
 
 .cardHeaderRow {
@@ -380,8 +380,16 @@
   border-top: 4px solid #276749 !important;
 }
 
+.cardExcel:hover {
+  border-color: #276749 !important;
+}
+
 .cardCv {
   border-top: 4px solid #8C2D38 !important;
+}
+
+.cardCv:hover {
+  border-color: #8C2D38 !important;
 }
 
 .deliverablesPreviewExcel {
