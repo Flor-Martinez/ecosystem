@@ -361,27 +361,18 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
               <h1 className={styles.detailTitle}>{solution.title}</h1>
               <p className={styles.detailTagline}>{solution.tagline}</p>
 
-              {/* Mobile Device Notice for Spreadsheets */}
+              {/* Short PC Recommendation Note */}
               {isExcel && (
                 <div style={{
-                  backgroundColor: '#FEF3C7',
-                  border: '1px solid #FDE68A',
-                  borderRadius: '12px',
-                  padding: '12px 16px',
-                  marginTop: '1rem',
+                  fontSize: '0.82rem',
+                  color: '#64748B',
+                  marginTop: '0.6rem',
                   display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '10px',
+                  alignItems: 'center',
+                  gap: '6px',
                 }}>
-                  <span style={{ fontSize: '1.2rem', lineHeight: 1 }}>📱</span>
-                  <div>
-                    <strong style={{ fontSize: '0.85rem', color: '#92400E', display: 'block', marginBottom: '2px' }}>
-                      Compra & Recepción 100% compatible con Celular
-                    </strong>
-                    <p style={{ fontSize: '0.8rem', color: '#B45309', margin: 0, lineHeight: 1.45 }}>
-                      Podés realizar el pago y recibir tu planilla al instante desde tu teléfono. Al momento de usar tu copia de Google Sheets, te sugerimos abrirla desde una computadora (PC o Mac) para disfrutar de la mejor vista de los gráficos y tableros.
-                    </p>
-                  </div>
+                  <span>💡</span>
+                  <span>Se recomienda utilizar la planilla desde una computadora (PC/Mac) para mejor visualización.</span>
                 </div>
               )}
             </div>
@@ -677,7 +668,9 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
             )}
 
             {/* Customer Reviews Section */}
-            <SolutionReviewsSection solutionSlug={solution.slug} initialUser={user} />
+            <div className={styles.reviewsSection}>
+              <SolutionReviewsSection solutionSlug={solution.slug} initialUser={user} />
+            </div>
           </div>
 
           {/* RIGHT COLUMN: Sticky Sidebar & Buy CTA */}

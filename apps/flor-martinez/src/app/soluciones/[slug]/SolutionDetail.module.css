@@ -1016,6 +1016,51 @@
   margin-bottom: 0.75rem;
 }
 
+/* Mobile & Tablet Layout Re-Ordering (Adquirir Ahora Card High Up) */
+@media (max-width: 1023px) {
+  .detailGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .contentColumn {
+    display: contents;
+  }
+
+  .headerBlock {
+    order: 1;
+  }
+
+  .videoContainerCard {
+    order: 2;
+  }
+
+  .sidebarColumn {
+    order: 3; /* Purchase Card: Price, Adquirir Ahora CTA, Guarantees placed at the top on mobile! */
+  }
+
+  .descriptionSection {
+    order: 4;
+  }
+
+  .deliverablesSection {
+    order: 5;
+  }
+
+  .processSection {
+    order: 6;
+  }
+
+  .reviewsSection {
+    order: 7; /* Reviews placed after process timeline */
+  }
+
+  .faqSection {
+    order: 8; /* FAQs placed at the bottom */
+  }
+}
+
 /* Mobile Optimization Refinements */
 @media (max-width: 640px) {
   .main {
@@ -1030,7 +1075,8 @@
   .descriptionSection,
   .deliverablesSection,
   .processSection,
-  .faqSection {
+  .faqSection,
+  .reviewsSection {
     padding: 1.25rem !important;
     border-radius: 1rem !important;
   }
