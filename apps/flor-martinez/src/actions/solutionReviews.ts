@@ -22,29 +22,10 @@ const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
 const LOCAL_REVIEWS_FILE = path.join(LOCAL_STORAGE_DIR, 'reviews.json');
 const TMP_REVIEWS_FILE = path.join(os.tmpdir(), 'reviews.json');
 
-const initialSampleReviews: SolutionReviewRecord[] = [
-  {
-    id: 'rev_1',
-    solutionSlug: 'finanzas-en-orden',
-    customerName: 'Carolina Rossi',
-    rating: 5,
-    text: 'Increíble plantilla. En menos de 10 minutos pude organizar todo mi presupuesto mensual y saber exactamente en qué se me iba el dinero.',
-    isHidden: false,
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-  {
-    id: 'rev_2',
-    solutionSlug: 'te-hago-tu-cv',
-    customerName: 'Mariano Benítez',
-    rating: 5,
-    text: 'Flor reestructuró mi CV con palabras clave de mi industria. A la semana me llamaron para dos entrevistas de trabajo.',
-    isHidden: false,
-    createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-];
+const initialSampleReviews: SolutionReviewRecord[] = [];
 
 function readReviews(): SolutionReviewRecord[] {
-  if (globalThis.__fm_reviews_store && globalThis.__fm_reviews_store.length > 0) {
+  if (globalThis.__fm_reviews_store !== undefined) {
     return globalThis.__fm_reviews_store;
   }
 
@@ -53,7 +34,7 @@ function readReviews(): SolutionReviewRecord[] {
     if (fs.existsSync(LOCAL_REVIEWS_FILE)) {
       const raw = fs.readFileSync(LOCAL_REVIEWS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_reviews_store = parsed;
         return parsed;
       }
@@ -67,7 +48,7 @@ function readReviews(): SolutionReviewRecord[] {
     if (fs.existsSync(TMP_REVIEWS_FILE)) {
       const raw = fs.readFileSync(TMP_REVIEWS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_reviews_store = parsed;
         return parsed;
       }

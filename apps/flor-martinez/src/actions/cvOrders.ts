@@ -29,24 +29,10 @@ const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
 const LOCAL_CV_ORDERS_FILE = path.join(LOCAL_STORAGE_DIR, 'cv_orders.json');
 const TMP_CV_ORDERS_FILE = path.join(os.tmpdir(), 'cv_orders.json');
 
-const initialSampleOrders: CvOrderRecord[] = [
-  {
-    id: 'cv_ord_1',
-    orderNumber: 'FM-CV-2026-001',
-    customerName: 'Mariano Benítez',
-    customerEmail: 'marianobenitez@gmail.com',
-    customerPhone: '+54 9 11 5544-3322',
-    priceARS: 12000,
-    channel: 'WEB',
-    status: 'ENTREGADO',
-    notes: 'Reestructuración aprobada con éxito.',
-    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-    updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-  },
-];
+const initialSampleOrders: CvOrderRecord[] = [];
 
 function readCvOrders(): CvOrderRecord[] {
-  if (globalThis.__fm_cv_orders_store && globalThis.__fm_cv_orders_store.length > 0) {
+  if (globalThis.__fm_cv_orders_store !== undefined) {
     return globalThis.__fm_cv_orders_store;
   }
 
@@ -54,7 +40,7 @@ function readCvOrders(): CvOrderRecord[] {
     if (fs.existsSync(LOCAL_CV_ORDERS_FILE)) {
       const raw = fs.readFileSync(LOCAL_CV_ORDERS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_cv_orders_store = parsed;
         return parsed;
       }
@@ -67,7 +53,7 @@ function readCvOrders(): CvOrderRecord[] {
     if (fs.existsSync(TMP_CV_ORDERS_FILE)) {
       const raw = fs.readFileSync(TMP_CV_ORDERS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_cv_orders_store = parsed;
         return parsed;
       }

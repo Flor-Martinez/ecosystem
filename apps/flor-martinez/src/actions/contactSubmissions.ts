@@ -23,31 +23,10 @@ const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
 const LOCAL_CONTACTS_FILE = path.join(LOCAL_STORAGE_DIR, 'contact_submissions.json');
 const TMP_CONTACTS_FILE = path.join(os.tmpdir(), 'contact_submissions.json');
 
-const initialSampleContacts: ContactSubmissionRecord[] = [
-  {
-    id: 'cnt_1',
-    name: 'Valeria Fernández',
-    email: 'valeria.fernandez@gmail.com',
-    motivo: 'consultoria',
-    mensaje: 'Hola Flor, me gustaría consultar por un asesoramiento personalizado en logística de comercio exterior para nuestra Pyme.',
-    status: 'PENDIENTE',
-    createdAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-    updatedAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-  },
-  {
-    id: 'cnt_2',
-    name: 'Gonzalo Morales',
-    email: 'gmorales.tech@gmail.com',
-    motivo: 'agencia',
-    mensaje: 'Buenas tardes. Queremos renovar la estrategia digital y web de nuestra marca B2B. ¿Podríamos coordinar una llamada?',
-    status: 'ATENDIDO',
-    createdAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
-    updatedAt: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
-  },
-];
+const initialSampleContacts: ContactSubmissionRecord[] = [];
 
 function readContacts(): ContactSubmissionRecord[] {
-  if (globalThis.__fm_contacts_store && globalThis.__fm_contacts_store.length > 0) {
+  if (globalThis.__fm_contacts_store !== undefined) {
     return globalThis.__fm_contacts_store;
   }
 
@@ -55,7 +34,7 @@ function readContacts(): ContactSubmissionRecord[] {
     if (fs.existsSync(LOCAL_CONTACTS_FILE)) {
       const raw = fs.readFileSync(LOCAL_CONTACTS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_contacts_store = parsed;
         return parsed;
       }
@@ -68,7 +47,7 @@ function readContacts(): ContactSubmissionRecord[] {
     if (fs.existsSync(TMP_CONTACTS_FILE)) {
       const raw = fs.readFileSync(TMP_CONTACTS_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_contacts_store = parsed;
         return parsed;
       }

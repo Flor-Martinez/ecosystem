@@ -99,7 +99,7 @@ const LOCAL_STORAGE_FILE = path.join(LOCAL_STORAGE_DIR, 'licenses.json');
 const TMP_LICENSES_FILE = path.join(os.tmpdir(), 'licenses.json');
 
 function readLocalLicenses(): SpreadsheetLicenseRecord[] {
-  if (globalThis.__fm_licenses_store && globalThis.__fm_licenses_store.length > 0) {
+  if (globalThis.__fm_licenses_store !== undefined) {
     return globalThis.__fm_licenses_store;
   }
 
@@ -107,7 +107,7 @@ function readLocalLicenses(): SpreadsheetLicenseRecord[] {
     if (fs.existsSync(LOCAL_STORAGE_FILE)) {
       const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_licenses_store = parsed;
         return parsed;
       }
@@ -120,7 +120,7 @@ function readLocalLicenses(): SpreadsheetLicenseRecord[] {
     if (fs.existsSync(TMP_LICENSES_FILE)) {
       const raw = fs.readFileSync(TMP_LICENSES_FILE, 'utf8');
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed)) {
         globalThis.__fm_licenses_store = parsed;
         return parsed;
       }
