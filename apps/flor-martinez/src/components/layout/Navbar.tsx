@@ -597,8 +597,10 @@ export function Navbar() {
                           isSolucionesActive ? styles.mobileNavLinkActive : ''
                         }`}
                       >
-                        <Sparkles size={16} className={styles.solucionesIcon} />
-                        <span>{link.label}</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <Sparkles size={16} className={styles.solucionesIcon} />
+                          <span>{link.label}</span>
+                        </div>
                         {isSolucionesActive && <span className={styles.activeBadge}>Actual</span>}
                       </Link>
                     </React.Fragment>

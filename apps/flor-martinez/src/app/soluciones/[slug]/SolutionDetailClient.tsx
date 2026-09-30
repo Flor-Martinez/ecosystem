@@ -361,18 +361,22 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
               <h1 className={styles.detailTitle}>{solution.title}</h1>
               <p className={styles.detailTagline}>{solution.tagline}</p>
 
-              {/* Short PC Recommendation Note */}
+              {/* Prominent PC Recommendation Card */}
               {isExcel && (
                 <div style={{
-                  fontSize: '0.82rem',
-                  color: '#64748B',
-                  marginTop: '0.6rem',
+                  backgroundColor: '#FEF3C7',
+                  border: '1px solid #FDE68A',
+                  borderRadius: '12px',
+                  padding: '10px 14px',
+                  marginTop: '1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
+                  gap: '8px',
                 }}>
-                  <span>💡</span>
-                  <span>Se recomienda utilizar la planilla desde una computadora (PC/Mac) para mejor visualización.</span>
+                  <span style={{ fontSize: '1.1rem', lineHeight: 1 }}>💡</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#92400E', lineHeight: 1.4 }}>
+                    Se recomienda utilizar la planilla desde una computadora (PC o Mac) para una visualización y uso óptimo de gráficos y tableros.
+                  </span>
                 </div>
               )}
             </div>

@@ -761,13 +761,12 @@
    ========================================================================== */
 .mobileDrawer {
   position: fixed;
-  top: calc(4.5rem + 2.5rem);
+  top: 4.5rem;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(13, 27, 42, 0.6);
-  backdrop-filter: blur(6px);
-  z-index: 49;
+  background-color: #ffffff;
+  z-index: 999;
 }
 
 .mobileDrawerContent {
@@ -775,8 +774,10 @@
   padding: 1.5rem var(--container-padding);
   border-bottom: 1px solid var(--fm-border);
   box-shadow: var(--shadow-lg);
-  max-height: 80vh;
+  height: calc(100vh - 4.5rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .mobileSectionTitle {

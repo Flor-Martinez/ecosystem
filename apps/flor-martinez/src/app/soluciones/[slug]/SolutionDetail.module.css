@@ -1016,7 +1016,7 @@
   margin-bottom: 0.75rem;
 }
 
-/* Mobile & Tablet Layout Re-Ordering (Adquirir Ahora Card High Up) */
+/* Mobile & Tablet Layout Re-Ordering (Exact User Sequence) */
 @media (max-width: 1023px) {
   .detailGrid {
     display: flex;
@@ -1029,19 +1029,19 @@
   }
 
   .headerBlock {
-    order: 1;
+    order: 1; /* 1. Title, description, tagline, PC recommendation note */
   }
 
   .videoContainerCard {
-    order: 2;
-  }
-
-  .sidebarColumn {
-    order: 3; /* Purchase Card: Price, Adquirir Ahora CTA, Guarantees placed at the top on mobile! */
+    order: 2; /* 2. Image / Video preview */
   }
 
   .descriptionSection {
-    order: 4;
+    order: 3; /* 3. Sobre esta solución */
+  }
+
+  .sidebarColumn {
+    order: 4; /* 4. ADQUIRIR PRODUCTO CARD (Price, CTA, Guarantees) */
   }
 
   .deliverablesSection {
@@ -1053,11 +1053,11 @@
   }
 
   .reviewsSection {
-    order: 7; /* Reviews placed after process timeline */
+    order: 7;
   }
 
   .faqSection {
-    order: 8; /* FAQs placed at the bottom */
+    order: 8;
   }
 }
 
