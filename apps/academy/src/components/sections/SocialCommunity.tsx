@@ -24,7 +24,7 @@ export function SocialCommunity() {
         <div className={styles.socialCardsGrid}>
           {/* Instagram Card */}
           <a
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/licenciadaflormartinez"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialCardLink}
@@ -37,7 +37,7 @@ export function SocialCommunity() {
                 <div className={styles.networkBadge}>Instagram</div>
               </div>
 
-              <div className={styles.handle}>@flormartinez.ok</div>
+              <div className={styles.handle}>@licenciadaflormartinez</div>
               <p className={styles.desc}>
                 Videos dinámicos con tips diarios de CV, errores comunes en entrevistas, novedades de cursos y detrás de escena formativo.
               </p>
@@ -51,7 +51,7 @@ export function SocialCommunity() {
 
           {/* LinkedIn Card */}
           <a
-            href="https://www.linkedin.com"
+            href="https://www.linkedin.com/in/florencia-martinez-141367203"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.socialCardLink}
@@ -64,7 +64,7 @@ export function SocialCommunity() {
                 <div className={styles.networkBadge}>LinkedIn</div>
               </div>
 
-              <div className={styles.handle}>Academia Flor Martinez</div>
+              <div className={styles.handle}>Florencia Martinez</div>
               <p className={styles.desc}>
                 Publicaciones de análisis sobre el mercado laboral, networking profesional, metodologías de selección y reflexiones de carrera.
               </p>

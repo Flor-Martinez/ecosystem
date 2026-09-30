@@ -59,18 +59,18 @@ export default function ContactoPage() {
               </p>
 
               <div className={styles.channelsList}>
-                <a href="mailto:contacto@flormartinez.com" className={styles.channelItem}>
+                <a href="mailto:licenciadaflormartinez@gmail.com" className={styles.channelItem}>
                   <div className={styles.channelIcon}>
                     <Mail size={20} />
                   </div>
                   <div>
                     <span className={styles.channelLabel}>Email Oficial</span>
-                    <span className={styles.channelVal}>contacto@flormartinez.com</span>
+                    <span className={styles.channelVal}>licenciadaflormartinez@gmail.com</span>
                   </div>
                 </a>
 
                 <a
-                  href="https://www.instagram.com"
+                  href="https://www.instagram.com/licenciadaflormartinez"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.channelItem}
@@ -80,12 +80,12 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <span className={styles.channelLabel}>Instagram Oficial</span>
-                    <span className={styles.channelVal}>@flormartinez.ok</span>
+                    <span className={styles.channelVal}>@licenciadaflormartinez</span>
                   </div>
                 </a>
 
                 <a
-                  href="https://www.linkedin.com"
+                  href="https://www.linkedin.com/in/florencia-martinez-141367203"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.channelItem}
@@ -95,7 +95,7 @@ export default function ContactoPage() {
                   </div>
                   <div>
                     <span className={styles.channelLabel}>LinkedIn Oficial</span>
-                    <span className={styles.channelVal}>Academia Flor Martinez</span>
+                    <span className={styles.channelVal}>Florencia Martinez</span>
                   </div>
                 </a>
               </div>

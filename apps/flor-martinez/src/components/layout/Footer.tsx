@@ -26,7 +26,7 @@ export function Footer() {
 
             <div className={styles.socialRow}>
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/in/florencia-martinez-141367203"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialIcon}
@@ -35,7 +35,7 @@ export function Footer() {
                 <LinkedinIcon size={18} />
               </a>
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/licenciadaflormartinez"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialIcon}
@@ -44,7 +44,7 @@ export function Footer() {
                 <InstagramIcon size={18} />
               </a>
               <a
-                href="mailto:contacto@flormartinez.com"
+                href="mailto:licenciadaflormartinez@gmail.com"
                 className={styles.socialIcon}
                 aria-label="Email de contacto"
               >
@@ -112,9 +112,9 @@ export function Footer() {
             <p className={styles.contactText}>
               ¿Querés coordinar una consultoría, propuesta formativa o proyecto de marca?
             </p>
-            <Link href="/contacto" className={styles.contactEmail}>
-              contacto@flormartinez.com
-            </Link>
+            <a href="mailto:licenciadaflormartinez@gmail.com" className={styles.contactEmail}>
+              licenciadaflormartinez@gmail.com
+            </a>
             <div className={styles.locationTag}>
               Buenos Aires, Argentina · Alcance Global
             </div>

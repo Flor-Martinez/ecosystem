@@ -58,7 +58,7 @@ export function ReachSection() {
             <div className={styles.statsGrid}>
               {/* Stat 1: Instagram */}
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/licenciadaflormartinez"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.statCard} ${styles.statInstagram}`}
@@ -72,13 +72,13 @@ export function ReachSection() {
                 <div className={styles.statNumber}>+35.000</div>
                 <div className={styles.statLabel}>Seguidores en Instagram</div>
                 <p className={styles.statDetail}>
-                  Comunidad activa en desarrollo profesional, empleabilidad y tendencia de carrera en <code>@flormartinez.ok</code>.
+                  Comunidad activa en desarrollo profesional, empleabilidad y tendencia de carrera en <code>@licenciadaflormartinez</code>.
                 </p>
               </a>
 
               {/* Stat 2: LinkedIn */}
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/in/florencia-martinez-141367203"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.statCard} ${styles.statLinkedin}`}

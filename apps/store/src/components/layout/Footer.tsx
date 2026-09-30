@@ -54,7 +54,7 @@ export function Footer() {
             <ul className={styles.contactList}>
               <li className={styles.contactItem}>
                 <Mail size={15} />
-                <span>tienda@flormartinez.com</span>
+                <span>licenciadaflormartinez@gmail.com</span>
               </li>
               <li className={styles.contactItem}>
                 <Phone size={15} />

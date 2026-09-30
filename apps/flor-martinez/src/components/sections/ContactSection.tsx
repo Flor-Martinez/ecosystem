@@ -52,7 +52,7 @@ export function ContactSection() {
 
             <div className={styles.channelsList}>
               <a
-                href="mailto:contacto@flormartinez.com"
+                href="mailto:licenciadaflormartinez@gmail.com"
                 className={styles.channelItem}
               >
                 <div className={`${styles.channelIcon} ${styles.iconMail}`}>
@@ -60,12 +60,12 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className={styles.channelLabel}>Email Profesional</div>
-                  <div className={styles.channelValue}>contacto@flormartinez.com</div>
+                  <div className={styles.channelValue}>licenciadaflormartinez@gmail.com</div>
                 </div>
               </a>
 
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/in/florencia-martinez-141367203"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.channelItem}
@@ -75,12 +75,12 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className={styles.channelLabel}>LinkedIn Profesional</div>
-                  <div className={styles.channelValue}>Flor Martinez</div>
+                  <div className={styles.channelValue}>Florencia Martinez</div>
                 </div>
               </a>
 
               <a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/licenciadaflormartinez"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.channelItem}
@@ -90,7 +90,7 @@ export function ContactSection() {
                 </div>
                 <div>
                   <div className={styles.channelLabel}>Instagram Oficial</div>
-                  <div className={styles.channelValue}>@flormartinez.ok</div>
+                  <div className={styles.channelValue}>@licenciadaflormartinez</div>
                 </div>
               </a>
             </div>
