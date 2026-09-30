@@ -40,7 +40,7 @@ const spreadsheetSheets = [
     title: '📊 Dashboard (Tablero General)',
     shortName: '1. Dashboard',
     badge: 'Vista Principal',
-    image: '/images/finanzas-en-orden/dashboard.png',
+    image: '/images/finanzas-en-orden/dashboard-preview.png',
     description:
       'Resumen visual de tus finanzas con gráficos automáticos de ingresos, gastos y porcentaje de ahorro.',
     features: [
@@ -54,7 +54,7 @@ const spreadsheetSheets = [
     title: '💳 Movimientos (Registro Diario)',
     shortName: '2. Movimientos',
     badge: 'Carga Inteligente',
-    image: '/images/finanzas-en-orden/movimientos.png',
+    image: '/images/finanzas-en-orden/movimientos-preview.png',
     description:
       'Carga tus ingresos y gastos diarios seleccionando categorías desplegables de forma rápida.',
     features: [
@@ -68,7 +68,7 @@ const spreadsheetSheets = [
     title: '🎯 Metas (Presupuesto y Objetivos)',
     shortName: '3. Metas',
     badge: 'Planificación',
-    image: '/images/finanzas-en-orden/metas.png',
+    image: '/images/finanzas-en-orden/metas-preview.png',
     description:
       'Definí presupuestos máximos y seguí el avance de tus metas de ahorro mes a mes.',
     features: [
@@ -82,7 +82,7 @@ const spreadsheetSheets = [
     title: '🐜 Gastos Hormiga (Tracker de Pequeños Consumos)',
     shortName: '4. Gastos Hormiga',
     badge: 'Control Fino',
-    image: '/images/finanzas-en-orden/gastos-hormiga.png',
+    image: '/images/finanzas-en-orden/gastos-hormiga-preview.png',
     description:
       'Detectá microgastos diarios (café, delivery, suscripciones) para evitar fugas de dinero.',
     features: [
@@ -96,7 +96,7 @@ const spreadsheetSheets = [
     title: '📈 Informe Detallado (Reporte Anual)',
     shortName: '5. Informe Detallado',
     badge: 'Análisis Pro',
-    image: '/images/finanzas-en-orden/informe-detallado.png',
+    image: '/images/finanzas-en-orden/informe-detallado-preview.png',
     description:
       'Reporte consolidado para analizar la evolución de tus finanzas mes a mes.',
     features: [
@@ -557,7 +557,6 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                               height: 'auto',
                               display: 'block',
                               backgroundColor: '#FFFFFF',
-                              filter: 'blur(1px)',
                             }}
                           />
                           <div style={{
