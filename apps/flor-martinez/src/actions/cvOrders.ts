@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { trackUserSignup } from './metrics';
 
 export interface CvOrderRecord {
@@ -20,53 +21,82 @@ export interface CvOrderRecord {
   updatedAt: string;
 }
 
-const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
-const CV_ORDERS_FILE = path.join(LOCAL_STORAGE_DIR, 'cv_orders.json');
+declare global {
+  var __fm_cv_orders_store: CvOrderRecord[] | undefined;
+}
 
-function ensureCvOrdersFileExists() {
+const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
+const LOCAL_CV_ORDERS_FILE = path.join(LOCAL_STORAGE_DIR, 'cv_orders.json');
+const TMP_CV_ORDERS_FILE = path.join(os.tmpdir(), 'cv_orders.json');
+
+const initialSampleOrders: CvOrderRecord[] = [
+  {
+    id: 'cv_ord_1',
+    orderNumber: 'FM-CV-2026-001',
+    customerName: 'Mariano Benítez',
+    customerEmail: 'marianobenitez@gmail.com',
+    customerPhone: '+54 9 11 5544-3322',
+    priceARS: 12000,
+    channel: 'WEB',
+    status: 'ENTREGADO',
+    notes: 'Reestructuración aprobada con éxito.',
+    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+function readCvOrders(): CvOrderRecord[] {
+  if (globalThis.__fm_cv_orders_store && globalThis.__fm_cv_orders_store.length > 0) {
+    return globalThis.__fm_cv_orders_store;
+  }
+
+  try {
+    if (fs.existsSync(LOCAL_CV_ORDERS_FILE)) {
+      const raw = fs.readFileSync(LOCAL_CV_ORDERS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_cv_orders_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  try {
+    if (fs.existsSync(TMP_CV_ORDERS_FILE)) {
+      const raw = fs.readFileSync(TMP_CV_ORDERS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_cv_orders_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  globalThis.__fm_cv_orders_store = [...initialSampleOrders];
+  saveCvOrders(globalThis.__fm_cv_orders_store);
+  return globalThis.__fm_cv_orders_store;
+}
+
+function saveCvOrders(orders: CvOrderRecord[]) {
+  globalThis.__fm_cv_orders_store = orders;
+
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
     }
-    if (!fs.existsSync(CV_ORDERS_FILE)) {
-      const initialSampleOrders: CvOrderRecord[] = [
-        {
-          id: 'cv_ord_1',
-          orderNumber: 'FM-CV-2026-001',
-          customerName: 'Mariano Benítez',
-          customerEmail: 'marianobenitez@gmail.com',
-          customerPhone: '+54 9 11 5544-3322',
-          priceARS: 29900,
-          channel: 'WEB',
-          status: 'ENTREGADO',
-          notes: 'Reestructuración aprobada con éxito.',
-          createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-          updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-      ];
-      fs.writeFileSync(CV_ORDERS_FILE, JSON.stringify(initialSampleOrders, null, 2), 'utf8');
-    }
-  } catch (err) {
-    console.error('Error al inicializar cv_orders.json:', err);
-  }
-}
-
-function readCvOrders(): CvOrderRecord[] {
-  ensureCvOrdersFileExists();
-  try {
-    const raw = fs.readFileSync(CV_ORDERS_FILE, 'utf8');
-    return JSON.parse(raw);
+    fs.writeFileSync(LOCAL_CV_ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
   } catch {
-    return [];
+    // Vercel serverless process.cwd() is read-only, ignore
   }
-}
 
-function saveCvOrders(orders: CvOrderRecord[]) {
-  ensureCvOrdersFileExists();
   try {
-    fs.writeFileSync(CV_ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
+    fs.writeFileSync(TMP_CV_ORDERS_FILE, JSON.stringify(orders, null, 2), 'utf8');
   } catch (err) {
-    console.error('Error al guardar cv_orders.json:', err);
+    console.error('Error al guardar cv_orders en /tmp:', err);
   }
 }
 
@@ -80,7 +110,7 @@ export async function getCvOrdersAction(): Promise<{
     // Sort descending by date
     orders.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     return { success: true, orders };
-  } catch (err) {
+  } catch {
     return { success: false, error: 'Error al cargar los pedidos de CVs.' };
   }
 }

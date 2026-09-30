@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
 export interface SolutionReviewRecord {
   id: string;
@@ -13,58 +14,92 @@ export interface SolutionReviewRecord {
   createdAt: string;
 }
 
-const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
-const REVIEWS_FILE = path.join(LOCAL_STORAGE_DIR, 'reviews.json');
+declare global {
+  var __fm_reviews_store: SolutionReviewRecord[] | undefined;
+}
 
-function ensureReviewsFileExists() {
+const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
+const LOCAL_REVIEWS_FILE = path.join(LOCAL_STORAGE_DIR, 'reviews.json');
+const TMP_REVIEWS_FILE = path.join(os.tmpdir(), 'reviews.json');
+
+const initialSampleReviews: SolutionReviewRecord[] = [
+  {
+    id: 'rev_1',
+    solutionSlug: 'finanzas-en-orden',
+    customerName: 'Carolina Rossi',
+    rating: 5,
+    text: 'Increíble plantilla. En menos de 10 minutos pude organizar todo mi presupuesto mensual y saber exactamente en qué se me iba el dinero.',
+    isHidden: false,
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'rev_2',
+    solutionSlug: 'te-hago-tu-cv',
+    customerName: 'Mariano Benítez',
+    rating: 5,
+    text: 'Flor reestructuró mi CV con palabras clave de mi industria. A la semana me llamaron para dos entrevistas de trabajo.',
+    isHidden: false,
+    createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+];
+
+function readReviews(): SolutionReviewRecord[] {
+  if (globalThis.__fm_reviews_store && globalThis.__fm_reviews_store.length > 0) {
+    return globalThis.__fm_reviews_store;
+  }
+
+  // 1. Intentar leer de .data/reviews.json
+  try {
+    if (fs.existsSync(LOCAL_REVIEWS_FILE)) {
+      const raw = fs.readFileSync(LOCAL_REVIEWS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_reviews_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  // 2. Intentar leer de /tmp/reviews.json
+  try {
+    if (fs.existsSync(TMP_REVIEWS_FILE)) {
+      const raw = fs.readFileSync(TMP_REVIEWS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_reviews_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  // 3. Fallback a muestra inicial
+  globalThis.__fm_reviews_store = [...initialSampleReviews];
+  saveReviews(globalThis.__fm_reviews_store);
+  return globalThis.__fm_reviews_store;
+}
+
+function saveReviews(reviews: SolutionReviewRecord[]) {
+  globalThis.__fm_reviews_store = reviews;
+
+  // 1. Intentar guardar en .data/ (local dev)
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
     }
-    if (!fs.existsSync(REVIEWS_FILE)) {
-      const initialReviews: SolutionReviewRecord[] = [
-        {
-          id: 'rev_1',
-          solutionSlug: 'organizador-de-finanzas',
-          customerName: 'Carolina Rossi',
-          rating: 5,
-          text: 'Increíble plantilla. En menos de 10 minutos pude organizar todo mi presupuesto mensual y saber exactamente en qué se me iba el dinero.',
-          isHidden: false,
-          createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-        {
-          id: 'rev_2',
-          solutionSlug: 'te-hago-tu-cv',
-          customerName: 'Mariano Benítez',
-          rating: 5,
-          text: 'Flor reestructuró mi CV con palabras clave de mi industria. A la semana me llamaron para dos entrevistas de trabajo.',
-          isHidden: false,
-          createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(),
-        },
-      ];
-      fs.writeFileSync(REVIEWS_FILE, JSON.stringify(initialReviews, null, 2), 'utf8');
-    }
-  } catch (err) {
-    console.error('Error al inicializar reviews.json:', err);
-  }
-}
-
-function readReviews(): SolutionReviewRecord[] {
-  ensureReviewsFileExists();
-  try {
-    const raw = fs.readFileSync(REVIEWS_FILE, 'utf8');
-    return JSON.parse(raw);
+    fs.writeFileSync(LOCAL_REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf8');
   } catch {
-    return [];
+    // En Vercel serverless process.cwd() es read-only, ignorar
   }
-}
 
-function saveReviews(reviews: SolutionReviewRecord[]) {
-  ensureReviewsFileExists();
+  // 2. Guardar en /tmp/ (Vercel serverless writable storage)
   try {
-    fs.writeFileSync(REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf8');
+    fs.writeFileSync(TMP_REVIEWS_FILE, JSON.stringify(reviews, null, 2), 'utf8');
   } catch (err) {
-    console.error('Error al guardar reviews.json:', err);
+    console.error('Error al guardar reseña en /tmp:', err);
   }
 }
 
@@ -121,10 +156,11 @@ export async function addSolutionReviewAction(params: {
       return { success: false, error: 'Todos los campos son requeridos.' };
     }
 
+    const normalizedSlug = solutionSlug === 'organizador-de-finanzas' ? 'finanzas-en-orden' : solutionSlug;
     const ratingNum = Math.min(5, Math.max(1, Number(rating) || 5));
     const newReview: SolutionReviewRecord = {
       id: 'rev_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
-      solutionSlug: String(solutionSlug),
+      solutionSlug: normalizedSlug,
       customerName: String(customerName).trim(),
       rating: ratingNum,
       text: String(text).trim(),

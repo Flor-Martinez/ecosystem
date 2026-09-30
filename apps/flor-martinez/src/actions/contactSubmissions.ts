@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
 export interface ContactSubmissionRecord {
   id: string;
@@ -14,60 +15,89 @@ export interface ContactSubmissionRecord {
   updatedAt: string;
 }
 
-const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
-const CONTACTS_FILE = path.join(LOCAL_STORAGE_DIR, 'contact_submissions.json');
+declare global {
+  var __fm_contacts_store: ContactSubmissionRecord[] | undefined;
+}
 
-function ensureContactsFileExists() {
+const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
+const LOCAL_CONTACTS_FILE = path.join(LOCAL_STORAGE_DIR, 'contact_submissions.json');
+const TMP_CONTACTS_FILE = path.join(os.tmpdir(), 'contact_submissions.json');
+
+const initialSampleContacts: ContactSubmissionRecord[] = [
+  {
+    id: 'cnt_1',
+    name: 'Valeria Fernández',
+    email: 'valeria.fernandez@gmail.com',
+    motivo: 'consultoria',
+    mensaje: 'Hola Flor, me gustaría consultar por un asesoramiento personalizado en logística de comercio exterior para nuestra Pyme.',
+    status: 'PENDIENTE',
+    createdAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
+  },
+  {
+    id: 'cnt_2',
+    name: 'Gonzalo Morales',
+    email: 'gmorales.tech@gmail.com',
+    motivo: 'agencia',
+    mensaje: 'Buenas tardes. Queremos renovar la estrategia digital y web de nuestra marca B2B. ¿Podríamos coordinar una llamada?',
+    status: 'ATENDIDO',
+    createdAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
+    updatedAt: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
+  },
+];
+
+function readContacts(): ContactSubmissionRecord[] {
+  if (globalThis.__fm_contacts_store && globalThis.__fm_contacts_store.length > 0) {
+    return globalThis.__fm_contacts_store;
+  }
+
+  try {
+    if (fs.existsSync(LOCAL_CONTACTS_FILE)) {
+      const raw = fs.readFileSync(LOCAL_CONTACTS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_contacts_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  try {
+    if (fs.existsSync(TMP_CONTACTS_FILE)) {
+      const raw = fs.readFileSync(TMP_CONTACTS_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_contacts_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  globalThis.__fm_contacts_store = [...initialSampleContacts];
+  saveContacts(globalThis.__fm_contacts_store);
+  return globalThis.__fm_contacts_store;
+}
+
+function saveContacts(contacts: ContactSubmissionRecord[]) {
+  globalThis.__fm_contacts_store = contacts;
+
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
     }
-    if (!fs.existsSync(CONTACTS_FILE)) {
-      const initialSampleContacts: ContactSubmissionRecord[] = [
-        {
-          id: 'cnt_1',
-          name: 'Valeria Fernández',
-          email: 'valeria.fernandez@gmail.com',
-          motivo: 'consultoria',
-          mensaje: 'Hola Flor, me gustaría consultar por un asesoramiento personalizado en logística de comercio exterior para nuestra Pyme.',
-          status: 'PENDIENTE',
-          createdAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-          updatedAt: new Date(Date.now() - 2 * 3600 * 1000).toISOString(),
-        },
-        {
-          id: 'cnt_2',
-          name: 'Gonzalo Morales',
-          email: 'gmorales.tech@gmail.com',
-          motivo: 'agencia',
-          mensaje: 'Buenas tardes. Queremos renovar la estrategia digital y web de nuestra marca B2B. ¿Podríamos coordinar una llamada?',
-          status: 'ATENDIDO',
-          createdAt: new Date(Date.now() - 24 * 3600 * 1000).toISOString(),
-          updatedAt: new Date(Date.now() - 12 * 3600 * 1000).toISOString(),
-        },
-      ];
-      fs.writeFileSync(CONTACTS_FILE, JSON.stringify(initialSampleContacts, null, 2), 'utf8');
-    }
-  } catch (err) {
-    console.error('Error al inicializar contact_submissions.json:', err);
-  }
-}
-
-function readContacts(): ContactSubmissionRecord[] {
-  ensureContactsFileExists();
-  try {
-    const raw = fs.readFileSync(CONTACTS_FILE, 'utf8');
-    return JSON.parse(raw);
+    fs.writeFileSync(LOCAL_CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
   } catch {
-    return [];
+    // Vercel serverless process.cwd() is read-only, ignore
   }
-}
 
-function saveContacts(contacts: ContactSubmissionRecord[]) {
-  ensureContactsFileExists();
   try {
-    fs.writeFileSync(CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
+    fs.writeFileSync(TMP_CONTACTS_FILE, JSON.stringify(contacts, null, 2), 'utf8');
   } catch (err) {
-    console.error('Error al guardar contact_submissions.json:', err);
+    console.error('Error al guardar contacto en /tmp:', err);
   }
 }
 

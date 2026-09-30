@@ -88,38 +88,67 @@ Guardá este mensaje. ¡Cualquier duda que tengas estoy a disposición!`;
 // PERSISTENCIA RESILIENTE (PRISMA DB + ARCHIVO LOCAL FALLBACK)
 // =============================================================================
 
+import os from 'os';
+
+declare global {
+  var __fm_licenses_store: SpreadsheetLicenseRecord[] | undefined;
+}
+
 const LOCAL_STORAGE_DIR = path.join(process.cwd(), '.data');
 const LOCAL_STORAGE_FILE = path.join(LOCAL_STORAGE_DIR, 'licenses.json');
+const TMP_LICENSES_FILE = path.join(os.tmpdir(), 'licenses.json');
 
-function ensureLocalStorageExists() {
+function readLocalLicenses(): SpreadsheetLicenseRecord[] {
+  if (globalThis.__fm_licenses_store && globalThis.__fm_licenses_store.length > 0) {
+    return globalThis.__fm_licenses_store;
+  }
+
+  try {
+    if (fs.existsSync(LOCAL_STORAGE_FILE)) {
+      const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_licenses_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  try {
+    if (fs.existsSync(TMP_LICENSES_FILE)) {
+      const raw = fs.readFileSync(TMP_LICENSES_FILE, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        globalThis.__fm_licenses_store = parsed;
+        return parsed;
+      }
+    }
+  } catch {
+    // Ignore read error
+  }
+
+  globalThis.__fm_licenses_store = [];
+  return globalThis.__fm_licenses_store;
+}
+
+function saveLocalLicenses(licenses: SpreadsheetLicenseRecord[]) {
+  globalThis.__fm_licenses_store = licenses;
+
   try {
     if (!fs.existsSync(LOCAL_STORAGE_DIR)) {
       fs.mkdirSync(LOCAL_STORAGE_DIR, { recursive: true });
     }
-    if (!fs.existsSync(LOCAL_STORAGE_FILE)) {
-      fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify([]), 'utf8');
-    }
-  } catch (err) {
-    console.warn('No se pudo inicializar storage local:', err);
-  }
-}
-
-function readLocalLicenses(): SpreadsheetLicenseRecord[] {
-  ensureLocalStorageExists();
-  try {
-    const raw = fs.readFileSync(LOCAL_STORAGE_FILE, 'utf8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-function saveLocalLicenses(licenses: SpreadsheetLicenseRecord[]) {
-  ensureLocalStorageExists();
-  try {
     fs.writeFileSync(LOCAL_STORAGE_FILE, JSON.stringify(licenses, null, 2), 'utf8');
+  } catch {
+    // Vercel serverless process.cwd() is read-only, ignore
+  }
+
+  try {
+    fs.writeFileSync(TMP_LICENSES_FILE, JSON.stringify(licenses, null, 2), 'utf8');
   } catch (err) {
-    console.error('Error al guardar en storage local:', err);
+    console.error('Error al guardar licencias en /tmp:', err);
   }
 }
 
