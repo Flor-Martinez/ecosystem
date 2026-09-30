@@ -20,13 +20,13 @@ import {
   ExternalLink,
   Download,
   Send,
+  FileSpreadsheet,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SolutionItem } from '@/data/solutions';
 import { useAuth } from '@/context/AuthContext';
 import { createContactSubmissionAction } from '@/actions/contactSubmissions';
 import { createCvOrderAction } from '@/actions/cvOrders';
-import { issueLicenseAction } from '@/actions/licenses';
 import SolutionReviewsSection from '@/components/solutions/SolutionReviewsSection';
 import styles from './SolutionDetail.module.css';
 
@@ -34,10 +34,66 @@ interface SolutionDetailClientProps {
   solution: SolutionItem;
 }
 
+const spreadsheetSheets = [
+  {
+    id: 'dashboard',
+    title: '📊 Tablero Principal & Métricas (Dashboard)',
+    shortName: '1. Dashboard',
+    badge: 'Vista Ejecutiva',
+    description:
+      'Tablero automatizado con gráficos interactivos. Te muestra en tiempo real tus ingresos totales, distribución de gastos por categoría, tasa de ahorro libre y proyecciones mensuales sin tocar ninguna fórmula.',
+    features: [
+      'Gráficos interactivos de ingresos vs. gastos',
+      'Porcentaje de capacidad de ahorro del mes',
+      'Desglose inteligente por categorías',
+    ],
+  },
+  {
+    id: 'diario',
+    title: '💳 Registro de Ingresos y Gastos',
+    shortName: '2. Registro Diario',
+    badge: 'Carga Fácil',
+    description:
+      'Matriz limpia e intuitiva donde cargas cada movimiento diario. Seleccionas la fecha, concepto, monto y categoría desde un menú desplegable; la plantilla suma y organiza todo automáticamente.',
+    features: [
+      'Menú desplegable intuitivo de categorías',
+      'Cálculo automático de saldos en tiempo real',
+      'Soporte directo para pesos y dólares',
+    ],
+  },
+  {
+    id: 'presupuesto',
+    title: '🎯 Presupuesto & Metas de Ahorro',
+    shortName: '3. Presupuesto',
+    badge: 'Planificación',
+    description:
+      'Define límites de gasto deseados para cada rubro (vivienda, ocio, inversiones, alimentos) y compara tu gasto real contra el presupuestado con alertas visuales cuando estés cerca del límite.',
+    features: [
+      'Alertas visuales de límites de gasto',
+      'Seguimiento de metas de ahorro a corto y largo plazo',
+      'Comparativa mensual en tiempo real',
+    ],
+  },
+  {
+    id: 'multimoneda',
+    title: '💵 Resumen Multimoneda & Cuentas',
+    shortName: '4. Multimoneda',
+    badge: 'Dólares / Pesos',
+    description:
+      'Control unificado de tus activos y ahorros en Pesos Argentinos, Dólares billete, billeteras virtuales o cuentas bancarias con valor patrimonial consolidado.',
+    features: [
+      'Control diferenciado de Pesos y Dólares',
+      'Consolidación de patrimonio total',
+      'Histórico de evolución mensual',
+    ],
+  },
+];
+
 export default function SolutionDetailClient({ solution }: SolutionDetailClientProps) {
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentCurrency, setPaymentCurrency] = useState<'ARS' | 'USD'>('ARS');
+  const [activeSheetIndex, setActiveSheetIndex] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -321,6 +377,115 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
               <p className={styles.fullDescriptionText}>{solution.fullDescription}</p>
             </div>
 
+            {/* SPREADSHEET FEATURING TOUR (FOR FINANZAS EN ORDEN) */}
+            {isExcel && (
+              <div className={styles.descriptionSection} style={{ marginTop: '2.5rem' }}>
+                <h3 className={styles.sectionHeading}>
+                  <FileSpreadsheet size={20} className={styles.sectionHeadingIcon} />
+                  <span>Recorrido por las Hojas de la Planilla</span>
+                </h3>
+                <p className={styles.fullDescriptionText} style={{ marginBottom: '1.25rem' }}>
+                  Conocé en detalle la estructura de cada pestaña diseñada para darte claridad absoluta sobre tu dinero:
+                </p>
+
+                {/* Sheet Selector Tabs */}
+                <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', marginBottom: '16px' }}>
+                  {spreadsheetSheets.map((sheet, idx) => (
+                    <button
+                      key={sheet.id}
+                      type="button"
+                      onClick={() => setActiveSheetIndex(idx)}
+                      style={{
+                        padding: '8px 14px',
+                        borderRadius: '10px',
+                        fontSize: '12px',
+                        fontWeight: 700,
+                        border: '1px solid',
+                        borderColor: activeSheetIndex === idx ? '#1C4D37' : '#CBD5E1',
+                        backgroundColor: activeSheetIndex === idx ? '#1C4D37' : '#F8FAFC',
+                        color: activeSheetIndex === idx ? '#FFFFFF' : '#475569',
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        transition: 'all 0.15s ease',
+                      }}
+                    >
+                      {sheet.shortName}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Active Sheet Card */}
+                {(() => {
+                  const activeSheet = spreadsheetSheets[activeSheetIndex] || spreadsheetSheets[0]!;
+                  return (
+                    <div style={{
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #C2E0D1',
+                      borderRadius: '16px',
+                      padding: '20px',
+                      boxShadow: '0 4px 16px rgba(28, 77, 55, 0.05)',
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '8px' }}>
+                        <h4 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1C4D37', margin: 0 }}>
+                          {activeSheet.title}
+                        </h4>
+                        <span style={{
+                          fontSize: '11px',
+                          fontWeight: 800,
+                          backgroundColor: '#F0F7F4',
+                          color: '#1C4D37',
+                          padding: '3px 10px',
+                          borderRadius: '999px',
+                          border: '1px solid #C2E0D1',
+                        }}>
+                          {activeSheet.badge}
+                        </span>
+                      </div>
+
+                      <p style={{ fontSize: '0.9rem', color: '#334155', lineHeight: 1.6, margin: '0 0 16px 0' }}>
+                        {activeSheet.description}
+                      </p>
+
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
+                        {activeSheet.features.map((feat, fIdx) => (
+                          <span key={fIdx} style={{
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            color: '#1C4D37',
+                            backgroundColor: '#F0F7F4',
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '6px',
+                          }}>
+                            ✓ {feat}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                        backgroundColor: '#F8FAFC',
+                        border: '2px dashed #CBD5E1',
+                        padding: '24px 16px',
+                        textAlign: 'center',
+                        color: '#64748B',
+                        fontSize: '0.85rem',
+                      }}>
+                        <div style={{ fontSize: '1.8rem', marginBottom: '6px' }}>📊</div>
+                        <strong style={{ color: '#0D1B2A', display: 'block', marginBottom: '4px' }}>
+                          Captura de Pantalla: {activeSheet.shortName}
+                        </strong>
+                        <span>Espacio listo para insertar la imagen HD de esta solapa.</span>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
             {/* Deliverables List */}
             <div className={styles.deliverablesSection}>
               <h3 className={styles.sectionHeading}>
@@ -548,21 +713,6 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
 
                 {/* Contact Form */}
                 <form onSubmit={handleSubmitOrder} className={styles.checkoutForm}>
-                  {user && (
-                    <div style={{
-                      padding: '0.6rem 0.85rem',
-                      backgroundColor: '#ECFDF5',
-                      border: '1px solid #A7F3D0',
-                      borderRadius: '8px',
-                      fontSize: '0.82rem',
-                      color: '#065F46',
-                      fontWeight: 600,
-                      marginBottom: '0.5rem'
-                    }}>
-                      ✓ Sesión activa como <strong>{user.name}</strong> ({user.email}). Datos completados automáticamente.
-                    </div>
-                  )}
-
                   {paymentCurrency === 'USD' && (
                     <div style={{
                       padding: '0.85rem 1rem',
