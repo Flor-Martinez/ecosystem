@@ -11,6 +11,8 @@ import {
   ArrowRight,
   Briefcase,
   Settings,
+  MessageSquare,
+  Star,
 } from 'lucide-react';
 import { adminLogoutAction } from '@/actions/licenses';
 import { logoutUserAction } from '@/actions/auth';
@@ -24,6 +26,10 @@ interface AdminDashboardClientProps {
   pendingCvOrdersCount?: number;
   totalCustomersCount: number;
   totalRevenueARS: number;
+  pendingContactCount?: number;
+  totalContactCount?: number;
+  totalReviewsCount?: number;
+  averageRating?: number;
 }
 
 export default function AdminDashboardClient({
@@ -33,6 +39,10 @@ export default function AdminDashboardClient({
   pendingCvOrdersCount = 0,
   totalCustomersCount,
   totalRevenueARS,
+  pendingContactCount = 0,
+  totalContactCount = 0,
+  totalReviewsCount = 0,
+  averageRating = 5.0,
 }: AdminDashboardClientProps) {
   const { logout } = useEcosystemAuth();
 
@@ -212,6 +222,98 @@ export default function AdminDashboardClient({
 
               <Link href="/admin/cvs" className={styles.accessBtn}>
                 <span>Ver Menú Te Hago Tu CV</span>
+                <ArrowRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* SECCIÓN 3: COMUNICACIÓN & RESEÑAS */}
+        <section className={styles.adminSection}>
+          <h2 className={styles.sectionHeading}>
+            <MessageSquare size={20} />
+            <span>Comunicación & Reseñas</span>
+          </h2>
+
+          <div className={styles.cardsGrid}>
+            {/* CARD CONSULTAS */}
+            <div className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.cardIconWrap}>
+                  <MessageSquare size={22} />
+                </div>
+                <div>
+                  <h3 className={styles.cardTitle}>Consultas Web & Mensajes</h3>
+                  <p className={styles.miniDesc}>
+                    Bandeja de entrada de mensajes de contacto y consultas directas de clientes.
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.statsInlineRow}>
+                <div className={styles.statItem}>
+                  <span className={styles.statLabel}>Mensajes Recibidos</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className={styles.statValue}>{totalContactCount}</span>
+                    {pendingContactCount > 0 ? (
+                      <span style={{
+                        fontSize: '12px',
+                        fontWeight: 800,
+                        color: '#991B1B',
+                        backgroundColor: '#FEE2E2',
+                        padding: '2px 8px',
+                        borderRadius: '999px',
+                        border: '1px solid #FCA5A5'
+                      }}>
+                        {pendingContactCount} pendientes
+                      </span>
+                    ) : (
+                      <span style={{
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: '#065F46',
+                        backgroundColor: '#D1FAE5',
+                        padding: '2px 6px',
+                        borderRadius: '999px'
+                      }}>
+                        0 pendientes
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <Link href="/admin/consultas" className={styles.accessBtn}>
+                <span>Ver Mensajes Directos</span>
+                <ArrowRight size={15} />
+              </Link>
+            </div>
+
+            {/* CARD OPINIONES */}
+            <div className={styles.card}>
+              <div className={styles.cardHeader}>
+                <div className={styles.cardIconWrap}>
+                  <Star size={22} />
+                </div>
+                <div>
+                  <h3 className={styles.cardTitle}>Opiniones & Reseñas</h3>
+                  <p className={styles.miniDesc}>
+                    Moderación de testimonios, visibilidad en el sitio y carga manual de reseñas.
+                  </p>
+                </div>
+              </div>
+
+              <div className={styles.statsInlineRow}>
+                <div className={styles.statItem}>
+                  <span className={styles.statLabel}>Reseñas Registradas</span>
+                  <span className={styles.statValue}>
+                    {totalReviewsCount} (⭐ {averageRating})
+                  </span>
+                </div>
+              </div>
+
+              <Link href="/admin/opiniones" className={styles.accessBtn}>
+                <span>Gestionar Opiniones</span>
                 <ArrowRight size={15} />
               </Link>
             </div>

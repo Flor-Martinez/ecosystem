@@ -10,8 +10,11 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import styles from './ContactSection.module.css';
 
+import { createContactSubmissionAction } from '@/actions/contactSubmissions';
+
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     nombre: '',
     email: '',
@@ -19,9 +22,22 @@ export function ContactSection() {
     mensaje: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      await createContactSubmissionAction({
+        name: formData.nombre,
+        email: formData.email,
+        motivo: formData.motivo,
+        mensaje: formData.mensaje,
+      });
+      setSubmitted(true);
+    } catch {
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
