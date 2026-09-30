@@ -75,8 +75,8 @@ export async function POST(request: Request) {
       params.append('line_items[0][quantity]', '1');
       params.append('mode', 'payment');
       params.append('customer_email', customerEmail);
-      params.append('success_url', `${origin}/soluciones/${solution.slug}?payment=success&ref=${refCode}`);
-      params.append('cancel_url', `${origin}/soluciones/${solution.slug}?payment=cancelled`);
+      params.append('success_url', `${origin}/${solution.slug}?payment=success&ref=${refCode}`);
+      params.append('cancel_url', `${origin}/${solution.slug}?payment=cancelled`);
       params.append('client_reference_id', refCode || 'REF');
 
       const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {

@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const solutionRoutes: MetadataRoute.Sitemap = solutionsData.map((item) => ({
-    url: `${baseUrl}/soluciones/${item.slug}`,
+    url: `${baseUrl}/${item.slug}`,
     lastModified: new Date(),
     changeFrequency: 'daily',
     priority: 0.9,

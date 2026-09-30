@@ -85,9 +85,9 @@ export async function POST(request: Request) {
           phone: customerWhatsapp ? { number: customerWhatsapp } : undefined,
         },
         back_urls: {
-          success: `${origin}/soluciones/${solution.slug}?payment=success&ref=${refCode}`,
-          failure: `${origin}/soluciones/${solution.slug}?payment=failure`,
-          pending: `${origin}/soluciones/${solution.slug}?payment=pending`,
+          success: `${origin}/${solution.slug}?payment=success&ref=${refCode}`,
+          failure: `${origin}/${solution.slug}?payment=failure`,
+          pending: `${origin}/${solution.slug}?payment=pending`,
         },
         auto_return: 'approved',
         external_reference: refCode,

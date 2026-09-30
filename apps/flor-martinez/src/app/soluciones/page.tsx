@@ -126,7 +126,7 @@ export default function SolucionesPage() {
                     <div className={styles.cardBody}>
                       <span className={styles.categoryLabel}>{item.category}</span>
                       <h2 className={styles.itemTitle}>
-                        <Link href={`/soluciones/${item.slug}`}>{item.title}</Link>
+                        <Link href={`/${item.slug}`}>{item.title}</Link>
                       </h2>
                       <p className={styles.itemTagline}>{item.tagline}</p>
 
@@ -177,7 +177,7 @@ export default function SolucionesPage() {
                       </div>
 
                       <Link
-                        href={`/soluciones/${item.slug}`}
+                        href={`/${item.slug}`}
                         className={`${styles.detailsCtaBtn} ${
                           isExcel ? styles.btnExcel : styles.btnCv
                         }`}

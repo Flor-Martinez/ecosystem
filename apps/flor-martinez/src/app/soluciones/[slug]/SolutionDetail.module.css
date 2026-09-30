@@ -1015,3 +1015,49 @@
   font-weight: 600;
   margin-bottom: 0.75rem;
 }
+
+/* Mobile Optimization Refinements */
+@media (max-width: 640px) {
+  .main {
+    padding-bottom: 3rem;
+  }
+  .detailTitle {
+    font-size: 1.6rem !important;
+  }
+  .detailTagline {
+    font-size: 0.98rem;
+  }
+  .descriptionSection,
+  .deliverablesSection,
+  .processSection,
+  .faqSection {
+    padding: 1.25rem !important;
+    border-radius: 1rem !important;
+  }
+  .stickySidebarCard {
+    position: relative !important;
+    top: 0 !important;
+    padding: 1.25rem !important;
+    border-radius: 1rem !important;
+  }
+  .modalOverlay {
+    padding: 0.75rem !important;
+  }
+  .modalBox {
+    padding: 1.25rem !important;
+    max-height: 94vh !important;
+    border-radius: 1.15rem !important;
+  }
+  .paymentTabs {
+    gap: 0.5rem;
+  }
+  .paymentTabBtn {
+    padding: 0.65rem 0.5rem;
+  }
+  .tabTitle {
+    font-size: 0.82rem;
+  }
+  .mainPriceARS {
+    font-size: 1.8rem !important;
+  }
+}
