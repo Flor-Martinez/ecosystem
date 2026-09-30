@@ -178,9 +178,14 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
             copyUrl: 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/copy',
           });
         }
+        if (isCv && ref) {
+          setCreatedCvOrder({
+            orderNumber: ref,
+          });
+        }
       }
     }
-  }, [isExcel]);
+  }, [isExcel, isCv]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
