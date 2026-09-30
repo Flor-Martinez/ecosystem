@@ -6,7 +6,7 @@ import { trackUserSignup } from './metrics';
 
 const SESSION_COOKIE = 'fm_session_token';
 
-export async function loginUserAction(email: string, name?: string, avatarUrl?: string) {
+export async function loginUserAction(email: string, name?: string, avatarUrl?: string, _password?: string) {
   if (!email || !email.includes('@')) {
     return { success: false, error: 'Ingresá un correo electrónico válido.' };
   }
@@ -16,15 +16,13 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
     const namePart = formattedEmail.split('@')[0] || 'Usuario';
     const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
 
-    // Track user in metrics fallback
+    // Track user in metrics & users JSON fallback DB
     await trackUserSignup(formattedName, formattedEmail);
     let user = await db.user.findUnique({
       where: { email: formattedEmail },
     });
 
     if (!user) {
-      const namePart = formattedEmail.split('@')[0] || 'Usuario';
-      const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
       user = await db.user.create({
         data: {
           email: formattedEmail,
@@ -116,13 +114,16 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
   }
 }
 
-export async function registerUserAction(name: string, email: string) {
+export async function registerUserAction(name: string, email: string, _password?: string) {
   if (!name || !email) {
     return { success: false, error: 'Todos los campos son obligatorios.' };
   }
 
+  const formattedEmail = email.toLowerCase().trim();
+  const formattedName = name.trim();
+  await trackUserSignup(formattedName, formattedEmail);
+
   try {
-    const formattedEmail = email.toLowerCase().trim();
     const existing = await db.user.findUnique({ where: { email: formattedEmail } });
     if (existing) {
       return loginUserAction(formattedEmail);

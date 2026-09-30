@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Star, MessageSquare, Send, Check } from 'lucide-react';
+import { Star, MessageSquare, Send, Check, Eye, EyeOff, Trash2, ShieldCheck } from 'lucide-react';
+import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './SolutionReviewsSection.module.css';
 
 interface Review {
@@ -10,6 +11,7 @@ interface Review {
   customerName: string;
   rating: number;
   text: string;
+  isHidden?: boolean;
   createdAt: string;
 }
 
@@ -22,6 +24,7 @@ const SolutionReviewsSection = React.memo(function SolutionReviewsSection({
   solutionSlug,
   initialUser,
 }: SolutionReviewsSectionProps) {
+  const { isSuperAdmin } = useEcosystemAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -40,23 +43,24 @@ const SolutionReviewsSection = React.memo(function SolutionReviewsSection({
     }
   }, [initialUser, name]);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const res = await fetch(`/api/solutions/reviews?slug=${encodeURIComponent(solutionSlug)}`);
-        const data = await res.json();
-        if (data.success && Array.isArray(data.reviews)) {
-          setReviews(data.reviews);
-        }
-      } catch (err) {
-        console.error('Error al cargar opiniones:', err);
-      } finally {
-        setIsLoading(false);
+  const fetchReviews = async () => {
+    try {
+      const adminParam = isSuperAdmin ? '&admin=true' : '';
+      const res = await fetch(`/api/solutions/reviews?slug=${encodeURIComponent(solutionSlug)}${adminParam}`);
+      const data = await res.json();
+      if (data.success && Array.isArray(data.reviews)) {
+        setReviews(data.reviews);
       }
-    };
+    } catch (err) {
+      console.error('Error al cargar opiniones:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchReviews();
-  }, [solutionSlug]);
+  }, [solutionSlug, isSuperAdmin]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,12 +100,65 @@ const SolutionReviewsSection = React.memo(function SolutionReviewsSection({
     }
   };
 
+  const handleToggleHide = async (id: string) => {
+    try {
+      const res = await fetch('/api/solutions/reviews', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      const data = await res.json();
+      if (data.success && data.review) {
+        setReviews(reviews.map((r) => (r.id === id ? data.review : r)));
+      } else {
+        alert(data.error || 'Error al cambiar visibilidad.');
+      }
+    } catch {
+      alert('Error de conexión al modificar visibilidad.');
+    }
+  };
+
+  const handleDelete = async (id: string, authorName: string) => {
+    if (!confirm(`¿Estás seguro de eliminar la opinión de "${authorName}"?`)) return;
+
+    try {
+      const res = await fetch(`/api/solutions/reviews?id=${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success) {
+        setReviews(reviews.filter((r) => r.id !== id));
+      } else {
+        alert(data.error || 'Error al eliminar.');
+      }
+    } catch {
+      alert('Error de conexión al eliminar la opinión.');
+    }
+  };
+
   return (
     <section className={styles.sectionContainer}>
       <div className={styles.sectionHeader}>
         <div className={styles.titleRow}>
           <MessageSquare size={22} className={styles.sectionIcon} />
           <h3 className={styles.sectionTitle}>Opiniones y Experiencias de Clientes</h3>
+          {isSuperAdmin && (
+            <span style={{
+              fontSize: '11px',
+              fontWeight: 800,
+              backgroundColor: '#0D1B2A',
+              color: '#FFFFFF',
+              padding: '3px 9px',
+              borderRadius: '999px',
+              marginLeft: 'auto',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <ShieldCheck size={12} />
+              Modo Superadmin Activo
+            </span>
+          )}
         </div>
         <p className={styles.sectionSubtitle}>
           Conocé los resultados reales de profesionales y emprendedores que ya aplicaron esta herramienta.
@@ -113,40 +170,106 @@ const SolutionReviewsSection = React.memo(function SolutionReviewsSection({
         <div className={styles.emptyState}>Cargando opiniones...</div>
       ) : reviews.length > 0 ? (
         <div className={styles.reviewsGrid}>
-          {reviews.map((rev) => (
-            <div key={rev.id} className={styles.reviewCard}>
-              <div className={styles.cardHeader}>
-                <div className={styles.authorInfo}>
-                  <div className={styles.avatarCircle}>
-                    {rev.customerName.charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <div className={styles.authorName}>{rev.customerName}</div>
-                    <div className={styles.reviewDate}>
-                      {new Date(rev.createdAt).toLocaleDateString('es-AR', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric',
-                      })}
+          {reviews.map((rev) => {
+            const isHidden = !!rev.isHidden;
+            return (
+              <div
+                key={rev.id}
+                className={styles.reviewCard}
+                style={isHidden ? { opacity: 0.8, backgroundColor: '#FFFBEB', borderColor: '#FDE68A' } : undefined}
+              >
+                <div className={styles.cardHeader}>
+                  <div className={styles.authorInfo}>
+                    <div className={styles.avatarCircle}>
+                      {rev.customerName.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <div className={styles.authorName}>{rev.customerName}</div>
+                      <div className={styles.reviewDate}>
+                        {new Date(rev.createdAt).toLocaleDateString('es-AR', {
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })}
+                      </div>
                     </div>
                   </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div className={styles.starsRow}>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star
+                          key={star}
+                          size={14}
+                          fill={star <= rev.rating ? '#F59E0B' : 'transparent'}
+                          color={star <= rev.rating ? '#F59E0B' : '#CBD5E1'}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Superadmin Moderation Icons */}
+                    {isSuperAdmin && (
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginLeft: '6px' }}>
+                        <button
+                          type="button"
+                          onClick={() => handleToggleHide(rev.id)}
+                          style={{
+                            background: isHidden ? '#FEF3C7' : '#F1F5F9',
+                            border: '1px solid #CBD5E1',
+                            borderRadius: '6px',
+                            padding: '4px 6px',
+                            cursor: 'pointer',
+                            color: isHidden ? '#D97706' : '#475569',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                          }}
+                          title={isHidden ? 'Mostrar reseña públicamente' : 'Ocultar de la web (mantiene rating)'}
+                        >
+                          {isHidden ? <Eye size={14} /> : <EyeOff size={14} />}
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(rev.id, rev.customerName)}
+                          style={{
+                            background: '#FEE2E2',
+                            border: '1px solid #FCA5A5',
+                            borderRadius: '6px',
+                            padding: '4px 6px',
+                            cursor: 'pointer',
+                            color: '#DC2626',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                          }}
+                          title="Eliminar reseña definitivamente"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                <div className={styles.starsRow}>
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star
-                      key={star}
-                      size={14}
-                      fill={star <= rev.rating ? '#F59E0B' : 'transparent'}
-                      color={star <= rev.rating ? '#F59E0B' : '#CBD5E1'}
-                    />
-                  ))}
-                </div>
+                {isHidden && (
+                  <div style={{
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: '#92400E',
+                    backgroundColor: '#FEF3C7',
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    alignSelf: 'flex-start',
+                    marginTop: '-4px',
+                    marginBottom: '4px'
+                  }}>
+                    🙈 Reseña Oculta (Visible solo para Superadmin — Sigue sumando a la puntuación general)
+                  </div>
+                )}
+
+                <p className={styles.reviewText}>&ldquo;{rev.text}&rdquo;</p>
               </div>
-
-              <p className={styles.reviewText}>&ldquo;{rev.text}&rdquo;</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div className={styles.emptyState}>

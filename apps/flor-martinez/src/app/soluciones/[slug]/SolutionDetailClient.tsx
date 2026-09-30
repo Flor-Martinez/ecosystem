@@ -6,7 +6,6 @@ import {
   ArrowLeft,
   CheckCircle2,
   Clock,
-  Star,
   ShieldCheck,
   PlayCircle,
   ShoppingBag,
@@ -20,11 +19,14 @@ import {
   Zap,
   ExternalLink,
   Download,
+  Send,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SolutionItem } from '@/data/solutions';
-import { issueLicenseAction } from '@/actions/licenses';
 import { useAuth } from '@/context/AuthContext';
+import { createContactSubmissionAction } from '@/actions/contactSubmissions';
+import { createCvOrderAction } from '@/actions/cvOrders';
+import { issueLicenseAction } from '@/actions/licenses';
 import SolutionReviewsSection from '@/components/solutions/SolutionReviewsSection';
 import styles from './SolutionDetail.module.css';
 
@@ -40,6 +42,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
     name: '',
     email: '',
     whatsapp: '',
+    country: '',
     cvDetails: '',
   });
 
@@ -52,8 +55,10 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
       }));
     }
   }, [user]);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isInternationalSuccess, setIsInternationalSuccess] = useState(false);
   const [issuedLicense, setIssuedLicense] = useState<{
     licenseKey: string;
     copyUrl: string;
@@ -106,6 +111,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
   const handleOpenModal = () => {
     setIsModalOpen(true);
     setIsSuccess(false);
+    setIsInternationalSuccess(false);
     setIssuedLicense(null);
     setCreatedCvOrder(null);
   };
@@ -138,19 +144,64 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
       return;
     }
 
-    if (isCv && !cvFileData) {
+    if (paymentCurrency === 'USD' && !formData.country.trim()) {
+      setErrorMessage('Tu País de Residencia es obligatorio para gestionar tu pedido internacional.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (isCv && !cvFileData && paymentCurrency === 'ARS') {
       setErrorMessage('Adjuntar tu CV actual en formato PDF, Word o Imagen es obligatorio.');
       setIsSubmitting(false);
       return;
     }
 
-    try {
-      const endpoint =
-        paymentCurrency === 'ARS'
-          ? '/api/checkout/mercadopago'
-          : '/api/checkout/stripe';
+    // SI ES PAGO INTERNACIONAL (USD) -> Registrar solicitud y notificar por WhatsApp
+    if (paymentCurrency === 'USD') {
+      try {
+        const fullMessage = `Solicitud de compra internacional desde ${formData.country.trim()}.
+Producto/Servicio: ${solution.title} (USD $${solution.priceUSD}).
+Cliente: ${formData.name.trim()} (${formData.email.trim()}).
+WhatsApp: ${formData.whatsapp.trim()}.
+${formData.cvDetails ? 'Notas: ' + formData.cvDetails.trim() : ''}
+${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
 
-      const response = await fetch(endpoint, {
+        // 1. Guardar en consultas de contacto para el Superadmin
+        await createContactSubmissionAction({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          motivo: `Pedido Internacional (${formData.country.trim()})`,
+          mensaje: fullMessage,
+        });
+
+        // 2. Si es CV, registrar el orden en cvOrders como PENDIENTE canal WHATSAPP
+        if (isCv) {
+          await createCvOrderAction({
+            customerName: formData.name.trim(),
+            customerEmail: formData.email.trim(),
+            customerPhone: formData.whatsapp.trim(),
+            channel: 'WHATSAPP',
+            priceARS: solution.priceARS,
+            status: 'PENDIENTE',
+            notes: `[INTERNACIONAL - ${formData.country.trim()}] ${formData.cvDetails || ''}`,
+            cvFileName,
+            cvFileData,
+          });
+        }
+
+        setIsInternationalSuccess(true);
+      } catch (err) {
+        console.error('Error al registrar pedido internacional:', err);
+        setErrorMessage('Ocurrió un error al registrar tu solicitud. Por favor intenta nuevamente.');
+      } finally {
+        setIsSubmitting(false);
+      }
+      return;
+    }
+
+    // SI ES PAGO NACIONAL (ARS) -> Mercado Pago checkout
+    try {
+      const response = await fetch('/api/checkout/mercadopago', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -161,7 +212,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
           customerCvDetails: formData.cvDetails,
           cvFileName,
           cvFileData,
-          currency: paymentCurrency,
+          currency: 'ARS',
         }),
       });
 
@@ -387,7 +438,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               </div>
 
               <div className={styles.paymentBadgesRow}>
-                <span>Mercado Pago</span> • <span>Tarjetas</span> • <span>PayPal / Stripe</span>
+                <span>Mercado Pago</span> • <span>Tarjetas</span> • <span>Transferencia / Pago Internacional</span>
               </div>
             </div>
           </div>
@@ -410,7 +461,44 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
               ✕
             </button>
 
-            {!isSuccess ? (
+            {isInternationalSuccess ? (
+              /* International Order Request Success View */
+              <div className={styles.successModalBox}>
+                <div className={styles.successIconWrapper} style={{ backgroundColor: '#EFF6FF', color: '#1D4ED8' }}>
+                  <Check size={32} />
+                </div>
+                <h3 className={styles.successTitle}>¡Solicitud Internacional Recibida!</h3>
+                <p className={styles.successText}>
+                  ¡Muchas gracias <strong>{formData.name}</strong>! Recibimos tu solicitud para adquirir{' '}
+                  <strong>{solution.title}</strong> desde <strong>{formData.country}</strong>.
+                </p>
+
+                <div style={{
+                  backgroundColor: '#EFF6FF',
+                  border: '1px solid #BFDBFE',
+                  borderRadius: '12px',
+                  padding: '1.25rem',
+                  marginTop: '1.25rem',
+                  textAlign: 'left',
+                  fontSize: '0.88rem',
+                  color: '#1E40AF'
+                }}>
+                  <strong style={{ display: 'block', marginBottom: '0.4rem', fontSize: '0.95rem' }}>📱 Coordinación por WhatsApp Business:</strong>
+                  <p style={{ color: '#1E3A8A', lineHeight: 1.55, margin: 0 }}>
+                    Nos contactaremos a tu número <strong>{formData.whatsapp}</strong> para enviarte los medios de pago internacionales acordes a tu país ({formData.country}) y habilitar tu acceso o servicio de inmediato.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleCloseModal}
+                  className={styles.closeSuccessBtn}
+                  style={{ backgroundColor: '#0D1B2A', marginTop: '1.5rem' }}
+                >
+                  Entendido, volver a la página
+                </button>
+              </div>
+            ) : !isSuccess ? (
               <>
                 <h3 className={styles.modalTitle}>Confirmar y Adquirir</h3>
                 <p className={styles.modalSubtitle}>
@@ -453,8 +541,8 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                     onClick={() => setPaymentCurrency('USD')}
                   >
                     <Globe size={18} />
-                    <span className={styles.tabTitle}>USD Internacional</span>
-                    <span className={styles.tabSub}>PayPal / Stripe</span>
+                    <span className={styles.tabTitle}>¿No sos de Argentina?</span>
+                    <span className={styles.tabSub}>Solicitar por WhatsApp</span>
                   </button>
                 </div>
 
@@ -475,6 +563,21 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                     </div>
                   )}
 
+                  {paymentCurrency === 'USD' && (
+                    <div style={{
+                      padding: '0.85rem 1rem',
+                      backgroundColor: '#EFF6FF',
+                      border: '1px solid #BFDBFE',
+                      borderRadius: '0.75rem',
+                      fontSize: '0.84rem',
+                      color: '#1E40AF',
+                      lineHeight: 1.5,
+                      marginBottom: '0.5rem'
+                    }}>
+                      🌐 <strong>Pedido Internacional:</strong> Dejanos tu WhatsApp con código de país y tu País de Residencia. Te contactaremos por <strong>WhatsApp Business</strong> para indicarte las formas de pago en tu moneda local y entregarte tu pedido.
+                    </div>
+                  )}
+
                   <div className={styles.formGroup}>
                     <label htmlFor="customerName">Nombre Completo *</label>
                     <input
@@ -489,7 +592,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="customerEmail">Correo Electrónico (para recibir la entrega) *</label>
+                    <label htmlFor="customerEmail">Correo Electrónico *</label>
                     <input
                       id="customerEmail"
                       type="email"
@@ -502,26 +605,41 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="customerWhatsapp">WhatsApp (Obligatorio para la entrega) *</label>
+                    <label htmlFor="customerWhatsapp">WhatsApp *</label>
                     <input
                       id="customerWhatsapp"
                       type="tel"
                       required
-                      placeholder="+54 9 11 1234-5678"
+                      placeholder={paymentCurrency === 'USD' ? '+598 99 123 456' : '+54 9 11 1234-5678'}
                       value={formData.whatsapp}
                       onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                       className={styles.formInput}
                     />
                   </div>
 
+                  {paymentCurrency === 'USD' && (
+                    <div className={styles.formGroup}>
+                      <label htmlFor="customerCountry">País de Residencia *</label>
+                      <input
+                        id="customerCountry"
+                        type="text"
+                        required
+                        placeholder="Ej. Uruguay, Chile, España, EE.UU..."
+                        value={formData.country}
+                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                        className={styles.formInput}
+                      />
+                    </div>
+                  )}
+
                   {isCv && (
                     <>
                       <div className={styles.formGroup}>
-                        <label htmlFor="customerCvFile">CV Actual (PDF, Word o Imagen) *</label>
+                        <label htmlFor="customerCvFile">CV Actual (PDF, Word o Imagen) {paymentCurrency === 'ARS' ? '*' : '(Opcional)'}</label>
                         <input
                           id="customerCvFile"
                           type="file"
-                          required
+                          required={paymentCurrency === 'ARS'}
                           accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
                           onChange={handleFileChange}
                           className={styles.formInput}
@@ -559,16 +677,17 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                     {isSubmitting ? (
                       <>
                         <span className={styles.btnSpinner} />
-                        <span>Conectando con {paymentCurrency === 'ARS' ? 'Mercado Pago' : 'Stripe'}...</span>
+                        <span>Procesando solicitud...</span>
+                      </>
+                    ) : paymentCurrency === 'USD' ? (
+                      <>
+                        <Send size={16} />
+                        <span>Solicitar Pedido Internacional por WhatsApp</span>
                       </>
                     ) : (
                       <>
                         <Lock size={16} />
-                        <span>
-                          {paymentCurrency === 'ARS'
-                            ? `Pagar $${solution.priceARS.toLocaleString('es-AR')} ARS con Mercado Pago`
-                            : `Pagar USD $${solution.priceUSD} con Stripe`}
-                        </span>
+                        <span>Pagar ${solution.priceARS.toLocaleString('es-AR')} ARS</span>
                       </>
                     )}
                   </button>

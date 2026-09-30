@@ -80,8 +80,13 @@ export async function getSolutionReviewsAction(slug?: string, includeHidden = fa
 }> {
   try {
     const all = readReviews();
-    const targetReviews = slug
-      ? all.filter((r) => r.solutionSlug === slug || (slug === 'finanzas-en-orden' && r.solutionSlug === 'organizador-de-finanzas'))
+    const normalizedTarget = slug === 'organizador-de-finanzas' ? 'finanzas-en-orden' : slug;
+
+    const targetReviews = normalizedTarget
+      ? all.filter((r) => {
+          const rSlug = r.solutionSlug === 'organizador-de-finanzas' ? 'finanzas-en-orden' : r.solutionSlug;
+          return rSlug === normalizedTarget;
+        })
       : all;
 
     const totalReviews = targetReviews.length;
