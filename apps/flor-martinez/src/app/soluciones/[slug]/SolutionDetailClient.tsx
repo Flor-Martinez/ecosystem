@@ -40,6 +40,7 @@ const spreadsheetSheets = [
     title: '📊 Dashboard (Tablero Ejecutivo & Métricas)',
     shortName: '1. Dashboard',
     badge: 'Vista Principal',
+    image: '/images/finanzas-en-orden/dashboard.png',
     description:
       'Tablero automatizado con gráficos interactivos de barras y torta. Te muestra al instante tus ingresos totales, distribución de gastos por rubro, tasa de ahorro libre y evolución mensual sin tocar ninguna fórmula.',
     features: [
@@ -53,6 +54,7 @@ const spreadsheetSheets = [
     title: '💳 Movimientos (Control Diario de Ingresos y Gastos)',
     shortName: '2. Movimientos',
     badge: 'Carga Inteligente',
+    image: '/images/finanzas-en-orden/movimientos.png',
     description:
       'Pestaña limpia e intuitiva donde registrás cada ingreso y gasto diario. Seleccionás la categoría desde menús desplegables inteligentes; la planilla suma y consolida todo automáticamente.',
     features: [
@@ -66,6 +68,7 @@ const spreadsheetSheets = [
     title: '🎯 Metas (Presupuestos & Objetivos Financieros)',
     shortName: '3. Metas',
     badge: 'Planificación',
+    image: '/images/finanzas-en-orden/metas.png',
     description:
       'Establecé límites de gasto mensual para cada categoría y da seguimiento a tus objetivos de ahorro a corto y largo plazo con alertas visuales de desviación.',
     features: [
@@ -79,6 +82,7 @@ const spreadsheetSheets = [
     title: '🐜 Gastos Hormiga (Tracker de Pequeños Consumos)',
     shortName: '4. Gastos Hormiga',
     badge: 'Control Fino',
+    image: '/images/finanzas-en-orden/gastos-hormiga.png',
     description:
       'Detector exclusivo de gastos invisibles o goteos diarios (cafés, delivery, suscripciones olvidadas) para identificar exactamente por dónde se fuga tu dinero sin darte cuenta.',
     features: [
@@ -92,6 +96,7 @@ const spreadsheetSheets = [
     title: '📈 Informe Detallado (Reporte Consolidado & Análisis)',
     shortName: '5. Informe Detallado',
     badge: 'Análisis Pro',
+    image: '/images/finanzas-en-orden/informe-detallado.png',
     description:
       'Reporte ejecutivo consolidado con desglose profundo de tu patrimonio, comparativas históricas entre meses y resumen financiero para tomar decisiones inteligentes.',
     features: [
@@ -358,7 +363,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
             </div>
 
             {/* Video Explainer Section */}
-            {solution.videoUrl && (
+            {solution.videoUrl ? (
               <div className={styles.videoContainerCard}>
                 <div className={styles.videoHeader}>
                   <PlayCircle size={20} className={styles.videoIcon} />
@@ -379,7 +384,43 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                   Descubrí en este breve video de 2 minutos exactamente cómo funciona y cómo va a ayudarte.
                 </p>
               </div>
-            )}
+            ) : isExcel ? (
+              <div style={{
+                marginBottom: '2rem',
+                borderRadius: '16px',
+                overflow: 'hidden',
+                border: '1px solid #CBD5E1',
+                boxShadow: '0 10px 25px -5px rgba(15, 23, 42, 0.08)',
+                backgroundColor: '#0F172A',
+              }}>
+                <div style={{
+                  padding: '10px 16px',
+                  backgroundColor: '#0F172A',
+                  color: '#FFFFFF',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderBottom: '1px solid #1E293B',
+                  fontSize: '0.82rem',
+                  fontWeight: 600,
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                      <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                      <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: '#10B981' }} />
+                    </div>
+                    <span style={{ color: '#E2E8F0', fontSize: '0.8rem' }}>Google Sheets &bull; Finanzas en Orden</span>
+                  </div>
+                  <span style={{ fontSize: '0.75rem', color: '#38BDF8', fontWeight: 700 }}>5 Solapas Automatizadas</span>
+                </div>
+                <img
+                  src="/images/finanzas-en-orden/dashboard.png"
+                  alt="Vista previa oficial del Dashboard Finanzas en Orden"
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                />
+              </div>
+            ) : null}
 
             {/* Detailed Description */}
             <div className={styles.descriptionSection}>
@@ -477,21 +518,46 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                         ))}
                       </div>
 
+                      {/* Real Sheet HD Screenshot */}
                       <div style={{
                         width: '100%',
                         borderRadius: '12px',
-                        backgroundColor: '#F8FAFC',
-                        border: '2px dashed #CBD5E1',
-                        padding: '24px 16px',
-                        textAlign: 'center',
-                        color: '#64748B',
-                        fontSize: '0.85rem',
+                        overflow: 'hidden',
+                        border: '1px solid #CBD5E1',
+                        boxShadow: '0 4px 16px rgba(15, 23, 42, 0.06)',
+                        backgroundColor: '#0F172A',
                       }}>
-                        <div style={{ fontSize: '1.8rem', marginBottom: '6px' }}>📊</div>
-                        <strong style={{ color: '#0D1B2A', display: 'block', marginBottom: '4px' }}>
-                          Captura de Pantalla: {activeSheet.shortName}
-                        </strong>
-                        <span>Espacio listo para insertar la imagen HD de esta solapa.</span>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '8px 14px',
+                          backgroundColor: '#0F172A',
+                          borderBottom: '1px solid #1E293B',
+                          color: '#94A3B8',
+                          fontSize: '0.75rem',
+                          fontWeight: 600,
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: '#EF4444' }} />
+                            <span style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: '#F59E0B' }} />
+                            <span style={{ width: 9, height: 9, borderRadius: '50%', backgroundColor: '#10B981' }} />
+                            <span style={{ marginLeft: 6, color: '#E2E8F0' }}>{activeSheet.title}</span>
+                          </div>
+                          <span style={{ color: '#38BDF8', fontSize: '0.72rem', letterSpacing: '0.02em' }}>
+                            Captura HD Oficial
+                          </span>
+                        </div>
+                        <img
+                          src={activeSheet.image}
+                          alt={activeSheet.title}
+                          style={{
+                            width: '100%',
+                            height: 'auto',
+                            display: 'block',
+                            backgroundColor: '#FFFFFF',
+                          }}
+                        />
                       </div>
                     </div>
                   );
