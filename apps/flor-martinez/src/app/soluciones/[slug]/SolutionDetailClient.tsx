@@ -404,7 +404,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                 </p>
               </div>
             ) : isExcel ? (
-              <div style={{
+              <div className={styles.heroPreviewCard} style={{
                 marginBottom: '2rem',
                 borderRadius: '16px',
                 overflow: 'hidden',
@@ -452,7 +452,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
 
             {/* SPREADSHEET FEATURING TOUR (FOR FINANZAS EN ORDEN) */}
             {isExcel && (
-              <div className={styles.descriptionSection} style={{ marginTop: '2.5rem' }}>
+              <div className={`${styles.descriptionSection} ${styles.tourSection}`} style={{ marginTop: '2.5rem' }}>
                 <h3 className={styles.sectionHeading}>
                   <FileSpreadsheet size={20} className={styles.sectionHeadingIcon} />
                   <span>Recorrido por las Hojas de la Planilla</span>

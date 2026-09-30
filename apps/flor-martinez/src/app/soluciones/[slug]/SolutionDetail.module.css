@@ -1029,11 +1029,12 @@
   }
 
   .headerBlock {
-    order: 1; /* 1. Title, description, tagline, PC recommendation note */
+    order: 1; /* 1. Title, tagline, PC recommendation card */
   }
 
-  .videoContainerCard {
-    order: 2; /* 2. Image / Video preview */
+  .videoContainerCard,
+  .heroPreviewCard {
+    order: 2; /* 2. Preview image or video card */
   }
 
   .descriptionSection {
@@ -1041,23 +1042,27 @@
   }
 
   .sidebarColumn {
-    order: 4; /* 4. ADQUIRIR PRODUCTO CARD (Price, CTA, Guarantees) */
+    order: 4; /* 4. ADQUIRIR PRODUCTO CARD (Price, CTA button, guarantees) */
+  }
+
+  .tourSection {
+    order: 5; /* 5. Recorrido por las Hojas (spreadsheets) */
   }
 
   .deliverablesSection {
-    order: 5;
+    order: 6; /* 6. Qué vas a recibir */
   }
 
   .processSection {
-    order: 6;
+    order: 7; /* 7. Cómo funciona */
   }
 
   .reviewsSection {
-    order: 7;
+    order: 8; /* 8. Opiniones y Reseñas */
   }
 
   .faqSection {
-    order: 8;
+    order: 9; /* 9. Preguntas Frecuentes */
   }
 }
 
