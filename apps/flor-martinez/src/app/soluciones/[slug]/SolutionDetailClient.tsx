@@ -37,44 +37,44 @@ interface SolutionDetailClientProps {
 const spreadsheetSheets = [
   {
     id: 'dashboard',
-    title: '📊 Dashboard (Tablero Ejecutivo & Métricas)',
+    title: '📊 Dashboard (Tablero General)',
     shortName: '1. Dashboard',
     badge: 'Vista Principal',
     image: '/images/finanzas-en-orden/dashboard.png',
     description:
-      'Tablero automatizado con gráficos interactivos de barras y torta. Te muestra al instante tus ingresos totales, distribución de gastos por rubro, tasa de ahorro libre y evolución mensual sin tocar ninguna fórmula.',
+      'Resumen visual de tus finanzas con gráficos automáticos de ingresos, gastos y porcentaje de ahorro.',
     features: [
-      'Gráficos interactivos de ingresos vs. gastos',
-      'Porcentaje de capacidad de ahorro en tiempo real',
-      'Desglose ejecutivo por categorías principales',
+      'Gráficos de ingresos vs. gastos',
+      'Ahorro en tiempo real',
+      'Distribución por categorías',
     ],
   },
   {
     id: 'movimientos',
-    title: '💳 Movimientos (Control Diario de Ingresos y Gastos)',
+    title: '💳 Movimientos (Registro Diario)',
     shortName: '2. Movimientos',
     badge: 'Carga Inteligente',
     image: '/images/finanzas-en-orden/movimientos.png',
     description:
-      'Pestaña limpia e intuitiva donde registrás cada ingreso y gasto diario. Seleccionás la categoría desde menús desplegables inteligentes; la planilla suma y consolida todo automáticamente.',
+      'Carga tus ingresos y gastos diarios seleccionando categorías desplegables de forma rápida.',
     features: [
-      'Menú desplegable intuitivo de categorías',
-      'Cálculo automático de saldos y balances',
-      'Organización de movimientos diarios sin esfuerzo',
+      'Menús desplegables de categorías',
+      'Suma automática de saldos',
+      'Registro rápido diario',
     ],
   },
   {
     id: 'metas',
-    title: '🎯 Metas (Presupuestos & Objetivos Financieros)',
+    title: '🎯 Metas (Presupuesto y Objetivos)',
     shortName: '3. Metas',
     badge: 'Planificación',
     image: '/images/finanzas-en-orden/metas.png',
     description:
-      'Establecé límites de gasto mensual para cada categoría y da seguimiento a tus objetivos de ahorro a corto y largo plazo con alertas visuales de desviación.',
+      'Definí presupuestos máximos y seguí el avance de tus metas de ahorro mes a mes.',
     features: [
-      'Límites y alertas de gasto por categoría',
-      'Seguimiento visual de objetivos de ahorro',
-      'Comparativa de presupuesto vs. gasto real',
+      'Límites de gasto por rubro',
+      'Control de objetivos de ahorro',
+      'Presupuesto vs. gasto real',
     ],
   },
   {
@@ -84,25 +84,25 @@ const spreadsheetSheets = [
     badge: 'Control Fino',
     image: '/images/finanzas-en-orden/gastos-hormiga.png',
     description:
-      'Detector exclusivo de gastos invisibles o goteos diarios (cafés, delivery, suscripciones olvidadas) para identificar exactamente por dónde se fuga tu dinero sin darte cuenta.',
+      'Detectá microgastos diarios (café, delivery, suscripciones) para evitar fugas de dinero.',
     features: [
-      'Identificación inmediata de fugas de dinero',
-      'Categorización de microgastos diarios',
-      'Métrica de impacto acumulado en el año',
+      'Control de consumos diarios',
+      'Detección de fugas de dinero',
+      'Total acumulado mensual',
     ],
   },
   {
     id: 'informe-detallado',
-    title: '📈 Informe Detallado (Reporte Consolidado & Análisis)',
+    title: '📈 Informe Detallado (Reporte Anual)',
     shortName: '5. Informe Detallado',
     badge: 'Análisis Pro',
     image: '/images/finanzas-en-orden/informe-detallado.png',
     description:
-      'Reporte ejecutivo consolidado con desglose profundo de tu patrimonio, comparativas históricas entre meses y resumen financiero para tomar decisiones inteligentes.',
+      'Reporte consolidado para analizar la evolución de tus finanzas mes a mes.',
     features: [
-      'Consolidación histórica de meses pasados',
-      'Desglose detallado para toma de decisiones',
-      'Resumen patrimonial ejecutivo',
+      'Histórico mes a mes',
+      'Comparativas anuales',
+      'Balance total consolidado',
     ],
   },
 ];
@@ -557,53 +557,30 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                               height: 'auto',
                               display: 'block',
                               backgroundColor: '#FFFFFF',
-                              filter: 'blur(2.5px)',
-                              transform: 'scale(1.01)',
+                              filter: 'blur(1px)',
                             }}
                           />
                           <div style={{
                             position: 'absolute',
-                            inset: 0,
-                            backgroundColor: 'rgba(15, 23, 42, 0.45)',
-                            backdropFilter: 'blur(3px)',
-                            WebkitBackdropFilter: 'blur(3px)',
+                            bottom: '12px',
+                            right: '12px',
+                            backgroundColor: 'rgba(15, 23, 42, 0.82)',
+                            backdropFilter: 'blur(4px)',
+                            WebkitBackdropFilter: 'blur(4px)',
+                            color: '#F8FAFC',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            padding: '4px 10px',
+                            borderRadius: '6px',
+                            border: '1px solid rgba(255, 255, 255, 0.15)',
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
                             display: 'flex',
-                            flexDirection: 'column',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '20px',
-                            textAlign: 'center',
+                            gap: '6px',
+                            pointerEvents: 'none',
                           }}>
-                            <div style={{
-                              backgroundColor: 'rgba(15, 23, 42, 0.92)',
-                              border: '1px solid rgba(255, 255, 255, 0.2)',
-                              borderRadius: '12px',
-                              padding: '16px 20px',
-                              maxWidth: '380px',
-                              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
-                            }}>
-                              <div style={{ fontSize: '1.4rem', marginBottom: '6px' }}>🔐</div>
-                              <strong style={{ color: '#FFFFFF', fontSize: '0.92rem', display: 'block', marginBottom: '4px' }}>
-                                Vista Previa Protegida — {activeSheet.shortName}
-                              </strong>
-                              <p style={{ color: '#94A3B8', fontSize: '0.78rem', margin: '0 0 10px 0', lineHeight: 1.45 }}>
-                                La estructura completa de celdas, menús desplegables y fórmulas automáticas se entrega 100% desbloqueada al adquirir la plantilla.
-                              </p>
-                              <span style={{
-                                fontSize: '11px',
-                                fontWeight: 800,
-                                backgroundColor: '#1C4D37',
-                                color: '#A7F3D0',
-                                border: '1px solid #276749',
-                                padding: '4px 12px',
-                                borderRadius: '999px',
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                gap: '4px',
-                              }}>
-                                ✓ Licencia de uso de por vida
-                              </span>
-                            </div>
+                            <span style={{ width: 6, height: 6, borderRadius: '50%', backgroundColor: '#38BDF8' }} />
+                            Vista previa
                           </div>
                         </div>
                       </div>
