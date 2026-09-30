@@ -101,9 +101,8 @@ export const solutionsData: SolutionItem[] = [
     type: 'servicio',
     badgeText: 'Servicio 1 a 1',
     category: 'Empleabilidad & Carrera',
-    priceARS: 29900,
-    priceUSD: 35,
-    originalPriceARS: 42000,
+    priceARS: 12000,
+    priceUSD: 15,
     deliveryTime: 'Entrega en 48 a 72 horas hábiles',
     shortDescription:
       'Reescribo y optimizo tu CV con formato editorial ejecutivo y diagramación optimizada para filtros ATS.',
