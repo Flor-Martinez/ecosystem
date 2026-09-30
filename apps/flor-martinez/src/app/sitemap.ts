@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { solutionsData } from '@/data/solutions';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinez.com.ar';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinezok.com';
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {

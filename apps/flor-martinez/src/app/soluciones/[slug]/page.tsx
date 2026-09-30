@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinez.com.ar';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinezok.com';
   const canonicalUrl = `${siteUrl}/soluciones/${solution.slug}`;
 
   return {
@@ -65,7 +65,7 @@ export default async function SolutionDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinez.com.ar';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://flormartinezok.com';
 
   const jsonLd = {
     '@context': 'https://schema.org',
