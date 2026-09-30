@@ -18,9 +18,10 @@ import {
   Trash2,
   RotateCcw,
   Key,
+  FileText,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
-import { TEMPLATE_COPY_URL, generarMensajeEntrega, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
+import { TEMPLATE_COPY_URL, EBOOK_PDF_URL, generarMensajeEntrega, type SpreadsheetLicenseRecord } from '@/lib/licensing-types';
 import {
   checkIsAdminAction,
   adminLogoutAction,
@@ -86,6 +87,7 @@ export default function AdminLicenciasClient({
   // Copy feedback states
   const [copiedKey, setCopiedKey] = useState(false);
   const [copiedMsg, setCopiedMsg] = useState(false);
+  const [copiedPdf, setCopiedPdf] = useState(false);
   const [copiedRowKey, setCopiedRowKey] = useState<string | null>(null);
   const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
 
@@ -384,7 +386,21 @@ export default function AdminLicenciasClient({
                   className={styles.whatsappMessageBtn}
                 >
                   <MessageCircle size={16} />
-                  <span>{copiedMsg ? '¡Mensaje Copiado!' : '📋 Copiar Mensaje para WhatsApp'}</span>
+                  <span>{copiedMsg ? '¡Mensaje Copiado!' : '📋 Copiar Mensaje Completo (Planilla + PDF + Clave)'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(EBOOK_PDF_URL);
+                    setCopiedPdf(true);
+                    setTimeout(() => setCopiedPdf(false), 2000);
+                  }}
+                  className={styles.copyKeyBtn}
+                  style={{ width: '100%', marginTop: '0.5rem', backgroundColor: '#F8FAFC', color: '#0F172A', border: '1px solid #CBD5E1', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
+                >
+                  <FileText size={15} />
+                  <span>{copiedPdf ? '¡Enlace PDF Copiado!' : '📄 Copiar Enlace Solo del E-Book (PDF)'}</span>
                 </button>
 
                 <button

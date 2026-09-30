@@ -27,6 +27,9 @@ export interface SpreadsheetLicenseRecord {
   createdAt: string;
 }
 
+export const EBOOK_PDF_URL =
+  'https://flormartinezok.com/docs/Finanzas_en_Orden_Curso_Practico.pdf';
+
 export function generarMensajeEntrega(customerName: string, licenseKey: string): string {
   const primerNombre = customerName.split(' ')[0] || 'Hola';
   return `¡Hola ${primerNombre}! Muchas gracias por tu compra. 🙌
@@ -34,13 +37,16 @@ export function generarMensajeEntrega(customerName: string, licenseKey: string):
 Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor Martínez:
 👉 ${TEMPLATE_COPY_URL}
 
+📚 Descargá tu E-Book & Curso Práctico en PDF acá:
+👉 ${EBOOK_PDF_URL}
+
 🔑 Tu Clave de Activación Oficial es:
 ${licenseKey}
 
 📌 Instrucciones de activación:
-1. Abrí el enlace y hacé clic en el botón azul 'Crear una copia'.
+1. Abrí el enlace de la planilla y hacé clic en el botón azul 'Crear una copia'.
 2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
-3. Escribí tu clave en la celda blanca (C7) y presioná Enter.
+3. Escribí tu clave en la celda C7 y presioná Enter.
 4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
 💡 Recomendación: Te sugerimos utilizar la planilla desde una computadora para disfrutar de una visualización mucho más cómoda y completa de todos los tableros y gráficos.
