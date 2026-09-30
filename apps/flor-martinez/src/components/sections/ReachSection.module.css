@@ -38,14 +38,14 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  height: 480px;
+  height: 520px;
 }
 
 .portraitImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 12%;
+  object-position: center 25%;
   display: block;
 }
 
