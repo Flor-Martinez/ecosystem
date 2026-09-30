@@ -77,8 +77,8 @@ export default async function ProyectoDetailPage({ params }: PageProps) {
     branchTheme = 'theme_academia';
     branchBadge = 'Plataforma Educativa';
     BranchIcon = GraduationCap;
-    statusText = 'Plataforma En Vivo · Acceso Activo';
-    isLive = true;
+    statusText = 'Próximamente · En Desarrollo';
+    isLive = false;
   } else if (slug === 'comercio-exterior-consultoria') {
     branchTheme = 'theme_comercio';
     branchBadge = 'Consultoría de Negocios';

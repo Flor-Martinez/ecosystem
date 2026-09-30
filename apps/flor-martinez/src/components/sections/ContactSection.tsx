@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { Mail, Send, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { LinkedinIcon, InstagramIcon } from '@/components/ui/Icons';
 import { Container } from '@/components/ui/Container';
@@ -98,17 +99,15 @@ export function ContactSection() {
             <div className={styles.advisoryBox}>
               <h4 className={styles.advisoryTitle}>¿Buscás formación o cursos de empleabilidad?</h4>
               <p className={styles.advisoryText}>
-                Si tu interés está centrado en optimizar tu CV, potenciar tu perfil de LinkedIn o preparar entrevistas, podés ingresar directamente a la plataforma educativa.
+                Si tu interés está centrado en optimizar tu CV, potenciar tu perfil de LinkedIn o preparar entrevistas, podés conocer la propuesta de la plataforma educativa.
               </p>
-              <a
-                href="http://localhost:3001"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/proyecto/academia-flor-martinez"
                 className={styles.advisoryLink}
               >
-                <span>Ir al portal de la Academia Flor Martinez</span>
+                <span>Ver propuesta de la Academia Flor Martinez</span>
                 <ArrowUpRight size={15} />
-              </a>
+              </Link>
             </div>
           </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight, GraduationCap, Mail } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { Button } from '@/components/ui/Button';
@@ -33,15 +34,13 @@ export function CTA() {
               Contactar a Flor
             </Button>
 
-            <a
-              href="http://localhost:3001"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/proyecto/academia-flor-martinez"
               className={styles.secondaryCta}
             >
               <GraduationCap size={18} />
-              <span>Explorar la Academia</span>
-            </a>
+              <span>Ver Ficha de la Academia</span>
+            </Link>
           </div>
         </div>
       </Container>

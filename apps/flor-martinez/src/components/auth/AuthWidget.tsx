@@ -127,10 +127,8 @@ export function AuthWidget() {
               </div>
             </Link>
             
-            <a
-              href="http://localhost:3001/cursos"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/proyecto/academia-flor-martinez"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -139,9 +137,9 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Academia Flor Martinez</strong>
-                <span>Mis cursos & certificados</span>
+                <span>Propuesta & desarrollo</span>
               </div>
-            </a>
+            </Link>
 
             <Link
               href="/proyecto/tienda-flor-martinez"

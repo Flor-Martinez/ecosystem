@@ -74,7 +74,7 @@ export function Footer() {
                 <ArrowUpRight size={13} />
               </a>
               <a
-                href="http://localhost:3001"
+                href="https://flormartinez.com/proyecto/academia-flor-martinez"
                 className={styles.ecosystemItem}
               >
                 <span>Academia Flor Martinez</span>

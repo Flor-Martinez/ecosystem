@@ -23,8 +23,8 @@ export const projectsData: Project[] = [
       'Integración con plataformas digitales de mentoría',
     ],
     featured: true,
-    linkText: 'Conocer la Academia',
-    linkUrl: 'http://localhost:3001',
+    linkText: 'Próximamente disponible',
+    linkUrl: '/proyecto/academia-flor-martinez',
     imageAlt: 'Academia Flor Martinez - Plataforma Educativa',
   },
   {
