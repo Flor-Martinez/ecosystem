@@ -319,3 +319,34 @@
   background-color: #FEE2E2;
   border-color: #FCA5A5;
 }
+
+/* Light / Mobile Variant */
+.authWrapperLight .loginBtn {
+  background-color: #FAF7F2;
+  border: 1px solid #D97706;
+  color: #B45309;
+}
+
+.authWrapperLight .loginBtn:hover {
+  background-color: #FEF3C7;
+  color: #92400E;
+  border-color: #B45309;
+}
+
+.authWrapperLight .userBtn {
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+}
+
+.authWrapperLight .userBtn:hover,
+.authWrapperLight .userBtnActive {
+  background-color: #FEF3C7;
+  border-color: #D97706;
+  color: #92400E;
+}
+
+.authWrapperLight .userIcon,
+.authWrapperLight .chevron {
+  color: #D97706;
+}

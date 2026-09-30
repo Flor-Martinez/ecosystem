@@ -474,16 +474,21 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            type="button"
-            className={styles.mobileToggle}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-expanded={isOpen}
-            aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Right Controls (Auth + Toggle) */}
+          <div className={styles.mobileRightGroup}>
+            <div className={styles.mobileHeaderAuth}>
+              <AuthWidget variant="light" />
+            </div>
+            <button
+              type="button"
+              className={styles.mobileToggle}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-expanded={isOpen}
+              aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </Container>
       </div>
 
@@ -493,6 +498,13 @@ export function Navbar() {
       {isOpen && (
         <div className={styles.mobileDrawer} role="dialog" aria-modal="true">
           <div className={styles.mobileDrawerContent}>
+            {/* Account & Profile Section in Mobile Menu */}
+            <div className={styles.mobileAccountBox}>
+              <div className={styles.mobileSectionTitle}>Mi Cuenta & Sesión</div>
+              <AuthWidget variant="light" />
+            </div>
+            <div className={styles.mobileDivider} />
+
             {/* Ecosystem Projects Accordion */}
             <div className={styles.mobileSectionTitle}>Ecosistema de Proyectos</div>
             <div className={styles.mobileAccordionList}>

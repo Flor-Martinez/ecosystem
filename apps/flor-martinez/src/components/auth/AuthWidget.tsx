@@ -6,7 +6,11 @@ import { User, LogOut, ChevronDown, GraduationCap, ShoppingBag, Briefcase, Spark
 import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './AuthWidget.module.css';
 
-export function AuthWidget() {
+interface AuthWidgetProps {
+  variant?: 'dark' | 'light';
+}
+
+export function AuthWidget({ variant = 'dark' }: AuthWidgetProps) {
   const { user, isSuperAdmin, openAuthModal, logout } = useEcosystemAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,9 +26,11 @@ export function AuthWidget() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const wrapperClass = `${styles.authWrapper} ${variant === 'light' ? styles.authWrapperLight : ''}`;
+
   if (!user) {
     return (
-      <div className={styles.authWrapper}>
+      <div className={wrapperClass}>
         <button
           type="button"
           onClick={() => openAuthModal('login')}
@@ -49,7 +55,7 @@ export function AuthWidget() {
   const firstName = user.name.split(' ')[0];
 
   return (
-    <div className={styles.authWrapper} ref={dropdownRef}>
+    <div className={wrapperClass} ref={dropdownRef}>
       {isSuperAdmin && (
         <Link
           href="/admin"

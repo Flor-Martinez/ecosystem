@@ -748,6 +748,31 @@
   border-radius: var(--radius-full);
 }
 
+.mobileRightGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mobileHeaderAuth {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobileHeaderAuth {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.mobileAccountBox {
+  background-color: var(--fm-marfil-light, #FAF7F2);
+  border: 1px solid var(--fm-border, #E2E8F0);
+  border-radius: var(--radius-lg, 0.875rem);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
 /* Mobile Toggle */
 .mobileToggle {
   display: none;
