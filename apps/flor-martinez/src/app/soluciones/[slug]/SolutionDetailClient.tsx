@@ -548,16 +548,64 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                             Captura HD Oficial
                           </span>
                         </div>
-                        <img
-                          src={activeSheet.image}
-                          alt={activeSheet.title}
-                          style={{
-                            width: '100%',
-                            height: 'auto',
-                            display: 'block',
-                            backgroundColor: '#FFFFFF',
-                          }}
-                        />
+                        <div style={{ position: 'relative', overflow: 'hidden' }}>
+                          <img
+                            src={activeSheet.image}
+                            alt={activeSheet.title}
+                            style={{
+                              width: '100%',
+                              height: 'auto',
+                              display: 'block',
+                              backgroundColor: '#FFFFFF',
+                              filter: 'blur(2.5px)',
+                              transform: 'scale(1.01)',
+                            }}
+                          />
+                          <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            backgroundColor: 'rgba(15, 23, 42, 0.45)',
+                            backdropFilter: 'blur(3px)',
+                            WebkitBackdropFilter: 'blur(3px)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '20px',
+                            textAlign: 'center',
+                          }}>
+                            <div style={{
+                              backgroundColor: 'rgba(15, 23, 42, 0.92)',
+                              border: '1px solid rgba(255, 255, 255, 0.2)',
+                              borderRadius: '12px',
+                              padding: '16px 20px',
+                              maxWidth: '380px',
+                              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                            }}>
+                              <div style={{ fontSize: '1.4rem', marginBottom: '6px' }}>🔐</div>
+                              <strong style={{ color: '#FFFFFF', fontSize: '0.92rem', display: 'block', marginBottom: '4px' }}>
+                                Vista Previa Protegida — {activeSheet.shortName}
+                              </strong>
+                              <p style={{ color: '#94A3B8', fontSize: '0.78rem', margin: '0 0 10px 0', lineHeight: 1.45 }}>
+                                La estructura completa de celdas, menús desplegables y fórmulas automáticas se entrega 100% desbloqueada al adquirir la plantilla.
+                              </p>
+                              <span style={{
+                                fontSize: '11px',
+                                fontWeight: 800,
+                                backgroundColor: '#1C4D37',
+                                color: '#A7F3D0',
+                                border: '1px solid #276749',
+                                padding: '4px 12px',
+                                borderRadius: '999px',
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                              }}>
+                                ✓ Licencia de uso de por vida
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
