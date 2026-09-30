@@ -63,6 +63,24 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
   } | null>(null);
   const [copiedKey, setCopiedKey] = useState(false);
 
+  const [cvFileName, setCvFileName] = useState<string>('');
+  const [cvFileData, setCvFileData] = useState<string>('');
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setCvFileName(file.name);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCvFileData(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setCvFileName('');
+      setCvFileData('');
+    }
+  };
+
   const isProduct = solution.type === 'producto';
   const isExcel = solution.slug === 'organizador-de-finanzas' || solution.slug === 'finanzas-en-orden';
   const isCv = solution.slug === 'te-hago-tu-cv';
@@ -120,6 +138,12 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
       return;
     }
 
+    if (isCv && !cvFileData) {
+      setErrorMessage('Adjuntar tu CV actual en formato PDF, Word o Imagen es obligatorio.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const endpoint =
         paymentCurrency === 'ARS'
@@ -135,6 +159,8 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
           customerEmail: formData.email,
           customerWhatsapp: formData.whatsapp,
           customerCvDetails: formData.cvDetails,
+          cvFileName,
+          cvFileData,
           currency: paymentCurrency,
         }),
       });
@@ -489,21 +515,34 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
                   </div>
 
                   {isCv && (
-                    <div className={styles.formGroup}>
-                      <label htmlFor="customerCvDetails">
-                        Información para tu CV (Estudios, experiencia o qué querés mejorar) *
-                      </label>
-                      <textarea
-                        id="customerCvDetails"
-                        rows={3}
-                        required
-                        placeholder="Pegá el texto de tu CV actual o detallá tu experiencia laboral, estudios y el puesto al que aspirás postularte..."
-                        value={formData.cvDetails}
-                        onChange={(e) => setFormData({ ...formData, cvDetails: e.target.value })}
-                        className={styles.formInput}
-                        style={{ resize: 'vertical', fontFamily: 'inherit' }}
-                      />
-                    </div>
+                    <>
+                      <div className={styles.formGroup}>
+                        <label htmlFor="customerCvFile">CV Actual (PDF, Word o Imagen) *</label>
+                        <input
+                          id="customerCvFile"
+                          type="file"
+                          required
+                          accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                          onChange={handleFileChange}
+                          className={styles.formInput}
+                        />
+                      </div>
+
+                      <div className={styles.formGroup}>
+                        <label htmlFor="customerCvDetails">
+                          Aclaraciones o notas adicionales (opcional)
+                        </label>
+                        <textarea
+                          id="customerCvDetails"
+                          rows={3}
+                          placeholder="Aclaraciones, aspiraciones o detalles que quieras sumar a tu CV..."
+                          value={formData.cvDetails}
+                          onChange={(e) => setFormData({ ...formData, cvDetails: e.target.value })}
+                          className={styles.formInput}
+                          style={{ resize: 'vertical', fontFamily: 'inherit' }}
+                        />
+                      </div>
+                    </>
                   )}
 
                   {errorMessage && (

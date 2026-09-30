@@ -273,23 +273,53 @@ export default function AdminCvsClient({ initialOrders }: AdminCvsClientProps) {
                           )}
                         </td>
                         <td>
+                          {ord.cvFileName && (
+                            <div style={{ marginBottom: 6 }}>
+                              <a
+                                href={ord.cvFileData || '#'}
+                                download={ord.cvFileName}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '4px',
+                                  fontSize: '0.8rem',
+                                  fontWeight: 700,
+                                  color: '#1D4ED8',
+                                  textDecoration: 'none',
+                                  backgroundColor: '#EFF6FF',
+                                  padding: '4px 8px',
+                                  borderRadius: '6px',
+                                  border: '1px solid #BFDBFE',
+                                }}
+                                title="Descargar CV adjunto por el cliente"
+                              >
+                                📄 {ord.cvFileName} ⬇
+                              </a>
+                            </div>
+                          )}
                           {ord.notes ? (
-                            <div style={{
-                              fontSize: '0.82rem',
-                              color: '#334155',
-                              maxWidth: '260px',
-                              maxHeight: '120px',
-                              overflowY: 'auto',
-                              whiteSpace: 'pre-wrap',
-                              backgroundColor: '#F8FAFC',
-                              padding: '0.5rem 0.65rem',
-                              borderRadius: '6px',
-                              border: '1px solid #E2E8F0'
-                            }}>
+                            <div
+                              style={{
+                                fontSize: '0.82rem',
+                                color: '#334155',
+                                maxWidth: '260px',
+                                maxHeight: '120px',
+                                overflowY: 'auto',
+                                whiteSpace: 'pre-wrap',
+                                backgroundColor: '#F8FAFC',
+                                padding: '0.5rem 0.65rem',
+                                borderRadius: '6px',
+                                border: '1px solid #E2E8F0',
+                              }}
+                            >
                               {ord.notes}
                             </div>
                           ) : (
-                            <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Sin notas</span>
+                            !ord.cvFileName && (
+                              <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Sin notas</span>
+                            )
                           )}
                         </td>
                         <td>

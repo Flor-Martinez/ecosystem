@@ -6,7 +6,7 @@ import { createCvOrderAction } from '@/actions/cvOrders';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { solutionSlug, customerName, customerEmail, customerWhatsapp, customerCvDetails } = body;
+    const { solutionSlug, customerName, customerEmail, customerWhatsapp, customerCvDetails, cvFileName, cvFileData } = body;
 
     if (!customerName || !customerEmail || !customerWhatsapp) {
       return NextResponse.json(
@@ -36,6 +36,8 @@ export async function POST(request: Request) {
         customerName: customerName.trim(),
         customerEmail: customerEmail.trim(),
         customerPhone: customerWhatsapp ? customerWhatsapp.trim() : null,
+        cvFileName: cvFileName || null,
+        cvFileData: cvFileData || null,
         channel: 'WEB',
         priceARS: solution.priceARS,
         status: 'PENDIENTE',

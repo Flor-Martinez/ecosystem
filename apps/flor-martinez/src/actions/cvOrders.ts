@@ -10,6 +10,8 @@ export interface CvOrderRecord {
   customerName: string;
   customerEmail: string;
   customerPhone?: string | null;
+  cvFileName?: string | null;
+  cvFileData?: string | null;
   priceARS: number;
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   status: 'PENDIENTE' | 'ENTREGADO' | 'CANCELADO';
@@ -87,6 +89,8 @@ export async function createCvOrderAction(params: {
   customerName: string;
   customerEmail: string;
   customerPhone?: string | null;
+  cvFileName?: string | null;
+  cvFileData?: string | null;
   channel?: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   priceARS?: number;
   notes?: string | null;
@@ -97,8 +101,10 @@ export async function createCvOrderAction(params: {
       customerName,
       customerEmail,
       customerPhone,
+      cvFileName,
+      cvFileData,
       channel = 'MANUAL',
-      priceARS = 29900,
+      priceARS = 12000,
       notes,
       status = 'PENDIENTE',
     } = params;
@@ -120,6 +126,8 @@ export async function createCvOrderAction(params: {
       customerName: customerName.trim(),
       customerEmail: customerEmail.toLowerCase().trim(),
       customerPhone: customerPhone ? customerPhone.trim() : null,
+      cvFileName: cvFileName || null,
+      cvFileData: cvFileData || null,
       priceARS,
       channel,
       status,
