@@ -250,7 +250,7 @@ export async function sendSpreadsheetDeliveryEmail(params: SpreadsheetDeliveryEm
   const pdfBuffer = getEbookPdfBuffer();
 
   const gmailUser = (process.env.GMAIL_USER || 'licenciadaflormartinez@gmail.com').trim();
-  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').trim();
+  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').replace(/\s+/g, '');
 
   // 1. Envío DIRECTO desde la cuenta oficial de Gmail (licenciadaflormartinez@gmail.com)
   if (gmailPass) {
@@ -412,7 +412,7 @@ export async function sendCvOrderConfirmationEmail(params: CvOrderConfirmationEm
   `.trim();
 
   const gmailUser = (process.env.GMAIL_USER || 'licenciadaflormartinez@gmail.com').trim();
-  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').trim();
+  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').replace(/\s+/g, '');
 
   if (gmailPass) {
     try {
