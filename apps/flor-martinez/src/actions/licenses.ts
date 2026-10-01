@@ -16,6 +16,7 @@ import {
   removeDynamicAdminEmail,
   SpreadsheetLicenseRecord,
 } from '@/lib/licensing';
+import { sendSpreadsheetDeliveryEmail } from '@/lib/email';
 import { getCurrentUserAction, loginUserAction } from './auth';
 
 const ADMIN_COOKIE_NAME = 'fm_admin_session';
@@ -163,6 +164,17 @@ export async function issueLicenseAction(params: {
       channel: params.channel,
       notes: params.notes,
     });
+
+    // Enviar correo automático de entrega (con planilla, E-Book y clave oficial)
+    try {
+      await sendSpreadsheetDeliveryEmail({
+        to: params.customerEmail.trim(),
+        customerName: params.customerName.trim(),
+        licenseKey: record.licenseKey,
+      });
+    } catch (emailErr) {
+      console.warn('Advertencia al enviar correo automático de planilla:', emailErr);
+    }
 
     const deliveryMessage = generarMensajeEntrega(record.customerName, record.licenseKey);
 

@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { trackUserSignup } from './metrics';
+import { sendCvOrderConfirmationEmail } from '@/lib/email';
 
 export interface CvOrderRecord {
   id: string;
@@ -154,6 +155,18 @@ export async function createCvOrderAction(params: {
 
     orders.unshift(newOrder);
     saveCvOrders(orders);
+
+    // Enviar correo automático de confirmación de pedido de CV
+    try {
+      await sendCvOrderConfirmationEmail({
+        to: newOrder.customerEmail,
+        customerName: newOrder.customerName,
+        orderNumber: newOrder.orderNumber,
+        customerWhatsapp: newOrder.customerPhone,
+      });
+    } catch (emailErr) {
+      console.warn('Advertencia al enviar correo de confirmación de CV:', emailErr);
+    }
 
     return { success: true, order: newOrder };
   } catch (err) {
