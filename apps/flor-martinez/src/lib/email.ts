@@ -121,7 +121,7 @@ export function generateSpreadsheetEmailHtml(params: {
                 <tr>
                   <td style="padding:14px 18px;">
                     <div style="font-size:13px;font-weight:600;color:#92400E;line-height:1.5;">
-                      💡 <strong>Tip para celular:</strong> Si abrís la planilla desde tu teléfono y la ves en 'Solo lectura', tocá los <strong>3 puntitos arriba (⋮)</strong> y elegí <strong>'Crear una copia'</strong>. En computadora se abre directo presionando 'Utilizar plantilla'.
+                      💡 <strong>Tip de activación:</strong> Realizá la primera activación (ingresar clave y presionar 'Permitir acceso') desde una computadora. Una vez activada, la planilla queda vinculada para usarla todos los días en tu celular sin problemas.
                     </div>
                   </td>
                 </tr>

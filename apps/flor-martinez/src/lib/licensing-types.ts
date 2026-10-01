@@ -47,7 +47,7 @@ ${licenseKey}
 3. Escribí tu clave en la celda C7 y presioná Enter.
 4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
-💡 Tip para celular: Si la abrís desde tu teléfono y la ves en 'Solo lectura', tocá los 3 puntitos arriba (⋮) y elegí 'Crear una copia'. En computadora abre directo en 1 clic.
+💡 Tip de activación: Realizá la primera activación (ingresar clave y permitir acceso) desde una computadora. Una vez activada, queda vinculada para usarla todos los días en tu celular sin problemas.
 
 📚 Descargá tu E-Book & Curso Práctico en PDF acá:
 👉 ${EBOOK_PDF_URL}

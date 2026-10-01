@@ -1058,7 +1058,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                       textAlign: 'left',
                     }}
                   >
-                    💡 <strong>Tip para celular:</strong> Si abrís la planilla desde tu teléfono y la ves en &apos;Solo lectura&apos;, tocá los <strong>3 puntitos arriba (⋮)</strong> y elegí <strong>&apos;Crear una copia&apos;</strong>. En computadora se abre directo presionando &apos;Utilizar plantilla&apos;.
+                    💡 <strong>Tip de activación:</strong> Realizá la primera activación (ingresar tu clave y dar &apos;Permitir acceso&apos;) desde una computadora. Una vez activada, queda vinculada para usarla todos los días en tu celular sin problemas.
                   </div>
 
                   <a
