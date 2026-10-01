@@ -42,12 +42,9 @@ Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor
 ${licenseKey}
 
 📌 Instrucciones de activación:
-1. Abrí el enlace y presioná el botón azul 'Utilizar plantilla' (en compu) o los 3 puntitos arriba (⋮) ➔ 'Crear una copia' (en celular).
-2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
-3. Escribí tu clave en la celda C7 y presioná Enter.
-4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
-
-💡 Tip para celular: Si abrís la planilla desde tu teléfono y la ves en 'Solo lectura', tocá los 3 puntitos arriba (⋮) y elegí 'Crear una copia'. En computadora se abre directo presionando 'Utilizar plantilla'.
+1. Abrí el enlace y presioná el botón azul 'Utilizar plantilla' (o los 3 puntitos arriba ⋮ ➔ 'Crear una copia').
+2. Escribí tu clave en la celda C7 y presioná Enter.
+3. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
 📚 Descargá tu E-Book & Curso Práctico en PDF acá:
 👉 ${EBOOK_PDF_URL}

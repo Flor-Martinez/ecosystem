@@ -116,17 +116,6 @@ export function generateSpreadsheetEmailHtml(params: {
                 </tr>
               </table>
 
-              <!-- Recommendation & Mobile Tip Notice -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;margin-bottom:24px;">
-                <tr>
-                  <td style="padding:14px 18px;">
-                    <div style="font-size:13px;font-weight:600;color:#92400E;line-height:1.5;">
-                      💡 <strong>Tip para celular:</strong> Si abrís la planilla desde tu teléfono y la ves en 'Solo lectura', tocá los <strong>3 puntitos arriba (⋮)</strong> y elegí <strong>'Crear una copia'</strong>. En computadora se abre directo presionando 'Utilizar plantilla'.
-                    </div>
-                  </td>
-                </tr>
-              </table>
-
               <!-- Step-by-Step Instructions -->
               <div style="margin-bottom:28px;background-color:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:20px;">
                 <h3 style="margin:0 0 12px 0;font-size:14.5px;font-weight:750;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
@@ -134,10 +123,7 @@ export function generateSpreadsheetEmailHtml(params: {
                 </h3>
                 <ol style="margin:0;padding-left:20px;font-size:13.5px;color:#334155;line-height:1.65;">
                   <li style="margin-bottom:8px;">
-                    Hacé clic en el botón superior y presioná <strong>'Utilizar plantilla'</strong> (en compu) o los <strong>3 puntitos (⋮) &rarr; 'Crear una copia'</strong> (en celular).
-                  </li>
-                  <li style="margin-bottom:8px;">
-                    Si te aparece una barra amarilla arriba, hacé clic en <strong>'Permitir acceso'</strong> para que las fórmulas funcionen.
+                    Hacé clic en el botón superior y presioná <strong>'Utilizar plantilla'</strong> (o los <strong>3 puntitos arriba ⋮ &rarr; 'Crear una copia'</strong>).
                   </li>
                   <li style="margin-bottom:8px;">
                     En la pestaña <em>Dashboard / Activación</em>, escribí tu clave <strong style="font-family:monospace;background:#FFFFFF;padding:2px 6px;border-radius:4px;border:1px solid #CBD5E1;">${params.licenseKey}</strong> en la celda <strong>C7</strong> y presioná <strong>Enter</strong>.
