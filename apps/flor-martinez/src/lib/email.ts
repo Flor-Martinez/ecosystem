@@ -152,7 +152,7 @@ export function generateSpreadsheetEmailHtml(params: {
                 </h3>
                 <ol style="margin:0;padding-left:20px;font-size:14px;color:#334155;line-height:1.7;">
                   <li style="margin-bottom:8px;">
-                    Hacé clic en el botón superior <strong>'Abrir y Copiar mi Planilla'</strong> y presioná el botón azul <strong>'Usar plantilla'</strong> (o <strong>'Crear una copia'</strong>) en Google Sheets.
+                    Hacé clic en el botón superior <strong>'Abrir y Copiar mi Planilla'</strong> y presioná el botón azul <strong>'Utilizar plantilla'</strong> en Google Sheets.
                   </li>
                   <li style="margin-bottom:8px;">
                     Si te aparece una barra amarilla arriba, hacé clic en <strong>'Permitir acceso'</strong> para que las fórmulas automatizadas funcionen.
@@ -166,12 +166,12 @@ export function generateSpreadsheetEmailHtml(params: {
                 </ol>
               </div>
 
-              <!-- PC & Mobile Recommendation Notice -->
+              <!-- Recommendation Notice -->
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;margin-bottom:28px;">
                 <tr>
                   <td style="padding:14px 18px;">
                     <div style="font-size:13px;font-weight:600;color:#92400E;line-height:1.5;">
-                      💡 <strong>Tip de visualización:</strong> Te sugerimos utilizar la planilla desde una computadora (PC o Mac) para disfrutar de una comodidad absoluta. Si la abrís desde la App del celular en 'Solo lectura', tocá los 3 puntitos arriba (⋮) &rarr; <em>Compartir y exportar</em> &rarr; <em>Crear una copia</em>.
+                      💡 <strong>Recomendación:</strong> Te sugerimos utilizar la planilla desde una computadora (PC o Mac) para disfrutar de una comodidad absoluta al visualizar todos los tableros y gráficos interactivos.
                     </div>
                   </td>
                 </tr>

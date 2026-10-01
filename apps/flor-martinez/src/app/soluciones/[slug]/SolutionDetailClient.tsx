@@ -1066,7 +1066,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                   <ol className={styles.licenseStepsList}>
                     <li>
                       Hacé clic en el botón superior y presioná el botón azul{' '}
-                      <strong>&apos;Usar plantilla&apos;</strong> (o &apos;Crear una copia&apos;).
+                      <strong>&apos;Utilizar plantilla&apos;</strong>.
                     </li>
                     <li>
                       En la barra amarilla superior, hacé clic en{' '}
