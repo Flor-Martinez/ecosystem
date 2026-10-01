@@ -75,6 +75,7 @@ export default function AdminLicenciasClient({
     name: '',
     email: '',
     phone: '',
+    instagram: '',
     channel: 'WHATSAPP' as 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL',
     notes: '',
   });
@@ -113,6 +114,7 @@ export default function AdminLicenciasClient({
         customerName: formData.name,
         customerEmail: formData.email,
         customerPhone: formData.phone,
+        customerInstagram: formData.instagram,
         channel: formData.channel,
         notes: formData.notes,
       });
@@ -207,7 +209,9 @@ export default function AdminLicenciasClient({
       !q ||
       item.customerName.toLowerCase().includes(q) ||
       item.customerEmail.toLowerCase().includes(q) ||
-      item.licenseKey.toLowerCase().includes(q);
+      item.licenseKey.toLowerCase().includes(q) ||
+      Boolean(item.customerInstagram?.toLowerCase().includes(q)) ||
+      Boolean(item.customerPhone?.toLowerCase().includes(q));
     return matchesChannel && matchesSearch;
   });
 
@@ -323,6 +327,17 @@ export default function AdminLicenciasClient({
               </div>
 
               <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Instagram (opcional)</label>
+                <input
+                  type="text"
+                  placeholder="@usuario o link de perfil"
+                  value={formData.instagram}
+                  onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
+                  className={styles.formInput}
+                />
+              </div>
+
+              <div className={styles.formGroup}>
                 <label className={styles.formLabel}>Canal de Venta</label>
                 <select
                   value={formData.channel}
@@ -411,6 +426,7 @@ export default function AdminLicenciasClient({
                       name: '',
                       email: '',
                       phone: '',
+                      instagram: '',
                       channel: 'WHATSAPP',
                       notes: '',
                     });
@@ -484,6 +500,33 @@ export default function AdminLicenciasClient({
                             <strong>{item.customerName}</strong>
                             <br />
                             <small style={{ color: '#64748B' }}>{item.customerEmail}</small>
+                            {item.customerInstagram && (
+                              <div style={{ marginTop: '3px' }}>
+                                <span
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '3px',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    color: '#BE185D',
+                                    backgroundColor: '#FDF2F8',
+                                    padding: '1px 6px',
+                                    borderRadius: '4px',
+                                    border: '1px solid #FBCFE8',
+                                  }}
+                                >
+                                  📸 {item.customerInstagram}
+                                </span>
+                              </div>
+                            )}
+                            {item.customerPhone && (
+                              <div style={{ marginTop: '2px' }}>
+                                <small style={{ color: '#166534', fontSize: '11px' }}>
+                                  💬 {item.customerPhone}
+                                </small>
+                              </div>
+                            )}
                           </td>
                           <td>
                             <span className={`${styles.channelBadge} ${badgeClass}`}>

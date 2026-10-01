@@ -19,6 +19,7 @@ export interface SpreadsheetLicenseRecord {
   customerName: string;
   customerEmail: string;
   customerPhone?: string | null;
+  customerInstagram?: string | null;
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   status: 'ACTIVA' | 'REVOCADA' | 'PRUEBA';
   spreadsheetId?: string | null;

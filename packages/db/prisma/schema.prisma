@@ -410,6 +410,7 @@ model SpreadsheetLicense {
   customerName    String
   customerEmail   String
   customerPhone   String?
+  customerInstagram String?
   channel         String   @default("WEB") // "WEB" | "WHATSAPP" | "INSTAGRAM" | "TRANSFERENCIA" | "MANUAL"
   status          String   @default("ACTIVA") // "ACTIVA" | "REVOCADA" | "PRUEBA"
   spreadsheetId   String?  // ID de la copia vinculada cuando se activa

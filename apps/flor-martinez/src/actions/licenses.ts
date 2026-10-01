@@ -146,6 +146,7 @@ export async function issueLicenseAction(params: {
   customerName: string;
   customerEmail: string;
   customerPhone?: string | null;
+  customerInstagram?: string | null;
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   notes?: string | null;
 }) {
@@ -161,6 +162,7 @@ export async function issueLicenseAction(params: {
       customerName: params.customerName,
       customerEmail: params.customerEmail,
       customerPhone: params.customerPhone,
+      customerInstagram: params.customerInstagram,
       channel: params.channel,
       notes: params.notes,
     });

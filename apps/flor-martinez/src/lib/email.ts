@@ -180,7 +180,7 @@ export function generateSpreadsheetEmailHtml(params: {
               <!-- Support Section -->
               <div style="border-top:1px solid #E2E8F0;padding-top:20px;font-size:13.5px;color:#64748B;line-height:1.6;">
                 <p style="margin:0 0 8px 0;">
-                  ¿Tenés alguna duda o necesitás asistencia con tu clave? Podés responder directamente a este correo o escribirnos a nuestro WhatsApp Business oficial.
+                  ¿Tenés alguna duda o necesitás asistencia con tu clave? Podés responder directamente a este correo.
                 </p>
                 <p style="margin:12px 0 0 0;font-weight:700;color:#0F172A;">
                   Lic. Florencia Martínez<br>

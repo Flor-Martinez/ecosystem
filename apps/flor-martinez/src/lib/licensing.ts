@@ -192,6 +192,7 @@ export async function getAllLicenses(): Promise<SpreadsheetLicenseRecord[]> {
           customerName: r.customerName,
           customerEmail: r.customerEmail,
           customerPhone: r.customerPhone,
+          customerInstagram: r.customerInstagram || null,
           channel: r.channel as any,
           status: r.status as any,
           spreadsheetId: r.spreadsheetId || null,
@@ -219,6 +220,7 @@ export async function createLicenseRecord(data: {
   customerName: string;
   customerEmail: string;
   customerPhone?: string | null;
+  customerInstagram?: string | null;
   channel: 'WEB' | 'WHATSAPP' | 'INSTAGRAM' | 'TRANSFERENCIA' | 'MANUAL';
   notes?: string | null;
 }): Promise<SpreadsheetLicenseRecord> {
@@ -233,12 +235,18 @@ export async function createLicenseRecord(data: {
     attempts++;
   }
 
+  let cleanInstagram = data.customerInstagram?.trim() || null;
+  if (cleanInstagram && !cleanInstagram.startsWith('@') && !cleanInstagram.startsWith('http')) {
+    cleanInstagram = `@${cleanInstagram}`;
+  }
+
   const record: SpreadsheetLicenseRecord = {
     id: 'lic_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36),
     licenseKey: key,
     customerName: data.customerName.trim(),
     customerEmail: data.customerEmail.trim().toLowerCase(),
     customerPhone: data.customerPhone?.trim() || null,
+    customerInstagram: cleanInstagram,
     channel: data.channel,
     status: 'ACTIVA',
     spreadsheetId: null,
@@ -258,6 +266,7 @@ export async function createLicenseRecord(data: {
           customerName: record.customerName,
           customerEmail: record.customerEmail,
           customerPhone: record.customerPhone,
+          customerInstagram: record.customerInstagram,
           channel: record.channel,
           status: record.status,
           notes: record.notes,
