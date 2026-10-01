@@ -1,7 +1,7 @@
 export const SALT_SEGURIDAD = 'FLOR_MARTINEZ_2026_SECRET';
 
 export const TEMPLATE_COPY_URL =
-  'https://docs.google.com/spreadsheets/d/1-8MYVSviA07R0e2Q7XNjCobcVMqGIMEoIUQrUqMvvYM/copy';
+  'https://docs.google.com/spreadsheets/d/1-8MYVSviA07R0e2Q7XNjCobcVMqGIMEoIUQrUqMvvYM/template/preview';
 
 export const ADMIN_EMAILS = [
   'santisose01@gmail.com',
@@ -45,12 +45,12 @@ Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor
 ${licenseKey}
 
 📌 Instrucciones de activación:
-1. Abrí el enlace de la planilla y hacé clic en el botón azul 'Crear una copia'.
+1. Abrí el enlace y hacé clic en el botón azul 'Usar plantilla' (o 'Crear una copia').
 2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
 3. Escribí tu clave en la celda C7 y presioná Enter.
 4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
-💡 Recomendación: Te sugerimos utilizar la planilla desde una computadora para disfrutar de una visualización mucho más cómoda y completa de todos los tableros y gráficos.
+💡 Tip: Te sugerimos abrir la planilla desde una computadora para mayor comodidad. Si la abrís en la App del celular y te sale 'Solo Lectura', tocá los 3 puntitos arriba (⋮) ➔ Compartir y exportar ➔ Crear una copia.
 
 Guardá este mensaje. ¡Cualquier duda que tengas estoy a disposición!`;
 }
