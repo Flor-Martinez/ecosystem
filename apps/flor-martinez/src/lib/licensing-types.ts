@@ -1,7 +1,7 @@
 export const SALT_SEGURIDAD = 'FLOR_MARTINEZ_2026_SECRET';
 
 export const TEMPLATE_COPY_URL =
-  'https://docs.google.com/spreadsheets/d/1-8MYVSviA07R0e2Q7XNjCobcVMqGIMEoIUQrUqMvvYM/template/preview';
+  'https://flormartinezok.com/api/obtener-planilla';
 
 export const ADMIN_EMAILS = [
   'santisose01@gmail.com',
