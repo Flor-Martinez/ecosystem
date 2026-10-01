@@ -118,6 +118,9 @@ export function generateSpreadsheetEmailHtml(params: {
 
               <!-- Step-by-Step Instructions -->
               <div style="margin-bottom:28px;background-color:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:20px;">
+                <div style="background-color:#FEF3C7;border:1px solid #FDE68A;border-radius:8px;padding:12px 14px;font-size:13px;font-weight:600;color:#92400E;margin-bottom:16px;line-height:1.5;">
+                  💻 <strong>Recomendación para la primera vez:</strong> Te aconsejamos abrir y activar la plantilla por primera vez desde tu <strong>computadora</strong> para vincular tu licencia en 1 solo clic. Una vez vinculada, podrás usarla sin problemas tanto desde tu computadora como desde tu celular.
+                </div>
                 <h3 style="margin:0 0 12px 0;font-size:14.5px;font-weight:750;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
                   📌 Paso a paso para activar tu planilla:
                 </h3>
@@ -206,12 +209,12 @@ Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor
 ${params.licenseKey}
 
 📌 Instrucciones de activación:
+💻 Recomendación para la primera vez: Te aconsejamos abrir y activar la plantilla por primera vez desde tu computadora para vincular tu licencia en 1 solo clic. Una vez vinculada, podrás usarla sin problemas tanto desde tu computadora como desde tu celular.
+
 1. Abrí el enlace de la planilla y hacé clic en el botón azul 'Crear una copia'.
 2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
 3. Escribí tu clave en la celda C7 de la solapa Dashboard/Activación y presioná Enter.
 4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
-
-💡 Recomendación: Te sugerimos utilizar la planilla desde una computadora para disfrutar de una visualización mucho más cómoda y completa de todos los tableros y gráficos.
 
 Guardá este correo. ¡Cualquier duda que tengas estoy a tu entera disposición!
 
