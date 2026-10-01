@@ -38,19 +38,19 @@ export function generarMensajeEntrega(customerName: string, licenseKey: string):
 Acá tenés el enlace oficial para abrir tu copia de la Planilla Financiera Flor Martínez:
 👉 ${TEMPLATE_COPY_URL}
 
-📚 Descargá tu E-Book & Curso Práctico en PDF acá:
-👉 ${EBOOK_PDF_URL}
-
 🔑 Tu Clave de Activación Oficial es:
 ${licenseKey}
 
 📌 Instrucciones de activación:
-1. Abrí el enlace y hacé clic en el botón azul 'Utilizar plantilla' para abrir tu copia en Google Sheets.
+1. Abrí el enlace y presioná el botón azul 'Utilizar plantilla' (en compu) o los 3 puntitos arriba (⋮) ➔ 'Crear una copia' (en celular).
 2. Si arriba te aparece una barra amarilla de Google, hacé clic en 'Permitir acceso' para habilitar las funciones.
 3. Escribí tu clave en la celda C7 y presioná Enter.
 4. ¡Listo! Se desbloquearán todas las hojas de trabajo automáticamente.
 
-💡 Recomendación: Te sugerimos utilizar la planilla desde una computadora (PC o Mac) para una comodidad total al visualizar tableros y gráficos.
+💡 Tip para celular: Si la abrís desde tu teléfono y la ves en 'Solo lectura', tocá los 3 puntitos arriba (⋮) y elegí 'Crear una copia'. En computadora abre directo en 1 clic.
+
+📚 Descargá tu E-Book & Curso Práctico en PDF acá:
+👉 ${EBOOK_PDF_URL}
 
 Guardá este mensaje. ¡Cualquier duda que tengas estoy a disposición!`;
 }

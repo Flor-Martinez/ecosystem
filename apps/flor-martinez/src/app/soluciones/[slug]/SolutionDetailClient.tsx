@@ -1043,30 +1043,37 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                     </button>
                   </div>
 
+                  <div
+                    style={{
+                      backgroundColor: '#FEF3C7',
+                      border: '1px solid #FDE68A',
+                      borderRadius: '10px',
+                      padding: '12px 14px',
+                      fontSize: '12.5px',
+                      fontWeight: 600,
+                      color: '#92400E',
+                      marginTop: '1.25rem',
+                      marginBottom: '0.75rem',
+                      lineHeight: '1.45',
+                      textAlign: 'left',
+                    }}
+                  >
+                    💡 <strong>Tip para celular:</strong> Si abrís la planilla desde tu teléfono y la ves en &apos;Solo lectura&apos;, tocá los <strong>3 puntitos arriba (⋮)</strong> y elegí <strong>&apos;Crear una copia&apos;</strong>. En computadora se abre directo presionando &apos;Utilizar plantilla&apos;.
+                  </div>
+
                   <a
                     href={issuedLicense?.copyUrl || TEMPLATE_COPY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.openTemplateCtaBtn}
                   >
-                    <span>Abrir y Copiar mi Planilla en Google Sheets</span>
+                    <span>Abrir mi Planilla en Google Sheets</span>
                     <ExternalLink size={16} />
-                  </a>
-
-                  <a
-                    href="/api/download/curso-practico"
-                    download="Finanzas_en_Orden_Curso_Practico.pdf"
-                    className={styles.openTemplateCtaBtn}
-                    style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
-                  >
-                    <span>Descargar E-Book & Curso Práctico (PDF)</span>
-                    <Download size={16} />
                   </a>
 
                   <ol className={styles.licenseStepsList}>
                     <li>
-                      Hacé clic en el botón superior y presioná el botón azul{' '}
-                      <strong>&apos;Utilizar plantilla&apos;</strong>.
+                      Hacé clic en el botón superior y presioná <strong>&apos;Utilizar plantilla&apos;</strong> (en compu) o los <strong>3 puntitos (⋮) &rarr; &apos;Crear una copia&apos;</strong> (en celular).
                     </li>
                     <li>
                       En la barra amarilla superior, hacé clic en{' '}
@@ -1077,6 +1084,16 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                       <strong>C7</strong> y presioná Enter para activar.
                     </li>
                   </ol>
+
+                  <a
+                    href="/api/download/curso-practico"
+                    download="Finanzas_en_Orden_Curso_Practico.pdf"
+                    className={styles.openTemplateCtaBtn}
+                    style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
+                  >
+                    <span>Descargar E-Book & Curso Práctico (PDF)</span>
+                    <Download size={16} />
+                  </a>
                 </div>
 
                 <button

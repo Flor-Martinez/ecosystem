@@ -106,15 +106,47 @@ export function generateSpreadsheetEmailHtml(params: {
               </table>
 
               <!-- Main Action: Google Sheets Link -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom:28px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom:24px;">
                 <tr>
                   <td align="center">
                     <a href="${copyUrl}" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#276749,#1C4D37);color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:700;padding:14px 28px;border-radius:10px;box-shadow:0 6px 18px rgba(39,103,73,0.3);text-align:center;">
-                      📊 Abrir y Copiar mi Planilla en Google Sheets &rarr;
+                      📊 Abrir mi Planilla en Google Sheets &rarr;
                     </a>
                   </td>
                 </tr>
               </table>
+
+              <!-- Recommendation & Mobile Tip Notice -->
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;margin-bottom:24px;">
+                <tr>
+                  <td style="padding:14px 18px;">
+                    <div style="font-size:13px;font-weight:600;color:#92400E;line-height:1.5;">
+                      💡 <strong>Tip para celular:</strong> Si abrís la planilla desde tu teléfono y la ves en 'Solo lectura', tocá los <strong>3 puntitos arriba (⋮)</strong> y elegí <strong>'Crear una copia'</strong>. En computadora se abre directo presionando 'Utilizar plantilla'.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Step-by-Step Instructions -->
+              <div style="margin-bottom:28px;background-color:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:20px;">
+                <h3 style="margin:0 0 12px 0;font-size:14.5px;font-weight:750;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
+                  📌 Paso a paso para activar tu planilla:
+                </h3>
+                <ol style="margin:0;padding-left:20px;font-size:13.5px;color:#334155;line-height:1.65;">
+                  <li style="margin-bottom:8px;">
+                    Hacé clic en el botón superior y presioná <strong>'Utilizar plantilla'</strong> (en compu) o los <strong>3 puntitos (⋮) &rarr; 'Crear una copia'</strong> (en celular).
+                  </li>
+                  <li style="margin-bottom:8px;">
+                    Si te aparece una barra amarilla arriba, hacé clic en <strong>'Permitir acceso'</strong> para que las fórmulas funcionen.
+                  </li>
+                  <li style="margin-bottom:8px;">
+                    En la pestaña <em>Dashboard / Activación</em>, escribí tu clave <strong style="font-family:monospace;background:#FFFFFF;padding:2px 6px;border-radius:4px;border:1px solid #CBD5E1;">${params.licenseKey}</strong> en la celda <strong>C7</strong> y presioná <strong>Enter</strong>.
+                  </li>
+                  <li>
+                    ¡Listo! Las 5 pestañas quedarán activadas y desbloqueadas de por vida.
+                  </li>
+                </ol>
+              </div>
 
               <!-- Practical Course E-Book Section -->
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#FAF7F2;border:1px solid #E2E8F0;border-radius:14px;margin-bottom:28px;">
@@ -141,38 +173,6 @@ export function generateSpreadsheetEmailHtml(params: {
                         </td>
                       </tr>
                     </table>
-                  </td>
-                </tr>
-              </table>
-
-              <!-- Step-by-Step Instructions -->
-              <div style="margin-bottom:28px;">
-                <h3 style="margin:0 0 14px 0;font-size:15px;font-weight:750;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
-                  📌 Paso a paso para activar tu planilla:
-                </h3>
-                <ol style="margin:0;padding-left:20px;font-size:14px;color:#334155;line-height:1.7;">
-                  <li style="margin-bottom:8px;">
-                    Hacé clic en el botón superior <strong>'Abrir y Copiar mi Planilla'</strong> y presioná el botón azul <strong>'Utilizar plantilla'</strong> en Google Sheets.
-                  </li>
-                  <li style="margin-bottom:8px;">
-                    Si te aparece una barra amarilla arriba, hacé clic en <strong>'Permitir acceso'</strong> para que las fórmulas automatizadas funcionen.
-                  </li>
-                  <li style="margin-bottom:8px;">
-                    En la pestaña <em>Dashboard / Activación</em>, escribí tu clave <strong style="font-family:monospace;background:#F1F5F9;padding:2px 6px;border-radius:4px;">${params.licenseKey}</strong> en la celda <strong>C7</strong> y presioná <strong>Enter</strong>.
-                  </li>
-                  <li>
-                    ¡Listo! Las 5 pestañas quedarán activadas y desbloqueadas de por vida.
-                  </li>
-                </ol>
-              </div>
-
-              <!-- Recommendation Notice -->
-              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color:#FEF3C7;border:1px solid #FDE68A;border-radius:10px;margin-bottom:28px;">
-                <tr>
-                  <td style="padding:14px 18px;">
-                    <div style="font-size:13px;font-weight:600;color:#92400E;line-height:1.5;">
-                      💡 <strong>Recomendación:</strong> Te sugerimos utilizar la planilla desde una computadora (PC o Mac) para disfrutar de una comodidad absoluta al visualizar todos los tableros y gráficos interactivos.
-                    </div>
                   </td>
                 </tr>
               </table>
