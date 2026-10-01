@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import nodemailer from 'nodemailer';
 import { TEMPLATE_COPY_URL, EBOOK_PDF_URL } from './licensing-types';
 
 interface SpreadsheetDeliveryEmailParams {
@@ -16,9 +17,9 @@ interface CvOrderConfirmationEmailParams {
 }
 
 /**
- * Lee el archivo PDF del curso práctico si existe para adjuntarlo en base64
+ * Lee el archivo PDF del curso práctico si existe para adjuntarlo
  */
-function getEbookPdfBase64(): string | null {
+function getEbookPdfBuffer(): Buffer | null {
   try {
     const candidatePaths = [
       path.join(process.cwd(), 'public', 'docs', 'Finanzas_en_Orden_Curso_Practico.pdf'),
@@ -27,8 +28,7 @@ function getEbookPdfBase64(): string | null {
 
     for (const p of candidatePaths) {
       if (fs.existsSync(/*turbopackIgnore: true*/ p)) {
-        const buffer = fs.readFileSync(/*turbopackIgnore: true*/ p);
-        return buffer.toString('base64');
+        return fs.readFileSync(/*turbopackIgnore: true*/ p);
       }
     }
   } catch (err) {
@@ -183,8 +183,8 @@ export function generateSpreadsheetEmailHtml(params: {
                   ¿Tenés alguna duda o necesitás asistencia con tu clave? Podés responder directamente a este correo o escribirnos a nuestro WhatsApp Business oficial.
                 </p>
                 <p style="margin:12px 0 0 0;font-weight:700;color:#0F172A;">
-                  Florencia Martínez<br>
-                  <span style="font-weight:400;color:#64748B;">Lic. Florencia Martínez &bull; <a href="https://flormartinezok.com" target="_blank" style="color:#276749;text-decoration:none;">flormartinezok.com</a></span>
+                  Lic. Florencia Martínez<br>
+                  <span style="font-weight:400;color:#64748B;"><a href="mailto:licenciadaflormartinez@gmail.com" style="color:#276749;text-decoration:none;">licenciadaflormartinez@gmail.com</a> &bull; <a href="https://flormartinezok.com" target="_blank" style="color:#276749;text-decoration:none;">flormartinezok.com</a></span>
                 </p>
               </div>
 
@@ -229,7 +229,8 @@ ${params.licenseKey}
 
 Guardá este correo. ¡Cualquier duda que tengas estoy a tu entera disposición!
 
-Florencia Martínez
+Lic. Florencia Martínez
+licenciadaflormartinez@gmail.com
 flormartinezok.com
   `.trim();
 
@@ -245,72 +246,116 @@ export async function sendSpreadsheetDeliveryEmail(params: SpreadsheetDeliveryEm
   error?: string;
   simulated?: boolean;
 }> {
-  const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.EMAIL_FROM || 'Flor Martínez <onboarding@resend.dev>').trim();
   const { html, text } = generateSpreadsheetEmailHtml(params);
+  const pdfBuffer = getEbookPdfBuffer();
 
-  // 1. Si no hay API Key de Resend configurada aún, registrar simulación sin fallar la compra
-  if (!apiKey) {
-    console.log(`[EMAIL SIMULADO] Enviar a: ${params.to}`);
-    console.log(`[EMAIL SIMULADO] Asunto: ¡Tu Planilla Finanzas en Orden + E-Book y Curso Práctico están listos! 📊📚`);
-    console.log(`[EMAIL SIMULADO] Clave: ${params.licenseKey}`);
-    return {
-      success: true,
-      simulated: true,
-      messageId: `sim_${Date.now()}`,
-    };
-  }
+  const gmailUser = (process.env.GMAIL_USER || 'licenciadaflormartinez@gmail.com').trim();
+  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').trim();
 
-  // 2. Preparar el adjunto PDF del E-Book si está disponible
-  const pdfBase64 = getEbookPdfBase64();
-  const attachments: Array<{ filename: string; content: string }> = [];
+  // 1. Envío DIRECTO desde la cuenta oficial de Gmail (licenciadaflormartinez@gmail.com)
+  if (gmailPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailUser,
+          pass: gmailPass,
+        },
+      });
 
-  if (pdfBase64) {
-    attachments.push({
-      filename: 'Finanzas_en_Orden_Curso_Practico.pdf',
-      content: pdfBase64,
-    });
-  }
-
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: [params.to],
+      const info = await transporter.sendMail({
+        from: `Lic. Florencia Martínez <${gmailUser}>`,
+        to: params.to,
         subject: '¡Tu Planilla Finanzas en Orden + E-Book y Curso Práctico están listos! 📊📚',
         html,
         text,
-        attachments: attachments.length > 0 ? attachments : undefined,
-      }),
-    });
+        attachments: pdfBuffer
+          ? [
+              {
+                filename: 'Finanzas_en_Orden_Curso_Practico.pdf',
+                content: pdfBuffer,
+                contentType: 'application/pdf',
+              },
+            ]
+          : undefined,
+      });
 
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({}));
-      console.error('[Resend Error]', errData);
+      console.log(`[Gmail Enviado con Éxito desde ${gmailUser}] Message ID:`, info.messageId);
+      return {
+        success: true,
+        messageId: info.messageId,
+      };
+    } catch (gmailErr: any) {
+      console.error('[Error al enviar con Gmail SMTP]:', gmailErr);
       return {
         success: false,
-        error: errData?.message || `HTTP ${res.status} al enviar correo con Resend`,
+        error: gmailErr?.message || 'Error al enviar por Gmail',
       };
     }
-
-    const data = await res.json();
-    console.log('[Email Enviado]', data);
-    return {
-      success: true,
-      messageId: data.id,
-    };
-  } catch (err: any) {
-    console.error('Error al conectar con el servicio de correo:', err);
-    return {
-      success: false,
-      error: err?.message || 'Error de conexión al enviar correo',
-    };
   }
+
+  // 2. Fallback a Resend si RESEND_API_KEY está configurada
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  const fromEmail = (process.env.EMAIL_FROM || 'Flor Martínez <onboarding@resend.dev>').trim();
+
+  if (apiKey) {
+    try {
+      const attachments = pdfBuffer
+        ? [
+            {
+              filename: 'Finanzas_en_Orden_Curso_Practico.pdf',
+              content: pdfBuffer.toString('base64'),
+            },
+          ]
+        : undefined;
+
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [params.to],
+          subject: '¡Tu Planilla Finanzas en Orden + E-Book y Curso Práctico están listos! 📊📚',
+          html,
+          text,
+          attachments,
+        }),
+      });
+
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        console.error('[Resend Error]', errData);
+        return {
+          success: false,
+          error: errData?.message || `HTTP ${res.status} al enviar correo con Resend`,
+        };
+      }
+
+      const data = await res.json();
+      console.log('[Resend Enviado]', data);
+      return {
+        success: true,
+        messageId: data.id,
+      };
+    } catch (err: any) {
+      console.error('Error al conectar con Resend:', err);
+      return {
+        success: false,
+        error: err?.message || 'Error de conexión al enviar correo',
+      };
+    }
+  }
+
+  // 3. Simulación si aún no hay credenciales cargadas
+  console.log(`[EMAIL SIMULADO] Desde: Lic. Florencia Martínez <${gmailUser}> -> Para: ${params.to}`);
+  return {
+    success: true,
+    simulated: true,
+    messageId: `sim_${Date.now()}`,
+  };
 }
 
 /**
@@ -322,8 +367,6 @@ export async function sendCvOrderConfirmationEmail(params: CvOrderConfirmationEm
   error?: string;
   simulated?: boolean;
 }> {
-  const apiKey = (process.env.RESEND_API_KEY || '').trim();
-  const fromEmail = (process.env.EMAIL_FROM || 'Flor Martínez <onboarding@resend.dev>').trim();
   const firstName = params.customerName.split(' ')[0] || 'Hola';
 
   const html = `
@@ -365,6 +408,35 @@ export async function sendCvOrderConfirmationEmail(params: CvOrderConfirmationEm
 </body>
 </html>
   `.trim();
+
+  const gmailUser = (process.env.GMAIL_USER || 'licenciadaflormartinez@gmail.com').trim();
+  const gmailPass = (process.env.GMAIL_APP_PASSWORD || process.env.SMTP_PASS || '').trim();
+
+  if (gmailPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: gmailUser,
+          pass: gmailPass,
+        },
+      });
+
+      const info = await transporter.sendMail({
+        from: `Lic. Florencia Martínez <${gmailUser}>`,
+        to: params.to,
+        subject: `¡Recibimos tu pedido de CV (${params.orderNumber})! 📄✨`,
+        html,
+      });
+
+      return { success: true, messageId: info.messageId };
+    } catch (err: any) {
+      return { success: false, error: err?.message };
+    }
+  }
+
+  const apiKey = (process.env.RESEND_API_KEY || '').trim();
+  const fromEmail = (process.env.EMAIL_FROM || 'Flor Martínez <onboarding@resend.dev>').trim();
 
   if (!apiKey) {
     return { success: true, simulated: true };
