@@ -25,6 +25,7 @@ import {
 import { Container } from '@/components/ui/Container';
 import { SolutionItem } from '@/data/solutions';
 import { useAuth } from '@/context/AuthContext';
+import { TEMPLATE_COPY_URL } from '@/lib/licensing-types';
 import { createContactSubmissionAction } from '@/actions/contactSubmissions';
 import { createCvOrderAction } from '@/actions/cvOrders';
 import SolutionReviewsSection from '@/components/solutions/SolutionReviewsSection';
@@ -175,7 +176,7 @@ export default function SolutionDetailClient({ solution }: SolutionDetailClientP
         if (isExcel && ref) {
           setIssuedLicense({
             licenseKey: ref,
-            copyUrl: 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/copy',
+            copyUrl: TEMPLATE_COPY_URL,
           });
         }
         if (isCv && ref) {
@@ -1043,7 +1044,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                   </div>
 
                   <a
-                    href={issuedLicense?.copyUrl || 'https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/copy'}
+                    href={issuedLicense?.copyUrl || TEMPLATE_COPY_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.openTemplateCtaBtn}
@@ -1065,7 +1066,7 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                   <ol className={styles.licenseStepsList}>
                     <li>
                       Hacé clic en el botón superior y presioná el botón azul{' '}
-                      <strong>&apos;Crear una copia&apos;</strong>.
+                      <strong>&apos;Usar plantilla&apos;</strong> (o &apos;Crear una copia&apos;).
                     </li>
                     <li>
                       En la barra amarilla superior, hacé clic en{' '}
