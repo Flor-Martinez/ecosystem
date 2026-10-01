@@ -266,6 +266,7 @@ export async function sendSpreadsheetDeliveryEmail(params: SpreadsheetDeliveryEm
       const info = await transporter.sendMail({
         from: `Lic. Florencia Martínez <${gmailUser}>`,
         to: params.to,
+        replyTo: gmailUser,
         subject: '¡Tu Planilla Finanzas en Orden + E-Book y Curso Práctico están listos! 📊📚',
         html,
         text,
@@ -318,6 +319,7 @@ export async function sendSpreadsheetDeliveryEmail(params: SpreadsheetDeliveryEm
         body: JSON.stringify({
           from: fromEmail,
           to: [params.to],
+          reply_to: gmailUser,
           subject: '¡Tu Planilla Finanzas en Orden + E-Book y Curso Práctico están listos! 📊📚',
           html,
           text,
@@ -425,6 +427,7 @@ export async function sendCvOrderConfirmationEmail(params: CvOrderConfirmationEm
       const info = await transporter.sendMail({
         from: `Lic. Florencia Martínez <${gmailUser}>`,
         to: params.to,
+        replyTo: gmailUser,
         subject: `¡Recibimos tu pedido de CV (${params.orderNumber})! 📄✨`,
         html,
       });
@@ -452,6 +455,7 @@ export async function sendCvOrderConfirmationEmail(params: CvOrderConfirmationEm
       body: JSON.stringify({
         from: fromEmail,
         to: [params.to],
+        reply_to: gmailUser,
         subject: `¡Recibimos tu pedido de CV (${params.orderNumber})! 📄✨`,
         html,
       }),
