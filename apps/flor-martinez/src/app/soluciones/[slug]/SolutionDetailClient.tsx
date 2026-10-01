@@ -1053,10 +1053,8 @@ ${cvFileName ? 'CV Adjunto: ' + cvFileName : ''}`;
                   </a>
 
                   <a
-                    href="/docs/Finanzas_en_Orden_Curso_Practico.pdf"
+                    href="/api/download/curso-practico"
                     download="Finanzas_en_Orden_Curso_Practico.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className={styles.openTemplateCtaBtn}
                     style={{ marginTop: '0.75rem', backgroundColor: '#0D1B2A', borderColor: '#0D1B2A' }}
                   >

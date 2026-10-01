@@ -28,7 +28,7 @@ export interface SpreadsheetLicenseRecord {
 }
 
 export const EBOOK_PDF_URL =
-  'https://flormartinezok.com/docs/Finanzas_en_Orden_Curso_Practico.pdf';
+  'https://flormartinezok.com/api/download/curso-practico';
 
 export function generarMensajeEntrega(customerName: string, licenseKey: string): string {
   const primerNombre = customerName.split(' ')[0] || 'Hola';
