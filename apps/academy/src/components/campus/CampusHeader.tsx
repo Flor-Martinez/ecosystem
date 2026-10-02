@@ -436,13 +436,13 @@ export function CampusHeader({
             </nav>
           )}
 
-          {/* DEVELOPER MEMBERSHIP SWITCH (Only visible to Superadmins in Ecosystem) */}
-          {isSuperAdmin && onToggleMembership && (
+          {/* DEVELOPER MEMBERSHIP SWITCH */}
+          {onToggleMembership && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${membershipTier === 'paid' ? styles.devTierPaid : styles.devTierFree}`}
               onClick={onToggleMembership}
-              title="Herramienta de superadmin: alternar entre Membresía Pagada (VIP) y Gratuita (Free)"
+              title="Herramienta de desarrollo: alternar entre Membresía Pagada (VIP) y Gratuita (Free)"
               aria-label="Alternar membresía de prueba"
             >
               {membershipTier === 'paid' ? (
@@ -459,8 +459,8 @@ export function CampusHeader({
             </button>
           )}
 
-          {/* MODO DEV TOGGLE SWITCH (Only visible to Superadmins in Ecosystem) */}
-          {isSuperAdmin && onToggleDevMode && (
+          {/* MODO DEV TOGGLE SWITCH */}
+          {onToggleDevMode && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${isDevMode ? styles.devModeActive : styles.devModeInactive}`}
