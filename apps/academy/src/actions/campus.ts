@@ -27,25 +27,27 @@ async function getOrCreateUser(email: string = DEFAULT_DEMO_EMAIL) {
   });
 
   if (!user) {
+    const namePart = formattedEmail.split('@')[0] || 'Usuario';
+    const dynamicName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
     user = await db.user.create({
       data: {
         email: formattedEmail,
-        name: 'Santiago Morales',
+        name: dynamicName,
         role: Role.STUDENT,
         membershipTier: MembershipTier.VIP,
-        headline: 'Profesional en Desarrollo & Gestión',
+        headline: 'Estudiante en Academia Flor Martínez',
         studentProfile: {
           create: {
-            targetRole: 'Product Designer / UX Lead',
-            seniority: 'Senior',
-            modality: '100% Remoto (Latam / Global)',
-            expectedSalary: '$2.200 USD / mes',
-            linkedinUrl: 'https://linkedin.com/in/santiago-martinez-demo',
-            cvFileName: 'CV_Santiago_Martinez_2026.pdf',
-            atsScore: 85,
-            linkedinScore: 70,
+            targetRole: 'Profesional en Búsqueda Activa',
+            seniority: 'Semi-Senior',
+            modality: 'Remoto / Híbrido',
+            expectedSalary: '$1.500 USD / mes',
+            linkedinUrl: '',
+            cvFileName: '',
+            atsScore: 78,
+            linkedinScore: 75,
             starScore: 60,
-            negotiationScore: 40,
+            negotiationScore: 50,
             networkingScore: 55,
           },
         },

@@ -269,32 +269,53 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   ): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const emailToUse = customEmail ? customEmail.trim() : 'santiago.morales@ejemplo.com';
-      const nameToUse: string = customName?.trim() || emailToUse.split('@')[0] || 'Usuario';
+      const emailToUse = (customEmail || '').toLowerCase().trim();
+      if (!emailToUse) {
+        setIsLoading(false);
+        return false;
+      }
+      const namePart = emailToUse.split('@')[0] || 'Usuario';
+      const nameToUse: string = customName?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
       const avatarToUse: string = customAvatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
 
-      const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
-      if (res.success && res.user) {
-        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
-        const newUser: EcosystemUser = {
-          id: res.user.id,
-          name: res.user.name || nameToUse,
-          email: res.user.email,
-          avatarUrl: res.user.avatarUrl || avatarToUse,
-          role: isSuper ? 'admin' : 'student',
-          isSuperAdmin: isSuper,
-          enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
-        };
-        saveUserSession(newUser);
-        setIsLoading(false);
-        closeAuthModal();
-        return true;
+      const isSuper = SUPERADMIN_EMAILS.includes(emailToUse);
+      let userToSave: EcosystemUser = {
+        id: 'usr_' + Math.random().toString(36).substring(2, 10),
+        name: nameToUse,
+        email: emailToUse,
+        avatarUrl: avatarToUse,
+        role: isSuper ? 'admin' : 'student',
+        isSuperAdmin: isSuper,
+        enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+      };
+
+      try {
+        const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
+        if (res && res.success && res.user) {
+          userToSave = {
+            id: res.user.id || userToSave.id,
+            name: res.user.name || nameToUse,
+            email: res.user.email || emailToUse,
+            avatarUrl: res.user.avatarUrl || avatarToUse,
+            role: isSuper ? 'admin' : 'student',
+            isSuperAdmin: isSuper,
+            enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+          };
+        }
+      } catch (err) {
+        console.warn('Persistencia en base de datos pospuesta, usando sesión Google:', err);
       }
+
+      saveUserSession(userToSave);
+      setIsLoading(false);
+      closeAuthModal();
+      return true;
     } catch (e) {
       console.error('Error en login con Google:', e);
+      setIsLoading(false);
+      closeAuthModal();
+      return false;
     }
-    setIsLoading(false);
-    return false;
   };
 
   const loginWithGoogle = async (): Promise<boolean> => {
