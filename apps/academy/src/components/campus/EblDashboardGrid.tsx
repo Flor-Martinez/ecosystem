@@ -41,7 +41,7 @@ export function EblDashboardGrid({
   onToggleFavorite: externalToggleFavorite,
   onClearAllFavorites: externalClearAllFavorites,
 }: EblDashboardGridProps) {
-  const { user: authUser } = useAuth();
+  const { user: authUser, openAuthModal } = useAuth();
 
   const userStorageKey = useMemo(() => {
     if (authUser?.id) return `campus_ebl_layout_mode_${authUser.id}`;
@@ -119,10 +119,16 @@ export function EblDashboardGrid({
     }
   };
 
-  // Helper to check if a card is locked in Free Tier
+  // Helper to check if a card is locked
   const isCardLocked = (card: { id: string; type: string; targetView: string }): boolean => {
+    // If not logged in, ALL modules and student tools are locked!
+    if (!authUser) {
+      if (card.type === 'modulo') return true;
+      if (card.id === 'tool-vocacional' || card.targetView === 'test-vocacional') return false;
+      return true;
+    }
     if (membershipTier === 'paid') return false;
-    // In Free Tier:
+    // In Free Tier (logged in):
     // ONLY Module 1 ('mod-trabajo-ideal') is free. All modules 2 through 8 are VIP exclusive!
     if (card.type === 'modulo') {
       return card.id !== 'mod-trabajo-ideal';
@@ -143,6 +149,14 @@ export function EblDashboardGrid({
   };
 
   const handleCardClick = (cardId: string, targetView: string, cardType: string) => {
+    if (!authUser) {
+      if (cardId === 'tool-vocacional' || targetView === 'test-vocacional') {
+        onSelectView(targetView);
+        return;
+      }
+      openAuthModal('login');
+      return;
+    }
     if (isCardLocked({ id: cardId, type: cardType, targetView })) {
       if (onLockedFeatureClick) {
         onLockedFeatureClick(cardId);

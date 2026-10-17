@@ -15,6 +15,7 @@ import {
   X,
 } from 'lucide-react';
 import { CampusLesson, CampusProgram, CampusModule } from '@/data/campus';
+import { useAuth } from '@/context/AuthContext';
 import styles from './CampusSidebar.module.css';
 
 interface CampusSidebarProps {
@@ -42,6 +43,7 @@ export function CampusSidebar({
   onLockedModuleClick,
   isDevMode = true,
 }: CampusSidebarProps) {
+  const { user, openAuthModal } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -85,6 +87,7 @@ export function CampusSidebar({
 
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
+    if (!user) return false; // Strictly locked for non-logged in visitors!
     const mod = currentProgram.modules.find((m) =>
       m.lessons.some((l) => l.id === lessonId)
     );
@@ -109,6 +112,10 @@ export function CampusSidebar({
 
   // When clicking a module header: toggle open/closed, and if opening, auto-select its current class
   const handleModuleClick = (mod: CampusModule) => {
+    if (!user) {
+      openAuthModal('login');
+      return;
+    }
     if (membershipTier === 'free' && mod.number !== 1) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
@@ -128,6 +135,10 @@ export function CampusSidebar({
 
   // Helper to switch module from rail when collapsed
   const handleSelectModuleFromRail = (mod: CampusModule) => {
+    if (!user) {
+      openAuthModal('login');
+      return;
+    }
     if (membershipTier === 'free' && mod.number !== 1) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
@@ -358,7 +369,7 @@ export function CampusSidebar({
                   (completedInMod / Math.max(1, mod.lessons.length)) * 100
                 );
 
-                const isModuleLockedInFree = membershipTier === 'free' && mod.number !== 1;
+                const isModuleLockedInFree = !user || (membershipTier === 'free' && mod.number !== 1);
 
                 return (
                   <div
@@ -475,9 +486,13 @@ export function CampusSidebar({
                               {/* Lesson Info Clickable */}
                               <button
                                 type="button"
-                                disabled={!isUnlocked && !isEvaluationLocked}
+                                disabled={user ? (!isUnlocked && !isEvaluationLocked) : false}
                                 className={styles.lessonSelectBtn}
                                 onClick={() => {
+                                  if (!user) {
+                                    openAuthModal('login');
+                                    return;
+                                  }
                                   if (isEvaluationLocked) {
                                     if (onLockedModuleClick) {
                                       onLockedModuleClick(`evaluacion-mod-${mod.number}`);

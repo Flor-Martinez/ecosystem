@@ -6,7 +6,7 @@ import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './AuthModal.module.css';
 
 export function AuthModal() {
-  const { isModalOpen, closeAuthModal, modalTab, setModalTab, login, register, loginWithGoogle, loginDemo, isLoading } = useEcosystemAuth();
+  const { isModalOpen, closeAuthModal, modalTab, setModalTab, login, register, loginWithGoogle, isLoading } = useEcosystemAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -179,7 +179,7 @@ export function AuthModal() {
                 <User size={16} className={styles.inputIcon} />
                 <input
                   type="text"
-                  placeholder="Ej. Santiago Morales"
+                  placeholder="Tu nombre y apellido"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className={styles.input}
@@ -224,15 +224,6 @@ export function AuthModal() {
             <ArrowRight size={16} />
           </button>
         </form>
-
-        {/* Demo Fast Access Pill */}
-        <div className={styles.demoBox}>
-          <span className={styles.demoLabel}>⚡ Modo Prueba Rápida:</span>
-          <button type="button" onClick={loginDemo} className={styles.demoBtn}>
-            <CheckCircle2 size={13} />
-            <span>Simular login de alumno (1 clic)</span>
-          </button>
-        </div>
       </div>
     </div>
   );

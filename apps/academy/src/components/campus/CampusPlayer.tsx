@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Play,
   Pause,
@@ -23,6 +23,8 @@ import {
   BookOpen,
   CheckSquare,
   Sparkles,
+  Lock,
+  User,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
@@ -58,14 +60,117 @@ export function CampusPlayer({
   isDevMode = true,
   onNavigateView,
 }: CampusPlayerProps) {
-  const { user } = useAuth();
-  const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
+  const { user, openAuthModal } = useAuth();
+  const activeEmail = user?.email || '';
 
-  // Video state
+  // Video state & refs
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState<'1x' | '1.25x' | '1.5x'>('1x');
-  const [progress, setProgress] = useState(35); // simulated 35% watched
+  const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
+
+  useEffect(() => {
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentTime(0);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [lesson.id]);
+
+  const handleTogglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(() => {
+            setIsPlaying(false);
+          });
+      }
+    } else {
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleToggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+    }
+    setIsMuted(!isMuted);
+  };
+
+  const cycleSpeed = () => {
+    const speeds: Array<'1x' | '1.25x' | '1.5x'> = ['1x', '1.25x', '1.5x'];
+    const speedVals: Record<'1x' | '1.25x' | '1.5x', number> = {
+      '1x': 1,
+      '1.25x': 1.25,
+      '1.5x': 1.5,
+    };
+    const idx = speeds.indexOf(playbackSpeed);
+    const nextIdx = (idx + 1) % speeds.length;
+    const nextSpeed = speeds[nextIdx] || '1x';
+    setPlaybackSpeed(nextSpeed);
+    if (videoRef.current) {
+      videoRef.current.playbackRate = speedVals[nextSpeed];
+    }
+  };
+
+  const handleToggleFullscreen = () => {
+    if (!containerRef.current) return;
+    if (!document.fullscreenElement) {
+      containerRef.current.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (!videoRef.current) return;
+    const curr = videoRef.current.currentTime;
+    const dur = videoRef.current.duration || 0;
+    setCurrentTime(curr);
+    if (dur > 0) {
+      setProgress((curr / dur) * 100);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (!videoRef.current) return;
+    setVideoDuration(videoRef.current.duration || 0);
+  };
+
+  const handleVideoEnded = () => {
+    setIsPlaying(false);
+    setProgress(100);
+  };
+
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const newPct = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+    setProgress(newPct);
+    if (videoRef.current && videoRef.current.duration) {
+      videoRef.current.currentTime = (newPct / 100) * videoRef.current.duration;
+    }
+  };
+
+  const formatVideoTime = (seconds: number) => {
+    if (isNaN(seconds) || seconds <= 0) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  };
 
   // Zoom accordion dropdown state
   const [isZoomAccordionOpen, setIsZoomAccordionOpen] = useState(false);
@@ -93,13 +198,6 @@ export function CampusPlayer({
   const quiz = lesson.quiz || currentModule.quiz;
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
   const [quizSubmitted, setQuizSubmitted] = useState(false);
-
-  const cycleSpeed = () => {
-    const speeds: Array<'1x' | '1.25x' | '1.5x'> = ['1x', '1.25x', '1.5x'];
-    const idx = speeds.indexOf(playbackSpeed);
-    const nextIdx = (idx + 1) % speeds.length;
-    setPlaybackSpeed(speeds[nextIdx] || '1x');
-  };
 
   const handleSubmitQuestion = (e: React.FormEvent) => {
     e.preventDefault();
@@ -453,95 +551,216 @@ export function CampusPlayer({
         </div>
       ) : (
         /* STANDARD VIDEO PLAYER SCREEN */
-        <div className={styles.videoViewport}>
-          <div className={styles.screenContent}>
-            <div className={styles.watermark}>ACADEMIA FLOR MARTINEZ · AULA VIRTUAL</div>
-
-            <div className={styles.lessonCoverCenter}>
-              <div
-                className={`${styles.screenBadge} ${
-                  isModuleStarted ? styles.screenBadgeActive : styles.screenBadgePending
-                }`}
-              >
-                MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
-              </div>
-              <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
-              <p className={styles.screenLessonDesc}>{lesson.description}</p>
-
-              <button
-                type="button"
-                className={styles.bigPlayBtn}
-                onClick={() => setIsPlaying(!isPlaying)}
-                aria-label={isPlaying ? 'Pausar clase' : 'Reproducir clase'}
-              >
-                {isPlaying ? (
-                  <Pause size={30} />
-                ) : (
-                  <Play size={30} className={styles.playIconOffset} />
-                )}
-              </button>
-            </div>
-
-            {/* Video bottom control bar */}
-            <div className={styles.controlsBar}>
-              <div
-                className={styles.scrubberBg}
-                onClick={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const clickX = e.clientX - rect.left;
-                  const newPct = Math.round((clickX / rect.width) * 100);
-                  setProgress(Math.max(0, Math.min(100, newPct)));
-                }}
-              >
-                <div className={styles.scrubberFill} style={{ width: `${progress}%` }} />
-              </div>
-
-              <div className={styles.controlsRow}>
-                <div className={styles.controlsLeft}>
-                  <button
-                    type="button"
-                    className={styles.ctrlBtn}
-                    onClick={() => setIsPlaying(!isPlaying)}
-                    aria-label="Play / Pausa"
-                  >
-                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-                  </button>
-
-                  <button
-                    type="button"
-                    className={styles.ctrlBtn}
-                    onClick={() => setIsMuted(!isMuted)}
-                    aria-label="Mute"
-                  >
-                    {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                  </button>
-
-                  <span className={styles.timeLabel}>
-                    {Math.round((progress / 100) * 18)}:20 / {lesson.duration}
-                  </span>
+        <div className={styles.videoViewport} ref={containerRef}>
+          {!user ? (
+            <div className={styles.lockedScreenContainer}>
+              <div className={styles.lockedCenterBox}>
+                <div className={styles.lockedIconCircle}>
+                  <Lock size={36} />
                 </div>
-
-                <div className={styles.controlsRight}>
-                  <button
-                    type="button"
-                    className={styles.speedBtn}
-                    onClick={cycleSpeed}
-                  >
-                    {playbackSpeed}
-                  </button>
-
-                  <button
-                    type="button"
-                    className={styles.ctrlBtn}
-                    title="Pantalla completa"
-                    aria-label="Pantalla completa"
-                  >
-                    <Maximize size={16} />
-                  </button>
+                <div className={styles.screenBadgeActive}>
+                  MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
                 </div>
+                <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
+                <p className={styles.lockedScreenPrompt}>
+                  Esta clase está reservada para alumnos de la Academia. Iniciá sesión con tu cuenta de Google para reproducir el video y acceder al material.
+                </p>
+                <button
+                  type="button"
+                  className={styles.loginToWatchBtn}
+                  onClick={() => openAuthModal('login')}
+                >
+                  <User size={18} />
+                  <span>Iniciar Sesión para Ver la Clase</span>
+                </button>
               </div>
             </div>
-          </div>
+          ) : lesson.videoUrl ? (
+            <div className={styles.realVideoWrapper} onContextMenu={(e) => e.preventDefault()}>
+              <video
+                ref={videoRef}
+                src={lesson.videoUrl}
+                className={styles.realVideoPlayer}
+                playsInline
+                preload="metadata"
+                controlsList="nodownload"
+                disablePictureInPicture
+                onContextMenu={(e) => e.preventDefault()}
+                onTimeUpdate={handleTimeUpdate}
+                onLoadedMetadata={handleLoadedMetadata}
+                onEnded={handleVideoEnded}
+                onClick={handleTogglePlay}
+              />
+
+              {/* Watermark badge top left */}
+              <div className={styles.videoWatermarkOverlay}>
+                ACADEMIA FLOR MARTÍNEZ · EXPERIENCIA BÚSQUEDA LABORAL
+              </div>
+
+              {/* Big Play Button Overlay when paused */}
+              {!isPlaying && (
+                <div className={styles.videoPlayOverlay} onClick={handleTogglePlay}>
+                  <div className={styles.overlayCenter}>
+                    {currentTime === 0 && (
+                      <div className={styles.overlayIntroInfo}>
+                        <div className={styles.screenBadgeActive}>
+                          MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
+                        </div>
+                        <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
+                      </div>
+                    )}
+                    <button
+                      type="button"
+                      className={styles.bigPlayBtn}
+                      aria-label="Reproducir clase"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTogglePlay();
+                      }}
+                    >
+                      <Play size={34} className={styles.playIconOffset} />
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Video bottom control bar */}
+              <div className={styles.videoControlsOverlay}>
+                <div className={styles.scrubberBg} onClick={handleSeek}>
+                  <div className={styles.scrubberFill} style={{ width: `${progress}%` }} />
+                </div>
+
+                <div className={styles.controlsRow}>
+                  <div className={styles.controlsLeft}>
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleTogglePlay}
+                      aria-label="Play / Pausa"
+                    >
+                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleToggleMute}
+                      aria-label="Mute"
+                    >
+                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                    </button>
+
+                    <span className={styles.timeLabel}>
+                      {formatVideoTime(currentTime)} / {videoDuration > 0 ? formatVideoTime(videoDuration) : lesson.duration}
+                    </span>
+                  </div>
+
+                  <div className={styles.controlsRight}>
+                    <button
+                      type="button"
+                      className={styles.speedBtn}
+                      onClick={cycleSpeed}
+                      title="Velocidad de reproducción"
+                    >
+                      {playbackSpeed}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleToggleFullscreen}
+                      title="Pantalla completa"
+                      aria-label="Pantalla completa"
+                    >
+                      <Maximize size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.screenContent}>
+              <div className={styles.watermark}>ACADEMIA FLOR MARTINEZ · AULA VIRTUAL</div>
+
+              <div className={styles.lessonCoverCenter}>
+                <div
+                  className={`${styles.screenBadge} ${
+                    isModuleStarted ? styles.screenBadgeActive : styles.screenBadgePending
+                  }`}
+                >
+                  MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
+                </div>
+                <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
+                <p className={styles.screenLessonDesc}>{lesson.description}</p>
+
+                <button
+                  type="button"
+                  className={styles.bigPlayBtn}
+                  onClick={handleTogglePlay}
+                  aria-label={isPlaying ? 'Pausar clase' : 'Reproducir clase'}
+                >
+                  {isPlaying ? (
+                    <Pause size={30} />
+                  ) : (
+                    <Play size={30} className={styles.playIconOffset} />
+                  )}
+                </button>
+              </div>
+
+              {/* Video bottom control bar */}
+              <div className={styles.controlsBar}>
+                <div className={styles.scrubberBg} onClick={handleSeek}>
+                  <div className={styles.scrubberFill} style={{ width: `${progress}%` }} />
+                </div>
+
+                <div className={styles.controlsRow}>
+                  <div className={styles.controlsLeft}>
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleTogglePlay}
+                      aria-label="Play / Pausa"
+                    >
+                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleToggleMute}
+                      aria-label="Mute"
+                    >
+                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                    </button>
+
+                    <span className={styles.timeLabel}>
+                      {formatVideoTime(currentTime)} / {lesson.duration}
+                    </span>
+                  </div>
+
+                  <div className={styles.controlsRight}>
+                    <button
+                      type="button"
+                      className={styles.speedBtn}
+                      onClick={cycleSpeed}
+                    >
+                      {playbackSpeed}
+                    </button>
+
+                    <button
+                      type="button"
+                      className={styles.ctrlBtn}
+                      onClick={handleToggleFullscreen}
+                      title="Pantalla completa"
+                      aria-label="Pantalla completa"
+                    >
+                      <Maximize size={16} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

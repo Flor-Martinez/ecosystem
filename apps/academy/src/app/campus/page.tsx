@@ -30,7 +30,7 @@ const DEV_MEMBERSHIP_KEY = 'campus_dev_membership_tier';
 
 function CampusContent() {
   const { user: authUser, isSuperAdmin } = useAuth();
-  const activeEmail = authUser?.email || 'santiago.morales@ejemplo.com';
+  const activeEmail = authUser?.email || '';
 
   const searchParams = useSearchParams();
   const requestedSlug = searchParams.get('programa');
@@ -357,6 +357,8 @@ function CampusContent() {
   // Linear lesson unlocking helper for current program
   const isLessonUnlocked = useCallback(
     (lessonId: string, currentCompleted: Set<string>): boolean => {
+      if (!authUser) return false;
+
       const mod = currentProgram.modules.find((m) =>
         m.lessons.some((l) => l.id === lessonId)
       );
@@ -376,7 +378,7 @@ function CampusContent() {
       }
       return true;
     },
-    [currentProgram, membershipTier]
+    [authUser, currentProgram, membershipTier]
   );
 
   // Helper to find the previous available & unlocked lesson (skipping approved tests and locked VIP modules)
