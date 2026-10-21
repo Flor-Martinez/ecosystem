@@ -43,7 +43,8 @@ export function CampusSidebar({
   onLockedModuleClick,
   isDevMode = true,
 }: CampusSidebarProps) {
-  const { user, openAuthModal } = useAuth();
+  const { user, isSuperAdmin, openAuthModal } = useAuth();
+  const canAccessVideos = Boolean(user && isSuperAdmin);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -87,7 +88,7 @@ export function CampusSidebar({
 
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
-    if (!user) return false; // Strictly locked for non-logged in visitors!
+    if (!canAccessVideos) return false; // Strictly locked for non-superadmin visitors!
     const mod = currentProgram.modules.find((m) =>
       m.lessons.some((l) => l.id === lessonId)
     );
@@ -112,7 +113,7 @@ export function CampusSidebar({
 
   // When clicking a module header: toggle open/closed, and if opening, auto-select its current class
   const handleModuleClick = (mod: CampusModule) => {
-    if (!user) {
+    if (!canAccessVideos) {
       openAuthModal('login');
       return;
     }
@@ -135,7 +136,7 @@ export function CampusSidebar({
 
   // Helper to switch module from rail when collapsed
   const handleSelectModuleFromRail = (mod: CampusModule) => {
-    if (!user) {
+    if (!canAccessVideos) {
       openAuthModal('login');
       return;
     }
@@ -369,7 +370,7 @@ export function CampusSidebar({
                   (completedInMod / Math.max(1, mod.lessons.length)) * 100
                 );
 
-                const isModuleLockedInFree = !user || (membershipTier === 'free' && mod.number !== 1);
+                const isModuleLockedInFree = !canAccessVideos || (membershipTier === 'free' && mod.number !== 1);
 
                 return (
                   <div
@@ -486,10 +487,10 @@ export function CampusSidebar({
                               {/* Lesson Info Clickable */}
                               <button
                                 type="button"
-                                disabled={user ? (!isUnlocked && !isEvaluationLocked) : false}
+                                disabled={canAccessVideos ? (!isUnlocked && !isEvaluationLocked) : false}
                                 className={styles.lessonSelectBtn}
                                 onClick={() => {
-                                  if (!user) {
+                                  if (!canAccessVideos) {
                                     openAuthModal('login');
                                     return;
                                   }

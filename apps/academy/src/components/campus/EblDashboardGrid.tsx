@@ -41,7 +41,8 @@ export function EblDashboardGrid({
   onToggleFavorite: externalToggleFavorite,
   onClearAllFavorites: externalClearAllFavorites,
 }: EblDashboardGridProps) {
-  const { user: authUser, openAuthModal } = useAuth();
+  const { user: authUser, isSuperAdmin, openAuthModal } = useAuth();
+  const canAccessVideos = Boolean(authUser && isSuperAdmin);
 
   const userStorageKey = useMemo(() => {
     if (authUser?.id) return `campus_ebl_layout_mode_${authUser.id}`;
@@ -121,8 +122,8 @@ export function EblDashboardGrid({
 
   // Helper to check if a card is locked
   const isCardLocked = (card: { id: string; type: string; targetView: string }): boolean => {
-    // If not logged in, ALL modules and student tools are locked!
-    if (!authUser) {
+    // If not logged in as SuperAdmin, ALL modules and student tools are locked!
+    if (!canAccessVideos) {
       if (card.type === 'modulo') return true;
       if (card.id === 'tool-vocacional' || card.targetView === 'test-vocacional') return false;
       return true;
@@ -149,7 +150,7 @@ export function EblDashboardGrid({
   };
 
   const handleCardClick = (cardId: string, targetView: string, cardType: string) => {
-    if (!authUser) {
+    if (!canAccessVideos) {
       if (cardId === 'tool-vocacional' || targetView === 'test-vocacional') {
         onSelectView(targetView);
         return;

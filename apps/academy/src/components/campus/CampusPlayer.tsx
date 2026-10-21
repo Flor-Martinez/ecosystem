@@ -60,8 +60,9 @@ export function CampusPlayer({
   isDevMode = true,
   onNavigateView,
 }: CampusPlayerProps) {
-  const { user, openAuthModal } = useAuth();
+  const { user, isSuperAdmin, openAuthModal } = useAuth();
   const activeEmail = user?.email || '';
+  const canAccessVideo = Boolean(user && isSuperAdmin);
 
   // Video state & refs
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -84,6 +85,10 @@ export function CampusPlayer({
   }, [lesson.id]);
 
   const handleTogglePlay = () => {
+    if (!canAccessVideo) {
+      openAuthModal('login');
+      return;
+    }
     if (videoRef.current) {
       if (isPlaying) {
         videoRef.current.pause();
@@ -552,7 +557,7 @@ export function CampusPlayer({
       ) : (
         /* STANDARD VIDEO PLAYER SCREEN */
         <div className={styles.videoViewport} ref={containerRef}>
-          {!user ? (
+          {!canAccessVideo ? (
             <div className={styles.lockedScreenContainer}>
               <div className={styles.lockedCenterBox}>
                 <div className={styles.lockedIconCircle}>
@@ -563,7 +568,9 @@ export function CampusPlayer({
                 </div>
                 <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
                 <p className={styles.lockedScreenPrompt}>
-                  Esta clase está reservada para alumnos de la Academia. Iniciá sesión con tu cuenta de Google para reproducir el video y acceder al material.
+                  {user
+                    ? 'El acceso a los videos de las clases está restringido exclusivamente a las cuentas de administración autorizadas del Ecosistema Flor Martínez.'
+                    : 'Esta clase está reservada para cuentas autorizadas de la Academia. Iniciá sesión con tu cuenta habilitada para reproducir el video.'}
                 </p>
                 <button
                   type="button"
@@ -571,7 +578,7 @@ export function CampusPlayer({
                   onClick={() => openAuthModal('login')}
                 >
                   <User size={18} />
-                  <span>Iniciar Sesión para Ver la Clase</span>
+                  <span>{user ? 'Iniciar Sesión con Cuenta Autorizada' : 'Iniciar Sesión para Ver la Clase'}</span>
                 </button>
               </div>
             </div>

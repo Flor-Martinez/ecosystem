@@ -357,7 +357,7 @@ function CampusContent() {
   // Linear lesson unlocking helper for current program
   const isLessonUnlocked = useCallback(
     (lessonId: string, currentCompleted: Set<string>): boolean => {
-      if (!authUser) return false;
+      if (!authUser || !isSuperAdmin) return false;
 
       const mod = currentProgram.modules.find((m) =>
         m.lessons.some((l) => l.id === lessonId)
@@ -378,7 +378,7 @@ function CampusContent() {
       }
       return true;
     },
-    [authUser, currentProgram, membershipTier]
+    [authUser, isSuperAdmin, currentProgram, membershipTier]
   );
 
   // Helper to find the previous available & unlocked lesson (skipping approved tests and locked VIP modules)

@@ -39,9 +39,6 @@ export function checkIsUserSuperAdmin(user: EcosystemUser | null, adminCookie?: 
   const emailLower = user.email ? user.email.toLowerCase().trim() : '';
   if (BANNED_EMAILS.includes(emailLower)) return false;
   if (emailLower && SUPERADMIN_EMAILS.includes(emailLower)) return true;
-  const roleLower = (user.role || '').toLowerCase();
-  if (roleLower === 'admin' || roleLower === 'superadmin') return true;
-  if (user.isSuperAdmin) return true;
   return false;
 }
 
