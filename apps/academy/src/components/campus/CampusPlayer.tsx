@@ -587,9 +587,10 @@ export function CampusPlayer({
               <video
                 ref={videoRef}
                 src={lesson.videoUrl}
+                poster={lesson.id === 'exp-ide-01' ? '/videos/ebl-1-1-poster.jpg' : undefined}
                 className={styles.realVideoPlayer}
                 playsInline
-                preload="metadata"
+                preload="auto"
                 controlsList="nodownload"
                 disablePictureInPicture
                 onContextMenu={(e) => e.preventDefault()}
@@ -599,23 +600,10 @@ export function CampusPlayer({
                 onClick={handleTogglePlay}
               />
 
-              {/* Watermark badge top left */}
-              <div className={styles.videoWatermarkOverlay}>
-                ACADEMIA FLOR MARTÍNEZ · EXPERIENCIA BÚSQUEDA LABORAL
-              </div>
-
               {/* Big Play Button Overlay when paused */}
               {!isPlaying && (
                 <div className={styles.videoPlayOverlay} onClick={handleTogglePlay}>
                   <div className={styles.overlayCenter}>
-                    {currentTime === 0 && (
-                      <div className={styles.overlayIntroInfo}>
-                        <div className={styles.screenBadgeActive}>
-                          MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
-                        </div>
-                        <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
-                      </div>
-                    )}
                     <button
                       type="button"
                       className={styles.bigPlayBtn}

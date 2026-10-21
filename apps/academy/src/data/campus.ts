@@ -119,7 +119,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Introducción',
         duration: '1:43 min',
         videoDuration: '1:43 min',
-        videoUrl: '/videos/ebl-1-1.mp4',
+        videoUrl: '/videos/ebl-1-1.mp4?v=2',
         completed: true,
         description:
           'Presentación de Florencia Martínez, su trayectoria profesional y el enfoque 100% práctico de la Experiencia de Búsqueda Laboral.',
