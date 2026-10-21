@@ -203,12 +203,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return checkIsUserSuperAdmin(user, adminCookie);
   }, [user, adminCookie]);
 
+  useEffect(() => {
+    if (user && isModalOpen) {
+      setIsModalOpen(false);
+    }
+  }, [user, isModalOpen]);
+
   const saveUserSession = (userData: EcosystemUser | null) => {
     setUser(userData);
     if (userData) {
       const serialized = JSON.stringify(userData);
       localStorage.setItem(STORAGE_KEY, serialized);
       setCookie(COOKIE_KEY, serialized);
+      setIsModalOpen(false);
     } else {
       localStorage.removeItem(STORAGE_KEY);
       setCookie(COOKIE_KEY, null);
@@ -236,29 +243,54 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = async (email: string): Promise<boolean> => {
-    setIsLoading(true);
-    try {
-      const res = await loginUserAction(email);
-      if (res.success && res.user) {
-        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
-        const newUser: EcosystemUser = {
-          id: res.user.id,
-          name: res.user.name || email.split('@')[0] || 'Usuario',
-          email: res.user.email,
-          role: isSuper ? 'admin' : 'student',
-          isSuperAdmin: isSuper,
-          enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
-        };
-        saveUserSession(newUser);
-        setIsLoading(false);
-        closeAuthModal();
-        return true;
-      }
-    } catch (e) {
-      console.error('Error en login:', e);
+    const formattedEmail = (email || '').toLowerCase().trim();
+    if (!formattedEmail || !formattedEmail.includes('@') || BANNED_EMAILS.includes(formattedEmail)) {
+      setIsLoading(false);
+      return false;
     }
+
+    setIsLoading(true);
+    const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
+    const namePart = formattedEmail.split('@')[0] || 'Usuario';
+    const defaultName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
+
+    const immediateUser: EcosystemUser = {
+      id: 'usr_' + Math.random().toString(36).substring(2, 10),
+      name: defaultName,
+      email: formattedEmail,
+      role: isSuper ? 'admin' : 'student',
+      isSuperAdmin: isSuper,
+      enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+    };
+
+    saveUserSession(immediateUser);
     setIsLoading(false);
-    return false;
+    closeAuthModal();
+
+    // Sync with server DB in background without blocking UI
+    void (async () => {
+      try {
+        const res = await loginUserAction(formattedEmail);
+        if (res && res.success && res.user) {
+          const isSuperServer =
+            SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) ||
+            String(res.user.role).toUpperCase() === 'ADMIN';
+          saveUserSession({
+            id: res.user.id || immediateUser.id,
+            name: res.user.name || defaultName,
+            email: res.user.email || formattedEmail,
+            avatarUrl: res.user.avatarUrl || undefined,
+            role: isSuperServer ? 'admin' : 'student',
+            isSuperAdmin: isSuperServer,
+            enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+          });
+        }
+      } catch (e) {
+        console.warn('Persistencia en servidor pospuesta (login):', e);
+      }
+    })();
+
+    return true;
   };
 
   const loginWithSocial = async (
@@ -267,32 +299,40 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     customName?: string,
     customAvatar?: string
   ): Promise<boolean> => {
+    const emailToUse = (customEmail || '').toLowerCase().trim();
+    if (!emailToUse || BANNED_EMAILS.includes(emailToUse)) {
+      setIsLoading(false);
+      return false;
+    }
+
     setIsLoading(true);
-    try {
-      const emailToUse = (customEmail || '').toLowerCase().trim();
-      if (!emailToUse) {
-        setIsLoading(false);
-        return false;
-      }
-      const namePart = emailToUse.split('@')[0] || 'Usuario';
-      const nameToUse: string = customName?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
-      const avatarToUse: string = customAvatar || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
+    const namePart = emailToUse.split('@')[0] || 'Usuario';
+    const nameToUse: string = customName?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
+    const avatarToUse: string =
+      customAvatar ||
+      `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(nameToUse)}&backgroundColor=EA580C,2563EB`;
 
-      const isSuper = SUPERADMIN_EMAILS.includes(emailToUse);
-      let userToSave: EcosystemUser = {
-        id: 'usr_' + Math.random().toString(36).substring(2, 10),
-        name: nameToUse,
-        email: emailToUse,
-        avatarUrl: avatarToUse,
-        role: isSuper ? 'admin' : 'student',
-        isSuperAdmin: isSuper,
-        enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
-      };
+    const isSuper = SUPERADMIN_EMAILS.includes(emailToUse);
+    const userToSave: EcosystemUser = {
+      id: 'usr_' + Math.random().toString(36).substring(2, 10),
+      name: nameToUse,
+      email: emailToUse,
+      avatarUrl: avatarToUse,
+      role: isSuper ? 'admin' : 'student',
+      isSuperAdmin: isSuper,
+      enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+    };
 
+    saveUserSession(userToSave);
+    setIsLoading(false);
+    closeAuthModal();
+
+    // Sync with server DB in background without blocking UI
+    void (async () => {
       try {
         const res = await loginUserAction(emailToUse, nameToUse, avatarToUse);
         if (res && res.success && res.user) {
-          userToSave = {
+          saveUserSession({
             id: res.user.id || userToSave.id,
             name: res.user.name || nameToUse,
             email: res.user.email || emailToUse,
@@ -300,22 +340,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             role: isSuper ? 'admin' : 'student',
             isSuperAdmin: isSuper,
             enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
-          };
+          });
         }
       } catch (err) {
         console.warn('Persistencia en base de datos pospuesta, usando sesión Google:', err);
       }
+    })();
 
-      saveUserSession(userToSave);
-      setIsLoading(false);
-      closeAuthModal();
-      return true;
-    } catch (e) {
-      console.error('Error en login con Google:', e);
-      setIsLoading(false);
-      closeAuthModal();
-      return false;
-    }
+    return true;
   };
 
   const loginWithGoogle = async (): Promise<boolean> => {
@@ -416,29 +448,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (name: string, email: string): Promise<boolean> => {
-    setIsLoading(true);
-    try {
-      const res = await registerUserAction(name, email);
-      if (res.success && res.user) {
-        const isSuper = SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) || String(res.user.role).toUpperCase() === 'ADMIN';
-        const newUser: EcosystemUser = {
-          id: res.user.id,
-          name: res.user.name || name,
-          email: res.user.email,
-          role: isSuper ? 'admin' : 'student',
-          isSuperAdmin: isSuper,
-          enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
-        };
-        saveUserSession(newUser);
-        setIsLoading(false);
-        closeAuthModal();
-        return true;
-      }
-    } catch (e) {
-      console.error('Error en register:', e);
+    const formattedEmail = (email || '').toLowerCase().trim();
+    const formattedName = (name || '').trim();
+    if (!formattedName || !formattedEmail || !formattedEmail.includes('@') || BANNED_EMAILS.includes(formattedEmail)) {
+      setIsLoading(false);
+      return false;
     }
+
+    setIsLoading(true);
+    const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
+    const immediateUser: EcosystemUser = {
+      id: 'usr_' + Math.random().toString(36).substring(2, 10),
+      name: formattedName,
+      email: formattedEmail,
+      role: isSuper ? 'admin' : 'student',
+      isSuperAdmin: isSuper,
+      enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+    };
+
+    saveUserSession(immediateUser);
     setIsLoading(false);
-    return false;
+    closeAuthModal();
+
+    // Sync with server DB in background without blocking UI
+    void (async () => {
+      try {
+        const res = await registerUserAction(formattedName, formattedEmail);
+        if (res && res.success && res.user) {
+          const isSuperServer =
+            SUPERADMIN_EMAILS.includes(res.user.email.toLowerCase().trim()) ||
+            String(res.user.role).toUpperCase() === 'ADMIN';
+          saveUserSession({
+            id: res.user.id || immediateUser.id,
+            name: res.user.name || formattedName,
+            email: res.user.email || formattedEmail,
+            role: isSuperServer ? 'admin' : 'student',
+            isSuperAdmin: isSuperServer,
+            enrolledCourses: ['cv-de-alto-impacto', 'linkedin-estrategico-y-marca-personal'],
+          });
+        }
+      } catch (e) {
+        console.warn('Persistencia en servidor pospuesta (register):', e);
+      }
+    })();
+
+    return true;
   };
 
   const logout = () => {

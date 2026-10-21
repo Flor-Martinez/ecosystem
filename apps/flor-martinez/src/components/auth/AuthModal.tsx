@@ -17,7 +17,10 @@ export function AuthModal() {
   const handleGoogleLogin = async () => {
     setError(null);
     try {
-      await loginWithGoogle();
+      const ok = await loginWithGoogle();
+      if (ok) {
+        closeAuthModal();
+      }
     } catch {
       setError('No se pudo completar el inicio de sesión con Google.');
     }
@@ -34,13 +37,23 @@ export function AuthModal() {
 
     try {
       if (modalTab === 'login') {
-        await login(email, password);
+        const ok = await login(email, password);
+        if (ok) {
+          closeAuthModal();
+        } else {
+          setError('No se pudo iniciar sesión. Verificá tu correo e intentá nuevamente.');
+        }
       } else {
         if (!name.trim()) {
           setError('Por favor, ingresá tu nombre completo.');
           return;
         }
-        await register(name, email, password);
+        const ok = await register(name, email, password);
+        if (ok) {
+          closeAuthModal();
+        } else {
+          setError('No se pudo registrar la cuenta. Verificá tus datos e intentá nuevamente.');
+        }
       }
     } catch {
       setError('Ocurrió un error al procesar el acceso. Intentá nuevamente.');

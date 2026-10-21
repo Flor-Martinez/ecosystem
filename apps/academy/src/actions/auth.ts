@@ -5,90 +5,113 @@ import { db, Role } from '@repo/db';
 
 const SESSION_COOKIE = 'fm_session_token';
 
-export const SUPERADMIN_EMAILS = [
+const SUPERADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
 ];
 
-export const BANNED_EMAILS = [
+const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 2500): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('DB Timeout')), timeoutMs)
+    ),
+  ]);
+}
 
 export async function loginUserAction(email: string, name?: string, avatarUrl?: string) {
   if (!email || !email.includes('@')) {
     return { success: false, error: 'Ingresá un correo electrónico válido.' };
   }
 
+  const formattedEmail = email.toLowerCase().trim();
+  if (BANNED_EMAILS.includes(formattedEmail)) {
+    return { success: false, error: 'Acceso denegado. Esta cuenta se encuentra bloqueada permanentemente.' };
+  }
+
   try {
-    const formattedEmail = email.toLowerCase().trim();
-    if (BANNED_EMAILS.includes(formattedEmail)) {
-      return { success: false, error: 'Acceso denegado. Esta cuenta se encuentra bloqueada permanentemente.' };
-    }
     const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
-    let user = await db.user.findUnique({
-      where: { email: formattedEmail },
-    });
+    let user = await withTimeout(
+      db.user.findUnique({
+        where: { email: formattedEmail },
+      })
+    );
 
     if (!user) {
       const namePart = formattedEmail.split('@')[0] || 'Usuario';
       const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
-      user = await db.user.create({
-        data: {
-          email: formattedEmail,
-          name: formattedName,
-          role: isSuper ? Role.ADMIN : Role.STUDENT,
-          membershipTier: 'VIP',
-          avatarUrl: avatarUrl || undefined,
-        },
-      });
+      user = await withTimeout(
+        db.user.create({
+          data: {
+            email: formattedEmail,
+            name: formattedName,
+            role: isSuper ? Role.ADMIN : Role.STUDENT,
+            membershipTier: 'VIP',
+            avatarUrl: avatarUrl || undefined,
+          },
+        })
+      );
 
       try {
-        await db.studentProfile.create({
-          data: {
-            userId: user.id,
-            targetRole: 'Profesional en Búsqueda Activa',
-            seniority: 'Semi-Senior',
-            modality: 'Remoto / Híbrido',
-            linkedinScore: 75,
-            atsScore: 78,
-          },
-        });
+        await withTimeout(
+          db.studentProfile.create({
+            data: {
+              userId: user.id,
+              targetRole: 'Profesional en Búsqueda Activa',
+              seniority: 'Semi-Senior',
+              modality: 'Remoto / Híbrido',
+              linkedinScore: 75,
+              atsScore: 78,
+            },
+          }),
+          1500
+        );
       } catch {
         // profile already exists or error
       }
     } else {
       if (isSuper && user.role !== Role.ADMIN) {
-        user = await db.user.update({
-          where: { id: user.id },
-          data: {
-            role: Role.ADMIN,
-            ...(name ? { name: name.trim() } : {}),
-            ...(avatarUrl ? { avatarUrl } : {}),
-          },
-        });
+        user = await withTimeout(
+          db.user.update({
+            where: { id: user.id },
+            data: {
+              role: Role.ADMIN,
+              ...(name ? { name: name.trim() } : {}),
+              ...(avatarUrl ? { avatarUrl } : {}),
+            },
+          })
+        );
       } else if (name || avatarUrl) {
-        // Update avatar or name if provided
-        user = await db.user.update({
-          where: { id: user.id },
-          data: {
-            ...(name ? { name: name.trim() } : {}),
-            ...(avatarUrl ? { avatarUrl } : {}),
-          },
-        });
+        user = await withTimeout(
+          db.user.update({
+            where: { id: user.id },
+            data: {
+              ...(name ? { name: name.trim() } : {}),
+              ...(avatarUrl ? { avatarUrl } : {}),
+            },
+          })
+        );
       }
     }
 
     const sessionToken = 'sess_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
-    await db.session.create({
-      data: {
-        sessionToken,
-        userId: user.id,
-        expires,
-      },
-    });
+    await withTimeout(
+      db.session.create({
+        data: {
+          sessionToken,
+          userId: user.id,
+          expires,
+        },
+      }),
+      1500
+    );
 
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE, sessionToken, {
@@ -111,7 +134,6 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
     };
   } catch (e) {
     console.error('Error en loginUserAction (DB):', e);
-    const formattedEmail = email.toLowerCase().trim();
     const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
     const namePart = formattedEmail.split('@')[0] || 'Usuario';
     const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
@@ -133,33 +155,42 @@ export async function registerUserAction(name: string, email: string) {
     return { success: false, error: 'Todos los campos son obligatorios.' };
   }
 
+  const formattedEmail = email.toLowerCase().trim();
+  if (BANNED_EMAILS.includes(formattedEmail)) {
+    return { success: false, error: 'Acceso denegado. Esta cuenta se encuentra bloqueada permanentemente.' };
+  }
+
   try {
-    const formattedEmail = email.toLowerCase().trim();
     const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
-    const existing = await db.user.findUnique({ where: { email: formattedEmail } });
+    const existing = await withTimeout(db.user.findUnique({ where: { email: formattedEmail } }));
     if (existing) {
-      return loginUserAction(formattedEmail);
+      return loginUserAction(formattedEmail, name);
     }
 
-    const user = await db.user.create({
-      data: {
-        name: name.trim(),
-        email: formattedEmail,
-        role: isSuper ? Role.ADMIN : Role.STUDENT,
-        membershipTier: 'VIP',
-      },
-    });
+    const user = await withTimeout(
+      db.user.create({
+        data: {
+          name: name.trim(),
+          email: formattedEmail,
+          role: isSuper ? Role.ADMIN : Role.STUDENT,
+          membershipTier: 'VIP',
+        },
+      })
+    );
 
     const sessionToken = 'sess_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
     const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
-    await db.session.create({
-      data: {
-        sessionToken,
-        userId: user.id,
-        expires,
-      },
-    });
+    await withTimeout(
+      db.session.create({
+        data: {
+          sessionToken,
+          userId: user.id,
+          expires,
+        },
+      }),
+      1500
+    );
 
     const cookieStore = await cookies();
     cookieStore.set(SESSION_COOKIE, sessionToken, {
@@ -181,7 +212,7 @@ export async function registerUserAction(name: string, email: string) {
     };
   } catch (e) {
     console.error('Error en registerUserAction:', e);
-    return { success: false, error: 'Error al registrar usuario en el servidor.' };
+    return loginUserAction(formattedEmail, name);
   }
 }
 
