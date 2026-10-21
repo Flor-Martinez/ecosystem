@@ -58,6 +58,7 @@ export interface CampusLesson {
   duration: string;
   videoDuration?: string;
   videoUrl?: string;
+  posterUrl?: string;
   type: 'video' | 'guia' | 'evaluacion';
   completed?: boolean;
   description: string;
@@ -117,9 +118,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: 'Introducción',
-        duration: '1:43 min',
-        videoDuration: '1:43 min',
-        videoUrl: '/videos/ebl-1-1.mp4?v=2',
+        duration: '1:32 min',
+        videoDuration: '1:32 min',
+        videoUrl: '/videos/ebl-1-1.mp4?v=3',
+        posterUrl: '/videos/ebl-1-1-poster.jpg?v=3',
         completed: true,
         description:
           'Presentación de Florencia Martínez, su trayectoria profesional y el enfoque 100% práctico de la Experiencia de Búsqueda Laboral.',
@@ -187,8 +189,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'El método para descubrir tu trabajo ideal',
-        duration: '6 min',
-        videoDuration: '3:45 min',
+        duration: '3:38 min',
+        videoDuration: '3:38 min',
+        videoUrl: '/videos/ebl-1-2.mp4?v=3',
+        posterUrl: '/videos/ebl-1-2-poster.jpg?v=3',
         completed: false,
         description:
           'Las 4 preguntas de autodiagnóstico para encontrar la intersección entre lo que sabés hacer, lo que te apasiona y las oportunidades del mercado.',
@@ -277,8 +281,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: 'Definición de target y no negociables',
-        duration: '8 min',
-        videoDuration: '4:30 min',
+        duration: '1:21 min',
+        videoDuration: '1:21 min',
+        videoUrl: '/videos/ebl-1-3.mp4?v=3',
+        posterUrl: '/videos/ebl-1-3-poster.jpg?v=3',
         completed: false,
         description:
           'Cómo definir con precisión quirúrgica tu puesto objetivo, industria, modalidad de trabajo y los límites que no vas a aceptar.',
@@ -370,8 +376,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 4,
         type: 'video',
         title: 'Test vocacional: Descubrí tu perfil y afinidad laboral',
-        duration: '6 min',
-        videoDuration: '3:30 min',
+        duration: '1:19 min',
+        videoDuration: '1:19 min',
+        videoUrl: '/videos/ebl-1-4.mp4?v=3',
+        posterUrl: '/videos/ebl-1-4-poster.jpg?v=3',
         completed: false,
         description:
           'Por qué el test vocacional es una brújula clave de autoconocimiento y cómo realizar la evaluación interactiva en nuestra plataforma.',
@@ -451,8 +459,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
-        duration: '6 min',
-        videoDuration: '3:50 min',
+        duration: '1:26 min',
+        videoDuration: '1:26 min',
+        videoUrl: '/videos/ebl-2-1.mp4?v=3',
+        posterUrl: '/videos/ebl-2-1-poster.jpg?v=3',
         completed: false,
         description:
           'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
@@ -540,8 +550,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Tiempos y fases reales de contratación',
-        duration: '5 min',
-        videoDuration: '4:15 min',
+        duration: '1:25 min',
+        videoDuration: '1:25 min',
+        videoUrl: '/videos/ebl-2-2.mp4?v=3',
+        posterUrl: '/videos/ebl-2-2-poster.jpg?v=3',
         completed: false,
         description:
           'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
@@ -623,8 +635,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: '5 errores típicos y plan semanal',
-        duration: '7 min',
-        videoDuration: '3:45 min',
+        duration: '1:51 min',
+        videoDuration: '1:51 min',
+        videoUrl: '/videos/ebl-2-3.mp4?v=3',
+        posterUrl: '/videos/ebl-2-3-poster.jpg?v=3',
         completed: false,
         description:
           'Los errores más frecuentes que sabotean búsquedas y cómo armar un bloque de 10 a 15 horas semanales de alta productividad.',
@@ -734,8 +748,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: '6 errores que arruinan tu CV',
-        duration: '7 min',
-        videoDuration: '3:50 min',
+        duration: '3:08 min',
+        videoDuration: '3:08 min',
+        videoUrl: '/videos/ebl-3-1.mp4?v=3',
+        posterUrl: '/videos/ebl-3-1-poster.jpg?v=3',
         completed: false,
         description:
           'Los 6 errores más frecuentes que provocan el descarte de tu postulación y cómo presentar un CV enfocado en conseguir entrevistas.',
@@ -824,8 +840,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Filtros ATS: Cómo hacer match con el aviso laboral',
-        duration: '7 min',
-        videoDuration: '3:55 min',
+        duration: '1:30 min',
+        videoDuration: '1:30 min',
+        videoUrl: '/videos/ebl-3-2.mp4?v=3',
+        posterUrl: '/videos/ebl-3-2-poster.jpg?v=3',
         completed: false,
         description:
           'Qué son los sistemas ATS, cómo escanean las palabras clave y el método en 3 pasos para hacer coincidir tu CV con los requisitos de la vacante.',

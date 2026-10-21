@@ -78,6 +78,7 @@ export function CampusPlayer({
     setIsPlaying(false);
     setProgress(0);
     setCurrentTime(0);
+    setVideoDuration(0);
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -585,9 +586,10 @@ export function CampusPlayer({
           ) : lesson.videoUrl ? (
             <div className={styles.realVideoWrapper} onContextMenu={(e) => e.preventDefault()}>
               <video
+                key={lesson.id}
                 ref={videoRef}
                 src={lesson.videoUrl}
-                poster={lesson.id === 'exp-ide-01' ? '/videos/ebl-1-1-poster.jpg' : undefined}
+                poster={lesson.posterUrl}
                 className={styles.realVideoPlayer}
                 playsInline
                 preload="auto"
