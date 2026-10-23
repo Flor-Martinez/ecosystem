@@ -38,6 +38,132 @@ export interface InAppDocument {
 }
 
 export const inAppDocumentsRegistry: Record<string, InAppDocument> = {
+  'plantilla-cv-harvard-sin-foto': {
+    id: 'plantilla-cv-harvard-sin-foto',
+    slug: 'plantilla-cv-harvard-sin-foto',
+    title: 'Plantilla CV Ganador Modelo Harvard (Sin Foto)',
+    category: 'Plantilla ATS Harvard',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Modelo Harvard Sin Foto',
+    estimatedReadTime: 'Plantilla Editable 1 Página',
+    summary:
+      'El modelo de currículum ganador según la Universidad de Harvard: estructura limpia, prolija y ordenada de una sola página sin foto, diseñada para que el reclutador identifique en 6 segundos tu valor y apta para postulaciones en Estados Unidos, Canadá y filtros ATS.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (Modelo Harvard Sin Foto)',
+    sections: [
+      {
+        id: 'harvard-sin-foto-encabezado',
+        title: '1. Encabezado Superior (Sin Foto)',
+        subtitle: 'Información directa para Estados Unidos, Canadá y portales ATS internacionales',
+        content:
+          'En la parte superior colocá únicamente tu nombre completo destacado, el puesto al que querés aplicar y tus medios de contacto esenciales (correo electrónico y número de teléfono).',
+        copyableTemplate: {
+          label: 'Estructura de Encabezado Modelo Harvard (Sin Foto):',
+          text: `NOMBRE Y APELLIDO COMPLETO
+Puesto objetivo al que aplicás (ej. Analista de Comercio Internacional / Especialista Comercial)
+Correo electrónico profesional · Número de teléfono actualizado · LinkedIn (opcional)`,
+        },
+      },
+      {
+        id: 'harvard-sin-foto-secciones',
+        title: '2. Estructura Completa en 1 Página',
+        subtitle: 'Orden lógico y resultados medibles para el escaneo de 6 segundos',
+        content:
+          'Copiá y adaptá esta estructura limpia en una sola hoja, asegurándote de incluir resultados medibles con números y palabras clave del anuncio:',
+        copyableTemplate: {
+          label: 'Plantilla Completa CV Harvard (Sin Foto):',
+          text: `PERFIL PROFESIONAL
+Breve resumen de 3 a 4 líneas sobre tu experiencia, tu especialidad y el valor concreto que aportás a la empresa, destacando tus principales habilidades y logros más relevantes para el puesto al que aplicás.
+
+EXPERIENCIA LABORAL
+Nombre de la Empresa — Puesto Ocupado (Mes Año – Presente / Mes Año)
+• [Logro medible con números]: Ej. Gestioné una cartera de clientes clave incrementando la facturación en un 20% anual.
+• [Resultado e impacto]: Ej. Optimicé los tiempos de respuesta del área reduciendo demoras operativas en un 30%.
+• [Responsabilidad relevante]: Ej. Coordiné reportes e indicadores de gestión para la toma de decisiones.
+
+EDUCACIÓN
+Título Académico Relevante — Institución Educativa (Año de egreso o En curso)
+Cursos o Certificaciones Relevantes — Institución (Año)
+
+HABILIDADES
+• Habilidades Técnicas: [Específicas y alineadas con las palabras clave del aviso]
+• Habilidades Blandas: [Liderazgo, comunicación, trabajo en equipo, negociación, etc.]
+
+IDIOMAS Y HERRAMIENTAS
+• Idiomas: [Idiomas que hablás y nivel real]
+• Herramientas: [Software y herramientas que dominás relacionadas al puesto, ej. Excel avanzado]`,
+        },
+      },
+    ],
+  },
+  'plantilla-cv-harvard-con-foto': {
+    id: 'plantilla-cv-harvard-con-foto',
+    slug: 'plantilla-cv-harvard-con-foto',
+    title: 'Plantilla CV Ganador Modelo Harvard (Adaptado con Foto)',
+    category: 'Plantilla ATS Harvard',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 3,
+    badge: 'Modelo Harvard Con Foto',
+    estimatedReadTime: 'Plantilla Editable 1 Página',
+    summary:
+      'Adaptación exclusiva del CV ganador de la Universidad de Harvard con espacio superior para foto profesional, pensada para el mercado de Argentina y postulaciones a puestos comerciales o gerenciales.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición 2026 (Modelo Harvard Con Foto)',
+    sections: [
+      {
+        id: 'harvard-con-foto-reglas',
+        title: '1. Criterios para la Foto Profesional en el Encabezado',
+        subtitle: 'Cómo lograr que tu foto sume profesionalismo, confianza, cercanía y credibilidad',
+        content:
+          'En Argentina —especialmente para puestos comerciales o gerenciales— la foto sigue utilizándose. Si elegís esta plantilla adaptada con foto, asegurate de cumplir estas reglas:',
+        checklistItems: [
+          {
+            id: 'foto-1',
+            text: 'Buena iluminación frontal y fondo limpio (sin que se vea gente atrás).',
+          },
+          {
+            id: 'foto-2',
+            text: 'No usar selfies ni maquillaje excesivo.',
+          },
+          {
+            id: 'foto-3',
+            text: 'Sin escotes, sin accesorios (por ejemplo lentes) y cuidando que la ropa esté impecable (ni arrugada ni sucia).',
+          },
+        ],
+      },
+      {
+        id: 'harvard-con-foto-secciones',
+        title: '2. Estructura Completa en 1 Página (Con Foto)',
+        subtitle: 'Diseño limpio, prolijo y ordenado con resultados medibles',
+        content:
+          'Mantené el diseño en una sola página sin gráficos recargados ni exceso de íconos para no desviar la atención del reclutador:',
+        copyableTemplate: {
+          label: 'Plantilla Completa CV Harvard (Adaptado con Foto):',
+          text: `[FOTO PROFESIONAL]   NOMBRE Y APELLIDO COMPLETO
+                     Puesto al que querés aplicar
+                     Correo electrónico · Número de teléfono
+
+PERFIL PROFESIONAL
+Breve resumen de tu experiencia, especialidad y el valor que aportás a la compañía. Destacá tus principales habilidades y logros más relevantes para el puesto al que aplicás.
+
+EXPERIENCIA LABORAL
+Nombre de la Empresa — Puesto Ocupado (Período)
+• Detallá tu experiencia más relevante incluyendo logros y responsabilidades con resultados medibles en números.
+• Ejemplo: Lideré el equipo comercial superando los objetivos trimestrales en un 25%.
+
+EDUCACIÓN
+Título Académico más relevante — Institución Educativa (Año de egreso)
+
+HABILIDADES
+• Habilidades técnicas y blandas específicas y alineadas con lo que busca la empresa en el anuncio.
+
+IDIOMAS Y HERRAMIENTAS
+• Idiomas que hablás y herramientas que dominás relacionadas al puesto (ej. Excel avanzado, CRM, etc.).`,
+        },
+      },
+    ],
+  },
   'checklist-6-errores-cv': {
     id: 'checklist-6-errores-cv',
     slug: 'checklist-6-errores-cv',

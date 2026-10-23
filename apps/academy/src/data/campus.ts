@@ -95,7 +95,7 @@ export interface CampusProgram {
 }
 
 // =============================================================================
-// 1. EXPERIENCIA BÚSQUEDA LABORAL (8 MÓDULOS · 33 CLASES)
+// 1. EXPERIENCIA BÚSQUEDA LABORAL (8 MÓDULOS · 32 CLASES)
 // =============================================================================
 const expBusquedaLaboralModules: CampusModule[] = [
   // ---------------------------------------------------------------------------
@@ -107,7 +107,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 1,
     title: '¿Cómo conseguir tu trabajo ideal?',
     tagline: 'Autoconocimiento, método de 4 preguntas, límites no negociables y test vocacional',
-    totalDuration: '24 min · 4 clases',
+    totalDuration: '7:50 min · 4 clases',
     lessons: [
       {
         id: 'exp-ide-01',
@@ -120,25 +120,19 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Introducción',
         duration: '1:32 min',
         videoDuration: '1:32 min',
-        videoUrl: '/videos/ebl-1-1.mp4?v=3',
-        posterUrl: '/videos/ebl-1-1-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-1-1.mp4?v=4',
+        posterUrl: '/videos/ebl-1-1-poster.jpg?v=4',
         completed: true,
         description:
-          'Presentación de Florencia Martínez, su trayectoria profesional y el enfoque 100% práctico de la Experiencia de Búsqueda Laboral.',
+          'Florencia te da la bienvenida al curso presentando su recorrido profesional, su doble perspectiva como gerente/reclutadora y candidata, y el enfoque 100% práctico para construir tus herramientas laborales paso a paso.',
         takeaways: [
-          'Trayectoria profesional: Licenciada en Comercio Internacional, Gerente de filial de multinacional y Máster en la Universidad de Barcelona.',
-          'Doble perspectiva: La visión real de quien selecciona candidatos en empresas combinada con la experiencia propia de buscar empleo.',
-          'Enfoque 100% práctico: Construir juntos un CV enfocado, LinkedIn optimizado, prospección de vacantes y preparación para entrevistas.',
+          'Trayectoria y formación: Licenciada en Comercio Internacional, gerente de oficina en Mendoza de una empresa multinacional de logística, Máster en la Universidad de Barcelona y capacitaciones en RRHH, LinkedIn, marketing digital, vino, minería, inglés y Excel.',
+          'Mirada de ambos lados: Conocer qué pasa del lado del reclutador (qué buscamos en un CV, qué evaluamos de un candidato y qué vemos en una entrevista) y haber pasado también por el lugar de candidata.',
+          'Enfoque 100% práctico: Terminar el curso con un CV que realmente te sirva, un LinkedIn actualizado o creado desde cero, y saber cómo prepararte ante una entrevista y encontrar oportunidades.',
         ],
-        actionItems: [
-          {
-            id: 'act-intro-1',
-            title: 'Recorrer el campus y configurar tu perfil',
-            description: 'Explorá las herramientas, documentos y completá tus datos iniciales en Mi Perfil.',
-          },
-        ],
+        actionItems: [],
         mindsetPrompt:
-          'La idea no es solamente mirar clases pasivamente: vamos a ir construyendo juntos tus herramientas de búsqueda.',
+          'La idea no es solo mirar las clases: es que vayamos haciendo todo juntos.',
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: BIENVENIDA Y TRAYECTORIA]
@@ -191,38 +185,49 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'El método para descubrir tu trabajo ideal',
         duration: '3:38 min',
         videoDuration: '3:38 min',
-        videoUrl: '/videos/ebl-1-2.mp4?v=3',
-        posterUrl: '/videos/ebl-1-2-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-1-2.mp4?v=4',
+        posterUrl: '/videos/ebl-1-2-poster.jpg?v=4',
         completed: false,
         description:
-          'Las 4 preguntas de autodiagnóstico para encontrar la intersección entre lo que sabés hacer, lo que te apasiona y las oportunidades del mercado.',
+          'Ejercicio profundo de introspección y autoconocimiento con lápiz y papel a través de las 4 preguntas clave para identificar cuál es tu trabajo ideal y armar tu plan de acción.',
         takeaways: [
-          'Las 4 preguntas guía: Qué sabés hacer hoy, qué disfrutás, cómo monetizarlo y qué brechas necesitás cerrar.',
-          'El trabajo ideal se construye: Cruzar el puente de donde estás hoy a tu objetivo mediante una estrategia clara.',
-          'Plan de acción paso a paso: Cada avance, por pequeño que sea, te acerca a tu meta profesional.',
+          '1. ¿En qué sos bueno hoy?: Identificar tus conocimientos, habilidades, cursos que hiciste y todo lo que sabés hacer bien (sin importar si te lleva varias hojas: cuantas más ideas salgan, mejor).',
+          '2. ¿Qué te gustaría realmente hacer?: Conectar en silencio y sin el teléfono con qué trabajo disfrutarías y te sentirías entusiasmado por hacer cada lunes.',
+          '3. ¿Cómo podés ganar dinero con eso?: Cruzar lo que ya sabés hacer con lo que te gusta hacer para identificar y anotar cuál es tu trabajo ideal.',
+          '4. ¿Qué me falta para llegar ahí?: Armar tu plan de acción (experiencias, estudios o pasar por un trabajo previo) sabiendo que cada paso te acerca a tu objetivo final.',
         ],
         actionItems: [
           {
             id: 'act-ide-2-1',
-            title: 'Responder las 4 preguntas en papel',
-            description: 'Anotá qué sabés hacer, qué te gusta, cómo monetizarlo y qué te falta para llegar ahí.',
+            title: 'Imprimir la planilla de las 4 preguntas (o usar lápiz y papel)',
+            description: 'Buscá un momento en silencio y sin el teléfono. Hacerlo a mano con lápiz y papel te conecta mucho más con vos mismo que en la computadora.',
+          },
+          {
+            id: 'act-ide-2-2',
+            title: 'Responder las 4 preguntas y armar tu Plan de Acción',
+            description: 'Tomate el tiempo que sea necesario para anotar tus habilidades, lo que te gusta, cuál es tu trabajo ideal y qué te falta para llegar ahí.',
+          },
+          {
+            id: 'act-ide-2-3',
+            title: 'Revisar tu hoja todos los días',
+            description: 'Guardá tu hoja y mirala a diario viendo qué paso ya cumpliste y preguntándote: "¿Qué hice hoy para acercarme a ese lugar deseado?".',
           },
         ],
         mindsetPrompt:
-          'Tu trabajo ideal no aparece por casualidad: se construye con autoconocimiento, estrategia y constancia.',
+          'Hay un camino desde donde estás hoy hasta el trabajo que querés. La diferencia entre los que avanzan y los que se quedan es tener una estrategia: tu trabajo ideal no aparece, se construye.',
         resources: [
           {
             id: 'guia-metodo-trabajo-ideal',
-            title: 'Guía de las 4 Preguntas: Trabajo Ideal y Plan de Acción',
+            title: 'Planilla de las 4 Preguntas: Trabajo Ideal y Plan de Acción',
             type: 'pdf',
-            fileSize: 'Guía In-App',
+            fileSize: 'Planilla Imprimible',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
             category: 'Autoconocimiento',
-            description: 'Plantilla de reflexión guiada para identificar tus habilidades, intereses y pasos para llegar a tu meta.',
-            isEssential: false,
+            description: 'Planilla con las 4 preguntas para imprimir y responder a mano con lápiz y papel.',
+            isEssential: true,
           },
         ],
         videoScript:
@@ -283,47 +288,48 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Definición de target y no negociables',
         duration: '1:21 min',
         videoDuration: '1:21 min',
-        videoUrl: '/videos/ebl-1-3.mp4?v=3',
-        posterUrl: '/videos/ebl-1-3-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-1-3.mp4?v=4',
+        posterUrl: '/videos/ebl-1-3-poster.jpg?v=4',
         completed: false,
         description:
-          'Cómo definir con precisión quirúrgica tu puesto objetivo, industria, modalidad de trabajo y los límites que no vas a aceptar.',
+          'Por qué buscar trabajo "de lo que sea" cierra puertas en lugar de abrirlas y cómo definir tu target laboral en 6 puntos, tus condiciones no negociables y tu lista de empresas objetivo.',
         takeaways: [
-          'El peligro de decir "busco de lo que sea": Te vuelve invisible en los motores de búsqueda de selectores.',
-          'Los 6 filtros del target: Puesto exacto, industria, tamaño de empresa, modalidad, rango salarial y disposición a mudarse.',
-          'Definir tu lista de No Negociables: Te otorga seguridad y postura firme al momento de negociar.',
+          'La trampa de buscar "de lo que sea": Si no sabés qué buscás, es muy difícil hacer un CV enfocado, actualizar LinkedIn para determinado puesto o explicarle a un reclutador por qué sos bueno para esa posición.',
+          'Los 6 puntos de tu Target Laboral: Qué puestos buscás, en qué industria, qué nivel de seniority tenés, qué modalidad preferís, cuál es tu expectativa salarial y tu disponibilidad.',
+          'Tus No Negociables: Las condiciones que realmente necesitás para aceptar un trabajo (salario mínimo, ubicación, horarios o modalidad).',
+          'Lista de Empresas Objetivo: Identificar las empresas en las que realmente te gustaría trabajar para no depender solamente de las vacantes que hoy están publicadas.',
         ],
         actionItems: [
           {
             id: 'act-3-1',
-            title: 'Completar tus 6 filtros de postulación',
-            description: 'Definí tu rol exacto, industria, seniority, modalidad, piso salarial y disponibilidad en la Matriz de Target de esta clase.',
+            title: 'Definir los 6 puntos de tu Target Laboral',
+            description: 'Completá qué puestos buscás, industria, nivel de seniority, modalidad preferida, expectativa salarial y disponibilidad en la planilla de la plataforma.',
           },
           {
             id: 'act-3-2',
-            title: 'Establecer tus Límites No Negociables',
-            description: 'Anotá tus líneas rojas para mantener postura firme y seguridad en las entrevistas.',
+            title: 'Establecer tus No Negociables',
+            description: 'Definí qué condiciones necesitás sí o sí para aceptar un trabajo (salario mínimo, ubicación, horarios o modalidad).',
           },
           {
             id: 'act-3-3',
-            title: 'Listar tus Empresas Objetivo',
-            description: 'Anotá las organizaciones donde tu perfil resuelva un problema directo para iniciar tu prospección activa.',
+            title: 'Crear tu lista de Empresas Objetivo',
+            description: 'Identificá y anotá las empresas en las que realmente te gustaría trabajar sin depender solo de las vacantes publicadas hoy.',
           },
         ],
         mindsetPrompt:
-          'Definir tu puesto objetivo no te cierra puertas: construye el foco exacto para que te llamen a entrevistas.',
+          'Creer que buscar "de lo que sea" te abre muchas puertas genera totalmente lo contrario: definir tu target es lo que te permite mostrar por qué sos la persona indicada para ese puesto.',
         resources: [
           {
             id: 'matriz-target-no-negociables',
-            title: 'Matriz de Target Laboral y Límites No Negociables',
+            title: 'Planilla de Target Laboral, No Negociables y Empresas Objetivo',
             type: 'excel',
-            fileSize: 'Guía In-App',
+            fileSize: 'Planilla In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 1,
             category: 'Herramienta de Posicionamiento',
-            description: 'Plantilla de trabajo para delimitar tus 6 filtros de postulación, piso salarial y límites innegociables.',
+            description: 'Planilla en la plataforma para definir tus 6 puntos de target laboral, tus condiciones no negociables y tu lista de empresas objetivo.',
             isEssential: true,
           },
         ],
@@ -378,27 +384,27 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Test vocacional: Descubrí tu perfil y afinidad laboral',
         duration: '1:19 min',
         videoDuration: '1:19 min',
-        videoUrl: '/videos/ebl-1-4.mp4?v=3',
-        posterUrl: '/videos/ebl-1-4-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-1-4.mp4?v=4',
+        posterUrl: '/videos/ebl-1-4-poster.jpg?v=4',
         completed: false,
         description:
-          'Por qué el test vocacional es una brújula clave de autoconocimiento y cómo realizar la evaluación interactiva en nuestra plataforma.',
+          'Cierre del primer módulo integrando tus respuestas en papel y la planilla de la plataforma, con el Test Vocacional debajo de la clase para completar tu autoconocimiento y el recorrido de los próximos módulos.',
         takeaways: [
-          'Autoconocimiento objetivo: Evaluar intereses, estilos de trabajo y fortalezas para clarificar tu dirección profesional.',
-          'Validación y nuevas posibilidades: Confirmar tu afinidad o descubrir roles y áreas que no habías considerado.',
-          'Herramienta interactiva: Realizar el Test Vocacional integrado en el campus para obtener tu arquetipo y recomendaciones personalizadas.',
+          'Base de autoconocimiento lista: Tus habilidades, tu trabajo ideal y tu plan de acción anotados en papel junto con el tipo de empresa y puesto definidos en la planilla de la plataforma.',
+          'Test Vocacional en el link debajo de la clase: Una herramienta adicional para conocerte aún más y cerrar esta primera etapa.',
+          'Lo que vamos a construir en las próximas clases: Tu CV desde cero o actualizado para pasar los filtros ATS, tu LinkedIn visible para las empresas, preparación de entrevistas y las páginas que te van a abrir oportunidades laborales.',
         ],
         actionItems: [
           {
             id: 'act-vocacional-1',
-            title: 'Realizar el Test Vocacional en el campus',
-            description: 'Completá la evaluación de 12 preguntas para descubrir tu arquetipo profesional y roles sugeridos.',
+            title: 'Realizar el Test Vocacional en el link de abajo',
+            description: 'Completá el test vocacional debajo de esta clase para profundizar aún más tu autoconocimiento antes de pasar al módulo de búsqueda y CV.',
             linkText: 'Realizar Test Vocacional →',
             targetView: 'test-vocacional',
           },
         ],
         mindsetPrompt:
-          'Conocerte a vos mismo es el primer paso para elegir un trabajo donde no solo rindas, sino donde realmente disfrutes lo que hacés.',
+          'Recordá que el autoconocimiento es la clave para el éxito.',
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y POR QUÉ ES ÚTIL EL TEST]
@@ -447,8 +453,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
     programId: 'exp-busqueda-laboral',
     number: 2,
     title: '¿Cómo funciona la búsqueda laboral?',
-    tagline: 'Comprendé el proceso de selección real, la mentalidad del reclutador y armá tu plan semanal',
-    totalDuration: '18 min · 3 clases',
+    tagline: 'Comprendé la mirada del reclutador, las reglas de oro de un proceso y armá tu plan semanal',
+    totalDuration: '4:42 min · 3 clases',
     lessons: [
       {
         id: 'exp-fun-01',
@@ -461,32 +467,32 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
         duration: '1:26 min',
         videoDuration: '1:26 min',
-        videoUrl: '/videos/ebl-2-1.mp4?v=3',
-        posterUrl: '/videos/ebl-2-1-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-2-1.mp4?v=4',
+        posterUrl: '/videos/ebl-2-1-poster.jpg?v=4',
         completed: false,
         description:
-          'Descubrí la dinámica real del embudo de contratación y por qué la postulación masiva tiene una tasa de respuesta inferior al 2%.',
+          'Por qué enviar 100 o 200 correos con el mismo CV no funciona y qué busca ver el reclutador cuando hace el escaneo general entre miles de postulaciones.',
         takeaways: [
-          'El embudo real del selector: Gestiona entre 250 y 400 currículums por vacante abierta.',
-          'La regla de los 6 segundos: Tres anclas visuales (título coincidente, experiencia afín y logros cuantificables).',
-          'Del spam a la precisión: Enviar el mismo documento genérico anula tu competitividad.',
-          'Pausa estratégica: Detener el envío masivo en frío mientras calibramos tus materiales en el campus.',
+          'El error más común: Mandar 100 o 200 correos con el mismo CV hace que no encajes al 100% con ninguna búsqueda y solo recibas respuestas automáticas de descarte.',
+          'Del lado del reclutador: Una sola búsqueda puede recibir miles de postulaciones, por lo que el reclutador no puede leer cada CV a la perfección sino que hace un escaneo general.',
+          'Qué debe verse en ese escaneo: Quién sos, qué valor podés aportar a la compañía y si tu experiencia tiene relación con el puesto.',
+          'Pausa estratégica: Dejar de postular en masa y en piloto automático, guardando las ofertas interesantes para encararlas cuando tus materiales estén listos.',
         ],
         actionItems: [
           {
             id: 'act-1-1',
-            title: 'Frenar la postulación masiva',
-            description: 'Pausa el envío de CVs genéricos en piloto automático hasta tener tus materiales de búsqueda calibrados.',
+            title: 'Hacer una pausa y dejar de postular en masa',
+            description: 'Frená desde este momento el envío de CVs en piloto automático hasta que tus materiales estén listos.',
           },
           {
             id: 'act-1-2',
-            title: 'Guardar ofertas de interés en el Tracker',
-            description: 'Si encontrás avisos atractivos mientras navegás, anotalos en tu Tracker del campus para encararlos con estrategia más adelante.',
+            title: 'Guardar las ofertas que te interesan en una lista o en el Tracker',
+            description: 'Si ves ofertas que te interesan, guardalas en una lista o en el Tracker de nuestro campus para encararlas cuando tengamos tus herramientas listas.',
             linkText: 'Abrir Tracker de Postulaciones →',
             targetView: 'tracker',
           },
         ],
-        mindsetPrompt: 'El problema no sos vos, es el método.',
+        mindsetPrompt: 'No, no sos vos el problema: el problema es que no estás teniendo un método para buscar trabajo.',
         resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
@@ -552,40 +558,20 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Tiempos y fases reales de contratación',
         duration: '1:25 min',
         videoDuration: '1:25 min',
-        videoUrl: '/videos/ebl-2-2.mp4?v=3',
-        posterUrl: '/videos/ebl-2-2-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-2-2.mp4?v=4',
+        posterUrl: '/videos/ebl-2-2-poster.jpg?v=4',
         completed: false,
         description:
-          'Comprendé los tiempos reales que manejan las empresas, por qué ocurren los silencios y cómo gestionar tu búsqueda con calma y control.',
+          'Dos cosas fundamentales que tenés que tener en cuenta sobre los tiempos de selección de las empresas y por qué nunca debés dejar de buscar ni renunciar sin haber firmado la carta de oferta o el contrato.',
         takeaways: [
-          'Duración estándar: Un proceso corporativo sano demora entre 20 y 60 días desde la publicación hasta la oferta.',
-          'El circuito interno: Aprobaciones de presupuesto, agendas cruzadas y prioridades del negocio que causan silencios de 7 a 10 días.',
-          'Foco y perseverancia: Mantener activa la rueda de postulaciones y entrevistas sin paralizarse a esperar una respuesta.',
+          '1. Que tarden en contactarte no significa que no vas a quedar: Muchas empresas tienen procesos de selección súper largos y pueden tomarse semanas o incluso meses en volver a llamarte para avanzar.',
+          '2. Nunca renuncies ni frenes tu búsqueda sin firma formal: Aunque una empresa te diga de palabra que ingresás la próxima semana, el proceso puede frenarse a último momento por temas económicos.',
+          'Seguridad hasta la firma: Hasta que no te hagan firmar la carta de oferta o el contrato, aunque te digan "quedaste, felicidades", no dejes de buscar otro trabajo.',
         ],
-        actionItems: [
-          {
-            id: 'act-2-1',
-            title: 'Mapear tu colchón de tiempo',
-            description: 'Calculá tus tiempos de búsqueda contemplando que un proceso saludable toma entre 20 y 60 días.',
-          },
-        ],
+        actionItems: [],
         mindsetPrompt:
-          'Tu meta no es conseguir trabajo mañana a cualquier costo, sino construir un flujo constante de 2 a 3 entrevistas semanales de calidad.',
-        resources: [
-          {
-            id: 'fases-proceso-seleccion',
-            title: 'Fases de un Proceso de Selección Típico',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 2,
-            category: 'Guía de Tiempos & Circuitos',
-            description: 'Línea de tiempo con las 4 etapas internas de contratación y la duración estimada de cada fase.',
-            isEssential: false,
-          },
-        ],
+          'Hasta que no te hagan firmar la carta de oferta o el contrato, aunque te digan "quedaste, felicidades", no dejes de buscar otro trabajo. Porque buscar trabajo es un trabajo.',
+        resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ENGANCHE]
 🗣️ Tuviste una entrevista que sentiste excelente, te dijeron 'te contactamos la semana que viene', pasaron diez días y no tuviste ninguna novedad. Pensás que ya eligieron a otro, o que hiciste algo mal. Vamos a ver qué pasa puertas adentro de una empresa para que entiendas los tiempos reales de contratación.
@@ -637,34 +623,34 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '5 errores típicos y plan semanal',
         duration: '1:51 min',
         videoDuration: '1:51 min',
-        videoUrl: '/videos/ebl-2-3.mp4?v=3',
-        posterUrl: '/videos/ebl-2-3-poster.jpg?v=3',
+        videoUrl: '/videos/ebl-2-3.mp4?v=4',
+        posterUrl: '/videos/ebl-2-3-poster.jpg?v=4',
         completed: false,
         description:
-          'Los errores más frecuentes que sabotean búsquedas y cómo armar un bloque de 10 a 15 horas semanales de alta productividad.',
+          'Los 5 errores más frecuentes que te impiden conseguir trabajo y cómo organizar un plan semanal sostenible para avanzar de forma constante y medible.',
         takeaways: [
-          'Errores fatales: CV genérico, pasividad en redes, no dar seguimiento y sonar desesperado en lugar de profesional.',
-          'Bloque de 2 horas diarias: 40% prospección de vacantes, 30% networking directo y 30% optimización de materiales.',
-          'La búsqueda de empleo debe tratarse con el mismo rigor y horario que un proyecto profesional.',
+          'Los 5 errores que impiden conseguir trabajo: 1) Mandar el mismo CV a todas las postulaciones sin adaptarlo; 2) Tener un LinkedIn incompleto (sin foto ni descripción en el perfil profesional); 3) No llevar un registro de dónde postulaste y en qué etapa estás; 4) Buscar solo cuando tenés ganas o estás desesperado; 5) Postular y quedarte esperando sin hacer seguimiento ni generar contactos estratégicos.',
+          'Trabajar con un Plan Semanal: Reservar determinados momentos de tu semana para buscar nuevas oportunidades, contactar empresas o personas y hacer seguimiento en procesos abiertos.',
+          'Rutina sostenible: No necesitás estar 8 horas por día buscando trabajo, sino tener una rutina que puedas mantener con constancia.',
         ],
         actionItems: [
           {
             id: 'act-4-1',
-            title: 'Consultar el Cronograma Semanal',
-            description: 'Revisá la distribución de los 3 bloques de trabajo (prospección, networking y postulaciones) en los Documentos de la clase.',
+            title: 'Revisar el Cronograma Ejemplo en Documentos',
+            description: 'Consultá el cronograma ejemplo en los Documentos de esta clase para estructurar tu búsqueda de forma constante y medible.',
           },
           {
             id: 'act-4-2',
-            title: 'Bloquear tus horarios fijos de búsqueda',
-            description: 'Definí qué días y horas vas a dedicar a tu búsqueda activa para mantener la constancia.',
+            title: 'Reservar tus momentos semanales de búsqueda',
+            description: 'Definí qué momentos de tu semana vas a dedicar a buscar nuevas oportunidades, contactar empresas o personas y hacer seguimiento de procesos abiertos.',
           },
         ],
         mindsetPrompt:
-          'Buscar trabajo no es improvisar cuando tenés tiempo: es ejecutar un proceso profesional con horarios y objetivos definidos.',
+          'No necesitás estar ocho horas por día buscando trabajo: necesitás tener una rutina que puedas mantener.',
         resources: [
           {
             id: 'cronograma-semanal-busqueda',
-            title: 'Plan de Acción y Cronograma Semanal',
+            title: 'Cronograma Ejemplo: Plan Semanal de Búsqueda',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
@@ -672,7 +658,8 @@ const expBusquedaLaboralModules: CampusModule[] = [
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 2,
             category: 'Cronograma Operativo',
-            description: 'Guía práctica para estructurar tu rutina semanal de búsqueda y seguimiento.',
+            description: 'Cronograma ejemplo para que tu búsqueda laboral avance de forma constante, organizada y medible.',
+            isEssential: true,
           },
         ],
         videoScript:
@@ -729,15 +716,15 @@ const expBusquedaLaboralModules: CampusModule[] = [
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 3: CREACIÓN Y MEJORA DE CV (5 CLASES)
+  // MÓDULO 3: CREACIÓN Y MEJORA DE CV (4 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-3',
     programId: 'exp-busqueda-laboral',
     number: 3,
     title: 'Creación y mejora de CV',
-    tagline: 'Construí un currículum moderno, adaptado a filtros ATS y optimizado para el escaneo de 6 segundos',
-    totalDuration: '38 min · 5 clases',
+    tagline: 'Elegí tu plantilla modelo Harvard, evitá los 6 errores comunes, superá los filtros ATS y armá tu CV paso a paso',
+    totalDuration: '9:41 min · 4 clases',
     lessons: [
       {
         id: 'exp-cv-01',
@@ -748,44 +735,58 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: '6 errores que arruinan tu CV',
-        duration: '3:08 min',
-        videoDuration: '3:08 min',
-        videoUrl: '/videos/ebl-3-1.mp4?v=3',
-        posterUrl: '/videos/ebl-3-1-poster.jpg?v=3',
+        duration: '3:37 min',
+        videoDuration: '3:37 min',
+        videoUrl: '/videos/ebl-3-1.mp4?v=4',
+        posterUrl: '/videos/ebl-3-1-poster.jpg?v=4',
         completed: false,
         description:
-          'Los 6 errores más frecuentes que provocan el descarte de tu postulación y cómo presentar un CV enfocado en conseguir entrevistas.',
+          'Cómo destacarte frente a otros candidatos eligiendo las plantillas de CV modelo Harvard (con y sin foto) en los Documentos de la clase y evitando los 6 errores que arruinan tu currículum.',
         takeaways: [
-          'El principio rector: Un buen CV no es el más largo, es el que consigue entrevistas (1 o máximo 2 páginas son suficientes).',
-          'Los 6 errores fatales: Longitud excesiva, objetivo genérico, solo funciones pasivas, diseño recargado, faltas de ortografía y CV único sin adaptar.',
-          'Propuesta de valor vs. tareas: Enfocar el currículum en lo que podés resolver y aportar en lugar de listas pasivas de obligaciones.',
+          'Destacarte y vender tu propuesta: Preguntarte por qué te van a contratar a vos y no a otro candidato, qué valor vas a aportar y qué resultados medibles tenés para que la empresa crezca.',
+          'Plantillas de CV ganador según Harvard: Diseño limpio, prolijo y ordenado donde el reclutador en solo 6 segundos identifica si sos el candidato ideal (versión sin foto para EE. UU. o Canadá, y versión adaptada con foto para Argentina y puestos comerciales o gerenciales).',
+          'Errores 1, 2 y 3 (Extensión y contenido): 1) CV demasiado largo (debe tener entre 1 y máximo 2 hojas); 2) Objetivo genérico en vez de mostrar el valor que vas a aportar; 3) Solo describir funciones o tareas en vez de resultados y logros.',
+          'Errores 4, 5 y 6 (Diseño, revisión y adaptación): 4) Diseño recargado con colores, gráficos o muchos íconos que desvían la atención; 5) Errores de ortografía o redacción por no releerlo; 6) Enviar el mismo CV a todas las postulaciones sin adaptarlo a los requisitos del puesto.',
         ],
         actionItems: [
           {
             id: 'act-cv-1-1',
-            title: 'Auditar tu CV con el Checklist de los 6 Errores',
-            description: 'Accedé a los Documentos de esta clase para verificar que tu currículum no contenga ninguno de los 6 fallos críticos.',
+            title: 'Elegir tu plantilla de CV Modelo Harvard en Documentos',
+            description: 'Andá a los Documentos de esta clase y descargá la plantilla Harvard que más se adapte a tu búsqueda: sin foto (ideal para EE. UU. o Canadá) o con foto (adaptada para Argentina y puestos gerenciales o comerciales).',
           },
           {
             id: 'act-cv-1-2',
-            title: 'Limpiar elementos innecesarios',
-            description: 'Eliminá datos obsoletos (DNI, estado civil, dirección completa) y barras o íconos que recarguen el diseño.',
+            title: 'Revisar los 6 errores con tu plantilla en mano',
+            description: 'Definí qué valor y resultados medibles aportás y verificá que tu CV sea de 1 a 2 hojas, limpio, sin objetivos genéricos, enfocado en logros y revisado sin errores de ortografía.',
           },
         ],
         mindsetPrompt:
-          'Un buen CV no es el más largo ni el más decorado: es el que comunica con claridad y consigue entrevistas.',
+          'Hay muchos candidatos para un mismo puesto y es importante que te sepas destacar y vender: preguntate "¿Por qué me van a contratar a mí y qué valor y resultados medibles le voy a aportar a la empresa?".',
         resources: [
           {
-            id: 'checklist-6-errores-cv',
-            title: 'Checklist: Los 6 Errores que Arruinan tu CV',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
+            id: 'plantilla-cv-harvard-sin-foto',
+            title: 'Plantilla CV Ganador Modelo Harvard (Sin Foto)',
+            type: 'word',
+            fileSize: 'Plantilla Editable',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 3,
-            category: 'Auditoría de CV',
-            description: 'Lista de verificación interactiva para identificar y corregir los 6 errores más comunes en tu currículum.',
+            category: 'Plantilla ATS Harvard',
+            description: 'El CV ganador según la Universidad de Harvard: diseño limpio, prolijo y ordenado sin foto, ideal para postular a países como Estados Unidos o Canadá y superar el escaneo de 6 segundos.',
+            isEssential: true,
+          },
+          {
+            id: 'plantilla-cv-harvard-con-foto',
+            title: 'Plantilla CV Ganador Modelo Harvard (Adaptado con Foto)',
+            type: 'word',
+            fileSize: 'Plantilla Editable',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 3,
+            category: 'Plantilla ATS Harvard',
+            description: 'Adaptación del CV modelo Harvard incorporando espacio para foto profesional, ideal para Argentina y búsquedas de puestos comerciales o gerenciales.',
             isEssential: true,
           },
         ],
@@ -840,48 +841,29 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Filtros ATS: Cómo hacer match con el aviso laboral',
-        duration: '1:30 min',
-        videoDuration: '1:30 min',
-        videoUrl: '/videos/ebl-3-2.mp4?v=3',
-        posterUrl: '/videos/ebl-3-2-poster.jpg?v=3',
+        duration: '1:48 min',
+        videoDuration: '1:48 min',
+        videoUrl: '/videos/ebl-3-2.mp4?v=4',
+        posterUrl: '/videos/ebl-3-2-poster.jpg?v=4',
         completed: false,
         description:
-          'Qué son los sistemas ATS, cómo escanean las palabras clave y el método en 3 pasos para hacer coincidir tu CV con los requisitos de la vacante.',
+          'Qué son los famosos filtros ATS, cómo buscan coincidencias de palabras antes de que tu CV llegue a una persona humana y los 3 pasos prácticos para ganarles con información real.',
         takeaways: [
-          'Qué es un ATS: Sistemas automáticos que usan las empresas para escanear y filtrar CVs buscando palabras clave antes de la revisión humana.',
-          'Idea clave: El ATS no entiende como una persona; busca coincidencias de palabras clave exactas.',
-          'Método del MATCH en 3 pasos: Leé el anuncio, identificá y usá esas palabras en tu perfil, y aumentá tus posibilidades de pasar el filtro.',
-          'Regla ética innegociable: Adaptar un CV no significa inventar; significa destacar de tu experiencia real aquello que es más relevante.',
+          'Qué es el filtro ATS: Es el sistema que usan las empresas para filtrar y escanear tu CV antes de que lo vea una persona humana; no entiende como una persona, lo único que hace es buscar coincidencias.',
+          'Los 3 pasos para pasar el ATS: 1) Leer profundamente todo el anuncio e identificar las palabras clave; 2) Leer tu CV y fijarte qué palabras de ese anuncio ya tenés; 3) Hacer el match usando las palabras idénticas del aviso (por ejemplo, poner "Excel avanzado" en lugar de "manejo de hojas de cálculo").',
+          'Qué hacer si el aviso no tiene descripción: Si solo dice el nombre del puesto (por ejemplo, "persona administrativa"), buscá en internet 3 anuncios de ese puesto, identificá las palabras clave y ponelas en tu CV porque siempre se repiten.',
+          'Información 100% real: Cambiá las palabras para hacer el match, pero asegurate de que la información sea siempre real porque en la entrevista te van a consultar sobre todo lo que pusiste en tu CV.',
         ],
         actionItems: [
           {
             id: 'act-cv-2-1',
-            title: 'Mapear las palabras clave de 3 avisos',
-            description: 'Compará 3 ofertas laborales similares e identificá los requisitos técnicos y herramientas que más se repiten.',
-          },
-          {
-            id: 'act-cv-2-2',
-            title: 'Incorporar keywords en tu borrador',
-            description: 'Volcá de forma natural las herramientas y conocimientos que realmente poseés en tu perfil y experiencia.',
+            title: 'Aplicar los 3 pasos de Match con tu búsqueda objetivo',
+            description: 'Leé profundamente el anuncio al que querés postular (o buscá 3 anuncios similares en internet si el aviso no tiene descripción), identificá las palabras clave y escribilas de forma idéntica en tu CV manteniendo siempre información real.',
           },
         ],
         mindsetPrompt:
-          'El ATS no entiende como una persona: busca palabras clave. Hablar el dialecto exacto de la vacante es lo que te abre la puerta a la entrevista.',
-        resources: [
-          {
-            id: 'guia-mapeo-keywords-industria',
-            title: 'Guía de Mapeo de Palabras Clave y Variantes de CV',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Matriz de Keywords',
-            description: 'Matriz interactiva con las palabras clave, herramientas y certificaciones más demandadas en el mercado.',
-            isEssential: true,
-          },
-        ],
+          'El ATS no entiende como una persona, lo único que hace es buscar coincidencias: cuantas más palabras idénticas tengas al anuncio —siempre con información real—, más posibilidades tenés de pasar el filtro.',
+        resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN — ¿QUÉ SON LOS FILTROS ATS?]
 🗣️ Muchas veces enviamos nuestro currículum a través de portales o sitios corporativos y sentimos que cae en un agujero negro.
@@ -933,46 +915,22 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: 'El CV según tu perfil: Junior, Experiencia Media y Senior',
-        duration: '8 min',
-        videoDuration: '4:15 min',
+        duration: '1:31 min',
+        videoDuration: '1:31 min',
+        videoUrl: '/videos/ebl-3-3.mp4?v=4',
+        posterUrl: '/videos/ebl-3-3-poster.jpg?v=4',
         completed: false,
         description:
-          'Cómo estructurar la jerarquía, el foco y los bloques de tu currículum según tu nivel de trayectoria: sin experiencia previa, 3 a 10 años o perfiles senior.',
+          'Cómo adaptar el énfasis de tu CV acorde a tu etapa profesional: sin experiencia o muy poca, entre 3 y 10 años de trayectoria, o perfil senior con más de 10 años en el rubro.',
         takeaways: [
-          'No existe un CV universal: El CV debe reflejar dónde estás hoy y hacia dónde querés proyectar tu carrera.',
-          'Perfil 1 (Sin experiencia / Junior): Foco en formación académica, proyectos, voluntariados, habilidades y ganas de aprender.',
-          'Perfil 2 (Experiencia media 3 a 10 años): Foco en crecimiento profesional, evolución de puestos, logros medibles y valor agregado.',
-          'Perfil 3 (Senior +10 años / Liderazgo): Foco en logros de alto impacto, liderazgo de equipos, proyectos clave y visión estratégica.',
+          'Perfil 1 (Sin experiencia o muy poca): Hacer énfasis primero en tu formación (cursos que hiciste, idiomas, si estás estudiando una carrera), segundo en tu experiencia inicial (pasantías o voluntariados) y tercero en tus ganas de aprender y tu potencial, cuidando que el CV no sea demasiado largo.',
+          'Perfil 2 (Entre 3 y 10 años de experiencia): Hacer énfasis primero en los resultados y logros que tuviste en estos años —todo lo que le pudiste aportar a las empresas en las que estuviste— y segundo en mostrar todo tu crecimiento.',
+          'Perfil 3 (Senior · Más de 10 años en el rubro): Destacar tus habilidades blandas de liderazgo y gestión de equipos, tus logros medibles y cuantificables a lo largo de la carrera, y demostrar experiencia, autoridad y manejo del rubro.',
         ],
-        actionItems: [
-          {
-            id: 'act-cv-3-1',
-            title: 'Identificar tu nivel de perfil y enfoque',
-            description: 'Determiná si tu postulación se apoya en formación inicial, crecimiento comprobado o liderazgo senior.',
-          },
-          {
-            id: 'act-cv-3-2',
-            title: 'Consultar la Guía de Estructura según Seniority',
-            description: 'Revisá la jerarquía de secciones sugerida en los Documentos de la clase para ordenar tus bloques.',
-          },
-        ],
+        actionItems: [],
         mindsetPrompt:
-          'Tu antigüedad no te define: lo que te posiciona es cómo contás tu evolución y los resultados que aportás al equipo.',
-        resources: [
-          {
-            id: 'guia-cv-segun-perfil',
-            title: 'Guía: El CV según tu Perfil y Momento de Carrera',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Estrategia y Posicionamiento',
-            description: 'Matriz interactiva con la jerarquía y enfoque recomendado según tus años de experiencia.',
-            isEssential: true,
-          },
-        ],
+          'Acordate que no existe un CV perfecto, sino el que está adaptado a cada búsqueda laboral.',
+        resources: [],
         videoScript:
           `[0:00 - SECCIÓN 1: INTRODUCCIÓN — NO EXISTE UN CV UNIVERSAL]
 🗣️ Uno de los mayores errores es creer que hay un único modelo de CV que le sirve a todo el mundo por igual.
@@ -1024,7 +982,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Documentos: Guía de CV según tu Perfil 📥📋
 🔊 Pop sutil
 🗣️ Ahora que ya sabés qué destacar, pasemos a la práctica: en la siguiente clase armamos tus datos de contacto, la foto profesional y tu perfil paso a paso.
-🏷️ Próxima clase: Hagamos el CV juntos: Secciones y foto 📸📄
+🏷️ Próxima clase: Hagamos el CV juntos: Estructura completa y foto profesional 📸📄
 🔊 Fin de lección suave`,
       },
       {
@@ -1035,245 +993,76 @@ const expBusquedaLaboralModules: CampusModule[] = [
         moduleTitle: 'Creación y mejora de CV',
         lessonNumber: 4,
         type: 'video',
-        title: 'Hagamos el CV juntos: Secciones y foto profesional',
-        duration: '9 min',
-        videoDuration: '4:45 min',
+        title: 'Hagamos el CV juntos: Estructura completa y foto profesional',
+        duration: '2:44 min',
+        videoDuration: '2:44 min',
+        videoUrl: '/videos/ebl-3-4.mp4?v=4',
+        posterUrl: '/videos/ebl-3-4-poster.jpg?v=4',
         completed: false,
         description:
-          'Construcción paso a paso de cada bloque del currículum: datos de contacto indispensables, foto adecuada vs. errores de imagen, perfil profesional, educación y habilidades.',
+          'Armado práctico de tu CV de principio a fin: reglas de la foto profesional, características de un CV de una sola página fácil de escanear y redacción sección por sección (encabezado, perfil, experiencia con resultados medibles, educación, habilidades, idiomas y herramientas).',
         takeaways: [
-          'Estructura integral paso a paso: Datos de contacto, perfil profesional, educación, habilidades e idiomas.',
-          'Datos indispensables del encabezado: Nombre completo destacado, titular/posición profesional clara, teléfono con código de área, mail profesional y LinkedIn.',
-          'Criterios de la foto profesional: Cuándo suma (cercanía, credibilidad, confianza) y qué errores evitar (selfies, escotes, mala luz, fondos distractores).',
-          'Perfil profesional de alto impacto: Resumen de 3 a 4 líneas que sintetiza quién sos, tu especialidad y el valor concreto que aportás.',
+          'Reglas de la foto profesional: Si vas a usar foto, evitá escotes, accesorios como lentes, ropa arrugada o sucia, gente atrás, mala iluminación, selfies o maquillaje excesivo; una buena foto suma profesionalismo, confianza, cercanía y credibilidad.',
+          'Qué hace que un CV esté bien hecho: Resultados medibles con números, información relevante y concreta, orden lógico y estructura definida, diseño limpio y profesional, una sola página y lectura fácil de escanear.',
+          'Encabezado y Perfil Profesional: Arriba poné únicamente tu nombre completo, el puesto al que querés aplicar y tu correo electrónico y teléfono actualizados; debajo, un breve resumen de tu experiencia, especialidad, el valor que aportás y tus principales habilidades y logros.',
+          'Experiencia Laboral, Educación, Habilidades e Idiomas: Detallá tu experiencia más relevante incluyendo logros y responsabilidades con resultados medibles; sumá tu título, institución y año de egreso actualizados, tus habilidades técnicas y blandas alineadas al puesto, y los idiomas y herramientas que dominás.',
         ],
         actionItems: [
           {
             id: 'act-cv-4-1',
-            title: 'Descargar la Plantilla Oficial de CV',
-            description: 'Accedé a los Documentos de esta clase para descargar tu plantilla base en formato Word (.docx) o duplicarla en Notion.',
+            title: 'Revisar tu foto (si usás plantilla con foto) y completar el encabezado',
+            description: 'Verificá que la foto tenga buena iluminación, sin selfies ni accesorios, y colocá arriba tu nombre y apellido, el puesto al que aplicás, tu correo electrónico y tu teléfono.',
           },
           {
             id: 'act-cv-4-2',
-            title: 'Completar encabezado, foto y perfil profesional',
-            description: 'Volcá tus datos actualizados, elegí una foto profesional adecuada y redactá tu resumen de 3-4 líneas.',
+            title: 'Redactar tu Perfil Profesional y tu Experiencia con resultados medibles',
+            description: 'Escribí un resumen breve de tu experiencia, especialidad y valor aportado, y detallá tu experiencia laboral relevante destacando logros y resultados medibles con números.',
+          },
+          {
+            id: 'act-cv-4-3',
+            title: 'Completar Educación, Habilidades, Idiomas y Herramientas',
+            description: 'Incluí tu formación académica actualizada (título, institución y año de egreso), tus habilidades técnicas y blandas alineadas a la búsqueda, y los idiomas y herramientas que dominás.',
           },
         ],
         mindsetPrompt:
-          'Cada sección de tu CV cuenta: la claridad y el orden visual generan una primera impresión de confianza inmediata.',
-        resources: [
-          {
-            id: 'plantilla-estructura-cv-editorial',
-            title: 'Plantilla CV ATS Editorial (Word .docx)',
-            type: 'word',
-            fileSize: '145 KB',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Plantilla ATS',
-            description: 'Modelo profesional en Word formateado en 1 columna optimizado para lectura visual y filtros ATS.',
-            isEssential: true,
-          },
-          {
-            id: 'plantilla-cv-minimalista-notion',
-            title: 'Plantilla CV Minimalista en Notion',
-            type: 'notion',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Workspace Notion',
-            description: 'Estructura modular editable en Notion lista para exportar a PDF limpio.',
-          },
-        ],
+          'Un CV bien hecho presenta en una sola página limpia y fácil de escanear información relevante, orden lógico y resultados medibles con números.',
+        resources: [],
         videoScript:
-          `[0:00 - SECCIÓN 1: HAGAMOS EL CV JUNTOS — METODOLOGÍA PASO A PASO]
-🗣️ Ahora que ya conocemos los errores y cómo enfocar nuestro perfil, vamos a construir tu currículum juntos: paso a paso, de manera práctica y 100% profesional.
-🏷️ Hagamos el CV Juntos: Paso a Paso · Práctico · Profesional 🛠️📄
+          `[0:00 - SECCIÓN 1: HAGAMOS EL CV JUNTOS — FOTO PROFESIONAL Y ESTRUCTURA DE 1 PÁGINA]
+🗣️ Y ahora sí, empecemos a hacer juntos el CV.
+🏷️ Hagamos el CV Juntos: Estructura Completa y Foto Profesional 🛠️📄
 🔊 Swoosh suave
-🗣️ Cada sección de tu documento cuenta: vamos a asegurarnos de que muestre tu mejor versión en una sola página.
-🏷️ ¡Vos podés! Tu próximo trabajo empieza con un gran CV 🚀✨
+🗣️ Es importante que si vas a usar foto, no lo hagas ni con escotes, ni con accesorios, por ejemplo lentes, ni que salga la ropa arrugada, sucia, ni que se vea gente atrás. También es importante que la iluminación sea buena, que no sea selfie y que no haya maquillaje excesivo. Una buena foto suma profesionalismo, confianza, cercanía y credibilidad.
+🏷️ La Foto Profesional: Profesionalismo · Confianza · Cercanía · Credibilidad 📸🤝
+🔊 Pop sutil
+🗣️ Este CV que estoy mostrando es un CV que está bien. ¿Por qué? Porque tiene resultados medibles con números, tiene información relevante y concreta, tiene un orden lógico y una estructura definida, tiene un diseño limpio y profesional, es de una sola página y es fácil de leer y escanear.
+🏷️ CV Ganador: Resultados Medibles · 1 Sola Página · Fácil de Escanear ✔️
+
+[0:52 - SECCIÓN 2: RECORRIDO SECCIÓN POR SECCIÓN]
+🗣️ Arriba se pone el nombre completo, el puesto al que querés aplicar y tus medios de contacto actualizados: simplemente tu correo electrónico y tu número de teléfono.
+🏷️ 1. Encabezado: Nombre Completo · Puesto Objetivo · Email y Teléfono 📇✨
+🔊 Click sutil
+🗣️ Vamos al perfil profesional: hacé un breve resumen de tu experiencia, especialidad y el valor que aportás. Destacá tus principales habilidades y logros más relevantes para el puesto al que aplicás.
+🏷️ 2. Perfil Profesional: Experiencia · Especialidad · Valor que Aportás 💡✍️
+🔊 Click sutil
+🗣️ Experiencia laboral: en este caso te conviene detallar tu experiencia más relevante, incluí tus logros y responsabilidades destacando resultados medibles.
+🏷️ 3. Experiencia Laboral: Logros y Resultados Medibles 📈⭐
+🔊 Click sutil
+🗣️ Después abajo poné tu educación: incluí tu formación académica más relevante, tu título, tu institución y el año de egreso. Esta información debe ser clara, completa y debe estar actualizada.
+🏷️ 4. Educación: Título · Institución · Año de Egreso 🎓
+🔊 Click sutil
+🗣️ Habilidades: mostrá tus habilidades técnicas y blandas más relevantes para el puesto; deben ser específicas y alineadas con lo que buscan.
+🏷️ 5. Habilidades: Técnicas y Blandas alineadas al puesto 🛠️
+🔊 Click sutil
+🗣️ Idiomas y herramientas: incluí los idiomas que hablás y las herramientas que dominás relacionadas al puesto.
+🏷️ 6. Idiomas y Herramientas relacionadas al puesto 🌐💻
 🔊 Pop de confirmación
 
-[1:15 - SECCIÓN 2: DESARROLLO CONCEPTUAL — SECCIONES Y CRITERIOS DE FOTO]
-🗣️ Empecemos por la parte superior: tus datos personales y de contacto.
-🗣️ Esta información debe ser clara, completa y estar siempre al inicio de tu CV.
-🏷️ Paso 1: Datos Personales y de Contacto 📇✨
-🔊 Swoosh suave
-🗣️ Tu nombre completo debe destacar en tipografía más grande y ser muy fácil de encontrar.
-🏷️ Nombre Completo: Destacado y Visible 👤
-🔊 Click sutil
-🗣️ Justo debajo colocá tu posición profesional o titular: indicá tu especialidad o el puesto exacto al que aplicás, por ejemplo: "Analista Administrativa" o "Especialista en Marketing Digital".
-🏷️ Posición Profesional / Titular: Rol objetivo o especialidad 🎯
-🔊 Click sutil
-🗣️ Y en los datos de contacto incluí únicamente lo indispensable: teléfono con código de país, email profesional, ciudad y tu link actualizado a LinkedIn. Eliminamos datos innecesarios como DNI, estado civil, recomendaciones o dirección física completa.
-🏷️ Contacto Útil: Teléfono · Mail · Ciudad · LinkedIn (Sin DNI, estado civil ni recomendaciones) 📬
-🔊 Click sutil
-🖼️ Captura flotante mostrando la cabecera del CV modelo de María Fernández con los datos resaltados.
-🗣️ Hablemos de la foto: una buena foto suma cuando transmite profesionalismo, confianza, cercanía y credibilidad.
-🏷️ La Foto Profesional: Profesionalismo · Confianza · Cercanía 📸🤝
-🔊 Pop sutil
-🗣️ Evitá por completo selfies, fotos con escotes pronunciados, maquillaje excesivo, fotos recortadas de fiestas, personas de espaldas, fotos oscuras o con fondos distractores.
-🏷️ Errores de Foto a Evitar: Selfies · Mala Luz · Ropa Arrugada · Fiestas ❌📸
-🔊 Click sutil
-🖼️ Gráfica comparativa con ejemplos visuales de fotos no recomendadas vs. foto profesional correcta.
-🗣️ Elegí un plano medio con buena luz frontal, fondo neutro, ropa acorde a tu industria y una sonrisa natural. Si postulás a países anglosajones como Estados Unidos o Reino Unido, recordá que por normativa legal el CV va sin foto.
-🏷️ Foto Correcta: Buena Luz · Fondo Neutro · Ropa Profesional ✔️
-🔊 Pop de confirmación
-🗣️ Pasemos al segundo bloque: tu Perfil Profesional.
-🏷️ Paso 2: Perfil Profesional (Resumen de 3 a 4 líneas) 💡✍️
-🔊 Swoosh suave
-🗣️ Es un breve resumen de quién sos, tu trayectoria, tu especialidad principal y el valor que aportás al equipo. Sé conciso y andá directo al grano.
-🏷️ Quién sos · Tu especialidad · El valor que aportás 🎯
-🔊 Click sutil
-🗣️ Y en la parte inferior organizamos la Educación, las Habilidades y los Idiomas.
-🏷️ Paso 3: Educación · Habilidades · Idiomas 🎓🛠️🌐
-🔊 Click sutil
-🗣️ En Educación poné tu título más relevante, institución y año de egreso. En Habilidades, destacá competencias técnicas y blandas alineadas con lo que busca la vacante. Y en Idiomas y Herramientas, listá el software que realmente dominás.
-🏷️ Formación Relevante + Habilidades Específicas + Software Real 📋✅
-🔊 Pop de confirmación
-
-[6:15 - SECCIÓN 3: CIERRE Y LLAMADA A LA ACCIÓN]
-🗣️ Andá a la sección de Documentos de esta clase, descargá tu Plantilla de CV, o usá una propia, y completá estos primeros tres bloques.
-🏷️ Documentos: Plantilla Oficial de CV 📥📄
-🔊 Pop sutil
-🗣️ En la próxima clase nos metemos de lleno en el corazón de tu currículum: cómo redactar la experiencia laboral con logros cuantificables y realizar la auditoría final antes de enviarlo.
-🏷️ Próxima clase: Experiencia laboral con logros y auditoría final 📈🔍
-🔊 Fin de lección suave`,
-      },
-      {
-        id: 'exp-cv-05',
-        programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-3',
-        moduleNumber: 3,
-        moduleTitle: 'Creación y mejora de CV',
-        lessonNumber: 5,
-        type: 'video',
-        title: 'Experiencia laboral con logros y auditoría final',
-        duration: '8 min',
-        videoDuration: '4:15 min',
-        completed: false,
-        description:
-          'Cómo transformar tareas pasivas en declaraciones de logros cuantificables, las 4 reglas de diseño en una página y el checklist de 5 puntos antes de postularte.',
-        takeaways: [
-          'La fórmula del logro: [Verbo de acción fuerte] + [Contexto / Tarea] + [Métrica o Resultado de impacto].',
-          'Eliminar frases pasivas: Desterrar "Responsable de..." (\'Responsable de ventas\' ❌ -> \'Gestioné una cartera de 30 clientes y aumenté las ventas un 20%\' ✔️).',
-          'Resultados cualitativos: Si no tenés números exactos, no los inventes; explicá la mejora o el impacto de manera cualitativa.',
-          'Las 4 reglas de diseño: 1 sola página, diseño limpio y profesional, fácil de escanear y adaptado al puesto.',
-          'Los 5 puntos de la Auditoría Final: Contacto actualizado, ortografía/fechas, palabras clave del aviso, maquetación ordenada y guardado en PDF profesional (CV_Nombre_Apellido.pdf).',
-        ],
-        actionItems: [
-          {
-            id: 'act-cv-5-1',
-            title: 'Reescribir las viñetas de tu experiencia con logros',
-            description: 'Aplicá verbos de acción fuertes y métricas o impactos cualitativos a cada rol de tu trayectoria.',
-          },
-          {
-            id: 'act-cv-5-2',
-            title: 'Exportar en PDF y realizar la prueba de los 6 segundos',
-            description: 'Guardá tu archivo como CV_Nombre_Apellido.pdf y verificalo con el Checklist de Auditoría Pre-Envío.',
-          },
-        ],
-        mindsetPrompt:
-          'Un CV impecable en sus logros y detalles es tu mejor carta de presentación para abrir puertas a entrevistas.',
-        resources: [
-          {
-            id: 'diccionario-100-verbos-accion',
-            title: 'Diccionario de 100 Verbos de Acción de Alto Impacto',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Guía de Vocabulario',
-            description: 'Listado de verbos activos clasificados por área (Liderazgo, Optimización, Ventas, Innovación) para inspirar tu redacción.',
-            isEssential: false,
-          },
-          {
-            id: 'checklist-auditoria-pre-envio',
-            title: 'Checklist de Auditoría Pre-Envío (5 Puntos Clave)',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Checklist de Control',
-            description: 'Guía interactiva de verificación técnica y visual para validar tu CV antes de postularte.',
-            isEssential: true,
-          },
-        ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: EXPERIENCIA LABORAL Y FÓRMULA DE LOGROS]
-🗣️ Llegamos al bloque más importante de todo tu currículum: la Experiencia Laboral.
-🏷️ Bloque Clave: Experiencia Laboral con Logros Medibles 💼⭐
-🔊 Swoosh suave
-🗣️ Ordenamos tus empleos en orden cronológico inverso, desde el actual o más reciente hacia atrás.
-🏷️ Orden Cronológico Inverso: De lo actual hacia atrás 🗓️
-🔊 Click sutil
-🗣️ Y en cada puesto, eliminá para siempre frases pasivas como 'Responsable de' o 'Encargado de'.
-🏷️ Frases Prohibidas: ❌ 'Responsable de...' ❌ 'Encargado de...'
-🔊 Error sutil
-🗣️ Cada viñeta debe iniciar con un verbo de acción fuerte: Gestioné, Implementé, Negocié, Optimicé, Diseñé o Coordiné.
-🏷️ Verbos de Acción Fuertes: Gestioné · Implementé · Optimicé · Coordiné ⚡
-🔊 Clicks sutiles por verbo
-🗣️ Por ejemplo, en vez de escribir: "Responsable de ventas", podemos decir: "Gestioné una cartera de 30 clientes y aumenté las ventas un 20%".
-🏷️ Ejemplo de Logro: "Gestioné 30 clientes y aumenté ventas 20%" 📈⭐
-🔊 Swoosh suave
-🖼️ Captura flotante mostrando la comparación entre la tarea genérica vs. el logro cuantificado.
-🗣️ Si no tenés números exactos, no los inventes: podés explicar el resultado de manera cualitativa, mencionando mejoras de procesos, tiempos ahorrados o satisfacción de clientes.
-🏷️ Sin inventar números: Explicar mejoras cualitativas reales 🛡️✨
-🔊 Pop de confirmación
-
-[1:45 - SECCIÓN 2: LAS 4 REGLAS DE DISEÑO Y LOS 5 PUNTOS DE AUDITORÍA]
-🗣️ Para que tu CV sea impecable, tené en cuenta estas cuatro reglas clave de diseño y lectura:
-🗣️ Primera: Una sola página. Sé conciso y mostrá lo más importante.
-🏷️ 1. Una Sola Página: Capacidad de síntesis ejecutiva 📄⏱️
-🔊 Click sutil
-🗣️ Segunda: Diseño limpio y profesional. Usá espacios, márgenes y tipografías claras.
-🏷️ 2. Diseño Limpio: Márgenes, espacios y tipografía clara 📐✨
-🔊 Click sutil
-🗣️ Tercera: Fácil de leer y escanear. Usá títulos claros, viñetas y resaltá lo importante.
-🏷️ 3. Fácil de Escanear: Títulos claros y viñetas ordenadas 👁️🔍
-🔊 Click sutil
-🗣️ Y cuarta: Adaptado al puesto. Ajustá tu CV a cada búsqueda utilizando las palabras clave del anuncio.
-🏷️ 4. Adaptado al Puesto: Palabras clave relevantes del aviso 🎯
-🔊 Pop de confirmación
-🗣️ Y antes de enviarlo, pasá tu archivo por estos cinco puntos de control:
-🗣️ Primero: verificá que tu nombre, teléfono, mail y LinkedIn estén correctos y actualizados.
-🏷️ Control 1: Contacto útil y LinkedIn actualizados 📇
-🔊 Click sutil
-🗣️ Segundo: revisá ortografía, redacción y que las fechas de tu experiencia sean coherentes.
-🏷️ Control 2: Ortografía impecable y coherencia en fechas ✍️🗓️
-🔊 Click sutil
-🗣️ Tercero: comprobá que el CV esté adaptado al puesto y contenga las palabras clave relevantes.
-🏷️ Control 3: Match de palabras clave del anuncio 🎯
-🔊 Click sutil
-🗣️ Cuarto: asegurate de que el diseño sea claro, ordenado y fácil de leer.
-🏷️ Control 4: Maquetación limpia y libre de saturación 📐
-🔊 Click sutil
-🗣️ Y quinto: guardalo en PDF y poné un nombre profesional al archivo, por ejemplo: CV_Florencia_Martinez.pdf.
-🏷️ Control 5: Guardado en PDF como CV_Nombre_Apellido.pdf 💾📄
-🔊 Pop sutil
-🖼️ Captura flotante mostrando el archivo PDF bien nombrado y su vista previa limpia.
-🗣️ Un último consejo: antes de enviarlo, abrí el PDF y miralo como si fueras un reclutador.
-🏷️ La Prueba de los 6 Segundos: La mirada del reclutador 👥🔍
-🔊 Swoosh suave
-🗣️ Preguntate: "¿Entiendo rápidamente quién es esta persona, qué sabe hacer y qué puede aportar?".
-🏷️ "¿Quién es? ¿Qué sabe hacer? ¿Qué puede aportar?" 💭💡
-🔊 Pop sutil
-🗣️ Si la respuesta es sí, tu CV está listo.
-🏷️ ¡Tu CV está 100% listo para salir a la cancha! 🚀✅
-🔊 Pop de confirmación
-
-🗣️ En la sección de Documentos de esta clase tenés el Diccionario de 100 Verbos de Acción y el Checklist de Auditoría Pre-Envío para validar tu archivo final.
-🏷️ Documentos: Checklist de Auditoría y Diccionario de Verbos 📋📥
-🔊 Pop sutil
-🗣️ Excelente trabajo: ya tenés un currículum sólido, claro e impecable. Ahora demos el salto al Módulo N°4 para optimizar tu perfil de LinkedIn y empezar a generar contactos clave.
+[2:20 - SECCIÓN 3: CIERRE DEL MÓDULO 3 Y PASE A LINKEDIN]
+🗣️ Bueno, ya hemos terminado este módulo que es súper importante. Ya tenés tu CV listo para enviar, ya pudiste entender bien los filtros ATS y estoy muy contenta de poder ayudarte en este proceso.
 🏷️ Hito: Módulo 03 Completado (Creación y mejora de CV) 📄🏆
 🔊 Pop de confirmación
+🗣️ En el próximo módulo te voy a ayudar a poder posicionarte en LinkedIn: actualizarlo, ya sea que lo tengas activo, o empezar de cero en caso de que todavía no te hayas abierto un LinkedIn. Te espero en el próximo módulo.
 🏷️ Próximo: Módulo 04 — Creación y mejora de LinkedIn 🌐🚀
 🔊 Fin de lección suave`,
       },
