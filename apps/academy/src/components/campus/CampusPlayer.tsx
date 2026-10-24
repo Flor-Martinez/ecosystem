@@ -258,77 +258,6 @@ export function CampusPlayer({
   const isModuleAlreadyFinished = currentModule.lessons.every((l) => completedLessons?.has(l.id));
   const isLastLessonInModule = currentModule.lessons[currentModule.lessons.length - 1]?.id === lesson.id;
 
-  const renderDevScript = (script: string) => {
-    const sections = script.split(/\n(?=\[\d+:\d+)/g);
-    return sections.map((sec, secIdx) => {
-      const lines = sec.trim().split('\n');
-      const headerLine = lines[0]?.startsWith('[') ? lines[0] : null;
-      const bodyLines = headerLine ? lines.slice(1) : lines;
-
-      return (
-        <div key={secIdx} className={styles.devScriptSectionBlock}>
-          {headerLine && (
-            <div className={styles.devScriptSectionHeader}>
-              <span className={styles.devScriptSectionTimeTag}>{headerLine}</span>
-            </div>
-          )}
-          <div className={styles.devScriptLines}>
-            {bodyLines.map((line, lIdx) => {
-              const trimmed = line.trim();
-              if (!trimmed) return null;
-
-              if (trimmed.startsWith('🗣️')) {
-                return (
-                  <div key={lIdx} className={styles.scriptVoiceRow}>
-                    <span className={styles.emojiCol}>🗣️</span>
-                    <p className={styles.scriptVoiceText}>{trimmed.replace(/^🗣️\s*/, '')}</p>
-                  </div>
-                );
-              }
-              if (trimmed.startsWith('🏷️')) {
-                return (
-                  <div key={lIdx} className={styles.scriptTextOverlayRow}>
-                    <span className={styles.emojiCol}>🏷️</span>
-                    <span className={styles.scriptTextOverlayContent}>{trimmed.replace(/^🏷️\s*/, '')}</span>
-                  </div>
-                );
-              }
-              if (trimmed.startsWith('🖼️')) {
-                return (
-                  <div key={lIdx} className={styles.scriptImageRow}>
-                    <span className={styles.emojiCol}>🖼️</span>
-                    <span className={styles.scriptImageText}>{trimmed.replace(/^🖼️\s*/, '')}</span>
-                  </div>
-                );
-              }
-              if (trimmed.startsWith('📺')) {
-                return (
-                  <div key={lIdx} className={styles.scriptVideoRow}>
-                    <span className={styles.emojiCol}>📺</span>
-                    <span className={styles.scriptVideoText}>{trimmed.replace(/^📺\s*/, '')}</span>
-                  </div>
-                );
-              }
-              if (trimmed.startsWith('🔊')) {
-                return (
-                  <div key={lIdx} className={styles.scriptAudioRow}>
-                    <span className={styles.emojiCol}>🔊</span>
-                    <span className={styles.scriptAudioText}>{trimmed.replace(/^🔊\s*/, '')}</span>
-                  </div>
-                );
-              }
-              return (
-                <p key={lIdx} className={styles.scriptGeneralText}>
-                  {trimmed}
-                </p>
-              );
-            })}
-          </div>
-        </div>
-      );
-    });
-  };
-
   return (
     <div className={styles.aulaContainer}>
       {/* ========================================================================= */}
@@ -385,33 +314,6 @@ export function CampusPlayer({
           </div>
         </div>
       </header>
-
-      {/* ========================================================================= */}
-      {/* DEV MODE: GUION DE GRABACIÓN & PRODUCCIÓN (ENCIMA DEL VIDEO) */}
-      {/* ========================================================================= */}
-      {isDevMode && lesson.videoScript && (
-        <div className={styles.devScriptCardAboveVideo}>
-          <div className={styles.devScriptHeader}>
-            <div className={styles.devScriptHeaderLeft}>
-              <div className={styles.devScriptIconBadge}>
-                <PlayCircle size={18} />
-              </div>
-              <div>
-                <div className={styles.devTagRow}>
-                  <span className={styles.devModeBadge}>🛠️ MODO DEV ACTIVO</span>
-                  <span className={styles.devLessonMeta}>Clase 0{lesson.lessonNumber} · {lesson.duration}</span>
-                </div>
-                <h2 className={styles.devScriptTitle}>Guion de Grabación & Pautas de Edición</h2>
-              </div>
-            </div>
-            <span className={styles.devScriptHint}>Visible solo para producción</span>
-          </div>
-
-          <div className={styles.devScriptBody}>
-            {renderDevScript(lesson.videoScript)}
-          </div>
-        </div>
-      )}
 
       {/* ========================================================================= */}
       {/* 2. MAIN MEDIA / EVALUATION VIEWPORT */}
@@ -1000,7 +902,7 @@ export function CampusPlayer({
           type="button"
           className={`${styles.navLessonBtn} ${styles.navNextBtn}`}
           onClick={() => onCompleteAndNext(lesson.id)}
-          disabled={isEvaluationLesson ? !isQuizPassed : (!hasNext && isCompleted && !isLastLessonInModule && !isModuleAlreadyFinished)}
+          disabled={!isDevMode && (isEvaluationLesson ? !isQuizPassed : (!hasNext && isCompleted && !isLastLessonInModule && !isModuleAlreadyFinished))}
         >
           <span>
             {isEvaluationLesson

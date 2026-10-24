@@ -465,11 +465,11 @@ export function CampusHeader({
               type="button"
               className={`${styles.devTierSwitch} ${isDevMode ? styles.devModeActive : styles.devModeInactive}`}
               onClick={onToggleDevMode}
-              title="Alternar entre Modo Dev (ver guion de producción y todas las clases desbloqueadas) y Modo Alumno"
+              title="Alternar Modo Dev (desbloquea y permite saltear cualquier clase sin restricciones) y Modo Alumno"
               aria-label="Alternar Modo Dev"
             >
               <Code2 size={13} />
-              <span>{isDevMode ? 'Modo Dev: Activo' : 'Modo Alumno'}</span>
+              <span>{isDevMode ? 'Modo Dev (Saltear Clases)' : 'Modo Alumno'}</span>
             </button>
           )}
 
