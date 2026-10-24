@@ -69,9 +69,9 @@ function CampusContent() {
   // Completed lessons set (strictly empty for unauthenticated visitors)
   const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
 
-  // Synchronized Favorites across Tablero and Navbar Herramientas dropdown
+  // Synchronized Favorites across Tablero and Navbar Herramientas dropdown (starts completely clean)
   const [favoriteIds, setFavoriteIds] = useState<Set<string>>(
-    () => new Set(['tool-recursos', 'tool-tracker'])
+    () => new Set()
   );
 
   // Hydrate user preferences from localStorage on mount
@@ -84,9 +84,14 @@ function CampusContent() {
       } else {
         setIsDevMode(true);
       }
-      const savedFavs = localStorage.getItem('campus_ebl_favorites');
+      const savedFavs = localStorage.getItem('campus_ebl_favorites_v2');
       if (savedFavs) {
         setFavoriteIds(new Set(JSON.parse(savedFavs)));
+      } else {
+        // Clear all legacy pre-selected favorites across all accounts
+        localStorage.removeItem('campus_ebl_favorites');
+        localStorage.setItem('campus_ebl_favorites_v2', JSON.stringify([]));
+        setFavoriteIds(new Set());
       }
     } catch {
       // ignore
@@ -113,6 +118,7 @@ function CampusContent() {
         next.add(id);
       }
       try {
+        localStorage.setItem('campus_ebl_favorites_v2', JSON.stringify(Array.from(next)));
         localStorage.setItem('campus_ebl_favorites', JSON.stringify(Array.from(next)));
       } catch {
         // ignore
@@ -125,6 +131,7 @@ function CampusContent() {
     if (membershipTier === 'free') return;
     setFavoriteIds(new Set());
     try {
+      localStorage.setItem('campus_ebl_favorites_v2', JSON.stringify([]));
       localStorage.setItem('campus_ebl_favorites', JSON.stringify([]));
     } catch {
       // ignore

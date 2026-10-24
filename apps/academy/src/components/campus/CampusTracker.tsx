@@ -67,7 +67,7 @@ const initialApplications: JobApplication[] = [
     date: '12 Ago 2026',
     notes: 'Aplicado con CV ATS Editorial y mensaje personalizado al selector.',
     jobUrl: 'https://mercadolibre.com/careers/marketing-b2b',
-    isFavorite: true,
+    isFavorite: false,
   },
   {
     id: '2',
@@ -89,7 +89,7 @@ const initialApplications: JobApplication[] = [
     date: '14 Ago 2026',
     notes: 'Vacante detectada en LinkedIn. Adaptando CV con keywords en inglés antes de enviar.',
     jobUrl: 'https://auth0.com/careers/talent-partner',
-    isFavorite: true,
+    isFavorite: false,
   },
   {
     id: '4',
@@ -104,7 +104,7 @@ const initialApplications: JobApplication[] = [
   },
 ];
 
-const LOCAL_STORAGE_KEY = 'campus_job_applications_v4';
+const LOCAL_STORAGE_KEY = 'campus_job_applications_v5';
 export interface CalendarPrefillData {
   title?: string;
   company?: string;
@@ -152,11 +152,12 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
       }
 
       try {
+        localStorage.removeItem('campus_job_applications_v4');
         const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            setApplications(parsed);
+            setApplications(parsed.map((a: JobApplication) => ({ ...a, isFavorite: false })));
           }
         }
       } catch {
