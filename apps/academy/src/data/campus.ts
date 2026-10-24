@@ -1078,7 +1078,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 4,
     title: 'Creación y mejora de LinkedIn',
     tagline: 'Optimizá tu perfil estelar, aumentá tu posicionamiento en búsquedas y prospectá recruiters',
-    totalDuration: '34 min · 5 clases',
+    totalDuration: '11:06 min · 5 clases',
     lessons: [
       {
         id: 'exp-lk-01',
@@ -1089,8 +1089,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: 'Foto, banner y URL personalizada',
-        duration: '7 min',
-        videoDuration: '3:45 min',
+        duration: '4:15 min',
+        videoDuration: '4:15 min',
+        videoUrl: '/videos/ebl-4-1.mp4?v=5',
+        posterUrl: '/videos/ebl-4-1-poster.jpg?v=5',
         completed: false,
         description:
           'Los elementos visuales y de configuración técnica para proyectar autoridad inmediata desde el primer segundo.',
@@ -1157,8 +1159,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Titular magnético y sección Acerca de mí',
-        duration: '8 min',
-        videoDuration: '3:50 min',
+        duration: '1:18 min',
+        videoDuration: '1:18 min',
+        videoUrl: '/videos/ebl-4-2.mp4?v=5',
+        posterUrl: '/videos/ebl-4-2-poster.jpg?v=5',
         completed: false,
         description:
           'Cómo redactar un titular que indexe en el buscador de reclutadores y un extracto que cuente tu historia con enganche y llamada a la acción.',
@@ -1239,8 +1243,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: 'Experiencia, aptitudes y recomendaciones',
-        duration: '6 min',
-        videoDuration: '3:40 min',
+        duration: '1:28 min',
+        videoDuration: '1:28 min',
+        videoUrl: '/videos/ebl-4-3.mp4?v=5',
+        posterUrl: '/videos/ebl-4-3-poster.jpg?v=5',
         completed: false,
         description:
           'Detalle de cargos anteriores, priorización de las 5 aptitudes clave y solicitud estratégica de recomendaciones que generen confianza.',
