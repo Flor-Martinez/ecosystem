@@ -1508,7 +1508,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 5,
     title: '¿Dónde encontrar oportunidades laborales?',
     tagline: 'Construí tu propio mapa de fuentes laborales y descubrí vacantes en portales, empresas, consultoras y canales especializados',
-    totalDuration: '18 min · 3 clases',
+    totalDuration: '9:04 min · 3 clases',
     lessons: [
       {
         id: 'exp-dnd-01',
@@ -1519,8 +1519,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 1,
         type: 'video',
         title: 'No todas las oportunidades están en el mismo lugar',
-        duration: '6 min',
-        videoDuration: '3:45 min',
+        duration: '2:46 min',
+        videoDuration: '2:46 min',
+        videoUrl: '/videos/ebl-5-1.mp4?v=6',
+        posterUrl: '/videos/ebl-5-1-poster.jpg?v=6',
         completed: false,
         description:
           'Dejá de buscar en un solo sitio: descubrí los cuatro grandes grupos de fuentes laborales (portales, empresas, consultoras y canales especializados) y cómo diversificar tu búsqueda.',
@@ -1615,8 +1617,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 2,
         type: 'video',
         title: 'Buscá oportunidades directamente en tus empresas objetivo',
-        duration: '6 min',
-        videoDuration: '3:45 min',
+        duration: '1:41 min',
+        videoDuration: '1:41 min',
+        videoUrl: '/videos/ebl-5-2.mp4?v=6',
+        posterUrl: '/videos/ebl-5-2-poster.jpg?v=6',
         completed: false,
         description:
           'Hacé el camino inverso: cómo transformar tu lista de 15 empresas objetivo del Módulo 1 en fuentes reales de oportunidades e ingresar a sus ecosistemas de contratación.',
@@ -1707,8 +1711,10 @@ const expBusquedaLaboralModules: CampusModule[] = [
         lessonNumber: 3,
         type: 'video',
         title: 'Cómo encontrar oportunidades fuera de los portales tradicionales',
-        duration: '6 min',
-        videoDuration: '3:45 min',
+        duration: '4:37 min',
+        videoDuration: '4:37 min',
+        videoUrl: '/videos/ebl-5-3.mp4?v=6',
+        posterUrl: '/videos/ebl-5-3-poster.jpg?v=6',
         completed: false,
         description:
           'Ampliá tu radar hacia canales no evidentes: organizaciones sectoriales, ferias y congresos, comunidades profesionales y búsquedas estratégicas en Internet.',
