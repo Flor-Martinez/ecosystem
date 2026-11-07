@@ -95,7 +95,7 @@ export interface CampusProgram {
 }
 
 // =============================================================================
-// 1. EXPERIENCIA BÚSQUEDA LABORAL (8 MÓDULOS · 32 CLASES)
+// 1. EXPERIENCIA BÚSQUEDA LABORAL (8 MÓDULOS · 31 CLASES)
 // =============================================================================
 const expBusquedaLaboralModules: CampusModule[] = [
   // ---------------------------------------------------------------------------
@@ -1500,7 +1500,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
   },
 
   // ---------------------------------------------------------------------------
-  // MÓDULO 5: ¿DÓNDE ENCONTRAR OPORTUNIDADES LABORALES? (4 CLASES)
+  // MÓDULO 5: ¿DÓNDE ENCONTRAR OPORTUNIDADES LABORALES? (3 CLASES)
   // ---------------------------------------------------------------------------
   {
     id: 'exp-mod-5',
@@ -1508,7 +1508,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
     number: 5,
     title: '¿Dónde encontrar oportunidades laborales?',
     tagline: 'Construí tu propio mapa de fuentes laborales y descubrí vacantes en portales, empresas, consultoras y canales especializados',
-    totalDuration: '25 min · 4 clases',
+    totalDuration: '18 min · 3 clases',
     lessons: [
       {
         id: 'exp-dnd-01',
@@ -1786,114 +1786,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
 🏷️ Documentos: Guía de Fuentes No Tradicionales 📥📋
 🔊 Pop de confirmación
 
-[3:25 - SECCIÓN 4: CIERRE Y PUENTE AL ENTREGABLE FINAL]
-🗣️ En la próxima clase vamos a unir todo lo que vimos en este módulo y vas a crear tu propio Mapa Personal de Fuentes Laborales.
-🏷️ Próxima clase: Creá tu Mapa Personal de Fuentes Laborales 🗺️🏆
-🔊 Fin de lección suave`,
-      },
-      {
-        id: 'exp-dnd-04',
-        programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-5',
-        moduleNumber: 5,
-        moduleTitle: '¿Dónde encontrar oportunidades laborales?',
-        lessonNumber: 4,
-        type: 'video',
-        title: 'Creá tu Mapa Personal de Fuentes Laborales',
-        duration: '7 min',
-        videoDuration: '4:00 min',
-        completed: false,
-        description:
-          'La actividad central del Módulo 5: consolidá tu propio ecosistema de búsqueda en 4 cuadrantes (portales, empresas, consultoras y fuentes especializadas) y preparate para postular.',
-        takeaways: [
-          'Tu ecosistema propio: Un mapa personalizado en 4 cuadrantes adaptado a tu industria, rol y modalidad objetivo.',
-          'Estrategia a medida: No existe una lista única para todo el mundo; tu mapa responde a tus metas (primer empleo, especialista o remoto global).',
-          'Entregable troncal: Completar y guardar "Mi Mapa de Fuentes Laborales" para usarlo en el seguimiento diario del Módulo 6.',
-        ],
-        actionItems: [
-          {
-            id: 'act-dnd-4-1',
-            title: 'Completar 🗺️ Mi Mapa de Fuentes Laborales (Actividad Obligatoria)',
-            description: 'Descargá o completá en la app tu Mapa Personal con tus portales clave, tus empresas objetivo, consultoras y fuentes especializadas.',
-          },
-        ],
-        mindsetPrompt:
-          'No dependas de listas ajenas: cuando construís tu propio mapa de fuentes, tomás el control total de tu proceso de búsqueda.',
-        resources: [
-          {
-            id: 'mapa-fuentes-laborales',
-            title: '🗺️ Mi Mapa de Fuentes Laborales (Entregable Troncal)',
-            type: 'pdf',
-            fileSize: 'Herramienta In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
-            category: 'Ecosistema de Búsqueda',
-            description: 'Herramienta central del módulo para consolidar tu mapa de fuentes en 4 cuadrantes listo para postular.',
-            isEssential: true,
-          },
-          {
-            id: 'directorio-portales-empleo-remoto',
-            title: 'Directorio Actualizado de Portales y Recursos',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 5,
-            category: 'Directorio',
-            description: 'Listado dinámico y clasificado de plataformas de empleo en Sudamérica, portales de nicho y trabajo remoto global, y consultoras de selección / headhunters.',
-            isEssential: false,
-          },
-        ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ACTIVIDAD CENTRAL]
-🗣️ Llegamos al final de este módulo. Y no quiero que termines simplemente sabiendo que existen muchos lugares donde buscar trabajo: quiero que termines con algo concreto... tu propio Mapa de Fuentes Laborales.
-🏷️ Hito Central: Tu propio Mapa de Fuentes Laborales 🗺️🏆
-🔊 Swoosh suave
-🗣️ Entrá a los Documentos de esta clase y abrí la herramienta que preparé para este ejercicio: "Mi Mapa de Fuentes Laborales".
-🏷️ Documentos: 🗺️ Mi Mapa de Fuentes Laborales 📥📋
-🔊 Pop sutil
-🖼️ Captura flotante mostrando la plantilla interactiva de 4 cuadrantes organizada para completar.
-🗣️ Vamos a dividir nuestro mapa en cuatro categorías clave:
-🏷️ Estructura del Mapa en 4 Cuadrantes 📐
-🔊 Pop de confirmación
-
-[1:05 - SECCIÓN 2: DESARROLLO — LOS 4 CUADRANTES DE TU MAPA]
-🗣️ Primero: Portales de empleo relevantes para mi perfil.
-🗣️ No agregues páginas porque sí: seleccioná solamente aquellas que realmente tengan oportunidades relacionadas con lo que buscás, ya sean generales o de nicho.
-🏷️ Cuadrante 1: Portales de empleo seleccionados 🏢💻
-🔊 Click sutil
-🗣️ Segundo: Empresas objetivo.
-🗣️ Acá vamos a incorporar las empresas que ya definimos en el primer módulo y los enlaces directos a sus respectivos sitios de empleo o sistemas de talento.
-🏷️ Cuadrante 2: Empresas objetivo y sitios de carrera 💼🌐
-🔊 Click sutil
-🗣️ Tercero: Consultoras y empresas de selección relevantes.
-🗣️ Identificá aquellas consultoras o headhunters que trabajen específicamente con tu industria, profesión, seniority o mercado geográfico.
-🏷️ Cuadrante 3: Consultoras y Headhunters de tu sector 👥📁
-🔊 Click sutil
-🗣️ Cuarto: Fuentes especializadas.
-🗣️ Acá podés incorporar cámaras, asociaciones, universidades, bolsas sectoriales, comunidades profesionales u otras fuentes que hayas descubierto en la clase anterior.
-🏷️ Cuadrante 4: Fuentes especializadas y comunidades 🏛️💬
-🔊 Pop de confirmación
-
-[2:25 - SECCIÓN 3: POR QUÉ CADA MAPA ES ÚNICO]
-🗣️ Cuando termines, vas a tener algo mucho más valioso que una lista genérica de páginas: vas a tener tu propio ecosistema de búsqueda laboral.
-🏷️ Tu propio ecosistema de búsqueda personalizado ✨🧭
-🔊 Swoosh suave
-🗣️ Y esto es muy importante porque cada persona que está haciendo esta experiencia puede terminar con un mapa completamente diferente.
-🗣️ Una persona que busca su primer trabajo probablemente necesite determinadas fuentes... un profesional especializado puede necesitar otras... y alguien que busca oportunidades internacionales posiblemente construya un mapa totalmente distinto.
-🏷️ Mapa Adaptado a tu Meta: Primer Empleo · Especialista · Remoto Global 🎯
-🔊 Pop sutil
-🗣️ Por eso no existe una lista perfecta que funcione para todo el mundo: existe una estrategia de búsqueda adaptada a tu objetivo.
-🏷️ Estrategia a Medida de tus Metas 💡
-🔊 Click sutil
-🗣️ Y recordá que dentro de la Academia también tenés siempre disponible mi Directorio Actualizado de Portales y Recursos, para descubrir nuevas fuentes y agregarlas a tu mapa cada vez que lo necesites.
-🏷️ Directorio Actualizado como fuente de consulta continua 🔄📚
-🔊 Pop de confirmación
-
-[3:35 - SECCIÓN 4: CIERRE DE MÓDULO Y PUENTE AL MÓDULO 6]
+[3:25 - SECCIÓN 4: CIERRE DE MÓDULO Y PUENTE AL MÓDULO 6]
 🗣️ Con esto terminamos el Módulo 5. Ya sabemos qué buscamos, tenemos nuestras herramientas profesionales preparadas y ahora también sabemos con precisión dónde detectar oportunidades.
 🏷️ Hito: Módulo 05 Completado (¿Dónde encontrar oportunidades laborales?) 🗺️✅
 🔊 Pop de confirmación
