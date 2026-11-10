@@ -316,9 +316,14 @@
   width: 25%;
 }
 
-.thStatus,
+.thStatus {
+  width: 17%;
+}
+
 .tdStatus {
   width: 17%;
+  position: relative;
+  overflow: visible;
 }
 
 .thSalary,
@@ -408,6 +413,217 @@
   color: var(--fm-text-subtle);
 }
 
+/* Custom Status Dropdown & Badges */
+.statusCellWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 220px;
+}
+
+.statusTriggerBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 165px;
+  max-width: 215px;
+  padding: 0.42rem 0.8rem;
+  border-radius: var(--radius-full, 9999px);
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  user-select: none;
+  background-color: transparent;
+}
+
+.statusTriggerBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+  filter: brightness(0.97);
+}
+
+.statusTriggerContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusLabelText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.statusChevron {
+  flex-shrink: 0;
+  opacity: 0.7;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.statusChevronOpen {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Floating Popover Menu */
+.statusMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 220px;
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
+  z-index: 999;
+  animation: statusMenuFadeIn 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.statusMenuUp {
+  top: auto;
+  bottom: calc(100% + 6px);
+}
+
+@keyframes statusMenuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.statusMenuHeader {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 800;
+  color: #94A3B8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 10px 4px;
+}
+
+.statusMenuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.45rem 0.65rem;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1E293B;
+  text-align: left;
+  transition: all 0.14s ease;
+  user-select: none;
+}
+
+.statusMenuItem:hover {
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+.statusMenuItemActive {
+  background-color: #F1F5F9;
+  font-weight: 800;
+}
+
+.statusMenuItemLeft {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.statusMenuItemDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusCheckIcon {
+  color: #0F172A;
+  flex-shrink: 0;
+}
+
+/* 7 Estados solicitados por el usuario */
+/* 1. Por postular (gris) */
+.statusPorPostular {
+  background-color: #F1F5F9;
+  color: #475569;
+  border-color: #CBD5E1;
+}
+
+/* 2. Postulado (amarillo) */
+.statusPostulado {
+  background-color: #FEF9C3;
+  color: #854D0E;
+  border-color: #FDE047;
+}
+
+/* 3. Contactado (azul) */
+.statusContactado {
+  background-color: #E0F2FE;
+  color: #0369A1;
+  border-color: #BAE6FD;
+}
+
+/* 4. Entrevista (violeta) */
+.statusEntrevista {
+  background-color: #F5F3FF;
+  color: #6D28D9;
+  border-color: #DDD6FE;
+}
+
+/* 5. Oferta (verde) */
+.statusOferta {
+  background-color: #DCFCE7;
+  color: #15803D;
+  border-color: #86EFAC;
+}
+
+/* 6. Cerrado (rojo) */
+.statusCerrado {
+  background-color: #FEE2E2;
+  color: #B91C1C;
+  border-color: #FECACA;
+}
+
+/* 7. Logrado (amarillo fuerte) */
+.statusLogrado {
+  background-color: #FACC15;
+  color: #713F12;
+  border-color: #CA8A04;
+  box-shadow: 0 1px 4px rgba(234, 179, 8, 0.28);
+}
+
+/* Fallback legacy aliases */
 .statusSelect {
   width: 100%;
   min-width: 185px;
@@ -424,32 +640,32 @@
 }
 
 .statusIdentified {
-  background-color: #EEF2FF;
-  color: #4338CA;
-  border-color: #C7D2FE;
+  background-color: #F1F5F9;
+  color: #475569;
+  border-color: #CBD5E1;
 }
 
 .statusOffer {
-  background-color: #D1FAE5;
-  color: #065F46;
-  border-color: #A7F3D0;
+  background-color: #DCFCE7;
+  color: #15803D;
+  border-color: #86EFAC;
 }
 
 .statusInterview {
-  background-color: #EDE9FE;
-  color: #5B21B6;
+  background-color: #F5F3FF;
+  color: #6D28D9;
   border-color: #DDD6FE;
 }
 
 .statusApplied {
-  background-color: #FEF3C7;
-  color: #92400E;
-  border-color: #FDE68A;
+  background-color: #FEF9C3;
+  color: #854D0E;
+  border-color: #FDE047;
 }
 
 .statusRejected {
   background-color: #FEE2E2;
-  color: #991B1B;
+  color: #B91C1C;
   border-color: #FECACA;
 }
 

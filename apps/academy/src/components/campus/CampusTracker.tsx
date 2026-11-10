@@ -19,6 +19,8 @@ import {
   CalendarPlus,
   Table,
   ArrowLeft,
+  ChevronDown,
+  Check,
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -29,17 +31,190 @@ import {
 } from '@/actions/campus';
 import styles from './CampusTracker.module.css';
 
+export type JobApplicationStatus =
+  | 'Por postular'
+  | 'Postulado'
+  | 'Contactado'
+  | 'Entrevista'
+  | 'Oferta'
+  | 'Cerrado'
+  | 'Logrado';
+
+export const STATUS_LIST: JobApplicationStatus[] = [
+  'Por postular',
+  'Postulado',
+  'Contactado',
+  'Entrevista',
+  'Oferta',
+  'Cerrado',
+  'Logrado',
+];
+
+export const STATUS_CONFIG: Record<
+  JobApplicationStatus,
+  { label: JobApplicationStatus; className: string; dotColor: string }
+> = {
+  'Por postular': {
+    label: 'Por postular',
+    className: styles.statusPorPostular || '',
+    dotColor: '#64748B', // gris
+  },
+  'Postulado': {
+    label: 'Postulado',
+    className: styles.statusPostulado || '',
+    dotColor: '#EAB308', // amarillo
+  },
+  'Contactado': {
+    label: 'Contactado',
+    className: styles.statusContactado || '',
+    dotColor: '#0284C7', // azul
+  },
+  'Entrevista': {
+    label: 'Entrevista',
+    className: styles.statusEntrevista || '',
+    dotColor: '#7C3AED', // violeta
+  },
+  'Oferta': {
+    label: 'Oferta',
+    className: styles.statusOferta || '',
+    dotColor: '#22C55E', // verde
+  },
+  'Cerrado': {
+    label: 'Cerrado',
+    className: styles.statusCerrado || '',
+    dotColor: '#EF4444', // rojo
+  },
+  'Logrado': {
+    label: 'Logrado',
+    className: styles.statusLogrado || '',
+    dotColor: '#CA8A04', // amarillo fuerte
+  },
+};
+
+export function normalizeStatus(st: string | null | undefined): JobApplicationStatus {
+  if (!st) return 'Por postular';
+  const s = st.trim().toLowerCase();
+  if (s.includes('identificada') || s.includes('por postular')) return 'Por postular';
+  if (s.includes('postulado')) return 'Postulado';
+  if (s.includes('contactado') || s.includes('contacto')) return 'Contactado';
+  if (s.includes('entrevista') || s.includes('prueba')) return 'Entrevista';
+  if (s.includes('oferta')) return 'Oferta';
+  if (s.includes('descartado') || s.includes('cerrado') || s.includes('rechazado')) return 'Cerrado';
+  if (s.includes('logrado') || s.includes('ganado') || s.includes('contratado')) return 'Logrado';
+  return 'Por postular';
+}
+
+interface StatusDropdownProps {
+  value: JobApplicationStatus;
+  onChange: (newStatus: JobApplicationStatus) => void;
+}
+
+function StatusDropdown({ value, onChange }: StatusDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openUpwards, setOpenUpwards] = useState(false);
+  const dropdownRef = React.useRef<HTMLDivElement>(null);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+
+  const safeVal = normalizeStatus(value);
+  const currentCfg = STATUS_CONFIG[safeVal] || STATUS_CONFIG['Por postular'];
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!isOpen && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      setOpenUpwards(spaceBelow < 280);
+    }
+    setIsOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen]);
+
+  return (
+    <div className={styles.statusCellWrapper} ref={dropdownRef}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className={`${styles.statusTriggerBtn} ${currentCfg.className}`}
+        onClick={handleToggle}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+      >
+        <span className={styles.statusTriggerContent}>
+          <span
+            className={styles.statusDot}
+            style={{ backgroundColor: currentCfg.dotColor }}
+          />
+          <span className={styles.statusLabelText}>{currentCfg.label}</span>
+        </span>
+        <ChevronDown
+          size={13}
+          className={`${styles.statusChevron} ${isOpen ? styles.statusChevronOpen : ''}`}
+        />
+      </button>
+
+      {isOpen && (
+        <div
+          className={`${styles.statusMenu} ${openUpwards ? styles.statusMenuUp : ''}`}
+          role="listbox"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={styles.statusMenuHeader}>Cambiar estado</div>
+          {STATUS_LIST.map((st) => {
+            const cfg = STATUS_CONFIG[st];
+            const isSelected = st === safeVal;
+            return (
+              <button
+                key={st}
+                type="button"
+                className={`${styles.statusMenuItem} ${isSelected ? styles.statusMenuItemActive : ''}`}
+                onClick={() => {
+                  onChange(st);
+                  setIsOpen(false);
+                }}
+                role="option"
+                aria-selected={isSelected}
+              >
+                <span className={styles.statusMenuItemLeft}>
+                  <span
+                    className={styles.statusMenuItemDot}
+                    style={{ backgroundColor: cfg.dotColor }}
+                  />
+                  <span>{cfg.label}</span>
+                </span>
+                {isSelected && <Check size={14} className={styles.statusCheckIcon} />}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export interface JobApplication {
   id: string;
   company: string;
   role: string;
-  status:
-    | 'Identificada / Por postular'
-    | 'Postulado'
-    | 'Entrevista RRHH'
-    | 'Prueba Técnica'
-    | 'Oferta Recibida'
-    | 'Descartado';
+  status: JobApplicationStatus;
   salary: string;
   date: string;
   notes: string;
@@ -62,7 +237,7 @@ const initialApplications: JobApplication[] = [
     id: '1',
     company: 'Mercado Libre',
     role: 'Especialista en Marketing B2B',
-    status: 'Entrevista RRHH',
+    status: 'Entrevista',
     salary: '$1.400.000 ARS',
     date: '12 Ago 2026',
     notes: 'Aplicado con CV ATS Editorial y mensaje personalizado al selector.',
@@ -73,7 +248,7 @@ const initialApplications: JobApplication[] = [
     id: '2',
     company: 'Globant',
     role: 'Product Operations Analyst',
-    status: 'Prueba Técnica',
+    status: 'Contactado',
     salary: '$1.650 USD / mes',
     date: '08 Ago 2026',
     notes: 'Uso de método STAR para responder las preguntas de screening.',
@@ -84,7 +259,7 @@ const initialApplications: JobApplication[] = [
     id: '3',
     company: 'Auth0 / Okta',
     role: 'Talent Acquisition Partner',
-    status: 'Identificada / Por postular',
+    status: 'Por postular',
     salary: '$2.000 USD / mes',
     date: '14 Ago 2026',
     notes: 'Vacante detectada en LinkedIn. Adaptando CV con keywords en inglés antes de enviar.',
@@ -95,7 +270,7 @@ const initialApplications: JobApplication[] = [
     id: '4',
     company: 'Ualá',
     role: 'Content & Brand Strategist',
-    status: 'Oferta Recibida',
+    status: 'Oferta',
     salary: '$1.800.000 ARS',
     date: '28 Jul 2026',
     notes: 'Técnica de anclaje alto aplicada en la llamada salarial.',
@@ -130,7 +305,7 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
   const [salary, setSalary] = useState('');
-  const [status, setStatus] = useState<JobApplication['status']>('Identificada / Por postular');
+  const [status, setStatus] = useState<JobApplicationStatus>('Por postular');
   const [date, setDate] = useState('Hoy');
   const [notes, setNotes] = useState('');
   const [jobUrl, setJobUrl] = useState('');
@@ -196,7 +371,7 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
     setCompany('');
     setRole('');
     setSalary('');
-    setStatus('Identificada / Por postular');
+    setStatus('Por postular');
     setDate('Hoy');
     setNotes('');
     setJobUrl('');
@@ -349,30 +524,14 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
     return a.status === filterStatus;
   });
 
-  const getStatusBadgeClass = (st: JobApplication['status']) => {
-    switch (st) {
-      case 'Identificada / Por postular':
-        return styles.statusIdentified;
-      case 'Oferta Recibida':
-        return styles.statusOffer;
-      case 'Entrevista RRHH':
-      case 'Prueba Técnica':
-        return styles.statusInterview;
-      case 'Postulado':
-        return styles.statusApplied;
-      case 'Descartado':
-        return styles.statusRejected;
-      default:
-        return styles.statusApplied;
-    }
-  };
-
   // Metrics summary
   const favoritesCount = applications.filter((a) => a.isFavorite).length;
   const interviewsCount = applications.filter(
-    (a) => a.status === 'Entrevista RRHH' || a.status === 'Prueba Técnica'
+    (a) => a.status === 'Entrevista' || a.status === 'Contactado'
   ).length;
-  const offersCount = applications.filter((a) => a.status === 'Oferta Recibida').length;
+  const offersCount = applications.filter(
+    (a) => a.status === 'Oferta' || a.status === 'Logrado'
+  ).length;
 
   return (
     <div className={styles.trackerWrapper}>
@@ -465,7 +624,7 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
       {/* Filter Tabs */}
       <div className={styles.filterRow}>
         <div className={styles.filterPills}>
-          {['todos', 'favoritas', 'Identificada / Por postular', 'Postulado', 'Entrevista RRHH', 'Prueba Técnica', 'Oferta Recibida', 'Descartado'].map(
+          {(['todos', 'favoritas', ...STATUS_LIST] as const).map(
             (st) => (
               <button
                 key={st}
@@ -530,21 +689,10 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
                       </div>
                     </td>
                     <td className={styles.tdStatus}>
-                      <select
+                      <StatusDropdown
                         value={app.status}
-                        onChange={(e) =>
-                          handleStatusChange(app.id, e.target.value as JobApplication['status'])
-                        }
-                        className={`${styles.statusSelect} ${getStatusBadgeClass(app.status)}`}
-                        aria-label="Cambiar estado"
-                      >
-                        <option value="Identificada / Por postular">Identificada / Por postular</option>
-                        <option value="Postulado">Postulado</option>
-                        <option value="Entrevista RRHH">Entrevista RRHH</option>
-                        <option value="Prueba Técnica">Prueba Técnica</option>
-                        <option value="Oferta Recibida">Oferta Recibida</option>
-                        <option value="Descartado">Descartado</option>
-                      </select>
+                        onChange={(newStatus) => handleStatusChange(app.id, newStatus)}
+                      />
                     </td>
                     <td className={styles.tdSalary}>
                       <span className={styles.salaryText}>{app.salary || '-'}</span>
@@ -687,18 +835,10 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
                     <Clock size={14} className={styles.labelIconStatus} />
                     <span>Estado Actual</span>
                   </label>
-                  <select
+                  <StatusDropdown
                     value={status}
-                    onChange={(e) => setStatus(e.target.value as JobApplication['status'])}
-                    className={styles.didacticSelect}
-                  >
-                    <option value="Identificada / Por postular">Identificada / Por postular</option>
-                    <option value="Postulado">Postulado</option>
-                    <option value="Entrevista RRHH">Entrevista RRHH</option>
-                    <option value="Prueba Técnica">Prueba Técnica</option>
-                    <option value="Oferta Recibida">Oferta Recibida</option>
-                    <option value="Descartado">Descartado</option>
-                  </select>
+                    onChange={(newStatus) => setStatus(newStatus)}
+                  />
                 </div>
 
                 <div className={styles.formGroup}>

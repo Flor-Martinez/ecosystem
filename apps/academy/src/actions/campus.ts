@@ -3,11 +3,26 @@
 import { db, MembershipTier, Role } from '@repo/db';
 
 export type JobApplicationStatus =
+  | 'Por postular'
   | 'Postulado'
-  | 'Entrevista RRHH'
-  | 'Prueba Técnica'
-  | 'Oferta Recibida'
-  | 'Descartado';
+  | 'Contactado'
+  | 'Entrevista'
+  | 'Oferta'
+  | 'Cerrado'
+  | 'Logrado';
+
+function normalizeJobStatus(status: string | null | undefined): JobApplicationStatus {
+  if (!status) return 'Por postular';
+  const s = status.trim().toLowerCase();
+  if (s.includes('identificada') || s.includes('por postular')) return 'Por postular';
+  if (s.includes('postulado')) return 'Postulado';
+  if (s.includes('contactado') || s.includes('contacto')) return 'Contactado';
+  if (s.includes('entrevista') || s.includes('prueba')) return 'Entrevista';
+  if (s.includes('oferta')) return 'Oferta';
+  if (s.includes('descartado') || s.includes('cerrado') || s.includes('rechazado')) return 'Cerrado';
+  if (s.includes('logrado') || s.includes('contratado') || s.includes('ganado')) return 'Logrado';
+  return 'Por postular';
+}
 
 export type CalendarEventType = 'zoom' | 'entrevista' | 'prueba' | 'seguimiento';
 
@@ -131,7 +146,7 @@ export async function getCampusInitialDataAction(userEmail?: string) {
           id: app.id,
           company: app.company,
           role: app.role,
-          status: app.status as JobApplicationStatus,
+          status: normalizeJobStatus(app.status),
           salary: app.salary || '',
           date: app.date,
           nextStep: app.nextStep || '',
@@ -323,7 +338,7 @@ export async function saveJobApplicationAction(
         id: savedApp.id,
         company: savedApp.company,
         role: savedApp.role,
-        status: savedApp.status as JobApplicationStatus,
+        status: normalizeJobStatus(savedApp.status),
         salary: savedApp.salary || '',
         date: savedApp.date,
         nextStep: savedApp.nextStep || '',
