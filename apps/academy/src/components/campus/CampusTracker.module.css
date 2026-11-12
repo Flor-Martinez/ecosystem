@@ -438,16 +438,14 @@
   border: 1.5px solid transparent;
   cursor: pointer;
   outline: none;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: background-color 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
   user-select: none;
   background-color: transparent;
 }
 
 .statusTriggerBtn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
-  filter: brightness(0.97);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
 }
 
 .statusTriggerContent {
@@ -483,35 +481,16 @@
   opacity: 1;
 }
 
-/* Floating Popover Menu */
+/* Floating Popover Menu (rendered via Portal on document.body) */
 .statusMenu {
-  position: absolute;
-  top: calc(100% + 6px);
-  left: 0;
+  position: fixed;
   width: 220px;
   background-color: #FFFFFF;
   border: 1px solid #E2E8F0;
   border-radius: 14px;
   padding: 6px;
-  box-shadow: 0 16px 36px -4px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.06);
-  z-index: 999;
-  animation: statusMenuFadeIn 0.16s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.statusMenuUp {
-  top: auto;
-  bottom: calc(100% + 6px);
-}
-
-@keyframes statusMenuFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.16), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+  z-index: 10000;
 }
 
 .statusMenuHeader {
@@ -806,8 +785,7 @@
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(5px);
+  background: rgba(15, 23, 42, 0.56);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -819,22 +797,10 @@
   background-color: #FFFFFF;
   border-radius: var(--radius-2xl);
   border: 1.5px solid var(--fm-border);
-  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.2);
   width: 100%;
   max-width: 620px;
   overflow: hidden;
-  animation: modalFadeIn 0.22s ease-out;
-}
-
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 .modalHeader {
@@ -899,12 +865,11 @@
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1;
-  transition: all var(--transition-fast);
+  transition: background-color 0.12s ease;
 }
 
 .closeBtn:hover {
   background: rgba(255, 255, 255, 0.35);
-  transform: rotate(90deg);
 }
 
 .modalForm {
@@ -978,7 +943,7 @@
   color: var(--fm-azul-marino);
   outline: none;
   background-color: #FAF9FE;
-  transition: all var(--transition-fast);
+  transition: border-color 0.12s ease, background-color 0.12s ease;
 }
 
 .didacticInput:focus,

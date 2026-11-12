@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Plus,
   Trash2,
@@ -109,44 +110,81 @@ interface StatusDropdownProps {
   onChange: (newStatus: JobApplicationStatus) => void;
 }
 
+interface MenuCoords {
+  top?: number;
+  bottom?: number;
+  left: number;
+}
+
 function StatusDropdown({ value, onChange }: StatusDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [openUpwards, setOpenUpwards] = useState(false);
+  const [menuCoords, setMenuCoords] = useState<MenuCoords | null>(null);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const menuRef = React.useRef<HTMLDivElement>(null);
 
   const safeVal = normalizeStatus(value);
   const currentCfg = STATUS_CONFIG[safeVal] || STATUS_CONFIG['Por postular'];
 
+  const computeCoords = useCallback((): MenuCoords | null => {
+    if (!triggerRef.current) return null;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const menuWidth = 220;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const openUp = spaceBelow < 280;
+    const clampedLeft = Math.max(8, Math.min(rect.left, window.innerWidth - menuWidth - 8));
+
+    if (openUp) {
+      return {
+        bottom: window.innerHeight - rect.top + 6,
+        left: clampedLeft,
+      };
+    }
+    return {
+      top: rect.bottom + 6,
+      left: clampedLeft,
+    };
+  }, []);
+
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!isOpen && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      const spaceBelow = window.innerHeight - rect.bottom;
-      setOpenUpwards(spaceBelow < 280);
+    if (!isOpen) {
+      setMenuCoords(computeCoords());
+      setIsOpen(true);
+    } else {
+      setIsOpen(false);
     }
-    setIsOpen((prev) => !prev);
   };
 
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      const inTrigger = dropdownRef.current?.contains(target);
+      const inMenu = menuRef.current?.contains(target);
+      if (!inTrigger && !inMenu) {
         setIsOpen(false);
       }
     };
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsOpen(false);
     };
+    const handlePositionUpdate = () => {
+      setMenuCoords(computeCoords());
+    };
     document.addEventListener('mousedown', handleClickOutside);
     document.addEventListener('touchstart', handleClickOutside);
     document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('scroll', handlePositionUpdate, true);
+    window.addEventListener('resize', handlePositionUpdate);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('touchstart', handleClickOutside);
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scroll', handlePositionUpdate, true);
+      window.removeEventListener('resize', handlePositionUpdate);
     };
-  }, [isOpen]);
+  }, [isOpen, computeCoords]);
 
   return (
     <div className={styles.statusCellWrapper} ref={dropdownRef}>
@@ -171,41 +209,51 @@ function StatusDropdown({ value, onChange }: StatusDropdownProps) {
         />
       </button>
 
-      {isOpen && (
-        <div
-          className={`${styles.statusMenu} ${openUpwards ? styles.statusMenuUp : ''}`}
-          role="listbox"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className={styles.statusMenuHeader}>Cambiar estado</div>
-          {STATUS_LIST.map((st) => {
-            const cfg = STATUS_CONFIG[st];
-            const isSelected = st === safeVal;
-            return (
-              <button
-                key={st}
-                type="button"
-                className={`${styles.statusMenuItem} ${isSelected ? styles.statusMenuItemActive : ''}`}
-                onClick={() => {
-                  onChange(st);
-                  setIsOpen(false);
-                }}
-                role="option"
-                aria-selected={isSelected}
-              >
-                <span className={styles.statusMenuItemLeft}>
-                  <span
-                    className={styles.statusMenuItemDot}
-                    style={{ backgroundColor: cfg.dotColor }}
-                  />
-                  <span>{cfg.label}</span>
-                </span>
-                {isSelected && <Check size={14} className={styles.statusCheckIcon} />}
-              </button>
-            );
-          })}
-        </div>
-      )}
+      {isOpen &&
+        menuCoords &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            ref={menuRef}
+            className={styles.statusMenu}
+            style={{
+              top: menuCoords.top !== undefined ? `${menuCoords.top}px` : 'auto',
+              bottom: menuCoords.bottom !== undefined ? `${menuCoords.bottom}px` : 'auto',
+              left: `${menuCoords.left}px`,
+            }}
+            role="listbox"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.statusMenuHeader}>Cambiar estado</div>
+            {STATUS_LIST.map((st) => {
+              const cfg = STATUS_CONFIG[st];
+              const isSelected = st === safeVal;
+              return (
+                <button
+                  key={st}
+                  type="button"
+                  className={`${styles.statusMenuItem} ${isSelected ? styles.statusMenuItemActive : ''}`}
+                  onClick={() => {
+                    onChange(st);
+                    setIsOpen(false);
+                  }}
+                  role="option"
+                  aria-selected={isSelected}
+                >
+                  <span className={styles.statusMenuItemLeft}>
+                    <span
+                      className={styles.statusMenuItemDot}
+                      style={{ backgroundColor: cfg.dotColor }}
+                    />
+                    <span>{cfg.label}</span>
+                  </span>
+                  {isSelected && <Check size={14} className={styles.statusCheckIcon} />}
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
@@ -287,6 +335,217 @@ export interface CalendarPrefillData {
   type?: 'entrevista' | 'prueba' | 'seguimiento';
 }
 
+interface ApplicationFormPayload {
+  editingId?: string;
+  company: string;
+  role: string;
+  salary: string;
+  status: JobApplicationStatus;
+  date: string;
+  notes: string;
+  jobUrl: string;
+  isFavorite: boolean;
+  autoScheduleInCalendar: boolean;
+}
+
+interface ApplicationModalProps {
+  initialApp: JobApplication | null;
+  onClose: () => void;
+  onSave: (data: ApplicationFormPayload) => void;
+}
+
+function ApplicationModal({ initialApp, onClose, onSave }: ApplicationModalProps) {
+  const [company, setCompany] = useState(() => (initialApp && initialApp.company !== '-' ? initialApp.company : ''));
+  const [role, setRole] = useState(() => (initialApp && initialApp.role !== '-' ? initialApp.role : ''));
+  const [salary, setSalary] = useState(() => (initialApp && initialApp.salary !== '-' ? initialApp.salary : ''));
+  const [status, setStatus] = useState<JobApplicationStatus>(() => (initialApp ? initialApp.status : 'Por postular'));
+  const [date] = useState(() => (initialApp ? initialApp.date : 'Hoy'));
+  const [notes, setNotes] = useState(() => (initialApp && initialApp.notes !== '-' ? initialApp.notes : ''));
+  const [jobUrl, setJobUrl] = useState(() => (initialApp && initialApp.jobUrl !== '-' ? initialApp.jobUrl || '' : ''));
+  const [isFavorite, setIsFavorite] = useState(() => (initialApp ? !!initialApp.isFavorite : false));
+  const [autoScheduleInCalendar, setAutoScheduleInCalendar] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!company.trim() || !role.trim()) return;
+    onSave({
+      editingId: initialApp?.id,
+      company: company.trim(),
+      role: role.trim(),
+      salary: salary.trim() || '-',
+      status,
+      date: date || 'Hoy',
+      notes: notes.trim() || '-',
+      jobUrl: jobUrl.trim() || '-',
+      isFavorite,
+      autoScheduleInCalendar,
+    });
+  };
+
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalHeader}>
+          <div className={styles.modalHeaderInfo}>
+            <div className={styles.modalPillBadge}>
+              <Sparkles size={13} />
+              <span>GESTOR DE POSTULACIONES</span>
+            </div>
+            <h3 className={styles.modalTitle}>
+              {initialApp ? 'Editar Postulación' : 'Registrar Nueva Postulación'}
+            </h3>
+            <p className={styles.modalSubtitle}>
+              Cargá los detalles de la vacante para hacer seguimiento inteligente de tus búsquedas.
+            </p>
+          </div>
+          <button
+            type="button"
+            className={styles.closeBtn}
+            onClick={onClose}
+            aria-label="Cerrar modal"
+          >
+            ✕
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit} className={styles.modalForm}>
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label className={styles.fieldLabel}>
+                <Building2 size={14} className={styles.labelIconCompany} />
+                <span>Empresa *</span>
+              </label>
+              <input
+                type="text"
+                required
+                maxLength={100}
+                placeholder="Ej. Mercado Libre, Globant, Startup..."
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className={styles.didacticInput}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.fieldLabel}>
+                <Briefcase size={14} className={styles.labelIconRole} />
+                <span>Puesto / Rol *</span>
+              </label>
+              <input
+                type="text"
+                required
+                maxLength={100}
+                placeholder="Ej. Product Designer, HR Specialist..."
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                className={styles.didacticInput}
+              />
+            </div>
+          </div>
+
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label className={styles.fieldLabel}>
+                <Clock size={14} className={styles.labelIconStatus} />
+                <span>Estado Actual</span>
+              </label>
+              <StatusDropdown
+                value={status}
+                onChange={(newStatus) => setStatus(newStatus)}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label className={styles.fieldLabel}>
+                <DollarSign size={14} className={styles.labelIconSalary} />
+                <span>Remuneración Pretendida / Ofertada</span>
+              </label>
+              <input
+                type="text"
+                maxLength={80}
+                placeholder="Ej. $1.500.000 ARS o $1.800 USD (opcional)"
+                value={salary}
+                onChange={(e) => setSalary(e.target.value)}
+                className={styles.didacticInput}
+              />
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label className={styles.fieldLabel}>
+              <LinkIcon size={14} className={styles.labelIconLink} />
+              <span>URL de la Vacante (Enlace donde viste el aviso)</span>
+            </label>
+            <div className={styles.urlInputWrap}>
+              <input
+                type="url"
+                maxLength={500}
+                placeholder="https://www.linkedin.com/jobs/view/... o portal de empleo (opcional)"
+                value={jobUrl}
+                onChange={(e) => setJobUrl(e.target.value)}
+                className={styles.didacticInput}
+              />
+            </div>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label className={styles.fieldLabel}>
+              <FileText size={14} className={styles.labelIconNotes} />
+              <span>Notas de Seguimiento & Estrategia</span>
+            </label>
+            <textarea
+              rows={2}
+              maxLength={1000}
+              placeholder="Ej. Versión de CV enviada, feedback recibido, contacto de reclutador... (opcional)"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              className={styles.didacticTextarea}
+            />
+          </div>
+
+          <div className={styles.modalOptionsRow}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={isFavorite}
+                onChange={(e) => setIsFavorite(e.target.checked)}
+                className={styles.checkboxInput}
+              />
+              <Star size={15} fill={isFavorite ? '#F59E0B' : 'none'} color="#D97706" />
+              <span>Marcar como postulación prioritaria (Favorita ⭐)</span>
+            </label>
+
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={autoScheduleInCalendar}
+                onChange={(e) => setAutoScheduleInCalendar(e.target.checked)}
+                className={styles.checkboxInput}
+              />
+              <CalendarPlus size={15} color="#7C3AED" />
+              <span>Agendar recordatorio en mi Calendario</span>
+            </label>
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button
+              type="button"
+              className={styles.cancelBtn}
+              onClick={onClose}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className={styles.submitModalBtn}>
+              <Sparkles size={15} />
+              <span>{initialApp ? 'Actualizar Postulación' : 'Guardar Postulación'}</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 interface CampusTrackerProps {
   onNavigateToAgenda?: (prefill?: CalendarPrefillData) => void;
   onBackToDashboard?: () => void;
@@ -298,19 +557,10 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
 
   const [applications, setApplications] = useState<JobApplication[]>(initialApplications);
   const [filterStatus, setFilterStatus] = useState<string>('todos');
-  const [showModal, setShowModal] = useState(false);
-  const [editingAppId, setEditingAppId] = useState<string | null>(null);
-
-  // Form state
-  const [company, setCompany] = useState('');
-  const [role, setRole] = useState('');
-  const [salary, setSalary] = useState('');
-  const [status, setStatus] = useState<JobApplicationStatus>('Por postular');
-  const [date, setDate] = useState('Hoy');
-  const [notes, setNotes] = useState('');
-  const [jobUrl, setJobUrl] = useState('');
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [autoScheduleInCalendar, setAutoScheduleInCalendar] = useState(false);
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    editingApp: JobApplication | null;
+  }>({ isOpen: false, editingApp: null });
 
   // Load from database on mount (with localStorage fallback)
   useEffect(() => {
@@ -367,31 +617,11 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
   };
 
   const handleOpenAddModal = () => {
-    setEditingAppId(null);
-    setCompany('');
-    setRole('');
-    setSalary('');
-    setStatus('Por postular');
-    setDate('Hoy');
-    setNotes('');
-    setJobUrl('');
-    setIsFavorite(false);
-    setAutoScheduleInCalendar(false);
-    setShowModal(true);
+    setModalState({ isOpen: true, editingApp: null });
   };
 
   const handleOpenEditModal = (app: JobApplication) => {
-    setEditingAppId(app.id);
-    setCompany(app.company === '-' ? '' : app.company);
-    setRole(app.role === '-' ? '' : app.role);
-    setSalary(app.salary === '-' ? '' : app.salary);
-    setStatus(app.status);
-    setDate(app.date);
-    setNotes(app.notes === '-' ? '' : app.notes);
-    setJobUrl(app.jobUrl === '-' ? '' : app.jobUrl || '');
-    setIsFavorite(!!app.isFavorite);
-    setAutoScheduleInCalendar(false);
-    setShowModal(true);
+    setModalState({ isOpen: true, editingApp: app });
   };
 
   const handleScheduleFromRow = (app: JobApplication, e?: React.MouseEvent) => {
@@ -406,77 +636,61 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
     }
   };
 
-  const handleSaveApplication = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!company.trim() || !role.trim()) return;
-
-    const formattedSalary = salary.trim() ? salary.trim() : '-';
-    const formattedNotes = notes.trim() ? notes.trim() : '-';
-    const formattedJobUrl = jobUrl.trim() ? jobUrl.trim() : '-';
-
-    const willScheduleInCalendar = autoScheduleInCalendar;
+  const handleSaveApplication = async (formData: ApplicationFormPayload) => {
+    const targetEditId = formData.editingId;
+    const tempId = 'temp-' + Date.now().toString();
 
     const payload = {
-      id: editingAppId || undefined,
-      company: company.trim(),
-      role: role.trim(),
-      salary: formattedSalary,
-      status,
-      date: date || 'Hoy',
-      notes: formattedNotes,
-      jobUrl: formattedJobUrl,
-      isFavorite,
+      id: targetEditId || undefined,
+      company: formData.company,
+      role: formData.role,
+      salary: formData.salary,
+      status: formData.status,
+      date: formData.date || 'Hoy',
+      notes: formData.notes,
+      jobUrl: formData.jobUrl,
+      isFavorite: formData.isFavorite,
     };
 
-    if (editingAppId) {
-      // Update existing application
-      const updated: JobApplication[] = applications.map((app) => {
-        if (app.id === editingAppId) {
-          return {
-            ...app,
-            ...payload,
-            id: editingAppId,
-          };
-        }
-        return app;
-      });
+    if (targetEditId) {
+      const updated: JobApplication[] = applications.map((app) =>
+        app.id === targetEditId ? { ...app, ...payload, id: targetEditId } : app
+      );
       persistApplications(updated);
     } else {
-      // Add new application
       const newApp: JobApplication = {
-        id: 'temp-' + Date.now().toString(),
-        company: company.trim(),
-        role: role.trim(),
-        salary: formattedSalary,
-        status,
+        id: tempId,
+        company: formData.company,
+        role: formData.role,
+        salary: formData.salary,
+        status: formData.status,
         date: 'Hoy',
-        notes: formattedNotes,
-        jobUrl: formattedJobUrl,
-        isFavorite,
+        notes: formData.notes,
+        jobUrl: formData.jobUrl,
+        isFavorite: formData.isFavorite,
       };
       persistApplications([newApp, ...applications]);
     }
 
-    setShowModal(false);
-    setEditingAppId(null);
+    setModalState({ isOpen: false, editingApp: null });
 
     // Save to DB in background
     try {
       const res = await saveJobApplicationAction(activeEmail, payload);
       if (res.success && res.data) {
         setApplications((prev) =>
-          prev.map((a) => (a.id === editingAppId || a.id.startsWith('temp-') ? res.data! : a))
+          prev.map((a) => (a.id === targetEditId || a.id === tempId ? res.data! : a))
         );
       }
     } catch (err) {
       console.warn('Error al guardar en base de datos:', err);
     }
 
-    if (willScheduleInCalendar && onNavigateToAgenda) {
+    if (formData.autoScheduleInCalendar && onNavigateToAgenda) {
       onNavigateToAgenda({
-        title: `💼 Postulación: ${company.trim()} (${role.trim()})`,
-        company: company.trim(),
-        notes: formattedNotes !== '-' ? formattedNotes : 'Seguimiento de postulación',
+        title: `💼 Postulación: ${formData.company} (${formData.role})`,
+        company: formData.company,
+        notes: formData.notes !== '-' ? formData.notes : 'Seguimiento de postulación',
         type: 'seguimiento',
       });
     }
@@ -764,175 +978,14 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
         </table>
       </div>
 
-      {/* COLORFUL & DIDACTIC MODAL */}
-      {showModal && (
-        <div className={styles.modalOverlay} onClick={() => setShowModal(false)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            {/* Playful Gradient Header with crisp contrast */}
-            <div className={styles.modalHeader}>
-              <div className={styles.modalHeaderInfo}>
-                <div className={styles.modalPillBadge}>
-                  <Sparkles size={13} />
-                  <span>GESTOR DE POSTULACIONES</span>
-                </div>
-                <h3 className={styles.modalTitle}>
-                  {editingAppId ? 'Editar Postulación' : 'Registrar Nueva Postulación'}
-                </h3>
-                <p className={styles.modalSubtitle}>
-                  Cargá los detalles de la vacante para hacer seguimiento inteligente de tus búsquedas.
-                </p>
-              </div>
-              <button
-                type="button"
-                className={styles.closeBtn}
-                onClick={() => setShowModal(false)}
-                aria-label="Cerrar modal"
-              >
-                ✕
-              </button>
-            </div>
-
-            <form onSubmit={handleSaveApplication} className={styles.modalForm}>
-              {/* Row 1: Company & Role */}
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.fieldLabel}>
-                    <Building2 size={14} className={styles.labelIconCompany} />
-                    <span>Empresa *</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    maxLength={100}
-                    placeholder="Ej. Mercado Libre, Globant, Startup..."
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    className={styles.didacticInput}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label className={styles.fieldLabel}>
-                    <Briefcase size={14} className={styles.labelIconRole} />
-                    <span>Puesto / Rol *</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    maxLength={100}
-                    placeholder="Ej. Product Designer, HR Specialist..."
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    className={styles.didacticInput}
-                  />
-                </div>
-              </div>
-
-              {/* Row 2: Status & Salary */}
-              <div className={styles.formRow}>
-                <div className={styles.formGroup}>
-                  <label className={styles.fieldLabel}>
-                    <Clock size={14} className={styles.labelIconStatus} />
-                    <span>Estado Actual</span>
-                  </label>
-                  <StatusDropdown
-                    value={status}
-                    onChange={(newStatus) => setStatus(newStatus)}
-                  />
-                </div>
-
-                <div className={styles.formGroup}>
-                  <label className={styles.fieldLabel}>
-                    <DollarSign size={14} className={styles.labelIconSalary} />
-                    <span>Remuneración Pretendida / Ofertada</span>
-                  </label>
-                  <input
-                    type="text"
-                    maxLength={80}
-                    placeholder="Ej. $1.500.000 ARS o $1.800 USD (opcional)"
-                    value={salary}
-                    onChange={(e) => setSalary(e.target.value)}
-                    className={styles.didacticInput}
-                  />
-                </div>
-              </div>
-
-              {/* Row 3: Link / URL of Job Posting */}
-              <div className={styles.formGroup}>
-                <label className={styles.fieldLabel}>
-                  <LinkIcon size={14} className={styles.labelIconLink} />
-                  <span>URL de la Vacante (Enlace donde viste el aviso)</span>
-                </label>
-                <div className={styles.urlInputWrap}>
-                  <input
-                    type="url"
-                    maxLength={500}
-                    placeholder="https://www.linkedin.com/jobs/view/... o portal de empleo (opcional)"
-                    value={jobUrl}
-                    onChange={(e) => setJobUrl(e.target.value)}
-                    className={styles.didacticInput}
-                  />
-                </div>
-              </div>
-
-              {/* Row 4: Notes */}
-              <div className={styles.formGroup}>
-                <label className={styles.fieldLabel}>
-                  <FileText size={14} className={styles.labelIconNotes} />
-                  <span>Notas de Seguimiento & Estrategia</span>
-                </label>
-                <textarea
-                  rows={2}
-                  maxLength={1000}
-                  placeholder="Ej. Versión de CV enviada, feedback recibido, contacto de reclutador... (opcional)"
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  className={styles.didacticTextarea}
-                />
-              </div>
-
-              {/* Options Row: Favorite & Calendar integration */}
-              <div className={styles.modalOptionsRow}>
-                <label className={styles.checkboxLabel}>
-                  <input
-                    type="checkbox"
-                    checked={isFavorite}
-                    onChange={(e) => setIsFavorite(e.target.checked)}
-                    className={styles.checkboxInput}
-                  />
-                  <Star size={15} fill={isFavorite ? '#F59E0B' : 'none'} color="#D97706" />
-                  <span>Marcar como postulación prioritaria (Favorita ⭐)</span>
-                </label>
-
-                <label className={styles.checkboxLabel}>
-                  <input
-                    type="checkbox"
-                    checked={autoScheduleInCalendar}
-                    onChange={(e) => setAutoScheduleInCalendar(e.target.checked)}
-                    className={styles.checkboxInput}
-                  />
-                  <CalendarPlus size={15} color="#7C3AED" />
-                  <span>Agendar recordatorio en mi Calendario</span>
-                </label>
-              </div>
-
-              {/* Footer Buttons */}
-              <div className={styles.modalFooter}>
-                <button
-                  type="button"
-                  className={styles.cancelBtn}
-                  onClick={() => setShowModal(false)}
-                >
-                  Cancelar
-                </button>
-                <button type="submit" className={styles.submitModalBtn}>
-                  <Sparkles size={15} />
-                  <span>{editingAppId ? 'Actualizar Postulación' : 'Guardar Postulación'}</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+      {/* COLORFUL & DIDACTIC MODAL (isolated state for 0 lag typing) */}
+      {modalState.isOpen && (
+        <ApplicationModal
+          key={modalState.editingApp?.id || 'new'}
+          initialApp={modalState.editingApp}
+          onClose={() => setModalState({ isOpen: false, editingApp: null })}
+          onSave={handleSaveApplication}
+        />
       )}
     </div>
   );
