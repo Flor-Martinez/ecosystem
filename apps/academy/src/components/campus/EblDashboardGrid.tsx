@@ -51,7 +51,7 @@ export function EblDashboardGrid({
   }, [authUser]);
 
   const [globalSearch, setGlobalSearch] = useState('');
-  const [activeFilter, setActiveFilter] = useState<'todos' | 'modulos' | 'herramientas' | 'favoritos'>('todos');
+  const [activeFilter, setActiveFilter] = useState<'todos' | 'troncales' | 'extras' | 'herramientas' | 'favoritos'>('todos');
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
   const [internalFavoriteIds, setInternalFavoriteIds] = useState<Set<string>>(() => new Set());
 
@@ -220,7 +220,8 @@ export function EblDashboardGrid({
     ? Math.round((completedModuleSteps / totalModuleSteps) * 100)
     : 0;
 
-  const moduleCards = dynamicCards.filter((c) => c.type === 'modulo');
+  const troncalCards = dynamicCards.filter((c) => c.type === 'modulo' && !c.isExtra);
+  const extraCards = dynamicCards.filter((c) => c.type === 'modulo' && c.isExtra);
   const toolCards = dynamicCards.filter((c) => c.type !== 'modulo');
 
   // Filter and sort cards
@@ -240,7 +241,8 @@ export function EblDashboardGrid({
       }
 
       // 2. Tab Filter
-      if (activeFilter === 'modulos') return c.type === 'modulo';
+      if (activeFilter === 'troncales') return c.type === 'modulo' && !c.isExtra;
+      if (activeFilter === 'extras') return c.type === 'modulo' && c.isExtra;
       if (activeFilter === 'herramientas') return c.type !== 'modulo';
       if (activeFilter === 'favoritos') return favoriteIds.has(c.id);
       return true;
@@ -371,16 +373,25 @@ export function EblDashboardGrid({
               onClick={() => setActiveFilter('todos')}
             >
               <Layers size={14} />
-              <span>Todos ({eblCards.length})</span>
+              <span>Todos ({dynamicCards.length})</span>
             </button>
 
             <button
               type="button"
-              className={`${styles.tabBtn} ${activeFilter === 'modulos' ? styles.tabBtnActive : ''}`}
-              onClick={() => setActiveFilter('modulos')}
+              className={`${styles.tabBtn} ${activeFilter === 'troncales' ? styles.tabBtnActive : ''}`}
+              onClick={() => setActiveFilter('troncales')}
             >
               <BookOpen size={14} />
-              <span>Módulos Troncales ({moduleCards.length})</span>
+              <span>Módulos Troncales ({troncalCards.length})</span>
+            </button>
+
+            <button
+              type="button"
+              className={`${styles.tabBtn} ${activeFilter === 'extras' ? styles.tabBtnActive : ''}`}
+              onClick={() => setActiveFilter('extras')}
+            >
+              <GraduationCap size={14} />
+              <span>Módulos Extra ({extraCards.length})</span>
             </button>
 
             <button

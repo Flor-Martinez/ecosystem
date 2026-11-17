@@ -610,7 +610,11 @@ export function CampusSidebar({
                                     ? styles.modBadgeActive
                                     : styles.modBadgePending
                                 }`}
-                                style={{ color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }}
+                                style={
+                                  isAllCompleted || isInProgress || isOpenAccordion
+                                    ? undefined
+                                    : { color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }
+                                }
                               >
                                 {mod.extraTag || `EXTRA 0${mod.number - 7}`}
                               </span>

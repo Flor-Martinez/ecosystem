@@ -65,9 +65,6 @@ export function EblCard({
     }
 
     if (isModule) {
-      if (card.isExtra) {
-        return <Sparkles size={24} color="#D97706" />;
-      }
       return <GraduationCap size={24} color="#7C3AED" />;
     }
 
@@ -143,11 +140,11 @@ export function EblCard({
 
     if (isModule) {
       if (card.isExtra) {
-        topColor = '#D97706';
-        topHoverColor = '#F59E0B';
-        glowColor = 'rgba(245, 158, 11, 0.28)';
-        normalBg = 'linear-gradient(180deg, #FFFBEB 0%, #FEF9C3 20%, #FFFFFF 100%)';
-        borderColor = '#FDE68A';
+        topColor = '#7C3AED';
+        topHoverColor = '#9333EA';
+        glowColor = 'rgba(124, 58, 237, 0.25)';
+        normalBg = 'linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 35%, #FFFFFF 100%)';
+        borderColor = '#E9D5FF';
       } else {
         topColor = card.colorScheme.accent || '#7C3AED';
         topHoverColor = '#9333EA';
@@ -247,6 +244,11 @@ export function EblCard({
             style={
               isLocked
                 ? undefined
+                : card.isExtra
+                ? {
+                    backgroundColor: '#F5F3FF',
+                    borderColor: '#DDD6FE',
+                  }
                 : {
                     backgroundColor: card.colorScheme.pillBg,
                     borderColor: card.colorScheme.border,
@@ -293,10 +295,18 @@ export function EblCard({
           ) : card.badge ? (
             <span
               className={styles.statusBadge}
-              style={{
-                backgroundColor: card.colorScheme.pillBg,
-                color: card.colorScheme.pillColor,
-              }}
+              style={
+                card.isExtra
+                  ? {
+                      backgroundColor: '#FEF3C7',
+                      color: '#B45309',
+                      border: '1px solid #FDE68A',
+                    }
+                  : {
+                      backgroundColor: card.colorScheme.pillBg,
+                      color: card.colorScheme.pillColor,
+                    }
+              }
             >
               {card.badge}
             </span>
