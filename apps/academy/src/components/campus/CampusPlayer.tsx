@@ -270,7 +270,9 @@ export function CampusPlayer({
               isModuleStarted ? styles.moduleTagActive : styles.moduleTagPending
             }`}
           >
-            <span className={styles.moduleTagNum}>MÓDULO 0{lesson.moduleNumber}</span>
+            <span className={styles.moduleTagNum}>
+              {lesson.isExtra ? `EXTRA 0${lesson.moduleNumber - 7}` : `MÓDULO 0${lesson.moduleNumber}`}
+            </span>
             <span className={styles.moduleTagTitle}>{lesson.moduleTitle}</span>
           </div>
 
@@ -467,7 +469,7 @@ export function CampusPlayer({
                   <Lock size={36} />
                 </div>
                 <div className={styles.screenBadgeActive}>
-                  MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
+                  {lesson.isExtra ? `EXTRA 0${lesson.moduleNumber - 7}` : `MÓDULO 0${lesson.moduleNumber}`} · CLASE 0{lesson.lessonNumber}
                 </div>
                 <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
                 <p className={styles.lockedScreenPrompt}>
@@ -587,7 +589,7 @@ export function CampusPlayer({
                     isModuleStarted ? styles.screenBadgeActive : styles.screenBadgePending
                   }`}
                 >
-                  MÓDULO 0{lesson.moduleNumber} · CLASE 0{lesson.lessonNumber}
+                  {lesson.isExtra ? `EXTRA 0${lesson.moduleNumber - 7}` : `MÓDULO 0${lesson.moduleNumber}`} · CLASE 0{lesson.lessonNumber}
                 </div>
                 <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
                 <p className={styles.screenLessonDesc}>{lesson.description}</p>

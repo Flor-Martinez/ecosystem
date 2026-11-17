@@ -208,9 +208,9 @@ export function EblDashboardGrid({
     });
   }, [program, completedLessons]);
 
-  // Calculate overall program progress from dynamic module cards (excluding optional Module 8)
+  // Calculate overall program progress from dynamic module cards (strictly the 7 troncal modules)
   const allProgramLessons = program ? program.modules.flatMap((m) => m.lessons) : [];
-  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 8);
+  const requiredProgramLessons = allProgramLessons.filter((l) => !l.isExtra && l.moduleNumber <= 7);
   const totalModuleSteps = requiredProgramLessons.length || 30;
   const completedModuleSteps = requiredProgramLessons.length > 0
     ? requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length
@@ -264,8 +264,12 @@ export function EblDashboardGrid({
     return dynamicCards.filter((c) => favoriteIds.has(c.id));
   }, [dynamicCards, favoriteIds, membershipTier]);
 
-  const filteredModules = useMemo(() => {
-    return filteredCards.filter((c) => c.type === 'modulo');
+  const filteredTroncalModules = useMemo(() => {
+    return filteredCards.filter((c) => c.type === 'modulo' && !c.isExtra);
+  }, [filteredCards]);
+
+  const filteredExtraModules = useMemo(() => {
+    return filteredCards.filter((c) => c.type === 'modulo' && c.isExtra);
   }, [filteredCards]);
 
   const filteredTools = useMemo(() => {
@@ -485,37 +489,73 @@ export function EblDashboardGrid({
             </section>
           )}
 
-          {/* SECTION 1: COURSE MODULES ROADMAP */}
-          <section className={styles.boardSection}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionTitleWrap}>
-                <div className={styles.sectionIconBadge}>
-                  <GraduationCap size={16} />
+          {/* SECTION 1: MÓDULOS TRONCALES */}
+          {filteredTroncalModules.length > 0 && (
+            <section className={styles.boardSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.sectionTitleWrap}>
+                  <div className={styles.sectionIconBadge}>
+                    <GraduationCap size={16} />
+                  </div>
+                  <div>
+                    <h2 className={styles.sectionHeading}>Módulos troncales</h2>
+                    <p className={styles.sectionSub}>La secuencia principal para preparar tu búsqueda paso a paso.</p>
+                  </div>
                 </div>
-                <div>
-                  <h2 className={styles.sectionHeading}>Ruta de Formación (Módulos 01 al {filteredModules.length.toString().padStart(2, '0')})</h2>
-                  <p className={styles.sectionSub}>La secuencia troncal del curso para preparar tu búsqueda paso a paso.</p>
-                </div>
+                <span className={styles.sectionCountPill}>{filteredTroncalModules.length} Módulos</span>
               </div>
-              <span className={styles.sectionCountPill}>{filteredModules.length} Módulos</span>
-            </div>
 
-            <div className={layoutMode === 'grid' ? styles.grid : styles.listView}>
-              {filteredModules.map((card) => (
-                <EblCard
-                  key={card.id}
-                  card={card}
-                  isFavorite={favoriteIds.has(card.id)}
-                  onToggleFavorite={toggleFavorite}
-                  onCardClick={(view) => handleCardClick(card.id, view, card.type)}
-                  isLocked={isCardLocked(card)}
-                  hideProgress={membershipTier === 'free'}
-                  canFavorite={membershipTier === 'paid'}
-                  layoutMode={layoutMode}
-                />
-              ))}
-            </div>
-          </section>
+              <div className={layoutMode === 'grid' ? styles.grid : styles.listView}>
+                {filteredTroncalModules.map((card) => (
+                  <EblCard
+                    key={card.id}
+                    card={card}
+                    isFavorite={favoriteIds.has(card.id)}
+                    onToggleFavorite={toggleFavorite}
+                    onCardClick={(view) => handleCardClick(card.id, view, card.type)}
+                    isLocked={isCardLocked(card)}
+                    hideProgress={membershipTier === 'free'}
+                    canFavorite={membershipTier === 'paid'}
+                    layoutMode={layoutMode}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* SECTION 2: MÓDULOS EXTRA */}
+          {filteredExtraModules.length > 0 && (
+            <section className={styles.boardSection}>
+              <div className={styles.sectionHeader}>
+                <div className={styles.sectionTitleWrap}>
+                  <div className={styles.sectionIconBadgeExtra}>
+                    <Sparkles size={16} />
+                  </div>
+                  <div>
+                    <h2 className={styles.sectionHeading}>Módulos extra</h2>
+                    <p className={styles.sectionSub}>Contenido complementario que podés cursar según tu perfil y objetivo.</p>
+                  </div>
+                </div>
+                <span className={styles.sectionCountPillExtra}>{filteredExtraModules.length} Extras · Opcionales</span>
+              </div>
+
+              <div className={layoutMode === 'grid' ? styles.grid : styles.listView}>
+                {filteredExtraModules.map((card) => (
+                  <EblCard
+                    key={card.id}
+                    card={card}
+                    isFavorite={favoriteIds.has(card.id)}
+                    onToggleFavorite={toggleFavorite}
+                    onCardClick={(view) => handleCardClick(card.id, view, card.type)}
+                    isLocked={isCardLocked(card)}
+                    hideProgress={membershipTier === 'free'}
+                    canFavorite={membershipTier === 'paid'}
+                    layoutMode={layoutMode}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* SECTION 2: TOOLS & ACCELERATORS */}
           <section className={styles.boardSection}>

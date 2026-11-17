@@ -65,6 +65,9 @@ export function EblCard({
     }
 
     if (isModule) {
+      if (card.isExtra) {
+        return <Sparkles size={24} color="#D97706" />;
+      }
       return <GraduationCap size={24} color="#7C3AED" />;
     }
 
@@ -139,11 +142,19 @@ export function EblCard({
     let borderColor = '#E9D5FF';
 
     if (isModule) {
-      topColor = '#7C3AED';
-      topHoverColor = '#9333EA';
-      glowColor = 'rgba(147, 51, 234, 0.28)';
-      normalBg = 'linear-gradient(180deg, #F6EEFE 0%, #FAF5FF 30%, #FFFFFF 100%)';
-      borderColor = '#E9D5FF';
+      if (card.isExtra) {
+        topColor = '#D97706';
+        topHoverColor = '#F59E0B';
+        glowColor = 'rgba(245, 158, 11, 0.28)';
+        normalBg = 'linear-gradient(180deg, #FFFBEB 0%, #FEF9C3 20%, #FFFFFF 100%)';
+        borderColor = '#FDE68A';
+      } else {
+        topColor = card.colorScheme.accent || '#7C3AED';
+        topHoverColor = '#9333EA';
+        glowColor = 'rgba(147, 51, 234, 0.28)';
+        normalBg = 'linear-gradient(180deg, #F6EEFE 0%, #FAF5FF 30%, #FFFFFF 100%)';
+        borderColor = '#E9D5FF';
+      }
     } else if (card.id === 'tool-perfil' || card.targetView === 'perfil') {
       topColor = '#4338CA';
       topHoverColor = '#6366F1';

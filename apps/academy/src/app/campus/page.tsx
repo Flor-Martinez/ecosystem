@@ -188,10 +188,10 @@ function CampusContent() {
     return currentProgram.modules.flatMap((m) => m.lessons);
   }, [currentProgram]);
 
-  // Required flat lessons of current program (excluding optional Module 7: Casos Especiales)
+  // Required flat lessons of current program (strictly core modules 1-7, excluding optional extra modules)
   const requiredLessons = useMemo(() => {
     return currentProgram.modules
-      .filter((m) => m.number !== 7)
+      .filter((m) => !m.isExtra && m.number <= 7)
       .flatMap((m) => m.lessons);
   }, [currentProgram]);
 
@@ -343,11 +343,25 @@ function CampusContent() {
         setSelectedLesson(getActiveLessonForModuleNumber(7));
         handleNavChangeView('lesson');
       }
-    } else if (targetView === 'modulo-casos-especiales' || targetView === 'modulo-8') {
+    } else if (targetView === 'modulo-casos-especiales' || targetView === 'modulo-8' || targetView === 'modulo-extra-mineria') {
       if (membershipTier === 'free') {
         handleNavChangeView('paywall-modulo-8');
       } else {
         setSelectedLesson(getActiveLessonForModuleNumber(8));
+        handleNavChangeView('lesson');
+      }
+    } else if (targetView === 'modulo-extra-remoto' || targetView === 'modulo-9') {
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-8');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(9));
+        handleNavChangeView('lesson');
+      }
+    } else if (targetView === 'modulo-extra-primer-empleo' || targetView === 'modulo-10') {
+      if (membershipTier === 'free') {
+        handleNavChangeView('paywall-modulo-8');
+      } else {
+        setSelectedLesson(getActiveLessonForModuleNumber(10));
         handleNavChangeView('lesson');
       }
     } else if (targetView === 'perfil') {
@@ -645,7 +659,7 @@ function CampusContent() {
                     membershipTier === 'free'
                       ? false
                       : currentProgram.modules.every((m) => {
-                          if (m.number === 8) return true; // optional module
+                          if (m.isExtra || m.number > 7) return true; // optional extra modules
                           return m.lessons.every((l) => completedLessons.has(l.id));
                         })
                   }
@@ -654,7 +668,7 @@ function CampusContent() {
                       return null;
                     }
                     const pending = currentProgram.modules.filter((m) => {
-                      if (m.number === 8) return false; // optional module
+                      if (m.isExtra || m.number > 7) return false; // optional extra modules
                       return !m.lessons.every((l) => completedLessons.has(l.id));
                     });
                     return pending.sort((a, b) => a.number - b.number)[0] || null;

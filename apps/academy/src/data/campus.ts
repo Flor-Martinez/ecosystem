@@ -69,6 +69,7 @@ export interface CampusLesson {
   quiz?: CampusQuiz;
   actionItems?: CampusActionItem[];
   mindsetPrompt?: string;
+  isExtra?: boolean;
 }
 
 export interface CampusModule {
@@ -80,6 +81,9 @@ export interface CampusModule {
   totalDuration: string;
   lessons: CampusLesson[];
   quiz?: CampusQuiz;
+  isExtra?: boolean;
+  extraTag?: string;
+  accentColor?: string;
 }
 
 export interface CampusProgram {
@@ -2815,328 +2819,717 @@ const expBusquedaLaboralModules: CampusModule[] = [
     ],
   },
 
+  // ===========================================================================
+  // MÓDULOS EXTRA (OPCIONALES)
+  // ===========================================================================
+
   // ---------------------------------------------------------------------------
-  // MÓDULO 8: CASOS ESPECIALES DE BÚSQUEDA (OPTATIVA) (3 CLASES)
+  // MÓDULO EXTRA 1: MINERÍA Y PETRÓLEO (8 CLASES)
   // ---------------------------------------------------------------------------
   {
-    id: 'exp-mod-8',
+    id: 'exp-mod-extra-1',
     programId: 'exp-busqueda-laboral',
     number: 8,
-    title: 'Casos especiales de Búsqueda (optativa)',
-    tagline: 'Estrategias a medida para trabajo remoto internacional, primer empleo y transición de carrera',
-    totalDuration: '28 min · 3 clases',
+    isExtra: true,
+    extraTag: 'EXTRA 01',
+    accentColor: '#D97706',
+    title: 'Minería y Petróleo',
+    tagline: 'Cómo ingresar y desarrollarte en las industrias de minería, petróleo y energía: carreras, perfiles, páginas oficiales y proveedores',
+    totalDuration: '8 clases',
     lessons: [
       {
-        id: 'exp-esp-01',
+        id: 'exp-min-01',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-8',
+        moduleId: 'exp-mod-extra-1',
         moduleNumber: 8,
-        moduleTitle: 'Casos especiales de Búsqueda (optativa)',
+        moduleTitle: 'Minería y Petróleo',
         lessonNumber: 1,
         type: 'video',
-        title: 'Búsqueda de empleo remoto internacional',
+        isExtra: true,
+        title: 'Por qué minería y petróleo y cómo es realmente trabajar ahí',
         duration: '10 min',
-        videoDuration: '4:45 min',
         completed: false,
-        description:
-          'Criterios de elegibilidad geográfica (worldwide vs. regional), nivel real de inglés, convenciones de CV internacional, esquemas de contratación (Contractor vs. EOR) y prevención de estafas.',
+        description: 'Turnos rotativos, locaciones remotas y la gran diversidad de perfiles operativos, administrativos y logísticos.',
         takeaways: [
-          'Trabajo remoto no significa automáticamente elegible desde cualquier país: validar si la búsqueda indica "Remote worldwide", "Remote LATAM" o restricciones legales por país.',
-          'Nivel de idioma: indicar un nivel de inglés que puedas defender en la entrevista; si la vacante está en inglés, el screening será en ese idioma.',
-          'CV internacional: formato breve, sin fotografía ni datos personales sensibles, adaptado a estándares globales.',
-          'Modalidades contractuales: Contractor independiente (B2B) vs. Intermediación por Employer of Record (Deel, Remote) vs. Dependencia local.',
-          'Análisis del paquete integral: moneda de pago, costos de transferencia e impuestos, huso horario exigido, días libres y cobertura médica.',
-          'Seguridad laboral: verificar dominios corporativos y recordar que NUNCA debés pagar para que una empresa te contrate.',
+          'Turnos rotativos y vida en campamento como factores no negociables a evaluar.',
+          'Ubicaciones estratégicas: San Juan, Santa Cruz, Vaca Muerta en Neuquén y el litio en el noroeste.',
+          'No todo es campo y botas: alta demanda en compras, comercio exterior, logística, finanzas, legales y RRHH.',
         ],
-        actionItems: [
-          {
-            id: 'act-esp-1-1',
-            title: 'Auditar tu elegibilidad para búsquedas remotas',
-            description: 'Utilizá la Guía de Empleo Remoto Internacional para verificar husos horarios, nivel de inglés y esquema contractual antes de postularte.',
-          },
-        ],
-        mindsetPrompt:
-          'En el mercado remoto internacional, el objetivo no es solo encontrar una oferta que diga "Remote", sino validar que seas elegible y que las condiciones contractuales y horarias se adapten a tu realidad.',
         resources: [
           {
-            id: 'guia-empleo-remoto-internacional',
-            title: 'Guía de Empleo Remoto Internacional y Checklist Contractual',
+            id: 'matriz-target-mineria',
+            title: 'Matriz de Target y No Negociables para Minería y Petróleo',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Casos Especiales · Empleo Remoto',
-            description: 'Elegibilidad geográfica, esquemas Contractor/EOR y checklist de verificación.',
+            category: 'Minería y Petróleo',
+            description: 'Filtros de turnos rotativos, disponibilidad de traslado y adecuación familiar.',
             isEssential: true,
           },
-          {
-            id: 'directorio-portales-empleo-remoto',
-            title: 'Directorio de Portales de Empleo Remoto Internacional',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
-            url: '#',
-            programId: 'exp-busqueda-laboral',
-            programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 8,
-            category: 'Estrategias de Búsqueda',
-            description: 'Directorio de plataformas especializadas en trabajo remoto global.',
-            isEssential: false,
-          },
         ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y ELEGIBILIDAD GEOGRÁFICA]
-🗣️ Hola a todos. Esta clase es específicamente para vos si estás buscando trabajar de manera remota para una empresa del exterior.
-🏷️ MÓDULO 08 · Clase 1: Búsqueda de Empleo Remoto Internacional 🌐💻
-🔊 Swoosh suave
-🗣️ Y quiero empezar aclarando algo fundamental: trabajo remoto no significa automáticamente trabajo desde cualquier parte del mundo.
-🏷️ "Remoto" ≠ Elegible desde cualquier país ⚠️
-🔊 Pop sutil
-🗣️ Muchas veces encontrás una vacante que dice "Remote", cumplís los requisitos, te postulás y descubrís que la empresa solo contrata en EE.UU., Europa o determinados países por cuestiones legales, impositivas u horarias.
-🏷️ Razones legales · Fiscales · Horarias · Operativas ⚖️
-🔊 Click sutil
-🗣️ Por eso, desde Latinoamérica, revisá que la vacante especifique "Remote worldwide", "Remote - LATAM" o "Work from anywhere". Si dice "US only" o "Must be based in...", no es una búsqueda abierta para nuestra región.
-🏷️ Buscar: Remote worldwide · Remote LATAM · Work from anywhere 🌎✅
-🔊 Pop de confirmación
-
-[1:20 - SECCIÓN 2: IDIOMA, CV INTERNACIONAL Y MODALIDADES CONTRACTUALES]
-🗣️ Segundo punto: el idioma. Si la publicación está en inglés, el proceso se evaluará en inglés. No pongas "avanzado" si no podés sostener una conversación fluida; indicá un nivel que realmente puedas defender con soltura.
-🏷️ Nivel de idioma real y defendible en entrevista 🗣️🇬🇧
-🔊 Click sutil
-🗣️ En cuanto al CV: para procesos internacionales utilizá un formato conciso, sin fotografía y sin datos personales sensibles (como DNI, estado civil o dirección física), adaptado al estándar global.
-🏷️ CV Internacional: Breve · Sin foto · En inglés si aplica 📄✨
-🔊 Pop sutil
-🗣️ Y algo crucial que tenés que investigar: ¿Bajo qué modalidad te contratarían?
-🏷️ Modalidades de Contratación Internacional 📝
-🔊 Swoosh suave
-🗣️ Existen tres esquemas principales: Contractor independiente (donde facturás de forma directa y gestionás tus impuestos locales), intermediación por Employer of Record (plataformas como Deel o Remote con nómina local), o entidad legal propia de la empresa en tu país.
-🏷️ Contractor B2B · Employer of Record (Deel/Remote) · Dependencia local 💼🏦
-🔊 Pop de confirmación
-
-[2:50 - SECCIÓN 3: PAQUETE TOTAL, HUSOS HORARIOS Y PREVENCIÓN DE ESTAFAS]
-🗣️ Antes de aceptar cualquier propuesta, evaluá el paquete completo: en qué moneda te pagan, por qué plataforma transfieren, qué sucede con vacaciones y feriados, si hay cobertura médica y cuál es el horario esperado.
-🏷️ Moneda · Cobro · Vacaciones · Cobertura · Huso horario 💵🏖️
-🔊 Click sutil
-🗣️ Recordá que trabajar para otro país puede implicar una diferencia horaria importante: un puesto 100% remoto puede exigir sincronía con el horario laboral de la empresa.
-🏷️ Disponibilidad y diferencia horaria sincrónica ⏱️🌎
-🔊 Pop sutil
-🗣️ Y prestá mucha atención a la seguridad: que una empresa sea extranjera no la hace automáticamente legítima. Verificá perfiles en LinkedIn, dominios oficiales y recordá que NUNCA debés pagar dinero para que te contraten.
-🏷️ Seguridad: Verificar dominios · NUNCA pagar por trabajar 🛡️🚫
-🔊 Pop de confirmación
-
-[4:00 - SECCIÓN 4: CHECKLIST FINAL Y LLAMADA A LA ACCIÓN]
-🗣️ Antes de tu próxima postulación internacional, hacé este chequeo rápido: ¿Aceptan candidatos desde mi país? ¿Cumplo el idioma? ¿Mi CV está adaptado? ¿Puedo trabajar en ese huso horario? ¿Y entiendo la modalidad de contratación?
-🏷️ Los 5 Chequeos de Elegibilidad Internacional 📋✅
-🔊 Swoosh suave
-🗣️ En la sección de Documentos tenés la Guía de Empleo Remoto Internacional con el checklist completo para auditar cada oferta.
-🏷️ Documentos: Guía de Empleo Remoto Internacional 📥📋
-🔊 Pop sutil
-🖼️ Captura flotante mostrando el checklist contractual y de elegibilidad.
-🗣️ ¡En la siguiente clase vamos a ver una estrategia concreta para quienes están buscando su primera oportunidad laboral sin experiencia previa!
-🏷️ Próxima clase: Cómo postularte sin experiencia previa 🚀
-🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-esp-02',
+        id: 'exp-min-02',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-8',
+        moduleId: 'exp-mod-extra-1',
         moduleNumber: 8,
-        moduleTitle: 'Casos especiales de Búsqueda (optativa)',
+        moduleTitle: 'Minería y Petróleo',
         lessonNumber: 2,
         type: 'video',
-        title: 'Cómo postularte sin experiencia previa',
+        isExtra: true,
+        title: '¿Qué estudiar para ingresar a minería y petróleo?',
         duration: '9 min',
-        videoDuration: '4:15 min',
         completed: false,
-        description:
-          'Cómo convertir proyectos universitarios, materias, voluntariados y casos prácticos en evidencia sólida de habilidades, y cómo responder en la entrevista con autenticidad.',
+        description: 'Carreras universitarias de grado, tecnicaturas cortas, oficios técnicos y perfiles de soporte al negocio.',
         takeaways: [
-          'No tener experiencia laboral formal no significa no tener nada que mostrar: tus proyectos, casos académicos, voluntariados y portfolios son tu evidencia práctica.',
-          'Buscar vacantes coherentes con el momento profesional: focalizarse en términos como Trainee, Pasantía, Junior, Asistente o Posiciones Iniciales.',
-          'Nunca inventar experiencia ni inflar fechas: la solidez se demuestra explicando cómo resolviste problemas en proyectos reales.',
-          'Respuesta modelo en entrevista: asumir con total serenidad que buscás tu primera oportunidad formal y conectar tus proyectos y herramientas con los requerimientos del rol.',
-          'Tu primer trabajo es una plataforma de aprendizaje: el objetivo es ganar antecedentes, referencias y habilidades para impulsarte.',
+          '4 puertas de entrada: universitarias (ingenierías/geología), tecnicaturas, oficios certificados y perfiles de soporte.',
+          'Capacitaciones complementarias que suman ventaja: cursos HSE (seguridad), manejo defensivo, inglés técnico y Excel/Power BI.',
+          'Reconversión: cómo aplicar tu profesión actual al sector sin empezar de cero.',
         ],
-        actionItems: [
-          {
-            id: 'act-esp-2-1',
-            title: 'Identificar 3 habilidades y tu proyecto demostrativo',
-            description: 'Elegí una oferta junior y redactá cómo tus proyectos o estudios demuestran tu capacidad práctica en 3 competencias clave.',
-          },
-        ],
-        mindsetPrompt:
-          'Si todavía ninguna empresa te dio la oportunidad de demostrar lo que sabés hacer, creá vos mismo la evidencia a través de proyectos, portfolios y casos prácticos.',
         resources: [
           {
-            id: 'guia-primer-empleo-sin-experiencia',
-            title: 'Guía de Primer Empleo y Conversión de Proyectos en Evidencia',
+            id: 'mapa-carreras-mineria',
+            title: 'Mapa de Carreras y Formaciones para Minería y Petróleo',
             type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Casos Especiales · Primer Empleo',
-            description: 'Cómo estructurar el CV y defender proyectos prácticos en entrevistas.',
+            category: 'Minería y Petróleo',
+            description: 'Directorio de universidades, tecnicaturas y certificaciones reconocidas.',
             isEssential: true,
           },
+        ],
+      },
+      {
+        id: 'exp-min-03',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-1',
+        moduleNumber: 8,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 3,
+        type: 'video',
+        isExtra: true,
+        title: 'Los puestos más necesitados y cómo detectar la demanda',
+        duration: '8 min',
+        completed: false,
+        description: 'Perfiles prioritarios en litio, cobre y Vaca Muerta, y el método de 4 acciones para detectar la demanda real.',
+        takeaways: [
+          'Demanda central: semi-seniors y juniors con certificaciones y experiencia práctica aplicable.',
+          'Las 4 acciones para detectar demanda: mapeo de 10 avisos, informes de consultoras, LinkedIn y preguntas clave de networking.',
+          'Relevamiento continuo: cómo seguir la evolución de precios y proyectos aprobados.',
+        ],
+        resources: [
           {
-            id: 'guia-cv-segun-perfil',
-            title: 'Guía: El CV según tu Perfil y Momento de Carrera',
-            type: 'pdf',
-            fileSize: 'Guía In-App',
+            id: 'planilla-mapeo-demanda-mineria',
+            title: 'Planilla de Mapeo de Demanda Laboral Minera y Petrolera',
+            type: 'excel',
+            fileSize: 'Plantilla Excel',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
-            moduleNumber: 3,
-            category: 'Estrategia y Posicionamiento',
-            description: 'Enfoques de jerarquía para perfiles sin experiencia previa o junior.',
+            moduleNumber: 8,
+            category: 'Minería y Petróleo',
+            description: 'Planilla para registrar puestos requeridos, requisitos repetidos y empresas activas.',
             isEssential: false,
           },
         ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL DILEMA DEL PRIMER EMPLEO]
-🗣️ Esta clase es para vos si abrís una oferta laboral y pensás: "¿Cómo quieren que tenga experiencia si nadie me da mi primera oportunidad?".
-🏷️ MÓDULO 08 · Clase 2: Cómo Postularte sin Experiencia Previa 🎓💼
-🔊 Swoosh suave
-🗣️ Es una situación súper común. Y quiero empezar diferenciando algo fundamental: no tener experiencia laboral formal no significa no tener nada para mostrar.
-🏷️ Sin experiencia formal ≠ Sin nada para mostrar 💡
-🔊 Pop sutil
-🗣️ Pero seamos realistas: si una empresa busca un perfil senior con 5 años liderando equipos, no es la búsqueda indicada para arrancar. Busquemos posiciones coherentes: prestá atención a términos como Trainee, Pasantía, Práctica Profesional, Junior, Asistente o Auxiliar.
-🏷️ Posiciones Iniciales: Trainee · Pasantía · Junior · Auxiliar 🎯
-🔊 Pop de confirmación
-
-[1:10 - SECCIÓN 2: CÓMO CONVERTIR PROYECTOS EN EVIDENCIA REAL]
-🗣️ Ahora aparece la gran pregunta: "¿Qué pongo en el CV si nunca trabajé?".
-🏷️ De la Falta de Experiencia a la Evidencia Práctica 📁
-🔊 Swoosh suave
-🗣️ La regla de oro es: no inventes experiencia, no infles meses y no pongas habilidades que no tenés. Lo que vamos a hacer es encontrar evidencia de lo que sí sabés hacer.
-🏷️ No inventar · Mostrar evidencia de lo que sabés hacer 🚫✅
-🔊 Click sutil
-🗣️ Pensá en tu universidad, colegio técnico, cursos, proyectos personales, voluntariados o trabajos informales. Si estudiaste marketing y armaste una campaña para una materia, eso es un proyecto: ¿qué analizaste?, ¿qué herramientas usaste?
-🏷️ Proyectos académicos · Voluntariados · Casos reales · Portfolios 📊
-🔊 Pop sutil
-🗣️ Si estudiaste comercio exterior y armaste un plan de exportación; si estudiás administración y creaste un dashboard en Excel; si programás o diseñás y tenés un portfolio visible.
-🏷️ "¿Cómo puedo demostrar lo que sé hacer antes de que me contraten?" 🧠✨
-🔊 Pop de confirmación
-
-[2:30 - SECCIÓN 3: CÓMO RESPONDER EN LA ENTREVISTA Y EXPECTATIVAS]
-🗣️ Ahora imaginemos que conseguís una entrevista y te dicen: "Veo que todavía no tenés experiencia previa".
-🏷️ Cómo Responder en la Entrevista: "No tenés experiencia" 🗣️💬
-🔊 Swoosh suave
-🗣️ No te quejes ni intentes esconderlo. Podés responder con total aplomo: "Es cierto, estoy buscando mi primera experiencia formal en el área. Durante mi formación desarrollé proyectos prácticos en X, donde aprendí a utilizar X herramientas. Justamente busco una posición inicial donde aplicar esta base y seguir aprendiendo con el equipo".
-🏷️ Respuesta con madurez: Asumir + Mostrar proyectos + Compromiso 🤝⭐
-🔊 Pop de confirmación
-🗣️ Y algo importante: tu primer trabajo probablemente no sea tu trabajo ideal en salario o puesto soñado. Pero es la plataforma para construir antecedentes, referencias y habilidades que te permitan dar los siguientes pasos.
-🏷️ Tu primer trabajo como plataforma de aprendizaje y referencias 🚀📈
-🔊 Click sutil
-
-[3:35 - SECCIÓN 4: EJERCICIO PRÁCTICO Y LLAMADA A LA ACCIÓN]
-🗣️ Después de esta clase quiero que hagas algo concreto: buscá una oferta junior, identificá las 3 habilidades centrales que piden y preguntate cómo podés demostrar que sabés hacer eso con tus proyectos o estudios.
-🏷️ Ejercicio: 3 Habilidades Clave → Tu Proyecto Demostrativo 📝🔍
-🔊 Swoosh suave
-🗣️ En la sección de Documentos tenés la Guía de Primer Empleo con plantillas y modelos de respuesta listos.
-🏷️ Documentos: Guía de Primer Empleo y Proyectos 📥📋
-🔊 Pop sutil
-🖼️ Captura flotante mostrando la guía y ejemplos de proyectos demostrativos.
-🗣️ ¡En la siguiente clase vamos a ver cómo encarar una transición laboral o cambio de carrera sin empezar de cero!
-🏷️ Próxima clase: Transición y cambio de carrera 🔄
-🔊 Fin de lección suave`,
       },
       {
-        id: 'exp-esp-03',
+        id: 'exp-min-04',
         programId: 'exp-busqueda-laboral',
-        moduleId: 'exp-mod-8',
+        moduleId: 'exp-mod-extra-1',
         moduleNumber: 8,
-        moduleTitle: 'Casos especiales de Búsqueda (optativa)',
-        lessonNumber: 3,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 4,
         type: 'video',
-        title: 'Transición y cambio de carrera',
-        duration: '9 min',
-        videoDuration: '4:30 min',
+        isExtra: true,
+        title: 'Dónde y cómo postularte paso a paso en páginas oficiales',
+        duration: '10 min',
         completed: false,
-        description:
-          'Estrategias para cambiar de rol o industria: mapeo de habilidades transferibles, detección de brechas técnicas reales y la fórmula del puente en 3 frases para la entrevista.',
+        description: 'Paso a paso en portales de operadoras (caso YPF), contratistas, consultoras especializadas y prevención de estafas.',
         takeaways: [
-          '"No borres tu pasado profesional: tradúcelo": tus años previos son tu diferencial si identificás tus habilidades transferibles (comunicación, análisis, resolución, liderazgo, negociación).',
-          'Detección de brechas reales (skills gap): auditar 5 a 10 ofertas del nuevo puesto para capacitarte con foco en herramientas indispensables, no en cursos al azar.',
-          'Construir el puente en la entrevista: nunca justificar el cambio desde la queja del trabajo anterior, sino desde la proyección y las acciones de capacitación realizadas.',
-          'La Fórmula del Puente en 3 frases: 1) "Vengo de...", 2) "Durante esos años desarrollé...", 3) "Ahora quiero pasar a... y me preparé haciendo...".',
-          'Realismo de seniority: evaluar si el cambio requiere ingresar inicialmente en un rol de menor nivel o lateral para consolidar la nueva especialidad.',
+          'Los 4 canales: portales de operadoras, contratistas/servicios, consultoras de nicho y LinkedIn.',
+          'Ejemplo real paso a paso en trabajar.ypf.com y programas de Jóvenes Profesionales.',
+          'Regla de oro de seguridad: una empresa seria jamás cobra por postularse ni por cursos obligatorios.',
         ],
-        actionItems: [
-          {
-            id: 'act-esp-3-1',
-            title: 'Completar tu Matriz de Habilidades Transferibles',
-            description: 'Escribí tu pitch del puente en 3 frases y mapeá tus competencias anteriores hacia tu nuevo rol objetivo.',
-          },
-        ],
-        mindsetPrompt:
-          'Cambiar de carrera no significa empezar de cero: significa lograr que el entrevistador entienda por qué toda tu historia anterior tiene sentido para este nuevo paso.',
         resources: [
           {
-            id: 'matriz-habilidades-transferibles-transicion',
-            title: 'Matriz de Mapeo de Habilidades Transferibles y Pitch del Puente',
-            type: 'excel',
+            id: 'directorio-paginas-oficiales-mineria',
+            title: 'Lista de Páginas Oficiales de Empleo en Minería y Petróleo',
+            type: 'pdf',
             fileSize: 'Guía In-App',
             url: '#',
             programId: 'exp-busqueda-laboral',
             programTitle: 'Experiencia Búsqueda Laboral',
             moduleNumber: 8,
-            category: 'Casos Especiales · Transición Laboral',
-            description: 'Mapeo de competencias puente, auditoría de brechas y guion de entrevista.',
+            category: 'Minería y Petróleo',
+            description: 'Links directos a los portales de empleo oficiales de operadoras en Argentina.',
             isEssential: true,
           },
         ],
-        videoScript:
-          `[0:00 - SECCIÓN 1: INTRODUCCIÓN Y EL PRINCIPIO DE LA TRADUCCIÓN]
-🗣️ Esta clase es para una situación diferente: ya tenés experiencia laboral, pero querés trabajar de otra cosa.
-🏷️ MÓDULO 08 · Clase 3: Transición y Cambio de Carrera 🔄🚀
-🔊 Swoosh suave
-🗣️ Quizás trabajaste años en administración y querés pasar a Recursos Humanos; o en atención al cliente y querés entrar a ventas o consultoría; o estudiaste algo nuevo y querés cambiar de rubro.
-🏷️ Cambiar de rol o industria con experiencia previa 👥✨
-🔊 Pop sutil
-🗣️ El dilema típico es mirar el CV y pensar: "Toda mi experiencia es de otra cosa, ¿cómo hago para que me contraten?".
-🏷️ Principio Rector: "No borres tu pasado profesional: tradúcelo" 💡
-🔊 Pop de confirmación
-🗣️ Tus años anteriores no desaparecen: lo que hacemos es identificar tus habilidades transferibles. Si estuviste en atención al cliente, desarrollaste comunicación, manejo de objeciones y negociación. Si fuiste docente, tenés oratoria, liderazgo y diseño pedagógico. No empezás de cero: construís un puente.
-🏷️ Habilidades Transferibles: Negociación · Liderazgo · Análisis · Comunicación 🌉
-🔊 Click sutil
+      },
+      {
+        id: 'exp-min-05',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-1',
+        moduleNumber: 8,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 5,
+        type: 'video',
+        isExtra: true,
+        title: 'La otra puerta de entrada: los proveedores y empresas contratistas',
+        duration: '9 min',
+        completed: false,
+        description: 'La inmensa cadena de valor: trabajar en una empresa contratista o registrarte como proveedor de servicios.',
+        takeaways: [
+          'La cadena de proveedores genera el mayor volumen de empleo del sector con procesos más ágiles.',
+          'Camino 1: ingresar a contratistas para sumar experiencia en yacimiento y luego dar el salto.',
+          'Camino 2: ofrecer servicios como proveedor (requisitos de ART, seguridad y registros provinciales).',
+          'Nicho estratégico: comercio internacional, compras y logística de repuestos e insumos importados.',
+        ],
+        resources: [
+          {
+            id: 'mapa-rubros-proveedores-mineria',
+            title: 'Mapa de Rubros de Proveedores y Checklist de Requisitos',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 8,
+            category: 'Minería y Petróleo',
+            description: 'Rubros más contratados y requisitos de homologación como contratista.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-min-06',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-1',
+        moduleNumber: 8,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 6,
+        type: 'video',
+        isExtra: true,
+        title: 'Cómo es el proceso de reclutamiento en minería y petróleo',
+        duration: '9 min',
+        completed: false,
+        description: 'Las 7 etapas de selección, tiempos reales (60-90 días) y qué evalúan: seguridad, turnos y trabajo bajo presión.',
+        takeaways: [
+          'Las 7 etapas: ATS, llamado RRHH, entrevista con líder técnico, evaluaciones, referencias, médico preocupacional y oferta.',
+          'Tiempos reales de contratación: no frenar tu búsqueda mientras esperás respuestas.',
+          'Historias STAR para el sector: situaciones donde detectaste un riesgo de seguridad o resolviste en equipo.',
+        ],
+        resources: [
+          {
+            id: 'checklist-documentacion-mineria',
+            title: 'Checklist de Documentación y Certificaciones para Minería',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 8,
+            category: 'Minería y Petróleo',
+            description: 'Carpeta previa con certificados médicos, carnet de conducir y capacitaciones HSE.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-min-07',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-1',
+        moduleNumber: 8,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 7,
+        type: 'video',
+        isExtra: true,
+        title: 'Ferias y networking en la industria',
+        duration: '8 min',
+        completed: false,
+        description: 'Cómo aprovechar AOG Patagonia, Expo San Juan Minera y jornadas del sector para hacer contactos de alto valor.',
+        takeaways: [
+          'Las exposiciones reúnen a gerentes y selectores: no son solo ferias comerciales.',
+          'Plan en 3 momentos: antes (seleccionar empresas), durante (preguntas estratégicas en stands) y después (contacto LinkedIn en 48hs).',
+          'Objetivo: salir de cada evento con 3 o 4 contactos calificados de reclutadores y contratistas.',
+        ],
+        resources: [
+          {
+            id: 'guia-ferias-networking-minero',
+            title: 'Guía de Ferias y Networking en Minería y Petróleo',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 8,
+            category: 'Minería y Petróleo',
+            description: 'Calendario de eventos principales y plantillas de mensaje posterior.',
+            isEssential: false,
+          },
+        ],
+      },
+      {
+        id: 'exp-min-08',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-1',
+        moduleNumber: 8,
+        moduleTitle: 'Minería y Petróleo',
+        lessonNumber: 8,
+        type: 'video',
+        isExtra: true,
+        title: 'Tips que marcan la diferencia en minería y petróleo',
+        duration: '9 min',
+        completed: false,
+        description: 'Los 10 consejos de oro: carpeta lista, vocabulario HSE, etapas del proyecto, mano de obra local y reputación.',
+        takeaways: [
+          'Llegar con los certificados escaneados da ventaja inmediata frente a perfiles similares.',
+          'Incluir siglas clave del sector (HSE, EPP, permisos de trabajo) para pasar filtros ATS.',
+          'La industria es chica: cuidar el cumplimiento, la seguridad y los compromisos protege tu reputación.',
+        ],
+        resources: [
+          {
+            id: 'diccionario-siglas-mineria',
+            title: 'Diccionario de Siglas y Términos Clave de Minería y Petróleo',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 8,
+            category: 'Minería y Petróleo',
+            description: 'Glosario de palabras clave indispensables para tu CV y entrevistas.',
+            isEssential: true,
+          },
+        ],
+      },
+    ],
+  },
 
-[1:25 - SECCIÓN 2: DETECCIÓN DE BRECHAS TÉCNICAS Y CAPACITACIÓN CON FOCO]
-🗣️ Ahora viene una parte fundamental: buscá entre 5 y 10 ofertas del puesto al que querés pasar y fijate qué conocimientos técnicos se repiten que hoy no tenés.
-🏷️ Detección de la Brecha Técnica (Skills Gap) 🔍📊
-🔊 Swoosh suave
-🗣️ Cambiar de carrera no es solo reformular el CV; puede haber una brecha real: un software específico, una certificación o un método. Ahí sí tiene sentido capacitarte, pero con foco. No hagas 20 cursos dispersos: cubrí la brecha exacta que pide el mercado.
-🏷️ Capacitación intencional basada en lo que pide el mercado 🎯📚
-🔊 Pop de confirmación
+  // ---------------------------------------------------------------------------
+  // MÓDULO EXTRA 2: TRABAJO REMOTO (7 CLASES)
+  // ---------------------------------------------------------------------------
+  {
+    id: 'exp-mod-extra-2',
+    programId: 'exp-busqueda-laboral',
+    number: 9,
+    isExtra: true,
+    extraTag: 'EXTRA 02',
+    accentColor: '#D97706',
+    title: 'Trabajo Remoto',
+    tagline: 'Modalidades de contratación, portales internacionales, CV en inglés, prevención de estafas, contratos y tarifas',
+    totalDuration: '7 clases',
+    lessons: [
+      {
+        id: 'exp-rem-01',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 1,
+        type: 'video',
+        isExtra: true,
+        title: 'Qué es realmente el trabajo remoto y qué tipos existen',
+        duration: '8 min',
+        completed: false,
+        description: 'Remoto vs. híbrido vs. freelance; contratación local vs. exterior (contractor, EOR y dependencia) y mitos.',
+        takeaways: [
+          'Modalidades contractuales: Contractor independiente B2B vs. Employer of Record (Deel/Remote) vs. Filial local.',
+          'Perfiles demandados más allá de programación: ventas, finanzas, administración, marketing, soporte y datos.',
+          'Mitos: no es más fácil ni todo es en dólares; exige altísima autonomía y comunicación escrita.',
+        ],
+        resources: [
+          {
+            id: 'guia-modalidades-remoto',
+            title: 'Guía de Modalidades y Esquemas de Trabajo Remoto',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Comparativa de esquemas legales, derechos y obligaciones.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-02',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 2,
+        type: 'video',
+        isExtra: true,
+        title: '¿Qué estudiar para trabajar en remoto?',
+        duration: '9 min',
+        completed: false,
+        description: 'Áreas con más oferta remota y la fórmula ganadora: tu profesión + habilidad digital + inglés.',
+        takeaways: [
+          'Habilidades transversales: inglés intermedio-alto, comunicación asertiva por escrito y autogestión.',
+          'Herramientas colaborativas estándar: Slack, Zoom, Notion, Jira y Google Workspace.',
+          'La fórmula de diferenciación: tu profesión de base complementada con herramientas digitales concretas.',
+        ],
+        resources: [
+          {
+            id: 'mapa-formaciones-remoto',
+            title: 'Mapa de Formaciones y Certificaciones para Trabajo Remoto',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Cursos recomendados y rutas de aprendizaje por especialidad.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-03',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 3,
+        type: 'video',
+        isExtra: true,
+        title: 'Dónde buscar trabajo remoto',
+        duration: '8 min',
+        completed: false,
+        description: 'Filtros en LinkedIn, portales internacionales globales, plataformas LATAM y empresas remote-first.',
+        takeaways: [
+          'Búsqueda en LinkedIn con filtros "Remote" y palabras clave "LATAM" / "Worldwide".',
+          'Portales especializados: We Work Remotely, Remote OK, Remotive y plataformas regionales como Get on Board y Torre.',
+          'Atención a la letra chica: descartar ofertas con exclusividad geográfica (ej. "US only").',
+        ],
+        resources: [
+          {
+            id: 'directorio-portales-remoto-int',
+            title: 'Lista de Plataformas y Portales para Trabajo Remoto',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Directorio con links directos a bolsas de empleo remotas globales y regionales.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-04',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 4,
+        type: 'video',
+        isExtra: true,
+        title: 'Prepará tu perfil para el mercado remoto',
+        duration: '9 min',
+        completed: false,
+        description: 'CV y LinkedIn en inglés, demostración de autonomía, huso horario UTC-3 y setup técnico profesional.',
+        takeaways: [
+          'CV en inglés, conciso y sin fotografía para postulaciones a EE.UU., Reino Unido o multinacionales.',
+          'Demostrar experiencia o capacidad de trabajo distribuido a través de proyectos y metodologías ágiles.',
+          'Ventaja competitiva de huso horario: Argentina (UTC-3) tiene solapamiento ideal con EE.UU. y Europa.',
+        ],
+        resources: [
+          {
+            id: 'checklist-perfil-remoto-cv-ingles',
+            title: 'Checklist de Perfil Remoto y Guía de Frases para CV en Inglés',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Plantilla de frases de impacto y verbos de acción en inglés.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-05',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 5,
+        type: 'video',
+        isExtra: true,
+        title: 'Entrevistas remotas y cómo evitar estafas',
+        duration: '9 min',
+        completed: false,
+        description: 'Preparación de videollamadas técnicas y las 6 señales de alerta roja para detectar fraudes laborales.',
+        takeaways: [
+          'Preguntas frecuentes: autogestión, resolución sin supervisión directa y comunicación asíncrona.',
+          'Las 6 señales de alerta: pedidos de dinero, cheques para comprar equipos, entrevistas solo por Telegram y sueldos irreales.',
+          'Protocolo de verificación: validar identidad del selector y dominio corporativo en LinkedIn.',
+        ],
+        resources: [
+          {
+            id: 'guia-alertas-estafas-remoto',
+            title: 'Guía de Señales de Alerta para Ofertas de Empleo Falsas',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Checklist de seguridad digital y verificación de reclutadores.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-06',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 6,
+        type: 'video',
+        isExtra: true,
+        title: 'Contratos, cobros, impuestos y rutina de trabajo remoto',
+        duration: '10 min',
+        completed: false,
+        description: 'Lectura de contratos contractor, pasarelas de pago (Wise/Payoneer/Deel), encuadre fiscal y bienestar.',
+        takeaways: [
+          'Revisión contractual: moneda, frecuencia de pago, rescisión, confidencialidad y ausencia de beneficios de dependencia.',
+          'Cobro internacional y comisiones bancarias; consulta contable obligatoria para operar en regla.',
+          'Rutina y salud mental: fijar horarios claros, pausas activas y evitar el aislamiento.',
+        ],
+        resources: [
+          {
+            id: 'checklist-contrato-calculadora-tarifa',
+            title: 'Checklist de Revisión de Contrato y Calculadora de Tarifa Freelance',
+            type: 'excel',
+            fileSize: 'Plantilla Excel',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Calculadora de tarifa hora/proyecto contemplando impuestos y costos operativos.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-rem-07',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-2',
+        moduleNumber: 9,
+        moduleTitle: 'Trabajo Remoto',
+        lessonNumber: 7,
+        type: 'video',
+        isExtra: true,
+        title: 'Tips para destacarte en el trabajo remoto',
+        duration: '8 min',
+        completed: false,
+        description: '10 recomendaciones de alto impacto: superposición horaria, reportes proactivos, pruebas pagas y equilibrio.',
+        takeaways: [
+          'Ofrecer explícitamente solapamiento de al menos 4 horas de jornada con el equipo del exterior.',
+          'Comunicar por escrito de forma proactiva: lo que no se documenta, no existe.',
+          'Usar empresas locales con clientes del exterior como puente para ganar experiencia antes de saltar a contrataciones directas.',
+        ],
+        resources: [
+          {
+            id: 'checklist-auditoria-remota-final',
+            title: 'Checklist de Auditoría para Postulaciones Remotas',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 9,
+            category: 'Trabajo Remoto',
+            description: 'Control paso a paso antes de enviar tu candidatura internacional.',
+            isEssential: false,
+          },
+        ],
+      },
+    ],
+  },
 
-[2:30 - SECCIÓN 3: EL PITCH DEL PUENTE EN 3 FRASES PARA LA ENTREVISTA]
-🗣️ ¿Y cómo explicás el cambio en una entrevista cuando te pregunten "¿Por qué querés cambiar de área?"?
-🏷️ La Fórmula del Puente en 3 Frases 📐💬
-🔊 Swoosh suave
-🗣️ Nunca construyas tu respuesta desde la queja o el cansancio de tu trabajo anterior. Construí un puente con esta estructura en 3 frases:
-🏷️ 1. Vengo de... · 2. Desarrollé... · 3. Quiero pasar a... y me preparé haciendo... 🗣️✨
-🔊 Click sutil
-🗣️ Por ejemplo: "Durante los últimos años trabajé en atención al cliente, donde desarrollé una sólida relación comercial y manejo de cuentas. Con el tiempo identifiqué mi vocación hacia las ventas B2B, por lo que me capacité en metodologías de prospección y CRM. Hoy busco sumarme a este equipo para combinar mi experiencia con clientes con estas nuevas herramientas".
-🏷️ "Vengo de acá, desarrollé esto, me preparé y ahora voy hacia allá" 🌟
-🔊 Pop de confirmación
-🗣️ Y seamos realistas: un cambio de carrera puede requerir inicialmente considerar una posición de menor seniority o lateral para consolidarte en el nuevo rubro. Evaluá si estás dispuesto a ese movimiento.
-🏷️ Evaluar seniority inicial y movimientos laterales estratégicos ⚖️
-🔊 Click sutil
-
-[3:45 - SECCIÓN 4: EJERCICIO PRÁCTICO Y CIERRE]
-🗣️ Para terminar, escribí tus 3 frases del puente: "Vengo de...", "Durante esos años desarrollé...", "Ahora quiero pasar a... y me preparé haciendo...".
-🏷️ Ejercicio: Redactar tus 3 Frases del Puente 📝🌉
-🔊 Swoosh suave
-🗣️ En la sección de Documentos tenés la Matriz de Habilidades Transferibles con ejemplos por industria para completar tu ejercicio.
-🏷️ Documentos: Matriz de Habilidades Transferibles 📥📋
-🔊 Pop sutil
-🖼️ Captura flotante mostrando la matriz de mapeo y plantilla del puente.
-🗣️ Con esto completamos el módulo de casos especiales. ¡Muchos éxitos en tu camino profesional y en la conquista de tus nuevas metas laborales!
-🏷️ ¡Éxitos en tu nueva etapa profesional! 🏆🌟🤝
-🔊 Fin de lección suave`,
+  // ---------------------------------------------------------------------------
+  // MÓDULO EXTRA 3: PRIMER EMPLEO Y SIN EXPERIENCIA LABORAL (4 CLASES)
+  // ---------------------------------------------------------------------------
+  {
+    id: 'exp-mod-extra-3',
+    programId: 'exp-busqueda-laboral',
+    number: 10,
+    isExtra: true,
+    extraTag: 'EXTRA 03',
+    accentColor: '#D97706',
+    title: 'Primer Empleo y Sin Experiencia Laboral',
+    tagline: 'Cómo romper el círculo vicioso, convertir proyectos en evidencia, encontrar vacantes iniciales y destacarte en la entrevista',
+    totalDuration: '4 clases',
+    lessons: [
+      {
+        id: 'exp-ini-01',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-3',
+        moduleNumber: 10,
+        moduleTitle: 'Primer Empleo y Sin Experiencia Laboral',
+        lessonNumber: 1,
+        type: 'video',
+        isExtra: true,
+        title: 'El dilema del primer empleo y cómo romper el círculo vicioso',
+        duration: '7 min',
+        completed: false,
+        description: 'Experiencia formal vs. evidencia de capacidad, palabras clave iniciales y la mentalidad de plataforma de despegue.',
+        takeaways: [
+          'El selector en vacantes iniciales busca reducir riesgo y medir actitud, no trayectoria de 10 años.',
+          'Palabras clave correctas: Trainee, Pasantía, Práctica Profesional, Auxiliar y Junior Inicial.',
+          'Tu primer trabajo como plataforma de 6 a 12 meses para obtener antecedentes, referencias y soltura profesional.',
+        ],
+        resources: [
+          {
+            id: 'checklist-puestos-iniciales',
+            title: 'Checklist de Puestos Iniciales y Matriz de Autodiagnóstico',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 10,
+            category: 'Primer Empleo',
+            description: 'Identificación de roles acordes a tu momento profesional de arranque.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-ini-02',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-3',
+        moduleNumber: 10,
+        moduleTitle: 'Primer Empleo y Sin Experiencia Laboral',
+        lessonNumber: 2,
+        type: 'video',
+        isExtra: true,
+        title: 'Cómo armar tu CV y LinkedIn cuando no tenés experiencia',
+        duration: '9 min',
+        completed: false,
+        description: 'Inversión de la jerarquía del CV, creación de la sección Proyectos y Prácticas, portafolio de evidencias y LinkedIn.',
+        takeaways: [
+          'Jerarquía invertida: Datos limpios, Formación académica y sección destacada de "Proyectos y Prácticas".',
+          'Fuentes de evidencia: trabajos prácticos de facultad, investigaciones, voluntariados, clubes y comercios familiares.',
+          'Crear un portafolio de evidencias (Drive/Notion/PDF) para superar al 90% de candidatos con CVs vacíos.',
+        ],
+        resources: [
+          {
+            id: 'plantilla-cv-primer-empleo-harvard',
+            title: 'Plantilla de CV Modelo Harvard para Primer Empleo y Sin Experiencia',
+            type: 'word',
+            fileSize: 'Plantilla Word',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 10,
+            category: 'Primer Empleo',
+            description: 'Formato editable optimizado para destacar formación y proyectos demostrativos.',
+            isEssential: true,
+          },
+          {
+            id: 'guia-proyectos-demostrativos',
+            title: 'Guía de Conversión de Proyectos en Evidencia Profesional',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 10,
+            category: 'Primer Empleo',
+            description: 'Cómo redactar proyectos académicos con estructura de logros y resultados.',
+            isEssential: false,
+          },
+        ],
+      },
+      {
+        id: 'exp-ini-03',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-3',
+        moduleNumber: 10,
+        moduleTitle: 'Primer Empleo y Sin Experiencia Laboral',
+        lessonNumber: 3,
+        type: 'video',
+        isExtra: true,
+        title: 'Dónde y cómo buscar tu primera oportunidad laboral',
+        duration: '8 min',
+        completed: false,
+        description: 'Programas de Jóvenes Profesionales, bolsas universitarias, filtros específicos en portales y networking cercano.',
+        takeaways: [
+          'Programas de Jóvenes Profesionales y Pasantías: convocatorias exclusivas donde se compite entre pares.',
+          'Bolsas de trabajo de universidades y terciarios: empresas que buscan talento joven con base teórica fresca.',
+          'Networking de arranque: contactar profesores, exalumnos y conocidos con un mensaje claro y profesional.',
+        ],
+        resources: [
+          {
+            id: 'directorio-jovenes-profesionales',
+            title: 'Directorio de Programas de Jóvenes Profesionales y Plantillas de Contacto',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 10,
+            category: 'Primer Empleo',
+            description: 'Fechas de apertura de convocatorias y scripts de mensaje para profesores y selectores.',
+            isEssential: true,
+          },
+        ],
+      },
+      {
+        id: 'exp-ini-04',
+        programId: 'exp-busqueda-laboral',
+        moduleId: 'exp-mod-extra-3',
+        moduleNumber: 10,
+        moduleTitle: 'Primer Empleo y Sin Experiencia Laboral',
+        lessonNumber: 4,
+        type: 'video',
+        isExtra: true,
+        title: 'Cómo destacarte en la entrevista y defender tu potencial',
+        duration: '9 min',
+        completed: false,
+        description: 'La fórmula en 3 pasos para responder por qué contratarte sin experiencia, actitud ganadora y preguntas de cierre.',
+        takeaways: [
+          'Fórmula en 3 pasos: 1) Aceptar la realidad con naturalidad, 2) Conectar con proyectos y herramientas prácticas, 3) Mostrar actitud y ganas de aprender.',
+          'Qué busca realmente el reclutador en un junior: puntualidad, escucha activa, cuaderno para anotar y disposición.',
+          'Preguntas inteligentes de cierre para demostrar madurez profesional e interés genuino.',
+        ],
+        resources: [
+          {
+            id: 'guia-respuestas-primer-empleo',
+            title: 'Guía de Respuestas para Entrevistas Iniciales y Preguntas Frecuentes',
+            type: 'pdf',
+            fileSize: 'Guía In-App',
+            url: '#',
+            programId: 'exp-busqueda-laboral',
+            programTitle: 'Experiencia Búsqueda Laboral',
+            moduleNumber: 10,
+            category: 'Primer Empleo',
+            description: 'Modelos de respuesta y simulador de preguntas sobre falta de experiencia.',
+            isEssential: true,
+          },
+        ],
       },
     ],
   },

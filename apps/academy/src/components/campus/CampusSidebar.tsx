@@ -78,8 +78,8 @@ export function CampusSidebar({
   // Flat list of all lessons across the entire curriculum
   const allProgramLessons = currentProgram.modules.flatMap((m) => m.lessons);
 
-  // Required core lessons (excluding optional Module 8: Casos Especiales)
-  const requiredProgramLessons = allProgramLessons.filter((l) => l.moduleNumber !== 8);
+  // Required core lessons (strictly the 7 troncal modules)
+  const requiredProgramLessons = allProgramLessons.filter((l) => !l.isExtra && l.moduleNumber <= 7);
   const completedRequiredCount = requiredProgramLessons.filter((l) => completedLessons.has(l.id)).length;
   const totalRequiredCount = requiredProgramLessons.length;
   const overallPercent = totalRequiredCount > 0
@@ -223,9 +223,11 @@ export function CampusSidebar({
                     type="button"
                     className={`${styles.railModBtn} ${isCurrentMod ? styles.railModBtnActive : ''} ${isAllDone ? styles.railModBtnDone : ''}`}
                     onClick={() => handleSelectModuleFromRail(mod)}
-                    title={`Módulo ${mod.number}: ${mod.title} (${completedInMod}/${mod.lessons.length} completadas)`}
+                    title={`${mod.isExtra ? 'Módulo Extra' : 'Módulo'} ${mod.isExtra ? mod.number - 7 : mod.number}: ${mod.title} (${completedInMod}/${mod.lessons.length} completadas)`}
                   >
-                    <span className={styles.railModNum}>M{mod.number}</span>
+                    <span className={styles.railModNum}>
+                      {mod.isExtra ? `E${mod.number - 7}` : `M${mod.number}`}
+                    </span>
                     {isAllDone && (
                       <CheckCircle2 size={11} className={styles.railDoneCheck} />
                     )}
@@ -353,14 +355,17 @@ export function CampusSidebar({
               </div>
             </div>
 
+            {/* 1. MÓDULOS TRONCALES */}
             <div className={styles.sectionHeader}>
               <span className={styles.sectionLabel}>
-                MÓDULOS DE FORMACIÓN ({currentProgram.modules.length})
+                MÓDULOS TRONCALES ({currentProgram.modules.filter((m) => !m.isExtra).length})
               </span>
             </div>
 
             <div className={styles.modulesList}>
-              {currentProgram.modules.map((mod) => {
+              {currentProgram.modules
+                .filter((m) => !m.isExtra)
+                .map((mod) => {
                 const isOpenAccordion = activeModuleId === mod.id;
                 const isCurrentMod = selectedLesson.moduleNumber === mod.number;
                 const completedInMod = mod.lessons.filter((l) => completedLessons.has(l.id)).length;
@@ -558,6 +563,217 @@ export function CampusSidebar({
                 );
               })}
             </div>
+
+            {/* 2. MÓDULOS EXTRA (OPCIONALES) */}
+            {currentProgram.modules.some((m) => m.isExtra) && (
+              <>
+                <div className={`${styles.sectionHeader} ${styles.sectionHeaderExtra}`}>
+                  <span className={styles.sectionLabelExtra}>
+                    MÓDULOS EXTRA ({currentProgram.modules.filter((m) => m.isExtra).length}) · OPCIONALES
+                  </span>
+                </div>
+
+                <div className={styles.modulesList}>
+                  {currentProgram.modules
+                    .filter((m) => m.isExtra)
+                    .map((mod) => {
+                    const isOpenAccordion = activeModuleId === mod.id;
+                    const isCurrentMod = selectedLesson.moduleNumber === mod.number;
+                    const completedInMod = mod.lessons.filter((l) => completedLessons.has(l.id)).length;
+                    const isAllCompleted = completedInMod === mod.lessons.length && mod.lessons.length > 0;
+                    const isInProgress = completedInMod > 0 && !isAllCompleted;
+                    const modPercent = Math.round(
+                      (completedInMod / Math.max(1, mod.lessons.length)) * 100
+                    );
+
+                    const isModuleLockedInFree = !canAccessVideos || (membershipTier === 'free' && mod.number !== 1);
+
+                    return (
+                      <div
+                        key={mod.id}
+                        id={`sidebar-mod-${mod.number}`}
+                        className={`${styles.moduleItem} ${isModuleLockedInFree ? styles.moduleItemLocked : isAllCompleted ? styles.moduleItemDone : isInProgress ? styles.moduleItemInProgress : styles.moduleItemPending} ${isOpenAccordion ? styles.moduleItemOpen : ''} ${isCurrentMod ? styles.moduleItemActive : ''}`}
+                      >
+                        <button
+                          type="button"
+                          className={`${styles.moduleHeaderBtn} ${isAllCompleted ? styles.moduleHeaderBtnDone : isInProgress ? styles.moduleHeaderBtnInProgress : styles.moduleHeaderBtnPending} ${isOpenAccordion ? styles.moduleHeaderBtnActive : ''}`}
+                          onClick={() => handleModuleClick(mod)}
+                          aria-expanded={isOpenAccordion}
+                        >
+                          <div className={styles.modHeaderLeft}>
+                            <div className={styles.modPillRow}>
+                              <span
+                                className={`${styles.modBadge} ${
+                                  isAllCompleted
+                                    ? styles.modBadgeDone
+                                    : isInProgress || isOpenAccordion
+                                    ? styles.modBadgeActive
+                                    : styles.modBadgePending
+                                }`}
+                                style={{ color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }}
+                              >
+                                {mod.extraTag || `EXTRA 0${mod.number - 7}`}
+                              </span>
+                              {isModuleLockedInFree ? (
+                                <span className={styles.statusPillVipLocked}>
+                                  <Lock size={10} />
+                                  <span>Exclusivo VIP</span>
+                                </span>
+                              ) : isAllCompleted ? (
+                                <span className={styles.statusPillDone}>
+                                  <CheckCircle2 size={11} />
+                                  <span>Completado</span>
+                                </span>
+                              ) : isInProgress ? (
+                                <span className={styles.statusPillProgress}>
+                                  <span>En curso</span>
+                                </span>
+                              ) : (
+                                <span
+                                  className={`${styles.statusPillPending} ${
+                                    isOpenAccordion ? styles.statusPillPendingOpen : ''
+                                  }`}
+                                >
+                                  <span>Opcional</span>
+                                </span>
+                              )}
+                            </div>
+
+                            <h3 className={styles.modName}>{mod.title}</h3>
+                            <div className={styles.modProgressRow}>
+                              <div className={styles.modMiniBarBg}>
+                                <div
+                                  className={`${styles.modMiniBarFill} ${isAllCompleted ? styles.barFillDone : isInProgress ? styles.barFillProgress : styles.barFillPending}`}
+                                  style={{ width: `${modPercent}%` }}
+                                />
+                              </div>
+                              <strong
+                                className={`${styles.modPercentText} ${isAllCompleted ? styles.textDone : isInProgress ? styles.textProgress : styles.textPending}`}
+                              >
+                                {modPercent}%
+                              </strong>
+                              <span className={styles.modMeta}>
+                                ({completedInMod}/{mod.lessons.length} clases)
+                              </span>
+                            </div>
+                          </div>
+
+                          <div className={styles.chevronWrap}>
+                            {isModuleLockedInFree ? (
+                              <Lock size={12} style={{ color: '#D97706' }} />
+                            ) : isOpenAccordion ? (
+                              <ChevronDown size={13} strokeWidth={2.5} />
+                            ) : (
+                              <ChevronRight size={13} strokeWidth={2.5} />
+                            )}
+                          </div>
+                        </button>
+
+                        {/* Lessons List under Open Module */}
+                        {!isModuleLockedInFree && isOpenAccordion && (
+                          <div className={styles.lessonsList}>
+                            {mod.lessons.map((lesson) => {
+                              const isCompleted = completedLessons.has(lesson.id);
+                              const isCurrent =
+                                currentView === 'lesson' && selectedLesson.id === lesson.id;
+                              const isEvaluation = lesson.type === 'evaluacion';
+                              const isUnlocked = isLessonUnlocked(lesson.id);
+                              const isEvaluationLocked = membershipTier === 'free' && isEvaluation;
+
+                              return (
+                                <div
+                                  key={lesson.id}
+                                  className={`${styles.lessonRow} ${isEvaluation ? styles.evaluationRowHighlight : ''} ${isCurrent ? styles.lessonRowCurrent : ''} ${isCompleted ? styles.lessonRowDone : ''} ${!isUnlocked || isEvaluationLocked ? styles.lessonRowLocked : ''}`}
+                                >
+                                  <div className={styles.statusIconWrap}>
+                                    {isEvaluationLocked ? (
+                                      <Lock size={15} style={{ color: '#D97706' }} />
+                                    ) : !isUnlocked ? (
+                                      <Lock size={15} className={styles.lockIcon} />
+                                    ) : isCompleted ? (
+                                      <CheckCircle2 size={16} className={styles.checkDone} />
+                                    ) : isEvaluation ? (
+                                      <Award size={16} className={styles.evalIcon} />
+                                    ) : (
+                                      <Circle size={16} className={styles.checkEmpty} />
+                                    )}
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    disabled={canAccessVideos ? (!isUnlocked && !isEvaluationLocked) : false}
+                                    className={styles.lessonSelectBtn}
+                                    onClick={() => {
+                                      if (!canAccessVideos) {
+                                        openAuthModal('login');
+                                        return;
+                                      }
+                                      if (isEvaluationLocked) {
+                                        if (onLockedModuleClick) {
+                                          onLockedModuleClick(`evaluacion-mod-${mod.number}`);
+                                        }
+                                        return;
+                                      }
+                                      if (!isUnlocked) {
+                                        alert(
+                                          'Tenés que completar las clases anteriores haciendo clic en "Siguiente Clase" para acceder a esta lección.'
+                                        );
+                                        return;
+                                      }
+                                      onSelectLesson(lesson);
+                                      if (window.innerWidth < 1024) onClose();
+                                    }}
+                                  >
+                                    <div className={styles.lessonMetaTop}>
+                                      <span
+                                        className={`${styles.lessonNumber} ${isEvaluation ? styles.evalNumberLabel : ''}`}
+                                      >
+                                        {isEvaluation
+                                          ? '🏆 TEST FINAL DE MÓDULO'
+                                          : `Clase ${lesson.lessonNumber}`}
+                                      </span>
+                                      {isCurrent && (
+                                        <span className={styles.playingBadge}>
+                                          <PlayCircle size={11} />
+                                          <span>En reproducción</span>
+                                        </span>
+                                      )}
+                                      {isEvaluationLocked && (
+                                        <span className={styles.evalPillBadgeLocked}>
+                                          <Lock size={10} />
+                                          <span>Requiere VIP</span>
+                                        </span>
+                                      )}
+                                      {!isEvaluationLocked && !isUnlocked && (
+                                        <span className={styles.lockedBadge}>Bloqueada</span>
+                                      )}
+                                      {isCompleted && !isCurrent && (
+                                        <span className={styles.doneBadge}>Completada</span>
+                                      )}
+                                    </div>
+
+                                    <strong
+                                      className={`${styles.lessonTitle} ${isEvaluation ? styles.evalLessonTitle : ''}`}
+                                    >
+                                      {lesson.title}
+                                    </strong>
+                                    <span className={styles.lessonDuration}>
+                                      {isEvaluation
+                                        ? '📝 Multiple Choice · Mínimo 75% para certificar'
+                                        : `⏱️ ${lesson.duration}`}
+                                    </span>
+                                  </button>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
           </div>
         )}
       </aside>

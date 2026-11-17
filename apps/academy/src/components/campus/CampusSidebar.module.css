@@ -468,6 +468,20 @@
   letter-spacing: 0.08em;
 }
 
+.sectionHeaderExtra {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #E2E8F0;
+}
+
+.sectionLabelExtra {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  color: #B45309;
+  letter-spacing: 0.08em;
+}
+
 .modulesList {
   display: flex;
   flex-direction: column;
