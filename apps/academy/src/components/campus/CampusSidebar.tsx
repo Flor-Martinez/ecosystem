@@ -12,6 +12,7 @@ import {
   PanelLeftOpen,
   Award,
   Lock,
+  Clock,
   X,
 } from 'lucide-react';
 import { CampusLesson, CampusProgram, CampusModule } from '@/data/campus';
@@ -45,6 +46,12 @@ export function CampusSidebar({
 }: CampusSidebarProps) {
   const { user, isSuperAdmin, openAuthModal } = useAuth();
   const canAccessVideos = Boolean(user && isSuperAdmin);
+  const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
+
+  const isWipExtraModule = (modNumber: number) => {
+    return (modNumber === 9 || modNumber === 10) && !canAccessWipExtras;
+  };
+
   const [searchQuery, setSearchQuery] = useState('');
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -75,8 +82,10 @@ export function CampusSidebar({
     return () => clearTimeout(timer);
   }, [selectedLesson.moduleId, selectedLesson.id, selectedLesson.moduleNumber, membershipTier]);
 
-  // Flat list of all lessons across the entire curriculum
-  const allProgramLessons = currentProgram.modules.flatMap((m) => m.lessons);
+  // Flat list of all accessible lessons across the curriculum
+  const allProgramLessons = currentProgram.modules
+    .filter((m) => !isWipExtraModule(m.number))
+    .flatMap((m) => m.lessons);
 
   // Required core lessons (strictly the 7 troncal modules)
   const requiredProgramLessons = allProgramLessons.filter((l) => !l.isExtra && l.moduleNumber <= 7);
@@ -113,6 +122,9 @@ export function CampusSidebar({
 
   // When clicking a module header: toggle open/closed, and if opening, auto-select its current class
   const handleModuleClick = (mod: CampusModule) => {
+    if (isWipExtraModule(mod.number)) {
+      return;
+    }
     if (!canAccessVideos) {
       openAuthModal('login');
       return;
@@ -136,6 +148,9 @@ export function CampusSidebar({
 
   // Helper to switch module from rail when collapsed
   const handleSelectModuleFromRail = (mod: CampusModule) => {
+    if (isWipExtraModule(mod.number)) {
+      return;
+    }
     if (!canAccessVideos) {
       openAuthModal('login');
       return;
@@ -213,17 +228,22 @@ export function CampusSidebar({
             <span className={styles.railHeading}>MÓD</span>
             <div className={styles.railModulesList}>
               {currentProgram.modules.map((mod) => {
+                const isWip = isWipExtraModule(mod.number);
                 const isCurrentMod = selectedLesson.moduleNumber === mod.number;
                 const completedInMod = mod.lessons.filter((l) => completedLessons.has(l.id)).length;
-                const isAllDone = completedInMod === mod.lessons.length;
+                const isAllDone = !isWip && completedInMod === mod.lessons.length;
 
                 return (
                   <button
                     key={mod.id}
                     type="button"
-                    className={`${styles.railModBtn} ${isCurrentMod ? styles.railModBtnActive : ''} ${isAllDone ? styles.railModBtnDone : ''}`}
-                    onClick={() => handleSelectModuleFromRail(mod)}
-                    title={`${mod.isExtra ? 'Módulo Extra' : 'Módulo'} ${mod.isExtra ? mod.number - 7 : mod.number}: ${mod.title} (${completedInMod}/${mod.lessons.length} completadas)`}
+                    disabled={isWip}
+                    className={`${styles.railModBtn} ${isWip ? styles.railModBtnWip : ''} ${isCurrentMod ? styles.railModBtnActive : ''} ${isAllDone ? styles.railModBtnDone : ''}`}
+                    onClick={() => {
+                      if (isWip) return;
+                      handleSelectModuleFromRail(mod);
+                    }}
+                    title={isWip ? `${mod.title} (Próximamente)` : `${mod.isExtra ? 'Módulo Extra' : 'Módulo'} ${mod.isExtra ? mod.number - 7 : mod.number}: ${mod.title} (${completedInMod}/${mod.lessons.length} completadas)`}
                   >
                     <span className={styles.railModNum}>
                       {mod.isExtra ? `E${mod.number - 7}` : `M${mod.number}`}
@@ -577,8 +597,9 @@ export function CampusSidebar({
                   {currentProgram.modules
                     .filter((m) => m.isExtra)
                     .map((mod) => {
-                    const isOpenAccordion = activeModuleId === mod.id;
-                    const isCurrentMod = selectedLesson.moduleNumber === mod.number;
+                    const isWip = isWipExtraModule(mod.number);
+                    const isOpenAccordion = !isWip && activeModuleId === mod.id;
+                    const isCurrentMod = !isWip && selectedLesson.moduleNumber === mod.number;
                     const completedInMod = mod.lessons.filter((l) => completedLessons.has(l.id)).length;
                     const isAllCompleted = completedInMod === mod.lessons.length && mod.lessons.length > 0;
                     const isInProgress = completedInMod > 0 && !isAllCompleted;
@@ -592,78 +613,106 @@ export function CampusSidebar({
                       <div
                         key={mod.id}
                         id={`sidebar-mod-${mod.number}`}
-                        className={`${styles.moduleItem} ${isModuleLockedInFree ? styles.moduleItemLocked : isAllCompleted ? styles.moduleItemDone : isInProgress ? styles.moduleItemInProgress : styles.moduleItemPending} ${isOpenAccordion ? styles.moduleItemOpen : ''} ${isCurrentMod ? styles.moduleItemActive : ''}`}
+                        className={`${styles.moduleItem} ${isWip ? styles.moduleItemWip : isModuleLockedInFree ? styles.moduleItemLocked : isAllCompleted ? styles.moduleItemDone : isInProgress ? styles.moduleItemInProgress : styles.moduleItemPending} ${isOpenAccordion ? styles.moduleItemOpen : ''} ${isCurrentMod ? styles.moduleItemActive : ''}`}
                       >
                         <button
                           type="button"
-                          className={`${styles.moduleHeaderBtn} ${isAllCompleted ? styles.moduleHeaderBtnDone : isInProgress ? styles.moduleHeaderBtnInProgress : styles.moduleHeaderBtnPending} ${isOpenAccordion ? styles.moduleHeaderBtnActive : ''}`}
-                          onClick={() => handleModuleClick(mod)}
+                          disabled={isWip}
+                          className={`${styles.moduleHeaderBtn} ${isWip ? styles.moduleHeaderBtnWip : isAllCompleted ? styles.moduleHeaderBtnDone : isInProgress ? styles.moduleHeaderBtnInProgress : styles.moduleHeaderBtnPending} ${isOpenAccordion ? styles.moduleHeaderBtnActive : ''}`}
+                          onClick={() => {
+                            if (isWip) return;
+                            handleModuleClick(mod);
+                          }}
                           aria-expanded={isOpenAccordion}
                         >
                           <div className={styles.modHeaderLeft}>
                             <div className={styles.modPillRow}>
-                              <span
-                                className={`${styles.modBadge} ${
-                                  isAllCompleted
-                                    ? styles.modBadgeDone
-                                    : isInProgress || isOpenAccordion
-                                    ? styles.modBadgeActive
-                                    : styles.modBadgePending
-                                }`}
-                                style={
-                                  isAllCompleted || isInProgress || isOpenAccordion
-                                    ? undefined
-                                    : { color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }
-                                }
-                              >
-                                {mod.extraTag || `EXTRA 0${mod.number - 7}`}
-                              </span>
-                              {isModuleLockedInFree ? (
-                                <span className={styles.statusPillVipLocked}>
-                                  <Lock size={10} />
-                                  <span>Exclusivo VIP</span>
-                                </span>
-                              ) : isAllCompleted ? (
-                                <span className={styles.statusPillDone}>
-                                  <CheckCircle2 size={11} />
-                                  <span>Completado</span>
-                                </span>
-                              ) : isInProgress ? (
-                                <span className={styles.statusPillProgress}>
-                                  <span>En curso</span>
-                                </span>
+                              {isWip ? (
+                                <>
+                                  <span className={`${styles.modBadge} ${styles.modBadgePending}`}>
+                                    {mod.extraTag || `EXTRA 0${mod.number - 7}`}
+                                  </span>
+                                  <span className={styles.statusPillWip}>
+                                    <Clock size={10} />
+                                    <span>Próximamente</span>
+                                  </span>
+                                </>
                               ) : (
-                                <span
-                                  className={`${styles.statusPillPending} ${
-                                    isOpenAccordion ? styles.statusPillPendingOpen : ''
-                                  }`}
-                                >
-                                  <span>Opcional</span>
-                                </span>
+                                <>
+                                  <span
+                                    className={`${styles.modBadge} ${
+                                      isAllCompleted
+                                        ? styles.modBadgeDone
+                                        : isInProgress || isOpenAccordion
+                                        ? styles.modBadgeActive
+                                        : styles.modBadgePending
+                                    }`}
+                                    style={
+                                      isAllCompleted || isInProgress || isOpenAccordion
+                                        ? undefined
+                                        : { color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }
+                                    }
+                                  >
+                                    {mod.extraTag || `EXTRA 0${mod.number - 7}`}
+                                  </span>
+                                  {isModuleLockedInFree ? (
+                                    <span className={styles.statusPillVipLocked}>
+                                      <Lock size={10} />
+                                      <span>Exclusivo VIP</span>
+                                    </span>
+                                  ) : isAllCompleted ? (
+                                    <span className={styles.statusPillDone}>
+                                      <CheckCircle2 size={11} />
+                                      <span>Completado</span>
+                                    </span>
+                                  ) : isInProgress ? (
+                                    <span className={styles.statusPillProgress}>
+                                      <span>En curso</span>
+                                    </span>
+                                  ) : (
+                                    <span
+                                      className={`${styles.statusPillPending} ${
+                                        isOpenAccordion ? styles.statusPillPendingOpen : ''
+                                      }`}
+                                    >
+                                      <span>Opcional</span>
+                                    </span>
+                                  )}
+                                </>
                               )}
                             </div>
 
                             <h3 className={styles.modName}>{mod.title}</h3>
-                            <div className={styles.modProgressRow}>
-                              <div className={styles.modMiniBarBg}>
-                                <div
-                                  className={`${styles.modMiniBarFill} ${isAllCompleted ? styles.barFillDone : isInProgress ? styles.barFillProgress : styles.barFillPending}`}
-                                  style={{ width: `${modPercent}%` }}
-                                />
+                            {isWip ? (
+                              <div className={styles.modProgressRow}>
+                                <span className={styles.wipNoticeText}>
+                                  Módulo en preparación · Próximamente disponible
+                                </span>
                               </div>
-                              <strong
-                                className={`${styles.modPercentText} ${isAllCompleted ? styles.textDone : isInProgress ? styles.textProgress : styles.textPending}`}
-                              >
-                                {modPercent}%
-                              </strong>
-                              <span className={styles.modMeta}>
-                                ({completedInMod}/{mod.lessons.length} clases)
-                              </span>
-                            </div>
+                            ) : (
+                              <div className={styles.modProgressRow}>
+                                <div className={styles.modMiniBarBg}>
+                                  <div
+                                    className={`${styles.modMiniBarFill} ${isAllCompleted ? styles.barFillDone : isInProgress ? styles.barFillProgress : styles.barFillPending}`}
+                                    style={{ width: `${modPercent}%` }}
+                                  />
+                                </div>
+                                <strong
+                                  className={`${styles.modPercentText} ${isAllCompleted ? styles.textDone : isInProgress ? styles.textProgress : styles.textPending}`}
+                                >
+                                  {modPercent}%
+                                </strong>
+                                <span className={styles.modMeta}>
+                                  ({completedInMod}/{mod.lessons.length} clases)
+                                </span>
+                              </div>
+                            )}
                           </div>
 
                           <div className={styles.chevronWrap}>
-                            {isModuleLockedInFree ? (
+                            {isWip ? (
+                              <Clock size={13} className={styles.chevronWip} />
+                            ) : isModuleLockedInFree ? (
                               <Lock size={12} style={{ color: '#D97706' }} />
                             ) : isOpenAccordion ? (
                               <ChevronDown size={13} strokeWidth={2.5} />
@@ -674,7 +723,7 @@ export function CampusSidebar({
                         </button>
 
                         {/* Lessons List under Open Module */}
-                        {!isModuleLockedInFree && isOpenAccordion && (
+                        {!isModuleLockedInFree && !isWip && isOpenAccordion && (
                           <div className={styles.lessonsList}>
                             {mod.lessons.map((lesson) => {
                               const isCompleted = completedLessons.has(lesson.id);

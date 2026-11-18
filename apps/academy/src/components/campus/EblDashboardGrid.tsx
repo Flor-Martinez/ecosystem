@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { CampusProgram } from '@/data/campus';
-import { eblCards } from '@/data/eblDashboard';
+import { eblCards, EblDashboardCard } from '@/data/eblDashboard';
 import { EblCard } from './EblCard';
 import styles from './EblDashboardGrid.module.css';
 
@@ -29,6 +29,7 @@ interface EblDashboardGridProps {
   favoriteIds?: Set<string>;
   onToggleFavorite?: (id: string) => void;
   onClearAllFavorites?: () => void;
+  isDevMode?: boolean;
 }
 
 export function EblDashboardGrid({
@@ -40,9 +41,15 @@ export function EblDashboardGrid({
   favoriteIds: externalFavoriteIds,
   onToggleFavorite: externalToggleFavorite,
   onClearAllFavorites: externalClearAllFavorites,
+  isDevMode = false,
 }: EblDashboardGridProps) {
   const { user: authUser, isSuperAdmin, openAuthModal } = useAuth();
   const canAccessVideos = Boolean(authUser && isSuperAdmin);
+  const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
+
+  const isCardWipDisabled = (card: EblDashboardCard): boolean => {
+    return Boolean(card.isWip && !canAccessWipExtras);
+  };
 
   const userStorageKey = useMemo(() => {
     if (authUser?.id) return `campus_ebl_layout_mode_${authUser.id}`;
@@ -150,6 +157,10 @@ export function EblDashboardGrid({
   };
 
   const handleCardClick = (cardId: string, targetView: string, cardType: string) => {
+    const targetCard = dynamicCards.find((c) => c.id === cardId);
+    if (targetCard && isCardWipDisabled(targetCard)) {
+      return;
+    }
     if (!canAccessVideos) {
       if (cardId === 'tool-vocacional' || targetView === 'test-vocacional') {
         onSelectView(targetView);
@@ -494,6 +505,7 @@ export function EblDashboardGrid({
                     hideProgress={false}
                     canFavorite={true}
                     layoutMode={layoutMode}
+                    isWipDisabled={isCardWipDisabled(card)}
                   />
                 ))}
               </div>
@@ -528,6 +540,7 @@ export function EblDashboardGrid({
                     hideProgress={membershipTier === 'free'}
                     canFavorite={membershipTier === 'paid'}
                     layoutMode={layoutMode}
+                    isWipDisabled={isCardWipDisabled(card)}
                   />
                 ))}
               </div>
@@ -562,6 +575,7 @@ export function EblDashboardGrid({
                     hideProgress={membershipTier === 'free'}
                     canFavorite={membershipTier === 'paid'}
                     layoutMode={layoutMode}
+                    isWipDisabled={isCardWipDisabled(card)}
                   />
                 ))}
               </div>
@@ -595,6 +609,7 @@ export function EblDashboardGrid({
                   hideProgress={membershipTier === 'free'}
                   canFavorite={membershipTier === 'paid'}
                   layoutMode={layoutMode}
+                  isWipDisabled={isCardWipDisabled(card)}
                 />
               ))}
             </div>
@@ -613,6 +628,7 @@ export function EblDashboardGrid({
               hideProgress={membershipTier === 'free'}
               canFavorite={membershipTier === 'paid'}
               layoutMode={layoutMode}
+              isWipDisabled={isCardWipDisabled(card)}
             />
           ))}
         </div>

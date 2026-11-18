@@ -43,6 +43,7 @@ interface EblCardProps {
   hideProgress?: boolean;
   canFavorite?: boolean;
   layoutMode?: 'grid' | 'list';
+  isWipDisabled?: boolean;
 }
 
 export function EblCard({
@@ -54,8 +55,17 @@ export function EblCard({
   hideProgress = false,
   canFavorite = true,
   layoutMode = 'grid',
+  isWipDisabled = false,
 }: EblCardProps) {
   const isModule = card.type === 'modulo';
+  const isWip = Boolean(isWipDisabled);
+
+  const displayFeatures = isWip
+    ? [
+        { iconName: 'Clock', label: 'Módulo en producción y edición final' },
+        { iconName: 'Sparkles', label: 'Disponible muy pronto en tu membresía' },
+      ]
+    : card.features;
 
   // For modules: unified signature GraduationCap icon for all 5 modules.
   // For tools: specific tool icon.
@@ -223,12 +233,16 @@ export function EblCard({
 
   return (
     <div
-      className={`${styles.card} ${layoutMode === 'list' ? styles.cardList : ''} ${isModule ? styles.cardModule : styles.cardTool} ${isFavorite ? styles.cardFavorite : ''} ${isLocked ? styles.cardLocked : ''}`}
+      className={`${styles.card} ${layoutMode === 'list' ? styles.cardList : ''} ${isModule ? styles.cardModule : styles.cardTool} ${isFavorite ? styles.cardFavorite : ''} ${isLocked ? styles.cardLocked : ''} ${isWip ? styles.cardWipDisabled : ''}`}
       style={getCardBgStyle()}
-      onClick={() => onCardClick(card.targetView)}
+      onClick={() => {
+        if (isWip) return;
+        onCardClick(card.targetView);
+      }}
       role="button"
-      tabIndex={0}
+      tabIndex={isWip ? -1 : 0}
       onKeyDown={(e) => {
+        if (isWip) return;
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           onCardClick(card.targetView);
@@ -287,7 +301,12 @@ export function EblCard({
 
         {/* Top Right Action: Status / Locked Badge + Star */}
         <div className={styles.topRightActions}>
-          {isLocked ? (
+          {isWip ? (
+            <span className={styles.wipPillBadge}>
+              <Clock size={10} className={styles.wipPillIcon} />
+              <span>Próximamente</span>
+            </span>
+          ) : isLocked ? (
             <span className={styles.lockedPill}>
               <Lock size={10} className={styles.lockedPillIcon} />
               <span>Requiere membresía</span>
@@ -312,7 +331,7 @@ export function EblCard({
             </span>
           ) : null}
 
-          {canFavorite && !isLocked && (
+          {canFavorite && !isLocked && !isWip && (
             <button
               type="button"
               className={`${styles.actionIconBtn} ${isFavorite ? styles.starActive : ''}`}
@@ -335,8 +354,8 @@ export function EblCard({
         <p className={styles.desc}>{card.description}</p>
       </div>
 
-      {/* 3. Large & Centered Progress Bar (Hidden in Free Tier) */}
-      {!hideProgress && hasProgress && (
+      {/* 3. Large & Centered Progress Bar (Hidden in Free Tier and WIP modules) */}
+      {!hideProgress && !isWip && hasProgress && (
         <div className={styles.centeredProgressBox}>
           <div className={styles.progressHeaderRow}>
             <span className={styles.progressMainText}>
@@ -368,7 +387,7 @@ export function EblCard({
       {/* 4. Clean Features List (2 items) */}
       <div className={styles.featuresSection}>
         <ul className={styles.featuresList}>
-          {card.features.map((feat, idx) => (
+          {displayFeatures.map((feat, idx) => (
             <li key={idx} className={styles.featureItem}>
               {renderFeatureIcon(feat.iconName)}
               <span className={styles.featureLabel}>{feat.label}</span>
@@ -382,7 +401,12 @@ export function EblCard({
       <div className={styles.cardFooter}>
         {layoutMode === 'list' && (
           <div className={styles.listBadgesWrap}>
-            {isLocked ? (
+            {isWip ? (
+              <span className={styles.wipPillBadge}>
+                <Clock size={10} className={styles.wipPillIcon} />
+                <span>Próximamente</span>
+              </span>
+            ) : isLocked ? (
               <span className={styles.lockedPill}>
                 <Lock size={10} className={styles.lockedPillIcon} />
                 <span>Requiere membresía</span>
@@ -399,7 +423,7 @@ export function EblCard({
               </span>
             ) : null}
 
-            {canFavorite && !isLocked && (
+            {canFavorite && !isLocked && !isWip && (
               <button
                 type="button"
                 className={`${styles.actionIconBtn} ${isFavorite ? styles.starActive : ''}`}
@@ -418,14 +442,14 @@ export function EblCard({
 
         <span
           className={styles.actionText}
-          style={{ color: isLocked ? '#64748B' : card.colorScheme.primary }}
+          style={{ color: isWip || isLocked ? '#64748B' : card.colorScheme.primary }}
         >
-          {isLocked ? 'Desbloquear VIP' : getActionLabel()}
+          {isWip ? 'Próximamente' : isLocked ? 'Desbloquear VIP' : getActionLabel()}
         </span>
         <div
-          className={`${styles.arrowCircle} ${isLocked ? styles.arrowCircleLocked : ''}`}
+          className={`${styles.arrowCircle} ${isLocked || isWip ? styles.arrowCircleLocked : ''}`}
           style={
-            isLocked
+            isLocked || isWip
               ? undefined
               : {
                   backgroundColor: card.colorScheme.pillBg,
@@ -433,7 +457,7 @@ export function EblCard({
                 }
           }
         >
-          {isLocked ? <Lock size={12} /> : <ArrowRight size={13} />}
+          {isWip ? <Clock size={12} /> : isLocked ? <Lock size={12} /> : <ArrowRight size={13} />}
         </div>
       </div>
     </div>

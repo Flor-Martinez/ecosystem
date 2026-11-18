@@ -436,8 +436,8 @@ export function CampusHeader({
             </nav>
           )}
 
-          {/* DEVELOPER MEMBERSHIP SWITCH */}
-          {onToggleMembership && (
+          {/* DEVELOPER MEMBERSHIP SWITCH (Only visible for SuperAdmin accounts) */}
+          {isSuperAdmin && onToggleMembership && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${membershipTier === 'paid' ? styles.devTierPaid : styles.devTierFree}`}
@@ -459,8 +459,8 @@ export function CampusHeader({
             </button>
           )}
 
-          {/* MODO DEV TOGGLE SWITCH */}
-          {onToggleDevMode && (
+          {/* MODO DEV TOGGLE SWITCH (Only visible for SuperAdmin accounts) */}
+          {isSuperAdmin && onToggleDevMode && (
             <button
               type="button"
               className={`${styles.devTierSwitch} ${isDevMode ? styles.devModeActive : styles.devModeInactive}`}

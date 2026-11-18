@@ -98,7 +98,12 @@ function CampusContent() {
     }
   }, []);
 
+  // SuperAdmin dev controls & WIP protection
+  const effectiveDevMode = Boolean(isSuperAdmin && isDevMode);
+  const canAccessWipExtras = effectiveDevMode;
+
   const handleToggleDevMode = () => {
+    if (!isSuperAdmin) return;
     setIsDevMode((prev) => {
       const next = !prev;
       if (typeof window !== 'undefined') {
@@ -171,6 +176,7 @@ function CampusContent() {
   }, [authUser]);
 
   const handleToggleMembership = async () => {
+    if (!isSuperAdmin) return;
     const nextTier = membershipTier === 'paid' ? 'free' : 'paid';
     setMembershipTier(nextTier);
     try {
@@ -207,6 +213,13 @@ function CampusContent() {
       .find((l) => !initialCompleted.includes(l.id));
     return uncompleted || initialProgram.modules[0]!.lessons[0]!;
   });
+
+  // Ensure unprivileged users or devMode-off admins never stay stuck on WIP modules (Extra 02 and 03)
+  useEffect(() => {
+    if (!canAccessWipExtras && (selectedLesson.moduleNumber === 9 || selectedLesson.moduleNumber === 10)) {
+      setSelectedLesson(initialProgram.modules[0]!.lessons[0]!);
+    }
+  }, [canAccessWipExtras, selectedLesson.moduleNumber, initialProgram]);
 
   // Active view: 'dashboard' (default for experience) | 'lesson' (only view for courses) | 'tracker' | 'zoom' | 'agenda' | 'recursos' | 'perfil' | 'evaluaciones'
   const [currentView, setCurrentView] = useState<string>(
@@ -351,6 +364,9 @@ function CampusContent() {
         handleNavChangeView('lesson');
       }
     } else if (targetView === 'modulo-extra-remoto' || targetView === 'modulo-9') {
+      if (!canAccessWipExtras) {
+        return;
+      }
       if (membershipTier === 'free') {
         handleNavChangeView('paywall-modulo-8');
       } else {
@@ -358,6 +374,9 @@ function CampusContent() {
         handleNavChangeView('lesson');
       }
     } else if (targetView === 'modulo-extra-primer-empleo' || targetView === 'modulo-10') {
+      if (!canAccessWipExtras) {
+        return;
+      }
       if (membershipTier === 'free') {
         handleNavChangeView('paywall-modulo-8');
       } else {
@@ -529,7 +548,7 @@ function CampusContent() {
   return (
     <div className={styles.campusRoot}>
       {/* Dev membership simulation banner if in Free tier and Dev mode */}
-      {membershipTier === 'free' && isDevMode && (
+      {membershipTier === 'free' && effectiveDevMode && (
         <div className={styles.devFreeBanner}>
           <div className={styles.devFreeBannerInner}>
             <Lock size={14} className={styles.devFreeBannerIcon} />
@@ -549,11 +568,11 @@ function CampusContent() {
         completedCount={completedProgramLessonsCount}
         totalLessonsCount={requiredLessons.length}
         membershipTier={membershipTier}
-        onToggleMembership={handleToggleMembership}
+        onToggleMembership={isSuperAdmin ? handleToggleMembership : undefined}
         onOpenCatalogModal={() => setIsCatalogModalOpen(true)}
         onLockedClick={(featureId) => setLockedModalFeature(featureId)}
-        isDevMode={isDevMode}
-        onToggleDevMode={handleToggleDevMode}
+        isDevMode={effectiveDevMode}
+        onToggleDevMode={isSuperAdmin ? handleToggleDevMode : undefined}
         favoriteIds={favoriteIds}
         onToggleFavorite={handleToggleFavorite}
       />
@@ -567,7 +586,7 @@ function CampusContent() {
             selectedLesson={selectedLesson}
             onSelectLesson={(lesson) => {
               setActiveCelebrationModule(null);
-              if (!isDevMode && membershipTier === 'free' && lesson.moduleNumber !== 1) {
+              if (!effectiveDevMode && membershipTier === 'free' && lesson.moduleNumber !== 1) {
                 setLockedModalFeature(`modulo-${lesson.moduleNumber}`);
               } else {
                 setSelectedLesson(lesson);
@@ -581,7 +600,7 @@ function CampusContent() {
             onClose={() => setIsSidebarOpen(false)}
             membershipTier={membershipTier}
             onLockedModuleClick={(featureId) => setLockedModalFeature(featureId)}
-            isDevMode={isDevMode}
+            isDevMode={effectiveDevMode}
           />
         )}
 
@@ -598,6 +617,7 @@ function CampusContent() {
               favoriteIds={favoriteIds}
               onToggleFavorite={handleToggleFavorite}
               onClearAllFavorites={handleClearAllFavorites}
+              isDevMode={effectiveDevMode}
             />
           )}
 

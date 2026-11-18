@@ -10,6 +10,7 @@ export interface EblDashboardCard {
   id: string;
   type: EblCardType;
   isExtra?: boolean;
+  isWip?: boolean;
   number?: number;
   moduleStepLabel?: string; // e.g. "MÓDULO 01"
   title: string;
@@ -269,6 +270,7 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 9,
     isExtra: true,
+    isWip: true,
     moduleStepLabel: 'EXTRA 02',
     title: 'Trabajo Remoto',
     subtitle: 'Módulo extra · Opcional',
@@ -297,6 +299,7 @@ export const eblCards: EblDashboardCard[] = [
     type: 'modulo',
     number: 10,
     isExtra: true,
+    isWip: true,
     moduleStepLabel: 'EXTRA 03',
     title: 'Primer Empleo y Sin Experiencia Laboral',
     subtitle: 'Módulo extra · Opcional',
