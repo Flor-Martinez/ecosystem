@@ -107,16 +107,6 @@ export function CampusHeader({
       isLocked: membershipTier === 'free',
     },
     {
-      id: 'tool-zoom',
-      targetView: 'zoom',
-      title: 'Sesiones en Vivo',
-      subtitle: 'Mentorías en vivo y grabaciones',
-      icon: Video,
-      iconBg: '#EFF6FF',
-      iconColor: '#2563EB',
-      isLocked: membershipTier === 'free',
-    },
-    {
       id: 'tool-vocacional',
       targetView: 'test-vocacional',
       title: 'Test Vocacional & Orientación',
@@ -333,7 +323,7 @@ export function CampusHeader({
               <div className={styles.toolsDropdownWrap}>
                 <button
                   type="button"
-                  className={`${styles.navTabBtn} ${styles.toolsMenuBtn} ${['recursos', 'tracker', 'agenda', 'zoom', 'test-vocacional', 'evaluaciones'].includes(currentView) ? styles.toolsMenuBtnActive : ''}`}
+                  className={`${styles.navTabBtn} ${styles.toolsMenuBtn} ${['recursos', 'tracker', 'agenda', 'test-vocacional', 'evaluaciones'].includes(currentView) ? styles.toolsMenuBtnActive : ''}`}
                   onClick={() => setShowToolsMenu(!showToolsMenu)}
                   title="Acceso directo a todas las herramientas del campus"
                 >

@@ -31,6 +31,7 @@ import { submitQuizEvaluationAction } from '@/actions/campus';
 import { CampusLesson, CampusProgram } from '@/data/campus';
 import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
 import { InAppDocumentModal } from '@/components/campus/InAppDocumentModal';
+import { LessonComments } from '@/components/campus/LessonComments';
 import styles from './CampusPlayer.module.css';
 
 interface CampusPlayerProps {
@@ -809,76 +810,12 @@ export function CampusPlayer({
             </div>
           )}
 
-          {/* SECTION C: DESPLEGABLE DE DUDAS PARA LA SESIÓN EN VIVO SEMANAL (SOLO PARA EXPERIENCIAS CON MENTORÍA) */}
-          {currentProgram.hasZoom && (
-            <div className={styles.zoomAccordionWrapper}>
-              <button
-                type="button"
-                className={styles.zoomAccordionToggle}
-                onClick={() => setIsZoomAccordionOpen(!isZoomAccordionOpen)}
-                aria-expanded={isZoomAccordionOpen}
-              >
-                <div className={styles.zoomToggleLeft}>
-                  <div className={styles.zoomIconCircle}>
-                    <MessageSquare size={16} />
-                  </div>
-                  <span className={styles.zoomToggleText}>
-                    ¿Tenés alguna duda para ver en la Sesión en Vivo de alumnos?
-                  </span>
-                </div>
-                <div className={styles.zoomToggleChevron}>
-                  {isZoomAccordionOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                </div>
-              </button>
-
-              {isZoomAccordionOpen && (
-                <div className={styles.zoomAccordionBody}>
-                  <div className={styles.zoomNoticeCard}>
-                    <strong>🎙️ Sesión en Vivo todos los miércoles a las 19:00 hs (Arg)</strong>
-                    <p>
-                      Dejanos tu consulta puntual sobre esta lección o sobre tu postulación actual. Flor y el equipo la revisarán en vivo con feedback directo.
-                    </p>
-                  </div>
-
-                  {questionSent ? (
-                    <div className={styles.sentSuccessCard}>
-                      <CheckCircle2 size={20} className={styles.sentCheckIcon} />
-                      <div>
-                        <strong>¡Tu consulta fue recibida con éxito!</strong>
-                        <span>La sumamos a la orden del día de la próxima Sesión en Vivo.</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleSubmitQuestion} className={styles.zoomForm}>
-                      <label className={styles.zoomLabel}>Escribí tu pregunta para la Sesión en Vivo:</label>
-                      <textarea
-                        rows={3}
-                        required
-                        placeholder="Ej. En mi caso tengo una duda sobre cómo presentar los resultados de este proyecto..."
-                        value={questionText}
-                        onChange={(e) => setQuestionText(e.target.value)}
-                        className={styles.zoomTextarea}
-                      />
-
-                      <div className={styles.zoomFormFooter}>
-                        <span className={styles.zoomTip}>
-                          💡 Las consultas se responden con ejemplos prácticos en pantalla.
-                        </span>
-                        <button
-                          type="submit"
-                          disabled={!questionText.trim()}
-                          className={styles.zoomSendBtn}
-                        >
-                          <Send size={14} />
-                          <span>Enviar Consulta</span>
-                        </button>
-                      </div>
-                    </form>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
+          {/* SECTION C: COMUNIDAD Y COMENTARIOS DE LA CLASE */}
+          <LessonComments
+            lessonId={lesson.id}
+            lessonTitle={lesson.title}
+            currentUser={user}
+          />
         </div>
       )}
 

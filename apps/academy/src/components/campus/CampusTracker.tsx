@@ -568,8 +568,12 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
       try {
         const res = await getCampusInitialDataAction(activeEmail);
         if (res.success && res.data && res.data.jobApplications.length > 0) {
-          setApplications(res.data.jobApplications);
-          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(res.data.jobApplications));
+          const normalizedApps = res.data.jobApplications.map((a) => ({
+            ...a,
+            status: normalizeStatus(a.status),
+          }));
+          setApplications(normalizedApps);
+          localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(normalizedApps));
           return;
         }
       } catch (e) {
@@ -582,7 +586,13 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
         if (saved) {
           const parsed = JSON.parse(saved);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            setApplications(parsed.map((a: JobApplication) => ({ ...a, isFavorite: false })));
+            setApplications(
+              parsed.map((a: JobApplication) => ({
+                ...a,
+                status: normalizeStatus(a.status),
+                isFavorite: !!a.isFavorite,
+              }))
+            );
           }
         }
       } catch {
@@ -709,7 +719,8 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
   };
 
   const handleStatusChange = async (id: string, newStatus: JobApplication['status']) => {
-    const updated = applications.map((a) => (a.id === id ? { ...a, status: newStatus } : a));
+    const cleanStatus = normalizeStatus(newStatus);
+    const updated = applications.map((a) => (a.id === id ? { ...a, status: cleanStatus } : a));
     persistApplications(updated);
 
     const targetApp = updated.find((a) => a.id === id);
@@ -719,7 +730,7 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
           id: targetApp.id,
           company: targetApp.company,
           role: targetApp.role,
-          status: newStatus,
+          status: cleanStatus,
           salary: targetApp.salary,
           date: targetApp.date,
           notes: targetApp.notes,
@@ -735,16 +746,22 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
   const filtered = applications.filter((a) => {
     if (filterStatus === 'todos') return true;
     if (filterStatus === 'favoritas') return !!a.isFavorite;
-    return a.status === filterStatus;
+    return normalizeStatus(a.status) === filterStatus;
   });
 
   // Metrics summary
   const favoritesCount = applications.filter((a) => a.isFavorite).length;
   const interviewsCount = applications.filter(
-    (a) => a.status === 'Entrevista' || a.status === 'Contactado'
+    (a) => {
+      const s = normalizeStatus(a.status);
+      return s === 'Entrevista' || s === 'Contactado';
+    }
   ).length;
   const offersCount = applications.filter(
-    (a) => a.status === 'Oferta' || a.status === 'Logrado'
+    (a) => {
+      const s = normalizeStatus(a.status);
+      return s === 'Oferta' || s === 'Logrado';
+    }
   ).length;
 
   return (
@@ -839,20 +856,29 @@ export function CampusTracker({ onNavigateToAgenda, onBackToDashboard }: CampusT
       <div className={styles.filterRow}>
         <div className={styles.filterPills}>
           {(['todos', 'favoritas', ...STATUS_LIST] as const).map(
-            (st) => (
-              <button
-                key={st}
-                type="button"
-                className={`${styles.filterPill} ${filterStatus === st ? styles.filterPillActive : ''} ${st === 'favoritas' ? styles.filterPillFav : ''}`}
-                onClick={() => setFilterStatus(st)}
-              >
-                {st === 'todos'
-                  ? `Todas (${applications.length})`
+            (st) => {
+              const count =
+                st === 'todos'
+                  ? applications.length
                   : st === 'favoritas'
-                    ? `⭐ Favoritas (${favoritesCount})`
-                    : st}
-              </button>
-            )
+                    ? favoritesCount
+                    : applications.filter((a) => normalizeStatus(a.status) === st).length;
+
+              return (
+                <button
+                  key={st}
+                  type="button"
+                  className={`${styles.filterPill} ${filterStatus === st ? styles.filterPillActive : ''} ${st === 'favoritas' ? styles.filterPillFav : ''}`}
+                  onClick={() => setFilterStatus(st)}
+                >
+                  {st === 'todos'
+                    ? `Todas (${count})`
+                    : st === 'favoritas'
+                      ? `⭐ Favoritas (${count})`
+                      : `${st} (${count})`}
+                </button>
+              );
+            }
           )}
         </div>
       </div>

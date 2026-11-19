@@ -649,8 +649,8 @@ export function CampusSidebar({
                                     }`}
                                     style={
                                       isAllCompleted || isInProgress || isOpenAccordion
-                                        ? undefined
-                                        : { color: '#B45309', backgroundColor: '#FEF3C7', borderColor: '#FDE68A' }
+                                        ? { color: '#FFFFFF' }
+                                        : { color: '#7C3AED', backgroundColor: '#F5F3FF', borderColor: '#DDD6FE' }
                                     }
                                   >
                                     {mod.extraTag || `EXTRA 0${mod.number - 7}`}

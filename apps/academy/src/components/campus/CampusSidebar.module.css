@@ -888,7 +888,7 @@
 
 .lessonRowCurrent {
   background: linear-gradient(90deg, #FAF5FF 0%, #F5F3FF 100%) !important;
-  border-left: 3px solid var(--fm-violeta-electric);
+  box-shadow: inset 3.5px 0 0 0 var(--fm-violeta-electric);
 }
 
 .lessonRowCurrent:hover:not(.lessonRowLocked) {
@@ -915,7 +915,7 @@
 
 .evaluationRowHighlight.lessonRowCurrent {
   background: linear-gradient(135deg, #FEF3C7 0%, #FAF5FF 100%) !important;
-  border-left: 3px solid #D97706 !important;
+  box-shadow: inset 3.5px 0 0 0 #D97706 !important;
 }
 
 .evaluationRowHighlight.lessonRowCurrent:hover:not(.lessonRowLocked) {

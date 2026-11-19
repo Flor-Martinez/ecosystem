@@ -34,37 +34,7 @@ export interface CalendarEvent {
   zoomLink?: string;
 }
 
-function generateWednesdayZooms(): CalendarEvent[] {
-  const zoomEvents: CalendarEvent[] = [];
-  // From 2026-09-01 to 2027-12-31
-  const start = new Date(2026, 8, 1);
-  const end = new Date(2027, 11, 31);
-  const current = new Date(start);
-
-  while (current <= end) {
-    if (current.getDay() === 3) {
-      // 3 = Wednesday
-      const y = current.getFullYear();
-      const m = String(current.getMonth() + 1).padStart(2, '0');
-      const d = String(current.getDate()).padStart(2, '0');
-      const dateStr = `${y}-${m}-${d}`;
-      zoomEvents.push({
-        id: `zoom-${dateStr}`,
-        title: '🎙️ Sesión en Vivo: Mentoría y Consultas Semanales',
-        type: 'zoom',
-        date: dateStr,
-        time: '19:00 hs (Arg/Uru) · 17:00 hs (Col/Per)',
-        notes: 'Espacio semanal de resolución de dudas, consultas y feedback en vivo con Flor Martínez.',
-        zoomLink: 'zoom-live',
-      });
-    }
-    current.setDate(current.getDate() + 1);
-  }
-  return zoomEvents;
-}
-
 const defaultEvents: CalendarEvent[] = [
-  ...generateWednesdayZooms(),
   {
     id: 'ent-1',
     title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
@@ -135,7 +105,6 @@ export function CampusZoomAgenda({
     async function loadData() {
       try {
         const res = await getCampusInitialDataAction(activeEmail);
-        const wednesdayZooms = generateWednesdayZooms();
         let loadedEvents: CalendarEvent[] = [];
 
         if (res.success && res.data && res.data.calendarEvents.length > 0) {
@@ -153,13 +122,8 @@ export function CampusZoomAgenda({
           }
         }
 
-        // Merge all Wednesday Zooms into loadedEvents so all Wednesdays always have the weekly Zoom
-        const merged: CalendarEvent[] = [...loadedEvents];
-        wednesdayZooms.forEach((zoomEv) => {
-          if (!merged.some((e) => e.date === zoomEv.date && e.type === 'zoom')) {
-            merged.push(zoomEv);
-          }
-        });
+        // Filter out obsolete zoom events since live sessions are postponed
+        const merged: CalendarEvent[] = loadedEvents.filter((e) => e.type !== 'zoom');
 
         // Ensure default initial interview is there
         if (!merged.some((e) => e.id === 'ent-1')) {
@@ -393,10 +357,6 @@ export function CampusZoomAgenda({
 
             {/* Legend */}
             <div className={styles.calendarLegend}>
-              <div className={styles.legendItem}>
-                <span className={`${styles.dot} ${styles.dotZoom}`} />
-                <span>Sesión en Vivo (Miércoles 19 hs)</span>
-              </div>
               <div className={styles.legendItem}>
                 <span className={`${styles.dot} ${styles.dotInterview}`} />
                 <span>Entrevistas & Pruebas Técnicas (Tracker)</span>

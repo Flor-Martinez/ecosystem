@@ -63,7 +63,7 @@ export function EblCard({
   const displayFeatures = isWip
     ? [
         { iconName: 'Clock', label: 'Módulo en producción y edición final' },
-        { iconName: 'Sparkles', label: 'Disponible muy pronto en tu membresía' },
+        { iconName: 'GraduationCap', label: 'Disponible muy pronto en tu membresía' },
       ]
     : card.features;
 
@@ -317,9 +317,9 @@ export function EblCard({
               style={
                 card.isExtra
                   ? {
-                      backgroundColor: '#FEF3C7',
-                      color: '#B45309',
-                      border: '1px solid #FDE68A',
+                      backgroundColor: '#F5F3FF',
+                      color: '#7C3AED',
+                      border: '1px solid #DDD6FE',
                     }
                   : {
                       backgroundColor: card.colorScheme.pillBg,
