@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, Sparkles, ShieldCheck, ArrowRight, Zap, GraduationCap } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
+import { ExperiencePurchaseModal } from './ExperiencePurchaseModal';
 import styles from './ExperiencePricing.module.css';
 
 const planFeatures = [
@@ -18,6 +19,8 @@ const planFeatures = [
 ];
 
 export function ExperiencePricing() {
+  const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+
   return (
     <section className={styles.section} id="planes-suscripcion">
       <Container size="wide">
@@ -62,9 +65,15 @@ export function ExperiencePricing() {
             </div>
 
             <div className={styles.cardFooter}>
-              <Button href="/campus" variant="primary" size="lg" className={styles.planBtn}>
+              <Button
+                type="button"
+                variant="primary"
+                size="lg"
+                className={styles.planBtn}
+                onClick={() => setIsPurchaseModalOpen(true)}
+              >
                 <GraduationCap size={18} />
-                <span>Sumarme con Promo Lanzamiento ($20.000)</span>
+                <span>Sumarme con Promo Lanzamiento</span>
                 <ArrowRight size={16} />
               </Button>
               <div className={styles.guaranteeNote}>
@@ -75,6 +84,12 @@ export function ExperiencePricing() {
           </div>
         </div>
       </Container>
+
+      {/* Checkout / Purchase Modal */}
+      <ExperiencePurchaseModal
+        isOpen={isPurchaseModalOpen}
+        onClose={() => setIsPurchaseModalOpen(false)}
+      />
     </section>
   );
 }
