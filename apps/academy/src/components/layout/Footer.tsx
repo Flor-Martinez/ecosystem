@@ -68,16 +68,7 @@ export function Footer() {
                 <Link href="/" className={styles.link}>Inicio</Link>
               </li>
               <li>
-                <Link href="/experiencia" className={styles.link}>Experiencia Búsqueda Laboral</Link>
-              </li>
-              <li>
-                <Link href="/cursos" className={styles.link}>Cursos & Talleres</Link>
-              </li>
-              <li>
                 <Link href="/campus" className={styles.link}>Aula Virtual / Campus</Link>
-              </li>
-              <li>
-                <Link href="/recursos" className={styles.link}>Recursos Gratis</Link>
               </li>
               <li>
                 <Link href="/sobre-nosotros" className={styles.link}>Sobre la Academia</Link>
@@ -88,33 +79,28 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Resources Column */}
+          {/* Tools & Campus Column */}
           <div className={styles.col}>
-            <h3 className={styles.colTitle}>Recursos & Plantillas</h3>
+            <h3 className={styles.colTitle}>Herramientas del Campus</h3>
             <ul className={styles.linkList}>
+              <li>
+                <Link href="/campus" className={styles.link}>
+                  Aula & Clases en Video HD
+                </Link>
+              </li>
+              <li>
+                <Link href="/campus?view=tracker" className={styles.link}>
+                  Tracker de Postulaciones
+                </Link>
+              </li>
+              <li>
+                <Link href="/campus?view=agenda" className={styles.link}>
+                  Agenda & Calendario de Entrevistas
+                </Link>
+              </li>
               <li>
                 <Link href="/test-vocacional" className={styles.link}>
                   🎯 Test Vocacional & Orientación
-                </Link>
-              </li>
-              <li>
-                <Link href="/recursos/checklist-optimizacion-cv-ats" className={styles.link}>
-                  Checklist CV ATS 2026
-                </Link>
-              </li>
-              <li>
-                <Link href="/recursos/plantilla-estructura-cv-editorial" className={styles.link}>
-                  Plantilla CV Word & Notion
-                </Link>
-              </li>
-              <li>
-                <Link href="/recursos/guia-optimizacion-linkedin-2026" className={styles.link}>
-                  Guía LinkedIn SEO
-                </Link>
-              </li>
-              <li>
-                <Link href="/recursos/preguntas-frecuentes-entrevistas-star" className={styles.link}>
-                  Método STAR para Entrevistas
                 </Link>
               </li>
             </ul>
@@ -129,7 +115,9 @@ export function Footer() {
             <ul className={styles.ecosystemList}>
               <li>
                 <a
-                  href="http://localhost:3000"
+                  href="https://flormartinezok.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.ecoLink}
                   title="Portfolio Principal & Marca Personal"
                 >
@@ -143,13 +131,15 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="http://localhost:3000/proyecto/agencia-flor-martinez"
+                  href="https://flormartinezok.com/contacto"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.ecoLink}
-                  title="Agencia Flor Martinez"
+                  title="Agencia & Consultoría Flor Martinez"
                 >
                   <Briefcase size={14} className={styles.ecoIcon} />
                   <div>
-                    <span className={styles.ecoName}>Agencia Flor Martinez</span>
+                    <span className={styles.ecoName}>Agencia & Consultoría</span>
                     <span className={styles.ecoSub}>Marketing B2B & Estrategia</span>
                   </div>
                   <ArrowUpRight size={13} className={styles.ecoArrow} />
@@ -157,7 +147,9 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="http://localhost:3000/proyecto/tienda-flor-martinez"
+                  href="https://flormartinezok.com#proyectos"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.ecoLink}
                   title="Tienda Flor Martinez"
                 >

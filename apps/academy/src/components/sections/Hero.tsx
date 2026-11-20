@@ -32,8 +32,8 @@ export function Hero() {
             <div className={styles.badgeRow}>
               <div className={styles.badgeWrap}>
                 <Badge variant="primary" size="md">
-                  <GraduationCap size={15} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-1px' }} />
-                  <span style={{ verticalAlign: 'middle' }}>Experiencia Búsqueda Laboral</span>
+                  <GraduationCap size={15} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-1px', marginRight: '8px' }} />
+                  <span style={{ verticalAlign: 'middle', letterSpacing: '0.03em' }}>Experiencia Búsqueda Laboral</span>
                 </Badge>
               </div>
 
@@ -55,18 +55,14 @@ export function Hero() {
             </p>
 
             <div className={styles.ctaGroup}>
-              <Button href="/campus" variant="primary" size="lg" className={styles.primaryBtn}>
-                <GraduationCap size={20} />
-                <span>Ingresar al Campus Virtual</span>
+              <Button href="#planes-suscripcion" variant="primary" size="lg" className={styles.primaryBtn}>
+                <Sparkles size={18} />
+                <span>Ver Promo de Lanzamiento ($20.000)</span>
                 <ArrowRight size={18} />
               </Button>
 
               <Button href="#experiencia-busqueda-laboral" variant="outline" size="lg" className={styles.secondaryBtn}>
                 <span>Conocer los Módulos</span>
-              </Button>
-
-              <Button href="#planes-suscripcion" variant="ghost" size="md" className={styles.tertiaryBtn}>
-                <span>Ver Promo Lanzamiento</span>
               </Button>
             </div>
 

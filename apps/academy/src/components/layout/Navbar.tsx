@@ -20,9 +20,6 @@ import styles from './Navbar.module.css';
 const navLinks = [
   { label: 'Inicio', href: '/' },
   { label: 'Campus Virtual', href: '/campus', isCampus: true },
-  { label: 'Experiencia', href: '/experiencia' },
-  { label: 'Cursos', href: '/cursos' },
-  { label: 'Recursos', href: '/recursos' },
   { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
   { label: 'Contacto', href: '/contacto' },
 ];
@@ -81,7 +78,9 @@ export function Navbar() {
           {/* LEFT: Visit General Ecosystem Link */}
           <div className={styles.topBarLeft}>
             <a
-              href="http://localhost:3000"
+              href="https://flormartinezok.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.ecosystemVisitLink}
               title="Conocer el Ecosistema Digital Flor Martinez"
             >
@@ -227,13 +226,15 @@ export function Navbar() {
 
             {/* Ecosystem Return & CTA Actions */}
             <div className={styles.mobileActions}>
-              <Button href="/experiencia" variant="primary" size="md" className={styles.mobileFullBtn}>
-                <span>Sumarme a la Experiencia Búsqueda Laboral</span>
+              <Button href="/#planes-suscripcion" variant="primary" size="md" className={styles.mobileFullBtn}>
+                <span>Ver Promo de Lanzamiento ($20.000)</span>
                 <ArrowRight size={16} />
               </Button>
 
               <a
-                href="http://localhost:3000"
+                href="https://flormartinezok.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={styles.mobileEcosystemLink}
                 title="Visitar Ecosistema Flor Martinez"
               >

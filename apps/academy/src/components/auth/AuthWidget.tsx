@@ -86,7 +86,9 @@ export function AuthWidget() {
             <span className={styles.sectionHeading}>Accesos del Ecosistema</span>
 
             <a
-              href="http://localhost:3000"
+              href="https://flormartinezok.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -100,7 +102,7 @@ export function AuthWidget() {
             </a>
             
             <Link
-              href="/cursos"
+              href="/campus"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -109,12 +111,14 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Academia Flor Martinez</strong>
-                <span>Mis cursos & certificados</span>
+                <span>Aula virtual & tracker</span>
               </div>
             </Link>
 
             <a
-              href="http://localhost:3000/proyecto/tienda-flor-martinez"
+              href="https://flormartinezok.com#proyectos"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -123,12 +127,14 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Tienda & Merchandising</strong>
-                <span>Mis pedidos & kits</span>
+                <span>Línea de productos y papelería</span>
               </div>
             </a>
 
             <a
-              href="http://localhost:3000/proyecto/agencia-flor-martinez"
+              href="https://flormartinezok.com/contacto"
+              target="_blank"
+              rel="noopener noreferrer"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -137,7 +143,7 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Agencia & Consultoría</strong>
-                <span>Servicios y propuestas</span>
+                <span>Servicios y propuestas B2B</span>
               </div>
             </a>
           </div>

@@ -131,9 +131,9 @@ export default function SobreNosotrosPage() {
               <div className={styles.pillarIconWrap} style={{ color: '#059669', backgroundColor: '#ECFDF5' }}>
                 <Compass size={24} />
               </div>
-              <h3 className={styles.pillarTitle}>3. Rigor con Filtros ATS</h3>
+              <h3 className={styles.pillarTitle}>3. Aprendizaje & Mejora Continua</h3>
               <p className={styles.pillarDesc}>
-                Monitoreamos continuamente las tendencias de contratación y los algoritmos de plataformas para que siempre uses formatos vigentes y compatibles.
+                Nosotros también estamos aprendiendo constantemente: actualizamos los contenidos de las clases según lo que demandan los selectores, sumamos nuevas herramientas y mejoramos la plataforma continuamente.
               </p>
             </div>
 
@@ -160,19 +160,21 @@ export default function SobreNosotrosPage() {
               </Badge>
               <h2 className={styles.ecoTitle}>Parte del Ecosistema Flor Martinez</h2>
               <p className={styles.ecoDesc}>
-                La Academia es la unidad educativa y de empleabilidad de un ecosistema que integra la marca personal de Flor Martinez, la Agencia de estrategia B2B y la línea corporativa de la Tienda.
+                La Academia es la unidad de formación práctica y empleabilidad del ecosistema digital de Flor Martinez, articulada con su marca personal, sus canales de divulgación profesional y sus servicios de consultoría.
               </p>
               <div className={styles.ecoActions}>
                 <a
-                  href="http://localhost:3000"
+                  href="https://flormartinezok.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.ecoLinkBtn}
-                  title="Conocer el Portfolio Flor Martinez"
+                  title="Conocer la web principal de Flor Martinez"
                 >
-                  <span>Explorar Portfolio Flor Martinez</span>
+                  <span>Explorar Flor Martinez Hub</span>
                   <ArrowUpRight size={16} />
                 </a>
-                <Button href="/cursos" variant="primary" size="md">
-                  <span>Ver catálogo de cursos</span>
+                <Button href="/campus" variant="primary" size="md">
+                  <span>Ingresar al Campus Virtual</span>
                 </Button>
               </div>
             </div>
