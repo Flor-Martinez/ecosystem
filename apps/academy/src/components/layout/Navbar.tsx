@@ -144,7 +144,7 @@ export function Navbar() {
           {/* Desktop Actions */}
           <div className={styles.actions}>
             <Button
-              href="/experiencia"
+              href="/#planes-suscripcion"
               variant="primary"
               size="sm"
               className={styles.primaryCtaBtn}

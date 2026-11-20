@@ -57,7 +57,7 @@ export function Hero() {
             <div className={styles.ctaGroup}>
               <Button href="#planes-suscripcion" variant="primary" size="lg" className={styles.primaryBtn}>
                 <Sparkles size={18} />
-                <span>Ver Promo de Lanzamiento ($20.000)</span>
+                <span>Ver Promo de Lanzamiento</span>
                 <ArrowRight size={18} />
               </Button>
 

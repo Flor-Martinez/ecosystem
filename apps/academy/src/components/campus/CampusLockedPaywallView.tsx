@@ -157,7 +157,7 @@ export function CampusLockedPaywallView({
         {/* Action buttons */}
         <div className={styles.actionsRow}>
           <a
-            href="/experiencia"
+            href="/#planes-suscripcion"
             className={styles.primaryCta}
             onClick={(e) => {
               if (onUpgrade) {

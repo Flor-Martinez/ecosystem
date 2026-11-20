@@ -3852,7 +3852,7 @@ export const availableOfferingsCatalog: CampusCatalogItem[] = [
     rating: 4.9,
     studentsCount: 380,
     highlightPerk: 'Incluye Tracker, Agenda, Zoom semanal y revisión en vivo',
-    publicUrl: '/experiencia',
+    publicUrl: '/#experiencia-busqueda-laboral',
   },
   {
     id: 'curso-cv-alto-impacto',

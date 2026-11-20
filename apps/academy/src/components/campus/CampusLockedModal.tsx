@@ -170,7 +170,7 @@ export function CampusLockedModal({
         {/* Actions */}
         <div className={styles.modalActions}>
           <Link
-            href="/experiencia"
+            href="/#planes-suscripcion"
             className={styles.primaryBuyBtn}
             onClick={() => {
               if (onUpgrade) onUpgrade();

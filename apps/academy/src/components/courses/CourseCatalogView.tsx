@@ -79,7 +79,7 @@ export function CourseCatalogView() {
               </div>
             </div>
             <div className={styles.expBannerAction}>
-              <Button href="/experiencia" variant="white" size="lg">
+              <Button href="/#planes-suscripcion" variant="white" size="lg">
                 <span>Ver Experiencia Búsqueda Laboral</span>
                 <ArrowRight size={18} />
               </Button>

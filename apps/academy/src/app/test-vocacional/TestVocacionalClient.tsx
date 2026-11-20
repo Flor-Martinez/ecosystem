@@ -16,7 +16,7 @@ export function TestVocacionalClient() {
             if (targetView === 'modulo-cv' || targetView === 'modulo-1' || targetView === 'modulo-fundamentos') {
               router.push('/campus');
             } else {
-              router.push('/experiencia');
+              router.push('/#planes-suscripcion');
             }
           }}
         />

@@ -58,11 +58,11 @@ export function UpcomingCoursesSection() {
             <div>
               <h4 className={styles.anchorTitle}>¿Buscás resolver tu búsqueda laboral ahora mismo?</h4>
               <p className={styles.anchorDesc}>
-                No necesitás esperar a los talleres individuales: la Experiencia Búsqueda Laboral contiene todo el material, las plantillas, el tracker y las llamadas en vivo.
+                No necesitás esperar a los talleres individuales: la Experiencia Búsqueda Laboral contiene todo el material, las plantillas ATS, el tracker, la agenda y más de 35 lecciones prácticas.
               </p>
             </div>
           </div>
-          <Button href="/experiencia" variant="primary" size="md" className={styles.anchorBtn}>
+          <Button href="/#planes-suscripcion" variant="primary" size="md" className={styles.anchorBtn}>
             <span>Sumarme a la Experiencia Búsqueda Laboral</span>
             <ArrowRight size={16} />
           </Button>

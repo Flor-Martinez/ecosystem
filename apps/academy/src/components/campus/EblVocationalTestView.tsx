@@ -892,12 +892,12 @@ export function EblVocationalTestView({
                     </div>
                     <div className={styles.eblSidePerkItem}>
                       <CheckCircle2 size={15} className={styles.perkCheck} />
-                      <span>Clases semanales en vivo por Zoom</span>
+                      <span>Tracker de búsquedas & agenda</span>
                     </div>
                   </div>
 
                   <div className={styles.eblSideActions}>
-                    <a href="/experiencia" className={styles.eblSideJoinBtn}>
+                    <a href="/#planes-suscripcion" className={styles.eblSideJoinBtn}>
                       <span>Sumarme a la Experiencia</span>
                       <ArrowRight size={15} />
                     </a>

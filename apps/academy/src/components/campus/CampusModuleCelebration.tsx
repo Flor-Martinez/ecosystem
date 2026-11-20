@@ -228,15 +228,15 @@ export function CampusModuleCelebration({
                 <div className={styles.freeUpsellItem}>
                   <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
                   <div>
-                    <strong>Sesiones Semanales en Vivo</strong>
-                    <span>Mentorías en directo con Flor Martínez todos los miércoles para auditar tu CV y tus avances.</span>
+                    <strong>Soporte y Consultas con Flor</strong>
+                    <span>Espacio de interacción en cada clase con respuestas directas de Flor para resolver dudas.</span>
                   </div>
                 </div>
               </div>
 
               <div className={styles.freeUpsellCtaWrap}>
                 <a
-                  href="/experiencia"
+                  href="/#planes-suscripcion"
                   className={styles.vipUnlockBtn}
                 >
                   <Sparkles size={18} />

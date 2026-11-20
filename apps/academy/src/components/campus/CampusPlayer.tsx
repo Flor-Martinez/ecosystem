@@ -332,7 +332,7 @@ export function CampusPlayer({
           <p className={styles.quizLockedDesc}>
             Para realizar las evaluaciones prácticas de acreditación, recibir feedback pedagógico y descargar el Certificado Oficial de Aprobación de la Experiencia Búsqueda Laboral, necesitás contar con la Membresía VIP activa.
           </p>
-          <a href="/experiencia" className={styles.quizLockedBuyBtn}>
+          <a href="/#planes-suscripcion" className={styles.quizLockedBuyBtn}>
             <span>Desbloquear Membresía VIP</span>
           </a>
         </div>

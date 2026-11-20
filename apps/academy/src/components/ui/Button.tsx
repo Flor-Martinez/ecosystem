@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import styles from './Button.module.css';
@@ -21,6 +23,7 @@ export function Button({
   rightIcon,
   className = '',
   children,
+  onClick,
   ...props
 }: ButtonProps) {
   const buttonClass = [
@@ -39,6 +42,8 @@ export function Button({
   );
 
   if (href) {
+    const isAnchor = href.startsWith('#');
+
     if (external) {
       return (
         <a
@@ -46,20 +51,51 @@ export function Button({
           className={buttonClass}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={onClick as any}
         >
           {content}
         </a>
       );
     }
+
+    if (isAnchor) {
+      const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (onClick) {
+          (onClick as any)(e);
+        }
+        if (!e.defaultPrevented) {
+          e.preventDefault();
+          const targetId = href.replace('#', '');
+          const elem = document.getElementById(targetId);
+          if (elem) {
+            elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            window.history.pushState(null, '', href);
+          } else {
+            window.location.hash = href;
+          }
+        }
+      };
+
+      return (
+        <a
+          href={href}
+          className={buttonClass}
+          onClick={handleAnchorClick}
+        >
+          {content}
+        </a>
+      );
+    }
+
     return (
-      <Link href={href} className={buttonClass}>
+      <Link href={href} className={buttonClass} onClick={onClick as any}>
         {content}
       </Link>
     );
   }
 
   return (
-    <button className={buttonClass} {...props}>
+    <button className={buttonClass} onClick={onClick} {...props}>
       {content}
     </button>
   );

@@ -7,10 +7,9 @@ Este documento registra los módulos, páginas y funcionalidades retiradas de la
 ## 1. Secciones Pausadas
 
 ### A. Detalle Extendido de la Experiencia (`/experiencia`)
-* **Estado**: Pausada de la barra de navegación y pie de página.
-* **Ubicación del código**: `apps/academy/src/app/experiencia/page.tsx`
-* **Motivo**: Toda la propuesta de valor, desglose de los 7 módulos troncales + 3 extras, herramientas (Tracker y Agenda) y botón de compra de \$20.000 están completamente integrados e interactivos en la **Home (`/`)**.
-* **Cómo reactivarla a futuro**: Reincorporar `{ label: 'Experiencia', href: '/experiencia' }` en `Navbar.tsx` y `Footer.tsx` si se desea una landing de ventas extendida separada de la home.
+* **Estado**: Eliminada definitivamente del proyecto y redirigida a la Home (`/#planes-suscripcion`).
+* **Motivo**: Toda la propuesta de valor, temario de los 10 módulos, herramientas y pasarela de pago están unificadas directamente en la **Home (`/`)**.
+* **Redirección**: Configurada en `next.config.ts` (308 permanente a `/#planes-suscripcion`).
 
 ### B. Catálogo Multi-Cursos & Talleres (`/cursos`)
 * **Estado**: Pausada de la barra de navegación y accesos directos.
