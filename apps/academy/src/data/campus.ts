@@ -741,7 +741,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '6 errores que arruinan tu CV',
         duration: '3:43 min',
         videoDuration: '3:43 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/1d5136f4-2d16-40ef-b66d-ff8bdbc5f5a6?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/52e1ee99-7835-4ada-b2e8-8d6ba7a53782?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -847,7 +847,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Filtros ATS: Cómo hacer match con el aviso laboral',
         duration: '1:57 min',
         videoDuration: '1:57 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b51b485f-e62d-4af6-aabc-e9c0ec10d4cd?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/723e356f-7548-4357-b4be-01f407b14c0d?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -921,7 +921,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'El CV según tu perfil: Junior, Experiencia Media y Senior',
         duration: '1:38 min',
         videoDuration: '1:38 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/62e2b09b-18ec-496b-8b7b-6e6476e8ff11?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/2595eed7-177d-4b0e-9f3c-151270f98d87?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -1000,7 +1000,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Hagamos el CV juntos: Estructura completa y foto profesional',
         duration: '2:44 min',
         videoDuration: '2:44 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/f13926cd-833a-42de-beec-05091bdcebca?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/cca84bf1-e44e-4746-bedb-1f565429afe8?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-4-poster.jpg?v=8',
         completed: false,
         description:

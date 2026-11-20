@@ -119,7 +119,27 @@ def reupload_module_3():
             pattern = re.compile(rf"videoUrl:\s*['\"][^'\"]*{re.escape(ts_key)}[^'\"]*['\"]")
             campus_content = pattern.sub(f"videoUrl: '{embed_url}'", campus_content)
 
-        # 5. Guardar en mapping
+        # 5. Subir miniatura a Bunny
+        thumb_path = os.path.join(r"C:\Santi\Flor Martinez\thumbnails_flor", f"{file_name}.jpg")
+        if os.path.exists(thumb_path):
+            print(f"Subiendo miniatura para {file_name} a Bunny...")
+            try:
+                with open(thumb_path, "rb") as tf:
+                    tbytes = tf.read()
+                th_url = f"https://video.bunnycdn.com/library/{LIBRARY_ID}/videos/{new_guid}/thumbnail"
+                req_th = urllib.request.Request(
+                    th_url,
+                    data=tbytes,
+                    headers={"AccessKey": API_KEY, "Content-Type": "application/octet-stream"},
+                    method="POST"
+                )
+                with urllib.request.urlopen(req_th, timeout=30) as tresp:
+                    if tresp.status == 200:
+                        print("✓ Miniatura subida con éxito!")
+            except Exception as te:
+                print(f"Nota: error al subir miniatura: {te}")
+
+        # 6. Guardar en mapping
         mapping[file_name] = {
             "guid": new_guid,
             "embed_url": embed_url,
