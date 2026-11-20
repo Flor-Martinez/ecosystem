@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description:
       'Evaluá tus preferencias en 12 situaciones reales y descubrí tus fortalezas profesionales y puestos ideales en el mercado.',
     type: 'website',
-    url: 'https://flor-martinez-academia.vercel.app/test-vocacional',
+    url: 'https://academia.flormartinezok.com/test-vocacional',
     siteName: 'Academia Flor Martinez',
     locale: 'es_AR',
   },
@@ -50,7 +50,7 @@ export default function TestVocacionalPage() {
     provider: {
       '@type': 'Organization',
       name: 'Academia Flor Martínez',
-      url: 'https://flor-martinez-academia.vercel.app',
+      url: 'https://academia.flormartinezok.com',
       sameAs: [
         'https://www.linkedin.com',
         'https://www.instagram.com',
