@@ -21,6 +21,7 @@ import {
   Sparkles,
   Video,
   Star,
+  ShieldCheck,
 } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useAuth } from '@/context/AuthContext';
@@ -461,6 +462,18 @@ export function CampusHeader({
               <Code2 size={13} />
               <span>{isDevMode ? 'Modo Dev (Saltear Clases)' : 'Modo Alumno'}</span>
             </button>
+          )}
+
+          {/* PANEL ADMIN GOLDEN BUTTON (Only visible for SuperAdmin accounts) */}
+          {isSuperAdmin && (
+            <Link
+              href="/admin"
+              className={styles.adminGoldenBtn}
+              title="Ir al Panel de Administración de la Academia"
+            >
+              <ShieldCheck size={13} />
+              <span>Panel Admin</span>
+            </Link>
           )}
 
           {/* User Section */}

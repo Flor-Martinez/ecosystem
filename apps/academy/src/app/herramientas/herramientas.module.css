@@ -4,8 +4,7 @@
 }
 
 .heroSection {
-  padding-top: clamp(6.5rem, 9vw, 8.5rem);
-  padding-bottom: clamp(3.5rem, 5vw, 4.5rem);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(3.5rem, 5vw, 4.5rem);
   background: linear-gradient(180deg, #FFFFFF 0%, #FAF9FD 100%);
   border-bottom: 1px solid var(--fm-border-light);
   text-align: center;

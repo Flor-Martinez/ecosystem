@@ -1,5 +1,4 @@
 .main {
-  padding-top: clamp(6.5rem, 10vw, 8.5rem);
   background-color: var(--fm-marfil-light);
   min-height: 100vh;
 }

@@ -2,12 +2,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { User, LogOut, ChevronDown, GraduationCap, ShoppingBag, Briefcase, Sparkles, Globe } from 'lucide-react';
+import { User, LogOut, ChevronDown, GraduationCap, ShoppingBag, Briefcase, Sparkles, Globe, ShieldCheck } from 'lucide-react';
 import { useEcosystemAuth } from '@/context/AuthContext';
 import styles from './AuthWidget.module.css';
 
 export function AuthWidget() {
-  const { user, openAuthModal, logout } = useEcosystemAuth();
+  const { user, openAuthModal, logout, isSuperAdmin } = useEcosystemAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,6 +50,18 @@ export function AuthWidget() {
 
   return (
     <div className={styles.authWrapper} ref={dropdownRef}>
+      {/* Golden Admin Quick Access Button (Strictly for Superadmins) */}
+      {isSuperAdmin && (
+        <Link
+          href="/admin"
+          className={styles.adminBtn}
+          title="Ir al Panel de Administración de la Academia"
+        >
+          <ShieldCheck size={13} className={styles.adminIcon} />
+          <span>Panel Admin</span>
+        </Link>
+      )}
+
       <button
         type="button"
         className={`${styles.userBtn} ${dropdownOpen ? styles.userBtnActive : ''}`}
@@ -76,7 +88,7 @@ export function AuthWidget() {
               <span className={styles.dropdownEmail}>{user.email}</span>
               <span className={styles.memberBadge}>
                 <Sparkles size={10} />
-                Alumno / Miembro
+                {isSuperAdmin ? 'Superadmin Ecosistema' : 'Alumno / Miembro'}
               </span>
             </div>
           </div>
@@ -84,6 +96,24 @@ export function AuthWidget() {
           {/* Quick Ecosystem Hub Links */}
           <div className={styles.dropdownSection}>
             <span className={styles.sectionHeading}>Accesos del Ecosistema</span>
+
+            {/* Panel Admin Golden Card inside popover */}
+            {isSuperAdmin && (
+              <Link
+                href="/admin"
+                className={styles.menuItem}
+                onClick={() => setDropdownOpen(false)}
+                style={{ backgroundColor: '#FEF3C7', border: '1px solid #FDE68A' }}
+              >
+                <div className={styles.menuIconBox} style={{ backgroundColor: '#D97706', color: '#FFFFFF' }}>
+                  <ShieldCheck size={14} />
+                </div>
+                <div className={styles.menuItemText}>
+                  <strong style={{ color: '#92400E' }}>Panel Admin ⚡</strong>
+                  <span style={{ color: '#B45309' }}>Gestión de la Academia y Alumnos</span>
+                </div>
+              </Link>
+            )}
 
             <a
               href="https://flormartinezok.com"
@@ -101,8 +131,8 @@ export function AuthWidget() {
               </div>
             </a>
             
-            <Link
-              href="/campus"
+            <a
+              href="https://academia.flormartinezok.com"
               className={styles.menuItem}
               onClick={() => setDropdownOpen(false)}
             >
@@ -111,12 +141,12 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Academia Flor Martinez</strong>
-                <span>Aula virtual & tracker</span>
+                <span>Mis cursos & certificados</span>
               </div>
-            </Link>
+            </a>
 
             <a
-              href="https://flormartinezok.com#proyectos"
+              href="https://www.flormartinezok.com/proyecto/tienda-flor-martinez"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.menuItem}
@@ -127,12 +157,12 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Tienda & Merchandising</strong>
-                <span>Línea de productos y papelería</span>
+                <span>Mis pedidos & kits</span>
               </div>
             </a>
 
             <a
-              href="https://flormartinezok.com/contacto"
+              href="https://www.flormartinezok.com/proyecto/agencia-flor-martinez"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.menuItem}
@@ -143,7 +173,7 @@ export function AuthWidget() {
               </div>
               <div className={styles.menuItemText}>
                 <strong>Agencia & Consultoría</strong>
-                <span>Servicios y propuestas B2B</span>
+                <span>Servicios y propuestas</span>
               </div>
             </a>
           </div>

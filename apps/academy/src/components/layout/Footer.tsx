@@ -121,44 +121,50 @@ export function Footer() {
                   className={styles.ecoLink}
                   title="Portfolio Principal & Marca Personal"
                 >
-                  <Sparkles size={14} className={styles.ecoIcon} />
-                  <div>
-                    <span className={styles.ecoName}>Flor Martinez Portfolio</span>
+                  <div className={styles.ecoIconBox}>
+                    <Sparkles size={15} />
+                  </div>
+                  <div className={styles.ecoInfo}>
+                    <span className={styles.ecoName}>Portfolio & Hub Flor Martinez</span>
                     <span className={styles.ecoSub}>Marca personal & trayectoria</span>
                   </div>
-                  <ArrowUpRight size={13} className={styles.ecoArrow} />
+                  <ArrowUpRight size={14} className={styles.ecoArrow} />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://flormartinezok.com/contacto"
+                  href="https://www.flormartinezok.com/proyecto/agencia-flor-martinez"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.ecoLink}
                   title="Agencia & Consultoría Flor Martinez"
                 >
-                  <Briefcase size={14} className={styles.ecoIcon} />
-                  <div>
+                  <div className={styles.ecoIconBox}>
+                    <Briefcase size={15} />
+                  </div>
+                  <div className={styles.ecoInfo}>
                     <span className={styles.ecoName}>Agencia & Consultoría</span>
                     <span className={styles.ecoSub}>Marketing B2B & Estrategia</span>
                   </div>
-                  <ArrowUpRight size={13} className={styles.ecoArrow} />
+                  <ArrowUpRight size={14} className={styles.ecoArrow} />
                 </a>
               </li>
               <li>
                 <a
-                  href="https://flormartinezok.com#proyectos"
+                  href="https://www.flormartinezok.com/proyecto/tienda-flor-martinez"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.ecoLink}
                   title="Tienda Flor Martinez"
                 >
-                  <ShoppingBag size={14} className={styles.ecoIcon} />
-                  <div>
-                    <span className={styles.ecoName}>Tienda Flor Martinez</span>
-                    <span className={styles.ecoSub}>Merchandising & Papelería</span>
+                  <div className={styles.ecoIconBox}>
+                    <ShoppingBag size={15} />
                   </div>
-                  <ArrowUpRight size={13} className={styles.ecoArrow} />
+                  <div className={styles.ecoInfo}>
+                    <span className={styles.ecoName}>Tienda & Merchandising</span>
+                    <span className={styles.ecoSub}>Papelería, kits & productos</span>
+                  </div>
+                  <ArrowUpRight size={14} className={styles.ecoArrow} />
                 </a>
               </li>
             </ul>
