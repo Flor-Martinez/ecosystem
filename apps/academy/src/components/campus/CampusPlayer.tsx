@@ -490,95 +490,115 @@ export function CampusPlayer({
             </div>
           ) : lesson.videoUrl ? (
             <div className={styles.realVideoWrapper} onContextMenu={(e) => e.preventDefault()}>
-              <video
-                key={lesson.id}
-                ref={videoRef}
-                src={lesson.videoUrl}
-                poster={lesson.posterUrl}
-                className={styles.realVideoPlayer}
-                playsInline
-                preload="auto"
-                controlsList="nodownload"
-                disablePictureInPicture
-                onContextMenu={(e) => e.preventDefault()}
-                onTimeUpdate={handleTimeUpdate}
-                onLoadedMetadata={handleLoadedMetadata}
-                onEnded={handleVideoEnded}
-                onClick={handleTogglePlay}
-              />
+              {lesson.videoUrl.includes('iframe.mediadelivery.net') || lesson.videoUrl.includes('youtube') || lesson.videoUrl.includes('vimeo') ? (
+                <iframe
+                  key={lesson.id}
+                  src={lesson.videoUrl}
+                  loading="lazy"
+                  style={{
+                    border: 0,
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                  }}
+                  allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+                  allowFullScreen
+                />
+              ) : (
+                <>
+                  <video
+                    key={lesson.id}
+                    ref={videoRef}
+                    src={lesson.videoUrl}
+                    poster={lesson.posterUrl}
+                    className={styles.realVideoPlayer}
+                    playsInline
+                    preload="auto"
+                    controlsList="nodownload"
+                    disablePictureInPicture
+                    onContextMenu={(e) => e.preventDefault()}
+                    onTimeUpdate={handleTimeUpdate}
+                    onLoadedMetadata={handleLoadedMetadata}
+                    onEnded={handleVideoEnded}
+                    onClick={handleTogglePlay}
+                  />
 
-              {/* Big Play Button Overlay when paused */}
-              {!isPlaying && (
-                <div className={styles.videoPlayOverlay} onClick={handleTogglePlay}>
-                  <div className={styles.overlayCenter}>
-                    <button
-                      type="button"
-                      className={styles.bigPlayBtn}
-                      aria-label="Reproducir clase"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleTogglePlay();
-                      }}
-                    >
-                      <Play size={34} className={styles.playIconOffset} />
-                    </button>
+                  {/* Big Play Button Overlay when paused */}
+                  {!isPlaying && (
+                    <div className={styles.videoPlayOverlay} onClick={handleTogglePlay}>
+                      <div className={styles.overlayCenter}>
+                        <button
+                          type="button"
+                          className={styles.bigPlayBtn}
+                          aria-label="Reproducir clase"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleTogglePlay();
+                          }}
+                        >
+                          <Play size={34} className={styles.playIconOffset} />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Video bottom control bar */}
+                  <div className={styles.videoControlsOverlay}>
+                    <div className={styles.scrubberBg} onClick={handleSeek}>
+                      <div className={styles.scrubberFill} style={{ width: `${progress}%` }} />
+                    </div>
+
+                    <div className={styles.controlsRow}>
+                      <div className={styles.controlsLeft}>
+                        <button
+                          type="button"
+                          className={styles.ctrlBtn}
+                          onClick={handleTogglePlay}
+                          aria-label="Play / Pausa"
+                        >
+                          {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                        </button>
+
+                        <button
+                          type="button"
+                          className={styles.ctrlBtn}
+                          onClick={handleToggleMute}
+                          aria-label="Mute"
+                        >
+                          {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                        </button>
+
+                        <span className={styles.timeLabel}>
+                          {formatVideoTime(currentTime)} / {videoDuration > 0 ? formatVideoTime(videoDuration) : lesson.duration}
+                        </span>
+                      </div>
+
+                      <div className={styles.controlsRight}>
+                        <button
+                          type="button"
+                          className={styles.speedBtn}
+                          onClick={cycleSpeed}
+                          title="Velocidad de reproducción"
+                        >
+                          {playbackSpeed}
+                        </button>
+
+                        <button
+                          type="button"
+                          className={styles.ctrlBtn}
+                          onClick={handleToggleFullscreen}
+                          title="Pantalla completa"
+                          aria-label="Pantalla completa"
+                        >
+                          <Maximize size={16} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
-
-              {/* Video bottom control bar */}
-              <div className={styles.videoControlsOverlay}>
-                <div className={styles.scrubberBg} onClick={handleSeek}>
-                  <div className={styles.scrubberFill} style={{ width: `${progress}%` }} />
-                </div>
-
-                <div className={styles.controlsRow}>
-                  <div className={styles.controlsLeft}>
-                    <button
-                      type="button"
-                      className={styles.ctrlBtn}
-                      onClick={handleTogglePlay}
-                      aria-label="Play / Pausa"
-                    >
-                      {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-                    </button>
-
-                    <button
-                      type="button"
-                      className={styles.ctrlBtn}
-                      onClick={handleToggleMute}
-                      aria-label="Mute"
-                    >
-                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                    </button>
-
-                    <span className={styles.timeLabel}>
-                      {formatVideoTime(currentTime)} / {videoDuration > 0 ? formatVideoTime(videoDuration) : lesson.duration}
-                    </span>
-                  </div>
-
-                  <div className={styles.controlsRight}>
-                    <button
-                      type="button"
-                      className={styles.speedBtn}
-                      onClick={cycleSpeed}
-                      title="Velocidad de reproducción"
-                    >
-                      {playbackSpeed}
-                    </button>
-
-                    <button
-                      type="button"
-                      className={styles.ctrlBtn}
-                      onClick={handleToggleFullscreen}
-                      title="Pantalla completa"
-                      aria-label="Pantalla completa"
-                    >
-                      <Maximize size={16} />
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
           ) : (
             <div className={styles.screenContent}>
