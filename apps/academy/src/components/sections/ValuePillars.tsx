@@ -9,8 +9,10 @@ const pillars = [
     icon: Zap,
     stepNumber: '01',
     color: '#7C3AED',
-    bg: '#F5F3FF',
+    bg: 'linear-gradient(180deg, #FFFFFF 0%, #FAF5FF 100%)',
     border: '#DDD6FE',
+    gradient: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
+    shadow: 'rgba(124, 58, 237, 0.25)',
     title: 'Cero chamuyo teórico',
     description:
       'Clases concisas y directas al grano. Cada video resuelve un problema concreto: redactar un logro, mejorar tu titular o responder una pregunta difícil.',
@@ -18,9 +20,11 @@ const pillars = [
   {
     icon: Compass,
     stepNumber: '02',
-    color: '#7C3AED',
-    bg: '#F5F3FF',
-    border: '#DDD6FE',
+    color: '#2563EB',
+    bg: 'linear-gradient(180deg, #FFFFFF 0%, #EFF6FF 100%)',
+    border: '#BFDBFE',
+    gradient: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
+    shadow: 'rgba(37, 99, 235, 0.25)',
     title: 'Tu parte: Pasos a seguir',
     description:
       'Una ruta clara y estructurada. Sabés exactamente qué hacer en cada etapa de tu búsqueda laboral sin perder tiempo ni desorientarte.',
@@ -28,9 +32,11 @@ const pillars = [
   {
     icon: Laptop,
     stepNumber: '03',
-    color: '#7C3AED',
-    bg: '#F5F3FF',
-    border: '#DDD6FE',
+    color: '#059669',
+    bg: 'linear-gradient(180deg, #FFFFFF 0%, #ECFDF5 100%)',
+    border: '#A7F3D0',
+    gradient: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+    shadow: 'rgba(5, 150, 105, 0.25)',
     title: 'Interactivas y acceso desde la web',
     description:
       'Accedé al campus desde cualquier navegador o celular, sin instalar nada, con lecciones dinámicas, materiales y seguimiento de tu avance.',
@@ -38,9 +44,11 @@ const pillars = [
   {
     icon: MessageSquare,
     stepNumber: '04',
-    color: '#7C3AED',
-    bg: '#F5F3FF',
-    border: '#DDD6FE',
+    color: '#D97706',
+    bg: 'linear-gradient(180deg, #FFFFFF 0%, #FEF3C7 100%)',
+    border: '#FDE68A',
+    gradient: 'linear-gradient(135deg, #D97706 0%, #B45309 100%)',
+    shadow: 'rgba(217, 119, 6, 0.25)',
     title: 'Comentá e intercambiá ideas',
     description:
       'Podés comentar, debatir y dejar tus consultas debajo de cada clase, y Flor responde directamente para acompañarte en tu proceso.',
@@ -65,7 +73,13 @@ export function ValuePillars() {
               <div
                 key={idx}
                 className={styles.pillarCard}
-                style={{ '--pillar-color': p.color, '--pillar-bg': p.bg, '--pillar-border': p.border } as React.CSSProperties}
+                style={{
+                  '--pillar-color': p.color,
+                  '--pillar-bg': p.bg,
+                  '--pillar-border': p.border,
+                  '--pillar-gradient': p.gradient,
+                  '--pillar-shadow': p.shadow,
+                } as React.CSSProperties}
               >
                 <div className={styles.topCardRow}>
                   <div className={styles.iconCircle}>

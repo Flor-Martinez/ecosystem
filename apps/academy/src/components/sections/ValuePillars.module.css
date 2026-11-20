@@ -11,18 +11,20 @@
 }
 
 .pillarCard {
-  background-color: var(--pillar-bg, #F5F3FF);
+  background: var(--pillar-bg, #FFFFFF);
   border: 1px solid var(--pillar-border, #DDD6FE);
+  border-top: 4px solid var(--pillar-color, #7C3AED);
   border-radius: var(--radius-xl);
   padding: 1.75rem 1.5rem;
   display: flex;
   flex-direction: column;
   transition: all var(--transition-base);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .pillarCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px -6px rgba(109, 40, 217, 0.15);
+  box-shadow: 0 16px 36px -6px var(--pillar-shadow, rgba(124, 58, 237, 0.2));
 }
 
 .topCardRow {
@@ -36,13 +38,12 @@
   width: 3rem;
   height: 3rem;
   border-radius: var(--radius-lg);
-  background-color: #FFFFFF;
-  color: var(--pillar-color, var(--fm-violeta-electric));
+  background: var(--pillar-gradient, linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%));
+  color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 12px var(--pillar-shadow, rgba(124, 58, 237, 0.25));
 }
 
 .stepBadge {

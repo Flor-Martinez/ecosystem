@@ -32,8 +32,8 @@ export function Hero() {
             <div className={styles.badgeRow}>
               <div className={styles.badgeWrap}>
                 <Badge variant="primary" size="md">
-                  <Zap size={13} className={styles.zapIcon} />
-                  <span>Experiencia Búsqueda Laboral</span>
+                  <GraduationCap size={15} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-1px' }} />
+                  <span style={{ verticalAlign: 'middle' }}>Experiencia Búsqueda Laboral</span>
                 </Badge>
               </div>
 
@@ -113,7 +113,7 @@ export function Hero() {
                   {/* Real Class Video Frame with Flor */}
                   <div className={styles.classroomPreviewWrap}>
                     <img
-                      src="/videos/ebl-1-1-poster.jpg"
+                      src="/images/flor-hero-frame.jpg"
                       alt="Flor Martínez dictando clase en la Academia"
                       className={styles.classroomPosterImg}
                     />
@@ -160,8 +160,8 @@ export function Hero() {
                       <span>Tracker de búsquedas</span>
                     </div>
                     <div className={styles.featurePillItem}>
-                      <CheckCircle2 size={13} className={styles.stripIconAmber} />
-                      <span>Certificación oficial</span>
+                      <Sparkles size={13} className={styles.stripIconAmber} />
+                      <span>Respuestas de Flor</span>
                     </div>
                   </div>
                 </div>

@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 0.35rem;
 }
 
 .modNumber {
@@ -58,8 +59,21 @@
   font-size: 0.6875rem;
   font-weight: 800;
   text-transform: uppercase;
-  color: var(--fm-text-subtle);
-  letter-spacing: 0.08em;
+  background-color: #FAF5FF;
+  border: 1px solid #DDD6FE;
+  color: var(--fm-violeta-electric);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+}
+
+.modulesDivider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--fm-border-light, #E2E8F0);
+  margin: 1rem 0 3rem 0;
 }
 
 .modDuration {

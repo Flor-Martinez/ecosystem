@@ -20,7 +20,7 @@ export function TrialBanner() {
             </p>
           </div>
           <div className={styles.actions}>
-            <Button href="/campus" variant="primary" size="lg" className={styles.btn}>
+            <Button href="/campus" variant="white" size="lg" className={styles.btn}>
               <GraduationCap size={18} />
               <span>Probar el Campus Virtual</span>
               <ArrowRight size={16} />

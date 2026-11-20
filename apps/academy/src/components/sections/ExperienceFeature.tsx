@@ -7,7 +7,6 @@ import {
   Globe,
   ArrowRight,
   GraduationCap,
-  Briefcase,
   TrendingUp,
   Compass,
   DollarSign,
@@ -18,7 +17,7 @@ import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import styles from './ExperienceFeature.module.css';
 
-const eblModules = [
+const troncalModules = [
   {
     id: 'm1',
     badge: 'MÓDULO TRONCAL 01',
@@ -82,6 +81,9 @@ const eblModules = [
     brief: 'Definición de tu pretensión, técnicas de negociación y criterios para elegir la mejor propuesta.',
     icon: DollarSign,
   },
+];
+
+const extraModules = [
   {
     id: 'e1',
     badge: 'MÓDULO EXTRA 01',
@@ -122,9 +124,9 @@ export function ExperienceFeature() {
           subtitle="7 Módulos Troncales y 3 Módulos Extra diseñados paso a paso para transformar tu inserción laboral de principio a fin."
         />
 
-        {/* 10 Modulos Grid */}
+        {/* 7 Troncales Grid */}
         <div className={styles.modulesGrid}>
-          {eblModules.map((mod) => {
+          {troncalModules.map((mod) => {
             const Icon = mod.icon;
 
             return (
@@ -143,14 +145,60 @@ export function ExperienceFeature() {
                     <Icon size={20} />
                   </div>
                   <div className={styles.moduleMeta}>
-                    <span className={styles.modNumber} style={{ color: '#7C3AED' }}>
+                    <span className={styles.modNumber}>
+                      {mod.badge}
+                    </span>
+                    <span
+                      className={styles.modDuration}
+                      style={{
+                        color: '#6B7280',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {mod.clases}
+                    </span>
+                  </div>
+                </div>
+
+                <h3 className={styles.modTitle}>{mod.title}</h3>
+                <p className={styles.modDesc}>{mod.brief}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Separator line between Troncales and Extras */}
+        <div className={styles.modulesDivider} />
+
+        {/* 3 Extras Grid */}
+        <div className={styles.modulesGrid}>
+          {extraModules.map((mod) => {
+            const Icon = mod.icon;
+
+            return (
+              <div
+                key={mod.id}
+                className={styles.moduleCard}
+                style={{
+                  borderTopColor: '#7C3AED',
+                }}
+              >
+                <div className={styles.cardHeader}>
+                  <div
+                    className={styles.iconBox}
+                    style={{ backgroundColor: '#FAF5FF', color: '#7C3AED', borderColor: '#DDD6FE' }}
+                  >
+                    <Icon size={20} />
+                  </div>
+                  <div className={styles.moduleMeta}>
+                    <span className={styles.modNumber}>
                       {mod.badge}
                     </span>
                     <span
                       className={styles.modDuration}
                       style={{
                         color: mod.isUpcoming ? '#9333EA' : '#6B7280',
-                        fontWeight: mod.isUpcoming ? 700 : 500,
+                        fontWeight: mod.isUpcoming ? 700 : 600,
                       }}
                     >
                       {mod.clases}
