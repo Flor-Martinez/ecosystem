@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, FileCheck, Users, Zap } from 'lucide-react';
+import { Compass, Laptop, MessageSquare, Zap } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import styles from './ValuePillars.module.css';
@@ -16,34 +16,34 @@ const pillars = [
       'Clases concisas y directas al grano. Cada video resuelve un problema concreto: redactar un logro, mejorar tu titular o responder una pregunta difícil.',
   },
   {
-    icon: Search,
+    icon: Compass,
     stepNumber: '02',
-    color: '#2563EB',
-    bg: '#EFF6FF',
-    border: '#BFDBFE',
-    title: 'Mirada de reclutador real',
+    color: '#7C3AED',
+    bg: '#F5F3FF',
+    border: '#DDD6FE',
+    title: 'Tu parte: Pasos a seguir',
     description:
-      'Te enseñamos cómo piensan los selectores, qué evalúan en los primeros 6 segundos y cómo filtrar por palabras clave para destacar.',
+      'Una ruta clara y estructurada. Sabés exactamente qué hacer en cada etapa de tu búsqueda laboral sin perder tiempo ni desorientarte.',
   },
   {
-    icon: FileCheck,
+    icon: Laptop,
     stepNumber: '03',
-    color: '#059669',
-    bg: '#ECFDF5',
-    border: '#A7F3D0',
-    title: 'Plantillas listas para usar',
+    color: '#7C3AED',
+    bg: '#F5F3FF',
+    border: '#DDD6FE',
+    title: 'Interactivas y acceso desde la web',
     description:
-      'Descargás archivos en Word, Google Docs y Notion diagramados profesionalmente para que solo tengas que completar tus datos.',
+      'Accedé al campus desde cualquier navegador o celular, sin instalar nada, con lecciones dinámicas, materiales y seguimiento de tu avance.',
   },
   {
-    icon: Users,
+    icon: MessageSquare,
     stepNumber: '04',
-    color: '#D97706',
-    bg: '#FEF3C7',
-    border: '#FDE68A',
-    title: 'Comunidad & Acompañamiento',
+    color: '#7C3AED',
+    bg: '#F5F3FF',
+    border: '#DDD6FE',
+    title: 'Comentá e intercambiá ideas',
     description:
-      'Canales de consulta continua para no sentirte solo en la búsqueda laboral. Tips diarios, análisis de casos y soporte.',
+      'Podés comentar, debatir y dejar tus consultas debajo de cada clase, y Flor responde directamente para acompañarte en tu proceso.',
   },
 ];
 

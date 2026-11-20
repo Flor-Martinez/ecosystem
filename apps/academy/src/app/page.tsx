@@ -4,51 +4,35 @@ import { ValuePillars } from '@/components/sections/ValuePillars';
 import { ExperienceFeature } from '@/components/sections/ExperienceFeature';
 import { ExperienceTools } from '@/components/sections/ExperienceTools';
 import { ExperiencePricing } from '@/components/sections/ExperiencePricing';
-import { HowItWorks } from '@/components/sections/HowItWorks';
-import { UpcomingCoursesSection } from '@/components/sections/UpcomingCoursesSection';
-import { ResourcesPreview } from '@/components/sections/ResourcesPreview';
-import { AboutAcademy } from '@/components/sections/AboutAcademy';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
+import { TrialBanner } from '@/components/sections/TrialBanner';
 import { SocialCommunity } from '@/components/sections/SocialCommunity';
 import { FinalCTA } from '@/components/sections/FinalCTA';
 
 export default function HomePage() {
   return (
     <main>
-      {/* 1. HERO: Propuesta de la Experiencia Búsqueda Laboral & Simulador Interactivo */}
+      {/* 1. HERO: Propuesta EBL & Preview del Aula Virtual con Flor */}
       <Hero />
 
-      {/* 2. PILARES & METODOLOGÍA: Por qué elegir la Academia */}
+      {/* 2. PILARES: ¿Por qué formarte en la Academia? */}
       <ValuePillars />
 
-      {/* 3. LA EXPERIENCIA CENTRAL: 5 Ejes Modulares de Formación */}
+      {/* 3. LA EXPERIENCIA CENTRAL: 7 Módulos Troncales + 3 Extras */}
       <ExperienceFeature />
 
-      {/* 4. HERRAMIENTAS EXCLUSIVAS: Tracker, Agenda, Sesiones en Vivo y Tienda FM */}
+      {/* 4. HERRAMIENTAS EXCLUSIVAS: Tracker de Postulaciones y Agenda */}
       <ExperienceTools />
 
-      {/* 5. PLANES & MEMBRESÍA: Suscripción Mensual, Trimestral y Anual */}
+      {/* 5. INVERSIÓN: Promo de Lanzamiento ($20.000 ARS) Pago Único por 1 Año */}
       <ExperiencePricing />
 
-      {/* 6. CÓMO FUNCIONA EL MÉTODO: 3 pasos para conseguir respuestas */}
-      <HowItWorks />
+      {/* 6. PROBAR LA ACADEMIA: Invitación al Campus Virtual */}
+      <TrialBanner />
 
-      {/* 7. CURSOS ESPECÍFICOS FUTUROS: Distinción de próximos talleres temáticos */}
-      <UpcomingCoursesSection />
-
-      {/* 8. RECURSOS GRATUITOS: Plantillas y checklists */}
-      <ResourcesPreview />
-
-      {/* 9. SOBRE LA ACADEMIA: Manifiesto pedagógico */}
-      <AboutAcademy />
-
-      {/* 10. TESTIMONIOS: Experiencias de alumnos y métricas reales */}
-      <TestimonialsSection />
-
-      {/* 11. COMUNIDAD & REDES: Conexión con Instagram y LinkedIn */}
+      {/* 7. COMUNIDAD & REDES: Instagram y LinkedIn */}
       <SocialCommunity />
 
-      {/* 12. CTA FINAL: Banner violeta de conversión */}
+      {/* 8. CTA FINAL: Banner violeta de conversión */}
       <FinalCTA />
     </main>
   );

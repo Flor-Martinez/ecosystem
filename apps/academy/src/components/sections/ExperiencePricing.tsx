@@ -1,10 +1,21 @@
+'use client';
+
 import React from 'react';
-import { Check, Sparkles, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Check, Sparkles, ShieldCheck, ArrowRight, Zap, GraduationCap } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { experienceProgram } from '@/data/experience';
 import styles from './ExperiencePricing.module.css';
+
+const planFeatures = [
+  'Más de 35 lecciones prácticas en video HD (7 Módulos Troncales + Módulos Extra)',
+  'Tracker de Postulaciones profesional para organizar y medir tus procesos',
+  'Agenda & Calendario de seguimiento semanal de búsquedas',
+  'Descarga de todas las plantillas editables de CV en Word y Notion',
+  'Espacio de comentarios y consultas con respuestas directas de Flor en cada clase',
+  'Evaluaciones y certificación digital de cada módulo aprobado',
+  'Acceso garantizado durante 1 año completo (12 meses) sin costos recurrentes',
+];
 
 export function ExperiencePricing() {
   return (
@@ -13,71 +24,55 @@ export function ExperiencePricing() {
         <SectionHeader
           badge="Inversión en tu Carrera"
           badgeVariant="primary"
-          title="Elegí el plan de membresía para tu búsqueda"
-          subtitle="Sumate a la Experiencia Búsqueda Laboral con acceso inmediato a los módulos, campus, tracker, agenda y charlas semanales de Zoom."
+          title="Acceso Completo a la Experiencia Búsqueda Laboral"
+          subtitle="Un único pago para transformar tu perfil y postularte con seguridad, con acceso irrestricto por un año entero."
         />
 
         <div className={styles.pricingGrid}>
-          {experienceProgram.plans.map((plan) => (
-            <div
-              key={plan.id}
-              className={`${styles.planCard} ${plan.featured ? styles.featuredCard : ''}`}
-            >
-              {plan.badge && (
-                <div className={styles.planBadge}>
-                  <Sparkles size={12} />
-                  <span>{plan.badge}</span>
-                </div>
-              )}
+          <div className={`${styles.planCard} ${styles.featuredCard}`}>
+            <div className={styles.planBadge}>
+              <Sparkles size={12} />
+              <span>PROMO LANZAMIENTO · PAGO ÚNICO</span>
+            </div>
 
-              <div className={styles.cardHeader}>
-                <h3 className={styles.planName}>{plan.name}</h3>
-                <div className={styles.priceWrap}>
-                  <span className={styles.priceMain}>{plan.price}</span>
-                  <span className={styles.billingPeriod}>/ {plan.billingPeriod}</span>
-                </div>
-                {plan.originalPrice && (
-                  <span className={styles.originalPrice}>Antes {plan.originalPrice}</span>
-                )}
-                {plan.installmentsNote && (
-                  <span className={styles.installments}>{plan.installmentsNote}</span>
-                )}
+            <div className={styles.cardHeader}>
+              <h3 className={styles.planName}>Pase Anual Completo — Método EBL</h3>
+              <div className={styles.priceWrap}>
+                <span className={styles.priceMain}>$ 20.000 ARS</span>
+                <span className={styles.billingPeriod}>/ pago único</span>
               </div>
+              <span className={styles.originalPrice}>Precio regular: $ 34.900 ARS</span>
+              <span className={styles.installments}>Acceso por 1 año entero · Sin suscripciones mensuales</span>
+            </div>
 
-              <div className={styles.divider} />
+            <div className={styles.divider} />
 
-              <div className={styles.featuresSection}>
-                <span className={styles.featuresTitle}>Todo lo que incluye:</span>
-                <ul className={styles.featuresList}>
-                  {plan.features.map((feat, idx) => (
-                    <li key={idx} className={styles.featItem}>
-                      <div className={styles.checkWrap}>
-                        <Check size={14} />
-                      </div>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className={styles.featuresSection}>
+              <span className={styles.featuresTitle}>Todo lo que incluye tu acceso:</span>
+              <ul className={styles.featuresList}>
+                {planFeatures.map((feat, idx) => (
+                  <li key={idx} className={styles.featItem}>
+                    <div className={styles.checkWrap}>
+                      <Check size={14} />
+                    </div>
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-              <div className={styles.cardAction}>
-                <Button
-                  href="/contacto"
-                  variant={plan.featured ? 'primary' : 'outline'}
-                  size="lg"
-                  className={styles.planBtn}
-                >
-                  <span>{plan.ctaText}</span>
-                  <ArrowRight size={16} />
-                </Button>
-
-                <div className={styles.guaranteeNote}>
-                  <ShieldCheck size={14} />
-                  <span>Garantía de satisfacción · Acceso inmediato</span>
-                </div>
+            <div className={styles.cardFooter}>
+              <Button href="/campus" variant="primary" size="lg" className={styles.planBtn}>
+                <GraduationCap size={18} />
+                <span>Sumarme con Promo Lanzamiento ($20.000)</span>
+                <ArrowRight size={16} />
+              </Button>
+              <div className={styles.guaranteeNote}>
+                <ShieldCheck size={16} />
+                <span>Activación inmediata en el Campus Virtual</span>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </Container>
     </section>

@@ -5,13 +5,15 @@
 }
 
 .pricingGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.5rem, 3vw, 2rem);
-  align-items: stretch;
+  max-width: 620px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .planCard {
+  width: 100%;
   background-color: #FAF9FE;
   border-radius: var(--radius-2xl);
   border: 1px solid var(--fm-border);

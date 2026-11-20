@@ -23,25 +23,24 @@ export function FinalCTA() {
             </h2>
 
             <p className={styles.subtitle}>
-              Elegí el taller que necesitás resolver, descargá las plantillas y empezá a recibir las respuestas que estás esperando.
+              Sumate al Método EBL, organizá tus postulaciones con el tracker profesional y empezá a recibir las respuestas que estás esperando.
             </p>
 
             <div className={styles.actions}>
-              <Button href="/cursos" variant="white" size="lg" className={styles.primaryBtn}>
-                <span>Explorar todos los cursos</span>
+              <Button href="/campus" variant="white" size="lg" className={styles.primaryBtn}>
+                <span>Ingresar al Campus Virtual</span>
                 <ArrowRight size={18} />
               </Button>
 
-              <Button href="/recursos" variant="outline" size="lg" className={styles.secondaryBtn}>
-                <FolderDown size={18} />
-                <span>Ver biblioteca gratuita</span>
+              <Button href="#planes-suscripcion" variant="outline" size="lg" className={styles.secondaryBtn}>
+                <span>Ver Promo Lanzamiento ($20.000)</span>
               </Button>
             </div>
 
             <div className={styles.guaranteeRow}>
               <span className={styles.guaranteeItem}>
                 <ShieldCheck size={16} />
-                <span>Acceso inmediato de por vida</span>
+                <span>Acceso por 1 año completo</span>
               </span>
               <span className={styles.guaranteeDot}>•</span>
               <span className={styles.guaranteeItem}>
@@ -49,7 +48,7 @@ export function FinalCTA() {
               </span>
               <span className={styles.guaranteeDot}>•</span>
               <span className={styles.guaranteeItem}>
-                <span>Soporte directo para tus dudas</span>
+                <span>Feedback y respuestas de Flor</span>
               </span>
             </div>
           </div>

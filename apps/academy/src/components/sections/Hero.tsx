@@ -51,7 +51,7 @@ export function Hero() {
             </h1>
 
             <p className={styles.subtitle}>
-              Dejá de enviar postulaciones a ciegas. Sumate a la experiencia integral con clases en vivo, armado de CV ATS, estrategia en LinkedIn, simulación de entrevistas, tracker de postulaciones y charlas semanales de feedback vía Zoom.
+              Dejá de enviar postulaciones a ciegas. Sumate a la experiencia integral con más de 35 lecciones prácticas, armado de CV ATS, estrategia en LinkedIn, simulación de entrevistas, tracker de postulaciones y acompañamiento continuo.
             </p>
 
             <div className={styles.ctaGroup}>
@@ -61,13 +61,12 @@ export function Hero() {
                 <ArrowRight size={18} />
               </Button>
 
-              <Button href="/experiencia" variant="outline" size="lg" className={styles.secondaryBtn}>
-                <span>Conocer el Programa</span>
+              <Button href="#experiencia-busqueda-laboral" variant="outline" size="lg" className={styles.secondaryBtn}>
+                <span>Conocer los Módulos</span>
               </Button>
 
-              <Button href="/recursos" variant="ghost" size="md" className={styles.tertiaryBtn}>
-                <FolderDown size={17} />
-                <span>Plantillas gratis</span>
+              <Button href="#planes-suscripcion" variant="ghost" size="md" className={styles.tertiaryBtn}>
+                <span>Ver Promo Lanzamiento</span>
               </Button>
             </div>
 
@@ -75,7 +74,7 @@ export function Hero() {
             <div className={styles.proofRow}>
               <div className={styles.proofItem}>
                 <CheckCircle2 size={16} className={styles.proofCheck} />
-                <span>Charlas semanales vía Zoom con feedback</span>
+                <span>Más de 35 lecciones en video HD</span>
               </div>
               <div className={styles.proofItem}>
                 <CheckCircle2 size={16} className={styles.proofCheck} />
@@ -87,7 +86,7 @@ export function Hero() {
               </div>
               <div className={styles.proofItem}>
                 <CheckCircle2 size={16} className={styles.proofCheck} />
-                <span>Cupones para Tienda Flor Martinez</span>
+                <span>Consultas y feedback con Flor en cada clase</span>
               </div>
             </div>
           </div>
@@ -103,42 +102,43 @@ export function Hero() {
                     <span className={styles.dotYellow} />
                     <span className={styles.dotGreen} />
                   </div>
-                  <div className={styles.simCardTitle}>Auditoría de Perfil Profesional</div>
+                  <div className={styles.simCardTitle}>Aula Virtual · Método EBL</div>
                   <div className={styles.simAtsScore}>
                     <Sparkles size={12} />
-                    <span>Match ATS: 98%</span>
+                    <span>HD 1080p</span>
                   </div>
                 </div>
 
                 <div className={styles.simContent}>
-                  {/* Mini Candidate Header */}
-                  <div className={styles.candHeader}>
-                    <div className={styles.candAvatar}>CV</div>
-                    <div className={styles.candMeta}>
-                      <div className={styles.candName}>Tu Nombre & Apellido</div>
-                      <div className={styles.candRole}>Especialista en Marketing / Operaciones / IT</div>
+                  {/* Real Class Video Frame with Flor */}
+                  <div className={styles.classroomPreviewWrap}>
+                    <img
+                      src="/videos/ebl-1-1-poster.jpg"
+                      alt="Flor Martínez dictando clase en la Academia"
+                      className={styles.classroomPosterImg}
+                    />
+                    <div className={styles.classroomPlayOverlay}>
+                      <div className={styles.classroomBigPlayBtn}>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="5 3 19 12 5 21 5 3" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className={styles.classroomBarOverlay}>
+                      <div className={styles.classroomScrubber}>
+                        <div className={styles.classroomScrubberFill} />
+                      </div>
+                      <span>03:45</span>
+                      <span>08:15</span>
                     </div>
                   </div>
 
-                  {/* Simulated optimized bullets */}
-                  <div className={styles.simSection}>
-                    <div className={styles.simSectionLabel}>EXPERIENCIA OPTIMIZADA CON EL MÉTODO</div>
-                    <div className={styles.simBullet}>
-                      <div className={styles.bulletCheck}>
-                        <Check size={14} />
-                      </div>
-                      <p>
-                        Lideró optimización de procesos logrando un <strong>+35% de eficiencia</strong> en tiempos de entrega.
-                      </p>
-                    </div>
-                    <div className={styles.simBullet}>
-                      <div className={styles.bulletCheck}>
-                        <Check size={14} />
-                      </div>
-                      <p>
-                        Diseñó e implementó campañas digitales con retorno de inversión de <strong>3.8x ROAS</strong>.
-                      </p>
-                    </div>
+                  {/* Lesson Meta */}
+                  <div className={styles.classroomInfoRow}>
+                    <span className={styles.classroomBadge}>MÓDULO 01 · CLASE 01</span>
+                    <h3 className={styles.classroomTitle}>
+                      Cómo piensa Recursos Humanos al recibir tu CV
+                    </h3>
                   </div>
 
                   {/* Skill Chips */}
@@ -146,22 +146,22 @@ export function Hero() {
                     <span className={styles.skillPill}>Método STAR</span>
                     <span className={styles.skillPill}>Palabras clave ATS</span>
                     <span className={styles.skillPill}>LinkedIn SEO</span>
-                    <span className={styles.skillPill}>Negociación Salarial</span>
+                    <span className={styles.skillPill}>Feedback de Flor</span>
                   </div>
 
                   {/* Program Features Strip */}
                   <div className={styles.featuresStrip}>
                     <div className={styles.featurePillItem}>
-                      <Video size={13} className={styles.stripIconViolet} />
-                      <span>Zoom semanal en vivo</span>
+                      <GraduationCap size={13} className={styles.stripIconViolet} />
+                      <span>+35 clases prácticas</span>
                     </div>
                     <div className={styles.featurePillItem}>
                       <Table size={13} className={styles.stripIconBlue} />
                       <span>Tracker de búsquedas</span>
                     </div>
                     <div className={styles.featurePillItem}>
-                      <BadgePercent size={13} className={styles.stripIconAmber} />
-                      <span>Cupones Tienda FM</span>
+                      <CheckCircle2 size={13} className={styles.stripIconAmber} />
+                      <span>Certificación oficial</span>
                     </div>
                   </div>
                 </div>
@@ -178,14 +178,14 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating Pill 2: Weekly Zoom Live Call */}
+              {/* Floating Pill 2: Feedback Notification */}
               <div className={`${styles.floatingPill} ${styles.pillSalary}`}>
                 <div className={styles.pillIconPurple}>
-                  <Video size={18} />
+                  <Sparkles size={18} />
                 </div>
                 <div className={styles.pillText}>
-                  <strong>Charla en vivo este miércoles</strong>
-                  <span>Revisión de CVs & feedback grupal</span>
+                  <strong>¡Flor respondió tu consulta!</strong>
+                  <span>Feedback directo en cada lección</span>
                 </div>
               </div>
             </div>

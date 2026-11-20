@@ -6,81 +6,160 @@ import {
   Sparkles,
   Globe,
   ArrowRight,
-  CheckCircle2,
+  GraduationCap,
+  Briefcase,
+  TrendingUp,
+  Compass,
+  DollarSign,
+  Pickaxe,
 } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
-import { experienceProgram } from '@/data/experience';
 import styles from './ExperienceFeature.module.css';
 
-const iconMap = {
-  'file-text': FileText,
-  'share-2': Share2,
-  'message-square': MessageSquare,
-  'sparkles': Sparkles,
-  'globe': Globe,
-};
+const eblModules = [
+  {
+    id: 'm1',
+    badge: 'MÓDULO TRONCAL 01',
+    title: 'Mindset y Estrategia de Búsqueda',
+    clases: '4 clases',
+    isUpcoming: false,
+    brief: 'Fundamentos y enfoque estratégico para pensar como reclutador y destacar en el mercado.',
+    icon: Compass,
+  },
+  {
+    id: 'm2',
+    badge: 'MÓDULO TRONCAL 02',
+    title: 'Construcción de un CV de Alto Impacto',
+    clases: '5 clases',
+    isUpcoming: false,
+    brief: 'Estructura moderna, métricas cuantificadas y palabras clave para superar los filtros ATS.',
+    icon: FileText,
+  },
+  {
+    id: 'm3',
+    badge: 'MÓDULO TRONCAL 03',
+    title: 'LinkedIn Estratégico y Marca Personal',
+    clases: '5 clases',
+    isUpcoming: false,
+    brief: 'Optimización de titular, storytelling y visibilidad para que los selectores te busquen a vos.',
+    icon: Share2,
+  },
+  {
+    id: 'm4',
+    badge: 'MÓDULO TRONCAL 04',
+    title: 'Optimización de Perfiles y Networking',
+    clases: '5 clases',
+    isUpcoming: false,
+    brief: 'Estrategias de contacto directo con hiring managers y generación de alianzas profesionales.',
+    icon: Sparkles,
+  },
+  {
+    id: 'm5',
+    badge: 'MÓDULO TRONCAL 05',
+    title: 'Estrategias de Postulación y Portales',
+    clases: '3 clases',
+    isUpcoming: false,
+    brief: 'Cómo postularte de forma inteligente y acceder al mercado laboral que no se publica abiertamente.',
+    icon: Globe,
+  },
+  {
+    id: 'm6',
+    badge: 'MÓDULO TRONCAL 06',
+    title: 'Preparación para Entrevistas Laborales',
+    clases: '5 clases',
+    isUpcoming: false,
+    brief: 'Estructura de respuesta STAR, manejo de preguntas trampa y seguridad total ante el entrevistador.',
+    icon: MessageSquare,
+  },
+  {
+    id: 'm7',
+    badge: 'MÓDULO TRONCAL 07',
+    title: 'Negociación Salarial y Cierre de Ofertas',
+    clases: '5 clases',
+    isUpcoming: false,
+    brief: 'Definición de tu pretensión, técnicas de negociación y criterios para elegir la mejor propuesta.',
+    icon: DollarSign,
+  },
+  {
+    id: 'e1',
+    badge: 'MÓDULO EXTRA 01',
+    title: 'Minería y Petróleo',
+    clases: '8 clases',
+    isUpcoming: false,
+    brief: 'Especialización completa para ingresar, postular y desarrollarte en la industria minera y energética.',
+    icon: Pickaxe,
+  },
+  {
+    id: 'e2',
+    badge: 'MÓDULO EXTRA 02',
+    title: 'Trabajo Remoto & Freelance Internacional',
+    clases: 'Próximamente',
+    isUpcoming: true,
+    brief: 'Cómo postularte a empresas del exterior, superar entrevistas en inglés y cobrar en dólares.',
+    icon: Globe,
+  },
+  {
+    id: 'e3',
+    badge: 'MÓDULO EXTRA 03',
+    title: 'Primer Empleo & Inserción Joven',
+    clases: 'Próximamente',
+    isUpcoming: true,
+    brief: 'Estrategia práctica para construir tu perfil y conseguir tu primera oportunidad sin experiencia.',
+    icon: TrendingUp,
+  },
+];
 
 export function ExperienceFeature() {
   return (
     <section className={styles.section} id="experiencia-busqueda-laboral">
       <Container size="wide">
         <SectionHeader
-          badge="La Experiencia Central"
+          badge="Plan de Estudios Completo"
           badgeVariant="primary"
           title="Experiencia Búsqueda Laboral"
-          subtitle="No es solo un curso aislado: es un recorrido estructurado en 5 etapas para transformar tu búsqueda de principio a fin con nuestro seguimiento."
+          subtitle="7 Módulos Troncales y 3 Módulos Extra diseñados paso a paso para transformar tu inserción laboral de principio a fin."
         />
 
-        {/* 5 Ejes Modulares Grid */}
+        {/* 10 Modulos Grid */}
         <div className={styles.modulesGrid}>
-          {experienceProgram.modules.map((mod) => {
-            const Icon = iconMap[mod.iconName] || FileText;
+          {eblModules.map((mod) => {
+            const Icon = mod.icon;
 
             return (
               <div
                 key={mod.id}
                 className={styles.moduleCard}
                 style={{
-                  borderTopColor: mod.colorText,
+                  borderTopColor: '#7C3AED',
                 }}
               >
                 <div className={styles.cardHeader}>
                   <div
                     className={styles.iconBox}
-                    style={{ backgroundColor: mod.colorBg, color: mod.colorText, borderColor: mod.colorBorder }}
+                    style={{ backgroundColor: '#FAF5FF', color: '#7C3AED', borderColor: '#DDD6FE' }}
                   >
                     <Icon size={20} />
                   </div>
                   <div className={styles.moduleMeta}>
-                    <span className={styles.modNumber}>Módulo 0{mod.number}</span>
-                    <span className={styles.modDuration}>{mod.duration}</span>
+                    <span className={styles.modNumber} style={{ color: '#7C3AED' }}>
+                      {mod.badge}
+                    </span>
+                    <span
+                      className={styles.modDuration}
+                      style={{
+                        color: mod.isUpcoming ? '#9333EA' : '#6B7280',
+                        fontWeight: mod.isUpcoming ? 700 : 500,
+                      }}
+                    >
+                      {mod.clases}
+                    </span>
                   </div>
                 </div>
 
                 <h3 className={styles.modTitle}>{mod.title}</h3>
-                <p className={styles.modTagline}>{mod.tagline}</p>
-                <p className={styles.modDesc}>{mod.description}</p>
-
-                <div className={styles.topicsBox}>
-                  <span className={styles.topicsHeading}>Qué vas a dominar:</span>
-                  <ul className={styles.topicsList}>
-                    {mod.topics.slice(0, 3).map((topic, i) => (
-                      <li key={i} className={styles.topicItem}>
-                        <CheckCircle2 size={14} className={styles.topicCheck} style={{ color: mod.colorText }} />
-                        <span>{topic}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className={styles.takeawayRow} style={{ backgroundColor: mod.colorBg, borderColor: mod.colorBorder }}>
-                  <span className={styles.takeawayLabel} style={{ color: mod.colorText }}>
-                    Resultado Concreto:
-                  </span>
-                  <span className={styles.takeawayText}>{mod.takeaway}</span>
-                </div>
+                <p className={styles.modDesc}>{mod.brief}</p>
               </div>
             );
           })}
@@ -90,15 +169,16 @@ export function ExperienceFeature() {
         <div className={styles.ctaRow}>
           <div className={styles.ctaCard}>
             <div className={styles.ctaContent}>
-              <span className={styles.ctaBadge}>Membresía Activa & Seguimiento</span>
-              <h3 className={styles.ctaTitle}>Todo este recorrido está incluido en tu suscripción</h3>
+              <span className={styles.ctaBadge}>Acceso por 1 Año Completo</span>
+              <h3 className={styles.ctaTitle}>Todo este recorrido está incluido en tu acceso a la Academia</h3>
               <p className={styles.ctaDesc}>
-                Accedé a los 5 módulos formativos, a las charlas semanales en vivo vía Zoom, al Tracker de postulaciones y a la comunidad de soporte.
+                Accedé a los 7 módulos troncales, a los módulos extra de especialización, al Tracker de postulaciones, a las plantillas descargables y al espacio de consultas directas con Flor.
               </p>
             </div>
             <div className={styles.ctaButtons}>
-              <Button href="/experiencia" variant="primary" size="lg">
-                <span>Ver detalles de la Experiencia</span>
+              <Button href="/campus" variant="primary" size="lg">
+                <GraduationCap size={18} />
+                <span>Ingresar al Campus Virtual</span>
                 <ArrowRight size={18} />
               </Button>
             </div>
