@@ -1,16 +1,20 @@
 """
-Script de subida automatica a Bunny Stream para la Academia Flor Martinez.
-Sube los 37 videos originales en maxima calidad (sin comprimir) desde
-C:\\Santi\\Flor Martinez\\EBL Final directamente a Bunny Stream via API REST.
-Utiliza unicamente librerias nativas de Python (urllib / http.client).
+Script de subida optimizado a Bunny Stream para la Academia Flor Martinez.
+Sube los videos originales en maxima calidad (1080p sin comprimir) usando
+http.client con streaming en bloques de 1MB, reporte de progreso y timeout.
 """
 
 import os
 import sys
 import json
 import re
+import time
+import socket
+import http.client
 import urllib.request
 import urllib.error
+
+sys.stdout.reconfigure(line_buffering=True)
 
 SRC_DIR = r"C:\Santi\Flor Martinez\EBL Final"
 CAMPUS_TS_PATH = r"c:\Santi\Proyectos\flor-martinez\ecosystem\apps\academy\src\data\campus.ts"
@@ -57,6 +61,48 @@ def get_job_mapping():
         {"file": "EBL-E1-8.mp4", "id": "ebl-e1-8", "ts_key": "/videos/ebl-e1-8.mp4"},
     ]
 
+def upload_chunked(library_id: str, video_guid: str, api_key: str, file_path: str, max_retries: int = 3):
+    file_size = os.path.getsize(file_path)
+    file_size_mb = file_size / (1024 * 1024)
+    chunk_size = 1024 * 1024  # 1 MB
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            conn = http.client.HTTPSConnection("video.bunnycdn.com", timeout=300)
+            conn.putrequest("PUT", f"/library/{library_id}/videos/{video_guid}")
+            conn.putheader("AccessKey", api_key)
+            conn.putheader("Content-Type", "application/octet-stream")
+            conn.putheader("Content-Length", str(file_size))
+            conn.endheaders()
+
+            uploaded = 0
+            last_reported_pct = -1
+
+            with open(file_path, "rb") as f:
+                while True:
+                    chunk = f.read(chunk_size)
+                    if not chunk:
+                        break
+                    conn.send(chunk)
+                    uploaded += len(chunk)
+                    pct = int((uploaded / file_size) * 100)
+                    if pct % 25 == 0 and pct != last_reported_pct:
+                        print(f"   Progreso: {pct}% ({uploaded / (1024 * 1024):.1f}/{file_size_mb:.1f} MB)")
+                        last_reported_pct = pct
+
+            resp = conn.getresponse()
+            resp_body = resp.read().decode("utf-8")
+            conn.close()
+
+            if resp.status in (200, 201):
+                return True
+            print(f"Error Bunny PUT ({resp.status}): {resp_body}")
+        except Exception as e:
+            print(f"   [Reintento {attempt}/{max_retries}] Error en transferencia: {e}")
+            time.sleep(3)
+
+    return False
+
 def upload_all(library_id: str, api_key: str):
     jobs = get_job_mapping()
     results = {}
@@ -68,23 +114,25 @@ def upload_all(library_id: str, api_key: str):
         except Exception:
             results = {}
 
-    print(f"=== INICIANDO SUBIDA DE {len(jobs)} VIDEOS A BUNNY STREAM (Library {library_id}) ===")
+    already_done = len(results)
+    print(f"=== INICIANDO SUBIDA A BUNNY STREAM (Library {library_id}) ===")
+    print(f"Videos listados: {len(jobs)} | Ya subidos previamente: {already_done}")
 
     for idx, j in enumerate(jobs, start=1):
         file_name = j["file"]
         file_path = os.path.join(SRC_DIR, file_name)
 
         if not os.path.exists(file_path):
-            print(f"[{idx}/{len(jobs)}] ERROR: No encontrado: {file_path}")
+            print(f"[{idx}/{len(jobs)}] ERROR: No encontrado en disco: {file_path}")
             continue
 
         file_size_mb = os.path.getsize(file_path) / (1024 * 1024)
 
         if file_name in results and results[file_name].get("guid"):
-            print(f"[{idx}/{len(jobs)}] YA SUBIDO: {file_name} -> {results[file_name]['guid']}")
+            print(f"[{idx}/{len(jobs)}] OK (Ya existe): {file_name}")
             continue
 
-        print(f"\n[{idx}/{len(jobs)}] Creando objeto de video para {file_name} ({file_size_mb:.1f} MB)...")
+        print(f"\n[{idx}/{len(jobs)}] Creando video para {file_name} ({file_size_mb:.1f} MB)...")
         create_url = f"https://video.bunnycdn.com/library/{library_id}/videos"
         create_data = json.dumps({"title": file_name}).encode("utf-8")
 
@@ -100,48 +148,36 @@ def upload_all(library_id: str, api_key: str):
         )
 
         try:
-            with urllib.request.urlopen(req) as resp:
+            with urllib.request.urlopen(req, timeout=30) as resp:
                 resp_text = resp.read().decode("utf-8")
                 video_data = json.loads(resp_text)
                 video_guid = video_data.get("guid")
-        except urllib.error.HTTPError as e:
-            print(f"ERROR creando video en Bunny: {e.code} - {e.read().decode('utf-8')}")
+        except Exception as e:
+            print(f"ERROR creando objeto en Bunny para {file_name}: {e}")
             continue
 
-        print(f"Objeto creado. GUID: {video_guid}. Subiendo binario original ({file_size_mb:.1f} MB)...")
+        print(f"Objeto creado. GUID: {video_guid}. Transfiriendo archivo ({file_size_mb:.1f} MB)...")
+        success = upload_chunked(library_id, video_guid, api_key, file_path)
 
-        upload_url = f"https://video.bunnycdn.com/library/{library_id}/videos/{video_guid}"
-        with open(file_path, "rb") as f:
-            file_data = f.read()
+        if success:
+            embed_url = f"https://iframe.mediadelivery.net/embed/{library_id}/{video_guid}?autoplay=true&loop=false&muted=false&preload=true&responsive=true"
+            results[file_name] = {
+                "guid": video_guid,
+                "embed_url": embed_url,
+                "id": j["id"],
+                "ts_key": j["ts_key"]
+            }
+            print(f"✓ SUBIDA EXITOSA: {file_name}")
 
-        up_req = urllib.request.Request(
-            upload_url,
-            data=file_data,
-            headers={
-                "AccessKey": api_key,
-                "Content-Type": "application/octet-stream"
-            },
-            method="PUT"
-        )
+            with open(MAPPING_OUT_PATH, "w", encoding="utf-8") as out_f:
+                json.dump(results, out_f, indent=2)
+            
+            # Actualizar campus.ts en vivo con los que van terminando
+            update_campus_ts(results)
+        else:
+            print(f"✗ Fallo la subida de {file_name}")
 
-        try:
-            with urllib.request.urlopen(up_req) as up_resp:
-                embed_url = f"https://iframe.mediadelivery.net/embed/{library_id}/{video_guid}?autoplay=true&loop=false&muted=false&preload=true&responsive=true"
-                results[file_name] = {
-                    "guid": video_guid,
-                    "embed_url": embed_url,
-                    "id": j["id"],
-                    "ts_key": j["ts_key"]
-                }
-                print(f"✓ SUBIDA EXITOSA: {file_name} -> Embed: {embed_url}")
-
-                with open(MAPPING_OUT_PATH, "w", encoding="utf-8") as out_f:
-                    json.dump(results, out_f, indent=2)
-        except urllib.error.HTTPError as e:
-            print(f"ERROR subiendo video {file_name}: {e.code} - {e.read().decode('utf-8')}")
-
-    print("\n=== TODAS LAS SUBIDAS COMPLETADAS ===")
-    print(f"Actualizando {CAMPUS_TS_PATH}...")
+    print("\n=== PROCESO DE SUBIDA FINALIZADO ===")
     update_campus_ts(results)
 
 def update_campus_ts(results):
@@ -160,14 +196,10 @@ def update_campus_ts(results):
     with open(CAMPUS_TS_PATH, "w", encoding="utf-8") as f:
         f.write(content)
 
-    print(f"Se actualizaron {replacements} enlaces de video en campus.ts con las URLs oficiales de streaming.")
+    print(f"campus.ts sincronizado con {replacements} videos oficiales de Bunny Stream.")
 
 if __name__ == "__main__":
-    lib_id = os.environ.get("BUNNY_LIBRARY_ID") or (sys.argv[1] if len(sys.argv) > 1 else None)
-    key = os.environ.get("BUNNY_API_KEY") or (sys.argv[2] if len(sys.argv) > 2 else None)
-
-    if not lib_id or not key:
-        print("Uso: python upload_to_bunny.py <LIBRARY_ID> <API_KEY>")
-        sys.exit(1)
+    lib_id = os.environ.get("BUNNY_LIBRARY_ID") or (sys.argv[1] if len(sys.argv) > 1 else "815825")
+    key = os.environ.get("BUNNY_API_KEY") or (sys.argv[2] if len(sys.argv) > 2 else "c38f0c59-0f49-4066-af5d440d17ad-1943-4d4e")
 
     upload_all(lib_id, key)
