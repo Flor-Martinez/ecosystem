@@ -124,7 +124,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Introducción',
         duration: '1:42 min',
         videoDuration: '1:42 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b39d6f60-7142-4d5f-9980-c7a3b9212b8c?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b39d6f60-7142-4d5f-9980-c7a3b9212b8c?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-1-1-poster.jpg?v=8',
         completed: true,
         description:
@@ -189,7 +189,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'El método para descubrir tu trabajo ideal',
         duration: '3:50 min',
         videoDuration: '3:50 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/ae327b3a-a7a1-42a4-84af-9fff2027b59f?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/ae327b3a-a7a1-42a4-84af-9fff2027b59f?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-1-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -292,7 +292,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Definición de target y no negociables',
         duration: '1:23 min',
         videoDuration: '1:23 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/bb0d859c-1bce-4ff7-8d34-c4b4c1b2e024?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/bb0d859c-1bce-4ff7-8d34-c4b4c1b2e024?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-1-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -388,7 +388,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Test vocacional: Descubrí tu perfil y afinidad laboral',
         duration: '1:25 min',
         videoDuration: '1:25 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b1d201b5-7f0d-403f-b239-1b8fa66b8d40?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b1d201b5-7f0d-403f-b239-1b8fa66b8d40?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-1-4-poster.jpg?v=8',
         completed: false,
         description:
@@ -471,7 +471,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'La mentalidad del reclutador: ¿Por qué mandar 100 CVs no funciona?',
         duration: '1:35 min',
         videoDuration: '1:35 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/03fe6c01-1873-4e25-a17f-47397c642a2c?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/03fe6c01-1873-4e25-a17f-47397c642a2c?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-2-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -562,7 +562,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Tiempos y fases reales de contratación',
         duration: '1:29 min',
         videoDuration: '1:29 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/f0ec9488-b3d0-4998-bd78-d36a3ba35e88?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/f0ec9488-b3d0-4998-bd78-d36a3ba35e88?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-2-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -627,7 +627,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '5 errores típicos y plan semanal',
         duration: '1:57 min',
         videoDuration: '1:57 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4118f51b-2998-495a-85a4-f08aa8ad5135?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4118f51b-2998-495a-85a4-f08aa8ad5135?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-2-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -741,7 +741,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '6 errores que arruinan tu CV',
         duration: '3:43 min',
         videoDuration: '3:43 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/80e04182-d519-4dc8-a9e8-c779bf44cb4a?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/80e04182-d519-4dc8-a9e8-c779bf44cb4a?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -847,7 +847,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Filtros ATS: Cómo hacer match con el aviso laboral',
         duration: '1:57 min',
         videoDuration: '1:57 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/6aa17691-052d-4caf-b551-eae80d40cbca?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/6aa17691-052d-4caf-b551-eae80d40cbca?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -921,7 +921,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'El CV según tu perfil: Junior, Experiencia Media y Senior',
         duration: '1:38 min',
         videoDuration: '1:38 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/9239bd32-c13e-4a7a-94d1-89faaff651da?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/9239bd32-c13e-4a7a-94d1-89faaff651da?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -1000,7 +1000,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Hagamos el CV juntos: Estructura completa y foto profesional',
         duration: '2:44 min',
         videoDuration: '2:44 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/2eafec60-2549-494b-a3fa-799798875bc7?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/2eafec60-2549-494b-a3fa-799798875bc7?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-3-4-poster.jpg?v=8',
         completed: false,
         description:
@@ -1095,7 +1095,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Foto, banner y URL personalizada',
         duration: '4:20 min',
         videoDuration: '4:20 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/e5b088dd-bfb2-4386-843d-c365b96f6eba?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/e5b088dd-bfb2-4386-843d-c365b96f6eba?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-4-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -1165,7 +1165,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Titular magnético y sección Acerca de mí',
         duration: '1:29 min',
         videoDuration: '1:29 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/499240d1-2c9a-44de-be81-91ed60c2d931?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/499240d1-2c9a-44de-be81-91ed60c2d931?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-4-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -1249,7 +1249,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Experiencia, aptitudes y recomendaciones',
         duration: '1:39 min',
         videoDuration: '1:39 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/1c122c25-b3c8-449b-bb8c-f6237727edd3?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/1c122c25-b3c8-449b-bb8c-f6237727edd3?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-4-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -1332,7 +1332,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Mensajes de contacto a recruiters',
         duration: '1:36 min',
         videoDuration: '1:36 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/3615fa31-f116-4ce1-bfeb-580a2ca79c9f?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/3615fa31-f116-4ce1-bfeb-580a2ca79c9f?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-4-4-poster.jpg?v=8',
         completed: false,
         description:
@@ -1425,7 +1425,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Estrategia de contenido y networking',
         duration: '1:57 min',
         videoDuration: '1:57 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/078a8b7d-9b78-4e46-b3e2-1eaa1f9e7148?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/078a8b7d-9b78-4e46-b3e2-1eaa1f9e7148?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-4-5-poster.jpg?v=8',
         completed: false,
         description:
@@ -1525,7 +1525,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'No todas las oportunidades están en el mismo lugar',
         duration: '2:46 min',
         videoDuration: '2:46 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/5566fe6a-264c-412b-876b-e197c5636171?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/5566fe6a-264c-412b-876b-e197c5636171?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-5-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -1623,7 +1623,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Buscá oportunidades directamente en tus empresas objetivo',
         duration: '1:41 min',
         videoDuration: '1:41 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/ef74d78f-b309-4808-9649-2099aef7ce9b?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/ef74d78f-b309-4808-9649-2099aef7ce9b?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-5-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -1717,7 +1717,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Cómo encontrar oportunidades fuera de los portales tradicionales',
         duration: '4:37 min',
         videoDuration: '4:37 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/db3eda53-2978-45ad-b230-062b92bb2622?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/db3eda53-2978-45ad-b230-062b92bb2622?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-5-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -1829,7 +1829,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '¿Vale la pena postularme a esta oferta?',
         duration: '2:28 min',
         videoDuration: '2:28 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/42894e8c-0769-4ad1-96f0-1690bb36fad0?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/42894e8c-0769-4ad1-96f0-1690bb36fad0?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-6-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -1915,7 +1915,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Cómo hacer una postulación profesional',
         duration: '2:02 min',
         videoDuration: '2:02 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/7d7c8687-48bf-4560-947d-1d9b3d1438f3?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/7d7c8687-48bf-4560-947d-1d9b3d1438f3?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-6-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -2007,7 +2007,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Gestión de postulaciones con el Tracker',
         duration: '2:32 min',
         videoDuration: '2:32 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/537f8ab6-c32a-42f6-80c5-885f4072bb76?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/537f8ab6-c32a-42f6-80c5-885f4072bb76?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-6-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -2098,7 +2098,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Seguimiento después de postularte o entrevistarte',
         duration: '1:36 min',
         videoDuration: '1:36 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/3979df09-db3c-4ec6-b39f-e9b05ddfa984?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/3979df09-db3c-4ec6-b39f-e9b05ddfa984?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-6-4-poster.jpg?v=8',
         completed: false,
         description:
@@ -2194,7 +2194,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Cómo detectar ofertas laborales sospechosas',
         duration: '2:54 min',
         videoDuration: '2:54 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4f7932e2-2585-4c27-a121-896f8e59deea?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4f7932e2-2585-4c27-a121-896f8e59deea?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-6-5-poster.jpg?v=8',
         completed: false,
         description:
@@ -2303,7 +2303,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Qué pasa realmente en un proceso de entrevistas',
         duration: '2:46 min',
         videoDuration: '2:46 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/672fdbd4-cae6-46db-a842-bb5e5f1bf40a?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/672fdbd4-cae6-46db-a842-bb5e5f1bf40a?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-7-1-poster.jpg?v=8',
         completed: false,
         description:
@@ -2418,7 +2418,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Cómo responder "Contame sobre vos" y contar tus logros',
         duration: '3:41 min',
         videoDuration: '3:41 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/98a62d37-89b4-4256-8e6e-2c81c9445d08?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/98a62d37-89b4-4256-8e6e-2c81c9445d08?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-7-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -2522,7 +2522,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Las preguntas difíciles que realmente aparecen',
         duration: '2:51 min',
         videoDuration: '2:51 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/26299339-b194-41c1-b194-bd467f5818f3?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/26299339-b194-41c1-b194-bd467f5818f3?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-7-3-poster.jpg?v=8',
         completed: false,
         description:
@@ -2615,7 +2615,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Las preguntas que VOS tenés que hacer',
         duration: '4:06 min',
         videoDuration: '4:06 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/eb20fbec-3a8e-4776-a8a9-055d052b534b?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/eb20fbec-3a8e-4776-a8a9-055d052b534b?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-7-4-poster.jpg?v=8',
         completed: false,
         description:
@@ -2719,7 +2719,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Sueldo: qué decir cuando te preguntan cuánto querés ganar',
         duration: '10 min',
         videoDuration: '5:00 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/fc1a5440-5a02-4af3-b619-75e13a93e361?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/fc1a5440-5a02-4af3-b619-75e13a93e361?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-7-5-poster.jpg?v=8',
         completed: false,
         description:
@@ -2851,7 +2851,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Por qué minería y petróleo y cómo es realmente trabajar ahí',
         duration: '10 min',
         videoDuration: '10 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/fc62bcbd-f66f-461f-8745-88b65446f070?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/fc62bcbd-f66f-461f-8745-88b65446f070?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-1-poster.jpg?v=8',
         completed: false,
         description: 'Turnos rotativos, locaciones remotas y la gran diversidad de perfiles operativos, administrativos y logísticos.',
@@ -2888,7 +2888,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '¿Qué estudiar para ingresar a minería y petróleo?',
         duration: '9 min',
         videoDuration: '9 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/33ac70e7-4900-4774-a320-d579e2c2da66?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/33ac70e7-4900-4774-a320-d579e2c2da66?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-2-poster.jpg?v=8',
         completed: false,
         description: 'Carreras universitarias de grado, tecnicaturas cortas, oficios técnicos y perfiles de soporte al negocio.',
@@ -2925,7 +2925,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Los puestos más necesitados y cómo detectar la demanda',
         duration: '8 min',
         videoDuration: '8 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/35da378c-8f94-4b34-94c6-7d61cccbb122?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/35da378c-8f94-4b34-94c6-7d61cccbb122?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-3-poster.jpg?v=8',
         completed: false,
         description: 'Perfiles prioritarios en litio, cobre y Vaca Muerta, y el método de 4 acciones para detectar la demanda real.',
@@ -2962,7 +2962,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Dónde y cómo postularte paso a paso en páginas oficiales',
         duration: '10 min',
         videoDuration: '10 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/aaffac88-1dd5-4b30-b664-a4d33a7d75a1?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/aaffac88-1dd5-4b30-b664-a4d33a7d75a1?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-4-poster.jpg?v=8',
         completed: false,
         description: 'Paso a paso en portales de operadoras (caso YPF), contratistas, consultoras especializadas y prevención de estafas.',
@@ -2999,7 +2999,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'La otra puerta de entrada: los proveedores y empresas contratistas',
         duration: '9 min',
         videoDuration: '9 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/16e17592-abe8-4afb-986e-75d88d4a93cf?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/16e17592-abe8-4afb-986e-75d88d4a93cf?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-5-poster.jpg?v=8',
         completed: false,
         description: 'La inmensa cadena de valor: trabajar en una empresa contratista o registrarte como proveedor de servicios.',
@@ -3037,7 +3037,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Cómo es el proceso de reclutamiento en minería y petróleo',
         duration: '9 min',
         videoDuration: '9 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/c813ab1b-7833-4073-a6a3-095a0b8e7bb8?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/c813ab1b-7833-4073-a6a3-095a0b8e7bb8?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-6-poster.jpg?v=8',
         completed: false,
         description: 'Las 7 etapas de selección, tiempos reales (60-90 días) y qué evalúan: seguridad, turnos y trabajo bajo presión.',
@@ -3074,7 +3074,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Ferias y networking en la industria',
         duration: '8 min',
         videoDuration: '8 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b8c1b9a0-18d7-4a2b-8bf7-bb691997331d?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/b8c1b9a0-18d7-4a2b-8bf7-bb691997331d?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-7-poster.jpg?v=8',
         completed: false,
         description: 'Cómo aprovechar AOG Patagonia, Expo San Juan Minera y jornadas del sector para hacer contactos de alto valor.',
@@ -3111,7 +3111,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Tips que marcan la diferencia en minería y petróleo',
         duration: '9 min',
         videoDuration: '9 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/5fcb9485-af71-4339-a3e2-320105f05c62?autoplay=true&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/5fcb9485-af71-4339-a3e2-320105f05c62?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-8-poster.jpg?v=8',
         completed: false,
         description: 'Los 10 consejos de oro: carpeta lista, vocabulario HSE, etapas del proyecto, mano de obra local y reputación.',

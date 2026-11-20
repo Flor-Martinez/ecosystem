@@ -160,7 +160,7 @@ def upload_all(library_id: str, api_key: str):
         success = upload_chunked(library_id, video_guid, api_key, file_path)
 
         if success:
-            embed_url = f"https://iframe.mediadelivery.net/embed/{library_id}/{video_guid}?autoplay=true&loop=false&muted=false&preload=true&responsive=true"
+            embed_url = f"https://iframe.mediadelivery.net/embed/{library_id}/{video_guid}?autoplay=false&loop=false&muted=false&preload=true&responsive=true"
             results[file_name] = {
                 "guid": video_guid,
                 "embed_url": embed_url,
