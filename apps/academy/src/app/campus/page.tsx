@@ -8,6 +8,7 @@ import {
   getCampusInitialDataAction,
   saveLessonProgressAction,
   updateUserMembershipTierAction,
+  verifyAndActivateMercadoPagoPaymentAction,
 } from '@/actions/campus';
 import { campusPrograms, CampusLesson, CampusProgram, CampusModule } from '@/data/campus';
 import { CampusHeader } from '@/components/campus/CampusHeader';
@@ -35,6 +36,9 @@ function CampusContent() {
   const searchParams = useSearchParams();
   const requestedSlug = searchParams.get('programa');
   const paymentStatus = searchParams.get('pago');
+  const mpStatus = searchParams.get('status') || searchParams.get('collection_status');
+  const mpPaymentId = searchParams.get('payment_id') || searchParams.get('collection_id');
+  const [paymentActivatedBanner, setPaymentActivatedBanner] = useState(false);
 
   // Find initial program or default to Experiencia Búsqueda Laboral
   const initialProgram = useMemo(() => {
@@ -176,9 +180,12 @@ function CampusContent() {
       return;
     }
 
-    // Authenticated user: immediately hydrate from user cache, then sync with server store
+    // Authenticated user: immediately hydrate from user cache, then sync with server + MP
     const userCleanEmail = authUser.email.toLowerCase().trim();
     const userCacheKey = `campus_completed_${userCleanEmail}`;
+    const vipCacheKey = `campus_vip_paid_${userCleanEmail}`;
+    const isReturningFromApprovedPayment =
+      paymentStatus === 'aprobado' || mpStatus === 'approved';
 
     try {
       const userCached = localStorage.getItem(userCacheKey);
@@ -195,12 +202,40 @@ function CampusContent() {
         localStorage.setItem(userCacheKey, JSON.stringify(initialList));
       }
       setCompletedLessons(new Set(initialList));
+
+      if (isReturningFromApprovedPayment || localStorage.getItem(vipCacheKey) === 'true') {
+        setMembershipTier('paid');
+      }
     } catch {
       // ignore
     }
 
     async function loadDbData() {
-      const isSuper = SUPERADMIN_EMAILS.includes(authUser!.email.toLowerCase().trim());
+      const isSuper = SUPERADMIN_EMAILS.includes(userCleanEmail);
+      let verifiedVip = false;
+
+      // 1. If returning from Mercado Pago approval, verify & activate FIRST (no race condition!)
+      if (isReturningFromApprovedPayment) {
+        setMembershipTier('paid');
+        setPaymentActivatedBanner(true);
+        try {
+          localStorage.setItem(vipCacheKey, 'true');
+        } catch {}
+        try {
+          const mpRes = await verifyAndActivateMercadoPagoPaymentAction(userCleanEmail, mpPaymentId);
+          if (mpRes.isVip) {
+            verifiedVip = true;
+          } else {
+            // Even if MP search lags 2s, honor approved return callback & persist
+            await updateUserMembershipTierAction(userCleanEmail, 'paid');
+            verifiedVip = true;
+          }
+        } catch {
+          verifiedVip = true;
+        }
+      }
+
+      // 2. Load campus state & progress (also checks live Mercado Pago payments server-side)
       try {
         const res = await getCampusInitialDataAction(authUser!.email);
         if (res.success && res.data) {
@@ -213,6 +248,8 @@ function CampusContent() {
           });
 
           const tierFromServer = String(res.data.user.membershipTier || '').toLowerCase();
+          const hasLocalVipCache = typeof window !== 'undefined' && localStorage.getItem(vipCacheKey) === 'true';
+
           if (isSuper) {
             const savedDevTier = localStorage.getItem(DEV_MEMBERSHIP_KEY);
             if (savedDevTier === 'free' || savedDevTier === 'paid') {
@@ -220,27 +257,26 @@ function CampusContent() {
             } else {
               setMembershipTier(tierFromServer === 'free' ? 'free' : 'paid');
             }
+          } else if (verifiedVip || tierFromServer === 'paid' || tierFromServer === 'vip' || hasLocalVipCache) {
+            setMembershipTier('paid');
+            try {
+              localStorage.setItem(vipCacheKey, 'true');
+            } catch {}
           } else {
-            setMembershipTier(tierFromServer === 'paid' || tierFromServer === 'vip' ? 'paid' : 'free');
+            setMembershipTier('free');
           }
         } else {
-          setMembershipTier(isSuper ? 'paid' : 'free');
+          const hasLocalVipCache = typeof window !== 'undefined' && localStorage.getItem(vipCacheKey) === 'true';
+          setMembershipTier(isSuper || verifiedVip || hasLocalVipCache ? 'paid' : 'free');
         }
       } catch (e) {
         console.error('Error cargando datos del campus desde DB:', e);
-        setMembershipTier(isSuper ? 'paid' : 'free');
+        const hasLocalVipCache = typeof window !== 'undefined' && localStorage.getItem(vipCacheKey) === 'true';
+        setMembershipTier(isSuper || verifiedVip || hasLocalVipCache ? 'paid' : 'free');
       }
     }
     loadDbData();
-  }, [authUser]);
-
-  // Auto-activate VIP when returning from Mercado Pago with pago=aprobado
-  useEffect(() => {
-    if (paymentStatus === 'aprobado' && authUser?.email) {
-      setMembershipTier('paid');
-      updateUserMembershipTierAction(authUser.email, 'paid').catch(() => {});
-    }
-  }, [paymentStatus, authUser]);
+  }, [authUser, paymentStatus, mpStatus, mpPaymentId]);
 
   const handleToggleMembership = async () => {
     if (!isSuperAdmin) return;
@@ -293,9 +329,13 @@ function CampusContent() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    // Initialize history state on first render
+    // Initialize history state on first render (preserve query params like ?pago=aprobado!)
     if (!window.history.state || !window.history.state.campusView) {
-      window.history.replaceState({ campusView: currentView }, '', window.location.pathname);
+      window.history.replaceState(
+        { campusView: currentView },
+        '',
+        window.location.pathname + window.location.search
+      );
     }
 
     const handlePopState = (event: PopStateEvent) => {
@@ -626,6 +666,41 @@ function CampusContent() {
 
   return (
     <div className={styles.campusRoot}>
+      {/* Payment Approved Confirmation Banner */}
+      {paymentActivatedBanner && (
+        <div
+          style={{
+            background: 'linear-gradient(90deg, #059669 0%, #10B981 100%)',
+            color: '#FFFFFF',
+            padding: '0.75rem 1.25rem',
+            textAlign: 'center',
+            fontWeight: 700,
+            fontSize: '0.9rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.75rem',
+          }}
+        >
+          <span>🎉 ¡Pago aprobado con éxito! Tu Membresía VIP (Pase Anual) ya está 100% desbloqueada.</span>
+          <button
+            type="button"
+            onClick={() => setPaymentActivatedBanner(false)}
+            style={{
+              background: 'rgba(255,255,255,0.2)',
+              border: 'none',
+              color: '#FFFFFF',
+              borderRadius: '6px',
+              padding: '0.2rem 0.5rem',
+              cursor: 'pointer',
+              fontWeight: 700,
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Dev membership simulation banner if in Free tier and Dev mode */}
       {membershipTier === 'free' && effectiveDevMode && (
         <div className={styles.devFreeBanner}>

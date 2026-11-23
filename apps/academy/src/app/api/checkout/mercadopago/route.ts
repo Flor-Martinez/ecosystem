@@ -19,7 +19,8 @@ export async function POST(request: Request) {
     ).trim();
 
     const origin = request.headers.get('origin') || 'https://academia.flormartinezok.com';
-    const refCode = `EBL-${Date.now()}`;
+    const cleanEmail = customerEmail.trim().toLowerCase();
+    const refCode = `${cleanEmail}|EBL-${Date.now()}`;
 
     let unitPrice = 25000;
     try {
@@ -50,12 +51,16 @@ export async function POST(request: Request) {
           phone: customerPhone ? { number: customerPhone.trim() } : undefined,
         },
         back_urls: {
-          success: `${origin}/campus?pago=aprobado&ref=${refCode}`,
+          success: `${origin}/campus?pago=aprobado&email=${encodeURIComponent(cleanEmail)}&ref=${encodeURIComponent(refCode)}`,
           failure: `${origin}/#planes-suscripcion?pago=fallido`,
-          pending: `${origin}/campus?pago=pendiente&ref=${refCode}`,
+          pending: `${origin}/campus?pago=pendiente&email=${encodeURIComponent(cleanEmail)}&ref=${encodeURIComponent(refCode)}`,
         },
         auto_return: 'approved',
         external_reference: refCode,
+        metadata: {
+          user_email: cleanEmail,
+          program: 'ebl-anual',
+        },
         statement_descriptor: 'FLOR MARTINEZ ACADEMIA',
       };
 

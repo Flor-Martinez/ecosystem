@@ -62,6 +62,112 @@ function getMembershipFromLocalUsersStore(email: string): 'paid' | 'free' | null
   return null;
 }
 
+const MP_TOKEN_FALLBACK =
+  'APP_USR-4644281928495780-101119-14763e1cc4acdf248726e134b1da1279-151307739';
+
+function getMpAccessToken(): string {
+  return (
+    process.env.MP_ACCESS_TOKEN ||
+    process.env.MERCADOPAGO_ACCESS_TOKEN ||
+    MP_TOKEN_FALLBACK
+  ).trim();
+}
+
+// Check Mercado Pago API directly for any approved EBL payment linked to this email (cloud source of truth)
+async function hasApprovedMercadoPagoPayment(email: string): Promise<boolean> {
+  const clean = (email || '').toLowerCase().trim();
+  if (!clean || !clean.includes('@')) return false;
+
+  try {
+    const token = getMpAccessToken();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch(
+      'https://api.mercadopago.com/v1/payments/search?status=approved&sort=date_created&criteria=desc&limit=100',
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
+        signal: controller.signal,
+      }
+    );
+    clearTimeout(timer);
+    if (!res.ok) return false;
+
+    const json = await res.json();
+    const results = Array.isArray(json?.results) ? json.results : [];
+    const oneYearMs = 366 * 24 * 60 * 60 * 1000;
+    const nowMs = Date.now();
+
+    return results.some((p: any) => {
+      if (p?.status !== 'approved') return false;
+      const extRef = String(p?.external_reference || '').toLowerCase();
+      const desc = String(p?.description || '').toLowerCase();
+      const items = Array.isArray(p?.additional_info?.items) ? p.additional_info.items : [];
+      const isEblItem =
+        extRef.includes('ebl-') ||
+        desc.includes('experiencia') ||
+        items.some((it: any) => String(it?.id || '').toLowerCase() === 'ebl-anual');
+
+      if (!isEblItem) return false;
+
+      // Verify within 1 year membership window
+      const createdMs = Date.parse(p?.date_approved || p?.date_created || '');
+      if (!isNaN(createdMs) && nowMs - createdMs > oneYearMs) return false;
+
+      const metaEmail = String(p?.metadata?.user_email || '').toLowerCase().trim();
+      const payerEmail = String(p?.payer?.email || '').toLowerCase().trim();
+      const refEmail = extRef.includes('|') ? extRef.split('|')[0]!.trim() : '';
+
+      return metaEmail === clean || refEmail === clean || payerEmail === clean;
+    });
+  } catch (e) {
+    console.warn('Error consultando pagos en Mercado Pago:', e);
+    return false;
+  }
+}
+
+// Verify a specific payment_id (or search by email) on return from Mercado Pago and activate VIP
+export async function verifyAndActivateMercadoPagoPaymentAction(
+  userEmail: string,
+  paymentId?: string | null
+) {
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
+  if (!cleanEmail || !cleanEmail.includes('@')) {
+    return { success: false, isVip: false };
+  }
+
+  let isApproved = false;
+
+  if (paymentId && /^\d+$/.test(String(paymentId).trim())) {
+    try {
+      const token = getMpAccessToken();
+      const res = await fetch(`https://api.mercadopago.com/v1/payments/${String(paymentId).trim()}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
+      });
+      if (res.ok) {
+        const payment = await res.json();
+        if (payment?.status === 'approved') {
+          isApproved = true;
+        }
+      }
+    } catch (e) {
+      console.warn('Error verificando payment_id en MP:', e);
+    }
+  }
+
+  if (!isApproved) {
+    isApproved = await hasApprovedMercadoPagoPayment(cleanEmail);
+  }
+
+  if (isApproved) {
+    await updateUserMembershipTierAction(cleanEmail, 'paid');
+    return { success: true, isVip: true };
+  }
+
+  return { success: true, isVip: false };
+}
+
 // Helper for store path resolution across monorepo and standalone builds
 function getStoreFilePath(filename: string): string {
   const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
@@ -216,6 +322,19 @@ export async function getCampusInitialDataAction(userEmail?: string) {
         writeProgressStore(progressStore);
       }
 
+      let resolvedDbTier: 'free' | 'paid' =
+        user.membershipTier === MembershipTier.FREE ? 'free' : 'paid';
+
+      if (resolvedDbTier === 'free' && !isSuperAdminEmail(cleanEmail)) {
+        const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
+        if (hasMpPaid) {
+          resolvedDbTier = 'paid';
+          withDbTimeout(
+            db.user.update({ where: { id: user.id }, data: { membershipTier: MembershipTier.VIP } })
+          ).catch(() => {});
+        }
+      }
+
       return {
         success: true,
         data: {
@@ -224,7 +343,7 @@ export async function getCampusInitialDataAction(userEmail?: string) {
             name: user.name,
             email: user.email,
             role: user.role,
-            membershipTier: user.membershipTier === MembershipTier.FREE ? 'free' : 'paid',
+            membershipTier: resolvedDbTier,
           },
           completedLessonIds: finalCompletedList,
           studentProfile: user.studentProfile || {
@@ -276,10 +395,16 @@ export async function getCampusInitialDataAction(userEmail?: string) {
     console.warn('DB offline or timed out, returning persisted store progress:', error);
   }
 
-  // Fallback return: always succeeds and preserves progress
+  // Fallback return: always succeeds and preserves progress + verifies live Mercado Pago payment
   const isSuperFallback = isSuperAdminEmail(cleanEmail);
   const storeTier = getMembershipFromLocalUsersStore(cleanEmail);
-  const resolvedTier: 'paid' | 'free' = isSuperFallback ? 'paid' : (storeTier || 'free');
+  let resolvedTier: 'paid' | 'free' = isSuperFallback ? 'paid' : (storeTier || 'free');
+  if (resolvedTier === 'free' && cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
+    const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
+    if (hasMpPaid) {
+      resolvedTier = 'paid';
+    }
+  }
   return {
     success: true,
     data: {
