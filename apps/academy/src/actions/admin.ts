@@ -2,7 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { SUPERADMIN_EMAILS, BANNED_EMAILS } from '@/context/AuthContext';
 import { campusPrograms } from '@/data/campus';
 import bunnyMapping from '@/data/bunnyVideos.json';
 
@@ -11,6 +10,16 @@ import defaultComments from '@/data/store/comments.json';
 import defaultPricing from '@/data/store/pricing.json';
 import defaultVocational from '@/data/store/vocationalTests.json';
 import defaultVideoViews from '@/data/store/videoViews.json';
+
+export const SUPERADMIN_EMAILS = [
+  'santisose01@gmail.com',
+  'licenciadaflormartinez@gmail.com',
+  'lucianamartinez0696@gmail.com',
+];
+
+export const BANNED_EMAILS = [
+  'santiagocastillo98@hotmail.com',
+];
 
 const BUNNY_LIB_ID = '815825';
 const BUNNY_API_KEY = 'c38f0c59-0f49-4066-af5d440d17ad-1943-4d4e';
@@ -31,8 +40,15 @@ const memoryStore: {
 };
 
 function getStoreFilePath(filename: string): string {
+  const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
+  if (fs.existsSync(monorepoPath)) return monorepoPath;
+
   const localPath = path.join(process.cwd(), 'src', 'data', 'store', filename);
   if (fs.existsSync(localPath)) return localPath;
+
+  const parentPath = path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', filename);
+  if (fs.existsSync(parentPath)) return parentPath;
+
   return path.join('/tmp', 'fm_store', filename);
 }
 
@@ -58,17 +74,20 @@ function readStore<T>(key: 'users' | 'comments' | 'pricing' | 'vocationalTests' 
 function writeStore<T>(key: 'users' | 'comments' | 'pricing' | 'vocationalTests' | 'videoViews', filename: string, data: T): void {
   (memoryStore as any)[key] = data;
 
-  try {
-    const filePath = getStoreFilePath(filename);
-    fs.mkdirSync(path.dirname(filePath), { recursive: true });
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-  } catch {
+  const candidatePaths = [
+    path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename),
+    path.join(process.cwd(), 'src', 'data', 'store', filename),
+    path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', filename),
+    path.join('/tmp', 'fm_store', filename),
+  ];
+
+  for (const p of candidatePaths) {
     try {
-      const tmpPath = path.join('/tmp', 'fm_store', filename);
-      fs.mkdirSync(path.dirname(tmpPath), { recursive: true });
-      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf-8');
+      fs.mkdirSync(path.dirname(p), { recursive: true });
+      fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf-8');
+      break;
     } catch {
-      // In-memory update persisted in memoryStore
+      // try next candidate
     }
   }
 }
@@ -92,9 +111,34 @@ export interface AdminUserRecord {
 
 export async function getAdminUsersAction() {
   let users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  if (!users || users.length === 0) {
-    users = defaultUsers as any[];
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    users = [...(defaultUsers as any[])];
     memoryStore.users = users;
+  }
+
+  // Ensure real superadmins are always present
+  const defaultAdminList = [
+    { email: 'santisose01@gmail.com', name: 'Santiago Sose', notes: 'Superadministrador principal' },
+    { email: 'licenciadaflormartinez@gmail.com', name: 'Flor Martínez', notes: 'Instructora titular y fundadora' },
+    { email: 'lucianamartinez0696@gmail.com', name: 'Luciana Martínez', notes: 'Equipo de coordinación superadmin' },
+  ];
+
+  for (const adm of defaultAdminList) {
+    const exists = users.some((u) => (u.email || '').toLowerCase() === adm.email.toLowerCase());
+    if (!exists) {
+      users.push({
+        id: 'usr_' + adm.email.split('@')[0],
+        email: adm.email,
+        name: adm.name,
+        role: 'superadmin',
+        membershipTier: 'VIP',
+        status: 'active',
+        avatarUrl: null,
+        createdAt: '2026-10-01T10:00:00.000Z',
+        lastLoginAt: new Date().toISOString(),
+        notes: adm.notes,
+      });
+    }
   }
 
   const total = users.length;
@@ -102,10 +146,10 @@ export async function getAdminUsersAction() {
   const vipCount = users.filter((u) => u.membershipTier === 'VIP').length;
   const freeCount = users.filter((u) => u.membershipTier === 'FREE').length;
   const superadminCount = users.filter(
-    (u) => u.role === 'superadmin' || SUPERADMIN_EMAILS.includes(u.email.toLowerCase())
+    (u) => u.role === 'superadmin' || SUPERADMIN_EMAILS.includes((u.email || '').toLowerCase())
   ).length;
   const bannedCount = users.filter(
-    (u) => u.status === 'banned' || BANNED_EMAILS.includes(u.email.toLowerCase())
+    (u) => u.status === 'banned' || BANNED_EMAILS.includes((u.email || '').toLowerCase())
   ).length;
 
   return {
@@ -122,24 +166,51 @@ export async function getAdminUsersAction() {
   };
 }
 
-export async function registerOrUpdateUserInStore(email: string, name?: string, avatarUrl?: string) {
+export async function registerOrUpdateUserInStore(
+  userOrEmail: string | { email: string; name?: string; role?: string; membershipTier?: string; avatarUrl?: string; lastLoginAt?: string },
+  nameArg?: string,
+  avatarUrlArg?: string
+) {
+  let email = '';
+  let name = nameArg;
+  let avatarUrl = avatarUrlArg;
+  let roleOverride: 'superadmin' | 'student' | undefined;
+  let membershipTierOverride: 'VIP' | 'FREE' | undefined;
+
+  if (typeof userOrEmail === 'object' && userOrEmail !== null) {
+    email = userOrEmail.email || '';
+    name = userOrEmail.name || name;
+    avatarUrl = userOrEmail.avatarUrl || avatarUrl;
+    if (userOrEmail.role === 'superadmin' || userOrEmail.role === 'student') {
+      roleOverride = userOrEmail.role;
+    }
+    if (userOrEmail.membershipTier === 'VIP' || userOrEmail.membershipTier === 'FREE') {
+      membershipTierOverride = userOrEmail.membershipTier;
+    }
+  } else if (typeof userOrEmail === 'string') {
+    email = userOrEmail;
+  }
+
   const cleanEmail = email.toLowerCase().trim();
+  if (!cleanEmail) return;
+
   let users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  if (!users || users.length === 0) users = [...(defaultUsers as any[])];
+  if (!users || !Array.isArray(users) || users.length === 0) users = [...(defaultUsers as any[])];
 
   const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
   const isBanned = BANNED_EMAILS.includes(cleanEmail);
 
-  const existingIdx = users.findIndex((u) => u.email.toLowerCase() === cleanEmail);
+  const existingIdx = users.findIndex((u) => (u.email || '').toLowerCase() === cleanEmail);
   const now = new Date().toISOString();
 
   if (existingIdx >= 0) {
     users[existingIdx] = {
       ...users[existingIdx]!,
       name: name || users[existingIdx]!.name,
-      avatarUrl: avatarUrl || users[existingIdx]!.avatarUrl,
+      avatarUrl: avatarUrl !== undefined ? avatarUrl : users[existingIdx]!.avatarUrl,
       lastLoginAt: now,
-      role: isSuper ? 'superadmin' : users[existingIdx]!.role,
+      role: isSuper ? 'superadmin' : roleOverride || users[existingIdx]!.role,
+      membershipTier: membershipTierOverride || users[existingIdx]!.membershipTier || 'VIP',
       status: isBanned ? 'banned' : users[existingIdx]!.status,
     };
   } else {
@@ -147,8 +218,8 @@ export async function registerOrUpdateUserInStore(email: string, name?: string, 
       id: 'usr_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
       email: cleanEmail,
       name: name || cleanEmail.split('@')[0] || 'Usuario',
-      role: isSuper ? 'superadmin' : 'student',
-      membershipTier: isSuper ? 'VIP' : 'VIP',
+      role: isSuper ? 'superadmin' : roleOverride || 'student',
+      membershipTier: isSuper ? 'VIP' : membershipTierOverride || 'VIP',
       status: isBanned ? 'banned' : 'active',
       avatarUrl: avatarUrl || null,
       createdAt: now,
@@ -420,7 +491,8 @@ export async function getLessonCommentsAction(lessonId: string, currentUserEmail
   const visible = lessonComments.filter((c) => {
     if (isSuperAdmin) return true;
     if (c.isApproved) return true;
-    if (cleanUserEmail && c.authorEmail.toLowerCase() === cleanUserEmail) return true;
+    if (c.isInstructor) return true;
+    if (cleanUserEmail && (c.authorEmail || '').toLowerCase() === cleanUserEmail) return true;
     return false;
   });
 
@@ -436,7 +508,7 @@ export async function getLessonCommentsAction(lessonId: string, currentUserEmail
     userLiked: cleanUserEmail ? (c.likedBy || []).includes(cleanUserEmail) : false,
     isApproved: c.isApproved,
     isRead: c.isRead,
-    isOwn: cleanUserEmail ? c.authorEmail.toLowerCase() === cleanUserEmail : false,
+    isOwn: cleanUserEmail ? (c.authorEmail || '').toLowerCase() === cleanUserEmail : false,
     replies: c.replies || [],
   }));
 

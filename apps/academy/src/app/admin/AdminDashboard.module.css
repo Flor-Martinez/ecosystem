@@ -435,36 +435,32 @@
   border-color: #CBD5E1;
 }
 
-/* TAB NAVIGATION - SEGMENTED CONTROL DESIGN */
+/* TAB NAVIGATION - CLEAN DASHBOARD PILLS */
 .navTabs {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  background: #F1F5F9;
+  gap: 0.5rem;
+  background: #FFFFFF;
   border: 1px solid #E2E8F0;
-  border-radius: var(--radius-xl, 1rem);
-  padding: 0.35rem;
+  border-radius: 0.85rem;
+  padding: 0.4rem;
   margin-bottom: 2rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.navTabs::-webkit-scrollbar {
-  display: none;
+  flex-wrap: wrap;
+  overflow: visible;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .tabBtn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.55rem;
   padding: 0.65rem 1.15rem;
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
   font-size: 0.85rem;
   font-weight: 700;
   color: #475569;
-  border-radius: var(--radius-lg, 0.75rem);
+  border-radius: 0.65rem;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -472,13 +468,14 @@
 
 .tabBtn:hover {
   color: #1E1B4B;
-  background: rgba(255, 255, 255, 0.6);
+  background: #F8FAFC;
 }
 
 .tabBtnActive {
   color: #6D28D9;
-  background: #FFFFFF;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  background: #F5F3FF;
+  border-color: #DDD6FE;
+  box-shadow: 0 1px 2px rgba(109, 40, 217, 0.08);
 }
 
 .tabBadge {

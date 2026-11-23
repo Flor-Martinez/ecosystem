@@ -65,11 +65,25 @@ export function LessonComments({
   const [replyText, setReplyText] = useState('');
   const [isReplying, setIsReplying] = useState(false);
 
-  const userEmail = currentUser?.email?.toLowerCase().trim() || '';
+  // Resolve active commenter email (logged in user email, or consistent local guest ID)
+  const [effectiveEmail, setEffectiveEmail] = useState<string>(currentUser?.email?.toLowerCase().trim() || '');
+
+  useEffect(() => {
+    if (currentUser?.email) {
+      setEffectiveEmail(currentUser.email.toLowerCase().trim());
+    } else if (typeof window !== 'undefined') {
+      let stored = localStorage.getItem('ebl_commenter_id');
+      if (!stored) {
+        stored = `alumno_${Math.random().toString(36).substring(2, 9)}@alumno.flormartinezok.com`;
+        localStorage.setItem('ebl_commenter_id', stored);
+      }
+      setEffectiveEmail(stored);
+    }
+  }, [currentUser?.email]);
 
   const loadComments = useCallback(async () => {
     try {
-      const res = await getLessonCommentsAction(lessonId, userEmail, isSuperAdmin);
+      const res = await getLessonCommentsAction(lessonId, effectiveEmail, isSuperAdmin);
       if (res.success && res.comments) {
         setComments(res.comments);
       }
@@ -78,7 +92,7 @@ export function LessonComments({
     } finally {
       setIsLoading(false);
     }
-  }, [lessonId, userEmail, isSuperAdmin]);
+  }, [lessonId, effectiveEmail, isSuperAdmin]);
 
   useEffect(() => {
     loadComments();
@@ -86,27 +100,49 @@ export function LessonComments({
 
   const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim() || isSubmitting) return;
+    const cleanText = inputText.trim();
+    if (!cleanText || isSubmitting) return;
 
     setIsSubmitting(true);
     try {
+      const authorEmailToSend = effectiveEmail || 'alumno@academia.flormartinezok.com';
       const res = await saveLessonCommentAction(
         lessonId,
         lessonTitle,
-        inputText.trim(),
+        cleanText,
         {
-          name: currentUser?.name || 'Alumno',
-          email: userEmail || 'alumno@academia.flormartinezok.com',
+          name: isSuperAdmin ? 'Flor Martínez' : currentUser?.name || 'Alumno',
+          email: authorEmailToSend,
         },
         isSuperAdmin
       );
 
-      if (res.success) {
+      if (res.success && res.comment) {
+        const newC = res.comment;
+        const newVm: CommentViewModel = {
+          id: newC.id,
+          authorName: newC.authorName,
+          authorEmail: newC.authorEmail,
+          avatarInitials: newC.avatarInitials,
+          isInstructor: newC.isInstructor,
+          createdAt: 'Recién',
+          content: newC.content,
+          likes: 0,
+          userLiked: false,
+          isApproved: newC.isApproved,
+          isRead: newC.isRead,
+          isOwn: true,
+          replies: newC.replies || [],
+        };
+        // Optimistic UI update: instantly prepend comment to UI
+        setComments((prev) => [newVm, ...prev.filter((c) => c.id !== newC.id)]);
         setInputText('');
-        await loadComments();
+      } else if (!res.success) {
+        alert(res.error || 'No se pudo publicar el comentario.');
       }
     } catch (err) {
       console.error('Error saving comment:', err);
+      alert('Error al publicar el comentario. Intentalo de nuevo.');
     } finally {
       setIsSubmitting(false);
     }
@@ -115,7 +151,7 @@ export function LessonComments({
   const handleDeleteComment = async (commentId: string) => {
     if (!confirm('¿Estás seguro de que deseás eliminar este comentario?')) return;
     try {
-      const res = await deleteLessonCommentAction(commentId, userEmail, isSuperAdmin);
+      const res = await deleteLessonCommentAction(commentId, effectiveEmail, isSuperAdmin);
       if (res.success) {
         setComments((prev) => prev.filter((c) => c.id !== commentId));
       }
@@ -165,7 +201,7 @@ export function LessonComments({
   };
 
   const handleToggleLike = async (commentId: string) => {
-    if (!userEmail) return;
+    if (!effectiveEmail) return;
 
     // Optimistic update
     setComments((prev) =>
@@ -183,7 +219,7 @@ export function LessonComments({
     );
 
     try {
-      const res = await toggleCommentLikeAction(commentId, userEmail);
+      const res = await toggleCommentLikeAction(commentId, effectiveEmail);
       if (res.success) {
         setComments((prev) =>
           prev.map((c) =>

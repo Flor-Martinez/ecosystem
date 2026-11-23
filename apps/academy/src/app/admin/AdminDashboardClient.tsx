@@ -49,6 +49,8 @@ import {
   getAdminPricingAction,
   updateFullPricingAction,
   getAdminVocationalStatsAction,
+} from '@/actions/admin';
+import type {
   AdminUserRecord,
   ClassVideoMetric,
   StoredCommentItem,
