@@ -189,7 +189,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'El método para descubrir tu trabajo ideal',
         duration: '3:50 min',
         videoDuration: '3:50 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/ae327b3a-a7a1-42a4-84af-9fff2027b59f?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4a5b908e-ed7f-42ad-b8db-c64b38ad76d7?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-1-2-poster.jpg?v=8',
         completed: false,
         description:
@@ -3111,7 +3111,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: 'Tips que marcan la diferencia en minería y petróleo',
         duration: '5:21 min',
         videoDuration: '5:21 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/5fcb9485-af71-4339-a3e2-320105f05c62?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/75d3729f-1216-40bc-98c1-0f5779460e7e?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-e1-8-poster.jpg?v=8',
         completed: false,
         description: 'Los 10 consejos de oro: carpeta lista, vocabulario HSE, etapas del proyecto, mano de obra local y reputación.',

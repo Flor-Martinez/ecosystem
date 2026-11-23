@@ -96,8 +96,8 @@
     "ts_key": "/videos/ebl-1-3.mp4"
   },
   "EBL-1-2.mp4": {
-    "guid": "ae327b3a-a7a1-42a4-84af-9fff2027b59f",
-    "embed_url": "https://iframe.mediadelivery.net/embed/815825/ae327b3a-a7a1-42a4-84af-9fff2027b59f?autoplay=false&loop=false&muted=false&preload=true&responsive=true",
+    "guid": "4a5b908e-ed7f-42ad-b8db-c64b38ad76d7",
+    "embed_url": "https://iframe.mediadelivery.net/embed/815825/4a5b908e-ed7f-42ad-b8db-c64b38ad76d7?autoplay=false&loop=false&muted=false&preload=true&responsive=true",
     "id": "ebl-1-2",
     "ts_key": "/videos/ebl-1-2.mp4"
   },
@@ -216,8 +216,8 @@
     "ts_key": "/videos/ebl-e1-7.mp4"
   },
   "EBL-E1-8.mp4": {
-    "guid": "5fcb9485-af71-4339-a3e2-320105f05c62",
-    "embed_url": "https://iframe.mediadelivery.net/embed/815825/5fcb9485-af71-4339-a3e2-320105f05c62?autoplay=false&loop=false&muted=false&preload=true&responsive=true",
+    "guid": "75d3729f-1216-40bc-98c1-0f5779460e7e",
+    "embed_url": "https://iframe.mediadelivery.net/embed/815825/75d3729f-1216-40bc-98c1-0f5779460e7e?autoplay=false&loop=false&muted=false&preload=true&responsive=true",
     "id": "ebl-e1-8",
     "ts_key": "/videos/ebl-e1-8.mp4"
   }

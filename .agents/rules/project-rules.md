@@ -120,3 +120,35 @@ Before implementing a large feature:
 Do not rewrite working parts of the repository without a reason.
 
 Do not replace the existing monorepo architecture unnecessarily.
+
+## EBL Motion Graphics & Video Offs (Mandatory Rules)
+
+Para cualquier generación o renderizado de diapositivas y videos en off de la Academia Flor Martínez (EBL):
+
+1. **Pilar Decorativo de Fondo "FM EBL" (Marca de Agua Móvil):**
+   - **REGLA FUNDAMENTAL:** El pilar de texto decorativo `"FM" / "EBL"` de la derecha **SIEMPRE SE MUEVE**.
+   - No es estático. Se desplaza verticalmente hacia arriba de forma continua a una velocidad de `1.05 px/frame` (`31.5 px/segundo` a 30 fps) durante todo el video.
+   - Posición horizontal: `x = 1380`, tipografía `PlusJakartaSans-ExtraBold.ttf` a `310 px`.
+   - Color: Lila ultra suave `(245, 242, 251, 255)` (`#F5F2FB`).
+   - Ciclo de repetición: cada `300 px` alterna entre "FM" y "EBL" (ciclo de `600 px`).
+   - Se renderiza en la capa más profunda, por detrás de las tarjetas, esquemas, flechas y textos.
+
+2. **Franja Lateral Izquierda:**
+   - Barra vertical de `14 px` de ancho en el borde izquierdo (`x = 0` a `x = 14`, de `y = 0` a `y = 1080`).
+   - Color obligatorio: Violeta institucional `#7C3AED` (`rgba(124, 58, 237, 255)`).
+
+3. **Encabezado Institucional:**
+   - Margen izquierdo: `x = 145`, distancia superior: `58 px`.
+   - Izquierda: `MÓDULO XX` en `#6D28D9` (`PlusJakartaSans-ExtraBold`, 24 px).
+   - Derecha: `CLASE X · TÍTULO DE LA CLASE` en `#7C3AED` (`PlusJakartaSans-ExtraBold`, 24 px).
+   - Línea conectora entre ambos textos: grosor 2 px, color `#DDD6FE` (`C_VIOLET_BORDER`).
+
+4. **Pie de Página Institucional:**
+   - Logo de la Academia: `flor_martinez_academia_transparente_color.png` redimensionado a ancho 420 px en `x = 145`, alineado al fondo.
+   - Derecha: `EXPERIENCIA BÚSQUEDA LABORAL` en `#64748B` (`PlusJakartaSans-Bold`, 23 px).
+   - Línea divisoria superior: grosor 2 px, color `#E2E8F0` (`C_BORDER`).
+
+5. **Márgenes de Tiempo para Edición en CapCut:**
+   - **Inicio:** `2.00 s` de margen de silencio inicial con los elementos en reposo o neutro.
+   - **Final:** `3.00 s` de margen de silencio final manteniendo el cuadro final estático y consolidado (hold) para corte limpio.
+   - **Desbloqueos:** Transición suave de gris/reposo a color de `0.45 s` a `0.60 s` (smoothstep / coseno) sincronizada exactamente con la mención de cada concepto en el audio.

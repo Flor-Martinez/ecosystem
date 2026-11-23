@@ -16,6 +16,7 @@ import {
   CheckCheck,
   Building2,
   Plus,
+  ExternalLink,
 } from 'lucide-react';
 import { InAppDocument } from '@/data/inAppDocuments';
 import { useAuth } from '@/context/AuthContext';
@@ -623,6 +624,37 @@ export function InAppDocumentModal({
                           </button>
                         </div>
                       </div>
+                    </div>
+                  )}
+
+                  {/* Directory Company Cards (Portales de Empleo) */}
+                  {sec.directoryCompanies && sec.directoryCompanies.length > 0 && (
+                    <div className={styles.directoryGrid}>
+                      {sec.directoryCompanies.map((comp, idx) => (
+                        <div key={idx} className={styles.directoryCard}>
+                          <div className={styles.directoryCardInfo}>
+                            <span className={styles.companyIndex}>{idx + 1}</span>
+                            <div className={styles.companyDetails}>
+                              <strong className={styles.companyName}>
+                                {comp.name.replace(/^\d+\.\s*/, '')}
+                              </strong>
+                              {comp.category && (
+                                <span className={styles.companyCategory}>{comp.category}</span>
+                              )}
+                            </div>
+                          </div>
+                          <a
+                            href={comp.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.jobPortalBtn}
+                            title={`Ir al portal de empleo oficial de ${comp.name.replace(/^\d+\.\s*/, '')}`}
+                          >
+                            <span>IR AL PORTAL DE EMPLEO</span>
+                            <ExternalLink size={13} />
+                          </a>
+                        </div>
+                      ))}
                     </div>
                   )}
 

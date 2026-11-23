@@ -1,3 +1,11 @@
+export interface DirectoryCompany {
+  name: string;
+  url: string;
+  category?: string;
+  badge?: string;
+  note?: string;
+}
+
 export interface DocumentSection {
   id: string;
   title: string;
@@ -20,6 +28,7 @@ export interface DocumentSection {
     headers: string[];
     rows: string[][];
   };
+  directoryCompanies?: DirectoryCompany[];
 }
 
 export interface InAppDocument {
@@ -2417,6 +2426,238 @@ Hoy busco sumarme a este equipo para combinar mi experiencia consolidada en [Hab
       },
     ],
   },
+  'directorio-paginas-oficiales-mineria': {
+    id: 'directorio-paginas-oficiales-mineria',
+    slug: 'directorio-paginas-oficiales-mineria',
+    title: 'Directorio de Páginas Oficiales de Empleo en Minería y Petróleo',
+    category: 'Directorio Oficial de Empleo',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 8,
+    badge: 'Directorio Oficial 2026',
+    estimatedReadTime: 'Directorio de Enlaces Directos',
+    summary:
+      'Directorio curado y verificado de portales oficiales de empleo para empresas mineras, petroleras y de servicios en Argentina y Chile. Enlaces directos a secciones de carreras y reclutamiento para postularse sin intermediarios ni estafas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición Actualizada 2026 (Argentina & Chile)',
+    sections: [
+      {
+        id: 'mineras-argentina',
+        title: '🇦🇷 Mineras de Argentina',
+        subtitle: 'Portales oficiales de empleo y carreras en minería (Litio, Cobre, Oro, Plata)',
+        content:
+          'Ingresá a los sitios oficiales de las principales compañías mineras que operan en Argentina. Postulate a sus vacantes activas o cargá tu perfil profesional en sus bases de datos de talento.',
+        directoryCompanies: [
+          { name: '1. Rio Tinto', url: 'https://jobs.riotinto.com/', category: 'Mineras de Argentina' },
+          { name: '2. Eramine / Eramet', url: 'https://eramine.eramet.com/es/carrera/', category: 'Mineras de Argentina' },
+          { name: '3. Barrick Gold — Veladero', url: 'https://jobs.barrick.com/', category: 'Mineras de Argentina' },
+          { name: '4. Glencore — El Pachón', url: 'https://www.glencore.com/careers', category: 'Mineras de Argentina' },
+          { name: '5. Lundin Mining', url: 'https://jobs.lundinmining.com/', category: 'Mineras de Argentina' },
+          { name: '6. Vicuña — Josemaría / Filo del Sol', url: 'https://vicunacorp.com/careers', category: 'Mineras de Argentina' },
+          { name: '7. EXAR — Litio', url: 'https://www.exar.com.ar/carrera-profesional/', category: 'Mineras de Argentina' },
+        ],
+      },
+      {
+        id: 'petroleras-argentina',
+        title: '🇦🇷 Petroleras y Servicios de Argentina',
+        subtitle: 'Operadoras de Oil & Gas y empresas internacionales de servicios petroleros',
+        content:
+          'Sitios de carreras de las principales operadoras de energía de Vaca Muerta, Cuenca del Golfo San Jorge y principales empresas contratistas y de servicios.',
+        directoryCompanies: [
+          { name: '1. YPF', url: 'https://oportunidades.ypf.com/', category: 'Petroleras de Argentina' },
+          { name: '2. Pan American Energy (PAE)', url: 'https://www.pan-energy.com/trabajar_en_pae', category: 'Petroleras de Argentina' },
+          { name: '3. Vista Energy', url: 'https://www.vistaenergy.com/nuestra-gente', category: 'Petroleras de Argentina' },
+          { name: '4. Tecpetrol', url: 'https://careers.techint.com/Tecpetrol/go/Tecpetrol/3010800/', category: 'Petroleras de Argentina' },
+          { name: '5. Pluspetrol', url: 'https://www.pluspetrol.net/trabaja-con-nosotros', category: 'Petroleras de Argentina' },
+          { name: '6. TotalEnergies', url: 'https://jobs.totalenergies.com/', category: 'Petroleras de Argentina' },
+          { name: '7. Chevron', url: 'https://careers.chevron.com/', category: 'Petroleras de Argentina' },
+          { name: '8. Shell', url: 'https://www.shell.com/careers.html', category: 'Petroleras de Argentina' },
+          { name: '9. SLB (Schlumberger)', url: 'https://careers.slb.com/', category: 'Petroleras de Argentina' },
+          { name: '10. Halliburton', url: 'https://jobs.halliburton.com/', category: 'Petroleras de Argentina' },
+          { name: '11. Baker Hughes', url: 'https://careers.bakerhughes.com/', category: 'Petroleras de Argentina' },
+          { name: '12. Tenaris', url: 'https://careers.techint.com/Tenaris/go/Tenaris/3011100/', category: 'Petroleras de Argentina' },
+        ],
+      },
+      {
+        id: 'mineras-chile',
+        title: '🇨🇱 Mineras de Chile',
+        subtitle: 'Principales yacimientos y faenas cupríferas y de litio en Chile',
+        content:
+          'Portales directos de reclutamiento de la gran minería en Chile (Codelco, BHP, Antofagasta Minerals, entre otras).',
+        directoryCompanies: [
+          { name: '1. Codelco', url: 'https://www.codelco.com/trabaja-en-codelco', category: 'Mineras de Chile' },
+          { name: '2. BHP — Escondida / Spence', url: 'https://careers.bhp.com/', category: 'Mineras de Chile' },
+          { name: '3. Antofagasta Minerals', url: 'https://www.aminerals.cl/trabaja-con-nosotros', category: 'Mineras de Chile' },
+          { name: '4. Collahuasi', url: 'https://www.collahuasi.cl/trabaja-con-nosotros/ingrese-su-cv/', category: 'Mineras de Chile' },
+          { name: '5. Anglo American', url: 'https://www.angloamerican.com/careers', category: 'Mineras de Chile' },
+          { name: '6. Teck — Quebrada Blanca', url: 'https://jobs.teck.com/', category: 'Mineras de Chile' },
+          { name: '7. SQM', url: 'https://sqm.csod.com/', category: 'Mineras de Chile' },
+          { name: '8. Capstone Copper — Mantoverde / Mantos Blancos', url: 'https://capstonecopper.com/es/empleos/current-opportunities/', category: 'Mineras de Chile' },
+          { name: '9. Freeport-McMoRan — El Abra', url: 'https://jobs.fcx.com/', category: 'Mineras de Chile' },
+          { name: '10. Lundin Mining — Candelaria / Caserones', url: 'https://jobs.lundinmining.com/', category: 'Mineras de Chile' },
+          { name: '11. Glencore', url: 'https://www.glencore.com/careers', category: 'Mineras de Chile' },
+          { name: '12. Kinross', url: 'https://www.kinross.com/careers/', category: 'Mineras de Chile' },
+          { name: '13. Albemarle', url: 'https://www.albemarle.com/careers', category: 'Mineras de Chile' },
+        ],
+      },
+      {
+        id: 'petroleras-chile',
+        title: '🇨🇱 Petroleras, Energéticas y de Servicios de Chile',
+        subtitle: 'Empresas de energía, refinación y servicios de perforación e ingeniería',
+        content:
+          'Secciones de postulaciones de empresas públicas y multinacionales del sector energético en Chile.',
+        directoryCompanies: [
+          { name: '1. ENAP', url: 'https://enap.trabajando.cl/', category: 'Petroleras de Chile' },
+          { name: '2. Shell', url: 'https://www.shell.com/careers.html', category: 'Petroleras de Chile' },
+          { name: '3. TotalEnergies', url: 'https://jobs.totalenergies.com/', category: 'Petroleras de Chile' },
+          { name: '4. SLB (Schlumberger)', url: 'https://careers.slb.com/', category: 'Petroleras de Chile' },
+          { name: '5. Halliburton', url: 'https://jobs.halliburton.com/', category: 'Petroleras de Chile' },
+          { name: '6. Baker Hughes', url: 'https://careers.bakerhughes.com/', category: 'Petroleras de Chile' },
+        ],
+      },
+      {
+        id: 'seguridad-postulacion',
+        title: '🛡️ Indicaciones para la Postulación y Seguridad Laboral',
+        subtitle: 'Pautas indispensables antes de enviar tus postulaciones',
+        callout: {
+          type: 'warning',
+          text: 'REGLA DE ORO DE SEGURIDAD: Ninguna empresa seria cobra dinero, cursos arancelados ni solicita datos de cuentas bancarias o tarjetas a los postulantes. Si te piden dinero, NO es una oferta real.',
+        },
+        checklistItems: [
+          {
+            id: 'seg-1',
+            text: 'Comprobar que cada enlace conduzca a la sección oficial de empleos',
+            description: 'Algunos portales solo permiten postularse a vacantes activas; otros permiten crear un perfil profesional permanente o cargar tu CV a la base de talentos para futuras búsquedas.',
+          },
+          {
+            id: 'seg-2',
+            text: 'Tener tu CV en formato ATS optimizado',
+            description: 'Antes de postularte, asegurate de tener tu CV en PDF limpio con palabras clave técnicas del puesto (ej. seguridad e higiene, mantenimiento, perforación, logística).',
+          },
+          {
+            id: 'seg-3',
+            text: 'No solicitar pagos ni datos bancarios a los postulantes',
+            description: 'Desconfiá de intermediarios o falsos gestores que prometen ingresos directos a yacimientos a cambio de transferencias o comisiones.',
+          },
+        ],
+      },
+    ],
+  },
+  'ebl-e1-4': {
+    id: 'directorio-paginas-oficiales-mineria',
+    slug: 'directorio-paginas-oficiales-mineria',
+    title: 'Directorio de Páginas Oficiales de Empleo en Minería y Petróleo',
+    category: 'Directorio Oficial de Empleo',
+    programTitle: 'Experiencia Búsqueda Laboral',
+    moduleNumber: 8,
+    badge: 'Directorio Oficial 2026',
+    estimatedReadTime: 'Directorio de Enlaces Directos',
+    summary:
+      'Directorio oficial y verificado de páginas de empleo para empresas mineras, petroleras y de servicios en Argentina y Chile. Enlaces directos a portales de selección para postularte sin intermediarios ni estafas.',
+    author: 'Flor Martínez · Selección & Empleabilidad',
+    version: 'Edición Actualizada 2026 (Argentina & Chile)',
+    sections: [
+      {
+        id: 'mineras-argentina',
+        title: '🇦🇷 Mineras de Argentina',
+        subtitle: 'Portales oficiales de empleo y carreras en minería (Litio, Cobre, Oro, Plata)',
+        content:
+          'Ingresá a los sitios oficiales de las principales compañías mineras que operan en Argentina. Postulate a sus vacantes activas o cargá tu perfil profesional en sus bases de datos de talento.',
+        directoryCompanies: [
+          { name: '1. Rio Tinto', url: 'https://jobs.riotinto.com/', category: 'Mineras de Argentina' },
+          { name: '2. Eramine / Eramet', url: 'https://eramine.eramet.com/es/carrera/', category: 'Mineras de Argentina' },
+          { name: '3. Barrick Gold — Veladero', url: 'https://jobs.barrick.com/', category: 'Mineras de Argentina' },
+          { name: '4. Glencore — El Pachón', url: 'https://www.glencore.com/careers', category: 'Mineras de Argentina' },
+          { name: '5. Lundin Mining', url: 'https://jobs.lundinmining.com/', category: 'Mineras de Argentina' },
+          { name: '6. Vicuña — Josemaría / Filo del Sol', url: 'https://vicunacorp.com/careers', category: 'Mineras de Argentina' },
+          { name: '7. EXAR — Litio', url: 'https://www.exar.com.ar/carrera-profesional/', category: 'Mineras de Argentina' },
+        ],
+      },
+      {
+        id: 'petroleras-argentina',
+        title: '🇦🇷 Petroleras y Servicios de Argentina',
+        subtitle: 'Operadoras de Oil & Gas y empresas internacionales de servicios petroleros',
+        content:
+          'Sitios de carreras de las principales operadoras de energía de Vaca Muerta, Cuenca del Golfo San Jorge y principales empresas contratistas y de servicios.',
+        directoryCompanies: [
+          { name: '1. YPF', url: 'https://oportunidades.ypf.com/', category: 'Petroleras de Argentina' },
+          { name: '2. Pan American Energy (PAE)', url: 'https://www.pan-energy.com/trabajar_en_pae', category: 'Petroleras de Argentina' },
+          { name: '3. Vista Energy', url: 'https://www.vistaenergy.com/nuestra-gente', category: 'Petroleras de Argentina' },
+          { name: '4. Tecpetrol', url: 'https://careers.techint.com/Tecpetrol/go/Tecpetrol/3010800/', category: 'Petroleras de Argentina' },
+          { name: '5. Pluspetrol', url: 'https://www.pluspetrol.net/trabaja-con-nosotros', category: 'Petroleras de Argentina' },
+          { name: '6. TotalEnergies', url: 'https://jobs.totalenergies.com/', category: 'Petroleras de Argentina' },
+          { name: '7. Chevron', url: 'https://careers.chevron.com/', category: 'Petroleras de Argentina' },
+          { name: '8. Shell', url: 'https://www.shell.com/careers.html', category: 'Petroleras de Argentina' },
+          { name: '9. SLB (Schlumberger)', url: 'https://careers.slb.com/', category: 'Petroleras de Argentina' },
+          { name: '10. Halliburton', url: 'https://jobs.halliburton.com/', category: 'Petroleras de Argentina' },
+          { name: '11. Baker Hughes', url: 'https://careers.bakerhughes.com/', category: 'Petroleras de Argentina' },
+          { name: '12. Tenaris', url: 'https://careers.techint.com/Tenaris/go/Tenaris/3011100/', category: 'Petroleras de Argentina' },
+        ],
+      },
+      {
+        id: 'mineras-chile',
+        title: '🇨🇱 Mineras de Chile',
+        subtitle: 'Principales yacimientos y faenas cupríferas y de litio en Chile',
+        content:
+          'Portales directos de reclutamiento de la gran minería en Chile (Codelco, BHP, Antofagasta Minerals, entre otras).',
+        directoryCompanies: [
+          { name: '1. Codelco', url: 'https://www.codelco.com/trabaja-en-codelco', category: 'Mineras de Chile' },
+          { name: '2. BHP — Escondida / Spence', url: 'https://careers.bhp.com/', category: 'Mineras de Chile' },
+          { name: '3. Antofagasta Minerals', url: 'https://www.aminerals.cl/trabaja-con-nosotros', category: 'Mineras de Chile' },
+          { name: '4. Collahuasi', url: 'https://www.collahuasi.cl/trabaja-con-nosotros/ingrese-su-cv/', category: 'Mineras de Chile' },
+          { name: '5. Anglo American', url: 'https://www.angloamerican.com/careers', category: 'Mineras de Chile' },
+          { name: '6. Teck — Quebrada Blanca', url: 'https://jobs.teck.com/', category: 'Mineras de Chile' },
+          { name: '7. SQM', url: 'https://sqm.csod.com/', category: 'Mineras de Chile' },
+          { name: '8. Capstone Copper — Mantoverde / Mantos Blancos', url: 'https://capstonecopper.com/es/empleos/current-opportunities/', category: 'Mineras de Chile' },
+          { name: '9. Freeport-McMoRan — El Abra', url: 'https://jobs.fcx.com/', category: 'Mineras de Chile' },
+          { name: '10. Lundin Mining — Candelaria / Caserones', url: 'https://jobs.lundinmining.com/', category: 'Mineras de Chile' },
+          { name: '11. Glencore', url: 'https://www.glencore.com/careers', category: 'Mineras de Chile' },
+          { name: '12. Kinross', url: 'https://www.kinross.com/careers/', category: 'Mineras de Chile' },
+          { name: '13. Albemarle', url: 'https://www.albemarle.com/careers', category: 'Mineras de Chile' },
+        ],
+      },
+      {
+        id: 'petroleras-chile',
+        title: '🇨🇱 Petroleras, Energéticas y de Servicios de Chile',
+        subtitle: 'Empresas de energía, refinación y servicios de perforación e ingeniería',
+        content:
+          'Secciones de postulaciones de empresas públicas y multinacionales del sector energético en Chile.',
+        directoryCompanies: [
+          { name: '1. ENAP', url: 'https://enap.trabajando.cl/', category: 'Petroleras de Chile' },
+          { name: '2. Shell', url: 'https://www.shell.com/careers.html', category: 'Petroleras de Chile' },
+          { name: '3. TotalEnergies', url: 'https://jobs.totalenergies.com/', category: 'Petroleras de Chile' },
+          { name: '4. SLB (Schlumberger)', url: 'https://careers.slb.com/', category: 'Petroleras de Chile' },
+          { name: '5. Halliburton', url: 'https://jobs.halliburton.com/', category: 'Petroleras de Chile' },
+          { name: '6. Baker Hughes', url: 'https://careers.bakerhughes.com/', category: 'Petroleras de Chile' },
+        ],
+      },
+      {
+        id: 'seguridad-postulacion',
+        title: '🛡️ Indicaciones para la Postulación y Seguridad Laboral',
+        subtitle: 'Pautas indispensables antes de enviar tus postulaciones',
+        callout: {
+          type: 'warning',
+          text: 'REGLA DE ORO DE SEGURIDAD: Ninguna empresa seria cobra dinero, cursos arancelados ni solicita datos de cuentas bancarias o tarjetas a los postulantes. Si te piden dinero, NO es una oferta real.',
+        },
+        checklistItems: [
+          {
+            id: 'seg-1',
+            text: 'Comprobar que cada enlace conduzca a la sección oficial de empleos',
+            description: 'Algunos portales solo permiten postularse a vacantes activas; otros permiten crear un perfil profesional permanente o cargar tu CV a la base de talentos para futuras búsquedas.',
+          },
+          {
+            id: 'seg-2',
+            text: 'Tener tu CV en formato ATS optimizado',
+            description: 'Antes de postularte, asegurate de tener tu CV en PDF limpio con palabras clave técnicas del puesto (ej. seguridad e higiene, mantenimiento, perforación, logística).',
+          },
+          {
+            id: 'seg-3',
+            text: 'No solicitar pagos ni datos bancarios a los postulantes',
+            description: 'Desconfiá de intermediarios o falsos gestores que prometen ingresos directos a yacimientos a cambio de transferencias o comisiones.',
+          },
+        ],
+      },
+    ],
+  },
 };
 
 export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocument {
@@ -2498,6 +2739,9 @@ export function getInAppDocumentByIdOrSlug(idOrSlugOrTitle: string): InAppDocume
   }
   if (clean.includes('sospech') || clean.includes('estafa') || clean.includes('seguridad')) {
     return inAppDocumentsRegistry['guia-seguridad-laboral-ofertas-sospechosas']!;
+  }
+  if (clean.includes('mineria') || clean.includes('petrol') || clean.includes('e1-4') || clean.includes('mineras')) {
+    return inAppDocumentsRegistry['directorio-paginas-oficiales-mineria']!;
   }
 
   // Generic fallback document generator for any course/lesson resource
