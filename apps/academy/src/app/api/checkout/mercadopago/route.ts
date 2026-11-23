@@ -23,14 +23,10 @@ export async function POST(request: Request) {
 
     let unitPrice = 20000;
     try {
-      const fs = await import('fs');
-      const path = await import('path');
-      const pricingPath = path.join(process.cwd(), 'src', 'data', 'store', 'pricing.json');
-      if (fs.existsSync(pricingPath)) {
-        const pricing = JSON.parse(fs.readFileSync(pricingPath, 'utf-8'));
-        if (pricing.ebl && pricing.ebl.promoPrice) {
-          unitPrice = Number(pricing.ebl.promoPrice);
-        }
+      const { getAdminPricingAction } = await import('@/actions/admin');
+      const pricingRes = await getAdminPricingAction();
+      if (pricingRes.success && pricingRes.pricing?.ebl?.promoPrice) {
+        unitPrice = Number(pricingRes.pricing.ebl.promoPrice);
       }
     } catch {
       // fallback to 20000

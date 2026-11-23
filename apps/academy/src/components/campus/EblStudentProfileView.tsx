@@ -37,54 +37,33 @@ export function EblStudentProfileView({
   onNavigateToVocationalTest,
 }: EblStudentProfileViewProps) {
   const { user } = useAuth();
-  const activeEmail = user?.email || 'santiago.morales@ejemplo.com';
+  const activeEmail = user?.email || '';
 
   // Personal Info
-  const [fullName, setFullName] = useState(user?.name || 'Santiago Morales');
-  const [email, setEmail] = useState(user?.email || 'santiago.morales@ejemplo.com');
-  const [linkedinUrl, setLinkedinUrl] = useState('https://linkedin.com/in/santiago-martinez-demo');
+  const [fullName, setFullName] = useState(user?.name || '');
+  const [email, setEmail] = useState(user?.email || '');
+  const [linkedinUrl, setLinkedinUrl] = useState('');
 
   // Target Matrix (6 Filters)
-  const [targetRole, setTargetRole] = useState('Product Designer / UX Lead');
-  const [industry, setIndustry] = useState('Fintech & E-commerce');
-  const [seniority, setSeniority] = useState('Senior');
-  const [modality, setModality] = useState('100% Remoto (Latam / Global)');
-  const [expectedSalary, setExpectedSalary] = useState('$2.200 USD / mes');
-  const [availability, setAvailability] = useState('Disponibilidad inmediata');
+  const [targetRole, setTargetRole] = useState('');
+  const [industry, setIndustry] = useState('');
+  const [seniority, setSeniority] = useState('');
+  const [modality, setModality] = useState('');
+  const [expectedSalary, setExpectedSalary] = useState('');
+  const [availability, setAvailability] = useState('');
 
   // No Negociables & Target Companies
-  const [nonNegotiables, setNonNegotiables] = useState(
-    'No aceptar esquemas 100% presenciales a más de 1h de viaje.\nNo aceptar ofertas por debajo de mi piso salarial neto.'
-  );
-  const [targetCompaniesList, setTargetCompaniesList] = useState<string[]>([
-    'Mercado Libre',
-    'Ualá',
-    'Despegar',
-    'Auth0',
-    'Tiendanube',
-  ]);
+  const [nonNegotiables, setNonNegotiables] = useState('');
+  const [targetCompaniesList, setTargetCompaniesList] = useState<string[]>([]);
   const [newCompanyInput, setNewCompanyInput] = useState('');
 
-  const POPULAR_COMPANIES_SUGGESTIONS = [
-    'Mercado Libre',
-    'Globant',
-    'Ualá',
-    'Auth0',
-    'Despegar',
-    'Accenture',
-    'Tiendanube',
-    'Rappi',
-    'PedidosYa',
-    'JP Morgan',
-  ];
-
-  const handleAddCompany = (name?: string) => {
-    const comp = (name || newCompanyInput).trim();
+  const handleAddCompany = () => {
+    const comp = newCompanyInput.trim();
     if (!comp) return;
     if (!targetCompaniesList.some((c) => c.toLowerCase() === comp.toLowerCase())) {
       setTargetCompaniesList((prev) => [...prev, comp]);
     }
-    if (!name) setNewCompanyInput('');
+    setNewCompanyInput('');
   };
 
   const handleRemoveCompany = (index: number) => {
@@ -92,16 +71,12 @@ export function EblStudentProfileView({
   };
 
   // CV Strategy & Keywords (Module 03)
-  const [cvKeywordsTech, setCvKeywordsTech] = useState(
-    'SAP ERP, Salesforce CRM, Power BI, Excel Avanzado (VBA), SQL básico'
-  );
-  const [cvKeywordsMethods, setCvKeywordsMethods] = useState(
-    'Gestión de Cuentas Clave B2B, Negociación de Contratos, Metodología STAR, Agile/Scrum'
-  );
-  const [cvVariant1, setCvVariant1] = useState('Key Account Manager B2B (Target Principal)');
-  const [cvVariant2, setCvVariant2] = useState('Analista Comercial Senior (Target Alternativo)');
+  const [cvKeywordsTech, setCvKeywordsTech] = useState('');
+  const [cvKeywordsMethods, setCvKeywordsMethods] = useState('');
+  const [cvVariant1, setCvVariant1] = useState('');
+  const [cvVariant2, setCvVariant2] = useState('');
 
-  const [cvFileName, setCvFileName] = useState('CV_Santiago_Martinez_2026.pdf');
+  const [cvFileName, setCvFileName] = useState('');
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showVocationalModal, setShowVocationalModal] = useState(false);
@@ -462,26 +437,6 @@ export function EblStudentProfileView({
                   </button>
                 </div>
 
-                {/* Quick suggestions */}
-                <div className={styles.companySuggestionsRow}>
-                  <span className={styles.companySuggestionsLabel}>Sugerencias rápidas:</span>
-                  {POPULAR_COMPANIES_SUGGESTIONS.filter(
-                    (s) => !targetCompaniesList.some((c) => c.toLowerCase() === s.toLowerCase())
-                  )
-                    .slice(0, 5)
-                    .map((sug) => (
-                      <button
-                        key={sug}
-                        type="button"
-                        onClick={() => handleAddCompany(sug)}
-                        className={styles.companySuggestionChip}
-                      >
-                        <Plus size={11} />
-                        <span>{sug}</span>
-                      </button>
-                    ))}
-                </div>
-
                 {/* Added companies chips grid */}
                 {targetCompaniesList.length === 0 ? (
                   <div className={styles.emptyCompaniesState}>
@@ -702,60 +657,28 @@ export function EblStudentProfileView({
               </h2>
             </div>
 
-            <div className={styles.certificatesList}>
-              <div className={styles.certItem}>
-                <div className={styles.certBadge}>
-                  <Award size={16} />
-                </div>
-                <div className={styles.certText}>
-                  <strong>Armado de CV Profesional</strong>
-                  <span>Aprobado el 10 de Agosto, 2026</span>
-                </div>
-                <button
-                  type="button"
-                  className={styles.certDownloadBtn}
-                  onClick={() => handleDownloadCert('Armado de CV Profesional')}
-                >
-                  <Download size={14} />
-                  <span>PDF</span>
-                </button>
+            <div style={{ padding: '1.5rem 1rem', textAlign: 'center', background: '#F8FAFC', borderRadius: '0.75rem', border: '1px dashed #CBD5E1' }}>
+              <div
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '50%',
+                  background: '#F5F3FF',
+                  color: '#7C3AED',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 0.75rem',
+                }}
+              >
+                <Award size={22} />
               </div>
-
-              <div className={styles.certItem}>
-                <div className={styles.certBadge} style={{ backgroundColor: '#E0F2FE', color: '#0369A1' }}>
-                  <Award size={16} />
-                </div>
-                <div className={styles.certText}>
-                  <strong>LinkedIn SEO & Marca Personal</strong>
-                  <span>Aprobado el 14 de Agosto, 2026</span>
-                </div>
-                <button
-                  type="button"
-                  className={styles.certDownloadBtn}
-                  onClick={() => handleDownloadCert('LinkedIn SEO & Marca Personal')}
-                >
-                  <Download size={14} />
-                  <span>PDF</span>
-                </button>
-              </div>
-
-              <div className={styles.certItem}>
-                <div className={styles.certBadge} style={{ backgroundColor: '#FEF3C7', color: '#B45309' }}>
-                  <Award size={16} />
-                </div>
-                <div className={styles.certText}>
-                  <strong>Experiencia Búsqueda Laboral Completa</strong>
-                  <span>Programa Integral Acreditado · 2026</span>
-                </div>
-                <button
-                  type="button"
-                  className={styles.certDownloadBtn}
-                  onClick={() => handleDownloadCert('Experiencia Búsqueda Laboral Integral')}
-                >
-                  <Download size={14} />
-                  <span>PDF</span>
-                </button>
-              </div>
+              <h4 style={{ margin: '0 0 0.35rem', fontSize: '0.95rem', fontWeight: 750, color: '#1E1B4B' }}>
+                Certificado Oficial de Finalización EBL
+              </h4>
+              <p style={{ margin: 0, fontSize: '0.8rem', color: '#64748B', lineHeight: 1.5 }}>
+                Tu certificado oficial se emitirá y habilitará para descarga una vez que completes los <strong>7 módulos troncales</strong> de la Experiencia Búsqueda Laboral con la firma de Flor Martínez.
+              </p>
             </div>
           </div>
         </div>

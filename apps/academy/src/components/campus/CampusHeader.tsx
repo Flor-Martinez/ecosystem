@@ -203,48 +203,8 @@ export function CampusHeader({
                       </>
                     )}
 
-                    {/* Individual Courses Section */}
-                    {coursePrograms.length > 0 && (
-                      <>
-                        <span className={styles.dropdownHeaderCourse}>CURSOS INDIVIDUALES (SOLO AULA):</span>
-                        {coursePrograms.map((prog) => {
-                          const isSelected = prog.id === currentProgram.id;
-                          return (
-                            <button
-                              key={prog.id}
-                              type="button"
-                              className={`${styles.dropdownItem} ${isSelected ? styles.dropdownItemActive : ''}`}
-                              onClick={() => {
-                                onSelectProgram(prog);
-                                setShowProgramDropdown(false);
-                              }}
-                            >
-                              <div className={styles.itemLeft}>
-                                <span className={styles.itemBadgeCourse}>{prog.badge}</span>
-                                <strong className={styles.itemTitle}>{prog.title}</strong>
-                                <span className={styles.itemTagline}>{prog.tagline}</span>
-                              </div>
-                              {isSelected && <span className={styles.itemActiveCheck}>✔ Activo</span>}
-                            </button>
-                          );
-                        })}
-                      </>
-                    )}
-
-                    {/* Add / Explore Catalogue Button & Subtle Exit */}
+                    {/* Subtle Exit to Homepage */}
                     <div className={styles.dropdownFooterActions}>
-                      <button
-                        type="button"
-                        className={styles.exploreCatalogBtn}
-                        onClick={() => {
-                          setShowProgramDropdown(false);
-                          if (onOpenCatalogModal) onOpenCatalogModal();
-                        }}
-                      >
-                        <Compass size={15} />
-                        <span>✨ Explorar / Agregar más Cursos y Experiencias</span>
-                      </button>
-
                       <Link
                         href="/"
                         className={styles.subtleExitLink}

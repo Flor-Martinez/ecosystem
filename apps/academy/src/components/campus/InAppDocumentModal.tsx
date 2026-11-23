@@ -48,37 +48,16 @@ export function InAppDocumentModal({
 
   // Target Matrix Interactive Fields (Synced with Mi Perfil)
   const isTargetMatrixDoc = document.id === 'matriz-target-no-negociables';
-  const [targetRole, setTargetRole] = useState('Product Designer / UX Lead');
-  const [industry, setIndustry] = useState('Fintech & E-commerce');
-  const [seniority, setSeniority] = useState('Senior');
-  const [modality, setModality] = useState('100% Remoto (Latam / Global)');
-  const [expectedSalary, setExpectedSalary] = useState('$2.200 USD / mes');
-  const [availability, setAvailability] = useState('Disponibilidad inmediata');
-  const [nonNegotiables, setNonNegotiables] = useState(
-    'No aceptar esquemas 100% presenciales a más de 1h de viaje.\nNo aceptar ofertas por debajo de mi piso salarial neto.'
-  );
-  const [targetCompaniesList, setTargetCompaniesList] = useState<string[]>([
-    'Mercado Libre',
-    'Ualá',
-    'Despegar',
-    'Auth0',
-    'Tiendanube',
-  ]);
+  const [targetRole, setTargetRole] = useState('');
+  const [industry, setIndustry] = useState('');
+  const [seniority, setSeniority] = useState('');
+  const [modality, setModality] = useState('');
+  const [expectedSalary, setExpectedSalary] = useState('');
+  const [availability, setAvailability] = useState('');
+  const [nonNegotiables, setNonNegotiables] = useState('');
+  const [targetCompaniesList, setTargetCompaniesList] = useState<string[]>([]);
   const [newCompanyInput, setNewCompanyInput] = useState('');
   const [isSavedSync, setIsSavedSync] = useState(true);
-
-  const POPULAR_COMPANIES_SUGGESTIONS = [
-    'Mercado Libre',
-    'Globant',
-    'Ualá',
-    'Auth0',
-    'Despegar',
-    'Accenture',
-    'Tiendanube',
-    'Rappi',
-    'PedidosYa',
-    'JP Morgan',
-  ];
 
   const handleAddCompany = (name?: string) => {
     const comp = (name || newCompanyInput).trim();
@@ -594,26 +573,6 @@ export function InAppDocumentModal({
                               <Plus size={15} />
                               <span>Agregar (+)</span>
                             </button>
-                          </div>
-
-                          {/* Quick suggestions */}
-                          <div className={styles.companySuggestionsRow}>
-                            <span className={styles.companySuggestionsLabel}>Sugerencias:</span>
-                            {POPULAR_COMPANIES_SUGGESTIONS.filter(
-                              (s) => !targetCompaniesList.some((c) => c.toLowerCase() === s.toLowerCase())
-                            )
-                              .slice(0, 5)
-                              .map((sug) => (
-                                <button
-                                  key={sug}
-                                  type="button"
-                                  onClick={() => handleAddCompany(sug)}
-                                  className={styles.companySuggestionChip}
-                                >
-                                  <Plus size={11} />
-                                  <span>{sug}</span>
-                                </button>
-                              ))}
                           </div>
 
                           {/* Added companies chips grid */}

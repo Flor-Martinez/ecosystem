@@ -29,19 +29,8 @@ export function CampusResourceVault({
   onLockedClick,
   onBackToDashboard,
 }: CampusResourceVaultProps) {
-  const [selectedFormat, setSelectedFormat] = useState<string>('todos');
-  const [selectedProgram, setSelectedProgram] = useState<string>(currentProgramId || 'todos');
   const [searchQuery, setSearchQuery] = useState<string>('');
-
   const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
-
-  const formats = [
-    { id: 'todos', label: 'Todos los formatos' },
-    { id: 'word', label: 'Plantillas Word (.docx)' },
-    { id: 'notion', label: 'Workspaces Notion' },
-    { id: 'excel', label: 'Matrices Excel (.xlsx)' },
-    { id: 'pdf', label: 'Guías & Checklists (PDF)' },
-  ];
 
   const isResourceLocked = (res: CampusResource): boolean => {
     if (membershipTier === 'paid') return false;
@@ -51,21 +40,15 @@ export function CampusResourceVault({
 
   const filteredResources = useMemo(() => {
     return allCampusResources.filter((res) => {
-      const matchesFormat =
-        selectedFormat === 'todos' || res.type === selectedFormat;
-
-      const matchesProgram =
-        selectedProgram === 'todos' || res.programId === selectedProgram;
-
       const matchesSearch =
         searchQuery.trim() === '' ||
         res.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         res.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         res.category.toLowerCase().includes(searchQuery.toLowerCase());
 
-      return matchesFormat && matchesProgram && matchesSearch;
+      return matchesSearch;
     });
-  }, [selectedFormat, selectedProgram, searchQuery]);
+  }, [searchQuery]);
 
   const handleOpenDoc = (res: CampusResource) => {
     const doc = getInAppDocumentByIdOrSlug(res.id || res.title);
@@ -143,39 +126,6 @@ export function CampusResourceVault({
               ✕
             </button>
           )}
-        </div>
-
-        {/* Program Filter Switcher */}
-        <div className={styles.controlsRow}>
-          <div className={styles.selectGroup}>
-            <span className={styles.selectLabel}>Filtrar por Programa:</span>
-            <select
-              value={selectedProgram}
-              onChange={(e) => setSelectedProgram(e.target.value)}
-              className={styles.selectInput}
-            >
-              <option value="todos">Todos los programas ({allCampusResources.length})</option>
-              {campusPrograms.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.title}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Format Pills */}
-          <div className={styles.formatPills}>
-            {formats.map((fmt) => (
-              <button
-                key={fmt.id}
-                type="button"
-                className={`${styles.formatPill} ${selectedFormat === fmt.id ? styles.formatPillActive : ''}`}
-                onClick={() => setSelectedFormat(fmt.id)}
-              >
-                {fmt.label}
-              </button>
-            ))}
-          </div>
         </div>
       </div>
 
@@ -265,8 +215,6 @@ export function CampusResourceVault({
               type="button"
               className={styles.resetBtn}
               onClick={() => {
-                setSelectedFormat('todos');
-                setSelectedProgram('todos');
                 setSearchQuery('');
               }}
             >

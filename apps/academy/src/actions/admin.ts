@@ -3,42 +3,73 @@
 import fs from 'fs';
 import path from 'path';
 import { SUPERADMIN_EMAILS, BANNED_EMAILS } from '@/context/AuthContext';
-import { campusPrograms, CampusModule, CampusLesson } from '@/data/campus';
+import { campusPrograms } from '@/data/campus';
 import bunnyMapping from '@/data/bunnyVideos.json';
 
-const STORE_DIR = path.join(process.cwd(), 'src', 'data', 'store');
-const USERS_FILE = path.join(STORE_DIR, 'users.json');
-const COMMENTS_FILE = path.join(STORE_DIR, 'comments.json');
-const PRICING_FILE = path.join(STORE_DIR, 'pricing.json');
-const VOCATIONAL_FILE = path.join(STORE_DIR, 'vocationalTests.json');
-const VIDEO_VIEWS_FILE = path.join(STORE_DIR, 'videoViews.json');
+import defaultUsers from '@/data/store/users.json';
+import defaultComments from '@/data/store/comments.json';
+import defaultPricing from '@/data/store/pricing.json';
+import defaultVocational from '@/data/store/vocationalTests.json';
+import defaultVideoViews from '@/data/store/videoViews.json';
 
 const BUNNY_LIB_ID = '815825';
 const BUNNY_API_KEY = 'c38f0c59-0f49-4066-af5d440d17ad-1943-4d4e';
 
-// Helper to safely read JSON store with fallback
-function readJsonStore<T>(filePath: string, fallback: T): T {
-  try {
-    if (!fs.existsSync(filePath)) {
-      fs.mkdirSync(path.dirname(filePath), { recursive: true });
-      fs.writeFileSync(filePath, JSON.stringify(fallback, null, 2), 'utf-8');
-      return fallback;
-    }
-    const content = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(content) as T;
-  } catch (err) {
-    console.error(`Error reading ${filePath}:`, err);
-    return fallback;
-  }
+// In-Memory store for Vercel Serverless environment resilience
+const memoryStore: {
+  users: AdminUserRecord[];
+  comments: StoredCommentItem[];
+  pricing: Record<string, PricingPlan>;
+  vocationalTests: any[];
+  videoViews: Record<string, number>;
+} = {
+  users: (defaultUsers as any[]) || [],
+  comments: (defaultComments as any[]) || [],
+  pricing: (defaultPricing as any) || {},
+  vocationalTests: (defaultVocational as any[]) || [],
+  videoViews: (defaultVideoViews as any) || {},
+};
+
+function getStoreFilePath(filename: string): string {
+  const localPath = path.join(process.cwd(), 'src', 'data', 'store', filename);
+  if (fs.existsSync(localPath)) return localPath;
+  return path.join('/tmp', 'fm_store', filename);
 }
 
-// Helper to safely write JSON store
-function writeJsonStore<T>(filePath: string, data: T): void {
+function readStore<T>(key: 'users' | 'comments' | 'pricing' | 'vocationalTests' | 'videoViews', filename: string, fallback: T): T {
   try {
+    const filePath = getStoreFilePath(filename);
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(content) as T;
+      (memoryStore as any)[key] = parsed;
+      return parsed;
+    }
+  } catch (err) {
+    // ignore
+  }
+
+  if (memoryStore[key] !== undefined && memoryStore[key] !== null) {
+    return memoryStore[key] as unknown as T;
+  }
+  return fallback;
+}
+
+function writeStore<T>(key: 'users' | 'comments' | 'pricing' | 'vocationalTests' | 'videoViews', filename: string, data: T): void {
+  (memoryStore as any)[key] = data;
+
+  try {
+    const filePath = getStoreFilePath(filename);
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
-  } catch (err) {
-    console.error(`Error writing ${filePath}:`, err);
+  } catch {
+    try {
+      const tmpPath = path.join('/tmp', 'fm_store', filename);
+      fs.mkdirSync(path.dirname(tmpPath), { recursive: true });
+      fs.writeFileSync(tmpPath, JSON.stringify(data, null, 2), 'utf-8');
+    } catch {
+      // In-memory update persisted in memoryStore
+    }
   }
 }
 
@@ -60,14 +91,22 @@ export interface AdminUserRecord {
 }
 
 export async function getAdminUsersAction() {
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  let users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
+  if (!users || users.length === 0) {
+    users = defaultUsers as any[];
+    memoryStore.users = users;
+  }
 
   const total = users.length;
   const activeCount = users.filter((u) => u.status === 'active').length;
   const vipCount = users.filter((u) => u.membershipTier === 'VIP').length;
   const freeCount = users.filter((u) => u.membershipTier === 'FREE').length;
-  const superadminCount = users.filter((u) => u.role === 'superadmin' || SUPERADMIN_EMAILS.includes(u.email.toLowerCase())).length;
-  const bannedCount = users.filter((u) => u.status === 'banned' || BANNED_EMAILS.includes(u.email.toLowerCase())).length;
+  const superadminCount = users.filter(
+    (u) => u.role === 'superadmin' || SUPERADMIN_EMAILS.includes(u.email.toLowerCase())
+  ).length;
+  const bannedCount = users.filter(
+    (u) => u.status === 'banned' || BANNED_EMAILS.includes(u.email.toLowerCase())
+  ).length;
 
   return {
     success: true,
@@ -83,10 +122,10 @@ export async function getAdminUsersAction() {
   };
 }
 
-// Ensure user exists or update in registry whenever they log in
-export async function registerOrUpdateUserInStore(email: string, name: string, avatarUrl?: string) {
+export async function registerOrUpdateUserInStore(email: string, name?: string, avatarUrl?: string) {
   const cleanEmail = email.toLowerCase().trim();
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  let users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
+  if (!users || users.length === 0) users = [...(defaultUsers as any[])];
 
   const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
   const isBanned = BANNED_EMAILS.includes(cleanEmail);
@@ -118,44 +157,44 @@ export async function registerOrUpdateUserInStore(email: string, name: string, a
     });
   }
 
-  writeJsonStore(USERS_FILE, users);
+  writeStore('users', 'users.json', users);
 }
 
 export async function updateUserRoleAction(userId: string, newRole: 'superadmin' | 'student' | 'client') {
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
   const idx = users.findIndex((u) => u.id === userId);
   if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
 
   users[idx]!.role = newRole;
-  writeJsonStore(USERS_FILE, users);
+  writeStore('users', 'users.json', users);
   return { success: true, user: users[idx] };
 }
 
 export async function updateUserMembershipAction(userId: string, newTier: 'VIP' | 'FREE') {
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
   const idx = users.findIndex((u) => u.id === userId);
   if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
 
   users[idx]!.membershipTier = newTier;
-  writeJsonStore(USERS_FILE, users);
+  writeStore('users', 'users.json', users);
   return { success: true, user: users[idx] };
 }
 
 export async function toggleUserBanAction(userId: string) {
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
   const idx = users.findIndex((u) => u.id === userId);
   if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
 
   const currentStatus = users[idx]!.status;
   users[idx]!.status = currentStatus === 'banned' ? 'active' : 'banned';
-  writeJsonStore(USERS_FILE, users);
+  writeStore('users', 'users.json', users);
   return { success: true, user: users[idx] };
 }
 
 export async function deleteUserAction(userId: string) {
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
   const filtered = users.filter((u) => u.id !== userId);
-  writeJsonStore(USERS_FILE, filtered);
+  writeStore('users', 'users.json', filtered);
   return { success: true };
 }
 
@@ -171,7 +210,7 @@ export async function createManualUserAction(data: {
     return { success: false, error: 'Email inválido' };
   }
 
-  const users = readJsonStore<AdminUserRecord[]>(USERS_FILE, []);
+  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
   if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
     return { success: false, error: 'Ya existe un usuario con este correo electrónico.' };
   }
@@ -191,38 +230,28 @@ export async function createManualUserAction(data: {
   };
 
   users.unshift(newUser);
-  writeJsonStore(USERS_FILE, users);
+  writeStore('users', 'users.json', users);
   return { success: true, user: newUser };
 }
 
 // ============================================================================
-// 2. MÉTRICAS DE VIDEOS DE CLASES (BUNNY STREAM + CAMPUS)
+// 2. MÉTRICAS DE VIDEOS & AUDITORÍA STREAMING
 // ============================================================================
 
 export interface ClassVideoMetric {
-  file: string;
-  guid: string;
-  courseTitle: string;
-  courseSlug: string;
-  moduleNumber: number | string;
-  moduleTitle: string;
+  moduleDisplay: string; // "1", "2", "3", "4", "5", "6", "7", "Extra 1", "Extra 2", "Extra 3"
+  classNumber: number; // 1, 2, 3...
+  lessonTitle: string; // nombre de la clase
+  courseName: string; // "EBL"
+  durationFormatted: string; // "2:46 min"
+  views: number; // visualizaciones reales de Bunny CDN
   lessonId: string;
-  lessonTitle: string;
-  durationSeconds: number;
-  durationFormatted: string;
-  views: number;
-  averageWatchTime: number;
-  totalWatchTime: number;
-  quality: string;
-  thumbnailUrl: string;
-  embedUrl: string;
-  storageSizeMb: number;
 }
 
 export async function getAdminVideoMetricsAction() {
-  const internalViews = readJsonStore<Record<string, number>>(VIDEO_VIEWS_FILE, {});
+  const internalViews = readStore<Record<string, number>>('videoViews', 'videoViews.json', memoryStore.videoViews);
 
-  // Fetch Bunny Stream statistics
+  // Fetch real Bunny Stream statistics
   let bunnyItems: any[] = [];
   try {
     const url = `https://video.bunnycdn.com/library/${BUNNY_LIB_ID}/videos?page=1&itemsPerPage=100`;
@@ -248,81 +277,54 @@ export async function getAdminVideoMetricsAction() {
     }
   }
 
-  // Cross-reference with campusPrograms
-  const metrics: ClassVideoMetric[] = [];
   const typedBunnyMapping = bunnyMapping as Record<string, { guid: string; embed_url: string; id: string; ts_key: string }>;
+  const metrics: ClassVideoMetric[] = [];
 
-  for (const program of campusPrograms) {
-    for (const mod of program.modules) {
-      for (const lesson of mod.lessons) {
-        // Find matching video in bunnyMapping
-        let matchedFile = '';
-        let matchedGuid = '';
-        let matchedEmbed = lesson.videoUrl || '';
+  const eblProgram = campusPrograms[0]!;
 
-        for (const [file, info] of Object.entries(typedBunnyMapping)) {
-          if (info.id === lesson.id || (lesson.videoUrl && lesson.videoUrl.includes(info.guid))) {
-            matchedFile = file;
-            matchedGuid = info.guid;
-            matchedEmbed = info.embed_url;
-            break;
-          }
-        }
-
-        if (!matchedFile && lesson.videoUrl && lesson.videoUrl.includes('/embed/815825/')) {
-          const m = lesson.videoUrl.match(/embed\/815825\/([a-zA-Z0-9-]+)/);
-          if (m && m[1]) {
-            matchedGuid = m[1];
-            for (const [file, info] of Object.entries(typedBunnyMapping)) {
-              if (info.guid === matchedGuid) {
-                matchedFile = file;
-                break;
-              }
-            }
-          }
-        }
-
-        const bunnyVideo = matchedFile ? bunnyMapByFile[matchedFile] : null;
-
-        const durationSeconds = bunnyVideo?.length || (lesson.videoDuration ? parseDurationToSeconds(lesson.videoDuration) : 120);
-        const bunnyViews = bunnyVideo?.views || 0;
-        const localViews = internalViews[lesson.id] || internalViews[matchedFile] || 0;
-        const totalViews = Math.max(bunnyViews, localViews);
-
-        const storageMb = bunnyVideo?.storageSize ? Number((bunnyVideo.storageSize / (1024 * 1024)).toFixed(1)) : 80;
-
-        metrics.push({
-          file: matchedFile || `${lesson.id}.mp4`,
-          guid: matchedGuid,
-          courseTitle: program.title,
-          courseSlug: program.slug,
-          moduleNumber: mod.number,
-          moduleTitle: mod.title,
-          lessonId: lesson.id,
-          lessonTitle: lesson.title,
-          durationSeconds,
-          durationFormatted: formatSeconds(durationSeconds),
-          views: totalViews,
-          averageWatchTime: bunnyVideo?.averageWatchTime || 0,
-          totalWatchTime: bunnyVideo?.totalWatchTime || 0,
-          quality: '1080p Full HD',
-          thumbnailUrl: bunnyVideo?.thumbnailUrl || `/images/check_${matchedFile ? matchedFile.replace('.mp4', '.jpg') : 'EBL-1-1.jpg'}`,
-          embedUrl: matchedEmbed,
-          storageSizeMb: storageMb,
-        });
+  for (const mod of eblProgram.modules) {
+    let moduleDisplay = String(mod.number);
+    if (mod.isExtra) {
+      if (mod.extraTag) {
+        moduleDisplay = mod.extraTag.replace('EXTRA 0', 'Extra ').replace('EXTRA ', 'Extra ');
+      } else {
+        moduleDisplay = `Extra ${mod.number}`;
       }
+    }
+
+    for (const lesson of mod.lessons) {
+      // Find matching video in bunnyMapping
+      let matchedFile = '';
+      for (const [file, info] of Object.entries(typedBunnyMapping)) {
+        if (info.id === lesson.id || (lesson.videoUrl && lesson.videoUrl.includes(info.guid))) {
+          matchedFile = file;
+          break;
+        }
+      }
+
+      const bunnyVideo = matchedFile ? bunnyMapByFile[matchedFile] : null;
+      const durationSeconds = bunnyVideo?.length || parseDurationToSeconds(lesson.duration || '3:00 min');
+      const bunnyViews = bunnyVideo?.views || 0;
+      const localViews = internalViews[lesson.id] || internalViews[matchedFile] || 0;
+      const totalViews = Math.max(bunnyViews, localViews);
+
+      metrics.push({
+        moduleDisplay,
+        classNumber: lesson.lessonNumber,
+        lessonTitle: lesson.title,
+        courseName: 'EBL',
+        durationFormatted: lesson.duration || formatSeconds(durationSeconds),
+        views: totalViews,
+        lessonId: lesson.id,
+      });
     }
   }
 
-  // Aggregate stats
   const totalVideos = metrics.length;
   const totalViews = metrics.reduce((acc, v) => acc + v.views, 0);
-  const totalDurationSeconds = metrics.reduce((acc, v) => acc + v.durationSeconds, 0);
-  const totalHours = (totalDurationSeconds / 3600).toFixed(1);
-
-  // Top watched
-  const sorted = [...metrics].sort((a, b) => b.views - a.views);
-  const topWatched = sorted[0] || null;
+  const totalDurationSeconds = metrics.reduce((acc, v) => acc + parseDurationToSeconds(v.durationFormatted), 0);
+  const totalHours = (totalDurationSeconds / 3600).toFixed(1) + ' hrs';
+  const topWatched = [...metrics].sort((a, b) => b.views - a.views)[0] || null;
 
   return {
     success: true,
@@ -351,10 +353,10 @@ function formatSeconds(sec: number): string {
 }
 
 export async function recordVideoViewAction(lessonId: string, videoFile?: string) {
-  const views = readJsonStore<Record<string, number>>(VIDEO_VIEWS_FILE, {});
+  const views = readStore<Record<string, number>>('videoViews', 'videoViews.json', memoryStore.videoViews);
   const key = videoFile || lessonId;
   views[key] = (views[key] || 0) + 1;
-  writeJsonStore(VIDEO_VIEWS_FILE, views);
+  writeStore('videoViews', 'videoViews.json', views);
   return { success: true, count: views[key] };
 }
 
@@ -384,14 +386,14 @@ export interface StoredCommentItem {
   createdAtIso: string;
   content: string;
   likes: number;
-  likedBy: string[]; // array of emails that liked
-  isApproved: boolean; // TRUE = Public for all students. FALSE = Private (only author & superadmins)
+  likedBy: string[];
+  isApproved: boolean; // TRUE = Public. FALSE = Private (only author & superadmin)
   isRead: boolean; // Superadmin read state
   replies: CommentReply[];
 }
 
 export async function getAdminCommentsAction() {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
 
   const total = comments.length;
   const unreadCount = comments.filter((c) => !c.isRead).length;
@@ -411,14 +413,10 @@ export async function getAdminCommentsAction() {
 }
 
 export async function getLessonCommentsAction(lessonId: string, currentUserEmail?: string, isSuperAdmin = false) {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const lessonComments = comments.filter((c) => c.lessonId === lessonId);
-
   const cleanUserEmail = currentUserEmail?.toLowerCase().trim() || '';
 
-  // Filter visibility:
-  // - Superadmin sees ALL
-  // - Regular user sees APPROVED comments + THEIR OWN private comments
   const visible = lessonComments.filter((c) => {
     if (isSuperAdmin) return true;
     if (c.isApproved) return true;
@@ -426,7 +424,6 @@ export async function getLessonCommentsAction(lessonId: string, currentUserEmail
     return false;
   });
 
-  // Map to client-friendly format
   const mapped = visible.map((c) => ({
     id: c.id,
     authorName: c.authorName,
@@ -458,30 +455,30 @@ export async function saveLessonCommentAction(
     return { success: false, error: 'El comentario no puede estar vacío.' };
   }
 
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const userEmail = (currentUser.email || '').toLowerCase().trim();
 
-  // If superadmin: ALWAYS published as "Flor Martínez" (instructora)
   let authorName = currentUser.name?.trim() || 'Alumno';
   let isInstructor = false;
   let initials = 'AL';
-  let isApproved = false; // Students start PRIVATE
+  let isApproved = false; // Students are private until approved
   let isRead = false;
 
   if (isSuperAdmin) {
     authorName = 'Flor Martínez';
     isInstructor = true;
     initials = 'FM';
-    isApproved = true; // Instructor comments are public
+    isApproved = true;
     isRead = true;
   } else {
-    initials = authorName
-      .split(' ')
-      .map((w) => w[0])
-      .filter(Boolean)
-      .slice(0, 2)
-      .join('')
-      .toUpperCase() || 'AL';
+    initials =
+      authorName
+        .split(' ')
+        .map((w) => w[0])
+        .filter(Boolean)
+        .slice(0, 2)
+        .join('')
+        .toUpperCase() || 'AL';
   }
 
   const now = new Date();
@@ -505,46 +502,45 @@ export async function saveLessonCommentAction(
   };
 
   comments.unshift(newComment);
-  writeJsonStore(COMMENTS_FILE, comments);
+  writeStore('comments', 'comments.json', comments);
 
   return { success: true, comment: newComment };
 }
 
 export async function deleteLessonCommentAction(commentId: string, userEmail: string, isSuperAdmin = false) {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const cleanEmail = userEmail.toLowerCase().trim();
 
   const comment = comments.find((c) => c.id === commentId);
   if (!comment) return { success: false, error: 'Comentario no encontrado' };
 
-  // Can delete if Superadmin OR if it is their own comment
   if (!isSuperAdmin && comment.authorEmail.toLowerCase() !== cleanEmail) {
     return { success: false, error: 'No tenés permisos para eliminar este comentario.' };
   }
 
   const filtered = comments.filter((c) => c.id !== commentId);
-  writeJsonStore(COMMENTS_FILE, filtered);
+  writeStore('comments', 'comments.json', filtered);
 
   return { success: true };
 }
 
 export async function toggleCommentApprovalAction(commentId: string) {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
 
   comments[idx]!.isApproved = !comments[idx]!.isApproved;
-  writeJsonStore(COMMENTS_FILE, comments);
+  writeStore('comments', 'comments.json', comments);
   return { success: true, isApproved: comments[idx]!.isApproved };
 }
 
 export async function toggleCommentReadAction(commentId: string) {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
 
   comments[idx]!.isRead = !comments[idx]!.isRead;
-  writeJsonStore(COMMENTS_FILE, comments);
+  writeStore('comments', 'comments.json', comments);
   return { success: true, isRead: comments[idx]!.isRead };
 }
 
@@ -553,7 +549,7 @@ export async function replyCommentAsFlorAction(commentId: string, replyContent: 
     return { success: false, error: 'La respuesta no puede estar vacía' };
   }
 
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
 
@@ -567,14 +563,14 @@ export async function replyCommentAsFlorAction(commentId: string, replyContent: 
   };
 
   comments[idx]!.replies.push(reply);
-  comments[idx]!.isRead = true; // Auto-mark read when answered
-  writeJsonStore(COMMENTS_FILE, comments);
+  comments[idx]!.isRead = true;
+  writeStore('comments', 'comments.json', comments);
 
   return { success: true, reply };
 }
 
 export async function toggleCommentLikeAction(commentId: string, userEmail: string) {
-  const comments = readJsonStore<StoredCommentItem[]>(COMMENTS_FILE, []);
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
 
@@ -590,7 +586,7 @@ export async function toggleCommentLikeAction(commentId: string, userEmail: stri
     comments[idx]!.likes = (comments[idx]!.likes || 0) + 1;
   }
 
-  writeJsonStore(COMMENTS_FILE, comments);
+  writeStore('comments', 'comments.json', comments);
   return { success: true, likes: comments[idx]!.likes, userLiked: !alreadyLiked };
 }
 
@@ -604,53 +600,44 @@ export interface PricingPlan {
   promoPrice: number;
   regularPrice: number;
   currency: string;
-  installments: string;
+  installments?: string;
   promoActive: boolean;
-  promoBadge: string;
+  promoBadge?: string;
 }
 
 export async function getAdminPricingAction() {
-  const pricing = readJsonStore<Record<string, PricingPlan>>(PRICING_FILE, {});
+  const pricing = readStore<Record<string, PricingPlan>>('pricing', 'pricing.json', memoryStore.pricing);
   return { success: true, pricing };
-}
-
-export async function updateAdminPricingAction(
-  planKey: string,
-  updatedData: Partial<PricingPlan>
-) {
-  const pricing = readJsonStore<Record<string, PricingPlan>>(PRICING_FILE, {});
-  if (!pricing[planKey]) {
-    return { success: false, error: 'Plan no encontrado' };
-  }
-
-  pricing[planKey] = {
-    ...pricing[planKey]!,
-    ...updatedData,
-  };
-
-  writeJsonStore(PRICING_FILE, pricing);
-  return { success: true, plan: pricing[planKey] };
 }
 
 export async function updateFullPricingAction(data: {
   eblPromoPrice?: number;
   eblRegularPrice?: number;
-  eblInstallments?: number;
   coursePrice?: number;
 }) {
-  const pricing = readJsonStore<Record<string, PricingPlan>>(PRICING_FILE, {});
-  if (pricing['ebl']) {
+  const pricing = readStore<Record<string, PricingPlan>>('pricing', 'pricing.json', memoryStore.pricing);
+
+  if (!pricing['ebl']) {
+    pricing['ebl'] = {
+      id: 'experiencia-busqueda-laboral',
+      name: 'Experiencia Búsqueda Laboral — Pase Anual Completo',
+      promoPrice: data.eblPromoPrice || 20000,
+      regularPrice: data.eblRegularPrice || 34900,
+      currency: 'ARS',
+      promoActive: true,
+      promoBadge: 'Oferta Oficial de Lanzamiento',
+    };
+  } else {
     if (data.eblPromoPrice !== undefined) pricing['ebl'].promoPrice = data.eblPromoPrice;
     if (data.eblRegularPrice !== undefined) pricing['ebl'].regularPrice = data.eblRegularPrice;
-    if (data.eblInstallments !== undefined) {
-      pricing['ebl'].installments = `Hasta ${data.eblInstallments} cuotas fijas`;
-    }
   }
+
   if (data.coursePrice !== undefined) {
     if (pricing['curso-cv']) pricing['curso-cv'].promoPrice = data.coursePrice;
     if (pricing['curso-linkedin']) pricing['curso-linkedin'].promoPrice = data.coursePrice;
   }
-  writeJsonStore(PRICING_FILE, pricing);
+
+  writeStore('pricing', 'pricing.json', pricing);
   return { success: true, pricing };
 }
 
@@ -670,11 +657,14 @@ export interface VocationalSubmissionItem {
 }
 
 export async function getAdminVocationalStatsAction() {
-  const submissions = readJsonStore<VocationalSubmissionItem[]>(VOCATIONAL_FILE, []);
+  const submissions = readStore<VocationalSubmissionItem[]>(
+    'vocationalTests',
+    'vocationalTests.json',
+    memoryStore.vocationalTests
+  );
 
-  const total = submissions.length;
-
-  const archetypesCount: Record<string, number> = {
+  const totalTests = submissions.length;
+  const archetypes = {
     estrategico: 0,
     analitico: 0,
     personas: 0,
@@ -683,17 +673,18 @@ export async function getAdminVocationalStatsAction() {
 
   for (const s of submissions) {
     const arch = (s.dominantArchetype || '').toLowerCase();
-    if (archetypesCount[arch] !== undefined) {
-      archetypesCount[arch] += 1;
-    }
+    if (arch.includes('estrateg')) archetypes.estrategico++;
+    else if (arch.includes('analit')) archetypes.analitico++;
+    else if (arch.includes('persona')) archetypes.personas++;
+    else if (arch.includes('creat')) archetypes.creativo++;
   }
 
   return {
     success: true,
-    submissions,
     stats: {
-      total,
-      archetypesCount,
+      totalTests,
+      archetypes,
+      submissions: submissions.slice(0, 50),
     },
   };
 }
@@ -704,22 +695,27 @@ export async function recordVocationalSubmissionAction(data: {
   dominantArchetype: string;
   dominantName: string;
   scores: Record<string, number>;
-  recommendedRoles: string[];
+  recommendedRoles?: string[];
 }) {
-  const submissions = readJsonStore<VocationalSubmissionItem[]>(VOCATIONAL_FILE, []);
+  const submissions = readStore<VocationalSubmissionItem[]>(
+    'vocationalTests',
+    'vocationalTests.json',
+    memoryStore.vocationalTests
+  );
 
-  const newItem: VocationalSubmissionItem = {
+  const newSub: VocationalSubmissionItem = {
     id: 'voc_' + Date.now().toString(36),
     userEmail: data.userEmail || 'Anónimo',
-    userName: data.userName || 'Visitante',
+    userName: data.userName || 'Alumno',
     completedAt: new Date().toISOString(),
     dominantArchetype: data.dominantArchetype,
     dominantName: data.dominantName,
     scores: data.scores,
-    recommendedRoles: data.recommendedRoles,
+    recommendedRoles: data.recommendedRoles || [],
   };
 
-  submissions.unshift(newItem);
-  writeJsonStore(VOCATIONAL_FILE, submissions);
-  return { success: true, submission: newItem };
+  submissions.unshift(newSub);
+  writeStore('vocationalTests', 'vocationalTests.json', submissions);
+
+  return { success: true, submission: newSub };
 }

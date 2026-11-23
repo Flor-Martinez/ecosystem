@@ -298,11 +298,11 @@ export default function AdminDashboardClient() {
       const res = await updateFullPricingAction({
         eblPromoPrice,
         eblRegularPrice,
-        eblInstallments,
         coursePrice,
       });
       if (res.success) {
         setPricingSavedSuccess(true);
+        await loadPricing();
         setTimeout(() => setPricingSavedSuccess(false), 3000);
       }
     } catch (err) {
@@ -423,9 +423,6 @@ export default function AdminDashboardClient() {
           >
             <Users size={16} />
             <span>Cuentas & Alumnos</span>
-            <span className={styles.tabBadge} style={{ background: '#7C3AED' }}>
-              {users.length}
-            </span>
           </button>
 
           <button
@@ -435,9 +432,6 @@ export default function AdminDashboardClient() {
           >
             <Video size={16} />
             <span>Métricas de Videos</span>
-            <span className={styles.tabBadge} style={{ background: '#2563EB' }}>
-              {videoMetrics.length || 37}
-            </span>
           </button>
 
           <button
@@ -447,9 +441,6 @@ export default function AdminDashboardClient() {
           >
             <MessageSquare size={16} />
             <span>Consultas & Comentarios</span>
-            {commentsStats.unreadCount > 0 && (
-              <span className={styles.tabBadge}>{commentsStats.unreadCount}</span>
-            )}
           </button>
 
           <button
@@ -805,48 +796,38 @@ export default function AdminDashboardClient() {
               <table className={styles.adminTable}>
                 <thead>
                   <tr>
-                    <th>Clase / Video</th>
-                    <th>Módulo / Experiencia</th>
+                    <th>Módulo</th>
+                    <th>Clase</th>
+                    <th>Nombre</th>
+                    <th>Curso</th>
                     <th>Duración</th>
-                    <th>Calidad</th>
                     <th>Visualizaciones</th>
-                    <th style={{ textAlign: 'center' }}>Campus</th>
+                    <th style={{ textAlign: 'center' }}>Auditar</th>
                   </tr>
                 </thead>
                 <tbody>
                   {videoMetrics.map((v) => (
                     <tr key={v.lessonId}>
-                      <td>
-                        <div className={styles.videoRowPreview}>
-                          <img
-                            src={v.thumbnailUrl}
-                            alt={v.lessonTitle}
-                            className={styles.videoThumb}
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = '/images/check_EBL-1-1.jpg';
-                            }}
-                          />
-                          <div className={styles.videoInfoCol}>
-                            <span className={styles.videoTitle}>{v.lessonTitle}</span>
-                            <span className={styles.videoModuleTag}>ID: {v.lessonId}</span>
-                          </div>
-                        </div>
+                      <td style={{ fontWeight: 750, color: '#6D28D9', whiteSpace: 'nowrap' }}>
+                        {v.moduleDisplay}
+                      </td>
+
+                      <td style={{ fontWeight: 700, color: '#334155', textAlign: 'center' }}>
+                        #{v.classNumber}
+                      </td>
+
+                      <td style={{ fontWeight: 650, color: '#0F172A' }}>
+                        {v.lessonTitle}
                       </td>
 
                       <td>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 650, color: '#334155' }}>
-                          {v.moduleTitle}
+                        <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#2563EB', background: '#EFF6FF', padding: '0.2rem 0.55rem', borderRadius: '4px' }}>
+                          {v.courseName}
                         </span>
                       </td>
 
-                      <td style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B' }}>
+                      <td style={{ fontSize: '0.825rem', fontWeight: 600, color: '#64748B', whiteSpace: 'nowrap' }}>
                         {v.durationFormatted}
-                      </td>
-
-                      <td>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', background: '#ECFDF5', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>
-                          {v.quality}
-                        </span>
                       </td>
 
                       <td>
@@ -1251,8 +1232,10 @@ export default function AdminDashboardClient() {
                     >
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                         <div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#7C3AED', textTransform: 'uppercase' }}>
-                            Módulo {modIdx + 1}
+                          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: mod.isExtra ? '#D97706' : '#7C3AED', textTransform: 'uppercase' }}>
+                            {mod.isExtra
+                              ? `Módulo Extra ${mod.number >= 8 ? mod.number - 7 : modIdx - 6}`
+                              : `Módulo ${modIdx + 1}`}
                           </span>
                           <h3 style={{ margin: '0.2rem 0 0', fontSize: '1.1rem', fontWeight: 800, color: '#1E1B4B' }}>
                             {mod.title}
@@ -1366,23 +1349,9 @@ export default function AdminDashboardClient() {
                 </div>
               </div>
 
+              {/* Cursos individuales (proximamente) */}
               <div className={styles.priceFieldGroup}>
-                <label className={styles.priceLabel}>Cuotas sin interés promocionadas</label>
-                <div className={styles.priceInputGroup}>
-                  <input
-                    type="number"
-                    min="1"
-                    max="12"
-                    value={eblInstallments}
-                    onChange={(e) => setEblInstallments(Number(e.target.value))}
-                    className={styles.priceInput}
-                  />
-                  <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 650 }}>cuotas fijas</span>
-                </div>
-              </div>
-
-              <div className={styles.priceFieldGroup}>
-                <label className={styles.priceLabel}>Precio de Cursos Individuales (ARS)</label>
+                <label className={styles.priceLabel}>Cursos Individuales (Referencia para cuando haya lanzamientos)</label>
                 <div className={styles.priceInputGroup}>
                   <span className={styles.priceCurrency}>$</span>
                   <input

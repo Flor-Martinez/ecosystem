@@ -435,45 +435,50 @@
   border-color: #CBD5E1;
 }
 
-/* TAB NAVIGATION */
+/* TAB NAVIGATION - SEGMENTED CONTROL DESIGN */
 .navTabs {
   display: flex;
-  gap: 0.5rem;
-  border-bottom: 2px solid #E9D5FF;
+  align-items: center;
+  gap: 0.35rem;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  border-radius: var(--radius-xl, 1rem);
+  padding: 0.35rem;
   margin-bottom: 2rem;
   overflow-x: auto;
-  padding-bottom: 0.25rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.navTabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tabBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.65rem 1.15rem;
   border: none;
   background: transparent;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 700;
-  color: #64748B;
+  color: #475569;
+  border-radius: var(--radius-lg, 0.75rem);
   cursor: pointer;
-  border-radius: var(--radius-md, 0.5rem) var(--radius-md, 0.5rem) 0 0;
-  position: relative;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .tabBtn:hover {
-  color: #7C3AED;
-  background: #FAF5FF;
+  color: #1E1B4B;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .tabBtnActive {
-  color: #7C3AED;
+  color: #6D28D9;
   background: #FFFFFF;
-  border: 1px solid #E9D5FF;
-  border-bottom: 2px solid #FFFFFF;
-  margin-bottom: -2px;
-  box-shadow: 0 -2px 6px rgba(124, 58, 237, 0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .tabBadge {
