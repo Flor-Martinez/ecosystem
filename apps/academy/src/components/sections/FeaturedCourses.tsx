@@ -17,7 +17,7 @@ export function FeaturedCourses() {
           badge="Talleres & Cursos"
           badgeVariant="primary"
           title="Los programas más elegidos para dar el salto"
-          subtitle="Formación 100% práctica con acceso de por vida, plantillas editables y acompañamiento paso a paso."
+          subtitle="Formación 100% práctica con membresía anual completa, plantillas editables y acompañamiento paso a paso."
         />
 
         {/* Featured Courses Grid */}

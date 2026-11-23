@@ -64,7 +64,18 @@ export function CampusPlayer({
 }: CampusPlayerProps) {
   const { user, isSuperAdmin, openAuthModal } = useAuth();
   const activeEmail = user?.email || '';
-  const canAccessVideo = Boolean(user && isSuperAdmin);
+
+  // Access rule: Module 1 is 100% free for everyone (including guests & free tier).
+  // Modules 2+ are unlocked for VIP members or Superadmins.
+  const isModuleOne = lesson.moduleNumber === 1;
+  const isVipUser = Boolean(
+    isSuperAdmin ||
+    membershipTier === 'paid' ||
+    (user as any)?.membershipTier === 'VIP' ||
+    user?.role === 'superadmin' ||
+    (user && (user.role === 'admin' || user.role === 'superadmin'))
+  );
+  const canAccessVideo = isModuleOne || isVipUser;
 
   // Video state & refs
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -90,7 +101,11 @@ export function CampusPlayer({
 
   const handleTogglePlay = () => {
     if (!canAccessVideo) {
-      openAuthModal('login');
+      if (!user) {
+        openAuthModal('login');
+      } else {
+        window.location.href = '/#planes-suscripcion';
+      }
       return;
     }
     if (videoRef.current) {
@@ -476,18 +491,29 @@ export function CampusPlayer({
                 </div>
                 <h2 className={styles.screenLessonTitle}>{lesson.title}</h2>
                 <p className={styles.lockedScreenPrompt}>
-                  {user
-                    ? 'El acceso a los videos de las clases está restringido exclusivamente a las cuentas de administración autorizadas del Ecosistema Flor Martínez.'
-                    : 'Esta clase está reservada para cuentas autorizadas de la Academia. Iniciá sesión con tu cuenta habilitada para reproducir el video.'}
+                  Esta clase forma parte del contenido avanzado de la Experiencia Búsqueda Laboral (Módulos 02 al 07 Troncales + 3 Extras). Desbloqueá tu membresía anual para ver todas las clases en video HD, descargar plantillas editables y acceder a consultas privadas.
                 </p>
-                <button
-                  type="button"
-                  className={styles.loginToWatchBtn}
-                  onClick={() => openAuthModal('login')}
-                >
-                  <User size={18} />
-                  <span>{user ? 'Iniciar Sesión con Cuenta Autorizada' : 'Iniciar Sesión para Ver la Clase'}</span>
-                </button>
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem' }}>
+                  <a
+                    href="/#planes-suscripcion"
+                    className={styles.loginToWatchBtn}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Sparkles size={18} />
+                    <span>Comprar Membresía VIP (Pase Anual)</span>
+                  </a>
+                  {!user && (
+                    <button
+                      type="button"
+                      className={styles.loginToWatchBtn}
+                      style={{ background: '#FFFFFF', color: '#475569', border: '1px solid #CBD5E1' }}
+                      onClick={() => openAuthModal('login')}
+                    >
+                      <User size={18} />
+                      <span>Ya tengo cuenta · Iniciar Sesión</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ) : lesson.videoUrl ? (

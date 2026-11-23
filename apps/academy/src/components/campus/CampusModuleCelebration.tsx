@@ -204,8 +204,8 @@ export function CampusModuleCelebration({
                 <div className={styles.freeUpsellItem}>
                   <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
                   <div>
-                    <strong>Módulos 02 al 08 Troncales</strong>
-                    <span>Armado de CV ATS, LinkedIn optimizado, Simulador STAR de entrevistas y Negociación Salarial.</span>
+                    <strong>Módulos 02 al 07 Troncales + 3 Extras</strong>
+                    <span>Armado de CV ATS, LinkedIn optimizado, Simulador STAR de entrevistas, Negociación Salarial y 3 Módulos Extras especializados.</span>
                   </div>
                 </div>
 
@@ -228,8 +228,8 @@ export function CampusModuleCelebration({
                 <div className={styles.freeUpsellItem}>
                   <CheckCircle2 size={16} className={styles.upsellCheckIcon} />
                   <div>
-                    <strong>Soporte y Consultas con Flor</strong>
-                    <span>Espacio de interacción en cada clase con respuestas directas de Flor para resolver dudas.</span>
+                    <strong>Consultas Privadas en Cada Clase</strong>
+                    <span>Canal privado de consultas en cada clase donde Flor Martínez y su equipo responden tus dudas puntuales.</span>
                   </div>
                 </div>
               </div>
@@ -244,7 +244,7 @@ export function CampusModuleCelebration({
                   <ArrowRight size={18} />
                 </a>
                 <span className={styles.guaranteeText}>
-                  🛡️ Acceso de por vida · Actualizaciones 2026 · Certificado Oficial al finalizar
+                  🛡️ Pago único · 1 Año Completo de Acceso · Certificado Oficial al finalizar
                 </span>
               </div>
             </div>

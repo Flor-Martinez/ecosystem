@@ -1,5 +1,7 @@
 'use server';
 
+import fs from 'fs';
+import path from 'path';
 import { db, MembershipTier, Role } from '@repo/db';
 
 export type JobApplicationStatus =
@@ -26,33 +28,173 @@ function normalizeJobStatus(status: string | null | undefined): JobApplicationSt
 
 export type CalendarEventType = 'zoom' | 'entrevista' | 'prueba' | 'seguimiento';
 
-const DEFAULT_DEMO_EMAIL = 'santiago.morales@ejemplo.com';
+const DEFAULT_DEMO_EMAIL = 'guest@academia.flormartinezok.com';
 
-// Helper to ensure demo user exists in DB
-async function getOrCreateUser(email: string = DEFAULT_DEMO_EMAIL) {
-  const formattedEmail = email.toLowerCase().trim();
-  let user = await db.user.findUnique({
-    where: { email: formattedEmail },
-    include: {
-      studentProfile: true,
-      jobApplications: { orderBy: { createdAt: 'desc' } },
-      calendarEvents: { orderBy: { date: 'asc' } },
-      quizSubmissions: true,
-    },
-  });
+// Helper for store path resolution across monorepo and standalone builds
+function getStoreFilePath(filename: string): string {
+  const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
+  if (fs.existsSync(monorepoPath)) return monorepoPath;
+
+  const localPath = path.join(process.cwd(), 'src', 'data', 'store', filename);
+  if (fs.existsSync(localPath)) return localPath;
+
+  const parentPath = path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', filename);
+  if (fs.existsSync(parentPath)) return parentPath;
+
+  return path.join('/tmp', 'fm_store', filename);
+}
+
+const memoryProgressStore: Record<string, string[]> = {};
+
+function readProgressStore(): Record<string, string[]> {
+  try {
+    const filePath = getStoreFilePath('userProgress.json');
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(content);
+      if (parsed && typeof parsed === 'object') {
+        Object.assign(memoryProgressStore, parsed);
+        return memoryProgressStore;
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return memoryProgressStore;
+}
+
+function writeProgressStore(data: Record<string, string[]>): void {
+  Object.assign(memoryProgressStore, data);
+
+  const candidatePaths = [
+    path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', 'userProgress.json'),
+    path.join(process.cwd(), 'src', 'data', 'store', 'userProgress.json'),
+    path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', 'userProgress.json'),
+    path.join('/tmp', 'fm_store', 'userProgress.json'),
+  ];
+
+  for (const p of candidatePaths) {
+    try {
+      fs.mkdirSync(path.dirname(p), { recursive: true });
+      fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf-8');
+      break;
+    } catch {
+      // try next
+    }
+  }
+}
+
+// Helper with timeout to prevent DB hangs
+function withDbTimeout<T>(promise: Promise<T>, timeoutMs = 1500): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('DB Timeout')), timeoutMs)
+    ),
+  ]);
+}
+
+// Helper to ensure user exists in DB if available
+async function getOrCreateUser(email: string) {
+  const formattedEmail = (email || 'guest').toLowerCase().trim();
+  let user = await withDbTimeout(
+    db.user.findUnique({
+      where: { email: formattedEmail },
+      include: {
+        studentProfile: true,
+        jobApplications: { orderBy: { createdAt: 'desc' } },
+        calendarEvents: { orderBy: { date: 'asc' } },
+        quizSubmissions: true,
+      },
+    })
+  );
 
   if (!user) {
     const namePart = formattedEmail.split('@')[0] || 'Usuario';
     const dynamicName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
-    user = await db.user.create({
-      data: {
-        email: formattedEmail,
-        name: dynamicName,
-        role: Role.STUDENT,
-        membershipTier: MembershipTier.VIP,
-        headline: 'Estudiante en Academia Flor Martínez',
-        studentProfile: {
-          create: {
+    user = await withDbTimeout(
+      db.user.create({
+        data: {
+          email: formattedEmail,
+          name: dynamicName,
+          role: Role.STUDENT,
+          membershipTier: MembershipTier.VIP,
+          headline: 'Estudiante en Academia Flor Martínez',
+          studentProfile: {
+            create: {
+              targetRole: '',
+              seniority: '',
+              modality: '',
+              expectedSalary: '',
+              linkedinUrl: '',
+              cvFileName: '',
+              atsScore: 0,
+              linkedinScore: 0,
+              starScore: 0,
+              negotiationScore: 0,
+              networkingScore: 0,
+            },
+          },
+        },
+        include: {
+          studentProfile: true,
+          jobApplications: { orderBy: { createdAt: 'desc' } },
+          calendarEvents: { orderBy: { date: 'asc' } },
+          quizSubmissions: true,
+        },
+      })
+    );
+  }
+
+  return user;
+}
+
+// 1. Get complete initial state for Campus Virtual (resilient with userProgress.json)
+export async function getCampusInitialDataAction(userEmail?: string) {
+  const cleanEmail = (userEmail || 'guest').toLowerCase().trim();
+  const progressStore = readProgressStore();
+  const savedCompletedLessonIds = progressStore[cleanEmail] || [];
+
+  try {
+    if (cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
+      const user = await getOrCreateUser(cleanEmail);
+
+      const [globalEvents, userEvents, enrollments] = await Promise.all([
+        withDbTimeout(db.calendarEvent.findMany({ where: { isGlobal: true }, orderBy: { date: 'asc' } })).catch(() => []),
+        withDbTimeout(db.calendarEvent.findMany({ where: { userId: user.id }, orderBy: { date: 'asc' } })).catch(() => []),
+        withDbTimeout(db.enrollment.findMany({ where: { userId: user.id }, include: { progressRecords: true } })).catch(() => []),
+      ]);
+
+      const dbCompletedIds: string[] = [];
+      enrollments.forEach((enr: any) => {
+        enr.progressRecords?.forEach((pr: any) => {
+          if (pr.isCompleted && pr.lessonId) {
+            dbCompletedIds.push(pr.lessonId);
+          }
+        });
+      });
+
+      // Merge DB progress with file store progress
+      const mergedSet = new Set([...savedCompletedLessonIds, ...dbCompletedIds]);
+      const finalCompletedList = Array.from(mergedSet);
+
+      if (finalCompletedList.length !== savedCompletedLessonIds.length) {
+        progressStore[cleanEmail] = finalCompletedList;
+        writeProgressStore(progressStore);
+      }
+
+      return {
+        success: true,
+        data: {
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            membershipTier: user.membershipTier === MembershipTier.FREE ? 'free' : 'paid',
+          },
+          completedLessonIds: finalCompletedList,
+          studentProfile: user.studentProfile || {
             targetRole: '',
             seniority: '',
             modality: '',
@@ -65,192 +207,138 @@ async function getOrCreateUser(email: string = DEFAULT_DEMO_EMAIL) {
             negotiationScore: 0,
             networkingScore: 0,
           },
+          jobApplications: (user.jobApplications || []).map((app: any) => ({
+            id: app.id,
+            company: app.company,
+            role: app.role,
+            status: normalizeJobStatus(app.status),
+            salary: app.salary || '',
+            date: app.date,
+            nextStep: app.nextStep || '',
+            notes: app.notes || '',
+            jobUrl: app.jobUrl || '',
+            isFavorite: app.isFavorite,
+          })),
+          calendarEvents: [...(globalEvents as any[]), ...(userEvents as any[])].map((evt: any) => ({
+            id: evt.id,
+            title: evt.title,
+            type: evt.type as CalendarEventType,
+            date: evt.date,
+            time: evt.time,
+            notes: evt.notes || '',
+            company: evt.company || '',
+            zoomLink: evt.zoomLink || '',
+          })),
+          quizSubmissions: (user.quizSubmissions || []).map((qs: any) => ({
+            id: qs.id,
+            moduleNumber: qs.moduleNumber,
+            lessonId: qs.lessonId,
+            score: qs.score,
+            isPassed: qs.isPassed,
+          })),
         },
-      },
-      include: {
-        studentProfile: true,
-        jobApplications: { orderBy: { createdAt: 'desc' } },
-        calendarEvents: { orderBy: { date: 'asc' } },
-        quizSubmissions: true,
-      },
-    });
-  }
-
-  return user;
-}
-
-// 1. Get complete initial state for Campus Virtual
-export async function getCampusInitialDataAction(userEmail?: string) {
-  try {
-    const user = await getOrCreateUser(userEmail);
-
-    // Fetch all global calendar events (zooms) + user private events
-    const globalEvents = await db.calendarEvent.findMany({
-      where: { isGlobal: true },
-      orderBy: { date: 'asc' },
-    });
-
-    const userEvents = await db.calendarEvent.findMany({
-      where: { userId: user.id },
-      orderBy: { date: 'asc' },
-    });
-
-    // Fetch user enrollments and completed lesson records
-    const enrollments = await db.enrollment.findMany({
-      where: { userId: user.id },
-      include: {
-        progressRecords: true,
-        course: { select: { slug: true, title: true } },
-      },
-    });
-
-    const completedLessonIds: string[] = [];
-    enrollments.forEach((enr) => {
-      enr.progressRecords.forEach((pr) => {
-        if (pr.isCompleted) {
-          completedLessonIds.push(pr.lessonId);
-        }
-      });
-    });
-
-    // Default completed lessons: strictly clean and empty for new accounts
-    const finalCompletedSet = new Set(completedLessonIds);
-
-    return {
-      success: true,
-      data: {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          membershipTier: user.membershipTier === MembershipTier.FREE ? 'free' : 'paid',
-        },
-        completedLessonIds: Array.from(finalCompletedSet),
-        studentProfile: user.studentProfile || {
-          targetRole: '',
-          seniority: '',
-          modality: '',
-          expectedSalary: '',
-          linkedinUrl: '',
-          cvFileName: '',
-          atsScore: 0,
-          linkedinScore: 0,
-          starScore: 0,
-          negotiationScore: 0,
-          networkingScore: 0,
-        },
-        jobApplications: user.jobApplications.map((app) => ({
-          id: app.id,
-          company: app.company,
-          role: app.role,
-          status: normalizeJobStatus(app.status),
-          salary: app.salary || '',
-          date: app.date,
-          nextStep: app.nextStep || '',
-          notes: app.notes || '',
-          jobUrl: app.jobUrl || '',
-          isFavorite: app.isFavorite,
-        })),
-        calendarEvents: [...globalEvents, ...userEvents].map((evt) => ({
-          id: evt.id,
-          title: evt.title,
-          type: evt.type as CalendarEventType,
-          date: evt.date,
-          time: evt.time,
-          notes: evt.notes || '',
-          company: evt.company || '',
-          zoomLink: evt.zoomLink || '',
-        })),
-        quizSubmissions: user.quizSubmissions.map((qs) => ({
-          id: qs.id,
-          moduleNumber: qs.moduleNumber,
-          lessonId: qs.lessonId,
-          score: qs.score,
-          isPassed: qs.isPassed,
-        })),
-      },
-    };
+      };
+    }
   } catch (error) {
-    console.error('Error en getCampusInitialDataAction:', error);
-    return {
-      success: false,
-      error: 'No se pudo cargar los datos iniciales del Campus desde la base de datos.',
-    };
+    console.warn('DB offline or timed out, returning persisted store progress:', error);
   }
+
+  // Fallback return: always succeeds and preserves progress
+  return {
+    success: true,
+    data: {
+      user: {
+        id: 'usr_' + cleanEmail.replace(/[^a-zA-Z0-9]/g, '_'),
+        name: cleanEmail === 'guest' ? 'Invitado' : cleanEmail.split('@')[0],
+        email: cleanEmail === 'guest' ? '' : cleanEmail,
+        role: 'student',
+        membershipTier: 'paid',
+      },
+      completedLessonIds: savedCompletedLessonIds,
+      studentProfile: {
+        targetRole: '',
+        seniority: '',
+        modality: '',
+        expectedSalary: '',
+        linkedinUrl: '',
+        cvFileName: '',
+        atsScore: 0,
+        linkedinScore: 0,
+        starScore: 0,
+        negotiationScore: 0,
+        networkingScore: 0,
+      },
+      jobApplications: [],
+      calendarEvents: [],
+      quizSubmissions: [],
+    },
+  };
 }
 
-// 2. Save / toggle lesson progress
+// 2. Save / toggle lesson progress (permanently in userProgress.json and DB if available)
 export async function saveLessonProgressAction(
-  userEmail: string = DEFAULT_DEMO_EMAIL,
-  lessonId: string,
+  userEmail?: string,
+  lessonId?: string,
   isCompleted: boolean = true
 ) {
-  try {
-    const user = await getOrCreateUser(userEmail);
+  if (!lessonId) return { success: false, error: 'ID de clase no proporcionado' };
 
-    // Find course or default first course
-    const course = (await db.course.findFirst({
-      where: { isPublished: true },
-    })) || (await db.course.findFirst());
+  const cleanEmail = (userEmail || 'guest').toLowerCase().trim();
+  const progressStore = readProgressStore();
+  const userList = [...(progressStore[cleanEmail] || [])];
 
-    if (!course) {
-      return { success: true, lessonId, isCompleted };
+  if (isCompleted) {
+    if (!userList.includes(lessonId)) {
+      userList.push(lessonId);
     }
-
-    const enrollment = await db.enrollment.upsert({
-      where: {
-        userId_courseId: {
-          userId: user.id,
-          courseId: course.id,
-        },
-      },
-      update: {},
-      create: {
-        userId: user.id,
-        courseId: course.id,
-        progressPercent: 15,
-      },
-    });
-
-    // Check if lesson exists in DB
-    let dbLesson = await db.lesson.findUnique({ where: { id: lessonId } });
-    if (!dbLesson) {
-      // Find by title or first lesson
-      dbLesson = await db.lesson.findFirst();
+  } else {
+    const idx = userList.indexOf(lessonId);
+    if (idx >= 0) {
+      userList.splice(idx, 1);
     }
-
-    if (dbLesson) {
-      await db.lessonProgress.upsert({
-        where: {
-          enrollmentId_lessonId: {
-            enrollmentId: enrollment.id,
-            lessonId: dbLesson.id,
-          },
-        },
-        update: {
-          isCompleted,
-          completedAt: new Date(),
-        },
-        create: {
-          enrollmentId: enrollment.id,
-          lessonId: dbLesson.id,
-          isCompleted,
-          completedAt: new Date(),
-        },
-      });
-    }
-
-    return { success: true, lessonId, isCompleted };
-  } catch (error) {
-    console.error('Error en saveLessonProgressAction:', error);
-    return { success: false, error: 'Error al registrar progreso en la base de datos.' };
   }
+
+  progressStore[cleanEmail] = userList;
+  writeProgressStore(progressStore);
+
+  // Background DB sync if available (non-blocking)
+  if (cleanEmail !== 'guest' && cleanEmail.includes('@')) {
+    (async () => {
+      try {
+        const user = await getOrCreateUser(cleanEmail);
+        const course = (await withDbTimeout(db.course.findFirst({ where: { isPublished: true } }))) ||
+                       (await withDbTimeout(db.course.findFirst()));
+        if (course) {
+          const enrollment = await withDbTimeout(
+            db.enrollment.upsert({
+              where: { userId_courseId: { userId: user.id, courseId: course.id } },
+              update: {},
+              create: { userId: user.id, courseId: course.id, progressPercent: 15 },
+            })
+          );
+          const dbLesson = await withDbTimeout(db.lesson.findUnique({ where: { id: lessonId } }));
+          if (dbLesson) {
+            await withDbTimeout(
+              db.lessonProgress.upsert({
+                where: { enrollmentId_lessonId: { enrollmentId: enrollment.id, lessonId: dbLesson.id } },
+                update: { isCompleted, completedAt: new Date() },
+                create: { enrollmentId: enrollment.id, lessonId: dbLesson.id, isCompleted, completedAt: new Date() },
+              })
+            );
+          }
+        }
+      } catch {
+        // DB sync silently ignores connection errors
+      }
+    })();
+  }
+
+  return { success: true, lessonId, isCompleted, completedLessonIds: userList };
 }
 
 // 3. Save / Update Job Application (Tracker)
 export async function saveJobApplicationAction(
-  userEmail: string = DEFAULT_DEMO_EMAIL,
+  userEmail: string = 'guest',
   application: {
     id?: string;
     company: string;

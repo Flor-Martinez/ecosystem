@@ -86,7 +86,7 @@ export const coursesData: Course[] = [
       },
     ],
     included: [
-      'Acceso de por vida a las clases grabadas en alta definición',
+      '1 año de acceso completo a las clases grabadas en alta definición y actualizaciones',
       '4 plantillas editables de CV en Word, Google Docs y Notion',
       'Guía descargable de 100 verbos de acción y palabras clave por rubro',
       'Checklist interactivo de validación antes de postularte',

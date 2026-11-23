@@ -143,22 +143,65 @@ function CampusContent() {
     }
   };
 
-  // Load from DB on mount / when authUser changes
+  // Load from Cache & DB on mount / when authUser changes
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     if (!authUser) {
-      // Guest / Non-logged in visitor: Strictly Free mode, zero progress, and only EBL
+      // Guest / Non-logged in visitor: Free mode, preserve watched Module 1 lessons in cache
       setCurrentProgram(campusPrograms[0]!);
       setMembershipTier('free');
-      setCompletedLessons(new Set());
+      try {
+        const guestCache = localStorage.getItem('campus_completed_guest');
+        if (guestCache) {
+          const parsed = JSON.parse(guestCache);
+          if (Array.isArray(parsed)) {
+            setCompletedLessons(new Set(parsed));
+          }
+        } else {
+          setCompletedLessons(new Set());
+        }
+      } catch {
+        setCompletedLessons(new Set());
+      }
       return;
     }
 
-    // Authenticated user: load from DB (default to paid / VIP)
+    // Authenticated user: immediately hydrate from user cache, then sync with server store
+    const userCleanEmail = authUser.email.toLowerCase().trim();
+    const userCacheKey = `campus_completed_${userCleanEmail}`;
+
+    try {
+      const userCached = localStorage.getItem(userCacheKey);
+      let initialList: string[] = [];
+      if (userCached) {
+        initialList = JSON.parse(userCached) || [];
+      }
+      // Also merge any guest progress from before logging in (e.g. watched Module 1)
+      const guestProgress = localStorage.getItem('campus_completed_guest');
+      if (guestProgress) {
+        const guestParsed = JSON.parse(guestProgress) || [];
+        initialList = Array.from(new Set([...initialList, ...guestParsed]));
+        localStorage.removeItem('campus_completed_guest');
+        localStorage.setItem(userCacheKey, JSON.stringify(initialList));
+      }
+      setCompletedLessons(new Set(initialList));
+    } catch {
+      // ignore
+    }
+
     async function loadDbData() {
       try {
         const res = await getCampusInitialDataAction(authUser!.email);
         if (res.success && res.data) {
-          setCompletedLessons(new Set(res.data.completedLessonIds));
+          setCompletedLessons((prev) => {
+            const merged = new Set([...Array.from(prev), ...(res.data.completedLessonIds || [])]);
+            try {
+              localStorage.setItem(userCacheKey, JSON.stringify(Array.from(merged)));
+            } catch {}
+            return merged;
+          });
+
           if (res.data.user.membershipTier === 'free') {
             setMembershipTier('free');
           } else {
@@ -393,28 +436,27 @@ function CampusContent() {
   // Linear lesson unlocking helper for current program
   const isLessonUnlocked = useCallback(
     (lessonId: string, currentCompleted: Set<string>): boolean => {
-      if (!authUser || !isSuperAdmin) return false;
+      // Superadmin in effective dev mode has full access
+      if (effectiveDevMode) return true;
 
       const mod = currentProgram.modules.find((m) =>
         m.lessons.some((l) => l.id === lessonId)
       );
       if (!mod) return true;
 
-      if (membershipTier === 'free' && mod.number !== 1) {
+      // Module 1 is ALWAYS accessible for everyone (unauthenticated guests & free tier included)
+      if (mod.number === 1) {
+        return true;
+      }
+
+      // Modules 2+ require VIP membership (paid tier) or superadmin
+      if (membershipTier === 'free' || !authUser) {
         return false;
       }
 
-      const idxInModule = mod.lessons.findIndex((l) => l.id === lessonId);
-      if (idxInModule <= 0) return true;
-
-      for (let k = 0; k < idxInModule; k++) {
-        if (!currentCompleted.has(mod.lessons[k]!.id)) {
-          return false;
-        }
-      }
       return true;
     },
-    [authUser, isSuperAdmin, currentProgram, membershipTier]
+    [authUser, effectiveDevMode, currentProgram, membershipTier]
   );
 
   // Helper to find the previous available & unlocked lesson (skipping approved tests and locked VIP modules)
@@ -502,9 +544,19 @@ function CampusContent() {
     nextSet.add(lessonId);
     setCompletedLessons(nextSet);
 
-    // Persist in DB asynchronously
+    // Save to user localStorage cache immediately
+    if (typeof window !== 'undefined') {
+      const cacheKey = authUser?.email
+        ? `campus_completed_${authUser.email.toLowerCase().trim()}`
+        : 'campus_completed_guest';
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify(Array.from(nextSet)));
+      } catch {}
+    }
+
+    // Persist in DB / Store asynchronously per user
     try {
-      await saveLessonProgressAction(activeEmail, lessonId, true);
+      await saveLessonProgressAction(activeEmail || 'guest', lessonId, true);
     } catch (e) {
       console.warn('Error registrando avance en DB:', e);
     }
