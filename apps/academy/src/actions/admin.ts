@@ -11,13 +11,13 @@ import defaultPricing from '@/data/store/pricing.json';
 import defaultVocational from '@/data/store/vocationalTests.json';
 import defaultVideoViews from '@/data/store/videoViews.json';
 
-export const SUPERADMIN_EMAILS = [
+const SUPERADMIN_EMAILS = [
   'santisose01@gmail.com',
   'licenciadaflormartinez@gmail.com',
   'lucianamartinez0696@gmail.com',
 ];
 
-export const BANNED_EMAILS = [
+const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 
@@ -40,6 +40,9 @@ const memoryStore: {
 };
 
 function getStoreFilePath(filename: string): string {
+  const tmpPath = path.join('/tmp', 'fm_store', filename);
+  if (fs.existsSync(tmpPath)) return tmpPath;
+
   const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
   if (fs.existsSync(monorepoPath)) return monorepoPath;
 
@@ -49,7 +52,7 @@ function getStoreFilePath(filename: string): string {
   const parentPath = path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', filename);
   if (fs.existsSync(parentPath)) return parentPath;
 
-  return path.join('/tmp', 'fm_store', filename);
+  return tmpPath;
 }
 
 function readStore<T>(key: 'users' | 'comments' | 'pricing' | 'vocationalTests' | 'videoViews', filename: string, fallback: T): T {
@@ -602,8 +605,8 @@ export async function saveLessonCommentAction(
     replies: [],
   };
 
-  comments.unshift(newComment);
-  writeStore('comments', 'comments.json', comments);
+  const updatedComments = [newComment, ...(Array.isArray(comments) ? comments : [])];
+  writeStore('comments', 'comments.json', updatedComments);
 
   return { success: true, comment: newComment };
 }
