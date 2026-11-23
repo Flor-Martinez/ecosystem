@@ -34,19 +34,9 @@ export interface CalendarEvent {
   zoomLink?: string;
 }
 
-const defaultEvents: CalendarEvent[] = [
-  {
-    id: 'ent-1',
-    title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
-    type: 'entrevista',
-    date: '2026-09-10',
-    time: '15:00 hs (Arg)',
-    company: 'Mercado Libre',
-    notes: 'Llamada con Hiring Manager sobre proyectos B2B.',
-  },
-];
+const defaultEvents: CalendarEvent[] = [];
 
-const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v2';
+const CALENDAR_STORAGE_KEY = 'campus_agenda_events_v3';
 
 export interface CalendarPrefillData {
   title?: string;
@@ -123,20 +113,7 @@ export function CampusZoomAgenda({
         }
 
         // Filter out obsolete zoom events since live sessions are postponed
-        const merged: CalendarEvent[] = loadedEvents.filter((e) => e.type !== 'zoom');
-
-        // Ensure default initial interview is there
-        if (!merged.some((e) => e.id === 'ent-1')) {
-          merged.push({
-            id: 'ent-1',
-            title: '💼 Entrevista con Mercado Libre (Especialista en Marketing)',
-            type: 'entrevista',
-            date: '2026-09-10',
-            time: '15:00 hs (Arg)',
-            company: 'Mercado Libre',
-            notes: 'Llamada con Hiring Manager sobre proyectos B2B.',
-          });
-        }
+        const merged: CalendarEvent[] = loadedEvents.filter((e) => e.type !== 'zoom' && e.id !== 'ent-1');
 
         setEvents(merged);
         localStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(merged));

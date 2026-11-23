@@ -81,21 +81,24 @@ export function InAppDocumentModal({
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (parsed.targetRole) setTargetRole(parsed.targetRole);
-          if (parsed.industry) setIndustry(parsed.industry);
-          if (parsed.seniority) setSeniority(parsed.seniority);
-          if (parsed.modality) setModality(parsed.modality);
-          if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
-          if (parsed.availability) setAvailability(parsed.availability);
-          if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
-          if (Array.isArray(parsed.targetCompaniesList) && parsed.targetCompaniesList.length > 0) {
-            setTargetCompaniesList(parsed.targetCompaniesList);
-          } else if (parsed.targetCompanies && typeof parsed.targetCompanies === 'string') {
-            const list = parsed.targetCompanies
-              .split('\n')
-              .map((line: string) => line.replace(/^[\d\s.\-*•)]+/, '').trim())
-              .filter(Boolean);
-            if (list.length > 0) setTargetCompaniesList(list);
+          const isLegacyMock =
+            parsed.targetRole === 'Product Designer / UX Lead' ||
+            parsed.targetRole === 'Profesional en Búsqueda Activa' ||
+            parsed.expectedSalary === '$2.200 USD / mes' ||
+            parsed.expectedSalary === '$1.500 USD / mes';
+          if (isLegacyMock) {
+            localStorage.removeItem('ebl_student_profile');
+          } else {
+            if (parsed.targetRole) setTargetRole(parsed.targetRole);
+            if (parsed.industry) setIndustry(parsed.industry);
+            if (parsed.seniority) setSeniority(parsed.seniority);
+            if (parsed.modality) setModality(parsed.modality);
+            if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
+            if (parsed.availability) setAvailability(parsed.availability);
+            if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
+            if (Array.isArray(parsed.targetCompaniesList) && parsed.targetCompaniesList.length > 0) {
+              setTargetCompaniesList(parsed.targetCompaniesList);
+            }
           }
         } catch (e) {
           console.error(e);

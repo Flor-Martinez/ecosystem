@@ -280,54 +280,9 @@ export interface CalendarEvent {
   company?: string;
 }
 
-const initialApplications: JobApplication[] = [
-  {
-    id: '1',
-    company: 'Mercado Libre',
-    role: 'Especialista en Marketing B2B',
-    status: 'Entrevista',
-    salary: '$1.400.000 ARS',
-    date: '12 Ago 2026',
-    notes: 'Aplicado con CV ATS Editorial y mensaje personalizado al selector.',
-    jobUrl: 'https://mercadolibre.com/careers/marketing-b2b',
-    isFavorite: false,
-  },
-  {
-    id: '2',
-    company: 'Globant',
-    role: 'Product Operations Analyst',
-    status: 'Contactado',
-    salary: '$1.650 USD / mes',
-    date: '08 Ago 2026',
-    notes: 'Uso de método STAR para responder las preguntas de screening.',
-    jobUrl: 'https://globant.com/jobs/product-operations',
-    isFavorite: false,
-  },
-  {
-    id: '3',
-    company: 'Auth0 / Okta',
-    role: 'Talent Acquisition Partner',
-    status: 'Por postular',
-    salary: '$2.000 USD / mes',
-    date: '14 Ago 2026',
-    notes: 'Vacante detectada en LinkedIn. Adaptando CV con keywords en inglés antes de enviar.',
-    jobUrl: 'https://auth0.com/careers/talent-partner',
-    isFavorite: false,
-  },
-  {
-    id: '4',
-    company: 'Ualá',
-    role: 'Content & Brand Strategist',
-    status: 'Oferta',
-    salary: '$1.800.000 ARS',
-    date: '28 Jul 2026',
-    notes: 'Técnica de anclaje alto aplicada en la llamada salarial.',
-    jobUrl: 'https://uala.com.ar/careers/brand-strategist',
-    isFavorite: false,
-  },
-];
+const initialApplications: JobApplication[] = [];
 
-const LOCAL_STORAGE_KEY = 'campus_job_applications_v5';
+const LOCAL_STORAGE_KEY = 'campus_job_applications_v6';
 export interface CalendarPrefillData {
   title?: string;
   company?: string;

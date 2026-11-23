@@ -63,11 +63,11 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
           db.studentProfile.create({
             data: {
               userId: user.id,
-              targetRole: 'Profesional en Búsqueda Activa',
-              seniority: 'Semi-Senior',
-              modality: 'Remoto / Híbrido',
-              linkedinScore: 75,
-              atsScore: 78,
+              targetRole: '',
+              seniority: '',
+              modality: '',
+              linkedinScore: 0,
+              atsScore: 0,
             },
           }),
           1500

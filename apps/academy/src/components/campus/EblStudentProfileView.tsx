@@ -80,6 +80,7 @@ export function EblStudentProfileView({
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showVocationalModal, setShowVocationalModal] = useState(false);
+  const [hasVocationalResult, setHasVocationalResult] = useState(false);
 
   // Load from database and local storage on mount
   useEffect(() => {
@@ -88,29 +89,37 @@ export function EblStudentProfileView({
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (parsed.targetRole) setTargetRole(parsed.targetRole);
-          if (parsed.industry) setIndustry(parsed.industry);
-          if (parsed.seniority) setSeniority(parsed.seniority);
-          if (parsed.modality) setModality(parsed.modality);
-          if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
-          if (parsed.availability) setAvailability(parsed.availability);
-          if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
-          if (Array.isArray(parsed.targetCompaniesList) && parsed.targetCompaniesList.length > 0) {
-            setTargetCompaniesList(parsed.targetCompaniesList);
-          } else if (parsed.targetCompanies && typeof parsed.targetCompanies === 'string') {
-            const list = parsed.targetCompanies
-              .split('\n')
-              .map((line: string) => line.replace(/^[\d\s.\-*•)]+/, '').trim())
-              .filter(Boolean);
-            if (list.length > 0) setTargetCompaniesList(list);
+          const isLegacyMock =
+            parsed.targetRole === 'Product Designer / UX Lead' ||
+            parsed.targetRole === 'Profesional en Búsqueda Activa' ||
+            parsed.expectedSalary === '$2.200 USD / mes' ||
+            parsed.expectedSalary === '$1.500 USD / mes';
+          if (isLegacyMock) {
+            localStorage.removeItem('ebl_student_profile');
+          } else {
+            if (parsed.targetRole) setTargetRole(parsed.targetRole);
+            if (parsed.industry) setIndustry(parsed.industry);
+            if (parsed.seniority) setSeniority(parsed.seniority);
+            if (parsed.modality) setModality(parsed.modality);
+            if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
+            if (parsed.availability) setAvailability(parsed.availability);
+            if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
+            if (Array.isArray(parsed.targetCompaniesList) && parsed.targetCompaniesList.length > 0) {
+              setTargetCompaniesList(parsed.targetCompaniesList);
+            }
+            if (parsed.cvKeywordsTech) setCvKeywordsTech(parsed.cvKeywordsTech);
+            if (parsed.cvKeywordsMethods) setCvKeywordsMethods(parsed.cvKeywordsMethods);
+            if (parsed.cvVariant1) setCvVariant1(parsed.cvVariant1);
+            if (parsed.cvVariant2) setCvVariant2(parsed.cvVariant2);
           }
-          if (parsed.cvKeywordsTech) setCvKeywordsTech(parsed.cvKeywordsTech);
-          if (parsed.cvKeywordsMethods) setCvKeywordsMethods(parsed.cvKeywordsMethods);
-          if (parsed.cvVariant1) setCvVariant1(parsed.cvVariant1);
-          if (parsed.cvVariant2) setCvVariant2(parsed.cvVariant2);
         } catch (e) {
           console.error(e);
         }
+      }
+
+      const vocDone = localStorage.getItem('ebl_vocational_completed');
+      if (vocDone === 'true') {
+        setHasVocationalResult(true);
       }
     }
 
@@ -122,12 +131,17 @@ export function EblStudentProfileView({
           if (res.data.user.email) setEmail(res.data.user.email);
           if (res.data.studentProfile) {
             const p = res.data.studentProfile;
-            if (p.linkedinUrl) setLinkedinUrl(p.linkedinUrl);
-            if (p.targetRole) setTargetRole(p.targetRole);
-            if (p.seniority) setSeniority(p.seniority);
-            if (p.modality) setModality(p.modality);
-            if (p.expectedSalary) setExpectedSalary(p.expectedSalary);
-            if (p.cvFileName) setCvFileName(p.cvFileName);
+            const isMockRole = p.targetRole === 'Product Designer / UX Lead' || p.targetRole === 'Profesional en Búsqueda Activa';
+            const isMockSalary = p.expectedSalary === '$2.200 USD / mes' || p.expectedSalary === '$1.500 USD / mes';
+            const isMockCv = p.cvFileName === 'CV_Santiago_Martinez_2026.pdf' || p.cvFileName === 'CV_Santiago_Martinez_ATS_2025.pdf';
+            const isMockLinkedin = p.linkedinUrl === 'https://linkedin.com/in/santiago-martinez-demo';
+
+            if (p.linkedinUrl && !isMockLinkedin) setLinkedinUrl(p.linkedinUrl);
+            if (p.targetRole && !isMockRole) setTargetRole(p.targetRole);
+            if (p.seniority && !isMockRole) setSeniority(p.seniority);
+            if (p.modality && !isMockRole) setModality(p.modality);
+            if (p.expectedSalary && !isMockSalary) setExpectedSalary(p.expectedSalary);
+            if (p.cvFileName && !isMockCv) setCvFileName(p.cvFileName);
           }
         }
       } catch (e) {
@@ -325,6 +339,7 @@ export function EblStudentProfileView({
                     onChange={(e) => setSeniority(e.target.value)}
                     className={styles.select}
                   >
+                    <option value="">Seleccionar seniority...</option>
                     <option value="Trainee / Junior">Trainee / Junior (0-2 años)</option>
                     <option value="Semi Senior">Semi Senior (2-5 años)</option>
                     <option value="Senior">Senior (5+ años)</option>
@@ -339,6 +354,7 @@ export function EblStudentProfileView({
                     onChange={(e) => setModality(e.target.value)}
                     className={styles.select}
                   >
+                    <option value="">Seleccionar modalidad...</option>
                     <option value="100% Remoto (Latam / Global)">100% Remoto (Latam / Global)</option>
                     <option value="Híbrido">Híbrido (Oficina + Home Office)</option>
                     <option value="Presencial">Presencial</option>
@@ -355,7 +371,7 @@ export function EblStudentProfileView({
                     value={expectedSalary}
                     onChange={(e) => setExpectedSalary(e.target.value)}
                     className={styles.input}
-                    placeholder="Ej. $2.200 USD o $2.500.000 ARS"
+                    placeholder="Ej. Monto neto mensual deseado..."
                   />
                 </div>
 
@@ -366,7 +382,7 @@ export function EblStudentProfileView({
                     value={availability}
                     onChange={(e) => setAvailability(e.target.value)}
                     className={styles.input}
-                    placeholder="Ej. Inmediata / 15 días"
+                    placeholder="Ej. Inmediata / 15 días..."
                   />
                 </div>
               </div>
@@ -556,36 +572,57 @@ export function EblStudentProfileView({
               <span>Mi Currículum Actual</span>
             </h2>
 
-            <div className={styles.cvDisplayCard}>
-              <FileText size={36} className={styles.cvBigIcon} />
-              <div className={styles.cvInfo}>
-                <strong className={styles.cvFileName}>{cvFileName}</strong>
-                <span className={styles.cvFileMeta}>Última actualización: 12 de Agosto, 2026 · 184 KB</span>
+            {cvFileName ? (
+              <>
+                <div className={styles.cvDisplayCard}>
+                  <FileText size={36} className={styles.cvBigIcon} />
+                  <div className={styles.cvInfo}>
+                    <strong className={styles.cvFileName}>{cvFileName}</strong>
+                    <span className={styles.cvFileMeta}>Archivo registrado en tu perfil</span>
+                  </div>
+                </div>
+
+                <div className={styles.cvActions}>
+                  <button
+                    type="button"
+                    className={styles.cvActionBtn}
+                    onClick={() => handleDownloadCert(`CV_${cvFileName}`)}
+                  >
+                    <Download size={15} />
+                    <span>Descargar CV</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className={styles.cvUploadBtn}
+                    onClick={() => {
+                      const newName = prompt('Nombre o enlace de tu nuevo archivo de CV:', 'Mi_CV.pdf');
+                      if (newName) setCvFileName(newName);
+                    }}
+                  >
+                    <Upload size={15} />
+                    <span>Reemplazar Archivo</span>
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className={styles.vocationalEmptyBox}>
+                <p className={styles.vocationalEmptyText}>
+                  Aún no has registrado tu CV. Cargá el nombre o enlace de tu documento para tenerlo sincronizado con tus postulaciones.
+                </p>
+                <button
+                  type="button"
+                  className={styles.startVocationalBtn}
+                  onClick={() => {
+                    const newName = prompt('Ingresá el nombre o enlace de tu CV:', 'Mi_CV.pdf');
+                    if (newName) setCvFileName(newName);
+                  }}
+                >
+                  <Upload size={15} />
+                  <span>Registrar Mi CV</span>
+                </button>
               </div>
-            </div>
-
-            <div className={styles.cvActions}>
-              <button
-                type="button"
-                className={styles.cvActionBtn}
-                onClick={() => handleDownloadCert(`CV_${cvFileName}`)}
-              >
-                <Download size={15} />
-                <span>Descargar CV</span>
-              </button>
-
-              <button
-                type="button"
-                className={styles.cvUploadBtn}
-                onClick={() => {
-                  const newName = prompt('Nombre de nuevo archivo:', 'Mi_Nuevo_CV_2026.pdf');
-                  if (newName) setCvFileName(newName);
-                }}
-              >
-                <Upload size={15} />
-                <span>Reemplazar Archivo</span>
-              </button>
-            </div>
+            )}
           </div>
 
           {/* 2. RESULTADO DEL TEST VOCACIONAL (EN EL MEDIO) */}
@@ -595,25 +632,8 @@ export function EblStudentProfileView({
               <span>Resultado del Test Vocacional</span>
             </h2>
 
-            {isDevMode ? (
-              // Modo Dev: Simulamos que NO ha hecho el test
-              <div className={styles.vocationalEmptyBox}>
-                <p className={styles.vocationalEmptyText}>
-                  Descubrí tu perfil profesional, áreas de mayor afinidad y fortalezas dominantes completando nuestro diagnóstico.
-                </p>
-                {onNavigateToVocationalTest && (
-                  <button
-                    type="button"
-                    className={styles.startVocationalBtn}
-                    onClick={onNavigateToVocationalTest}
-                  >
-                    <Compass size={15} />
-                    <span>Realizar Test Vocacional</span>
-                  </button>
-                )}
-              </div>
-            ) : (
-              // Modo Normal: Muestra el resultado
+            {hasVocationalResult ? (
+              // Modo con resultado completado
               <div className={styles.vocationalResultBox}>
                 <div className={styles.vocationalHeader}>
                   <div className={styles.vocationalLeft}>
@@ -644,6 +664,23 @@ export function EblStudentProfileView({
                     <ExternalLink size={13} />
                   </button>
                 </div>
+              </div>
+            ) : (
+              // Empty State por defecto para toda cuenta nueva
+              <div className={styles.vocationalEmptyBox}>
+                <p className={styles.vocationalEmptyText}>
+                  Descubrí tu perfil profesional, áreas de mayor afinidad y fortalezas dominantes completando nuestro diagnóstico.
+                </p>
+                {onNavigateToVocationalTest && (
+                  <button
+                    type="button"
+                    className={styles.startVocationalBtn}
+                    onClick={onNavigateToVocationalTest}
+                  >
+                    <Compass size={15} />
+                    <span>Realizar Test Vocacional</span>
+                  </button>
+                )}
               </div>
             )}
           </div>

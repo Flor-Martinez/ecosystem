@@ -536,6 +536,9 @@ export function EblVocationalTestView({
     setFeedbackText('');
     setFeedbackSent(false);
     setStep('intro');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('ebl_vocational_completed');
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -593,6 +596,9 @@ export function EblVocationalTestView({
   useEffect(() => {
     if (step === 'result' && !recordedRef.current && answeredCount >= 3) {
       recordedRef.current = true;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('ebl_vocational_completed', 'true');
+      }
       recordVocationalSubmissionAction({
         userEmail: user?.email || undefined,
         userName: user?.name || undefined,

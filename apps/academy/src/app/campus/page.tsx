@@ -207,11 +207,7 @@ function CampusContent() {
   }, [requiredLessons, completedLessons]);
 
   const [selectedLesson, setSelectedLesson] = useState<CampusLesson>(() => {
-    const initialCompleted = ['exp-cv-01', 'exp-cv-02', 'ccv-01'];
-    const uncompleted = initialProgram.modules
-      .flatMap((m) => m.lessons)
-      .find((l) => !initialCompleted.includes(l.id));
-    return uncompleted || initialProgram.modules[0]!.lessons[0]!;
+    return initialProgram.modules[0]!.lessons[0]!;
   });
 
   // Ensure unprivileged users or devMode-off admins never stay stuck on WIP modules (Extra 02 and 03)

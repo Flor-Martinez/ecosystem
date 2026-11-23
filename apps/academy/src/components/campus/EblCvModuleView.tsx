@@ -41,7 +41,7 @@ export function EblCvModuleView({
 
   // AI Feedback tool state
   const [cvText, setCvText] = useState('');
-  const [targetRole, setTargetRole] = useState('Product Designer / UX Lead');
+  const [targetRole, setTargetRole] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<{
     score: number;

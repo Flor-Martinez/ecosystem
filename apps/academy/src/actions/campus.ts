@@ -53,17 +53,17 @@ async function getOrCreateUser(email: string = DEFAULT_DEMO_EMAIL) {
         headline: 'Estudiante en Academia Flor Martínez',
         studentProfile: {
           create: {
-            targetRole: 'Profesional en Búsqueda Activa',
-            seniority: 'Semi-Senior',
-            modality: 'Remoto / Híbrido',
-            expectedSalary: '$1.500 USD / mes',
+            targetRole: '',
+            seniority: '',
+            modality: '',
+            expectedSalary: '',
             linkedinUrl: '',
             cvFileName: '',
-            atsScore: 78,
-            linkedinScore: 75,
-            starScore: 60,
-            negotiationScore: 50,
-            networkingScore: 55,
+            atsScore: 0,
+            linkedinScore: 0,
+            starScore: 0,
+            negotiationScore: 0,
+            networkingScore: 0,
           },
         },
       },
@@ -113,10 +113,8 @@ export async function getCampusInitialDataAction(userEmail?: string) {
       });
     });
 
-    // Default seeded completed lessons if brand new user
-    const finalCompletedSet = new Set(
-      completedLessonIds.length > 0 ? completedLessonIds : ['exp-cv-01', 'exp-cv-02', 'ccv-01']
-    );
+    // Default completed lessons: strictly clean and empty for new accounts
+    const finalCompletedSet = new Set(completedLessonIds);
 
     return {
       success: true,
@@ -130,17 +128,17 @@ export async function getCampusInitialDataAction(userEmail?: string) {
         },
         completedLessonIds: Array.from(finalCompletedSet),
         studentProfile: user.studentProfile || {
-          targetRole: 'Product Designer / UX Lead',
-          seniority: 'Senior',
-          modality: '100% Remoto (Latam / Global)',
-          expectedSalary: '$2.200 USD / mes',
-          linkedinUrl: 'https://linkedin.com/in/santiago-martinez-demo',
-          cvFileName: 'CV_Santiago_Martinez_2026.pdf',
-          atsScore: 85,
-          linkedinScore: 70,
-          starScore: 60,
-          negotiationScore: 40,
-          networkingScore: 55,
+          targetRole: '',
+          seniority: '',
+          modality: '',
+          expectedSalary: '',
+          linkedinUrl: '',
+          cvFileName: '',
+          atsScore: 0,
+          linkedinScore: 0,
+          starScore: 0,
+          negotiationScore: 0,
+          networkingScore: 0,
         },
         jobApplications: user.jobApplications.map((app) => ({
           id: app.id,
@@ -562,17 +560,17 @@ export async function saveStudentProfileAction(
       },
       create: {
         userId: user.id,
-        linkedinUrl: profileData.linkedinUrl || 'https://linkedin.com/in/santiago-martinez-demo',
-        targetRole: profileData.targetRole || 'Product Designer / UX Lead',
-        seniority: profileData.seniority || 'Senior',
-        modality: profileData.modality || '100% Remoto (Latam / Global)',
-        expectedSalary: profileData.expectedSalary || '$2.200 USD / mes',
-        cvFileName: profileData.cvFileName || 'CV_Santiago_Martinez_2026.pdf',
-        atsScore: 85,
-        linkedinScore: 70,
-        starScore: 60,
-        negotiationScore: 40,
-        networkingScore: 55,
+        linkedinUrl: profileData.linkedinUrl || '',
+        targetRole: profileData.targetRole || '',
+        seniority: profileData.seniority || '',
+        modality: profileData.modality || '',
+        expectedSalary: profileData.expectedSalary || '',
+        cvFileName: profileData.cvFileName || '',
+        atsScore: 0,
+        linkedinScore: 0,
+        starScore: 0,
+        negotiationScore: 0,
+        networkingScore: 0,
       },
     });
 
