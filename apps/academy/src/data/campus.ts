@@ -627,7 +627,7 @@ const expBusquedaLaboralModules: CampusModule[] = [
         title: '5 errores típicos y plan semanal',
         duration: '1:57 min',
         videoDuration: '1:57 min',
-        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/4118f51b-2998-495a-85a4-f08aa8ad5135?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
+        videoUrl: 'https://iframe.mediadelivery.net/embed/815825/fd34c0a9-c06b-473e-aea2-b895b7230cb8?autoplay=false&loop=false&muted=false&preload=true&responsive=true',
         posterUrl: '/videos/ebl-2-3-poster.jpg?v=8',
         completed: false,
         description:
