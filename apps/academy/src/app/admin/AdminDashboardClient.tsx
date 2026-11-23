@@ -59,6 +59,45 @@ import type {
 import { campusPrograms } from '@/data/campus';
 import styles from './AdminDashboard.module.css';
 
+const BASE_REAL_USERS: AdminUserRecord[] = [
+  {
+    id: 'usr_santi_admin',
+    email: 'santisose01@gmail.com',
+    name: 'Santiago Sose',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Superadministrador principal',
+  },
+  {
+    id: 'usr_flor_admin',
+    email: 'licenciadaflormartinez@gmail.com',
+    name: 'Flor Martínez',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Instructora titular y fundadora',
+  },
+  {
+    id: 'usr_luciana_admin',
+    email: 'lucianamartinez0696@gmail.com',
+    name: 'Luciana Martínez',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Equipo de coordinación superadmin',
+  },
+];
+
 type AdminTab = 'cuentas' | 'videos' | 'comentarios' | 'modulos' | 'precios' | 'test-vocacional';
 
 export default function AdminDashboardClient() {
@@ -71,9 +110,14 @@ export default function AdminDashboardClient() {
   const [devMode, setDevMode] = useState(false);
   const [membershipTier, setMembershipTier] = useState<'paid' | 'free'>('paid');
 
-  // Tab 1: Users State
-  const [users, setUsers] = useState<AdminUserRecord[]>([]);
-  const [usersStats, setUsersStats] = useState({ total: 0, superadmins: 0, vipMembers: 0, banned: 0 });
+  // Tab 1: Users State - always starts populated with the 3 real team accounts
+  const [users, setUsers] = useState<AdminUserRecord[]>(BASE_REAL_USERS);
+  const [usersStats, setUsersStats] = useState({
+    total: BASE_REAL_USERS.length,
+    superadmins: 3,
+    vipMembers: 3,
+    banned: 0,
+  });
   const [userSearch, setUserSearch] = useState('');
   const [showNewUserModal, setShowNewUserModal] = useState(false);
   const [newUserName, setNewUserName] = useState('');
@@ -133,7 +177,7 @@ export default function AdminDashboardClient() {
   const loadUsers = useCallback(async () => {
     try {
       const res = await getAdminUsersAction();
-      if (res.success) {
+      if (res && res.success && Array.isArray(res.users) && res.users.length > 0) {
         setUsers(res.users);
         setUsersStats({
           total: res.stats.total,
@@ -143,7 +187,7 @@ export default function AdminDashboardClient() {
         });
       }
     } catch (err) {
-      console.error(err);
+      console.error('Error cargando usuarios admin:', err);
     }
   }, []);
 
@@ -201,14 +245,12 @@ export default function AdminDashboardClient() {
   }, []);
 
   useEffect(() => {
-    if (user && isSuperAdmin) {
-      loadUsers();
-      loadVideos();
-      loadComments();
-      loadPricing();
-      loadVocationalStats();
-    }
-  }, [user, isSuperAdmin, loadUsers, loadVideos, loadComments, loadPricing, loadVocationalStats]);
+    loadUsers();
+    loadVideos();
+    loadComments();
+    loadPricing();
+    loadVocationalStats();
+  }, [loadUsers, loadVideos, loadComments, loadPricing, loadVocationalStats]);
 
   // User Management Actions
   const handleRoleChange = async (userId: string, newRole: 'superadmin' | 'student' | 'client') => {

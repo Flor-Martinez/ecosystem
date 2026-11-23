@@ -109,36 +109,64 @@ export interface AdminUserRecord {
   notes?: string;
 }
 
+export const REAL_ADMIN_USERS: AdminUserRecord[] = [
+  {
+    id: 'usr_santi_admin',
+    email: 'santisose01@gmail.com',
+    name: 'Santiago Sose',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Superadministrador principal',
+  },
+  {
+    id: 'usr_flor_admin',
+    email: 'licenciadaflormartinez@gmail.com',
+    name: 'Flor Martínez',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Instructora titular y fundadora',
+  },
+  {
+    id: 'usr_luciana_admin',
+    email: 'lucianamartinez0696@gmail.com',
+    name: 'Luciana Martínez',
+    role: 'superadmin',
+    membershipTier: 'VIP',
+    status: 'active',
+    avatarUrl: null,
+    createdAt: '2026-10-01T10:00:00.000Z',
+    lastLoginAt: '2026-11-23T08:00:00.000Z',
+    notes: 'Equipo de coordinación superadmin',
+  },
+];
+
 export async function getAdminUsersAction() {
-  let users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  if (!users || !Array.isArray(users) || users.length === 0) {
-    users = [...(defaultUsers as any[])];
-    memoryStore.users = users;
-  }
+  const users: AdminUserRecord[] = [...REAL_ADMIN_USERS];
 
-  // Ensure real superadmins are always present
-  const defaultAdminList = [
-    { email: 'santisose01@gmail.com', name: 'Santiago Sose', notes: 'Superadministrador principal' },
-    { email: 'licenciadaflormartinez@gmail.com', name: 'Flor Martínez', notes: 'Instructora titular y fundadora' },
-    { email: 'lucianamartinez0696@gmail.com', name: 'Luciana Martínez', notes: 'Equipo de coordinación superadmin' },
-  ];
-
-  for (const adm of defaultAdminList) {
-    const exists = users.some((u) => (u.email || '').toLowerCase() === adm.email.toLowerCase());
-    if (!exists) {
-      users.push({
-        id: 'usr_' + adm.email.split('@')[0],
-        email: adm.email,
-        name: adm.name,
-        role: 'superadmin',
-        membershipTier: 'VIP',
-        status: 'active',
-        avatarUrl: null,
-        createdAt: '2026-10-01T10:00:00.000Z',
-        lastLoginAt: new Date().toISOString(),
-        notes: adm.notes,
-      });
+  try {
+    const raw = readStore<any>('users', 'users.json', null);
+    let fromStore: AdminUserRecord[] = [];
+    if (Array.isArray(raw)) {
+      fromStore = raw;
+    } else if (raw && Array.isArray(raw.default)) {
+      fromStore = raw.default;
     }
+
+    for (const u of fromStore) {
+      if (u && u.email && !users.some((existing) => (existing.email || '').toLowerCase() === (u.email || '').toLowerCase())) {
+        users.push(u);
+      }
+    }
+  } catch (err) {
+    console.warn('Error reading store in getAdminUsersAction, using base list:', err);
   }
 
   const total = users.length;
