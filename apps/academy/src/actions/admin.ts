@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { db, MembershipTier, Role } from '@repo/db';
 import { campusPrograms } from '@/data/campus';
 import bunnyMapping from '@/data/bunnyVideos.json';
 
@@ -112,7 +113,7 @@ export interface AdminUserRecord {
   notes?: string;
 }
 
-export const REAL_ADMIN_USERS: AdminUserRecord[] = [
+const REAL_ADMIN_USERS: AdminUserRecord[] = [
   {
     id: 'usr_santi_admin',
     email: 'santisose01@gmail.com',
@@ -151,26 +152,162 @@ export const REAL_ADMIN_USERS: AdminUserRecord[] = [
   },
 ];
 
-export async function getAdminUsersAction() {
-  const users: AdminUserRecord[] = [...REAL_ADMIN_USERS];
+function withAdminDbTimeout<T>(promise: Promise<T>, timeoutMs = 2500): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('DB Timeout')), timeoutMs)
+    ),
+  ]);
+}
 
+async function getApprovedMpBuyerEmails(): Promise<Map<string, { name?: string; date?: string }>> {
+  const map = new Map<string, { name?: string; date?: string }>();
   try {
-    const raw = readStore<any>('users', 'users.json', null);
-    let fromStore: AdminUserRecord[] = [];
-    if (Array.isArray(raw)) {
-      fromStore = raw;
-    } else if (raw && Array.isArray(raw.default)) {
-      fromStore = raw.default;
-    }
+    const token = (
+      process.env.MP_ACCESS_TOKEN ||
+      process.env.MERCADOPAGO_ACCESS_TOKEN ||
+      'APP_USR-4644281928495780-101119-14763e1cc4acdf248726e134b1da1279-151307739'
+    ).trim();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(
+      'https://api.mercadopago.com/v1/payments/search?status=approved&sort=date_created&criteria=desc&limit=100',
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        cache: 'no-store',
+        signal: controller.signal,
+      }
+    );
+    clearTimeout(timer);
+    if (!res.ok) return map;
+    const json = await res.json();
+    const results = Array.isArray(json?.results) ? json.results : [];
+    for (const p of results) {
+      if (p?.status !== 'approved') continue;
+      const extRef = String(p?.external_reference || '').toLowerCase();
+      const desc = String(p?.description || '').toLowerCase();
+      const items = Array.isArray(p?.additional_info?.items) ? p.additional_info.items : [];
+      const isEbl =
+        extRef.includes('ebl-') ||
+        desc.includes('experiencia') ||
+        items.some((it: any) => String(it?.id || '').toLowerCase() === 'ebl-anual');
+      if (!isEbl) continue;
 
-    for (const u of fromStore) {
-      if (u && u.email && !users.some((existing) => (existing.email || '').toLowerCase() === (u.email || '').toLowerCase())) {
-        users.push(u);
+      const metaEmail = String(p?.metadata?.user_email || '').toLowerCase().trim();
+      const refEmail = extRef.includes('|') ? extRef.split('|')[0]!.trim() : '';
+      const payerEmail = String(p?.payer?.email || '').toLowerCase().trim();
+      const buyerEmail = metaEmail || refEmail || payerEmail;
+      if (buyerEmail && buyerEmail.includes('@') && !map.has(buyerEmail)) {
+        const fullName = [p?.payer?.first_name, p?.payer?.last_name].filter(Boolean).join(' ').trim();
+        map.set(buyerEmail, {
+          name: fullName || undefined,
+          date: p?.date_approved || p?.date_created || new Date().toISOString(),
+        });
       }
     }
-  } catch (err) {
-    console.warn('Error reading store in getAdminUsersAction, using base list:', err);
+  } catch {
+    // ignore MP errors
   }
+  return map;
+}
+
+export async function getAdminUsersAction() {
+  const byEmail = new Map<string, AdminUserRecord>();
+
+  // 1. Base Superadmin team
+  for (const adminU of REAL_ADMIN_USERS) {
+    byEmail.set(adminU.email.toLowerCase(), { ...adminU });
+  }
+
+  // 2. Fetch real users from PostgreSQL DB AND approved MP buyers in parallel
+  const [dbUsers, mpBuyers] = await Promise.all([
+    withAdminDbTimeout(
+      db.user.findMany({ orderBy: { createdAt: 'desc' } })
+    ).catch((err) => {
+      console.warn('DB read fallback in getAdminUsersAction:', err);
+      return [] as any[];
+    }),
+    getApprovedMpBuyerEmails(),
+  ]);
+
+  // Merge DB users
+  for (const u of dbUsers) {
+    const emailLower = (u?.email || '').toLowerCase().trim();
+    if (!emailLower || !emailLower.includes('@') || emailLower.startsWith('guest@')) continue;
+    const isSuper = SUPERADMIN_EMAILS.includes(emailLower) || String(u.role || '').toUpperCase() === 'ADMIN';
+    const isBanned = BANNED_EMAILS.includes(emailLower);
+    const hasPaidMp = mpBuyers.has(emailLower);
+    const dbTier = String(u.membershipTier || '').toUpperCase() === 'VIP' ? 'VIP' : 'FREE';
+    const existing = byEmail.get(emailLower);
+
+    byEmail.set(emailLower, {
+      id: u.id || existing?.id || 'usr_' + emailLower.replace(/[^a-z0-9]/g, '_'),
+      email: emailLower,
+      name: u.name || existing?.name || emailLower.split('@')[0] || 'Usuario',
+      role: isSuper ? 'superadmin' : 'student',
+      membershipTier: isSuper || hasPaidMp || dbTier === 'VIP' ? 'VIP' : 'FREE',
+      status: isBanned ? 'banned' : (existing?.status || 'active'),
+      avatarUrl: u.avatarUrl || existing?.avatarUrl || null,
+      createdAt: u.createdAt ? new Date(u.createdAt).toISOString() : (existing?.createdAt || new Date().toISOString()),
+      lastLoginAt: u.updatedAt ? new Date(u.updatedAt).toISOString() : (existing?.lastLoginAt || new Date().toISOString()),
+      notes: isSuper
+        ? (existing?.notes || 'Superadministrador')
+        : hasPaidMp
+        ? 'Pago verificado en Mercado Pago'
+        : (existing?.notes || 'Registro Google / Campus'),
+    });
+  }
+
+  // 3. Merge any Mercado Pago approved buyers not yet in DB
+  for (const [buyerEmail, info] of mpBuyers.entries()) {
+    const existing = byEmail.get(buyerEmail);
+    if (existing) {
+      existing.membershipTier = 'VIP';
+      if (!SUPERADMIN_EMAILS.includes(buyerEmail)) {
+        existing.notes = 'Pago verificado en Mercado Pago';
+      }
+    } else {
+      const isSuper = SUPERADMIN_EMAILS.includes(buyerEmail);
+      byEmail.set(buyerEmail, {
+        id: 'usr_mp_' + buyerEmail.replace(/[^a-z0-9]/g, '_'),
+        email: buyerEmail,
+        name: info.name || buyerEmail.split('@')[0] || 'Alumno VIP',
+        role: isSuper ? 'superadmin' : 'student',
+        membershipTier: 'VIP',
+        status: BANNED_EMAILS.includes(buyerEmail) ? 'banned' : 'active',
+        avatarUrl: null,
+        createdAt: info.date || new Date().toISOString(),
+        lastLoginAt: info.date || new Date().toISOString(),
+        notes: 'Pago verificado en Mercado Pago',
+      });
+    }
+  }
+
+  // 4. Merge any additional users from local/tmp store
+  try {
+    const raw = readStore<any>('users', 'users.json', null);
+    const fromStore: AdminUserRecord[] = Array.isArray(raw)
+      ? raw
+      : raw && Array.isArray(raw.default)
+      ? raw.default
+      : [];
+
+    for (const u of fromStore) {
+      const emailLower = (u?.email || '').toLowerCase().trim();
+      if (!emailLower || !emailLower.includes('@') || byEmail.has(emailLower)) continue;
+      byEmail.set(emailLower, u);
+    }
+  } catch {
+    // ignore
+  }
+
+  // Sort: newest registered non-admin students first, or superadmins & recent logins clearly visible
+  const users = Array.from(byEmail.values()).sort((a, b) => {
+    const tA = Date.parse(a.lastLoginAt || a.createdAt || '') || 0;
+    const tB = Date.parse(b.lastLoginAt || b.createdAt || '') || 0;
+    return tB - tA;
+  });
 
   const total = users.length;
   const activeCount = users.filter((u) => u.status === 'active').length;
@@ -263,39 +400,63 @@ export async function registerOrUpdateUserInStore(
 }
 
 export async function updateUserRoleAction(userId: string, newRole: 'superadmin' | 'student' | 'client') {
-  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  const idx = users.findIndex((u) => u.id === userId);
-  if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
+  try {
+    await withAdminDbTimeout(
+      db.user.update({
+        where: { id: userId },
+        data: { role: newRole === 'superadmin' ? Role.ADMIN : Role.STUDENT },
+      })
+    );
+  } catch {}
 
-  users[idx]!.role = newRole;
-  writeStore('users', 'users.json', users);
-  return { success: true, user: users[idx] };
+  const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
+  const idx = users.findIndex((u) => u.id === userId);
+  if (idx >= 0) {
+    users[idx] = { ...users[idx]!, role: newRole };
+    writeStore('users', 'users.json', users);
+    return { success: true, user: users[idx] };
+  }
+  return { success: true };
 }
 
 export async function updateUserMembershipAction(userId: string, newTier: 'VIP' | 'FREE') {
-  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  const idx = users.findIndex((u) => u.id === userId);
-  if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
+  try {
+    await withAdminDbTimeout(
+      db.user.update({
+        where: { id: userId },
+        data: { membershipTier: newTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE },
+      })
+    );
+  } catch {}
 
-  users[idx]!.membershipTier = newTier;
-  writeStore('users', 'users.json', users);
-  return { success: true, user: users[idx] };
+  const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
+  const idx = users.findIndex((u) => u.id === userId);
+  if (idx >= 0) {
+    users[idx] = { ...users[idx]!, membershipTier: newTier };
+    writeStore('users', 'users.json', users);
+    return { success: true, user: users[idx] };
+  }
+  return { success: true };
 }
 
 export async function toggleUserBanAction(userId: string) {
-  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
+  const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
   const idx = users.findIndex((u) => u.id === userId);
   if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
 
   const currentStatus = users[idx]!.status;
-  users[idx]!.status = currentStatus === 'banned' ? 'active' : 'banned';
+  users[idx] = { ...users[idx]!, status: currentStatus === 'banned' ? 'active' : 'banned' };
   writeStore('users', 'users.json', users);
   return { success: true, user: users[idx] };
 }
 
 export async function deleteUserAction(userId: string) {
+  try {
+    await withAdminDbTimeout(db.user.delete({ where: { id: userId } }));
+  } catch {}
+
   const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  const filtered = users.filter((u) => u.id !== userId);
+  const filtered = (Array.isArray(users) ? users : []).filter((u) => u.id !== userId);
   writeStore('users', 'users.json', filtered);
   return { success: true };
 }
@@ -312,19 +473,39 @@ export async function createManualUserAction(data: {
     return { success: false, error: 'Email inválido' };
   }
 
-  const users = readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users);
-  if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
-    return { success: false, error: 'Ya existe un usuario con este correo electrónico.' };
-  }
-
   const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
+  const resolvedTier: 'VIP' | 'FREE' = isSuper ? 'VIP' : (data.membershipTier || 'FREE');
+  const resolvedName = (data.name || '').trim() || cleanEmail.split('@')[0] || 'Usuario';
+  let dbUserId: string | null = null;
+
+  try {
+    const dbUser = await withAdminDbTimeout(
+      db.user.upsert({
+        where: { email: cleanEmail },
+        update: {
+          name: resolvedName,
+          role: isSuper || data.role === 'superadmin' ? Role.ADMIN : Role.STUDENT,
+          membershipTier: resolvedTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE,
+        },
+        create: {
+          email: cleanEmail,
+          name: resolvedName,
+          role: isSuper || data.role === 'superadmin' ? Role.ADMIN : Role.STUDENT,
+          membershipTier: resolvedTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE,
+        },
+      })
+    );
+    dbUserId = dbUser.id;
+  } catch {}
+
+  const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
   const now = new Date().toISOString();
   const newUser: AdminUserRecord = {
-    id: 'usr_' + Date.now().toString(36),
+    id: dbUserId || 'usr_' + Date.now().toString(36),
     email: cleanEmail,
-    name: (data.name || '').trim() || cleanEmail.split('@')[0] || 'Usuario',
+    name: resolvedName,
     role: data.role || (isSuper ? 'superadmin' : 'student'),
-    membershipTier: isSuper ? 'VIP' : (data.membershipTier || 'FREE'),
+    membershipTier: resolvedTier,
     status: 'active',
     avatarUrl: null,
     createdAt: now,
@@ -332,8 +513,8 @@ export async function createManualUserAction(data: {
     notes: data.notes || 'Alta manual por Superadmin',
   };
 
-  users.unshift(newUser);
-  writeStore('users', 'users.json', users);
+  const filtered = users.filter((u) => (u.email || '').toLowerCase() !== cleanEmail);
+  writeStore('users', 'users.json', [newUser, ...filtered]);
   return { success: true, user: newUser };
 }
 
