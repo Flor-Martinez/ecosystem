@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { recordVocationalSubmissionAction } from '@/actions/admin';
 import {
   Compass,
   ArrowLeft,
@@ -584,6 +586,26 @@ export function EblVocationalTestView({
 
   const dominantProfile = archetypeProfiles[dominantArchetype];
   const isInsufficientAnswers = answeredCount < 5;
+
+  const { user } = useAuth();
+  const recordedRef = useRef(false);
+
+  useEffect(() => {
+    if (step === 'result' && !recordedRef.current && answeredCount >= 3) {
+      recordedRef.current = true;
+      recordVocationalSubmissionAction({
+        userEmail: user?.email || undefined,
+        userName: user?.name || undefined,
+        dominantArchetype,
+        dominantName: dominantProfile.name,
+        scores,
+        recommendedRoles: dominantProfile.recommendedRoles,
+      }).catch(console.error);
+    }
+    if (step === 'intro') {
+      recordedRef.current = false;
+    }
+  }, [step, user, dominantArchetype, dominantProfile, scores, answeredCount]);
 
   return (
     <div className={styles.container}>

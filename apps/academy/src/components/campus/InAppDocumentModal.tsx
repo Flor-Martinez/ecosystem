@@ -14,6 +14,8 @@ import {
   Lock,
   Save,
   CheckCheck,
+  Building2,
+  Plus,
 } from 'lucide-react';
 import { InAppDocument } from '@/data/inAppDocuments';
 import { useAuth } from '@/context/AuthContext';
@@ -55,10 +57,43 @@ export function InAppDocumentModal({
   const [nonNegotiables, setNonNegotiables] = useState(
     'No aceptar esquemas 100% presenciales a más de 1h de viaje.\nNo aceptar ofertas por debajo de mi piso salarial neto.'
   );
-  const [targetCompanies, setTargetCompanies] = useState(
-    '1. Mercado Libre\n2. Ualá\n3. Despegar\n4. Auth0\n5. Tiendanube'
-  );
+  const [targetCompaniesList, setTargetCompaniesList] = useState<string[]>([
+    'Mercado Libre',
+    'Ualá',
+    'Despegar',
+    'Auth0',
+    'Tiendanube',
+  ]);
+  const [newCompanyInput, setNewCompanyInput] = useState('');
   const [isSavedSync, setIsSavedSync] = useState(true);
+
+  const POPULAR_COMPANIES_SUGGESTIONS = [
+    'Mercado Libre',
+    'Globant',
+    'Ualá',
+    'Auth0',
+    'Despegar',
+    'Accenture',
+    'Tiendanube',
+    'Rappi',
+    'PedidosYa',
+    'JP Morgan',
+  ];
+
+  const handleAddCompany = (name?: string) => {
+    const comp = (name || newCompanyInput).trim();
+    if (!comp) return;
+    if (!targetCompaniesList.some((c) => c.toLowerCase() === comp.toLowerCase())) {
+      setTargetCompaniesList((prev) => [...prev, comp]);
+      setIsSavedSync(false);
+    }
+    if (!name) setNewCompanyInput('');
+  };
+
+  const handleRemoveCompany = (index: number) => {
+    setTargetCompaniesList((prev) => prev.filter((_, i) => i !== index));
+    setIsSavedSync(false);
+  };
 
   // Load from local storage or user profile
   useEffect(() => {
@@ -74,7 +109,15 @@ export function InAppDocumentModal({
           if (parsed.expectedSalary) setExpectedSalary(parsed.expectedSalary);
           if (parsed.availability) setAvailability(parsed.availability);
           if (parsed.nonNegotiables) setNonNegotiables(parsed.nonNegotiables);
-          if (parsed.targetCompanies) setTargetCompanies(parsed.targetCompanies);
+          if (Array.isArray(parsed.targetCompaniesList) && parsed.targetCompaniesList.length > 0) {
+            setTargetCompaniesList(parsed.targetCompaniesList);
+          } else if (parsed.targetCompanies && typeof parsed.targetCompanies === 'string') {
+            const list = parsed.targetCompanies
+              .split('\n')
+              .map((line: string) => line.replace(/^[\d\s.\-*•)]+/, '').trim())
+              .filter(Boolean);
+            if (list.length > 0) setTargetCompaniesList(list);
+          }
         } catch (e) {
           console.error(e);
         }
@@ -93,7 +136,8 @@ export function InAppDocumentModal({
         expectedSalary,
         availability,
         nonNegotiables,
-        targetCompanies,
+        targetCompanies: targetCompaniesList.map((c, i) => `${i + 1}. ${c}`).join('\n'),
+        targetCompaniesList,
       };
       localStorage.setItem('ebl_student_profile', JSON.stringify(dataToSave));
     }
@@ -108,7 +152,7 @@ export function InAppDocumentModal({
     } catch (err) {
       console.error('Error auto-syncing profile:', err);
     }
-  }, [activeEmail, targetRole, industry, seniority, modality, expectedSalary, availability, nonNegotiables, targetCompanies]);
+  }, [activeEmail, targetRole, industry, seniority, modality, expectedSalary, availability, nonNegotiables, targetCompaniesList]);
 
   const handleFieldChange = (setter: React.Dispatch<React.SetStateAction<string>>, value: string) => {
     setter(value);
@@ -507,30 +551,101 @@ export function InAppDocumentModal({
                     </div>
                   )}
 
-                  {/* INTERACTIVE TEXTAREA FOR TARGET COMPANIES */}
+                  {/* INTERACTIVE LIST FOR TARGET COMPANIES */}
                   {isTargetMatrixDoc && sec.id === 'lista-empresas-diana' && (
                     <div className={styles.interactiveFormContainer}>
                       <div className={styles.formFieldCard}>
                         <div className={styles.fieldInfoRow}>
                           <div className={styles.fieldLabelRow}>
-                            <label htmlFor="input-targetCompanies" className={styles.fieldLabel}>
-                              Tus 15 Empresas Diana (Prospección Activa)
+                            <label className={styles.fieldLabel}>
+                              Tus Empresas Diana (Prospección Activa)
                             </label>
-                            <span className={styles.fieldTag}>Empresas Objetivo</span>
+                            <span className={styles.fieldTag}>
+                              {targetCompaniesList.length} {targetCompaniesList.length === 1 ? 'Empresa' : 'Empresas'}
+                            </span>
                           </div>
                           <p className={styles.fieldExplain}>
-                            <strong>¿Cómo completarlo?</strong> Listá empresas de tu industria donde te gustaría trabajar para contactar a sus líderes.
+                            <strong>¿Cómo completarlo?</strong> Agregá una a una las organizaciones de tu industria donde te gustaría trabajar para contactar a sus líderes.
                           </p>
-                          <span className={styles.fieldExample}>Ej: 1. Mercado Libre 2. Ualá 3. Despegar 4. Auth0 5. Tiendanube...</span>
                         </div>
-                        <textarea
-                          id="input-targetCompanies"
-                          className={styles.formTextarea}
-                          rows={5}
-                          value={targetCompanies}
-                          onChange={(e) => handleFieldChange(setTargetCompanies, e.target.value)}
-                          placeholder="1. Empresa A&#10;2. Empresa B&#10;3. Empresa C..."
-                        />
+
+                        <div className={styles.companyListContainer}>
+                          {/* Input + Button Row */}
+                          <div className={styles.companyInputRow}>
+                            <input
+                              type="text"
+                              value={newCompanyInput}
+                              onChange={(e) => setNewCompanyInput(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                  e.preventDefault();
+                                  handleAddCompany();
+                                }
+                              }}
+                              placeholder="Nombre de la empresa (ej: Mercado Libre, Globant, Ualá...)"
+                              className={styles.companyInput}
+                            />
+                            <button
+                              type="button"
+                              disabled={!newCompanyInput.trim()}
+                              onClick={() => handleAddCompany()}
+                              className={styles.companyAddBtn}
+                            >
+                              <Plus size={15} />
+                              <span>Agregar (+)</span>
+                            </button>
+                          </div>
+
+                          {/* Quick suggestions */}
+                          <div className={styles.companySuggestionsRow}>
+                            <span className={styles.companySuggestionsLabel}>Sugerencias:</span>
+                            {POPULAR_COMPANIES_SUGGESTIONS.filter(
+                              (s) => !targetCompaniesList.some((c) => c.toLowerCase() === s.toLowerCase())
+                            )
+                              .slice(0, 5)
+                              .map((sug) => (
+                                <button
+                                  key={sug}
+                                  type="button"
+                                  onClick={() => handleAddCompany(sug)}
+                                  className={styles.companySuggestionChip}
+                                >
+                                  <Plus size={11} />
+                                  <span>{sug}</span>
+                                </button>
+                              ))}
+                          </div>
+
+                          {/* Added companies chips grid */}
+                          {targetCompaniesList.length === 0 ? (
+                            <div className={styles.emptyCompaniesState}>
+                              <Building2 size={24} color="#94A3B8" />
+                              <span>No agregaste empresas todavía. Escribí una arriba y presioná <strong>(+)</strong> o Enter.</span>
+                            </div>
+                          ) : (
+                            <div className={styles.companyChipsGrid}>
+                              {targetCompaniesList.map((comp, idx) => (
+                                <div key={`${comp}-${idx}`} className={styles.companyChipCard}>
+                                  <div className={styles.companyCardLeft}>
+                                    <span className={styles.companyNumberBadge}>#{idx + 1}</span>
+                                    <span className={styles.companyChipName} title={comp}>
+                                      {comp}
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRemoveCompany(idx)}
+                                    className={styles.companyDeleteBtn}
+                                    title={`Eliminar ${comp}`}
+                                  >
+                                    <X size={14} />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
                         <div className={styles.saveActionsBar}>
                           <span className={styles.syncBadge}>
                             <CheckCheck size={13} />

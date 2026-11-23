@@ -1,0 +1,21 @@
+[
+  {
+    "id": "voc_sample_1",
+    "userEmail": "santiago.morales@ejemplo.com",
+    "userName": "Santiago Morales",
+    "completedAt": "2026-11-21T15:20:00.000Z",
+    "dominantArchetype": "estrategico",
+    "dominantName": "Líder Estratégico & Organizacional",
+    "scores": {
+      "estrategico": 5,
+      "analitico": 3,
+      "personas": 2,
+      "creativo": 2
+    },
+    "recommendedRoles": [
+      "Product Manager",
+      "Business Operations",
+      "Jefe de Proyectos"
+    ]
+  }
+]

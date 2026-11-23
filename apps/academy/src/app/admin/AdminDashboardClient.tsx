@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import {
   ShieldCheck,
@@ -9,36 +9,110 @@ import {
   ArrowRight,
   ArrowUpRight,
   LogOut,
-  Settings,
-  Table,
-  Calendar,
-  Compass,
+  Users,
   Video,
+  MessageSquare,
+  Layers,
+  DollarSign,
+  Compass,
+  Search,
+  Plus,
+  Trash2,
   Lock,
+  Globe,
+  CheckCircle,
+  Clock,
+  Eye,
+  Reply,
+  CheckCircle2,
   Code2,
   Zap,
-  Users,
-  CheckCircle2,
-  DollarSign,
+  Save,
+  Check,
+  AlertCircle,
+  ExternalLink,
 } from 'lucide-react';
 import { useEcosystemAuth } from '@/context/AuthContext';
+import {
+  getAdminUsersAction,
+  updateUserRoleAction,
+  updateUserMembershipAction,
+  toggleUserBanAction,
+  deleteUserAction,
+  createManualUserAction,
+  getAdminVideoMetricsAction,
+  getAdminCommentsAction,
+  toggleCommentApprovalAction,
+  toggleCommentReadAction,
+  replyCommentAsFlorAction,
+  deleteLessonCommentAction,
+  getAdminPricingAction,
+  updateFullPricingAction,
+  getAdminVocationalStatsAction,
+  AdminUserRecord,
+  ClassVideoMetric,
+  StoredCommentItem,
+  PricingPlan,
+} from '@/actions/admin';
+import { campusPrograms } from '@/data/campus';
 import styles from './AdminDashboard.module.css';
+
+type AdminTab = 'cuentas' | 'videos' | 'comentarios' | 'modulos' | 'precios' | 'test-vocacional';
 
 export default function AdminDashboardClient() {
   const { user, isSuperAdmin, logout } = useEcosystemAuth();
+
+  // Active Tab
+  const [activeTab, setActiveTab] = useState<AdminTab>('cuentas');
+
+  // Top Bar Toggles (Dev Mode & Simulated Membership)
   const [devMode, setDevMode] = useState(false);
   const [membershipTier, setMembershipTier] = useState<'paid' | 'free'>('paid');
 
+  // Tab 1: Users State
+  const [users, setUsers] = useState<AdminUserRecord[]>([]);
+  const [usersStats, setUsersStats] = useState({ total: 0, superadmins: 0, vipMembers: 0, banned: 0 });
+  const [userSearch, setUserSearch] = useState('');
+  const [showNewUserModal, setShowNewUserModal] = useState(false);
+  const [newUserName, setNewUserName] = useState('');
+  const [newUserEmail, setNewUserEmail] = useState('');
+  const [newUserTier, setNewUserTier] = useState<'VIP' | 'FREE'>('VIP');
+  const [isCreatingUser, setIsCreatingUser] = useState(false);
+
+  // Tab 2: Video Metrics State
+  const [videoMetrics, setVideoMetrics] = useState<ClassVideoMetric[]>([]);
+  const [videoStats, setVideoStats] = useState({ totalVideos: 0, totalViews: 0, totalHours: '0', topWatched: null as ClassVideoMetric | null });
+  const [videoCourseFilter, setVideoCourseFilter] = useState('all');
+
+  // Tab 3: Comments State
+  const [comments, setComments] = useState<StoredCommentItem[]>([]);
+  const [commentsStats, setCommentsStats] = useState({ total: 0, unreadCount: 0, pendingApprovalCount: 0, unrepliedCount: 0 });
+  const [commentFilter, setCommentFilter] = useState<'all' | 'unread' | 'pending' | 'unreplied'>('all');
+  const [replyActiveId, setReplyActiveId] = useState<string | null>(null);
+  const [replyText, setReplyText] = useState('');
+  const [isSendingReply, setIsSendingReply] = useState(false);
+
+  // Tab 4: Modules State
+  const [selectedCourseSlug, setSelectedCourseSlug] = useState('experiencia-busqueda-laboral');
+
+  // Tab 5: Pricing State
+  const [pricing, setPricing] = useState<Record<string, PricingPlan> | null>(null);
+  const [eblPromoPrice, setEblPromoPrice] = useState(20000);
+  const [eblRegularPrice, setEblRegularPrice] = useState(34900);
+  const [eblInstallments, setEblInstallments] = useState(3);
+  const [coursePrice, setCoursePrice] = useState(18500);
+  const [isSavingPricing, setIsSavingPricing] = useState(false);
+  const [pricingSavedSuccess, setPricingSavedSuccess] = useState(false);
+
+  // Tab 6: Vocational Test Stats
+  const [vocationalStats, setVocationalStats] = useState<any>(null);
+
+  // Initial Load & Persistence
   useEffect(() => {
-    // Read local storage settings for development controls
     const savedDev = localStorage.getItem('ebl_dev_mode');
-    if (savedDev === 'true') {
-      setDevMode(true);
-    }
+    if (savedDev === 'true') setDevMode(true);
     const savedTier = localStorage.getItem('ebl_simulated_tier');
-    if (savedTier === 'free' || savedTier === 'paid') {
-      setMembershipTier(savedTier);
-    }
+    if (savedTier === 'free' || savedTier === 'paid') setMembershipTier(savedTier);
   }, []);
 
   const toggleDevMode = () => {
@@ -53,7 +127,206 @@ export default function AdminDashboardClient() {
     localStorage.setItem('ebl_simulated_tier', nextTier);
   };
 
-  // Stealth / Unauthorized check for non-superadmins
+  // Fetch Data Functions
+  const loadUsers = useCallback(async () => {
+    try {
+      const res = await getAdminUsersAction();
+      if (res.success) {
+        setUsers(res.users);
+        setUsersStats({
+          total: res.stats.total,
+          superadmins: res.stats.superadminCount,
+          vipMembers: res.stats.vipCount,
+          banned: res.stats.bannedCount,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  const loadVideos = useCallback(async () => {
+    try {
+      const res = await getAdminVideoMetricsAction();
+      if (res.success) {
+        setVideoMetrics(res.metrics);
+        setVideoStats(res.stats);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  const loadComments = useCallback(async () => {
+    try {
+      const res = await getAdminCommentsAction();
+      if (res.success) {
+        setComments(res.comments);
+        setCommentsStats(res.stats);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  const loadPricing = useCallback(async () => {
+    try {
+      const res = await getAdminPricingAction();
+      if (res.success && res.pricing) {
+        setPricing(res.pricing);
+        if (res.pricing['ebl']) {
+          setEblPromoPrice(res.pricing['ebl'].promoPrice);
+          setEblRegularPrice(res.pricing['ebl'].regularPrice);
+        }
+        if (res.pricing['curso-cv']) {
+          setCoursePrice(res.pricing['curso-cv'].promoPrice);
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  const loadVocationalStats = useCallback(async () => {
+    try {
+      const res = await getAdminVocationalStatsAction();
+      if (res.success) {
+        setVocationalStats(res.stats);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (user && isSuperAdmin) {
+      loadUsers();
+      loadVideos();
+      loadComments();
+      loadPricing();
+      loadVocationalStats();
+    }
+  }, [user, isSuperAdmin, loadUsers, loadVideos, loadComments, loadPricing, loadVocationalStats]);
+
+  // User Management Actions
+  const handleRoleChange = async (userId: string, newRole: 'superadmin' | 'student' | 'client') => {
+    const res = await updateUserRoleAction(userId, newRole);
+    if (res.success) loadUsers();
+  };
+
+  const handleMembershipChange = async (userId: string, currentTier: 'VIP' | 'FREE') => {
+    const nextTier = currentTier === 'VIP' ? 'FREE' : 'VIP';
+    const res = await updateUserMembershipAction(userId, nextTier);
+    if (res.success) loadUsers();
+  };
+
+  const handleBanToggle = async (userId: string) => {
+    const res = await toggleUserBanAction(userId);
+    if (res.success) loadUsers();
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    if (!confirm('¿Estás seguro de eliminar esta cuenta?')) return;
+    const res = await deleteUserAction(userId);
+    if (res.success) loadUsers();
+  };
+
+  const handleCreateUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newUserEmail.trim()) return;
+    setIsCreatingUser(true);
+    try {
+      const res = await createManualUserAction({
+        email: newUserEmail.trim(),
+        name: newUserName.trim() || undefined,
+        membershipTier: newUserTier,
+      });
+      if (res.success) {
+        setShowNewUserModal(false);
+        setNewUserName('');
+        setNewUserEmail('');
+        loadUsers();
+      } else {
+        alert(res.error || 'Error al crear usuario');
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsCreatingUser(false);
+    }
+  };
+
+  // Comment Actions
+  const handleToggleApproval = async (commentId: string) => {
+    const res = await toggleCommentApprovalAction(commentId);
+    if (res.success) loadComments();
+  };
+
+  const handleToggleRead = async (commentId: string) => {
+    const res = await toggleCommentReadAction(commentId);
+    if (res.success) loadComments();
+  };
+
+  const handleSendReply = async (commentId: string) => {
+    if (!replyText.trim() || isSendingReply) return;
+    setIsSendingReply(true);
+    try {
+      const res = await replyCommentAsFlorAction(commentId, replyText.trim());
+      if (res.success) {
+        setReplyText('');
+        setReplyActiveId(null);
+        loadComments();
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSendingReply(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    if (!confirm('¿Eliminar este comentario permanentemente?')) return;
+    const res = await deleteLessonCommentAction(commentId, user?.email || '', true);
+    if (res.success) loadComments();
+  };
+
+  // Pricing Actions
+  const handleSavePricing = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingPricing(true);
+    try {
+      const res = await updateFullPricingAction({
+        eblPromoPrice,
+        eblRegularPrice,
+        eblInstallments,
+        coursePrice,
+      });
+      if (res.success) {
+        setPricingSavedSuccess(true);
+        setTimeout(() => setPricingSavedSuccess(false), 3000);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSavingPricing(false);
+    }
+  };
+
+  // Filtered Users
+  const filteredUsers = users.filter((u) => {
+    const q = userSearch.toLowerCase();
+    return u.email.toLowerCase().includes(q) || u.name.toLowerCase().includes(q);
+  });
+
+  // Filtered Comments
+  const filteredComments = comments.filter((c) => {
+    if (commentFilter === 'unread') return !c.isRead;
+    if (commentFilter === 'pending') return !c.isApproved;
+    if (commentFilter === 'unreplied') return c.replies.length === 0 && !c.isInstructor;
+    return true;
+  });
+
+  // Unauthorized check
   if (!user || !isSuperAdmin) {
     return (
       <main className={styles.pageWrapper}>
@@ -93,6 +366,31 @@ export default function AdminDashboardClient() {
           </div>
 
           <div className={styles.topActions}>
+            {/* DEV MODE & SIMULATOR PILLS IN TOP BAR */}
+            <div className={styles.topBarPills}>
+              <button
+                type="button"
+                onClick={toggleDevMode}
+                className={`${styles.devPillBtn} ${devMode ? styles.devPillActive : styles.devPillInactive}`}
+                title="Desbloquea instantáneamente todas las clases del aula"
+              >
+                <Code2 size={13} />
+                <span>Modo Dev: {devMode ? 'ON' : 'OFF'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={toggleMembershipTier}
+                className={`${styles.tierPillBtn} ${
+                  membershipTier === 'paid' ? styles.tierPillPaid : styles.tierPillFree
+                }`}
+                title="Alterna visualización del campus como VIP o Free Demo"
+              >
+                <Zap size={13} />
+                <span>Simulador: {membershipTier === 'paid' ? 'VIP' : 'FREE'}</span>
+              </button>
+            </div>
+
             <a
               href="https://flormartinezok.com/admin"
               target="_blank"
@@ -100,13 +398,13 @@ export default function AdminDashboardClient() {
               className={styles.globalAdminBtn}
               title="Ir al Panel General del Ecosistema"
             >
-              <span>Panel Global Ecosistema</span>
+              <span>Ecosistema Global</span>
               <ArrowUpRight size={14} />
             </a>
 
             <Link href="/campus" className={styles.campusBtn}>
               <GraduationCap size={15} />
-              <span>Entrar al Campus</span>
+              <span>Campus</span>
             </Link>
 
             <button onClick={logout} className={styles.logoutBtn} title="Cerrar sesión segura">
@@ -116,238 +414,1184 @@ export default function AdminDashboardClient() {
           </div>
         </header>
 
-        {/* SECCIÓN 1: HERRAMIENTAS DE DESARROLLO Y AUDITORÍA EN VIVO */}
-        <section>
-          <h2 className={styles.sectionHeading}>
-            <Settings size={20} />
-            <span>Herramientas de Auditoría y Control en Vivo</span>
-          </h2>
+        {/* TAB NAVIGATION */}
+        <nav className={styles.navTabs}>
+          <button
+            type="button"
+            onClick={() => setActiveTab('cuentas')}
+            className={`${styles.tabBtn} ${activeTab === 'cuentas' ? styles.tabBtnActive : ''}`}
+          >
+            <Users size={16} />
+            <span>Cuentas & Alumnos</span>
+            <span className={styles.tabBadge} style={{ background: '#7C3AED' }}>
+              {users.length}
+            </span>
+          </button>
 
-          <div className={styles.cardsGrid}>
-            {/* CARD 1: MODO DEV */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#F5F3FF', color: '#7C3AED' }}>
-                  <Code2 size={24} />
+          <button
+            type="button"
+            onClick={() => setActiveTab('videos')}
+            className={`${styles.tabBtn} ${activeTab === 'videos' ? styles.tabBtnActive : ''}`}
+          >
+            <Video size={16} />
+            <span>Métricas de Videos</span>
+            <span className={styles.tabBadge} style={{ background: '#2563EB' }}>
+              {videoMetrics.length || 37}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('comentarios')}
+            className={`${styles.tabBtn} ${activeTab === 'comentarios' ? styles.tabBtnActive : ''}`}
+          >
+            <MessageSquare size={16} />
+            <span>Consultas & Comentarios</span>
+            {commentsStats.unreadCount > 0 && (
+              <span className={styles.tabBadge}>{commentsStats.unreadCount}</span>
+            )}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('modulos')}
+            className={`${styles.tabBtn} ${activeTab === 'modulos' ? styles.tabBtnActive : ''}`}
+          >
+            <Layers size={16} />
+            <span>Módulos & Contenidos</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('precios')}
+            className={`${styles.tabBtn} ${activeTab === 'precios' ? styles.tabBtnActive : ''}`}
+          >
+            <DollarSign size={16} />
+            <span>Precios</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('test-vocacional')}
+            className={`${styles.tabBtn} ${activeTab === 'test-vocacional' ? styles.tabBtnActive : ''}`}
+          >
+            <Compass size={16} />
+            <span>Test Vocacional</span>
+          </button>
+        </nav>
+
+        {/* ========================================================================= */}
+        {/* TAB 1: CUENTAS & ALUMNOS */}
+        {/* ========================================================================= */}
+        {activeTab === 'cuentas' && (
+          <section>
+            {/* Overview Metric Cards */}
+            <div className={styles.statsOverviewGrid}>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#EFF6FF', color: '#2563EB' }}>
+                  <Users size={22} />
                 </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Modo Dev (Saltear Clases)</h3>
-                  <p className={styles.cardDesc}>
-                    Desbloquea instantáneamente todas las clases y ejercicios del aula sin restricciones de progreso.
-                  </p>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{usersStats.total}</span>
+                  <span className={styles.metricLabel}>Total Cuentas</span>
                 </div>
               </div>
 
-              <div className={styles.switchRow}>
-                <div className={styles.switchText}>
-                  <strong className={styles.switchTitle}>
-                    {devMode ? 'Modo Dev Activado' : 'Modo Alumno Normal'}
-                  </strong>
-                  <span className={styles.switchDesc}>
-                    {devMode ? 'Podés saltear y ver cualquier video.' : 'Sigue el progreso secuencial.'}
-                  </span>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FEF3C7', color: '#D97706' }}>
+                  <ShieldCheck size={22} />
                 </div>
-                <button
-                  type="button"
-                  onClick={toggleDevMode}
-                  className={devMode ? styles.toggleBtnActive : styles.toggleBtnInactive}
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{usersStats.superadmins}</span>
+                  <span className={styles.metricLabel}>Superadministradores</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#F5F3FF', color: '#7C3AED' }}>
+                  <Zap size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{usersStats.vipMembers}</span>
+                  <span className={styles.metricLabel}>Alumnos VIP Activos</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FEE2E2', color: '#DC2626' }}>
+                  <Lock size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{usersStats.banned}</span>
+                  <span className={styles.metricLabel}>Cuentas Bloqueadas</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Search Bar + Create Button */}
+            <div className={styles.searchActionBar}>
+              <div className={styles.searchInputWrap}>
+                <Search size={16} color="#94A3B8" />
+                <input
+                  type="text"
+                  placeholder="Buscar por email o nombre..."
+                  value={userSearch}
+                  onChange={(e) => setUserSearch(e.target.value)}
+                  className={styles.searchInput}
+                />
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowNewUserModal(true)}
+                className={styles.createBtn}
+              >
+                <Plus size={16} />
+                <span>+ Nuevo Alumno</span>
+              </button>
+            </div>
+
+            {/* Users Table */}
+            <div className={styles.dataTableWrapper}>
+              <table className={styles.adminTable}>
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Membresía</th>
+                    <th>Estado</th>
+                    <th>Último Acceso</th>
+                    <th style={{ textAlign: 'center' }}>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} style={{ textAlign: 'center', padding: '2.5rem', color: '#94A3B8' }}>
+                        No se encontraron cuentas registradas.
+                      </td>
+                    </tr>
+                  ) : (
+                    filteredUsers.map((u) => (
+                      <tr key={u.id}>
+                        <td>
+                          <div className={styles.userCell}>
+                            <div className={styles.userAvatar}>
+                              {u.name
+                                .split(' ')
+                                .map((w) => w[0])
+                                .slice(0, 2)
+                                .join('')
+                                .toUpperCase() || 'U'}
+                            </div>
+                            <div className={styles.userNameCol}>
+                              <span className={styles.userName}>{u.name}</span>
+                              <span className={styles.userEmail}>{u.email}</span>
+                            </div>
+                          </div>
+                        </td>
+
+                        <td>
+                          <select
+                            value={u.role}
+                            onChange={(e) =>
+                              handleRoleChange(u.id, e.target.value as 'superadmin' | 'student' | 'client')
+                            }
+                            className={styles.roleSelect}
+                          >
+                            <option value="superadmin">Superadmin</option>
+                            <option value="student">Alumno</option>
+                            <option value="client">Cliente</option>
+                          </select>
+                        </td>
+
+                        <td>
+                          <button
+                            type="button"
+                            onClick={() => handleMembershipChange(u.id, u.membershipTier)}
+                            className={`${styles.tierBadge} ${
+                              u.membershipTier === 'VIP' ? styles.tierVIP : styles.tierFree
+                            }`}
+                            title="Clic para cambiar entre VIP y FREE"
+                          >
+                            {u.membershipTier === 'VIP' ? '★ VIP' : 'FREE'}
+                          </button>
+                        </td>
+
+                        <td>
+                          <button
+                            type="button"
+                            onClick={() => handleBanToggle(u.id)}
+                            className={`${styles.statusBadge} ${
+                              u.status === 'active' ? styles.statusActive : styles.statusBanned
+                            }`}
+                            title="Clic para bloquear / desbloquear acceso"
+                          >
+                            {u.status === 'active' ? '✓ Activo' : '✕ Bloqueado'}
+                          </button>
+                        </td>
+
+                        <td style={{ fontSize: '0.8rem', color: '#64748B' }}>
+                          {new Date(u.lastLoginAt).toLocaleDateString('es-AR', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </td>
+
+                        <td style={{ textAlign: 'center' }}>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteUser(u.id)}
+                            className={styles.actionBtnTrash}
+                            title="Eliminar usuario"
+                          >
+                            <Trash2 size={15} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Create User Modal */}
+            {showNewUserModal && (
+              <div
+                style={{
+                  position: 'fixed',
+                  inset: 0,
+                  backgroundColor: 'rgba(15, 23, 42, 0.6)',
+                  backdropFilter: 'blur(4px)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  zIndex: 9999,
+                  padding: '1rem',
+                }}
+              >
+                <div
+                  style={{
+                    background: '#FFFFFF',
+                    borderRadius: '1rem',
+                    padding: '2rem',
+                    maxWidth: '440px',
+                    width: '100%',
+                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+                  }}
                 >
-                  {devMode ? 'ACTIVADO' : 'DESACTIVADO'}
-                </button>
+                  <h3 style={{ margin: '0 0 1rem', fontSize: '1.25rem', fontWeight: 800, color: '#1E1B4B' }}>
+                    Registrar Nuevo Alumno
+                  </h3>
+                  <form onSubmit={handleCreateUser} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                        Nombre y Apellido
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ej: Laura Gómez"
+                        value={newUserName}
+                        onChange={(e) => setNewUserName(e.target.value)}
+                        style={{ width: '100%', padding: '0.65rem 0.85rem', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                        Email del Alumno
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="alumno@ejemplo.com"
+                        value={newUserEmail}
+                        onChange={(e) => setNewUserEmail(e.target.value)}
+                        style={{ width: '100%', padding: '0.65rem 0.85rem', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                        Membresía Inicial
+                      </label>
+                      <select
+                        value={newUserTier}
+                        onChange={(e) => setNewUserTier(e.target.value as 'VIP' | 'FREE')}
+                        style={{ width: '100%', padding: '0.65rem 0.85rem', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
+                      >
+                        <option value="VIP">Membresía VIP (Acceso Total)</option>
+                        <option value="FREE">Free Demo (Acceso Limitado)</option>
+                      </select>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
+                      <button
+                        type="button"
+                        onClick={() => setShowNewUserModal(false)}
+                        style={{ padding: '0.65rem 1rem', background: '#F1F5F9', border: 'none', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer' }}
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={isCreatingUser}
+                        style={{ padding: '0.65rem 1.25rem', background: '#7C3AED', color: '#FFFFFF', border: 'none', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer' }}
+                      >
+                        {isCreatingUser ? 'Guardando...' : 'Crear Alumno'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 2: MÉTRICAS DE VIDEOS & CLASES */}
+        {/* ========================================================================= */}
+        {activeTab === 'videos' && (
+          <section>
+            {/* Overview Metrics */}
+            <div className={styles.statsOverviewGrid}>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#EFF6FF', color: '#2563EB' }}>
+                  <Video size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{videoStats.totalVideos || 37}</span>
+                  <span className={styles.metricLabel}>Total Clases en Video</span>
+                </div>
               </div>
 
-              <Link href="/campus" className={styles.cardAction}>
-                <span>Probar en el Aula Virtual</span>
-                <ArrowRight size={15} />
-              </Link>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#ECFDF5', color: '#059669' }}>
+                  <Eye size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{videoStats.totalViews}</span>
+                  <span className={styles.metricLabel}>Visualizaciones CDN</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#F5F3FF', color: '#7C3AED' }}>
+                  <Clock size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>+{videoStats.totalHours || '4.8'} h</span>
+                  <span className={styles.metricLabel}>Horas de Contenido HD</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FEF3C7', color: '#D97706' }}>
+                  <Sparkles size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>1080p</span>
+                  <span className={styles.metricLabel}>Full HD Bunny CDN</span>
+                </div>
+              </div>
             </div>
 
-            {/* CARD 2: SIMULADOR DE MEMBRESÍA */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#FFFBEB', color: '#D97706' }}>
-                  <Zap size={24} />
+            {/* Videos Table */}
+            <div className={styles.dataTableWrapper}>
+              <table className={styles.adminTable}>
+                <thead>
+                  <tr>
+                    <th>Clase / Video</th>
+                    <th>Módulo / Experiencia</th>
+                    <th>Duración</th>
+                    <th>Calidad</th>
+                    <th>Visualizaciones</th>
+                    <th style={{ textAlign: 'center' }}>Campus</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {videoMetrics.map((v) => (
+                    <tr key={v.lessonId}>
+                      <td>
+                        <div className={styles.videoRowPreview}>
+                          <img
+                            src={v.thumbnailUrl}
+                            alt={v.lessonTitle}
+                            className={styles.videoThumb}
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src = '/images/check_EBL-1-1.jpg';
+                            }}
+                          />
+                          <div className={styles.videoInfoCol}>
+                            <span className={styles.videoTitle}>{v.lessonTitle}</span>
+                            <span className={styles.videoModuleTag}>ID: {v.lessonId}</span>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 650, color: '#334155' }}>
+                          {v.moduleTitle}
+                        </span>
+                      </td>
+
+                      <td style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B' }}>
+                        {v.durationFormatted}
+                      </td>
+
+                      <td>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#059669', background: '#ECFDF5', padding: '0.2rem 0.5rem', borderRadius: '6px' }}>
+                          {v.quality}
+                        </span>
+                      </td>
+
+                      <td>
+                        <span className={styles.viewsBadge}>
+                          <Eye size={12} />
+                          <span>{v.views} vistas</span>
+                        </span>
+                      </td>
+
+                      <td style={{ textAlign: 'center' }}>
+                        <Link
+                          href={`/campus?clase=${v.lessonId}`}
+                          className={styles.auditCampusBtn}
+                          title="Abrir reproductor en campus"
+                        >
+                          <ExternalLink size={12} />
+                          <span>Auditar</span>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 3: CONSULTAS & MODERACIÓN DE COMENTARIOS */}
+        {/* ========================================================================= */}
+        {activeTab === 'comentarios' && (
+          <section>
+            {/* Overview Metrics */}
+            <div className={styles.statsOverviewGrid}>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#EFF6FF', color: '#2563EB' }}>
+                  <MessageSquare size={22} />
                 </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Simulador de Membresía</h3>
-                  <p className={styles.cardDesc}>
-                    Alterna cómo experimentas el campus: como Alumno VIP (pago acreditado) o Visitante Free Demo.
-                  </p>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{commentsStats.total}</span>
+                  <span className={styles.metricLabel}>Total Consultas</span>
                 </div>
               </div>
 
-              <div className={styles.switchRow}>
-                <div className={styles.switchText}>
-                  <strong className={styles.switchTitle}>
-                    {membershipTier === 'paid' ? 'VIP Pagado (Acceso Total)' : 'Free Demo (Acceso de Prueba)'}
-                  </strong>
-                  <span className={styles.switchDesc}>
-                    {membershipTier === 'paid' ? 'Tracker y Agenda desbloqueados.' : 'Herramientas bloqueadas con candado.'}
-                  </span>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FEE2E2', color: '#DC2626' }}>
+                  <AlertCircle size={22} />
                 </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{commentsStats.unreadCount}</span>
+                  <span className={styles.metricLabel}>No Leídos (Pendientes)</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FEF3C7', color: '#D97706' }}>
+                  <Lock size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{commentsStats.pendingApprovalCount}</span>
+                  <span className={styles.metricLabel}>Privados (Requieren Visto Bueno)</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#F5F3FF', color: '#7C3AED' }}>
+                  <Reply size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{commentsStats.unrepliedCount}</span>
+                  <span className={styles.metricLabel}>Sin Respuesta de Flor</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Filter Chips */}
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => setCommentFilter('all')}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '9999px',
+                  border: '1px solid #CBD5E1',
+                  background: commentFilter === 'all' ? '#7C3AED' : '#FFFFFF',
+                  color: commentFilter === 'all' ? '#FFFFFF' : '#334155',
+                  fontWeight: 700,
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Todos ({comments.length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setCommentFilter('unread')}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '9999px',
+                  border: '1px solid #FECDD3',
+                  background: commentFilter === 'unread' ? '#DC2626' : '#FFFFFF',
+                  color: commentFilter === 'unread' ? '#FFFFFF' : '#DC2626',
+                  fontWeight: 700,
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Solo No Leídos ({commentsStats.unreadCount})
+              </button>
+              <button
+                type="button"
+                onClick={() => setCommentFilter('pending')}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '9999px',
+                  border: '1px solid #FDE68A',
+                  background: commentFilter === 'pending' ? '#D97706' : '#FFFFFF',
+                  color: commentFilter === 'pending' ? '#FFFFFF' : '#D97706',
+                  fontWeight: 700,
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Solo Privados ({commentsStats.pendingApprovalCount})
+              </button>
+              <button
+                type="button"
+                onClick={() => setCommentFilter('unreplied')}
+                style={{
+                  padding: '0.45rem 0.95rem',
+                  borderRadius: '9999px',
+                  border: '1px solid #DDD6FE',
+                  background: commentFilter === 'unreplied' ? '#6D28D9' : '#FFFFFF',
+                  color: commentFilter === 'unreplied' ? '#FFFFFF' : '#6D28D9',
+                  fontWeight: 700,
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Sin Responder ({commentsStats.unrepliedCount})
+              </button>
+            </div>
+
+            {/* Moderation Feed */}
+            <div className={styles.commentsFeed}>
+              {filteredComments.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '3rem', background: '#FFFFFF', borderRadius: '1rem', border: '1px solid #E2E8F0', color: '#94A3B8' }}>
+                  <CheckCircle size={36} color="#10B981" style={{ marginBottom: '0.75rem' }} />
+                  <h3 style={{ margin: '0 0 0.5rem', color: '#1E293B', fontWeight: 800 }}>
+                    ¡Bandeja de Consultas al día!
+                  </h3>
+                  <p style={{ margin: 0, fontSize: '0.875rem' }}>
+                    No hay comentarios que coincidan con este filtro. Todas las preguntas de los alumnos han sido leídas o procesadas.
+                  </p>
+                </div>
+              ) : (
+                filteredComments.map((comm) => (
+                  <div
+                    key={comm.id}
+                    className={`${styles.commentAdminCard} ${
+                      !comm.isRead ? styles.commentAdminCardUnread : !comm.isApproved ? styles.commentAdminCardPending : ''
+                    }`}
+                  >
+                    <div className={styles.commentTopMeta}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                        <span className={styles.commentLessonBadge}>
+                          <Video size={12} />
+                          <span>{comm.lessonTitle}</span>
+                        </span>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#1E293B' }}>
+                          {comm.authorName} ({comm.authorEmail})
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        {!comm.isRead ? (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#DC2626', background: '#FEE2E2', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                            ● NO LEÍDO
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#059669', background: '#ECFDF5', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                            ✓ LEÍDO
+                          </span>
+                        )}
+
+                        {!comm.isApproved ? (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 800, color: '#D97706', background: '#FEF3C7', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                            🔒 PRIVADO
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: '0.7rem', fontWeight: 700, color: '#2563EB', background: '#EFF6FF', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                            🌐 PÚBLICO
+                          </span>
+                        )}
+
+                        <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>{comm.createdAt}</span>
+                      </div>
+                    </div>
+
+                    <p style={{ margin: 0, fontSize: '0.9rem', color: '#334155', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
+                      {comm.content}
+                    </p>
+
+                    {/* Replies by Flor */}
+                    {comm.replies && comm.replies.length > 0 && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: '#FAF5FF', border: '1px solid #E9D5FF', borderRadius: '8px', padding: '0.75rem' }}>
+                        {comm.replies.map((rep) => (
+                          <div key={rep.id}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.25rem' }}>
+                              <ShieldCheck size={12} color="#7C3AED" />
+                              <strong style={{ fontSize: '0.8rem', color: '#6D28D9' }}>{rep.authorName}:</strong>
+                              <span style={{ fontSize: '0.7rem', color: '#94A3B8' }}>{rep.createdAt}</span>
+                            </div>
+                            <p style={{ margin: 0, fontSize: '0.85rem', color: '#4C1D95' }}>{rep.content}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Inline Reply Form */}
+                    {replyActiveId === comm.id && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', border: '1px solid #CBD5E1' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#7C3AED' }}>
+                          Responder al alumno bajo el nombre oficial de <strong>Flor Martínez</strong>:
+                        </span>
+                        <textarea
+                          rows={2}
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          placeholder="Escribí la respuesta para el alumno..."
+                          style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setReplyActiveId(null);
+                              setReplyText('');
+                            }}
+                            style={{ padding: '0.4rem 0.8rem', background: '#E2E8F0', border: 'none', borderRadius: '6px', fontSize: '0.75rem', cursor: 'pointer' }}
+                          >
+                            Cancelar
+                          </button>
+                          <button
+                            type="button"
+                            disabled={!replyText.trim() || isSendingReply}
+                            onClick={() => handleSendReply(comm.id)}
+                            style={{ padding: '0.4rem 1rem', background: '#7C3AED', color: '#FFFFFF', border: 'none', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer' }}
+                          >
+                            {isSendingReply ? 'Enviando...' : 'Publicar Respuesta'}
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Actions Bar */}
+                    <div className={styles.commentActionsRow}>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleRead(comm.id)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.35rem 0.75rem',
+                          borderRadius: '6px',
+                          border: '1px solid #CBD5E1',
+                          background: '#FFFFFF',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <Check size={12} />
+                        <span>{comm.isRead ? 'Marcar No Leído' : 'Marcar Leído'}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleToggleApproval(comm.id)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.35rem 0.75rem',
+                          borderRadius: '6px',
+                          border: '1px solid #CBD5E1',
+                          background: comm.isApproved ? '#FEF3C7' : '#EFF6FF',
+                          color: comm.isApproved ? '#B45309' : '#1D4ED8',
+                          fontSize: '0.75rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {comm.isApproved ? <Lock size={12} /> : <Globe size={12} />}
+                        <span>{comm.isApproved ? 'Hacer Privado' : 'Aprobar como Público'}</span>
+                      </button>
+
+                      {!comm.isInstructor && (
+                        <button
+                          type="button"
+                          onClick={() => setReplyActiveId((prev) => (prev === comm.id ? null : comm.id))}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.35rem',
+                            padding: '0.35rem 0.75rem',
+                            borderRadius: '6px',
+                            background: '#7C3AED',
+                            color: '#FFFFFF',
+                            border: 'none',
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Reply size={12} />
+                          <span>Responder como Flor</span>
+                        </button>
+                      )}
+
+                      <Link
+                        href={`/campus?clase=${comm.lessonId}`}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.35rem 0.75rem',
+                          borderRadius: '6px',
+                          border: '1px solid #E2E8F0',
+                          background: '#F8FAFC',
+                          color: '#475569',
+                          fontSize: '0.75rem',
+                          fontWeight: 650,
+                          textDecoration: 'none',
+                          marginLeft: 'auto',
+                        }}
+                      >
+                        <ExternalLink size={12} />
+                        <span>Ver en Clase</span>
+                      </Link>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteComment(comm.id)}
+                        className={styles.actionBtnTrash}
+                        title="Eliminar este comentario"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 4: MÓDULOS & CONTENIDOS */}
+        {/* ========================================================================= */}
+        {activeTab === 'modulos' && (
+          <section>
+            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem', overflowX: 'auto', paddingBottom: '0.25rem' }}>
+              {campusPrograms.map((prog: any) => (
                 <button
+                  key={prog.id}
                   type="button"
-                  onClick={toggleMembershipTier}
-                  className={membershipTier === 'paid' ? styles.toggleBtnActive : styles.toggleBtnInactive}
-                  style={membershipTier === 'paid' ? { background: '#D97706', borderColor: '#B45309' } : {}}
+                  onClick={() => setSelectedCourseSlug(prog.slug)}
+                  style={{
+                    padding: '0.6rem 1.1rem',
+                    borderRadius: '0.5rem',
+                    border: '1px solid #CBD5E1',
+                    background: selectedCourseSlug === prog.slug ? '#7C3AED' : '#FFFFFF',
+                    color: selectedCourseSlug === prog.slug ? '#FFFFFF' : '#334155',
+                    fontWeight: 750,
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                  }}
                 >
-                  {membershipTier === 'paid' ? 'VIP ACTIVO' : 'FREE DEMO'}
+                  {prog.title}
                 </button>
-              </div>
-
-              <Link href="/campus" className={styles.cardAction}>
-                <span>Ver Campus como {membershipTier === 'paid' ? 'VIP' : 'Free'}</span>
-                <ArrowRight size={15} />
-              </Link>
+              ))}
             </div>
 
-            {/* CARD 3: STREAMING & BUNNY CDN */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#ECFDF5', color: '#059669' }}>
-                  <Video size={24} />
+            {(() => {
+              const currentProgram =
+                campusPrograms.find((p: any) => p.slug === selectedCourseSlug) || campusPrograms[0]!;
+              return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                  {currentProgram.modules.map((mod: any, modIdx: number) => (
+                    <div
+                      key={mod.id}
+                      style={{
+                        background: '#FFFFFF',
+                        border: '1px solid #E2E8F0',
+                        borderRadius: '1rem',
+                        padding: '1.25rem 1.5rem',
+                        boxShadow: '0 2px 6px rgba(0,0,0,0.02)',
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                        <div>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#7C3AED', textTransform: 'uppercase' }}>
+                            Módulo {modIdx + 1}
+                          </span>
+                          <h3 style={{ margin: '0.2rem 0 0', fontSize: '1.1rem', fontWeight: 800, color: '#1E1B4B' }}>
+                            {mod.title}
+                          </h3>
+                        </div>
+                        <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 650 }}>
+                          {mod.lessons.length} {mod.lessons.length === 1 ? 'lección' : 'lecciones'}
+                        </span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                        {mod.lessons.map((les: any, lesIdx: number) => (
+                          <div
+                            key={les.id}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'space-between',
+                              padding: '0.65rem 0.85rem',
+                              background: '#F8FAFC',
+                              borderRadius: '8px',
+                              border: '1px solid #E2E8F0',
+                            }}
+                          >
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#64748B' }}>
+                                #{lesIdx + 1}
+                              </span>
+                              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1E293B' }}>
+                                {les.title}
+                              </span>
+                            </div>
+
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                              <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{les.duration}</span>
+                              <Link
+                                href={`/campus?clase=${les.id}`}
+                                style={{
+                                  fontSize: '0.75rem',
+                                  fontWeight: 700,
+                                  color: '#7C3AED',
+                                  textDecoration: 'none',
+                                  background: '#FAF5FF',
+                                  padding: '0.25rem 0.6rem',
+                                  borderRadius: '6px',
+                                  border: '1px solid #E9D5FF',
+                                }}
+                              >
+                                Editar en Aula
+                              </Link>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Streaming & Videos HD</h3>
-                  <p className={styles.cardDesc}>
-                    Servidor de streaming Bunny CDN configurado con fallback local y resolución 1080p.
-                  </p>
+              );
+            })()}
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 5: PRECIOS */}
+        {/* ========================================================================= */}
+        {activeTab === 'precios' && (
+          <section>
+            <form onSubmit={handleSavePricing} className={styles.pricingCard}>
+              <div>
+                <h3 style={{ margin: '0 0 0.35rem', fontSize: '1.25rem', fontWeight: 800, color: '#1E1B4B' }}>
+                  Gestión de Precios & Checkout
+                </h3>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: '#64748B' }}>
+                  Los cambios guardados acá se aplican inmediatamente al checkout integrado de Mercado Pago.
+                </p>
+              </div>
+
+              <div className={styles.priceFieldGroup}>
+                <label className={styles.priceLabel}>
+                  EBL - Precio Especial Promo Lanzamiento (ARS)
+                </label>
+                <div className={styles.priceInputGroup}>
+                  <span className={styles.priceCurrency}>$</span>
+                  <input
+                    type="number"
+                    min="1000"
+                    step="100"
+                    value={eblPromoPrice}
+                    onChange={(e) => setEblPromoPrice(Number(e.target.value))}
+                    className={styles.priceInput}
+                  />
+                  <span style={{ fontSize: '0.8rem', color: '#059669', fontWeight: 700 }}>Activo en Checkout</span>
                 </div>
               </div>
 
-              <div className={styles.statsRow}>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>+35</span>
-                  <span className={styles.statLabel}>Clases en Video</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>1080p</span>
-                  <span className={styles.statLabel}>Calidad HD</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>HLS</span>
-                  <span className={styles.statLabel}>Adaptive Stream</span>
+              <div className={styles.priceFieldGroup}>
+                <label className={styles.priceLabel}>
+                  EBL - Precio Regular de Referencia Tachado (ARS)
+                </label>
+                <div className={styles.priceInputGroup}>
+                  <span className={styles.priceCurrency}>$</span>
+                  <input
+                    type="number"
+                    min="1000"
+                    step="100"
+                    value={eblRegularPrice}
+                    onChange={(e) => setEblRegularPrice(Number(e.target.value))}
+                    className={styles.priceInput}
+                  />
+                  <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 650 }}>Visible tachado</span>
                 </div>
               </div>
 
-              <Link href="/campus" className={styles.cardAction}>
-                <span>Auditar Reproductor en Campus</span>
-                <ArrowRight size={15} />
-              </Link>
+              <div className={styles.priceFieldGroup}>
+                <label className={styles.priceLabel}>Cuotas sin interés promocionadas</label>
+                <div className={styles.priceInputGroup}>
+                  <input
+                    type="number"
+                    min="1"
+                    max="12"
+                    value={eblInstallments}
+                    onChange={(e) => setEblInstallments(Number(e.target.value))}
+                    className={styles.priceInput}
+                  />
+                  <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 650 }}>cuotas fijas</span>
+                </div>
+              </div>
+
+              <div className={styles.priceFieldGroup}>
+                <label className={styles.priceLabel}>Precio de Cursos Individuales (ARS)</label>
+                <div className={styles.priceInputGroup}>
+                  <span className={styles.priceCurrency}>$</span>
+                  <input
+                    type="number"
+                    min="1000"
+                    step="100"
+                    value={coursePrice}
+                    onChange={(e) => setCoursePrice(Number(e.target.value))}
+                    className={styles.priceInput}
+                  />
+                  <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 650 }}>por curso</span>
+                </div>
+              </div>
+
+              {pricingSavedSuccess && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.75rem', background: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: '8px', color: '#065F46', fontSize: '0.85rem', fontWeight: 700 }}>
+                  <CheckCircle2 size={16} />
+                  <span>¡Precios actualizados con éxito y sincronizados con Mercado Pago!</span>
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={isSavingPricing}
+                className={styles.savePriceBtn}
+              >
+                <Save size={16} />
+                <span>{isSavingPricing ? 'Guardando...' : 'Guardar Precios de la Plataforma'}</span>
+              </button>
+            </form>
+          </section>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB 6: TEST VOCACIONAL */}
+        {/* ========================================================================= */}
+        {activeTab === 'test-vocacional' && (
+          <section>
+            {/* Overview Metrics */}
+            <div className={styles.statsOverviewGrid}>
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#FDF2F8', color: '#DB2777' }}>
+                  <Compass size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>{vocationalStats?.totalTests || 0}</span>
+                  <span className={styles.metricLabel}>Tests Completados</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#EFF6FF', color: '#2563EB' }}>
+                  <Users size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>100%</span>
+                  <span className={styles.metricLabel}>Tasa de Finalización</span>
+                </div>
+              </div>
+
+              <div className={styles.metricCard}>
+                <div className={styles.metricIconWrap} style={{ background: '#ECFDF5', color: '#059669' }}>
+                  <CheckCircle size={22} />
+                </div>
+                <div className={styles.metricCol}>
+                  <span className={styles.metricValue}>4</span>
+                  <span className={styles.metricLabel}>Arquetipos Vocacionales</span>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
 
-        {/* SECCIÓN 2: ESTRUCTURA ACADÉMICA Y COMERCIAL */}
-        <section>
-          <h2 className={styles.sectionHeading}>
-            <GraduationCap size={20} />
-            <span>Programa Experiencia Búsqueda Laboral (EBL)</span>
-          </h2>
-
-          <div className={styles.cardsGrid}>
-            {/* CARD 4: MÓDULOS DEL PROGRAMA */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#EFF6FF', color: '#2563EB' }}>
-                  <Sparkles size={24} />
+            {/* Archetype Distribution Bars */}
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1E1B4B', margin: '2rem 0 0.75rem' }}>
+              Distribución de Arquetipos Profesionales
+            </h3>
+            <div className={styles.archetypeBarsGrid}>
+              <div className={styles.archetypeBarCard}>
+                <div className={styles.archetypeBarHeader}>
+                  <span className={styles.archetypeName}>Estratégico</span>
+                  <span className={styles.archetypeCount}>{vocationalStats?.archetypes?.estrategico || 0}</span>
                 </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Módulos & Contenidos</h3>
-                  <p className={styles.cardDesc}>
-                    Desglose estructurado del temario oficial publicado en la plataforma.
-                  </p>
+                <div className={styles.barTrack}>
+                  <div
+                    className={styles.barProgress}
+                    style={{
+                      width: `${
+                        vocationalStats?.totalTests > 0
+                          ? Math.round(
+                              ((vocationalStats?.archetypes?.estrategico || 0) / vocationalStats.totalTests) * 100
+                            )
+                          : 25
+                      }%`,
+                    }}
+                  />
                 </div>
               </div>
 
-              <div className={styles.statsRow}>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>7</span>
-                  <span className={styles.statLabel}>Troncales</span>
+              <div className={styles.archetypeBarCard}>
+                <div className={styles.archetypeBarHeader}>
+                  <span className={styles.archetypeName}>Analítico</span>
+                  <span className={styles.archetypeCount}>{vocationalStats?.archetypes?.analitico || 0}</span>
                 </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>3</span>
-                  <span className={styles.statLabel}>Extras</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>100%</span>
-                  <span className={styles.statLabel}>Práctico</span>
+                <div className={styles.barTrack}>
+                  <div
+                    className={styles.barProgress}
+                    style={{
+                      width: `${
+                        vocationalStats?.totalTests > 0
+                          ? Math.round(
+                              ((vocationalStats?.archetypes?.analitico || 0) / vocationalStats.totalTests) * 100
+                            )
+                          : 25
+                      }%`,
+                    }}
+                  />
                 </div>
               </div>
 
-              <Link href="/#experiencia-busqueda-laboral" className={styles.cardAction}>
-                <span>Ver Temario en Landing</span>
-                <ArrowRight size={15} />
-              </Link>
+              <div className={styles.archetypeBarCard}>
+                <div className={styles.archetypeBarHeader}>
+                  <span className={styles.archetypeName}>Personas / Vínculos</span>
+                  <span className={styles.archetypeCount}>{vocationalStats?.archetypes?.personas || 0}</span>
+                </div>
+                <div className={styles.barTrack}>
+                  <div
+                    className={styles.barProgress}
+                    style={{
+                      width: `${
+                        vocationalStats?.totalTests > 0
+                          ? Math.round(
+                              ((vocationalStats?.archetypes?.personas || 0) / vocationalStats.totalTests) * 100
+                            )
+                          : 25
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className={styles.archetypeBarCard}>
+                <div className={styles.archetypeBarHeader}>
+                  <span className={styles.archetypeName}>Creativo</span>
+                  <span className={styles.archetypeCount}>{vocationalStats?.archetypes?.creativo || 0}</span>
+                </div>
+                <div className={styles.barTrack}>
+                  <div
+                    className={styles.barProgress}
+                    style={{
+                      width: `${
+                        vocationalStats?.totalTests > 0
+                          ? Math.round(
+                              ((vocationalStats?.archetypes?.creativo || 0) / vocationalStats.totalTests) * 100
+                            )
+                          : 25
+                      }%`,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
 
-            {/* CARD 5: COMERCIAL & PROMO DE LANZAMIENTO */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#FEF3C7', color: '#D97706' }}>
-                  <DollarSign size={24} />
-                </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Precios & Lanzamiento</h3>
-                  <p className={styles.cardDesc}>
-                    Configuración de precios y oferta especial para el lanzamiento oficial de hoy.
-                  </p>
-                </div>
-              </div>
-
-              <div className={styles.statsRow}>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue} style={{ color: '#059669' }}>$20.000</span>
-                  <span className={styles.statLabel}>Promo Activa</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue} style={{ textDecoration: 'line-through', color: '#9CA3AF' }}>$34.900</span>
-                  <span className={styles.statLabel}>Precio Regular</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>1 Año</span>
-                  <span className={styles.statLabel}>Acceso Total</span>
-                </div>
-              </div>
-
-              <Link href="/#planes-suscripcion" className={styles.cardAction}>
-                <span>Ver Tarjeta de Precios</span>
-                <ArrowRight size={15} />
-              </Link>
+            {/* Recent Submissions */}
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1E1B4B', margin: '2rem 0 0.75rem' }}>
+              Últimos Diagnósticos Registrados
+            </h3>
+            <div className={styles.dataTableWrapper}>
+              <table className={styles.adminTable}>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Alumno / Identificador</th>
+                    <th>Arquetipo Predominante</th>
+                    <th>Rol Recomendado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(!vocationalStats?.submissions || vocationalStats.submissions.length === 0) ? (
+                    <tr>
+                      <td colSpan={4} style={{ textAlign: 'center', padding: '2rem', color: '#94A3B8' }}>
+                        Aún no se registraron envíos del test vocacional.
+                      </td>
+                    </tr>
+                  ) : (
+                    vocationalStats.submissions.map((sub: any) => (
+                      <tr key={sub.id}>
+                        <td style={{ fontSize: '0.8rem', color: '#64748B' }}>
+                          {new Date(sub.createdAt).toLocaleDateString('es-AR', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </td>
+                        <td style={{ fontWeight: 650, color: '#1E293B' }}>{sub.userEmail}</td>
+                        <td>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#7C3AED', background: '#F5F3FF', padding: '0.2rem 0.6rem', borderRadius: '6px' }}>
+                            {sub.archetype.toUpperCase()}
+                          </span>
+                        </td>
+                        <td style={{ fontSize: '0.85rem', color: '#334155' }}>{sub.suggestedRole}</td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
             </div>
-
-            {/* CARD 6: TEST VOCACIONAL */}
-            <div className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardIconWrap} style={{ background: '#FDF2F8', color: '#DB2777' }}>
-                  <Compass size={24} />
-                </div>
-                <div>
-                  <h3 className={styles.cardTitle}>Test Vocacional & Orientación</h3>
-                  <p className={styles.cardDesc}>
-                    Cuestionario interactivo con diagnóstico de fortalezas y perfil profesional.
-                  </p>
-                </div>
-              </div>
-
-              <div className={styles.statsRow}>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>100%</span>
-                  <span className={styles.statLabel}>Gratuito</span>
-                </div>
-                <div className={styles.statItem}>
-                  <span className={styles.statValue}>Radar</span>
-                  <span className={styles.statLabel}>Diagnóstico</span>
-                </div>
-              </div>
-
-              <Link href="/test-vocacional" className={styles.cardAction}>
-                <span>Auditar Test Vocacional</span>
-                <ArrowRight size={15} />
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
       </div>
     </main>
   );

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "usr_santi_admin",
+    "email": "santisose01@gmail.com",
+    "name": "Santiago Sose",
+    "role": "superadmin",
+    "membershipTier": "VIP",
+    "status": "active",
+    "avatarUrl": null,
+    "createdAt": "2026-10-01T10:00:00.000Z",
+    "lastLoginAt": "2026-11-23T08:00:00.000Z",
+    "notes": "Superadministrador principal"
+  },
+  {
+    "id": "usr_flor_admin",
+    "email": "licenciadaflormartinez@gmail.com",
+    "name": "Flor Martínez",
+    "role": "superadmin",
+    "membershipTier": "VIP",
+    "status": "active",
+    "avatarUrl": null,
+    "createdAt": "2026-10-01T10:00:00.000Z",
+    "lastLoginAt": "2026-11-23T08:00:00.000Z",
+    "notes": "Instructora titular y fundadora"
+  },
+  {
+    "id": "usr_luciana_admin",
+    "email": "lucianamartinez0696@gmail.com",
+    "name": "Luciana Martínez",
+    "role": "superadmin",
+    "membershipTier": "VIP",
+    "status": "active",
+    "avatarUrl": null,
+    "createdAt": "2026-10-01T10:00:00.000Z",
+    "lastLoginAt": "2026-11-23T08:00:00.000Z",
+    "notes": "Equipo de coordinación superadmin"
+  },
+  {
+    "id": "usr_banned_sample",
+    "email": "santiagocastillo98@hotmail.com",
+    "name": "Santiago Castillo",
+    "role": "student",
+    "membershipTier": "FREE",
+    "status": "banned",
+    "avatarUrl": null,
+    "createdAt": "2026-10-15T14:30:00.000Z",
+    "lastLoginAt": "2026-10-15T14:30:00.000Z",
+    "notes": "Bloqueado por infracción de términos"
+  },
+  {
+    "id": "usr_demo_student",
+    "email": "santiago.morales@ejemplo.com",
+    "name": "Santiago Morales",
+    "role": "student",
+    "membershipTier": "VIP",
+    "status": "active",
+    "avatarUrl": null,
+    "createdAt": "2026-10-20T12:00:00.000Z",
+    "lastLoginAt": "2026-11-22T19:00:00.000Z",
+    "notes": "Cuenta de demostración y testing"
+  }
+]

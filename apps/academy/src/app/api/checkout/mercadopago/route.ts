@@ -21,6 +21,21 @@ export async function POST(request: Request) {
     const origin = request.headers.get('origin') || 'https://academia.flormartinezok.com';
     const refCode = `EBL-${Date.now()}`;
 
+    let unitPrice = 20000;
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const pricingPath = path.join(process.cwd(), 'src', 'data', 'store', 'pricing.json');
+      if (fs.existsSync(pricingPath)) {
+        const pricing = JSON.parse(fs.readFileSync(pricingPath, 'utf-8'));
+        if (pricing.ebl && pricing.ebl.promoPrice) {
+          unitPrice = Number(pricing.ebl.promoPrice);
+        }
+      }
+    } catch {
+      // fallback to 20000
+    }
+
     if (mpAccessToken && (mpAccessToken.startsWith('APP_USR-') || mpAccessToken.startsWith('TEST-'))) {
       const preferenceData = {
         items: [
@@ -29,7 +44,7 @@ export async function POST(request: Request) {
             title: 'Experiencia Búsqueda Laboral — Pase Anual Completo',
             description: 'Acceso a los 10 módulos (+35 clases en HD), plantillas ATS, Tracker de Postulaciones y Agenda por 1 año.',
             quantity: 1,
-            unit_price: 20000,
+            unit_price: unitPrice,
             currency_id: 'ARS',
           },
         ],

@@ -1,0 +1,32 @@
+{
+  "ebl": {
+    "id": "experiencia-busqueda-laboral",
+    "name": "Experiencia Búsqueda Laboral — Pase Anual Completo",
+    "promoPrice": 20000,
+    "regularPrice": 34900,
+    "currency": "ARS",
+    "installments": "Hasta 6 cuotas fijas",
+    "promoActive": true,
+    "promoBadge": "Oferta Oficial de Lanzamiento"
+  },
+  "curso-cv": {
+    "id": "cv-de-alto-impacto",
+    "name": "Taller Intensivo: CV de Alto Impacto & Filtros ATS",
+    "promoPrice": 18500,
+    "regularPrice": 26000,
+    "currency": "ARS",
+    "installments": "Hasta 3 cuotas fijas",
+    "promoActive": true,
+    "promoBadge": "Taller Práctico"
+  },
+  "curso-linkedin": {
+    "id": "linkedin-estrategico-y-marca-personal",
+    "name": "Curso: LinkedIn Estratégico y Marca Personal",
+    "promoPrice": 18500,
+    "regularPrice": 26000,
+    "currency": "ARS",
+    "installments": "Hasta 3 cuotas fijas",
+    "promoActive": true,
+    "promoBadge": "Taller Práctico"
+  }
+}

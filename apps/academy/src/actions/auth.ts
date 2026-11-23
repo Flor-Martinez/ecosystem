@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { db, Role } from '@repo/db';
+import { registerOrUpdateUserInStore } from './admin';
 
 const SESSION_COOKIE = 'fm_session_token';
 
@@ -122,6 +123,12 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
       path: '/',
     });
 
+    try {
+      await registerOrUpdateUserInStore(user.email, user.name, user.avatarUrl || avatarUrl);
+    } catch {
+      // ignore
+    }
+
     return {
       success: true,
       user: {
@@ -137,6 +144,11 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
     const isSuper = SUPERADMIN_EMAILS.includes(formattedEmail);
     const namePart = formattedEmail.split('@')[0] || 'Usuario';
     const formattedName = name?.trim() || (namePart.charAt(0).toUpperCase() + namePart.slice(1));
+    try {
+      await registerOrUpdateUserInStore(formattedEmail, formattedName, avatarUrl);
+    } catch {
+      // ignore
+    }
     return {
       success: true,
       user: {
@@ -200,6 +212,12 @@ export async function registerUserAction(name: string, email: string) {
       expires,
       path: '/',
     });
+
+    try {
+      await registerOrUpdateUserInStore(user.email, user.name);
+    } catch {
+      // ignore
+    }
 
     return {
       success: true,

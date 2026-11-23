@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { submitQuizEvaluationAction } from '@/actions/campus';
+import { recordVideoViewAction } from '@/actions/admin';
 import { CampusLesson, CampusProgram } from '@/data/campus';
 import { getInAppDocumentByIdOrSlug, InAppDocument } from '@/data/inAppDocuments';
 import { InAppDocumentModal } from '@/components/campus/InAppDocumentModal';
@@ -84,6 +85,7 @@ export function CampusPlayer({
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
+    recordVideoViewAction(lesson.id).catch(() => {});
   }, [lesson.id]);
 
   const handleTogglePlay = () => {
@@ -835,6 +837,7 @@ export function CampusPlayer({
             lessonId={lesson.id}
             lessonTitle={lesson.title}
             currentUser={user}
+            isSuperAdmin={Boolean(isSuperAdmin)}
           />
         </div>
       )}
