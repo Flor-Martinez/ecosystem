@@ -45,7 +45,8 @@ export function CampusSidebar({
   isDevMode = true,
 }: CampusSidebarProps) {
   const { user, isSuperAdmin, openAuthModal } = useAuth();
-  const canAccessVideos = Boolean(user && isSuperAdmin);
+  // VIP access: user is logged in and has paid membership
+  const isVipUser = Boolean(user && membershipTier === 'paid');
   const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
 
   const isWipExtraModule = (modNumber: number) => {
@@ -97,12 +98,14 @@ export function CampusSidebar({
 
   // Per-Module linear unlocking helper:
   const isLessonUnlocked = (lessonId: string): boolean => {
-    if (!canAccessVideos) return false; // Strictly locked for non-superadmin visitors!
     const mod = currentProgram.modules.find((m) =>
       m.lessons.some((l) => l.id === lessonId)
     );
     if (!mod) return true;
-    if (membershipTier === 'free' && mod.number !== 1) return false;
+    // Module 1 is ALWAYS 100% unlocked for everyone (guests and free users included)
+    if (mod.number === 1) return true;
+    // Other modules: strictly locked if not VIP
+    if (!isVipUser) return false;
     if (isDevMode) return true; // In Dev Mode, all allowed lessons are unlocked!
     const idxInModule = mod.lessons.findIndex((l) => l.id === lessonId);
     if (idxInModule <= 0) return true; // First lesson of ANY module is always unlocked!
@@ -125,11 +128,8 @@ export function CampusSidebar({
     if (isWipExtraModule(mod.number)) {
       return;
     }
-    if (!canAccessVideos) {
-      openAuthModal('login');
-      return;
-    }
-    if (membershipTier === 'free' && mod.number !== 1) {
+    // Module 1 is ALWAYS accessible to everyone (guests and free users included)
+    if (mod.number !== 1 && !isVipUser) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -151,11 +151,7 @@ export function CampusSidebar({
     if (isWipExtraModule(mod.number)) {
       return;
     }
-    if (!canAccessVideos) {
-      openAuthModal('login');
-      return;
-    }
-    if (membershipTier === 'free' && mod.number !== 1) {
+    if (mod.number !== 1 && !isVipUser) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -395,7 +391,7 @@ export function CampusSidebar({
                   (completedInMod / Math.max(1, mod.lessons.length)) * 100
                 );
 
-                const isModuleLockedInFree = !canAccessVideos || (membershipTier === 'free' && mod.number !== 1);
+                const isModuleLockedInFree = !isVipUser && mod.number !== 1;
 
                 return (
                   <div
@@ -487,7 +483,7 @@ export function CampusSidebar({
                             currentView === 'lesson' && selectedLesson.id === lesson.id;
                           const isEvaluation = lesson.type === 'evaluacion';
                           const isUnlocked = isLessonUnlocked(lesson.id);
-                          const isEvaluationLocked = membershipTier === 'free' && isEvaluation;
+                          const isEvaluationLocked = mod.number !== 1 && !isVipUser && isEvaluation;
 
                           return (
                             <div
@@ -512,11 +508,13 @@ export function CampusSidebar({
                               {/* Lesson Info Clickable */}
                               <button
                                 type="button"
-                                disabled={canAccessVideos ? (!isUnlocked && !isEvaluationLocked) : false}
+                                disabled={mod.number === 1 ? false : (!isUnlocked && !isEvaluationLocked)}
                                 className={styles.lessonSelectBtn}
                                 onClick={() => {
-                                  if (!canAccessVideos) {
-                                    openAuthModal('login');
+                                  if (mod.number !== 1 && !isVipUser) {
+                                    if (onLockedModuleClick) {
+                                      onLockedModuleClick(`modulo-${mod.number}`);
+                                    }
                                     return;
                                   }
                                   if (isEvaluationLocked) {
@@ -607,7 +605,7 @@ export function CampusSidebar({
                       (completedInMod / Math.max(1, mod.lessons.length)) * 100
                     );
 
-                    const isModuleLockedInFree = !canAccessVideos || (membershipTier === 'free' && mod.number !== 1);
+                    const isModuleLockedInFree = !isVipUser && mod.number !== 1;
 
                     return (
                       <div
@@ -754,11 +752,13 @@ export function CampusSidebar({
 
                                   <button
                                     type="button"
-                                    disabled={canAccessVideos ? (!isUnlocked && !isEvaluationLocked) : false}
+                                    disabled={!isUnlocked && !isEvaluationLocked}
                                     className={styles.lessonSelectBtn}
                                     onClick={() => {
-                                      if (!canAccessVideos) {
-                                        openAuthModal('login');
+                                      if (!isVipUser) {
+                                        if (onLockedModuleClick) {
+                                          onLockedModuleClick(`modulo-${mod.number}`);
+                                        }
                                         return;
                                       }
                                       if (isEvaluationLocked) {

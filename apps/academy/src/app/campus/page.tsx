@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Lock } from 'lucide-react';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth, SUPERADMIN_EMAILS } from '@/context/AuthContext';
 import {
   getCampusInitialDataAction,
   saveLessonProgressAction,
@@ -51,10 +51,18 @@ function CampusContent() {
 
   const [currentProgram, setCurrentProgram] = useState<CampusProgram>(initialProgram);
 
-  // Dev Membership Switch Tier: 'paid' | 'free' (strictly 'free' if not logged in, 'paid' by default when logged in)
+  // Dev Membership Switch Tier: 'paid' | 'free' (strictly 'free' for guests and non-superadmin users by default)
   const [membershipTier, setMembershipTier] = useState<'paid' | 'free'>(() => {
     if (!authUser) return 'free';
-    return 'paid';
+    const isSuper = SUPERADMIN_EMAILS.includes(authUser.email.toLowerCase());
+    if (isSuper) {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('campus_membership_tier');
+        if (saved === 'free' || saved === 'paid') return saved;
+      }
+      return 'paid';
+    }
+    return 'free';
   });
 
   // Dedicated Dev Mode Switch: allows viewing recording scripts & unlocking all lessons
@@ -191,6 +199,7 @@ function CampusContent() {
     }
 
     async function loadDbData() {
+      const isSuper = SUPERADMIN_EMAILS.includes(authUser!.email.toLowerCase().trim());
       try {
         const res = await getCampusInitialDataAction(authUser!.email);
         if (res.success && res.data) {
@@ -202,17 +211,23 @@ function CampusContent() {
             return merged;
           });
 
-          if (res.data.user.membershipTier === 'free') {
-            setMembershipTier('free');
+          const tierFromServer = String(res.data.user.membershipTier || '').toLowerCase();
+          if (isSuper) {
+            const savedDevTier = localStorage.getItem(DEV_MEMBERSHIP_KEY);
+            if (savedDevTier === 'free' || savedDevTier === 'paid') {
+              setMembershipTier(savedDevTier);
+            } else {
+              setMembershipTier(tierFromServer === 'free' ? 'free' : 'paid');
+            }
           } else {
-            setMembershipTier('paid');
+            setMembershipTier(tierFromServer === 'paid' || tierFromServer === 'vip' ? 'paid' : 'free');
           }
         } else {
-          setMembershipTier('paid');
+          setMembershipTier(isSuper ? 'paid' : 'free');
         }
       } catch (e) {
         console.error('Error cargando datos del campus desde DB:', e);
-        setMembershipTier('paid');
+        setMembershipTier(isSuper ? 'paid' : 'free');
       }
     }
     loadDbData();
@@ -305,9 +320,16 @@ function CampusContent() {
     if (nextView === currentView) return;
     setActiveCelebrationModule(null);
     if (nextView === 'lesson') {
-      // If current selected lesson is already completed, switch directly to the active uncompleted class!
-      if (completedLessons.has(selectedLesson.id)) {
-        const firstUncompleted = allLessons.find((l) => !completedLessons.has(l.id));
+      const accessibleLessons = membershipTier === 'free'
+        ? allLessons.filter((l) => l.moduleNumber === 1)
+        : allLessons;
+      // Ensure free/guest users never land on a locked module 2+ lesson when clicking "Aula"
+      if (membershipTier === 'free' && selectedLesson.moduleNumber !== 1) {
+        const firstM1 = accessibleLessons.find((l) => !completedLessons.has(l.id)) || accessibleLessons[0];
+        if (firstM1) setSelectedLesson(firstM1);
+      } else if (completedLessons.has(selectedLesson.id)) {
+        // If current selected lesson is already completed, switch directly to the active uncompleted class!
+        const firstUncompleted = accessibleLessons.find((l) => !completedLessons.has(l.id));
         if (firstUncompleted) setSelectedLesson(firstUncompleted);
       }
     }
@@ -675,7 +697,7 @@ function CampusContent() {
               <CampusLockedPaywallView
                 viewType="perfil"
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
-                onUpgrade={handleToggleMembership}
+                onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
               />
             ) : (
               <EblStudentProfileView
@@ -690,7 +712,7 @@ function CampusContent() {
             <CampusLockedPaywallView
               viewType="perfil"
               onBackToDashboard={() => handleNavChangeView('dashboard')}
-              onUpgrade={handleToggleMembership}
+              onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
             />
           )}
 
@@ -699,7 +721,7 @@ function CampusContent() {
             <CampusLockedPaywallView
               viewType={currentView.replace('paywall-', '')}
               onBackToDashboard={() => handleNavChangeView('dashboard')}
-              onUpgrade={handleToggleMembership}
+              onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
             />
           )}
 
@@ -812,7 +834,7 @@ function CampusContent() {
               <CampusLockedPaywallView
                 viewType="tracker"
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
-                onUpgrade={handleToggleMembership}
+                onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
               />
             ) : (
               <CampusTracker
@@ -831,7 +853,7 @@ function CampusContent() {
               <CampusLockedPaywallView
                 viewType="agenda"
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
-                onUpgrade={handleToggleMembership}
+                onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
               />
             ) : (
               <CampusZoomAgenda
@@ -849,7 +871,7 @@ function CampusContent() {
               <CampusLockedPaywallView
                 viewType="zoom"
                 onBackToDashboard={() => handleNavChangeView('dashboard')}
-                onUpgrade={handleToggleMembership}
+                onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
               />
             ) : (
               <CampusZoomLiveView
@@ -875,11 +897,7 @@ function CampusContent() {
         isOpen={!!lockedModalFeature}
         onClose={() => setLockedModalFeature(null)}
         viewType={lockedModalFeature || 'generic'}
-        onUpgrade={() => {
-          if (authUser) {
-            handleToggleMembership();
-          }
-        }}
+        onUpgrade={isSuperAdmin ? handleToggleMembership : undefined}
       />
     </div>
   );

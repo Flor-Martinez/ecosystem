@@ -30,6 +30,38 @@ export type CalendarEventType = 'zoom' | 'entrevista' | 'prueba' | 'seguimiento'
 
 const DEFAULT_DEMO_EMAIL = 'guest@academia.flormartinezok.com';
 
+const SUPERADMIN_EMAILS = [
+  'santisose01@gmail.com',
+  'licenciadaflormartinez@gmail.com',
+  'lucianamartinez0696@gmail.com',
+];
+
+function isSuperAdminEmail(email: string): boolean {
+  const clean = (email || '').toLowerCase().trim();
+  return SUPERADMIN_EMAILS.includes(clean);
+}
+
+function getMembershipFromLocalUsersStore(email: string): 'paid' | 'free' | null {
+  try {
+    const clean = (email || '').toLowerCase().trim();
+    if (!clean || !clean.includes('@')) return null;
+    const filePath = getStoreFilePath('users.json');
+    if (fs.existsSync(filePath)) {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed)) {
+        const found = parsed.find((u: any) => (u?.email || '').toLowerCase().trim() === clean);
+        if (found) {
+          return String(found.membershipTier || '').toUpperCase() === 'VIP' ? 'paid' : 'free';
+        }
+      }
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 // Helper for store path resolution across monorepo and standalone builds
 function getStoreFilePath(filename: string): string {
   const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
@@ -110,6 +142,7 @@ async function getOrCreateUser(email: string) {
   );
 
   if (!user) {
+    const isSuper = isSuperAdminEmail(formattedEmail);
     const namePart = formattedEmail.split('@')[0] || 'Usuario';
     const dynamicName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
     user = await withDbTimeout(
@@ -117,9 +150,9 @@ async function getOrCreateUser(email: string) {
         data: {
           email: formattedEmail,
           name: dynamicName,
-          role: Role.STUDENT,
-          membershipTier: MembershipTier.VIP,
-          headline: 'Estudiante en Academia Flor Martínez',
+          role: isSuper ? Role.ADMIN : Role.STUDENT,
+          membershipTier: isSuper ? MembershipTier.VIP : MembershipTier.FREE,
+          headline: isSuper ? 'Superadministrador' : 'Estudiante en Academia Flor Martínez',
           studentProfile: {
             create: {
               targetRole: '',
@@ -244,6 +277,9 @@ export async function getCampusInitialDataAction(userEmail?: string) {
   }
 
   // Fallback return: always succeeds and preserves progress
+  const isSuperFallback = isSuperAdminEmail(cleanEmail);
+  const storeTier = getMembershipFromLocalUsersStore(cleanEmail);
+  const resolvedTier: 'paid' | 'free' = isSuperFallback ? 'paid' : (storeTier || 'free');
   return {
     success: true,
     data: {
@@ -251,8 +287,8 @@ export async function getCampusInitialDataAction(userEmail?: string) {
         id: 'usr_' + cleanEmail.replace(/[^a-zA-Z0-9]/g, '_'),
         name: cleanEmail === 'guest' ? 'Invitado' : cleanEmail.split('@')[0],
         email: cleanEmail === 'guest' ? '' : cleanEmail,
-        role: 'student',
-        membershipTier: 'paid',
+        role: isSuperFallback ? 'superadmin' : 'student',
+        membershipTier: resolvedTier,
       },
       completedLessonIds: savedCompletedLessonIds,
       studentProfile: {

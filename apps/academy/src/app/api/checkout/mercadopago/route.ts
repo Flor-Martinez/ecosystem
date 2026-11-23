@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     const origin = request.headers.get('origin') || 'https://academia.flormartinezok.com';
     const refCode = `EBL-${Date.now()}`;
 
-    let unitPrice = 20000;
+    let unitPrice = 25000;
     try {
       const { getAdminPricingAction } = await import('@/actions/admin');
       const pricingRes = await getAdminPricingAction();
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
         unitPrice = Number(pricingRes.pricing.ebl.promoPrice);
       }
     } catch {
-      // fallback to 20000
+      // fallback to 25000
     }
 
     if (mpAccessToken && (mpAccessToken.startsWith('APP_USR-') || mpAccessToken.startsWith('TEST-'))) {

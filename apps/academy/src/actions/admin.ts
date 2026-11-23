@@ -247,7 +247,7 @@ export async function registerOrUpdateUserInStore(
       email: cleanEmail,
       name: name || cleanEmail.split('@')[0] || 'Usuario',
       role: isSuper ? 'superadmin' : roleOverride || 'student',
-      membershipTier: isSuper ? 'VIP' : membershipTierOverride || 'VIP',
+      membershipTier: isSuper ? 'VIP' : (membershipTierOverride || 'FREE'),
       status: isBanned ? 'banned' : 'active',
       avatarUrl: avatarUrl || null,
       createdAt: now,
@@ -314,13 +314,14 @@ export async function createManualUserAction(data: {
     return { success: false, error: 'Ya existe un usuario con este correo electrónico.' };
   }
 
+  const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
   const now = new Date().toISOString();
   const newUser: AdminUserRecord = {
     id: 'usr_' + Date.now().toString(36),
     email: cleanEmail,
     name: (data.name || '').trim() || cleanEmail.split('@')[0] || 'Usuario',
-    role: data.role || 'student',
-    membershipTier: data.membershipTier || 'VIP',
+    role: data.role || (isSuper ? 'superadmin' : 'student'),
+    membershipTier: isSuper ? 'VIP' : (data.membershipTier || 'FREE'),
     status: 'active',
     avatarUrl: null,
     createdAt: now,
@@ -721,7 +722,7 @@ export async function updateFullPricingAction(data: {
     pricing['ebl'] = {
       id: 'experiencia-busqueda-laboral',
       name: 'Experiencia Búsqueda Laboral — Pase Anual Completo',
-      promoPrice: data.eblPromoPrice || 20000,
+      promoPrice: data.eblPromoPrice || 25000,
       regularPrice: data.eblRegularPrice || 34900,
       currency: 'ARS',
       promoActive: true,

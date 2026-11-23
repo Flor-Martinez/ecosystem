@@ -227,7 +227,7 @@ export function Navbar() {
             {/* Ecosystem Return & CTA Actions */}
             <div className={styles.mobileActions}>
               <Button href="/#planes-suscripcion" variant="primary" size="md" className={styles.mobileFullBtn}>
-                <span>Ver Promo de Lanzamiento ($20.000)</span>
+                <span>Ver Promo de Lanzamiento ($25.000)</span>
                 <ArrowRight size={16} />
               </Button>
 

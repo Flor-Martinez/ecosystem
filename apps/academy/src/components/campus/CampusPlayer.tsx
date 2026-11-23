@@ -66,15 +66,9 @@ export function CampusPlayer({
   const activeEmail = user?.email || '';
 
   // Access rule: Module 1 is 100% free for everyone (including guests & free tier).
-  // Modules 2+ are unlocked for VIP members or Superadmins.
+  // Modules 2+ are unlocked for VIP members.
   const isModuleOne = lesson.moduleNumber === 1;
-  const isVipUser = Boolean(
-    isSuperAdmin ||
-    membershipTier === 'paid' ||
-    (user as any)?.membershipTier === 'VIP' ||
-    user?.role === 'superadmin' ||
-    (user && (user.role === 'admin' || user.role === 'superadmin'))
-  );
+  const isVipUser = Boolean(user && membershipTier === 'paid');
   const canAccessVideo = isModuleOne || isVipUser;
 
   // Video state & refs
@@ -338,7 +332,7 @@ export function CampusPlayer({
       {/* ========================================================================= */}
       {/* 2. MAIN MEDIA / EVALUATION VIEWPORT */}
       {/* ========================================================================= */}
-      {isEvaluationLesson && membershipTier === 'free' ? (
+      {isEvaluationLesson && !isModuleOne && membershipTier === 'free' ? (
         /* EVALUATION LOCKED VIEWPORT IN FREE TIER */
         <div className={styles.quizLockedCard}>
           <div className={styles.quizLockedIcon}>

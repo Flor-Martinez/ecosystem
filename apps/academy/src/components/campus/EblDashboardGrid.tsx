@@ -44,7 +44,8 @@ export function EblDashboardGrid({
   isDevMode = false,
 }: EblDashboardGridProps) {
   const { user: authUser, isSuperAdmin, openAuthModal } = useAuth();
-  const canAccessVideos = Boolean(authUser && isSuperAdmin);
+  // VIP access: user is logged in and has paid membership
+  const isVipUser = Boolean(authUser && membershipTier === 'paid');
   const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
 
   const isCardWipDisabled = (card: EblDashboardCard): boolean => {
@@ -129,21 +130,15 @@ export function EblDashboardGrid({
 
   // Helper to check if a card is locked
   const isCardLocked = (card: { id: string; type: string; targetView: string }): boolean => {
-    // If not logged in as SuperAdmin, ALL modules and student tools are locked!
-    if (!canAccessVideos) {
-      if (card.type === 'modulo') return true;
-      if (card.id === 'tool-vocacional' || card.targetView === 'test-vocacional') return false;
-      return true;
+    // Module 1 is ALWAYS free and accessible to EVERYONE (guests, free students, VIP)
+    if (
+      card.id === 'mod-trabajo-ideal' ||
+      card.targetView === 'modulo-trabajo-ideal' ||
+      card.targetView === 'modulo-1'
+    ) {
+      return false;
     }
-    if (membershipTier === 'paid') return false;
-    // In Free Tier (logged in):
-    // ONLY Module 1 ('mod-trabajo-ideal') is free. All modules 2 through 8 are VIP exclusive!
-    if (card.type === 'modulo') {
-      return card.id !== 'mod-trabajo-ideal';
-    }
-    // Tools available in Free Tier:
-    // - Biblioteca de Recursos ('tool-recursos' / 'recursos')
-    // - Test Vocacional ('tool-vocacional' / 'test-vocacional')
+    // Tools available to everyone
     if (
       card.id === 'tool-recursos' ||
       card.targetView === 'recursos' ||
@@ -152,7 +147,10 @@ export function EblDashboardGrid({
     ) {
       return false;
     }
-    // All other tools (perfil, tracker, zoom, agenda) are locked in Free Tier!
+    // VIP users and SuperAdmins have full access to everything
+    if (isVipUser) return false;
+
+    // All other modules (2 to 8, extras) and paid tools (perfil, tracker, agenda) are locked for free/guests
     return true;
   };
 
@@ -161,14 +159,20 @@ export function EblDashboardGrid({
     if (targetCard && isCardWipDisabled(targetCard)) {
       return;
     }
-    if (!canAccessVideos) {
-      if (cardId === 'tool-vocacional' || targetView === 'test-vocacional') {
-        onSelectView(targetView);
-        return;
-      }
-      openAuthModal('login');
+    // Module 1 and public tools are ALWAYS accessible directly, without requiring login
+    if (
+      cardId === 'mod-trabajo-ideal' ||
+      targetView === 'modulo-trabajo-ideal' ||
+      targetView === 'modulo-1' ||
+      cardId === 'tool-vocacional' ||
+      targetView === 'test-vocacional' ||
+      cardId === 'tool-recursos' ||
+      targetView === 'recursos'
+    ) {
+      onSelectView(targetView);
       return;
     }
+    // If locked, trigger the locked feature callback (shows paywall modal)
     if (isCardLocked({ id: cardId, type: cardType, targetView })) {
       if (onLockedFeatureClick) {
         onLockedFeatureClick(cardId);
@@ -301,12 +305,12 @@ export function EblDashboardGrid({
             </div>
             <span
               className={
-                membershipTier === 'free'
+                !isVipUser
                   ? styles.memberStatusBadgeFree
                   : styles.memberStatusBadgePaid
               }
             >
-              {membershipTier === 'free' ? 'Membresía Gratuita (Free)' : 'Membresía Activa (VIP)'}
+              {!isVipUser ? 'Membresía Gratuita (Free)' : 'Membresía Activa (VIP)'}
             </span>
           </div>
 
@@ -537,7 +541,7 @@ export function EblDashboardGrid({
                     onToggleFavorite={toggleFavorite}
                     onCardClick={(view) => handleCardClick(card.id, view, card.type)}
                     isLocked={isCardLocked(card)}
-                    hideProgress={membershipTier === 'free'}
+                    hideProgress={isCardLocked(card)}
                     canFavorite={membershipTier === 'paid'}
                     layoutMode={layoutMode}
                     isWipDisabled={isCardWipDisabled(card)}
@@ -572,7 +576,7 @@ export function EblDashboardGrid({
                     onToggleFavorite={toggleFavorite}
                     onCardClick={(view) => handleCardClick(card.id, view, card.type)}
                     isLocked={isCardLocked(card)}
-                    hideProgress={membershipTier === 'free'}
+                    hideProgress={isCardLocked(card)}
                     canFavorite={membershipTier === 'paid'}
                     layoutMode={layoutMode}
                     isWipDisabled={isCardWipDisabled(card)}
@@ -606,7 +610,7 @@ export function EblDashboardGrid({
                   onToggleFavorite={toggleFavorite}
                   onCardClick={(view) => handleCardClick(card.id, view, card.type)}
                   isLocked={isCardLocked(card)}
-                  hideProgress={membershipTier === 'free'}
+                  hideProgress={isCardLocked(card)}
                   canFavorite={membershipTier === 'paid'}
                   layoutMode={layoutMode}
                   isWipDisabled={isCardWipDisabled(card)}
@@ -625,7 +629,7 @@ export function EblDashboardGrid({
               onToggleFavorite={toggleFavorite}
               onCardClick={(view) => handleCardClick(card.id, view, card.type)}
               isLocked={isCardLocked(card)}
-              hideProgress={membershipTier === 'free'}
+              hideProgress={isCardLocked(card)}
               canFavorite={membershipTier === 'paid'}
               layoutMode={layoutMode}
               isWipDisabled={isCardWipDisabled(card)}

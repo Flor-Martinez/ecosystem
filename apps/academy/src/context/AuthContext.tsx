@@ -29,16 +29,11 @@ export interface EcosystemUser {
   isSuperAdmin?: boolean;
 }
 
-export function checkIsUserSuperAdmin(user: EcosystemUser | null, adminCookie?: string | null): boolean {
-  if (adminCookie) {
-    const clean = adminCookie.toLowerCase().trim();
-    if (BANNED_EMAILS.includes(clean)) return false;
-    if (SUPERADMIN_EMAILS.includes(clean)) return true;
-  }
-  if (!user) return false;
-  const emailLower = user.email ? user.email.toLowerCase().trim() : '';
+export function checkIsUserSuperAdmin(user: EcosystemUser | null, _adminCookie?: string | null): boolean {
+  if (!user || !user.email) return false;
+  const emailLower = user.email.toLowerCase().trim();
   if (BANNED_EMAILS.includes(emailLower)) return false;
-  if (emailLower && SUPERADMIN_EMAILS.includes(emailLower)) return true;
+  if (SUPERADMIN_EMAILS.includes(emailLower)) return true;
   return false;
 }
 
@@ -493,6 +488,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
+    setCookie('fm_admin_session', null);
+    setAdminCookie(null);
     saveUserSession(null);
   };
 

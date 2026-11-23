@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* 4. HERRAMIENTAS EXCLUSIVAS: Tracker de Postulaciones y Agenda */}
       <ExperienceTools />
 
-      {/* 5. INVERSIÓN: Promo de Lanzamiento ($20.000 ARS) Pago Único por 1 Año */}
+      {/* 5. INVERSIÓN: Promo de Lanzamiento ($25.000 ARS) Pago Único por 1 Año */}
       <ExperiencePricing />
 
       {/* 6. PROBAR LA ACADEMIA: Invitación al Campus Virtual */}

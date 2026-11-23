@@ -445,13 +445,21 @@ export function CampusHeader({
                 </div>
                 <div className={styles.userInfo}>
                   <strong className={styles.userName}>{user.name}</strong>
-                  <span
-                    className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
-                  >
-                    {isSuperAdmin
-                      ? (membershipTier === 'paid' ? 'Superadmin (VIP)' : 'Superadmin (Free)')
-                      : (membershipTier === 'paid' ? 'VIP Activo' : 'Free Demo')}
-                  </span>
+                  {isSuperAdmin ? (
+                    <span
+                      className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
+                    >
+                      {membershipTier === 'paid' ? 'Superadministrador' : 'Vista Gratuita'}
+                    </span>
+                  ) : membershipTier === 'paid' ? (
+                    <span className={`${styles.userBadge} ${styles.badgeVip}`}>
+                      Membresía VIP
+                    </span>
+                  ) : (
+                    <span className={`${styles.userBadge} ${styles.badgeFree}`}>
+                      Cuenta Gratuita
+                    </span>
+                  )}
                 </div>
                 <button
                   type="button"

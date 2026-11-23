@@ -41,7 +41,7 @@ export function ExperiencePricing() {
             <div className={styles.cardHeader}>
               <h3 className={styles.planName}>Pase Anual Completo — Método EBL</h3>
               <div className={styles.priceWrap}>
-                <span className={styles.priceMain}>$ 20.000 ARS</span>
+                <span className={styles.priceMain}>$ 25.000 ARS</span>
                 <span className={styles.billingPeriod}>/ pago único</span>
               </div>
               <span className={styles.originalPrice}>Precio regular: $ 34.900 ARS</span>

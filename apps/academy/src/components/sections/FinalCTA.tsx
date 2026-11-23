@@ -33,7 +33,7 @@ export function FinalCTA() {
               </Button>
 
               <Button href="#planes-suscripcion" variant="outline" size="lg" className={styles.secondaryBtn}>
-                <span>Ver Promo Lanzamiento ($20.000)</span>
+                <span>Ver Promo Lanzamiento ($25.000)</span>
               </Button>
             </div>
 

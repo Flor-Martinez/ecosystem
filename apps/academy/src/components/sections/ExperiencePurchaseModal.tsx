@@ -122,7 +122,7 @@ export function ExperiencePurchaseModal({ isOpen, onClose }: ExperiencePurchaseM
             <span className={styles.priceLabel}>Total a abonar:</span>
             <div className={styles.priceValues}>
               <span className={styles.oldPrice}>$ 34.900</span>
-              <strong className={styles.newPrice}>$ 20.000 ARS</strong>
+              <strong className={styles.newPrice}>$ 25.000 ARS</strong>
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ export function ExperiencePurchaseModal({ isOpen, onClose }: ExperiencePurchaseM
               </>
             ) : (
               <>
-                <span>Pagar $20.000 con Mercado Pago</span>
+                <span>Pagar $25.000 con Mercado Pago</span>
                 <ArrowRight size={18} />
               </>
             )}
