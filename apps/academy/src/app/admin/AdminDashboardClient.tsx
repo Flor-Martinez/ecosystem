@@ -144,7 +144,7 @@ export default function AdminDashboardClient() {
   // Tab 5: Pricing State
   const [pricing, setPricing] = useState<Record<string, PricingPlan> | null>(null);
   const [eblPromoPrice, setEblPromoPrice] = useState(25000);
-  const [eblRegularPrice, setEblRegularPrice] = useState(34900);
+  const [eblRegularPrice, setEblRegularPrice] = useState(35000);
   const [eblInstallments, setEblInstallments] = useState(3);
   const [coursePrice, setCoursePrice] = useState(18500);
   const [isSavingPricing, setIsSavingPricing] = useState(false);

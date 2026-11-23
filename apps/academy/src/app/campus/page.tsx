@@ -34,6 +34,7 @@ function CampusContent() {
 
   const searchParams = useSearchParams();
   const requestedSlug = searchParams.get('programa');
+  const paymentStatus = searchParams.get('pago');
 
   // Find initial program or default to Experiencia Búsqueda Laboral
   const initialProgram = useMemo(() => {
@@ -232,6 +233,14 @@ function CampusContent() {
     }
     loadDbData();
   }, [authUser]);
+
+  // Auto-activate VIP when returning from Mercado Pago with pago=aprobado
+  useEffect(() => {
+    if (paymentStatus === 'aprobado' && authUser?.email) {
+      setMembershipTier('paid');
+      updateUserMembershipTierAction(authUser.email, 'paid').catch(() => {});
+    }
+  }, [paymentStatus, authUser]);
 
   const handleToggleMembership = async () => {
     if (!isSuperAdmin) return;

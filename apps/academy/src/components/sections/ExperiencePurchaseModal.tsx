@@ -121,7 +121,7 @@ export function ExperiencePurchaseModal({ isOpen, onClose }: ExperiencePurchaseM
           <div className={styles.summaryPriceRow}>
             <span className={styles.priceLabel}>Total a abonar:</span>
             <div className={styles.priceValues}>
-              <span className={styles.oldPrice}>$ 34.900</span>
+              <span className={styles.oldPrice}>$ 35.000</span>
               <strong className={styles.newPrice}>$ 25.000 ARS</strong>
             </div>
           </div>
@@ -159,10 +159,13 @@ export function ExperiencePurchaseModal({ isOpen, onClose }: ExperiencePurchaseM
               placeholder="tu@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              disabled={loading}
+              disabled={loading || Boolean(user?.email)}
+              readOnly={Boolean(user?.email)}
             />
             <span className={styles.hint}>
-              Con este correo se activará tu acceso inmediato en el campus virtual.
+              {user?.email
+                ? 'Vinculado a tu cuenta de Google. El acceso VIP se activará automáticamente aquí al finalizar el pago.'
+                : 'Con este correo se activará tu acceso inmediato en el campus virtual.'}
             </span>
           </div>
 

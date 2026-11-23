@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, Sparkles, ShieldCheck, ArrowRight, Zap, GraduationCap } from 'lucide-react';
 import { Container } from '@/components/ui/Container';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
+import { useEcosystemAuth } from '@/context/AuthContext';
 import { ExperiencePurchaseModal } from './ExperiencePurchaseModal';
 import styles from './ExperiencePricing.module.css';
 
@@ -19,7 +20,26 @@ const planFeatures = [
 ];
 
 export function ExperiencePricing() {
+  const { user, openAuthModal } = useEcosystemAuth();
   const [isPurchaseModalOpen, setIsPurchaseModalOpen] = useState(false);
+  const [pendingPurchaseAfterLogin, setPendingPurchaseAfterLogin] = useState(false);
+
+  // If user clicked purchase while logged out, open purchase modal immediately after Google login
+  useEffect(() => {
+    if (user && pendingPurchaseAfterLogin) {
+      setPendingPurchaseAfterLogin(false);
+      setIsPurchaseModalOpen(true);
+    }
+  }, [user, pendingPurchaseAfterLogin]);
+
+  const handleOpenPurchase = () => {
+    if (!user) {
+      setPendingPurchaseAfterLogin(true);
+      openAuthModal('login');
+      return;
+    }
+    setIsPurchaseModalOpen(true);
+  };
 
   return (
     <section className={styles.section} id="planes-suscripcion">
@@ -44,7 +64,7 @@ export function ExperiencePricing() {
                 <span className={styles.priceMain}>$ 25.000 ARS</span>
                 <span className={styles.billingPeriod}>/ pago único</span>
               </div>
-              <span className={styles.originalPrice}>Precio regular: $ 34.900 ARS</span>
+              <span className={styles.originalPrice}>Precio regular: $ 35.000 ARS</span>
               <span className={styles.installments}>Acceso por 1 año entero · Sin suscripciones mensuales</span>
             </div>
 
@@ -70,7 +90,7 @@ export function ExperiencePricing() {
                 variant="primary"
                 size="lg"
                 className={styles.planBtn}
-                onClick={() => setIsPurchaseModalOpen(true)}
+                onClick={handleOpenPurchase}
               >
                 <GraduationCap size={18} />
                 <span>Sumarme con Promo Lanzamiento</span>

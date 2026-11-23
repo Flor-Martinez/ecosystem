@@ -723,7 +723,7 @@ export async function updateFullPricingAction(data: {
       id: 'experiencia-busqueda-laboral',
       name: 'Experiencia Búsqueda Laboral — Pase Anual Completo',
       promoPrice: data.eblPromoPrice || 25000,
-      regularPrice: data.eblRegularPrice || 34900,
+      regularPrice: data.eblRegularPrice || 35000,
       currency: 'ARS',
       promoActive: true,
       promoBadge: 'Oferta Oficial de Lanzamiento',
