@@ -13,7 +13,7 @@ const pillars = [
     border: '#DDD6FE',
     gradient: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)',
     shadow: 'rgba(124, 58, 237, 0.25)',
-    title: 'Cero chamuyo teórico',
+    title: '100% práctico, sin rodeos',
     description:
       'Clases concisas y directas al grano. Cada video resuelve un problema concreto: redactar un logro, mejorar tu titular o responder una pregunta difícil.',
   },
