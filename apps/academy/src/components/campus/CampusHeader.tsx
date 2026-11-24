@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   GraduationCap,
@@ -22,6 +22,9 @@ import {
   Video,
   Star,
   ShieldCheck,
+  Menu,
+  X,
+  ArrowUpRight,
 } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useAuth } from '@/context/AuthContext';
@@ -64,6 +67,22 @@ export function CampusHeader({
   const { user, isSuperAdmin, openAuthModal, logout } = useAuth();
   const [showProgramDropdown, setShowProgramDropdown] = useState(false);
   const [showToolsMenu, setShowToolsMenu] = useState(false);
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
+
+  // Lock body scroll & handle Escape when mobile drawer is open
+  useEffect(() => {
+    if (!showMobileDrawer) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setShowMobileDrawer(false);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKey);
+    };
+  }, [showMobileDrawer]);
 
   const progressPercent = totalLessonsCount > 0
     ? Math.round((completedCount / totalLessonsCount) * 100)
@@ -436,7 +455,7 @@ export function CampusHeader({
             </Link>
           )}
 
-          {/* User Section */}
+          {/* User Section (Desktop) */}
           <div className={styles.userSection}>
             {user ? (
               <div className={styles.userProfile}>
@@ -482,7 +501,290 @@ export function CampusHeader({
             )}
           </div>
         </div>
+
+        {/* MOBILE RIGHT CONTROLS: Compact Login/Avatar + Hamburger Drawer Button */}
+        <div className={styles.mobileControls}>
+          {!user && (
+            <button
+              type="button"
+              onClick={() => openAuthModal('login')}
+              className={styles.mobileQuickLoginBtn}
+            >
+              <User size={14} />
+              <span>Ingresar</span>
+            </button>
+          )}
+          <button
+            type="button"
+            className={styles.mobileMenuBtn}
+            onClick={() => setShowMobileDrawer(true)}
+            aria-label="Abrir menú del campus"
+            aria-expanded={showMobileDrawer}
+          >
+            <Menu size={20} />
+          </button>
+        </div>
       </div>
+
+      {/* MOBILE SLIDE-OVER LATERAL DRAWER */}
+      {showMobileDrawer && (
+        <div
+          className={styles.mobileDrawerOverlay}
+          onClick={() => setShowMobileDrawer(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menú del Campus Virtual"
+        >
+          <aside
+            className={styles.mobileDrawerPanel}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Drawer Header */}
+            <div className={styles.mobileDrawerHeader}>
+              <div className={styles.mobileDrawerBrand}>
+                <div className={styles.iconBox}>
+                  <GraduationCap size={16} />
+                </div>
+                <div className={styles.brandText}>
+                  <span className={styles.programBadge}>CAMPUS VIRTUAL</span>
+                  <strong className={styles.programTitle}>{currentProgram.title}</strong>
+                </div>
+              </div>
+              <button
+                type="button"
+                className={styles.mobileDrawerCloseBtn}
+                onClick={() => setShowMobileDrawer(false)}
+                aria-label="Cerrar menú"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            {/* Drawer Scroll Body */}
+            <div className={styles.mobileDrawerBody}>
+              {/* 1. Account / Login Card */}
+              <div className={styles.mobileAccountCard}>
+                {user ? (
+                  <>
+                    <div className={styles.mobileAccountRow}>
+                      <div className={styles.mobileUserAvatar}>
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <div className={styles.mobileUserMeta}>
+                        <strong className={styles.mobileUserName}>{user.name}</strong>
+                        <span className={styles.mobileUserEmail}>{user.email}</span>
+                        {isSuperAdmin ? (
+                          <span
+                            className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
+                          >
+                            {membershipTier === 'paid' ? 'Superadministrador' : 'Vista Gratuita'}
+                          </span>
+                        ) : membershipTier === 'paid' ? (
+                          <span className={`${styles.userBadge} ${styles.badgeVip}`}>
+                            Membresía VIP
+                          </span>
+                        ) : (
+                          <span className={`${styles.userBadge} ${styles.badgeFree}`}>
+                            Cuenta Gratuita
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {membershipTier === 'paid' && (
+                      <div className={styles.mobileProgressBox}>
+                        <div className={styles.progressTop}>
+                          <span className={styles.progressLabel}>Progreso del Curso</span>
+                          <strong className={styles.progressValue}>
+                            {completedCount}/{totalLessonsCount} ({progressPercent}%)
+                          </strong>
+                        </div>
+                        <div className={styles.progressBarBg}>
+                          <div
+                            className={styles.progressBarFill}
+                            style={{ width: `${progressPercent}%` }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <button
+                      type="button"
+                      className={styles.mobileLogoutBtn}
+                      onClick={() => {
+                        setShowMobileDrawer(false);
+                        logout();
+                      }}
+                    >
+                      <LogOut size={15} />
+                      <span>Cerrar sesión</span>
+                    </button>
+                  </>
+                ) : (
+                  <div className={styles.mobileGuestCard}>
+                    <div className={styles.mobileGuestBadge}>
+                      <Lock size={12} className={styles.freeModeLock} />
+                      <span>Versión Gratuita · Modo Exploración</span>
+                    </div>
+                    <p className={styles.mobileGuestDesc}>
+                      Iniciá sesión con Google para guardar tu progreso y acceder a tu membresía.
+                    </p>
+                    <button
+                      type="button"
+                      className={styles.mobileDrawerLoginBtn}
+                      onClick={() => {
+                        setShowMobileDrawer(false);
+                        openAuthModal('login');
+                      }}
+                    >
+                      <User size={16} />
+                      <span>Ingresar con Google</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* 2. Main Navigation */}
+              {isExperience && (
+                <div className={styles.mobileDrawerSection}>
+                  <span className={styles.mobileDrawerSectionTitle}>NAVEGACIÓN</span>
+                  <div className={styles.mobileNavList}>
+                    <button
+                      type="button"
+                      className={`${styles.mobileNavItem} ${currentView === 'dashboard' ? styles.mobileNavItemActive : ''}`}
+                      onClick={() => {
+                        setCurrentView('dashboard');
+                        setShowMobileDrawer(false);
+                      }}
+                    >
+                      <LayoutGrid size={17} />
+                      <span>Mi Tablero</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`${styles.mobileNavItem} ${currentView === 'lesson' ? styles.mobileNavItemActive : ''}`}
+                      onClick={() => {
+                        setCurrentView('lesson');
+                        setShowMobileDrawer(false);
+                      }}
+                    >
+                      <PlayCircle size={17} />
+                      <span>Aula Virtual</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      className={`${styles.mobileNavItem} ${currentView === 'perfil' ? styles.mobileNavItemActive : ''} ${membershipTier === 'free' ? styles.mobileNavItemLocked : ''}`}
+                      onClick={() => {
+                        setShowMobileDrawer(false);
+                        if (membershipTier === 'free') {
+                          if (onLockedClick) onLockedClick('perfil');
+                        } else {
+                          setCurrentView('perfil');
+                        }
+                      }}
+                    >
+                      <UserCheck size={17} />
+                      <span>Mi Perfil</span>
+                      {membershipTier === 'free' && <Lock size={13} className={styles.mobileItemLock} />}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Tools */}
+              {isExperience && (
+                <div className={styles.mobileDrawerSection}>
+                  <span className={styles.mobileDrawerSectionTitle}>HERRAMIENTAS</span>
+                  <div className={styles.mobileNavList}>
+                    {sortedTools.map((tool) => {
+                      const IconComp = tool.icon;
+                      const isActive = currentView === tool.targetView;
+                      return (
+                        <button
+                          key={tool.id}
+                          type="button"
+                          className={`${styles.mobileNavItem} ${isActive ? styles.mobileNavItemActive : ''} ${tool.isLocked ? styles.mobileNavItemLocked : ''}`}
+                          onClick={() => {
+                            setShowMobileDrawer(false);
+                            if (tool.isLocked) {
+                              if (onLockedClick) onLockedClick(tool.targetView);
+                            } else {
+                              setCurrentView(tool.targetView);
+                            }
+                          }}
+                        >
+                          <IconComp size={17} style={{ color: tool.iconColor }} />
+                          <span>{tool.title}</span>
+                          {tool.isLocked && <Lock size={13} className={styles.mobileItemLock} />}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* 4. SuperAdmin Controls (Only for SuperAdmin) */}
+              {isSuperAdmin && (
+                <div className={styles.mobileDrawerSection}>
+                  <span className={styles.mobileDrawerSectionTitle}>ADMINISTRACIÓN</span>
+                  <div className={styles.mobileNavList}>
+                    <Link
+                      href="/admin"
+                      className={styles.mobileAdminLink}
+                      onClick={() => setShowMobileDrawer(false)}
+                    >
+                      <ShieldCheck size={16} />
+                      <span>Ir al Panel Admin</span>
+                    </Link>
+
+                    {onToggleMembership && (
+                      <button
+                        type="button"
+                        className={styles.mobileNavItem}
+                        onClick={() => {
+                          onToggleMembership();
+                          setShowMobileDrawer(false);
+                        }}
+                      >
+                        {membershipTier === 'paid' ? <Zap size={16} color="#FDE047" /> : <Lock size={16} color="#F59E0B" />}
+                        <span>Simulador: {membershipTier === 'paid' ? 'VIP Pagado' : 'Free Demo'}</span>
+                      </button>
+                    )}
+
+                    {onToggleDevMode && (
+                      <button
+                        type="button"
+                        className={styles.mobileNavItem}
+                        onClick={() => {
+                          onToggleDevMode();
+                          setShowMobileDrawer(false);
+                        }}
+                      >
+                        <Code2 size={16} color="#A78BFA" />
+                        <span>{isDevMode ? 'Modo Dev (Saltear Clases)' : 'Modo Alumno'}</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Drawer Footer */}
+            <div className={styles.mobileDrawerFooter}>
+              <Link
+                href="/"
+                className={styles.mobileHomeLink}
+                onClick={() => setShowMobileDrawer(false)}
+              >
+                <span>Volver al sitio principal de la Academia</span>
+                <ArrowUpRight size={14} />
+              </Link>
+            </div>
+          </aside>
+        </div>
+      )}
     </header>
   );
 }
