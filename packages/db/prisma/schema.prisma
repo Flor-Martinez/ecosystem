@@ -364,18 +364,18 @@ model CalendarEvent {
 model StudentProfile {
   id               String   @id @default(cuid())
   userId           String   @unique
-  linkedinUrl      String?  @default("https://linkedin.com/in/santiago-martinez-demo")
-  targetRole       String?  @default("Product Designer / UX Lead")
-  seniority        String?  @default("Senior")
-  modality         String?  @default("100% Remoto (Latam / Global)")
-  expectedSalary   String?  @default("$2.200 USD / mes")
-  cvFileName       String?  @default("CV_Santiago_Martinez_ATS_2025.pdf")
+  linkedinUrl      String?  @default("")
+  targetRole       String?  @default("")
+  seniority        String?  @default("")
+  modality         String?  @default("")
+  expectedSalary   String?  @default("")
+  cvFileName       String?  @default("")
   cvFileUrl        String?
-  atsScore         Int      @default(85)
-  linkedinScore    Int      @default(70)
-  starScore        Int      @default(60)
-  negotiationScore Int      @default(40)
-  networkingScore  Int      @default(55)
+  atsScore         Int      @default(0)
+  linkedinScore    Int      @default(0)
+  starScore        Int      @default(0)
+  negotiationScore Int      @default(0)
+  networkingScore  Int      @default(0)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -420,4 +420,41 @@ model SpreadsheetLicense {
   updatedAt       DateTime @updatedAt
 
   @@map("spreadsheet_licenses")
+}
+
+// =============================================================================
+// PROGRESO DE CLASES POR USUARIO & COMENTARIOS (PERSISTENCIA DIRECTA CAMPUS)
+// =============================================================================
+
+model UserLessonCompletion {
+  id          String   @id @default(cuid())
+  userEmail   String
+  lessonId    String
+  completedAt DateTime @default(now())
+
+  @@unique([userEmail, lessonId])
+  @@index([userEmail])
+  @@map("user_lesson_completions")
+}
+
+model LessonComment {
+  id             String   @id @default(cuid())
+  lessonId       String
+  lessonTitle    String
+  courseSlug     String   @default("experiencia-busqueda-laboral")
+  authorName     String
+  authorEmail    String
+  avatarInitials String   @default("AL")
+  isInstructor   Boolean  @default(false)
+  content        String
+  likes          Int      @default(0)
+  likedByJson    String   @default("[]")
+  isApproved     Boolean  @default(false)
+  isRead         Boolean  @default(false)
+  repliesJson    String   @default("[]")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([lessonId])
+  @@map("lesson_comments")
 }

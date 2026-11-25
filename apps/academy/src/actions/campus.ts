@@ -250,8 +250,8 @@ function writeProgressStore(data: Record<string, string[]>): void {
   }
 }
 
-// Helper with timeout to prevent DB hangs
-function withDbTimeout<T>(promise: Promise<T>, timeoutMs = 1500): Promise<T> {
+// Helper with timeout to prevent DB hangs (5s handles Neon cold-start wakeup)
+function withDbTimeout<T>(promise: Promise<T>, timeoutMs = 5000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -326,10 +326,11 @@ export async function getCampusInitialDataAction(userEmail?: string) {
     if (cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
       const user = await getOrCreateUser(cleanEmail);
 
-      const [globalEvents, userEvents, enrollments] = await Promise.all([
+      const [globalEvents, userEvents, enrollments, directCompletions] = await Promise.all([
         withDbTimeout(db.calendarEvent.findMany({ where: { isGlobal: true }, orderBy: { date: 'asc' } })).catch(() => []),
         withDbTimeout(db.calendarEvent.findMany({ where: { userId: user.id }, orderBy: { date: 'asc' } })).catch(() => []),
         withDbTimeout(db.enrollment.findMany({ where: { userId: user.id }, include: { progressRecords: true } })).catch(() => []),
+        withDbTimeout(db.userLessonCompletion.findMany({ where: { userEmail: cleanEmail } })).catch(() => []),
       ]);
 
       const dbCompletedIds: string[] = [];
@@ -339,6 +340,9 @@ export async function getCampusInitialDataAction(userEmail?: string) {
             dbCompletedIds.push(pr.lessonId);
           }
         });
+      });
+      directCompletions.forEach((dc: any) => {
+        if (dc?.lessonId) dbCompletedIds.push(dc.lessonId);
       });
 
       // Merge DB progress with file store progress
@@ -504,36 +508,27 @@ export async function saveLessonProgressAction(
   progressStore[cleanEmail] = userList;
   writeProgressStore(progressStore);
 
-  // Background DB sync if available (non-blocking)
+  // Persist directly in Neon PostgreSQL (UserLessonCompletion table - no FK issues!)
   if (cleanEmail !== 'guest' && cleanEmail.includes('@')) {
-    (async () => {
-      try {
-        const user = await getOrCreateUser(cleanEmail);
-        const course = (await withDbTimeout(db.course.findFirst({ where: { isPublished: true } }))) ||
-                       (await withDbTimeout(db.course.findFirst()));
-        if (course) {
-          const enrollment = await withDbTimeout(
-            db.enrollment.upsert({
-              where: { userId_courseId: { userId: user.id, courseId: course.id } },
-              update: {},
-              create: { userId: user.id, courseId: course.id, progressPercent: 15 },
-            })
-          );
-          const dbLesson = await withDbTimeout(db.lesson.findUnique({ where: { id: lessonId } }));
-          if (dbLesson) {
-            await withDbTimeout(
-              db.lessonProgress.upsert({
-                where: { enrollmentId_lessonId: { enrollmentId: enrollment.id, lessonId: dbLesson.id } },
-                update: { isCompleted, completedAt: new Date() },
-                create: { enrollmentId: enrollment.id, lessonId: dbLesson.id, isCompleted, completedAt: new Date() },
-              })
-            );
-          }
-        }
-      } catch {
-        // DB sync silently ignores connection errors
+    try {
+      if (isCompleted) {
+        await withDbTimeout(
+          db.userLessonCompletion.upsert({
+            where: { userEmail_lessonId: { userEmail: cleanEmail, lessonId } },
+            update: { completedAt: new Date() },
+            create: { userEmail: cleanEmail, lessonId },
+          })
+        );
+      } else {
+        await withDbTimeout(
+          db.userLessonCompletion.deleteMany({
+            where: { userEmail: cleanEmail, lessonId },
+          })
+        );
       }
-    })();
+    } catch (e) {
+      console.warn('Error guardando avance en DB:', e);
+    }
   }
 
   return { success: true, lessonId, isCompleted, completedLessonIds: userList };

@@ -173,7 +173,7 @@ const REAL_ADMIN_USERS: AdminUserRecord[] = [
   },
 ];
 
-function withAdminDbTimeout<T>(promise: Promise<T>, timeoutMs = 2500): Promise<T> {
+function withAdminDbTimeout<T>(promise: Promise<T>, timeoutMs = 5000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -871,8 +871,55 @@ export interface StoredCommentItem {
   replies: CommentReply[];
 }
 
+function formatCommentDate(d: Date): string {
+  try {
+    return d.toLocaleDateString('es-AR', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+  } catch {
+    return 'Recién';
+  }
+}
+
+function mapDbCommentToStored(row: any): StoredCommentItem {
+  let likedBy: string[] = [];
+  let replies: CommentReply[] = [];
+  try {
+    likedBy = JSON.parse(row.likedByJson || '[]');
+  } catch {}
+  try {
+    replies = JSON.parse(row.repliesJson || '[]');
+  } catch {}
+
+  const dt = row.createdAt ? new Date(row.createdAt) : new Date();
+  return {
+    id: row.id,
+    lessonId: row.lessonId,
+    lessonTitle: row.lessonTitle,
+    courseSlug: row.courseSlug || 'experiencia-busqueda-laboral',
+    authorName: row.authorName,
+    authorEmail: row.authorEmail,
+    avatarInitials: row.avatarInitials || 'AL',
+    isInstructor: Boolean(row.isInstructor),
+    createdAt: formatCommentDate(dt),
+    createdAtIso: dt.toISOString(),
+    content: row.content,
+    likes: row.likes || 0,
+    likedBy: Array.isArray(likedBy) ? likedBy : [],
+    isApproved: Boolean(row.isApproved),
+    isRead: Boolean(row.isRead),
+    replies: Array.isArray(replies) ? replies : [],
+  };
+}
+
 export async function getAdminCommentsAction() {
-  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
+  let comments: StoredCommentItem[] = [];
+  try {
+    const rows = await withAdminDbTimeout(
+      db.lessonComment.findMany({ orderBy: { createdAt: 'desc' } })
+    );
+    comments = rows.map(mapDbCommentToStored);
+  } catch {
+    comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
+  }
 
   const total = comments.length;
   const unreadCount = comments.filter((c) => !c.isRead).length;
@@ -892,8 +939,17 @@ export async function getAdminCommentsAction() {
 }
 
 export async function getLessonCommentsAction(lessonId: string, currentUserEmail?: string, isSuperAdmin = false) {
-  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
-  const lessonComments = comments.filter((c) => c.lessonId === lessonId);
+  let lessonComments: StoredCommentItem[] = [];
+  try {
+    const rows = await withAdminDbTimeout(
+      db.lessonComment.findMany({ where: { lessonId }, orderBy: { createdAt: 'desc' } })
+    );
+    lessonComments = rows.map(mapDbCommentToStored);
+  } catch {
+    const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
+    lessonComments = comments.filter((c) => c.lessonId === lessonId);
+  }
+
   const cleanUserEmail = currentUserEmail?.toLowerCase().trim() || '';
 
   const visible = lessonComments.filter((c) => {
@@ -935,13 +991,12 @@ export async function saveLessonCommentAction(
     return { success: false, error: 'El comentario no puede estar vacío.' };
   }
 
-  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
-  const userEmail = (currentUser.email || '').toLowerCase().trim();
+  const userEmail = (currentUser.email || '').toLowerCase().trim() || 'alumno@academia.flormartinezok.com';
 
   let authorName = currentUser.name?.trim() || 'Alumno';
   let isInstructor = false;
   let initials = 'AL';
-  let isApproved = false; // Students are private until approved
+  let isApproved = false;
   let isRead = false;
 
   if (isSuperAdmin) {
@@ -962,13 +1017,40 @@ export async function saveLessonCommentAction(
   }
 
   const now = new Date();
+  let createdId = 'comm_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
+
+  try {
+    const dbRow = await withAdminDbTimeout(
+      db.lessonComment.create({
+        data: {
+          lessonId,
+          lessonTitle,
+          courseSlug,
+          authorName,
+          authorEmail: userEmail,
+          avatarInitials: initials,
+          isInstructor,
+          content: content.trim(),
+          likes: 0,
+          likedByJson: '[]',
+          isApproved,
+          isRead,
+          repliesJson: '[]',
+        },
+      })
+    );
+    createdId = dbRow.id;
+  } catch (e) {
+    console.warn('Fallback store al guardar comentario:', e);
+  }
+
   const newComment: StoredCommentItem = {
-    id: 'comm_' + Date.now().toString(36) + Math.random().toString(36).substring(2, 6),
+    id: createdId,
     lessonId,
     lessonTitle,
     courseSlug,
     authorName,
-    authorEmail: userEmail || 'alumno@academia.flormartinezok.com',
+    authorEmail: userEmail,
     avatarInitials: initials,
     isInstructor,
     createdAt: 'Recién',
@@ -981,6 +1063,7 @@ export async function saveLessonCommentAction(
     replies: [],
   };
 
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const updatedComments = [newComment, ...(Array.isArray(comments) ? comments : [])];
   writeStore('comments', 'comments.json', updatedComments);
 
@@ -988,11 +1071,21 @@ export async function saveLessonCommentAction(
 }
 
 export async function deleteLessonCommentAction(commentId: string, userEmail: string, isSuperAdmin = false) {
-  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const cleanEmail = userEmail.toLowerCase().trim();
+  try {
+    const existing = await withAdminDbTimeout(db.lessonComment.findUnique({ where: { id: commentId } }));
+    if (existing) {
+      if (!isSuperAdmin && existing.authorEmail.toLowerCase() !== cleanEmail) {
+        return { success: false, error: 'No tenés permisos para eliminar este comentario.' };
+      }
+      await withAdminDbTimeout(db.lessonComment.delete({ where: { id: commentId } }));
+      return { success: true };
+    }
+  } catch {}
 
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const comment = comments.find((c) => c.id === commentId);
-  if (!comment) return { success: false, error: 'Comentario no encontrado' };
+  if (!comment) return { success: true };
 
   if (!isSuperAdmin && comment.authorEmail.toLowerCase() !== cleanEmail) {
     return { success: false, error: 'No tenés permisos para eliminar este comentario.' };
@@ -1005,6 +1098,16 @@ export async function deleteLessonCommentAction(commentId: string, userEmail: st
 }
 
 export async function toggleCommentApprovalAction(commentId: string) {
+  try {
+    const existing = await withAdminDbTimeout(db.lessonComment.findUnique({ where: { id: commentId } }));
+    if (existing) {
+      const updated = await withAdminDbTimeout(
+        db.lessonComment.update({ where: { id: commentId }, data: { isApproved: !existing.isApproved } })
+      );
+      return { success: true, isApproved: updated.isApproved };
+    }
+  } catch {}
+
   const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
@@ -1015,6 +1118,16 @@ export async function toggleCommentApprovalAction(commentId: string) {
 }
 
 export async function toggleCommentReadAction(commentId: string) {
+  try {
+    const existing = await withAdminDbTimeout(db.lessonComment.findUnique({ where: { id: commentId } }));
+    if (existing) {
+      const updated = await withAdminDbTimeout(
+        db.lessonComment.update({ where: { id: commentId }, data: { isRead: !existing.isRead } })
+      );
+      return { success: true, isRead: updated.isRead };
+    }
+  } catch {}
+
   const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
@@ -1029,10 +1142,6 @@ export async function replyCommentAsFlorAction(commentId: string, replyContent: 
     return { success: false, error: 'La respuesta no puede estar vacía' };
   }
 
-  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
-  const idx = comments.findIndex((c) => c.id === commentId);
-  if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
-
   const reply: CommentReply = {
     id: 'rep_' + Date.now().toString(36),
     authorName: 'Flor Martínez',
@@ -1042,6 +1151,28 @@ export async function replyCommentAsFlorAction(commentId: string, replyContent: 
     content: replyContent.trim(),
   };
 
+  try {
+    const existing = await withAdminDbTimeout(db.lessonComment.findUnique({ where: { id: commentId } }));
+    if (existing) {
+      let existingReplies: CommentReply[] = [];
+      try {
+        existingReplies = JSON.parse(existing.repliesJson || '[]');
+      } catch {}
+      const nextReplies = [...existingReplies, reply];
+      await withAdminDbTimeout(
+        db.lessonComment.update({
+          where: { id: commentId },
+          data: { repliesJson: JSON.stringify(nextReplies), isRead: true },
+        })
+      );
+      return { success: true, reply };
+    }
+  } catch {}
+
+  const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
+  const idx = comments.findIndex((c) => c.id === commentId);
+  if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
+
   comments[idx]!.replies.push(reply);
   comments[idx]!.isRead = true;
   writeStore('comments', 'comments.json', comments);
@@ -1050,11 +1181,32 @@ export async function replyCommentAsFlorAction(commentId: string, replyContent: 
 }
 
 export async function toggleCommentLikeAction(commentId: string, userEmail: string) {
+  const cleanEmail = userEmail.toLowerCase().trim();
+
+  try {
+    const existing = await withAdminDbTimeout(db.lessonComment.findUnique({ where: { id: commentId } }));
+    if (existing) {
+      let likedBy: string[] = [];
+      try {
+        likedBy = JSON.parse(existing.likedByJson || '[]');
+      } catch {}
+      const alreadyLiked = likedBy.includes(cleanEmail);
+      const nextLikedBy = alreadyLiked ? likedBy.filter((e) => e !== cleanEmail) : [...likedBy, cleanEmail];
+      const nextLikes = alreadyLiked ? Math.max(0, (existing.likes || 1) - 1) : (existing.likes || 0) + 1;
+      await withAdminDbTimeout(
+        db.lessonComment.update({
+          where: { id: commentId },
+          data: { likes: nextLikes, likedByJson: JSON.stringify(nextLikedBy) },
+        })
+      );
+      return { success: true, likes: nextLikes, userLiked: !alreadyLiked };
+    }
+  } catch {}
+
   const comments = readStore<StoredCommentItem[]>('comments', 'comments.json', memoryStore.comments);
   const idx = comments.findIndex((c) => c.id === commentId);
   if (idx === -1) return { success: false, error: 'Comentario no encontrado' };
 
-  const cleanEmail = userEmail.toLowerCase().trim();
   const likedBy = comments[idx]!.likedBy || [];
   const alreadyLiked = likedBy.includes(cleanEmail);
 

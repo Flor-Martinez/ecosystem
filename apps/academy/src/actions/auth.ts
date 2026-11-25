@@ -16,7 +16,7 @@ const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs = 2500): Promise<T> {
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 5000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -52,7 +52,7 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
             email: formattedEmail,
             name: formattedName,
             role: isSuper ? Role.ADMIN : Role.STUDENT,
-            membershipTier: 'VIP',
+            membershipTier: isSuper ? 'VIP' : 'FREE',
             avatarUrl: avatarUrl || undefined,
           },
         })
@@ -185,7 +185,7 @@ export async function registerUserAction(name: string, email: string) {
           name: name.trim(),
           email: formattedEmail,
           role: isSuper ? Role.ADMIN : Role.STUDENT,
-          membershipTier: 'VIP',
+          membershipTier: isSuper ? 'VIP' : 'FREE',
         },
       })
     );
