@@ -28,6 +28,14 @@ export const metadata: Metadata = {
   title: 'Tienda Flor Martinez — Prendas Formales & Regalos de Distinción',
   description:
     'Tienda oficial de Flor Martinez. Prendas sastreras, indumentaria formal y objetos de distinción seleccionados.',
+  icons: {
+    icon: [
+      { url: '/favicon-flor.png?v=1', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-flor.ico?v=1', type: 'image/x-icon' },
+    ],
+    shortcut: '/favicon-flor.ico?v=1',
+    apple: '/apple-touch-icon-flor.png?v=1',
+  },
 };
 
 export default function RootLayout({

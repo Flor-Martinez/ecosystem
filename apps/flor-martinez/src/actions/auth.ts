@@ -16,7 +16,7 @@ const BANNED_EMAILS = [
   'santiagocastillo98@hotmail.com',
 ];
 
-function withTimeout<T>(promise: Promise<T>, timeoutMs = 2500): Promise<T> {
+function withTimeout<T>(promise: Promise<T>, timeoutMs = 5000): Promise<T> {
   return Promise.race([
     promise,
     new Promise<never>((_, reject) =>
@@ -94,7 +94,7 @@ export async function loginUserAction(email: string, name?: string, avatarUrl?: 
           expires,
         },
       }),
-      1500
+      5000
     );
 
     // Guardar cookie
@@ -196,7 +196,7 @@ export async function registerUserAction(name: string, email: string, _password?
           expires,
         },
       }),
-      1500
+      5000
     );
 
     const cookieStore = await cookies();
@@ -251,26 +251,29 @@ export async function getCurrentUserAction() {
       }
     }
 
-    const session = await db.session.findUnique({
-      where: { sessionToken: token },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            role: true,
-            avatarUrl: true,
-            enrollments: {
-              select: {
-                courseId: true,
-                status: true,
+    const session = await withTimeout(
+      db.session.findUnique({
+        where: { sessionToken: token },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              role: true,
+              avatarUrl: true,
+              enrollments: {
+                select: {
+                  courseId: true,
+                  status: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      }),
+      5000
+    );
 
     if (!session || session.expires < new Date()) {
       return null;

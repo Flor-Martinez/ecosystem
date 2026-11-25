@@ -26,9 +26,12 @@ export const metadata: Metadata = {
   description:
     'Especialista en Comercio Exterior, Marketing y Desarrollo Profesional. Hub central del ecosistema Flor Martinez: Agencia, Academia y Tienda.',
   icons: {
-    icon: '/icon.svg',
-    shortcut: '/icon.svg',
-    apple: '/icon.svg',
+    icon: [
+      { url: '/favicon-flor.png?v=1', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-flor.ico?v=1', type: 'image/x-icon' },
+    ],
+    shortcut: '/favicon-flor.ico?v=1',
+    apple: '/apple-touch-icon-flor.png?v=1',
   },
   keywords: [
     'Flor Martinez',

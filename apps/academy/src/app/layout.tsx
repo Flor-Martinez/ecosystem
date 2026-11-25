@@ -25,6 +25,14 @@ export const metadata: Metadata = {
   title: 'Academia Flor Martinez — Formación Práctica, Empleabilidad & LinkedIn',
   description:
     'Plataforma educativa de Flor Martinez especializada en optimización de CV, posicionamiento estratégico en LinkedIn, preparación para entrevistas y desarrollo de carrera.',
+  icons: {
+    icon: [
+      { url: '/favicon-flor.png?v=1', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-flor.ico?v=1', type: 'image/x-icon' },
+    ],
+    shortcut: '/favicon-flor.ico?v=1',
+    apple: '/apple-touch-icon-flor.png?v=1',
+  },
   keywords: [
     'Academia Flor Martinez',
     'Flor Martinez',
