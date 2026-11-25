@@ -253,9 +253,26 @@ export default function AdminDashboardClient() {
   }, [loadUsers, loadVideos, loadComments, loadPricing, loadVocationalStats]);
 
   // User Management Actions
-  const handleRoleChange = async (userId: string, newRole: 'superadmin' | 'student' | 'client') => {
-    const res = await updateUserRoleAction(userId, newRole);
-    if (res.success) loadUsers();
+  const recalcUserStats = (list: AdminUserRecord[]) => {
+    setUsersStats({
+      total: list.length,
+      superadmins: list.filter((u) => u.role === 'superadmin').length,
+      vipMembers: list.filter((u) => u.membershipTier === 'VIP').length,
+      banned: list.filter((u) => u.status === 'banned').length,
+    });
+  };
+
+  const handleRoleChange = async (
+    userId: string,
+    email: string,
+    newRole: 'superadmin' | 'student' | 'client'
+  ) => {
+    setUsers((prev) => {
+      const next = prev.map((u) => (u.id === userId ? { ...u, role: newRole } : u));
+      recalcUserStats(next);
+      return next;
+    });
+    await updateUserRoleAction(userId, newRole, email);
   };
 
   const handleMembershipChange = async (
@@ -263,17 +280,25 @@ export default function AdminDashboardClient() {
     email: string,
     nextTier: 'VIP' | 'TRIAL' | 'FREE'
   ) => {
-    // Optimistic update for snappy admin UX
-    setUsers((prev) =>
-      prev.map((u) => (u.id === userId ? { ...u, membershipTier: nextTier } : u))
-    );
-    const res = await updateUserMembershipAction(userId, nextTier, email);
-    if (res.success) loadUsers();
+    setUsers((prev) => {
+      const next = prev.map((u) => (u.id === userId ? { ...u, membershipTier: nextTier } : u));
+      recalcUserStats(next);
+      return next;
+    });
+    await updateUserMembershipAction(userId, nextTier, email);
   };
 
-  const handleBanToggle = async (userId: string) => {
-    const res = await toggleUserBanAction(userId);
-    if (res.success) loadUsers();
+  const handleBanToggle = async (userId: string, email: string) => {
+    setUsers((prev) => {
+      const next: AdminUserRecord[] = prev.map((u) =>
+        u.id === userId
+          ? { ...u, status: (u.status === 'banned' ? 'active' : 'banned') as 'active' | 'banned' }
+          : u
+      );
+      recalcUserStats(next);
+      return next;
+    });
+    await toggleUserBanAction(userId, email);
   };
 
   const handleDeleteUser = async (userId: string) => {
@@ -637,7 +662,7 @@ export default function AdminDashboardClient() {
                           <select
                             value={u.role}
                             onChange={(e) =>
-                              handleRoleChange(u.id, e.target.value as 'superadmin' | 'student' | 'client')
+                              handleRoleChange(u.id, u.email, e.target.value as 'superadmin' | 'student' | 'client')
                             }
                             className={styles.roleSelect}
                           >
@@ -690,7 +715,7 @@ export default function AdminDashboardClient() {
                         <td>
                           <button
                             type="button"
-                            onClick={() => handleBanToggle(u.id)}
+                            onClick={() => handleBanToggle(u.id, u.email)}
                             className={`${styles.statusBadge} ${
                               u.status === 'active' ? styles.statusActive : styles.statusBanned
                             }`}

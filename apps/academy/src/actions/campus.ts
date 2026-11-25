@@ -42,6 +42,15 @@ function isSuperAdminEmail(email: string): boolean {
 }
 
 const TRIAL_HEADLINE_MARKER = 'TRIAL_MOD_4';
+const ADMIN_OVERRIDE_PREFIX = 'ADMIN_OVERRIDE:';
+
+function parseAdminHeadlineTier(headline?: string | null): 'paid' | 'trial' | 'free' | null {
+  const h = String(headline || '');
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}TRIAL`) || h.includes(TRIAL_HEADLINE_MARKER)) return 'trial';
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}FREE`)) return 'free';
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}VIP`)) return 'paid';
+  return null;
+}
 
 function isEnvTrialEmail(email: string): boolean {
   const clean = (email || '').toLowerCase().trim();
@@ -53,7 +62,9 @@ function isEnvTrialEmail(email: string): boolean {
     .includes(clean);
 }
 
-function getMembershipFromLocalUsersStore(email: string): 'paid' | 'trial' | 'free' | null {
+function getMembershipFromLocalUsersStore(
+  email: string
+): { tier: 'paid' | 'trial' | 'free'; adminOverride: boolean } | null {
   try {
     const clean = (email || '').toLowerCase().trim();
     if (!clean || !clean.includes('@')) return null;
@@ -65,9 +76,8 @@ function getMembershipFromLocalUsersStore(email: string): 'paid' | 'trial' | 'fr
         const found = parsed.find((u: any) => (u?.email || '').toLowerCase().trim() === clean);
         if (found) {
           const t = String(found.membershipTier || '').toUpperCase();
-          if (t === 'VIP') return 'paid';
-          if (t === 'TRIAL') return 'trial';
-          return 'free';
+          const tier = t === 'VIP' ? 'paid' : t === 'TRIAL' ? 'trial' : 'free';
+          return { tier, adminOverride: Boolean(found.adminOverride) };
         }
       }
     }
@@ -340,14 +350,16 @@ export async function getCampusInitialDataAction(userEmail?: string) {
         writeProgressStore(progressStore);
       }
 
-      let resolvedDbTier: 'free' | 'trial' | 'paid' =
-        user.membershipTier === MembershipTier.VIP
-          ? 'paid'
-          : String(user.headline || '').includes(TRIAL_HEADLINE_MARKER) || isEnvTrialEmail(cleanEmail)
-          ? 'trial'
-          : 'free';
+      const overrideTier = parseAdminHeadlineTier(user.headline);
+      let resolvedDbTier: 'free' | 'trial' | 'paid' = overrideTier
+        ? overrideTier
+        : user.membershipTier === MembershipTier.VIP
+        ? 'paid'
+        : isEnvTrialEmail(cleanEmail)
+        ? 'trial'
+        : 'free';
 
-      if (resolvedDbTier !== 'paid' && !isSuperAdminEmail(cleanEmail)) {
+      if (!overrideTier && resolvedDbTier !== 'paid' && !isSuperAdminEmail(cleanEmail)) {
         const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
         if (hasMpPaid) {
           resolvedDbTier = 'paid';
@@ -419,11 +431,17 @@ export async function getCampusInitialDataAction(userEmail?: string) {
 
   // Fallback return: always succeeds and preserves progress + verifies live Mercado Pago payment & trial access
   const isSuperFallback = isSuperAdminEmail(cleanEmail);
-  const storeTier = getMembershipFromLocalUsersStore(cleanEmail);
+  const storeInfo = getMembershipFromLocalUsersStore(cleanEmail);
   let resolvedTier: 'paid' | 'trial' | 'free' = isSuperFallback
     ? 'paid'
-    : storeTier || (isEnvTrialEmail(cleanEmail) ? 'trial' : 'free');
-  if (resolvedTier !== 'paid' && cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
+    : storeInfo?.tier || (isEnvTrialEmail(cleanEmail) ? 'trial' : 'free');
+  if (
+    !storeInfo?.adminOverride &&
+    resolvedTier !== 'paid' &&
+    cleanEmail &&
+    cleanEmail !== 'guest' &&
+    cleanEmail.includes('@')
+  ) {
     const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
     if (hasMpPaid) {
       resolvedTier = 'paid';
@@ -874,6 +892,7 @@ export async function updateUserMembershipTierAction(
     const idx = parsed.findIndex((u: any) => (u?.email || '').toLowerCase().trim() === cleanEmail);
     if (idx >= 0) {
       parsed[idx].membershipTier = tierLabel;
+      parsed[idx].adminOverride = true;
     } else if (cleanEmail.includes('@')) {
       const now = new Date().toISOString();
       parsed.unshift({
@@ -886,6 +905,7 @@ export async function updateUserMembershipTierAction(
         avatarUrl: null,
         createdAt: now,
         lastLoginAt: now,
+        adminOverride: true,
       });
     }
     const writeTargets = [filePath, path.join('/tmp', 'fm_store', 'users.json')];
@@ -903,13 +923,13 @@ export async function updateUserMembershipTierAction(
   try {
     const user = await getOrCreateUser(cleanEmail);
     const membershipTier = tier === 'paid' ? MembershipTier.VIP : MembershipTier.FREE;
-    const headline = tier === 'trial' ? TRIAL_HEADLINE_MARKER : undefined;
+    const headline = `${ADMIN_OVERRIDE_PREFIX}${tierLabel}`;
 
     await db.user.update({
       where: { id: user.id },
       data: {
         membershipTier,
-        ...(headline ? { headline } : {}),
+        headline,
       },
     });
 

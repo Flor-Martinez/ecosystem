@@ -261,13 +261,18 @@ function CampusContent() {
                 tierFromServer === 'free' ? 'free' : tierFromServer === 'trial' ? 'trial' : 'paid'
               );
             }
-          } else if (verifiedVip || tierFromServer === 'paid' || tierFromServer === 'vip' || hasLocalVipCache) {
+          } else if (verifiedVip || tierFromServer === 'paid' || tierFromServer === 'vip') {
             setMembershipTier('paid');
             try {
               localStorage.setItem(vipCacheKey, 'true');
             } catch {}
           } else if (tierFromServer === 'trial') {
             setMembershipTier('trial');
+            try {
+              localStorage.removeItem(vipCacheKey);
+            } catch {}
+          } else if (hasLocalVipCache) {
+            setMembershipTier('paid');
           } else {
             setMembershipTier('free');
           }

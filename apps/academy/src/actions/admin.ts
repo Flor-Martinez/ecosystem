@@ -111,9 +111,20 @@ export interface AdminUserRecord {
   createdAt: string;
   lastLoginAt: string;
   notes?: string;
+  adminOverride?: boolean;
 }
 
 const TRIAL_HEADLINE_MARKER = 'TRIAL_MOD_4';
+const ADMIN_OVERRIDE_PREFIX = 'ADMIN_OVERRIDE:';
+
+function parseAdminTierOverride(headline?: string | null): 'VIP' | 'TRIAL' | 'FREE' | null {
+  const h = String(headline || '');
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}TRIAL`)) return 'TRIAL';
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}FREE`)) return 'FREE';
+  if (h.includes(`${ADMIN_OVERRIDE_PREFIX}VIP`)) return 'VIP';
+  if (h.includes(TRIAL_HEADLINE_MARKER)) return 'TRIAL';
+  return null;
+}
 
 function getEnvTrialEmails(): string[] {
   const raw = process.env.TRIAL_ACCESS_EMAILS || process.env.NEXT_PUBLIC_TRIAL_ACCESS_EMAILS || '';
@@ -251,11 +262,17 @@ export async function getAdminUsersAction() {
     const isBanned = BANNED_EMAILS.includes(emailLower);
     const hasPaidMp = mpBuyers.has(emailLower);
     const dbTier = String(u.membershipTier || '').toUpperCase() === 'VIP' ? 'VIP' : 'FREE';
-    const isTrialDb = String(u.headline || '').includes(TRIAL_HEADLINE_MARKER) || envTrialSet.has(emailLower);
+    const overrideTier = parseAdminTierOverride(u.headline);
+    const isEnvTrial = envTrialSet.has(emailLower);
     const existing = byEmail.get(emailLower);
 
-    const finalTier: 'VIP' | 'TRIAL' | 'FREE' =
-      isSuper || hasPaidMp || dbTier === 'VIP' ? 'VIP' : isTrialDb ? 'TRIAL' : 'FREE';
+    const finalTier: 'VIP' | 'TRIAL' | 'FREE' = overrideTier
+      ? overrideTier
+      : isSuper || hasPaidMp || dbTier === 'VIP'
+      ? 'VIP'
+      : isEnvTrial
+      ? 'TRIAL'
+      : 'FREE';
 
     byEmail.set(emailLower, {
       id: u.id || existing?.id || 'usr_' + emailLower.replace(/[^a-z0-9]/g, '_'),
@@ -267,21 +284,22 @@ export async function getAdminUsersAction() {
       avatarUrl: u.avatarUrl || existing?.avatarUrl || null,
       createdAt: u.createdAt ? new Date(u.createdAt).toISOString() : (existing?.createdAt || new Date().toISOString()),
       lastLoginAt: u.updatedAt ? new Date(u.updatedAt).toISOString() : (existing?.lastLoginAt || new Date().toISOString()),
-      notes: isSuper
-        ? (existing?.notes || 'Superadministrador')
-        : hasPaidMp
-        ? 'Pago verificado en Mercado Pago'
-        : finalTier === 'TRIAL'
+      adminOverride: Boolean(overrideTier),
+      notes: finalTier === 'TRIAL'
         ? 'Acceso Prueba (Módulos 1 al 4)'
+        : isSuper
+        ? (existing?.notes || 'Superadministrador')
+        : hasPaidMp && finalTier === 'VIP'
+        ? 'Pago verificado en Mercado Pago'
         : (existing?.notes || 'Registro Google / Campus'),
     });
   }
 
-  // Merge env-configured trial emails if not yet in list
+  // Merge env-configured trial emails if not yet in list (respect adminOverride!)
   for (const trialEmail of envTrialSet) {
     const existing = byEmail.get(trialEmail);
     if (existing) {
-      if (existing.membershipTier === 'FREE') {
+      if (!existing.adminOverride && existing.membershipTier === 'FREE') {
         existing.membershipTier = 'TRIAL';
         existing.notes = 'Acceso Prueba (Módulos 1 al 4)';
       }
@@ -302,13 +320,15 @@ export async function getAdminUsersAction() {
     }
   }
 
-  // 3. Merge any Mercado Pago approved buyers not yet in DB
+  // 3. Merge any Mercado Pago approved buyers not yet overridden by Admin
   for (const [buyerEmail, info] of mpBuyers.entries()) {
     const existing = byEmail.get(buyerEmail);
     if (existing) {
-      existing.membershipTier = 'VIP';
-      if (!SUPERADMIN_EMAILS.includes(buyerEmail)) {
-        existing.notes = 'Pago verificado en Mercado Pago';
+      if (!existing.adminOverride) {
+        existing.membershipTier = 'VIP';
+        if (!SUPERADMIN_EMAILS.includes(buyerEmail)) {
+          existing.notes = 'Pago verificado en Mercado Pago';
+        }
       }
     } else {
       const isSuper = SUPERADMIN_EMAILS.includes(buyerEmail);
@@ -327,7 +347,7 @@ export async function getAdminUsersAction() {
     }
   }
 
-  // 4. Merge any additional users from local/tmp store
+  // 4. Merge users and explicit Admin edits from local/tmp store (OVERRIDING defaults when edited!)
   try {
     const raw = readStore<any>('users', 'users.json', null);
     const fromStore: AdminUserRecord[] = Array.isArray(raw)
@@ -338,8 +358,21 @@ export async function getAdminUsersAction() {
 
     for (const u of fromStore) {
       const emailLower = (u?.email || '').toLowerCase().trim();
-      if (!emailLower || !emailLower.includes('@') || byEmail.has(emailLower)) continue;
-      byEmail.set(emailLower, u);
+      if (!emailLower || !emailLower.includes('@')) continue;
+      const existing = byEmail.get(emailLower);
+      if (!existing) {
+        byEmail.set(emailLower, u);
+      } else if (u.adminOverride) {
+        // Explicit Admin panel edit ALWAYS wins over static defaults & old MP payments
+        byEmail.set(emailLower, {
+          ...existing,
+          role: u.role || existing.role,
+          membershipTier: u.membershipTier || existing.membershipTier,
+          status: u.status || existing.status,
+          notes: u.notes || existing.notes,
+          adminOverride: true,
+        });
+      }
     }
   } catch {
     // ignore
@@ -442,22 +475,54 @@ export async function registerOrUpdateUserInStore(
   writeStore('users', 'users.json', users);
 }
 
-export async function updateUserRoleAction(userId: string, newRole: 'superadmin' | 'student' | 'client') {
+export async function updateUserRoleAction(
+  userId: string,
+  newRole: 'superadmin' | 'student' | 'client',
+  userEmail?: string
+) {
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
   try {
-    await withAdminDbTimeout(
-      db.user.update({
-        where: { id: userId },
-        data: { role: newRole === 'superadmin' ? Role.ADMIN : Role.STUDENT },
-      })
-    );
+    if (cleanEmail && cleanEmail.includes('@')) {
+      await withAdminDbTimeout(
+        db.user.update({
+          where: { email: cleanEmail },
+          data: { role: newRole === 'superadmin' ? Role.ADMIN : Role.STUDENT },
+        })
+      );
+    } else {
+      await withAdminDbTimeout(
+        db.user.update({
+          where: { id: userId },
+          data: { role: newRole === 'superadmin' ? Role.ADMIN : Role.STUDENT },
+        })
+      );
+    }
   } catch {}
 
   const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
-  const idx = users.findIndex((u) => u.id === userId);
+  const idx = users.findIndex(
+    (u) => u.id === userId || (cleanEmail && (u.email || '').toLowerCase().trim() === cleanEmail)
+  );
   if (idx >= 0) {
-    users[idx] = { ...users[idx]!, role: newRole };
+    users[idx] = { ...users[idx]!, role: newRole, adminOverride: true };
     writeStore('users', 'users.json', users);
     return { success: true, user: users[idx] };
+  } else if (cleanEmail && cleanEmail.includes('@')) {
+    const now = new Date().toISOString();
+    const created: AdminUserRecord = {
+      id: userId || 'usr_' + Date.now().toString(36),
+      email: cleanEmail,
+      name: cleanEmail.split('@')[0] || 'Usuario',
+      role: newRole,
+      membershipTier: SUPERADMIN_EMAILS.includes(cleanEmail) ? 'VIP' : 'FREE',
+      status: 'active',
+      avatarUrl: null,
+      createdAt: now,
+      lastLoginAt: now,
+      adminOverride: true,
+    };
+    writeStore('users', 'users.json', [created, ...users]);
+    return { success: true, user: created };
   }
   return { success: true };
 }
@@ -469,7 +534,7 @@ export async function updateUserMembershipAction(
 ) {
   const cleanEmail = (userEmail || '').toLowerCase().trim();
   const dbMembership = newTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE;
-  const dbHeadline = newTier === 'TRIAL' ? TRIAL_HEADLINE_MARKER : 'Estudiante en Academia Flor Martínez';
+  const dbHeadline = `${ADMIN_OVERRIDE_PREFIX}${newTier}`;
 
   try {
     if (cleanEmail && cleanEmail.includes('@')) {
@@ -510,7 +575,13 @@ export async function updateUserMembershipAction(
     users[idx] = {
       ...users[idx]!,
       membershipTier: newTier,
-      notes: newTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : users[idx]!.notes,
+      adminOverride: true,
+      notes:
+        newTier === 'TRIAL'
+          ? 'Acceso Prueba (Módulos 1 al 4)'
+          : newTier === 'VIP'
+          ? 'Membresía VIP habilitada'
+          : 'Cuenta Gratuita',
     };
     writeStore('users', 'users.json', users);
     return { success: true, user: users[idx] };
@@ -526,6 +597,7 @@ export async function updateUserMembershipAction(
       avatarUrl: null,
       createdAt: now,
       lastLoginAt: now,
+      adminOverride: true,
       notes: newTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : 'Actualizado desde Admin',
     };
     writeStore('users', 'users.json', [created, ...users]);
@@ -534,15 +606,39 @@ export async function updateUserMembershipAction(
   return { success: true };
 }
 
-export async function toggleUserBanAction(userId: string) {
+export async function toggleUserBanAction(userId: string, userEmail?: string) {
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
   const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
-  const idx = users.findIndex((u) => u.id === userId);
-  if (idx === -1) return { success: false, error: 'Usuario no encontrado' };
-
-  const currentStatus = users[idx]!.status;
-  users[idx] = { ...users[idx]!, status: currentStatus === 'banned' ? 'active' : 'banned' };
-  writeStore('users', 'users.json', users);
-  return { success: true, user: users[idx] };
+  const idx = users.findIndex(
+    (u) => u.id === userId || (cleanEmail && (u.email || '').toLowerCase().trim() === cleanEmail)
+  );
+  if (idx >= 0) {
+    const currentStatus = users[idx]!.status;
+    users[idx] = {
+      ...users[idx]!,
+      status: currentStatus === 'banned' ? 'active' : 'banned',
+      adminOverride: true,
+    };
+    writeStore('users', 'users.json', users);
+    return { success: true, user: users[idx] };
+  } else if (cleanEmail && cleanEmail.includes('@')) {
+    const now = new Date().toISOString();
+    const created: AdminUserRecord = {
+      id: userId || 'usr_' + Date.now().toString(36),
+      email: cleanEmail,
+      name: cleanEmail.split('@')[0] || 'Usuario',
+      role: SUPERADMIN_EMAILS.includes(cleanEmail) ? 'superadmin' : 'student',
+      membershipTier: 'FREE',
+      status: 'banned',
+      avatarUrl: null,
+      createdAt: now,
+      lastLoginAt: now,
+      adminOverride: true,
+    };
+    writeStore('users', 'users.json', [created, ...users]);
+    return { success: true, user: created };
+  }
+  return { success: false, error: 'Usuario no encontrado' };
 }
 
 export async function deleteUserAction(userId: string) {
@@ -571,12 +667,7 @@ export async function createManualUserAction(data: {
   const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
   const resolvedTier: 'VIP' | 'TRIAL' | 'FREE' = isSuper ? 'VIP' : (data.membershipTier || 'FREE');
   const resolvedName = (data.name || '').trim() || cleanEmail.split('@')[0] || 'Usuario';
-  const dbHeadline =
-    resolvedTier === 'TRIAL'
-      ? TRIAL_HEADLINE_MARKER
-      : isSuper
-      ? 'Superadministrador'
-      : 'Estudiante en Academia Flor Martínez';
+  const dbHeadline = `${ADMIN_OVERRIDE_PREFIX}${resolvedTier}`;
   let dbUserId: string | null = null;
 
   try {
@@ -613,6 +704,7 @@ export async function createManualUserAction(data: {
     avatarUrl: null,
     createdAt: now,
     lastLoginAt: now,
+    adminOverride: true,
     notes: data.notes || (resolvedTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : 'Alta manual por Superadmin'),
   };
 
