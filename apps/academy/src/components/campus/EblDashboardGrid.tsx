@@ -25,7 +25,7 @@ interface EblDashboardGridProps {
   onLockedFeatureClick?: (featureId: string) => void;
   program?: CampusProgram;
   completedLessons?: Set<string>;
-  membershipTier?: 'free' | 'paid';
+  membershipTier?: 'free' | 'trial' | 'paid';
   favoriteIds?: Set<string>;
   onToggleFavorite?: (id: string) => void;
   onClearAllFavorites?: () => void;
@@ -44,8 +44,10 @@ export function EblDashboardGrid({
   isDevMode = false,
 }: EblDashboardGridProps) {
   const { user: authUser, isSuperAdmin, openAuthModal } = useAuth();
-  // VIP access: user is logged in and has paid membership
+  // VIP & Trial access: VIP unlocks all, Trial (Acceso Prueba) unlocks Modules 1-4, Free unlocks Module 1
   const isVipUser = Boolean(authUser && membershipTier === 'paid');
+  const isTrialUser = Boolean(authUser && membershipTier === 'trial');
+  const maxUnlockedModule = isVipUser ? 99 : isTrialUser ? 4 : 1;
   const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
 
   const isCardWipDisabled = (card: EblDashboardCard): boolean => {
@@ -89,7 +91,7 @@ export function EblDashboardGrid({
   const favoriteIds = externalFavoriteIds ?? internalFavoriteIds;
 
   React.useEffect(() => {
-    if (membershipTier === 'free') {
+    if (membershipTier !== 'paid') {
       if (!externalFavoriteIds) {
         setInternalFavoriteIds(new Set());
       }
@@ -100,7 +102,7 @@ export function EblDashboardGrid({
   }, [membershipTier, activeFilter, externalFavoriteIds]);
 
   const toggleFavorite = (id: string) => {
-    if (membershipTier === 'free') return;
+    if (membershipTier !== 'paid') return;
     if (externalToggleFavorite) {
       externalToggleFavorite(id);
       return;
@@ -115,7 +117,7 @@ export function EblDashboardGrid({
   };
 
   const handleClearAllFavorites = () => {
-    if (membershipTier === 'free') return;
+    if (membershipTier !== 'paid') return;
     if (externalClearAllFavorites) {
       externalClearAllFavorites();
       return;
@@ -128,14 +130,23 @@ export function EblDashboardGrid({
     }
   };
 
+  // Helper to resolve module number for module cards
+  const getCardModuleNumber = (card: { id: string; targetView: string }): number | null => {
+    if (card.id === 'mod-trabajo-ideal' || card.targetView === 'modulo-trabajo-ideal' || card.targetView === 'modulo-1') return 1;
+    if (card.id === 'mod-fundamentos' || card.targetView === 'modulo-fundamentos' || card.targetView === 'modulo-2') return 2;
+    if (card.id === 'mod-cv' || card.targetView === 'modulo-cv' || card.targetView === 'modulo-3') return 3;
+    if (card.id === 'mod-linkedin' || card.targetView === 'modulo-linkedin' || card.targetView === 'modulo-4') return 4;
+    if (card.id === 'mod-donde-buscar' || card.targetView === 'modulo-donde-buscar' || card.targetView === 'modulo-5') return 5;
+    if (card.id === 'mod-postulacion' || card.targetView === 'modulo-postulacion' || card.targetView === 'modulo-6') return 6;
+    if (card.id === 'mod-entrevistas' || card.targetView === 'modulo-entrevistas' || card.targetView === 'modulo-7') return 7;
+    if (card.id === 'mod-casos-especiales' || card.targetView === 'modulo-casos-especiales' || card.targetView === 'modulo-8' || card.targetView === 'modulo-extra-mineria') return 8;
+    return null;
+  };
+
   // Helper to check if a card is locked
   const isCardLocked = (card: { id: string; type: string; targetView: string }): boolean => {
-    // Module 1 is ALWAYS free and accessible to EVERYONE (guests, free students, VIP)
-    if (
-      card.id === 'mod-trabajo-ideal' ||
-      card.targetView === 'modulo-trabajo-ideal' ||
-      card.targetView === 'modulo-1'
-    ) {
+    const modNum = getCardModuleNumber(card);
+    if (modNum !== null && modNum <= maxUnlockedModule) {
       return false;
     }
     // Tools available to everyone
@@ -147,10 +158,10 @@ export function EblDashboardGrid({
     ) {
       return false;
     }
-    // VIP users and SuperAdmins have full access to everything
+    // VIP users have full access to everything
     if (isVipUser) return false;
 
-    // All other modules (2 to 8, extras) and paid tools (perfil, tracker, agenda) are locked for free/guests
+    // All other modules and paid tools (perfil, tracker, agenda) are locked
     return true;
   };
 
@@ -159,11 +170,10 @@ export function EblDashboardGrid({
     if (targetCard && isCardWipDisabled(targetCard)) {
       return;
     }
-    // Module 1 and public tools are ALWAYS accessible directly, without requiring login
+    // Unlocked modules (M1 for free/guest, M1-M4 for Acceso Prueba) & public tools open directly
+    const modNum = getCardModuleNumber({ id: cardId, targetView });
     if (
-      cardId === 'mod-trabajo-ideal' ||
-      targetView === 'modulo-trabajo-ideal' ||
-      targetView === 'modulo-1' ||
+      (modNum !== null && modNum <= maxUnlockedModule) ||
       cardId === 'tool-vocacional' ||
       targetView === 'test-vocacional' ||
       cardId === 'tool-recursos' ||
@@ -277,7 +287,7 @@ export function EblDashboardGrid({
   const showSections = activeFilter === 'todos' && globalSearch.trim() === '';
 
   const filteredFavorites = useMemo(() => {
-    if (membershipTier === 'free') return [];
+    if (membershipTier !== 'paid') return [];
     return dynamicCards.filter((c) => favoriteIds.has(c.id));
   }, [dynamicCards, favoriteIds, membershipTier]);
 
@@ -305,20 +315,27 @@ export function EblDashboardGrid({
             </div>
             <span
               className={
-                !isVipUser
-                  ? styles.memberStatusBadgeFree
-                  : styles.memberStatusBadgePaid
+                isVipUser
+                  ? styles.memberStatusBadgePaid
+                  : styles.memberStatusBadgeFree
+              }
+              style={
+                isTrialUser
+                  ? { background: 'rgba(59, 130, 246, 0.2)', color: '#BFDBFE', borderColor: 'rgba(96, 165, 250, 0.45)' }
+                  : undefined
               }
             >
-              {!isVipUser ? 'Membresía Gratuita (Free)' : 'Membresía Activa (VIP)'}
+              {isVipUser ? 'Membresía Activa (VIP)' : isTrialUser ? 'Acceso Prueba' : 'Membresía Gratuita (Free)'}
             </span>
           </div>
 
           <h1 className={styles.heroTitle}>Tu Tablero de Búsqueda Laboral</h1>
           <p className={styles.heroDesc}>
-            {membershipTier === 'free'
+            {isTrialUser
+              ? 'Tenés habilitado el Acceso Prueba con los Módulos 1 al 4 desbloqueados. Pasate a Membresía VIP para acceder a todo el programa y herramientas.'
+              : membershipTier === 'free'
               ? 'Estás en la versión de prueba gratuita. Accedé a los módulos habilitados o pasate a la Membresía VIP para desbloquear todo el ecosistema.'
-              : 'Seguí la ruta de los 8 módulos paso a paso y utilizá las herramientas complementarias para gestionar tus entrevistas y mentorías.'}
+              : 'Seguí la ruta de los 7 módulos paso a paso y utilizá las herramientas complementarias para gestionar tus entrevistas y mentorías.'}
           </p>
 
           {/* Global Search Bar */}
@@ -346,7 +363,19 @@ export function EblDashboardGrid({
 
         {/* Right: Overall Progress Card */}
         <div className={styles.heroRight}>
-          {membershipTier === 'free' ? (
+          {isTrialUser ? (
+            <div className={styles.overallProgressCard}>
+              <div className={styles.ovTopRow}>
+                <span className={styles.ovLabel}>Acceso Prueba</span>
+                <strong className={styles.ovPct} style={{ color: '#93C5FD', fontSize: '1rem' }}>
+                  Módulos 1 al 4
+                </strong>
+              </div>
+              <div className={styles.ovMeta} style={{ marginTop: '0.4rem' }}>
+                <span>🔓 Módulos 1 al 4 habilitados · Módulos 5 al 7 y Extras requieren VIP</span>
+              </div>
+            </div>
+          ) : membershipTier === 'free' ? (
             <div className={styles.overallProgressCard}>
               <div className={styles.ovTopRow}>
                 <span className={styles.ovLabel}>Membresía Free</span>
@@ -355,7 +384,7 @@ export function EblDashboardGrid({
                 </strong>
               </div>
               <div className={styles.ovMeta} style={{ marginTop: '0.4rem' }}>
-                <span>🔒 Módulos 2 al 8 y herramientas avanzadas requieren Membresía VIP</span>
+                <span>🔒 Módulos 2 al 7 y herramientas avanzadas requieren Membresía VIP</span>
               </div>
             </div>
           ) : (
@@ -418,7 +447,7 @@ export function EblDashboardGrid({
               <span>Herramientas & Apoyo ({toolCards.length})</span>
             </button>
 
-            {membershipTier !== 'free' && (
+            {membershipTier === 'paid' && (
               <button
                 type="button"
                 className={`${styles.tabBtn} ${activeFilter === 'favoritos' ? styles.tabBtnActive : ''}`}
@@ -455,7 +484,7 @@ export function EblDashboardGrid({
           </div>
         </div>
 
-        {membershipTier !== 'free' && (
+        {membershipTier === 'paid' && (
           <div className={styles.filterHintRow}>
             <span className={styles.hintText}>
               ⭐ Marcá bloques como favoritos para tenerlos fijados arriba en su sección destacada.
@@ -468,7 +497,7 @@ export function EblDashboardGrid({
       {showSections ? (
         <div className={styles.sectionsContainer}>
           {/* SECTION 0: FAVORITES SECTION (WHEN USER HAS FAVORITES) */}
-          {filteredFavorites.length > 0 && membershipTier !== 'free' && (
+          {filteredFavorites.length > 0 && membershipTier === 'paid' && (
             <section className={styles.boardSection}>
               <div className={styles.sectionHeader}>
                 <div className={styles.sectionTitleWrap}>

@@ -18,7 +18,7 @@ import styles from './CampusResourceVault.module.css';
 
 interface CampusResourceVaultProps {
   currentProgramId?: string;
-  membershipTier?: 'paid' | 'free';
+  membershipTier?: 'paid' | 'trial' | 'free';
   onLockedClick?: (featureId: string) => void;
   onBackToDashboard?: () => void;
 }
@@ -32,10 +32,11 @@ export function CampusResourceVault({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedDoc, setSelectedDoc] = useState<InAppDocument | null>(null);
 
+  const maxUnlockedModule = membershipTier === 'paid' ? 99 : membershipTier === 'trial' ? 4 : 1;
+
   const isResourceLocked = (res: CampusResource): boolean => {
     if (membershipTier === 'paid') return false;
-    // In Free Tier: ONLY Module 1 resources are free! All other modules (2..8) are VIP exclusive
-    return res.moduleNumber !== 1;
+    return (res.moduleNumber ?? 99) > maxUnlockedModule;
   };
 
   const filteredResources = useMemo(() => {

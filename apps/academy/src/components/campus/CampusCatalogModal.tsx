@@ -26,7 +26,7 @@ interface CampusCatalogModalProps {
   onClose: () => void;
   currentProgramId: string;
   onSelectProgram: (prog: CampusProgram) => void;
-  membershipTier?: 'paid' | 'free';
+  membershipTier?: 'paid' | 'trial' | 'free';
 }
 
 export function CampusCatalogModal({

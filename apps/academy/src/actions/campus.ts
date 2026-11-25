@@ -41,7 +41,19 @@ function isSuperAdminEmail(email: string): boolean {
   return SUPERADMIN_EMAILS.includes(clean);
 }
 
-function getMembershipFromLocalUsersStore(email: string): 'paid' | 'free' | null {
+const TRIAL_HEADLINE_MARKER = 'TRIAL_MOD_4';
+
+function isEnvTrialEmail(email: string): boolean {
+  const clean = (email || '').toLowerCase().trim();
+  if (!clean || !clean.includes('@')) return false;
+  const raw = process.env.TRIAL_ACCESS_EMAILS || process.env.NEXT_PUBLIC_TRIAL_ACCESS_EMAILS || '';
+  return raw
+    .split(/[,;\n\s]+/)
+    .map((e) => e.toLowerCase().trim())
+    .includes(clean);
+}
+
+function getMembershipFromLocalUsersStore(email: string): 'paid' | 'trial' | 'free' | null {
   try {
     const clean = (email || '').toLowerCase().trim();
     if (!clean || !clean.includes('@')) return null;
@@ -52,7 +64,10 @@ function getMembershipFromLocalUsersStore(email: string): 'paid' | 'free' | null
       if (Array.isArray(parsed)) {
         const found = parsed.find((u: any) => (u?.email || '').toLowerCase().trim() === clean);
         if (found) {
-          return String(found.membershipTier || '').toUpperCase() === 'VIP' ? 'paid' : 'free';
+          const t = String(found.membershipTier || '').toUpperCase();
+          if (t === 'VIP') return 'paid';
+          if (t === 'TRIAL') return 'trial';
+          return 'free';
         }
       }
     }
@@ -170,6 +185,9 @@ export async function verifyAndActivateMercadoPagoPaymentAction(
 
 // Helper for store path resolution across monorepo and standalone builds
 function getStoreFilePath(filename: string): string {
+  const tmpPath = path.join('/tmp', 'fm_store', filename);
+  if (fs.existsSync(tmpPath)) return tmpPath;
+
   const monorepoPath = path.join(process.cwd(), 'apps', 'academy', 'src', 'data', 'store', filename);
   if (fs.existsSync(monorepoPath)) return monorepoPath;
 
@@ -179,7 +197,7 @@ function getStoreFilePath(filename: string): string {
   const parentPath = path.join(process.cwd(), '..', 'apps', 'academy', 'src', 'data', 'store', filename);
   if (fs.existsSync(parentPath)) return parentPath;
 
-  return path.join('/tmp', 'fm_store', filename);
+  return tmpPath;
 }
 
 const memoryProgressStore: Record<string, string[]> = {};
@@ -322,10 +340,14 @@ export async function getCampusInitialDataAction(userEmail?: string) {
         writeProgressStore(progressStore);
       }
 
-      let resolvedDbTier: 'free' | 'paid' =
-        user.membershipTier === MembershipTier.FREE ? 'free' : 'paid';
+      let resolvedDbTier: 'free' | 'trial' | 'paid' =
+        user.membershipTier === MembershipTier.VIP
+          ? 'paid'
+          : String(user.headline || '').includes(TRIAL_HEADLINE_MARKER) || isEnvTrialEmail(cleanEmail)
+          ? 'trial'
+          : 'free';
 
-      if (resolvedDbTier === 'free' && !isSuperAdminEmail(cleanEmail)) {
+      if (resolvedDbTier !== 'paid' && !isSuperAdminEmail(cleanEmail)) {
         const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
         if (hasMpPaid) {
           resolvedDbTier = 'paid';
@@ -395,11 +417,13 @@ export async function getCampusInitialDataAction(userEmail?: string) {
     console.warn('DB offline or timed out, returning persisted store progress:', error);
   }
 
-  // Fallback return: always succeeds and preserves progress + verifies live Mercado Pago payment
+  // Fallback return: always succeeds and preserves progress + verifies live Mercado Pago payment & trial access
   const isSuperFallback = isSuperAdminEmail(cleanEmail);
   const storeTier = getMembershipFromLocalUsersStore(cleanEmail);
-  let resolvedTier: 'paid' | 'free' = isSuperFallback ? 'paid' : (storeTier || 'free');
-  if (resolvedTier === 'free' && cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
+  let resolvedTier: 'paid' | 'trial' | 'free' = isSuperFallback
+    ? 'paid'
+    : storeTier || (isEnvTrialEmail(cleanEmail) ? 'trial' : 'free');
+  if (resolvedTier !== 'paid' && cleanEmail && cleanEmail !== 'guest' && cleanEmail.includes('@')) {
     const hasMpPaid = await hasApprovedMercadoPagoPayment(cleanEmail);
     if (hasMpPaid) {
       resolvedTier = 'paid';
@@ -833,49 +857,60 @@ export async function saveStudentProfileAction(
 // 10. Update User Membership Tier (Dev Switch / VIP Management)
 export async function updateUserMembershipTierAction(
   userEmail: string = DEFAULT_DEMO_EMAIL,
-  tier: 'free' | 'paid'
+  tier: 'free' | 'trial' | 'paid'
 ) {
   const cleanEmail = (userEmail || DEFAULT_DEMO_EMAIL).toLowerCase().trim();
-  const tierLabel = tier === 'free' ? 'FREE' : 'VIP';
+  const tierLabel = tier === 'paid' ? 'VIP' : tier === 'trial' ? 'TRIAL' : 'FREE';
 
-  // Also persist in local users.json store (for resilience if DB times out)
+  // Also persist in local/tmp users.json store (for resilience if DB times out)
   try {
     const filePath = getStoreFilePath('users.json');
+    let parsed: any[] = [];
     if (fs.existsSync(filePath)) {
       const content = fs.readFileSync(filePath, 'utf-8');
-      const parsed = JSON.parse(content);
-      if (Array.isArray(parsed)) {
-        const idx = parsed.findIndex((u: any) => (u?.email || '').toLowerCase().trim() === cleanEmail);
-        if (idx >= 0) {
-          parsed[idx].membershipTier = tierLabel;
-        } else if (cleanEmail.includes('@')) {
-          const now = new Date().toISOString();
-          parsed.unshift({
-            id: 'usr_' + Date.now().toString(36),
-            email: cleanEmail,
-            name: cleanEmail.split('@')[0] || 'Usuario',
-            role: isSuperAdminEmail(cleanEmail) ? 'superadmin' : 'student',
-            membershipTier: tierLabel,
-            status: 'active',
-            avatarUrl: null,
-            createdAt: now,
-            lastLoginAt: now,
-          });
-        }
-        fs.writeFileSync(filePath, JSON.stringify(parsed, null, 2), 'utf-8');
-      }
+      const json = JSON.parse(content);
+      if (Array.isArray(json)) parsed = json;
+    }
+    const idx = parsed.findIndex((u: any) => (u?.email || '').toLowerCase().trim() === cleanEmail);
+    if (idx >= 0) {
+      parsed[idx].membershipTier = tierLabel;
+    } else if (cleanEmail.includes('@')) {
+      const now = new Date().toISOString();
+      parsed.unshift({
+        id: 'usr_' + Date.now().toString(36),
+        email: cleanEmail,
+        name: cleanEmail.split('@')[0] || 'Usuario',
+        role: isSuperAdminEmail(cleanEmail) ? 'superadmin' : 'student',
+        membershipTier: tierLabel,
+        status: 'active',
+        avatarUrl: null,
+        createdAt: now,
+        lastLoginAt: now,
+      });
+    }
+    const writeTargets = [filePath, path.join('/tmp', 'fm_store', 'users.json')];
+    for (const target of writeTargets) {
+      try {
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.writeFileSync(target, JSON.stringify(parsed, null, 2), 'utf-8');
+        break;
+      } catch {}
     }
   } catch {
-    // ignore local write errors on read-only FS
+    // ignore local write errors
   }
 
   try {
     const user = await getOrCreateUser(cleanEmail);
-    const membershipTier = tier === 'free' ? MembershipTier.FREE : MembershipTier.VIP;
+    const membershipTier = tier === 'paid' ? MembershipTier.VIP : MembershipTier.FREE;
+    const headline = tier === 'trial' ? TRIAL_HEADLINE_MARKER : undefined;
 
     await db.user.update({
       where: { id: user.id },
-      data: { membershipTier },
+      data: {
+        membershipTier,
+        ...(headline ? { headline } : {}),
+      },
     });
 
     return { success: true, membershipTier: tier };

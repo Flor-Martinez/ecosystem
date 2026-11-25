@@ -27,7 +27,7 @@ interface CampusSidebarProps {
   currentView: string;
   isOpen: boolean;
   onClose: () => void;
-  membershipTier?: 'free' | 'paid';
+  membershipTier?: 'free' | 'trial' | 'paid';
   onLockedModuleClick?: (featureId: string) => void;
   isDevMode?: boolean;
 }
@@ -45,8 +45,9 @@ export function CampusSidebar({
   isDevMode = true,
 }: CampusSidebarProps) {
   const { user, isSuperAdmin, openAuthModal } = useAuth();
-  // VIP access: user is logged in and has paid membership
+  // VIP & Trial access: VIP unlocks all, Trial (Acceso Prueba) unlocks Modules 1-4, Free unlocks Module 1
   const isVipUser = Boolean(user && membershipTier === 'paid');
+  const maxUnlockedModule = isVipUser ? 99 : user && membershipTier === 'trial' ? 4 : 1;
   const canAccessWipExtras = Boolean(isSuperAdmin && isDevMode);
 
   const isWipExtraModule = (modNumber: number) => {
@@ -58,8 +59,8 @@ export function CampusSidebar({
 
   // Single active module accordion: can be closed by clicking again
   const [activeModuleId, setActiveModuleId] = useState<string | null>(() => {
-    // If selected lesson is in locked module in Free tier, default to module 1
-    if (membershipTier === 'free' && selectedLesson.moduleNumber !== 1) {
+    // If selected lesson is in locked module, default to module 1
+    if (selectedLesson.moduleNumber > maxUnlockedModule) {
       return currentProgram.modules[0]!.id;
     }
     return selectedLesson.moduleId || currentProgram.modules[0]!.id;
@@ -68,7 +69,7 @@ export function CampusSidebar({
   // Synchronize active accordion automatically and smooth-scroll to active module in sidebar
   useEffect(() => {
     if (selectedLesson.moduleId) {
-      if (!(membershipTier === 'free' && selectedLesson.moduleNumber !== 1)) {
+      if (selectedLesson.moduleNumber <= maxUnlockedModule) {
         setActiveModuleId(selectedLesson.moduleId);
       }
     }
@@ -81,7 +82,7 @@ export function CampusSidebar({
     }, 120);
 
     return () => clearTimeout(timer);
-  }, [selectedLesson.moduleId, selectedLesson.id, selectedLesson.moduleNumber, membershipTier]);
+  }, [selectedLesson.moduleId, selectedLesson.id, selectedLesson.moduleNumber, maxUnlockedModule]);
 
   // Flat list of all accessible lessons across the curriculum
   const allProgramLessons = currentProgram.modules
@@ -102,8 +103,8 @@ export function CampusSidebar({
       m.lessons.some((l) => l.id === lessonId)
     );
     if (!mod) return true;
-    // Module 1 is ALWAYS 100% unlocked for everyone (guests and free users included)
-    if (mod.number === 1) return true;
+    // Modules within allowed range (M1 for free, M1-M4 for Acceso Prueba) are 100% unlocked
+    if (mod.number <= maxUnlockedModule) return true;
     // Other modules: strictly locked if not VIP
     if (!isVipUser) return false;
     if (isDevMode) return true; // In Dev Mode, all allowed lessons are unlocked!
@@ -128,8 +129,8 @@ export function CampusSidebar({
     if (isWipExtraModule(mod.number)) {
       return;
     }
-    // Module 1 is ALWAYS accessible to everyone (guests and free users included)
-    if (mod.number !== 1 && !isVipUser) {
+    // Check allowed modules (M1 for free, M1-M4 for Acceso Prueba, all for VIP)
+    if (mod.number > maxUnlockedModule) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -151,7 +152,7 @@ export function CampusSidebar({
     if (isWipExtraModule(mod.number)) {
       return;
     }
-    if (mod.number !== 1 && !isVipUser) {
+    if (mod.number > maxUnlockedModule) {
       if (onLockedModuleClick) {
         onLockedModuleClick(`modulo-${mod.number}`);
       }
@@ -391,7 +392,7 @@ export function CampusSidebar({
                   (completedInMod / Math.max(1, mod.lessons.length)) * 100
                 );
 
-                const isModuleLockedInFree = !isVipUser && mod.number !== 1;
+                const isModuleLockedInFree = mod.number > maxUnlockedModule;
 
                 return (
                   <div
@@ -483,7 +484,7 @@ export function CampusSidebar({
                             currentView === 'lesson' && selectedLesson.id === lesson.id;
                           const isEvaluation = lesson.type === 'evaluacion';
                           const isUnlocked = isLessonUnlocked(lesson.id);
-                          const isEvaluationLocked = mod.number !== 1 && !isVipUser && isEvaluation;
+                          const isEvaluationLocked = mod.number > maxUnlockedModule && isEvaluation;
 
                           return (
                             <div
@@ -508,10 +509,10 @@ export function CampusSidebar({
                               {/* Lesson Info Clickable */}
                               <button
                                 type="button"
-                                disabled={mod.number === 1 ? false : (!isUnlocked && !isEvaluationLocked)}
+                                disabled={mod.number <= maxUnlockedModule ? false : (!isUnlocked && !isEvaluationLocked)}
                                 className={styles.lessonSelectBtn}
                                 onClick={() => {
-                                  if (mod.number !== 1 && !isVipUser) {
+                                  if (mod.number > maxUnlockedModule) {
                                     if (onLockedModuleClick) {
                                       onLockedModuleClick(`modulo-${mod.number}`);
                                     }
@@ -605,7 +606,7 @@ export function CampusSidebar({
                       (completedInMod / Math.max(1, mod.lessons.length)) * 100
                     );
 
-                    const isModuleLockedInFree = !isVipUser && mod.number !== 1;
+                    const isModuleLockedInFree = mod.number > maxUnlockedModule;
 
                     return (
                       <div
@@ -729,7 +730,7 @@ export function CampusSidebar({
                                 currentView === 'lesson' && selectedLesson.id === lesson.id;
                               const isEvaluation = lesson.type === 'evaluacion';
                               const isUnlocked = isLessonUnlocked(lesson.id);
-                              const isEvaluationLocked = membershipTier === 'free' && isEvaluation;
+                              const isEvaluationLocked = membershipTier !== 'paid' && isEvaluation;
 
                               return (
                                 <div

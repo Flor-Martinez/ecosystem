@@ -105,12 +105,22 @@ export interface AdminUserRecord {
   email: string;
   name: string;
   role: 'superadmin' | 'student' | 'client' | 'member';
-  membershipTier: 'VIP' | 'FREE';
+  membershipTier: 'VIP' | 'TRIAL' | 'FREE';
   status: 'active' | 'banned';
   avatarUrl?: string | null;
   createdAt: string;
   lastLoginAt: string;
   notes?: string;
+}
+
+const TRIAL_HEADLINE_MARKER = 'TRIAL_MOD_4';
+
+function getEnvTrialEmails(): string[] {
+  const raw = process.env.TRIAL_ACCESS_EMAILS || process.env.NEXT_PUBLIC_TRIAL_ACCESS_EMAILS || '';
+  return raw
+    .split(/[,;\n\s]+/)
+    .map((e) => e.toLowerCase().trim())
+    .filter((e) => e.includes('@'));
 }
 
 const REAL_ADMIN_USERS: AdminUserRecord[] = [
@@ -231,6 +241,8 @@ export async function getAdminUsersAction() {
     getApprovedMpBuyerEmails(),
   ]);
 
+  const envTrialSet = new Set(getEnvTrialEmails());
+
   // Merge DB users
   for (const u of dbUsers) {
     const emailLower = (u?.email || '').toLowerCase().trim();
@@ -239,14 +251,18 @@ export async function getAdminUsersAction() {
     const isBanned = BANNED_EMAILS.includes(emailLower);
     const hasPaidMp = mpBuyers.has(emailLower);
     const dbTier = String(u.membershipTier || '').toUpperCase() === 'VIP' ? 'VIP' : 'FREE';
+    const isTrialDb = String(u.headline || '').includes(TRIAL_HEADLINE_MARKER) || envTrialSet.has(emailLower);
     const existing = byEmail.get(emailLower);
+
+    const finalTier: 'VIP' | 'TRIAL' | 'FREE' =
+      isSuper || hasPaidMp || dbTier === 'VIP' ? 'VIP' : isTrialDb ? 'TRIAL' : 'FREE';
 
     byEmail.set(emailLower, {
       id: u.id || existing?.id || 'usr_' + emailLower.replace(/[^a-z0-9]/g, '_'),
       email: emailLower,
       name: u.name || existing?.name || emailLower.split('@')[0] || 'Usuario',
       role: isSuper ? 'superadmin' : 'student',
-      membershipTier: isSuper || hasPaidMp || dbTier === 'VIP' ? 'VIP' : 'FREE',
+      membershipTier: finalTier,
       status: isBanned ? 'banned' : (existing?.status || 'active'),
       avatarUrl: u.avatarUrl || existing?.avatarUrl || null,
       createdAt: u.createdAt ? new Date(u.createdAt).toISOString() : (existing?.createdAt || new Date().toISOString()),
@@ -255,8 +271,35 @@ export async function getAdminUsersAction() {
         ? (existing?.notes || 'Superadministrador')
         : hasPaidMp
         ? 'Pago verificado en Mercado Pago'
+        : finalTier === 'TRIAL'
+        ? 'Acceso Prueba (Módulos 1 al 4)'
         : (existing?.notes || 'Registro Google / Campus'),
     });
+  }
+
+  // Merge env-configured trial emails if not yet in list
+  for (const trialEmail of envTrialSet) {
+    const existing = byEmail.get(trialEmail);
+    if (existing) {
+      if (existing.membershipTier === 'FREE') {
+        existing.membershipTier = 'TRIAL';
+        existing.notes = 'Acceso Prueba (Módulos 1 al 4)';
+      }
+    } else {
+      const now = new Date().toISOString();
+      byEmail.set(trialEmail, {
+        id: 'usr_trial_' + trialEmail.replace(/[^a-z0-9]/g, '_'),
+        email: trialEmail,
+        name: trialEmail.split('@')[0] || 'Alumno Prueba',
+        role: 'student',
+        membershipTier: 'TRIAL',
+        status: 'active',
+        avatarUrl: null,
+        createdAt: now,
+        lastLoginAt: now,
+        notes: 'Acceso Prueba (Módulos 1 al 4)',
+      });
+    }
   }
 
   // 3. Merge any Mercado Pago approved buyers not yet in DB
@@ -343,7 +386,7 @@ export async function registerOrUpdateUserInStore(
   let name = nameArg;
   let avatarUrl = avatarUrlArg;
   let roleOverride: 'superadmin' | 'student' | undefined;
-  let membershipTierOverride: 'VIP' | 'FREE' | undefined;
+  let membershipTierOverride: 'VIP' | 'TRIAL' | 'FREE' | undefined;
 
   if (typeof userOrEmail === 'object' && userOrEmail !== null) {
     email = userOrEmail.email || '';
@@ -352,7 +395,7 @@ export async function registerOrUpdateUserInStore(
     if (userOrEmail.role === 'superadmin' || userOrEmail.role === 'student') {
       roleOverride = userOrEmail.role;
     }
-    if (userOrEmail.membershipTier === 'VIP' || userOrEmail.membershipTier === 'FREE') {
+    if (userOrEmail.membershipTier === 'VIP' || userOrEmail.membershipTier === 'TRIAL' || userOrEmail.membershipTier === 'FREE') {
       membershipTierOverride = userOrEmail.membershipTier;
     }
   } else if (typeof userOrEmail === 'string') {
@@ -419,22 +462,74 @@ export async function updateUserRoleAction(userId: string, newRole: 'superadmin'
   return { success: true };
 }
 
-export async function updateUserMembershipAction(userId: string, newTier: 'VIP' | 'FREE') {
+export async function updateUserMembershipAction(
+  userId: string,
+  newTier: 'VIP' | 'TRIAL' | 'FREE',
+  userEmail?: string
+) {
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
+  const dbMembership = newTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE;
+  const dbHeadline = newTier === 'TRIAL' ? TRIAL_HEADLINE_MARKER : 'Estudiante en Academia Flor Martínez';
+
   try {
-    await withAdminDbTimeout(
-      db.user.update({
-        where: { id: userId },
-        data: { membershipTier: newTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE },
-      })
-    );
+    if (cleanEmail && cleanEmail.includes('@')) {
+      await withAdminDbTimeout(
+        db.user.upsert({
+          where: { email: cleanEmail },
+          update: {
+            membershipTier: dbMembership,
+            headline: dbHeadline,
+          },
+          create: {
+            email: cleanEmail,
+            name: cleanEmail.split('@')[0] || 'Alumno',
+            role: SUPERADMIN_EMAILS.includes(cleanEmail) ? Role.ADMIN : Role.STUDENT,
+            membershipTier: dbMembership,
+            headline: dbHeadline,
+          },
+        })
+      );
+    } else {
+      await withAdminDbTimeout(
+        db.user.update({
+          where: { id: userId },
+          data: {
+            membershipTier: dbMembership,
+            headline: dbHeadline,
+          },
+        })
+      );
+    }
   } catch {}
 
   const users = [...(readStore<AdminUserRecord[]>('users', 'users.json', memoryStore.users) || [])];
-  const idx = users.findIndex((u) => u.id === userId);
+  const idx = users.findIndex(
+    (u) => u.id === userId || (cleanEmail && (u.email || '').toLowerCase().trim() === cleanEmail)
+  );
   if (idx >= 0) {
-    users[idx] = { ...users[idx]!, membershipTier: newTier };
+    users[idx] = {
+      ...users[idx]!,
+      membershipTier: newTier,
+      notes: newTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : users[idx]!.notes,
+    };
     writeStore('users', 'users.json', users);
     return { success: true, user: users[idx] };
+  } else if (cleanEmail && cleanEmail.includes('@')) {
+    const now = new Date().toISOString();
+    const created: AdminUserRecord = {
+      id: userId || 'usr_' + Date.now().toString(36),
+      email: cleanEmail,
+      name: cleanEmail.split('@')[0] || 'Usuario',
+      role: SUPERADMIN_EMAILS.includes(cleanEmail) ? 'superadmin' : 'student',
+      membershipTier: newTier,
+      status: 'active',
+      avatarUrl: null,
+      createdAt: now,
+      lastLoginAt: now,
+      notes: newTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : 'Actualizado desde Admin',
+    };
+    writeStore('users', 'users.json', [created, ...users]);
+    return { success: true, user: created };
   }
   return { success: true };
 }
@@ -465,7 +560,7 @@ export async function createManualUserAction(data: {
   email: string;
   name?: string;
   role?: 'superadmin' | 'student' | 'client';
-  membershipTier?: 'VIP' | 'FREE';
+  membershipTier?: 'VIP' | 'TRIAL' | 'FREE';
   notes?: string;
 }) {
   const cleanEmail = data.email.toLowerCase().trim();
@@ -474,8 +569,14 @@ export async function createManualUserAction(data: {
   }
 
   const isSuper = SUPERADMIN_EMAILS.includes(cleanEmail);
-  const resolvedTier: 'VIP' | 'FREE' = isSuper ? 'VIP' : (data.membershipTier || 'FREE');
+  const resolvedTier: 'VIP' | 'TRIAL' | 'FREE' = isSuper ? 'VIP' : (data.membershipTier || 'FREE');
   const resolvedName = (data.name || '').trim() || cleanEmail.split('@')[0] || 'Usuario';
+  const dbHeadline =
+    resolvedTier === 'TRIAL'
+      ? TRIAL_HEADLINE_MARKER
+      : isSuper
+      ? 'Superadministrador'
+      : 'Estudiante en Academia Flor Martínez';
   let dbUserId: string | null = null;
 
   try {
@@ -486,12 +587,14 @@ export async function createManualUserAction(data: {
           name: resolvedName,
           role: isSuper || data.role === 'superadmin' ? Role.ADMIN : Role.STUDENT,
           membershipTier: resolvedTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE,
+          headline: dbHeadline,
         },
         create: {
           email: cleanEmail,
           name: resolvedName,
           role: isSuper || data.role === 'superadmin' ? Role.ADMIN : Role.STUDENT,
           membershipTier: resolvedTier === 'VIP' ? MembershipTier.VIP : MembershipTier.FREE,
+          headline: dbHeadline,
         },
       })
     );
@@ -510,7 +613,7 @@ export async function createManualUserAction(data: {
     avatarUrl: null,
     createdAt: now,
     lastLoginAt: now,
-    notes: data.notes || 'Alta manual por Superadmin',
+    notes: data.notes || (resolvedTier === 'TRIAL' ? 'Acceso Prueba (Módulos 1 al 4)' : 'Alta manual por Superadmin'),
   };
 
   const filtered = users.filter((u) => (u.email || '').toLowerCase() !== cleanEmail);

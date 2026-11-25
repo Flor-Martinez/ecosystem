@@ -122,7 +122,7 @@ export default function AdminDashboardClient() {
   const [showNewUserModal, setShowNewUserModal] = useState(false);
   const [newUserName, setNewUserName] = useState('');
   const [newUserEmail, setNewUserEmail] = useState('');
-  const [newUserTier, setNewUserTier] = useState<'VIP' | 'FREE'>('VIP');
+  const [newUserTier, setNewUserTier] = useState<'VIP' | 'TRIAL' | 'FREE'>('TRIAL');
   const [isCreatingUser, setIsCreatingUser] = useState(false);
 
   // Tab 2: Video Metrics State
@@ -258,9 +258,16 @@ export default function AdminDashboardClient() {
     if (res.success) loadUsers();
   };
 
-  const handleMembershipChange = async (userId: string, currentTier: 'VIP' | 'FREE') => {
-    const nextTier = currentTier === 'VIP' ? 'FREE' : 'VIP';
-    const res = await updateUserMembershipAction(userId, nextTier);
+  const handleMembershipChange = async (
+    userId: string,
+    email: string,
+    nextTier: 'VIP' | 'TRIAL' | 'FREE'
+  ) => {
+    // Optimistic update for snappy admin UX
+    setUsers((prev) =>
+      prev.map((u) => (u.id === userId ? { ...u, membershipTier: nextTier } : u))
+    );
+    const res = await updateUserMembershipAction(userId, nextTier, email);
     if (res.success) loadUsers();
   };
 
@@ -641,16 +648,43 @@ export default function AdminDashboardClient() {
                         </td>
 
                         <td>
-                          <button
-                            type="button"
-                            onClick={() => handleMembershipChange(u.id, u.membershipTier)}
-                            className={`${styles.tierBadge} ${
-                              u.membershipTier === 'VIP' ? styles.tierVIP : styles.tierFree
-                            }`}
-                            title="Clic para cambiar entre VIP y FREE"
+                          <select
+                            value={u.membershipTier}
+                            onChange={(e) =>
+                              handleMembershipChange(
+                                u.id,
+                                u.email,
+                                e.target.value as 'VIP' | 'TRIAL' | 'FREE'
+                              )
+                            }
+                            className={styles.roleSelect}
+                            style={{
+                              fontWeight: 700,
+                              backgroundColor:
+                                u.membershipTier === 'VIP'
+                                  ? '#F5F3FF'
+                                  : u.membershipTier === 'TRIAL'
+                                  ? '#EFF6FF'
+                                  : '#F8FAFC',
+                              color:
+                                u.membershipTier === 'VIP'
+                                  ? '#6D28D9'
+                                  : u.membershipTier === 'TRIAL'
+                                  ? '#1D4ED8'
+                                  : '#64748B',
+                              borderColor:
+                                u.membershipTier === 'VIP'
+                                  ? '#DDD6FE'
+                                  : u.membershipTier === 'TRIAL'
+                                  ? '#BFDBFE'
+                                  : '#E2E8F0',
+                            }}
+                            title="Elegir nivel de acceso (VIP Total, Acceso Prueba Mód. 1-4 o Free)"
                           >
-                            {u.membershipTier === 'VIP' ? '★ VIP' : 'FREE'}
-                          </button>
+                            <option value="VIP">★ VIP (Total)</option>
+                            <option value="TRIAL">⚡ Acceso Prueba (Mód. 1-4)</option>
+                            <option value="FREE">FREE (Mód. 1)</option>
+                          </select>
                         </td>
 
                         <td>
@@ -724,11 +758,10 @@ export default function AdminDashboardClient() {
                   <form onSubmit={handleCreateUser} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                     <div>
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
-                        Nombre y Apellido
+                        Nombre y Apellido <span style={{ fontWeight: 500, color: '#94A3B8' }}>(opcional)</span>
                       </label>
                       <input
                         type="text"
-                        required
                         placeholder="Ej: Laura Gómez"
                         value={newUserName}
                         onChange={(e) => setNewUserName(e.target.value)}
@@ -738,29 +771,33 @@ export default function AdminDashboardClient() {
 
                     <div>
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
-                        Email del Alumno
+                        Email del Alumno *
                       </label>
                       <input
                         type="email"
                         required
-                        placeholder="alumno@ejemplo.com"
+                        placeholder="alumno@gmail.com"
                         value={newUserEmail}
                         onChange={(e) => setNewUserEmail(e.target.value)}
                         style={{ width: '100%', padding: '0.65rem 0.85rem', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
                       />
+                      <span style={{ display: 'block', marginTop: '0.3rem', fontSize: '0.72rem', color: '#64748B' }}>
+                        Podés cargar el mail antes de que se registre: apenas ingrese con Google se activa automático.
+                      </span>
                     </div>
 
                     <div>
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
-                        Membresía Inicial
+                        Nivel de Acceso
                       </label>
                       <select
                         value={newUserTier}
-                        onChange={(e) => setNewUserTier(e.target.value as 'VIP' | 'FREE')}
+                        onChange={(e) => setNewUserTier(e.target.value as 'VIP' | 'TRIAL' | 'FREE')}
                         style={{ width: '100%', padding: '0.65rem 0.85rem', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.875rem' }}
                       >
+                        <option value="TRIAL">Acceso Prueba (Módulos 1 al 4)</option>
                         <option value="VIP">Membresía VIP (Acceso Total)</option>
-                        <option value="FREE">Free Demo (Acceso Limitado)</option>
+                        <option value="FREE">Cuenta Gratuita (Solo Módulo 1)</option>
                       </select>
                     </div>
 

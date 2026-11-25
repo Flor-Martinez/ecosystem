@@ -23,7 +23,7 @@ interface CampusModuleCelebrationProps {
   onBackToDashboard: () => void;
   onGoToProfile: () => void;
   onReviewModule: () => void;
-  membershipTier?: 'paid' | 'free';
+  membershipTier?: 'paid' | 'trial' | 'free';
 }
 
 export function CampusModuleCelebration({
@@ -182,8 +182,8 @@ export function CampusModuleCelebration({
             </div>
           </div>
 
-          {/* DEDICATED VIP UPSELL BLOCK FOR FREE USERS */}
-          {membershipTier === 'free' && (
+          {/* DEDICATED VIP UPSELL BLOCK FOR FREE USERS OR TRIAL USERS FINISHING MODULE 4 */}
+          {(membershipTier === 'free' || (membershipTier === 'trial' && completedModule.number >= 4)) && (
             <div className={styles.freeUpsellCard}>
               <div className={styles.freeUpsellHeader}>
                 <div className={styles.crownIconWrap}>
@@ -192,7 +192,9 @@ export function CampusModuleCelebration({
                 <div className={styles.freeUpsellHeaderText}>
                   <span className={styles.freeUpsellBadge}>PASO SIGUIENTE RECOMENDADO</span>
                   <h3 className={styles.freeUpsellTitle}>
-                    ¿Te interesó y sirvió lo que viste en este Módulo 01?
+                    {membershipTier === 'trial'
+                      ? `¿Te interesó y sirvió lo que viste hasta el Módulo 0${completedModule.number}?`
+                      : '¿Te interesó y sirvió lo que viste en este Módulo 01?'}
                   </h3>
                   <p className={styles.freeUpsellSubtitle}>
                     Tu estrategia de búsqueda laboral recién comienza. Desbloqueá la <strong>Experiencia Búsqueda Laboral Completa (VIP)</strong> para dominar todo el proceso y multiplicar tus entrevistas.

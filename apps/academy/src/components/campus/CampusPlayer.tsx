@@ -44,7 +44,7 @@ interface CampusPlayerProps {
   hasPrev: boolean;
   hasNext: boolean;
   completedLessons?: Set<string>;
-  membershipTier?: 'paid' | 'free';
+  membershipTier?: 'paid' | 'trial' | 'free';
   isDevMode?: boolean;
   onNavigateView?: (view: string) => void;
 }
@@ -65,11 +65,11 @@ export function CampusPlayer({
   const { user, isSuperAdmin, openAuthModal } = useAuth();
   const activeEmail = user?.email || '';
 
-  // Access rule: Module 1 is 100% free for everyone (including guests & free tier).
-  // Modules 2+ are unlocked for VIP members.
-  const isModuleOne = lesson.moduleNumber === 1;
+  // Access rule: Module 1 is free for everyone; Trial (Acceso Prueba) unlocks Modules 1-4; VIP unlocks all.
+  const maxUnlockedModule = user && membershipTier === 'paid' ? 99 : user && membershipTier === 'trial' ? 4 : 1;
+  const isModuleAllowed = lesson.moduleNumber <= maxUnlockedModule;
   const isVipUser = Boolean(user && membershipTier === 'paid');
-  const canAccessVideo = isModuleOne || isVipUser;
+  const canAccessVideo = isModuleAllowed || isVipUser;
 
   // Video state & refs
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -332,7 +332,7 @@ export function CampusPlayer({
       {/* ========================================================================= */}
       {/* 2. MAIN MEDIA / EVALUATION VIEWPORT */}
       {/* ========================================================================= */}
-      {isEvaluationLesson && !isModuleOne && membershipTier === 'free' ? (
+      {isEvaluationLesson && !isModuleAllowed && membershipTier !== 'paid' ? (
         /* EVALUATION LOCKED VIEWPORT IN FREE TIER */
         <div className={styles.quizLockedCard}>
           <div className={styles.quizLockedIcon}>

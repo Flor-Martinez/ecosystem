@@ -38,7 +38,7 @@ interface CampusHeaderProps {
   setCurrentView: (view: string) => void;
   completedCount: number;
   totalLessonsCount: number;
-  membershipTier?: 'paid' | 'free';
+  membershipTier?: 'paid' | 'trial' | 'free';
   onToggleMembership?: () => void;
   onOpenCatalogModal?: () => void;
   onLockedClick?: (featureId: string) => void;
@@ -114,7 +114,7 @@ export function CampusHeader({
       icon: Table,
       iconBg: '#ECFEFF',
       iconColor: '#0891B2',
-      isLocked: membershipTier === 'free',
+      isLocked: membershipTier !== 'paid',
     },
     {
       id: 'tool-agenda',
@@ -124,7 +124,7 @@ export function CampusHeader({
       icon: Calendar,
       iconBg: '#FFF7ED',
       iconColor: '#EA580C',
-      isLocked: membershipTier === 'free',
+      isLocked: membershipTier !== 'paid',
     },
     {
       id: 'tool-vocacional',
@@ -140,7 +140,7 @@ export function CampusHeader({
 
   // Favorited tools appear at the top (only for VIP members)
   const sortedTools = [...toolItems].sort((a, b) => {
-    if (membershipTier === 'free') return 0;
+    if (membershipTier !== 'paid') return 0;
     const aFav = favoriteIds?.has(a.id) ? 1 : 0;
     const bFav = favoriteIds?.has(b.id) ? 1 : 0;
     return bFav - aFav;
@@ -251,12 +251,17 @@ export function CampusHeader({
           )}
         </div>
 
-        {/* CENTER: Progress Indicator or Free Mode Badge */}
+        {/* CENTER: Progress Indicator or Free/Trial Mode Badge */}
         <div className={styles.centerArea}>
           {!user || membershipTier === 'free' ? (
             <div className={styles.freeModeBadge}>
               <Lock size={13} className={styles.freeModeLock} />
               <span>Versión Gratuita · Modo Exploración</span>
+            </div>
+          ) : membershipTier === 'trial' ? (
+            <div className={styles.freeModeBadge} style={{ borderColor: 'rgba(96, 165, 250, 0.35)', background: 'rgba(59, 130, 246, 0.14)', color: '#BFDBFE' }}>
+              <Sparkles size={13} style={{ color: '#60A5FA' }} />
+              <span>Acceso Prueba · Módulos 1 al 4</span>
             </div>
           ) : (
             <div className={styles.progressBox}>
@@ -327,7 +332,7 @@ export function CampusHeader({
                       <div className={styles.toolsGrid}>
                         {sortedTools.map((tool) => {
                           const IconComp = tool.icon;
-                          const isFav = membershipTier !== 'free' && (favoriteIds?.has(tool.id) ?? false);
+                          const isFav = membershipTier === 'paid' && (favoriteIds?.has(tool.id) ?? false);
                           const isActive = currentView === tool.targetView;
 
                           return (
@@ -360,7 +365,7 @@ export function CampusHeader({
 
                               {tool.isLocked ? (
                                 <Lock size={12} className={styles.toolLock} />
-                              ) : (membershipTier !== 'free' && onToggleFavorite) ? (
+                              ) : (membershipTier === 'paid' && onToggleFavorite) ? (
                                 <button
                                   type="button"
                                   className={`${styles.favToggleBtn} ${isFav ? styles.favToggleActive : ''}`}
@@ -389,19 +394,19 @@ export function CampusHeader({
               {/* DIRECT MI PERFIL BUTTON */}
               <button
                 type="button"
-                className={`${styles.navTabBtn} ${membershipTier === 'free' ? styles.navTabLocked : ''} ${currentView === 'perfil' ? styles.navTabActive : ''}`}
+                className={`${styles.navTabBtn} ${membershipTier !== 'paid' ? styles.navTabLocked : ''} ${currentView === 'perfil' ? styles.navTabActive : ''}`}
                 onClick={() => {
-                  if (membershipTier === 'free') {
+                  if (membershipTier !== 'paid') {
                     if (onLockedClick) onLockedClick('perfil');
                   } else {
                     setCurrentView('perfil');
                   }
                 }}
-                title={membershipTier === 'free' ? '🔒 Requiere Membresía VIP para activar este panel' : 'Expediente del Alumno & Perfil'}
+                title={membershipTier !== 'paid' ? '🔒 Requiere Membresía VIP para activar este panel' : 'Expediente del Alumno & Perfil'}
               >
                 <UserCheck size={16} />
                 <span>Mi Perfil</span>
-                {membershipTier === 'free' && <Lock size={11} className={styles.tabLockIcon} />}
+                {membershipTier !== 'paid' && <Lock size={11} className={styles.tabLockIcon} />}
               </button>
             </nav>
           )}
@@ -412,13 +417,18 @@ export function CampusHeader({
               type="button"
               className={`${styles.devTierSwitch} ${membershipTier === 'paid' ? styles.devTierPaid : styles.devTierFree}`}
               onClick={onToggleMembership}
-              title="Herramienta de desarrollo: alternar entre Membresía Pagada (VIP) y Gratuita (Free)"
+              title="Herramienta de desarrollo: alternar entre VIP Pagado, Acceso Prueba (Mód. 1-4) y Free Demo"
               aria-label="Alternar membresía de prueba"
             >
               {membershipTier === 'paid' ? (
                 <>
                   <Zap size={13} className={styles.devZapIcon} />
                   <span>VIP Pagado</span>
+                </>
+              ) : membershipTier === 'trial' ? (
+                <>
+                  <Sparkles size={13} style={{ color: '#60A5FA' }} />
+                  <span>Acceso Prueba</span>
                 </>
               ) : (
                 <>
@@ -466,13 +476,27 @@ export function CampusHeader({
                   <strong className={styles.userName}>{user.name}</strong>
                   {isSuperAdmin ? (
                     <span
-                      className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
+                      className={`${styles.userBadge} ${
+                        membershipTier === 'paid'
+                          ? styles.badgeVip
+                          : membershipTier === 'trial'
+                          ? styles.badgeTrial
+                          : styles.badgeFree
+                      }`}
                     >
-                      {membershipTier === 'paid' ? 'Superadministrador' : 'Vista Gratuita'}
+                      {membershipTier === 'paid'
+                        ? 'Superadministrador'
+                        : membershipTier === 'trial'
+                        ? 'Acceso Prueba'
+                        : 'Vista Gratuita'}
                     </span>
                   ) : membershipTier === 'paid' ? (
                     <span className={`${styles.userBadge} ${styles.badgeVip}`}>
                       Membresía VIP
+                    </span>
+                  ) : membershipTier === 'trial' ? (
+                    <span className={`${styles.userBadge} ${styles.badgeTrial}`}>
+                      Acceso Prueba
                     </span>
                   ) : (
                     <span className={`${styles.userBadge} ${styles.badgeFree}`}>
@@ -575,13 +599,27 @@ export function CampusHeader({
                         <span className={styles.mobileUserEmail}>{user.email}</span>
                         {isSuperAdmin ? (
                           <span
-                            className={`${styles.userBadge} ${membershipTier === 'paid' ? styles.badgeVip : styles.badgeFree}`}
+                            className={`${styles.userBadge} ${
+                              membershipTier === 'paid'
+                                ? styles.badgeVip
+                                : membershipTier === 'trial'
+                                ? styles.badgeTrial
+                                : styles.badgeFree
+                            }`}
                           >
-                            {membershipTier === 'paid' ? 'Superadministrador' : 'Vista Gratuita'}
+                            {membershipTier === 'paid'
+                              ? 'Superadministrador'
+                              : membershipTier === 'trial'
+                              ? 'Acceso Prueba'
+                              : 'Vista Gratuita'}
                           </span>
                         ) : membershipTier === 'paid' ? (
                           <span className={`${styles.userBadge} ${styles.badgeVip}`}>
                             Membresía VIP
+                          </span>
+                        ) : membershipTier === 'trial' ? (
+                          <span className={`${styles.userBadge} ${styles.badgeTrial}`}>
+                            Acceso Prueba
                           </span>
                         ) : (
                           <span className={`${styles.userBadge} ${styles.badgeFree}`}>
@@ -675,10 +713,10 @@ export function CampusHeader({
 
                     <button
                       type="button"
-                      className={`${styles.mobileNavItem} ${currentView === 'perfil' ? styles.mobileNavItemActive : ''} ${membershipTier === 'free' ? styles.mobileNavItemLocked : ''}`}
+                      className={`${styles.mobileNavItem} ${currentView === 'perfil' ? styles.mobileNavItemActive : ''} ${membershipTier !== 'paid' ? styles.mobileNavItemLocked : ''}`}
                       onClick={() => {
                         setShowMobileDrawer(false);
-                        if (membershipTier === 'free') {
+                        if (membershipTier !== 'paid') {
                           if (onLockedClick) onLockedClick('perfil');
                         } else {
                           setCurrentView('perfil');
@@ -687,7 +725,7 @@ export function CampusHeader({
                     >
                       <UserCheck size={17} />
                       <span>Mi Perfil</span>
-                      {membershipTier === 'free' && <Lock size={13} className={styles.mobileItemLock} />}
+                      {membershipTier !== 'paid' && <Lock size={13} className={styles.mobileItemLock} />}
                     </button>
                   </div>
                 </div>
@@ -749,7 +787,7 @@ export function CampusHeader({
                         }}
                       >
                         {membershipTier === 'paid' ? <Zap size={16} color="#FDE047" /> : <Lock size={16} color="#F59E0B" />}
-                        <span>Simulador: {membershipTier === 'paid' ? 'VIP Pagado' : 'Free Demo'}</span>
+                        <span>Simulador: {membershipTier === 'paid' ? 'VIP Pagado' : membershipTier === 'trial' ? 'Acceso Prueba' : 'Free Demo'}</span>
                       </button>
                     )}
 
