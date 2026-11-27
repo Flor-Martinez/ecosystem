@@ -7,6 +7,7 @@ import { useAuth, SUPERADMIN_EMAILS } from '@/context/AuthContext';
 import {
   getCampusInitialDataAction,
   saveLessonProgressAction,
+  syncCompletedLessonsAction,
   updateUserMembershipTierAction,
   verifyAndActivateMercadoPagoPaymentAction,
 } from '@/actions/campus';
@@ -241,8 +242,14 @@ function CampusContent() {
       try {
         const res = await getCampusInitialDataAction(authUser!.email);
         if (res.success && res.data) {
+          const serverCompletedList: string[] = res.data.completedLessonIds || [];
+          const serverSet = new Set(serverCompletedList);
           setCompletedLessons((prev) => {
-            const merged = new Set([...Array.from(prev), ...(res.data.completedLessonIds || [])]);
+            const localOnly = Array.from(prev).filter((id) => !serverSet.has(id));
+            if (localOnly.length > 0) {
+              syncCompletedLessonsAction(userCleanEmail, localOnly).catch(() => {});
+            }
+            const merged = new Set([...Array.from(prev), ...serverCompletedList]);
             try {
               localStorage.setItem(userCacheKey, JSON.stringify(Array.from(merged)));
             } catch {}

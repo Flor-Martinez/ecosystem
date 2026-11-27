@@ -124,6 +124,7 @@ export default function AdminDashboardClient() {
   const [newUserEmail, setNewUserEmail] = useState('');
   const [newUserTier, setNewUserTier] = useState<'VIP' | 'TRIAL' | 'FREE'>('TRIAL');
   const [isCreatingUser, setIsCreatingUser] = useState(false);
+  const [selectedProgressUser, setSelectedProgressUser] = useState<AdminUserRecord | null>(null);
 
   // Tab 2: Video Metrics State
   const [videoMetrics, setVideoMetrics] = useState<ClassVideoMetric[]>([]);
@@ -626,6 +627,7 @@ export default function AdminDashboardClient() {
                     <th>Usuario</th>
                     <th>Rol</th>
                     <th>Membresía</th>
+                    <th>Progreso Clases</th>
                     <th>Estado</th>
                     <th>Último Acceso</th>
                     <th style={{ textAlign: 'center' }}>Acciones</th>
@@ -634,7 +636,7 @@ export default function AdminDashboardClient() {
                 <tbody>
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={6} style={{ textAlign: 'center', padding: '2.5rem', color: '#94A3B8' }}>
+                      <td colSpan={7} style={{ textAlign: 'center', padding: '2.5rem', color: '#94A3B8' }}>
                         No se encontraron cuentas registradas.
                       </td>
                     </tr>
@@ -710,6 +712,97 @@ export default function AdminDashboardClient() {
                             <option value="TRIAL">⚡ Acceso Prueba (Mód. 1-4)</option>
                             <option value="FREE">FREE (Mód. 1)</option>
                           </select>
+                        </td>
+
+                        <td>
+                          {(() => {
+                            const viewed = u.viewedLessonsCount ?? 0;
+                            const completed = u.completedLessonsCount ?? 0;
+                            const totalLessons = u.totalProgramLessons || 35;
+                            const pct = Math.min(100, Math.round((completed / totalLessons) * 100));
+                            return (
+                              <button
+                                type="button"
+                                onClick={() => setSelectedProgressUser(u)}
+                                title="Clic para ver qué clases vio y cuáles finalizó"
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '0.3rem',
+                                  background: 'transparent',
+                                  border: '1px solid transparent',
+                                  borderRadius: '0.5rem',
+                                  padding: '0.35rem 0.5rem',
+                                  cursor: 'pointer',
+                                  textAlign: 'left',
+                                  minWidth: '150px',
+                                  transition: 'background 0.15s ease, border-color 0.15s ease',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.background = '#F8FAFC';
+                                  e.currentTarget.style.borderColor = '#E2E8F0';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.background = 'transparent';
+                                  e.currentTarget.style.borderColor = 'transparent';
+                                }}
+                              >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+                                  <span
+                                    style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '0.25rem',
+                                      fontSize: '0.73rem',
+                                      fontWeight: 700,
+                                      padding: '0.12rem 0.45rem',
+                                      borderRadius: '9999px',
+                                      background: viewed > 0 ? '#EDE9FE' : '#F1F5F9',
+                                      color: viewed > 0 ? '#6D28D9' : '#64748B',
+                                    }}
+                                  >
+                                    <Eye size={11} />
+                                    {viewed} {viewed === 1 ? 'vista' : 'vistas'}
+                                  </span>
+                                  <span
+                                    style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '0.22rem',
+                                      fontSize: '0.73rem',
+                                      fontWeight: 700,
+                                      padding: '0.12rem 0.45rem',
+                                      borderRadius: '9999px',
+                                      background: completed > 0 ? '#DCFCE7' : '#F1F5F9',
+                                      color: completed > 0 ? '#15803D' : '#64748B',
+                                    }}
+                                  >
+                                    <CheckCircle2 size={11} />
+                                    {completed}/{totalLessons} fin.
+                                  </span>
+                                </div>
+                                <div
+                                  style={{
+                                    width: '100%',
+                                    height: '5px',
+                                    background: '#E2E8F0',
+                                    borderRadius: '9999px',
+                                    overflow: 'hidden',
+                                  }}
+                                >
+                                  <div
+                                    style={{
+                                      width: `${pct}%`,
+                                      height: '100%',
+                                      background: completed > 0 ? 'linear-gradient(90deg, #7C3AED, #10B981)' : '#CBD5E1',
+                                      borderRadius: '9999px',
+                                      transition: 'width 0.3s ease',
+                                    }}
+                                  />
+                                </div>
+                              </button>
+                            );
+                          })()}
                         </td>
 
                         <td>
@@ -846,6 +939,186 @@ export default function AdminDashboardClient() {
                 </div>
               </div>
             )}
+
+            {/* User Lesson Progress Detail Modal */}
+            {selectedProgressUser && (() => {
+              const eblProgram = campusPrograms[0];
+              const publishedMods = eblProgram
+                ? eblProgram.modules.filter((m) => !m.isExtra || m.number <= 8)
+                : [];
+              const completedSet = new Set(selectedProgressUser.completedLessonIds || []);
+              const viewedSet = new Set([
+                ...(selectedProgressUser.viewedLessonIds || []),
+                ...(selectedProgressUser.completedLessonIds || []),
+              ]);
+              const totalLessons =
+                selectedProgressUser.totalProgramLessons ||
+                publishedMods.reduce((acc, m) => acc + m.lessons.length, 0) ||
+                35;
+              const pct = Math.min(100, Math.round((completedSet.size / totalLessons) * 100));
+
+              return (
+                <div
+                  onClick={() => setSelectedProgressUser(null)}
+                  style={{
+                    position: 'fixed',
+                    inset: 0,
+                    backgroundColor: 'rgba(15, 23, 42, 0.6)',
+                    backdropFilter: 'blur(4px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 9999,
+                    padding: '1rem',
+                  }}
+                >
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      background: '#FFFFFF',
+                      borderRadius: '1rem',
+                      padding: '1.75rem',
+                      maxWidth: '640px',
+                      width: '100%',
+                      maxHeight: '85vh',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      boxShadow: '0 20px 35px -5px rgba(15, 23, 42, 0.25)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
+                      <div>
+                        <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: '#1E1B4B' }}>
+                          Avance de {selectedProgressUser.name}
+                        </h3>
+                        <p style={{ margin: '0.2rem 0 0', fontSize: '0.82rem', color: '#64748B' }}>
+                          {selectedProgressUser.email}
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedProgressUser(null)}
+                        style={{
+                          background: '#F1F5F9',
+                          border: 'none',
+                          borderRadius: '0.5rem',
+                          width: '32px',
+                          height: '32px',
+                          fontWeight: 700,
+                          color: '#475569',
+                          cursor: 'pointer',
+                        }}
+                        aria-label="Cerrar"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1.25rem' }}>
+                      <div style={{ background: '#F5F3FF', border: '1px solid #DDD6FE', borderRadius: '0.75rem', padding: '0.75rem' }}>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#6D28D9' }}>{viewedSet.size}</div>
+                        <div style={{ fontSize: '0.74rem', fontWeight: 600, color: '#5B21B6' }}>Clases vistas</div>
+                      </div>
+                      <div style={{ background: '#F0FDF4', border: '1px solid #BBF7D0', borderRadius: '0.75rem', padding: '0.75rem' }}>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#15803D' }}>
+                          {completedSet.size} / {totalLessons}
+                        </div>
+                        <div style={{ fontSize: '0.74rem', fontWeight: 600, color: '#166534' }}>Clases finalizadas</div>
+                      </div>
+                      <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '0.75rem', padding: '0.75rem' }}>
+                        <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1E293B' }}>{pct}%</div>
+                        <div style={{ fontSize: '0.74rem', fontWeight: 600, color: '#475569' }}>Progreso total</div>
+                      </div>
+                    </div>
+
+                    <div style={{ overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', paddingRight: '0.25rem' }}>
+                      {publishedMods.map((mod) => {
+                        const modCompleted = mod.lessons.filter((l) => completedSet.has(l.id)).length;
+                        const modViewed = mod.lessons.filter((l) => viewedSet.has(l.id)).length;
+                        return (
+                          <div key={mod.id} style={{ border: '1px solid #E2E8F0', borderRadius: '0.75rem', overflow: 'hidden' }}>
+                            <div
+                              style={{
+                                background: '#F8FAFC',
+                                padding: '0.6rem 0.9rem',
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                borderBottom: '1px solid #E2E8F0',
+                              }}
+                            >
+                              <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#1E1B4B' }}>
+                                {mod.isExtra ? mod.extraTag || `Extra ${mod.number}` : `Módulo ${mod.number}`} · {mod.title}
+                              </span>
+                              <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#64748B' }}>
+                                {modViewed} vistas · {modCompleted}/{mod.lessons.length} fin.
+                              </span>
+                            </div>
+                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                              {mod.lessons.map((lesson) => {
+                                const isDone = completedSet.has(lesson.id);
+                                const isSeen = viewedSet.has(lesson.id);
+                                return (
+                                  <div
+                                    key={lesson.id}
+                                    style={{
+                                      display: 'flex',
+                                      justifyContent: 'space-between',
+                                      alignItems: 'center',
+                                      gap: '0.75rem',
+                                      padding: '0.5rem 0.9rem',
+                                      borderTop: '1px solid #F1F5F9',
+                                      fontSize: '0.8rem',
+                                    }}
+                                  >
+                                    <span style={{ color: isDone || isSeen ? '#0F172A' : '#94A3B8', fontWeight: isDone || isSeen ? 600 : 400 }}>
+                                      {lesson.lessonNumber}. {lesson.title}
+                                    </span>
+                                    {isDone ? (
+                                      <span
+                                        style={{
+                                          flexShrink: 0,
+                                          fontSize: '0.7rem',
+                                          fontWeight: 700,
+                                          padding: '0.15rem 0.5rem',
+                                          borderRadius: '9999px',
+                                          background: '#DCFCE7',
+                                          color: '#15803D',
+                                        }}
+                                      >
+                                        ✓ Finalizada
+                                      </span>
+                                    ) : isSeen ? (
+                                      <span
+                                        style={{
+                                          flexShrink: 0,
+                                          fontSize: '0.7rem',
+                                          fontWeight: 700,
+                                          padding: '0.15rem 0.5rem',
+                                          borderRadius: '9999px',
+                                          background: '#EDE9FE',
+                                          color: '#6D28D9',
+                                        }}
+                                      >
+                                        👁 Vista
+                                      </span>
+                                    ) : (
+                                      <span style={{ flexShrink: 0, fontSize: '0.7rem', color: '#CBD5E1', fontWeight: 600 }}>
+                                        Pendiente
+                                      </span>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
           </section>
         )}
 

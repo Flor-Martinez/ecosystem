@@ -81,6 +81,8 @@ export function CampusPlayer({
   const [currentTime, setCurrentTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
 
+  const lastRecordedViewRef = useRef<string>('');
+
   useEffect(() => {
     setIsPlaying(false);
     setProgress(0);
@@ -90,8 +92,17 @@ export function CampusPlayer({
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
-    recordVideoViewAction(lesson.id).catch(() => {});
   }, [lesson.id]);
+
+  // Track real per-user lesson view in Neon PostgreSQL whenever an accessible lesson is opened
+  useEffect(() => {
+    if (!canAccessVideo) return;
+    const cleanEmail = activeEmail.toLowerCase().trim();
+    const recordKey = `${cleanEmail || 'guest'}::${lesson.id}`;
+    if (lastRecordedViewRef.current === recordKey) return;
+    lastRecordedViewRef.current = recordKey;
+    recordVideoViewAction(lesson.id, undefined, cleanEmail || undefined).catch(() => {});
+  }, [lesson.id, activeEmail, canAccessVideo]);
 
   const handleTogglePlay = () => {
     if (!canAccessVideo) {

@@ -437,6 +437,20 @@ model UserLessonCompletion {
   @@map("user_lesson_completions")
 }
 
+model UserLessonView {
+  id            String   @id @default(cuid())
+  userEmail     String
+  lessonId      String
+  viewCount     Int      @default(1)
+  firstViewedAt DateTime @default(now())
+  lastViewedAt  DateTime @default(now())
+
+  @@unique([userEmail, lessonId])
+  @@index([userEmail])
+  @@index([lessonId])
+  @@map("user_lesson_views")
+}
+
 model LessonComment {
   id             String   @id @default(cuid())
   lessonId       String

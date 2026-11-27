@@ -112,6 +112,12 @@ export interface AdminUserRecord {
   lastLoginAt: string;
   notes?: string;
   adminOverride?: boolean;
+  viewedLessonsCount?: number;
+  completedLessonsCount?: number;
+  totalProgramLessons?: number;
+  viewedLessonIds?: string[];
+  completedLessonIds?: string[];
+  lastLessonActivityAt?: string | null;
 }
 
 const TRIAL_HEADLINE_MARKER = 'TRIAL_MOD_4';
@@ -241,8 +247,8 @@ export async function getAdminUsersAction() {
     byEmail.set(adminU.email.toLowerCase(), { ...adminU });
   }
 
-  // 2. Fetch real users from PostgreSQL DB AND approved MP buyers in parallel
-  const [dbUsers, mpBuyers] = await Promise.all([
+  // 2. Fetch real users, approved MP buyers, lesson completions & lesson views in parallel
+  const [dbUsers, mpBuyers, dbCompletions, dbViews] = await Promise.all([
     withAdminDbTimeout(
       db.user.findMany({ orderBy: { createdAt: 'desc' } })
     ).catch((err) => {
@@ -250,7 +256,54 @@ export async function getAdminUsersAction() {
       return [] as any[];
     }),
     getApprovedMpBuyerEmails(),
+    withAdminDbTimeout(
+      db.userLessonCompletion.findMany({ orderBy: { completedAt: 'desc' } })
+    ).catch(() => [] as any[]),
+    withAdminDbTimeout(
+      db.userLessonView.findMany({ orderBy: { lastViewedAt: 'desc' } })
+    ).catch(() => [] as any[]),
   ]);
+
+  // Build per-user lesson progress maps (completed & viewed)
+  const eblProgram = campusPrograms[0];
+  const publishedEblLessons = eblProgram
+    ? eblProgram.modules.filter((m) => !m.isExtra || m.number <= 8).flatMap((m) => m.lessons)
+    : [];
+  const totalProgramLessons = publishedEblLessons.length || 35;
+
+  const completedByEmail = new Map<string, Set<string>>();
+  const viewedByEmail = new Map<string, Set<string>>();
+  const lastActivityByEmail = new Map<string, number>();
+
+  const recordActivityTs = (emailKey: string, dt: Date | string | null | undefined) => {
+    if (!dt) return;
+    const ms = new Date(dt).getTime();
+    if (!isNaN(ms)) {
+      const prev = lastActivityByEmail.get(emailKey) || 0;
+      if (ms > prev) lastActivityByEmail.set(emailKey, ms);
+    }
+  };
+
+  for (const c of dbCompletions) {
+    const emailKey = String(c?.userEmail || '').toLowerCase().trim();
+    const lid = String(c?.lessonId || '').trim();
+    if (!emailKey || !lid) continue;
+    if (!completedByEmail.has(emailKey)) completedByEmail.set(emailKey, new Set());
+    completedByEmail.get(emailKey)!.add(lid);
+    // Any completed lesson also counts as viewed
+    if (!viewedByEmail.has(emailKey)) viewedByEmail.set(emailKey, new Set());
+    viewedByEmail.get(emailKey)!.add(lid);
+    recordActivityTs(emailKey, c?.completedAt);
+  }
+
+  for (const v of dbViews) {
+    const emailKey = String(v?.userEmail || '').toLowerCase().trim();
+    const lid = String(v?.lessonId || '').trim();
+    if (!emailKey || !lid) continue;
+    if (!viewedByEmail.has(emailKey)) viewedByEmail.set(emailKey, new Set());
+    viewedByEmail.get(emailKey)!.add(lid);
+    recordActivityTs(emailKey, v?.lastViewedAt || v?.firstViewedAt);
+  }
 
   const envTrialSet = new Set(getEnvTrialEmails());
 
@@ -376,6 +429,24 @@ export async function getAdminUsersAction() {
     }
   } catch {
     // ignore
+  }
+
+  // Attach per-user viewed & completed lesson counts to every user record
+  for (const [emailKey, rec] of byEmail.entries()) {
+    const completedSet = completedByEmail.get(emailKey) || new Set<string>();
+    const viewedSet = viewedByEmail.get(emailKey) || new Set<string>();
+    const lastActMs = lastActivityByEmail.get(emailKey) || 0;
+    const prevLoginMs = Date.parse(rec.lastLoginAt || rec.createdAt || '') || 0;
+
+    rec.completedLessonIds = Array.from(completedSet);
+    rec.viewedLessonIds = Array.from(viewedSet);
+    rec.completedLessonsCount = completedSet.size;
+    rec.viewedLessonsCount = viewedSet.size;
+    rec.totalProgramLessons = totalProgramLessons;
+    rec.lastLessonActivityAt = lastActMs > 0 ? new Date(lastActMs).toISOString() : null;
+    if (lastActMs > prevLoginMs) {
+      rec.lastLoginAt = new Date(lastActMs).toISOString();
+    }
   }
 
   // Sort: newest registered non-admin students first, or superadmins & recent logins clearly visible
@@ -831,11 +902,35 @@ function formatSeconds(sec: number): string {
   return `${m}:${s < 10 ? '0' : ''}${s} min`;
 }
 
-export async function recordVideoViewAction(lessonId: string, videoFile?: string) {
+export async function recordVideoViewAction(lessonId: string, videoFile?: string, userEmail?: string) {
   const views = readStore<Record<string, number>>('videoViews', 'videoViews.json', memoryStore.videoViews);
   const key = videoFile || lessonId;
   views[key] = (views[key] || 0) + 1;
   writeStore('videoViews', 'videoViews.json', views);
+
+  // Persist per-user lesson view in Neon PostgreSQL when user is logged in
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
+  if (cleanEmail && cleanEmail.includes('@') && !cleanEmail.startsWith('guest@') && lessonId) {
+    try {
+      await withAdminDbTimeout(
+        db.userLessonView.upsert({
+          where: { userEmail_lessonId: { userEmail: cleanEmail, lessonId } },
+          update: {
+            viewCount: { increment: 1 },
+            lastViewedAt: new Date(),
+          },
+          create: {
+            userEmail: cleanEmail,
+            lessonId,
+            viewCount: 1,
+          },
+        })
+      );
+    } catch (e) {
+      console.warn('Error registrando vista de clase en Neon DB:', e);
+    }
+  }
+
   return { success: true, count: views[key] };
 }
 

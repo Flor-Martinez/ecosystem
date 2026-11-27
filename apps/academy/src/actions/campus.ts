@@ -508,17 +508,26 @@ export async function saveLessonProgressAction(
   progressStore[cleanEmail] = userList;
   writeProgressStore(progressStore);
 
-  // Persist directly in Neon PostgreSQL (UserLessonCompletion table - no FK issues!)
+  // Persist directly in Neon PostgreSQL (UserLessonCompletion + UserLessonView tables)
   if (cleanEmail !== 'guest' && cleanEmail.includes('@')) {
     try {
       if (isCompleted) {
-        await withDbTimeout(
-          db.userLessonCompletion.upsert({
-            where: { userEmail_lessonId: { userEmail: cleanEmail, lessonId } },
-            update: { completedAt: new Date() },
-            create: { userEmail: cleanEmail, lessonId },
-          })
-        );
+        await Promise.all([
+          withDbTimeout(
+            db.userLessonCompletion.upsert({
+              where: { userEmail_lessonId: { userEmail: cleanEmail, lessonId } },
+              update: { completedAt: new Date() },
+              create: { userEmail: cleanEmail, lessonId },
+            })
+          ),
+          withDbTimeout(
+            db.userLessonView.upsert({
+              where: { userEmail_lessonId: { userEmail: cleanEmail, lessonId } },
+              update: { lastViewedAt: new Date() },
+              create: { userEmail: cleanEmail, lessonId, viewCount: 1 },
+            })
+          ).catch(() => {}),
+        ]);
       } else {
         await withDbTimeout(
           db.userLessonCompletion.deleteMany({
@@ -532,6 +541,36 @@ export async function saveLessonProgressAction(
   }
 
   return { success: true, lessonId, isCompleted, completedLessonIds: userList };
+}
+
+// 2b. Batch-sync any locally cached completed lessons (e.g., completed before Google login) into Neon DB
+export async function syncCompletedLessonsAction(userEmail: string, lessonIds: string[]) {
+  const cleanEmail = (userEmail || '').toLowerCase().trim();
+  const cleanIds = Array.from(new Set((lessonIds || []).filter((id) => typeof id === 'string' && id.trim().length > 0)));
+  if (!cleanEmail || !cleanEmail.includes('@') || cleanEmail.startsWith('guest@') || cleanIds.length === 0) {
+    return { success: false, synced: 0 };
+  }
+
+  try {
+    await Promise.all([
+      withDbTimeout(
+        db.userLessonCompletion.createMany({
+          data: cleanIds.map((lessonId) => ({ userEmail: cleanEmail, lessonId })),
+          skipDuplicates: true,
+        })
+      ),
+      withDbTimeout(
+        db.userLessonView.createMany({
+          data: cleanIds.map((lessonId) => ({ userEmail: cleanEmail, lessonId, viewCount: 1 })),
+          skipDuplicates: true,
+        })
+      ).catch(() => {}),
+    ]);
+    return { success: true, synced: cleanIds.length };
+  } catch (e) {
+    console.warn('Error sincronizando avances previos a Neon DB:', e);
+    return { success: false, synced: 0 };
+  }
 }
 
 // 3. Save / Update Job Application (Tracker)
